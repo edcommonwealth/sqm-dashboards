@@ -68,6 +68,7 @@ end
 
 group 'test' do
   gem 'rspec-rails', '~> 3.5'
+  gem 'rails-controller-testing'
   gem 'capybara'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
