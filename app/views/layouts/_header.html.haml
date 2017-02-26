@@ -1,38 +1,10 @@
 %header.row
-  .title.col.s9.m11.l8
-    .hide-on-small-only
-      %h5= link_to('Thoughtful<br/>Recommendations.com'.html_safe, root_path)
-    .hide-on-med-and-up
-      %h6= link_to('Thoughtful<br/>Recommendations.com'.html_safe, root_path)
+  .title.col-sm-8
+    %h2= link_to('EdContext'.html_safe, root_path)
 
-  .navigation.col.hide-on-med-and-down.l4.right-align
+  .navigation.col-sm-4.text-right
     - if current_user
-      - unless @limited_header
-        - if current_user.profile.blank?
-          = link_to 'Create Profile', new_profile_path, class: 'btn btn-small grey waves-effect waves-light '
-        - else
-          = link_to 'My Profile', direct_profile_path(current_user.profile), class: 'btn btn-small grey waves-effect waves-light '
-          = link_to 'My Bucketlist', bucketlist_path, class: 'btn btn-small grey waves-effect waves-light '
-
       = link_to 'Sign Out', destroy_user_session_path, rel: "nofollow", method: :delete, class: 'btn btn-small grey waves-effect waves-light '
     - else
       = link_to 'Login', new_user_session_path, class: 'btn btn-small grey waves-effect waves-light '
-      = link_to 'Contribute / Sign Up', contribute_profile_recommendation_path, class: 'btn btn-small grey waves-effect waves-light '
-
-  .col.s3.m1.hide-on-large-only.right-align
-    = link_to '<i class="mdi-navigation-menu medium black-text"></i>'.html_safe, '#', data: {activates: 'mobile-nav'}, class: 'button-collapse'
-    #mobile-nav.side-nav
-      %ul
-        - if current_user
-          - unless @limited_header
-            - if current_user.profile.present?
-              %li= link_to 'My Profile', direct_profile_path(current_user.profile)
-              %li= link_to 'My Bucketlist', bucketlist_path
-              %li= link_to 'Add Something', new_profile_recommendation_path
-            - else
-              %li= link_to 'Create Profile', new_profile_path
-
-          %li= link_to 'Sign Out', destroy_user_session_path, rel: "nofollow", method: :delete
-        - else
-          %li= link_to 'Login', new_user_session_path
-          %li= link_to 'Contribute / Sign Up', contribute_profile_recommendation_path
+      = link_to 'Register', new_user_registration_path, class: 'btn btn-small grey waves-effect waves-light '

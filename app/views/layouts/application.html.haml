@@ -5,8 +5,16 @@
     %title Edcontext
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Roboto:300'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %p.notice= notice
-    %p.alert= alert
-    = yield
+    .container
+      = render partial: 'layouts/header'
+
+      - if notice.present?
+        %p.notice= notice
+
+      - if alert.present?
+        %p.alert= alert
+
+      = yield
