@@ -5,6 +5,7 @@ body {
   font-family: 'Roboto', sans-serif;  font-size: 13px;
   line-height: 18px;
   margin: 33px;
+  font-size: 15px;
 }
 
 .notice, .alert, .subscription, .highlight {
@@ -43,4 +44,10 @@ footer {
   border-top: 1px solid #ccc;
   padding-top: 12px;
   clear: both;
+}
+
+form {
+  .form-group {
+    padding-top: 12px;
+  }
 }
