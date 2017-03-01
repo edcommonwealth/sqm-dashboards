@@ -1,0 +1,9 @@
+.row
+  .offset-sm-2.col-sm-8
+    %h3 Import Recipients To This School
+    = form_tag import_school_recipients_path(@school), multipart: true do
+      %br
+      .form-group
+        = file_field_tag :file, class: 'form-control-file'
+      .form-group
+        = submit_tag "Import", class: 'btn btn-primary'

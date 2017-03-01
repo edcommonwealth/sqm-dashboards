@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   resources :districts
-  
+
   resources :schools do
-    resources :recipients
+    resources :recipients do
+      collection do
+        get :import
+        post :import
+      end
+    end
   end
 
   devise_for :users

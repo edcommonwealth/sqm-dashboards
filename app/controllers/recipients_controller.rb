@@ -38,6 +38,13 @@ class RecipientsController < ApplicationController
     end
   end
 
+  def import
+    render and return if request.get?
+    
+    Recipient.import(params[:file])
+    redirect_to @school, notice: "Recipients imported."
+  end
+
   # PATCH/PUT /recipients/1
   # PATCH/PUT /recipients/1.json
   def update
