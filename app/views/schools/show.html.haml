@@ -1,0 +1,13 @@
+%p
+  %strong Name:
+  = @school.name
+%p
+  %strong District:
+  = @school.district_id
+
+%p= link_to "Add Recipient", new_school_recipient_path(@school)
+
+
+= link_to 'Edit', edit_school_path(@school)
+|
+= link_to 'Back', schools_path

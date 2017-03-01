@@ -1,0 +1,33 @@
+%p
+  %strong Name:
+  = @recipient.name
+%p
+  %strong Phone:
+  = @recipient.phone
+%p
+  %strong Birth date:
+  = @recipient.birth_date
+%p
+  %strong Gender:
+  = @recipient.gender
+%p
+  %strong Race:
+  = @recipient.race
+%p
+  %strong Ethnicity:
+  = @recipient.ethnicity
+%p
+  %strong Home language:
+  = @recipient.home_language_id
+%p
+  %strong Income:
+  = @recipient.income
+%p
+  %strong Opted out:
+  = @recipient.opted_out
+%p
+  %strong School:
+  = @recipient.school_id
+= link_to 'Edit', edit_school_recipient_path(@school, @recipient)
+|
+= link_to 'Back', school_path(@school)

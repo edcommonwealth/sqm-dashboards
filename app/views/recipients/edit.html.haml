@@ -1,0 +1,5 @@
+%h1 Editing Recipient
+= render 'form', recipient: @recipient
+= link_to 'Show', school_recipient_path(@school, @recipient)
+|
+= link_to 'Back', school_path(@school)

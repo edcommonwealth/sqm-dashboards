@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "recipients/edit", type: :view do
   before(:each) do
+    @school = assign(:recipient, School.create!(
+      :name => "School"
+    ))
+
     @recipient = assign(:recipient, Recipient.create!(
       :name => "MyString",
       :phone => "MyString",
@@ -11,14 +15,14 @@ RSpec.describe "recipients/edit", type: :view do
       :home_language_id => 1,
       :income => "MyString",
       :opted_out => false,
-      :school_id => 1
+      :school_id => @school.id
     ))
   end
 
   it "renders the edit recipient form" do
     render
 
-    assert_select "form[action=?][method=?]", recipient_path(@recipient), "post" do
+      assert_select "form[action=?][method=?]", school_recipient_path(@school, @recipient), "post" do
 
       assert_select "input#recipient_name[name=?]", "recipient[name]"
 
@@ -34,9 +38,6 @@ RSpec.describe "recipients/edit", type: :view do
 
       assert_select "input#recipient_income[name=?]", "recipient[income]"
 
-      assert_select "input#recipient_opted_out[name=?]", "recipient[opted_out]"
-
-      assert_select "input#recipient_school_id[name=?]", "recipient[school_id]"
     end
   end
 end

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "recipients/show", type: :view do
   before(:each) do
+    @school = assign(:school, School.create!(
+      name: 'School'
+    ))
+
     @recipient = assign(:recipient, Recipient.create!(
       :name => "Name",
       :phone => "Phone",
@@ -11,7 +15,7 @@ RSpec.describe "recipients/show", type: :view do
       :home_language_id => 2,
       :income => "Income",
       :opted_out => false,
-      :school_id => 3
+      :school_id => @school.to_param
     ))
   end
 
@@ -25,6 +29,6 @@ RSpec.describe "recipients/show", type: :view do
     expect(rendered).to match(/2/)
     expect(rendered).to match(/Income/)
     expect(rendered).to match(/false/)
-    expect(rendered).to match(/3/)
+    expect(rendered).to match(/#{@school.to_param}/)
   end
 end

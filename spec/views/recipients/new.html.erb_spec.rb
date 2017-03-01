@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "recipients/new", type: :view do
   before(:each) do
-    assign(:recipient, Recipient.new(
+    @school = assign(:school, School.create!(
+      name: 'School'
+    ))
+
+    @recipient = assign(:recipient, Recipient.new(
       :name => "MyString",
       :phone => "MyString",
       :gender => "MyString",
@@ -11,14 +15,14 @@ RSpec.describe "recipients/new", type: :view do
       :home_language_id => 1,
       :income => "MyString",
       :opted_out => false,
-      :school_id => 1
+      :school_id => @school.to_param
     ))
   end
 
   it "renders new recipient form" do
     render
 
-    assert_select "form[action=?][method=?]", recipients_path, "post" do
+    assert_select "form[action=?][method=?]", school_recipients_path(@school, @recipient), "post" do
 
       assert_select "input#recipient_name[name=?]", "recipient[name]"
 
@@ -34,9 +38,6 @@ RSpec.describe "recipients/new", type: :view do
 
       assert_select "input#recipient_income[name=?]", "recipient[income]"
 
-      assert_select "input#recipient_opted_out[name=?]", "recipient[opted_out]"
-
-      assert_select "input#recipient_school_id[name=?]", "recipient[school_id]"
     end
   end
 end

@@ -1,1 +1,6 @@
-WELCOME
+%p= link_to "Create A New District", new_district_path
+
+%p= link_to "Create A New School", new_school_path
+
+- @schools.each do |school|
+  = link_to school.name, school

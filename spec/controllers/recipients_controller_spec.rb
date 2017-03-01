@@ -20,16 +20,20 @@ require 'rails_helper'
 
 RSpec.describe RecipientsController, type: :controller do
 
+  let(:school) { School.create!(name: 'School') }
+
   # This should return the minimal set of attributes required to create a valid
   # Recipient. As you add validations to Recipient, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'Recipient Name',
+      phone: '111-222-3333',
+      school_id: school.id
+    }
   }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) { {name: '', phone: '111-222-3333'} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -39,7 +43,7 @@ RSpec.describe RecipientsController, type: :controller do
   describe "GET #index" do
     it "assigns all recipients as @recipients" do
       recipient = Recipient.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index, params: {school_id: school.to_param}, session: valid_session
       expect(assigns(:recipients)).to eq([recipient])
     end
   end
@@ -47,14 +51,14 @@ RSpec.describe RecipientsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested recipient as @recipient" do
       recipient = Recipient.create! valid_attributes
-      get :show, params: {id: recipient.to_param}, session: valid_session
+      get :show, params: {school_id: school.to_param, id: recipient.to_param}, session: valid_session
       expect(assigns(:recipient)).to eq(recipient)
     end
   end
 
   describe "GET #new" do
     it "assigns a new recipient as @recipient" do
-      get :new, params: {}, session: valid_session
+      get :new, params: {school_id: school.id}, session: valid_session
       expect(assigns(:recipient)).to be_a_new(Recipient)
     end
   end
@@ -62,7 +66,7 @@ RSpec.describe RecipientsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested recipient as @recipient" do
       recipient = Recipient.create! valid_attributes
-      get :edit, params: {id: recipient.to_param}, session: valid_session
+      get :edit, params: {school_id: school.to_param, id: recipient.to_param}, session: valid_session
       expect(assigns(:recipient)).to eq(recipient)
     end
   end
@@ -71,30 +75,30 @@ RSpec.describe RecipientsController, type: :controller do
     context "with valid params" do
       it "creates a new Recipient" do
         expect {
-          post :create, params: {recipient: valid_attributes}, session: valid_session
+          post :create, params: {school_id: school.to_param, recipient: valid_attributes}, session: valid_session
         }.to change(Recipient, :count).by(1)
       end
 
       it "assigns a newly created recipient as @recipient" do
-        post :create, params: {recipient: valid_attributes}, session: valid_session
+        post :create, params: {school_id: school.to_param, recipient: valid_attributes}, session: valid_session
         expect(assigns(:recipient)).to be_a(Recipient)
         expect(assigns(:recipient)).to be_persisted
       end
 
       it "redirects to the created recipient" do
-        post :create, params: {recipient: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Recipient.last)
+        post :create, params: {school_id: school.to_param, recipient: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(school_recipient_path(school, Recipient.last))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved recipient as @recipient" do
-        post :create, params: {recipient: invalid_attributes}, session: valid_session
+        post :create, params: {school_id: school.to_param, recipient: invalid_attributes}, session: valid_session
         expect(assigns(:recipient)).to be_a_new(Recipient)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {recipient: invalid_attributes}, session: valid_session
+        post :create, params: {school_id: school.to_param, recipient: invalid_attributes}, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -103,39 +107,40 @@ RSpec.describe RecipientsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {name: 'New Name'}
       }
 
       it "updates the requested recipient" do
         recipient = Recipient.create! valid_attributes
-        put :update, params: {id: recipient.to_param, recipient: new_attributes}, session: valid_session
+        put :update, params: {school_id: school.to_param, id: recipient.to_param, recipient: new_attributes}, session: valid_session
         recipient.reload
-        skip("Add assertions for updated state")
+        expect(recipient.name).to eq('New Name')
+        expect(recipient.phone).to eq('111-222-3333')
       end
 
       it "assigns the requested recipient as @recipient" do
         recipient = Recipient.create! valid_attributes
-        put :update, params: {id: recipient.to_param, recipient: valid_attributes}, session: valid_session
+        put :update, params: {school_id: school.to_param, id: recipient.to_param, recipient: valid_attributes}, session: valid_session
         expect(assigns(:recipient)).to eq(recipient)
       end
 
       it "redirects to the recipient" do
         recipient = Recipient.create! valid_attributes
-        put :update, params: {id: recipient.to_param, recipient: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(recipient)
+        put :update, params: {school_id: school.to_param, id: recipient.to_param, recipient: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(school_recipient_url(school, recipient))
       end
     end
 
     context "with invalid params" do
       it "assigns the recipient as @recipient" do
         recipient = Recipient.create! valid_attributes
-        put :update, params: {id: recipient.to_param, recipient: invalid_attributes}, session: valid_session
+        put :update, params: {school_id: school.to_param, id: recipient.to_param, recipient: invalid_attributes}, session: valid_session
         expect(assigns(:recipient)).to eq(recipient)
       end
 
       it "re-renders the 'edit' template" do
         recipient = Recipient.create! valid_attributes
-        put :update, params: {id: recipient.to_param, recipient: invalid_attributes}, session: valid_session
+        put :update, params: {school_id: school.to_param, id: recipient.to_param, recipient: invalid_attributes}, session: valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -145,14 +150,14 @@ RSpec.describe RecipientsController, type: :controller do
     it "destroys the requested recipient" do
       recipient = Recipient.create! valid_attributes
       expect {
-        delete :destroy, params: {id: recipient.to_param}, session: valid_session
+        delete :destroy, params: {school_id: school.to_param, id: recipient.to_param}, session: valid_session
       }.to change(Recipient, :count).by(-1)
     end
 
     it "redirects to the recipients list" do
       recipient = Recipient.create! valid_attributes
-      delete :destroy, params: {id: recipient.to_param}, session: valid_session
-      expect(response).to redirect_to(recipients_url)
+      delete :destroy, params: {school_id: school.to_param, id: recipient.to_param}, session: valid_session
+      expect(response).to redirect_to(school)
     end
   end
 

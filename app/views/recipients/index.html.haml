@@ -1,0 +1,33 @@
+%h1 Recipients
+%table
+  %thead
+    %tr
+      %th Name
+      %th Phone
+      %th Birth date
+      %th Gender
+      %th Race
+      %th Ethnicity
+      %th Home language
+      %th Income
+      %th Opted out
+      %th School
+      %th{:colspan => "3"}
+  %tbody
+    - @recipients.each do |recipient|
+      %tr
+        %td= recipient.name
+        %td= recipient.phone
+        %td= recipient.birth_date
+        %td= recipient.gender
+        %td= recipient.race
+        %td= recipient.ethnicity
+        %td= recipient.home_language_id
+        %td= recipient.income
+        %td= recipient.opted_out
+        %td= recipient.school_id
+        %td= link_to 'Show', school_recipient_path(@school, recipient)
+        %td= link_to 'Edit', edit_school_recipient_path(@school, recipient)
+        %td= link_to 'Destroy', school_recipient_path(@school, recipient), method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Recipient', new_school_recipient_path(@school)

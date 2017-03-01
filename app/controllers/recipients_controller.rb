@@ -1,10 +1,11 @@
 class RecipientsController < ApplicationController
+  before_action :set_school
   before_action :set_recipient, only: [:show, :edit, :update, :destroy]
 
   # GET /recipients
   # GET /recipients.json
   def index
-    @recipients = Recipient.all
+    @recipients = @school.recipients.all
   end
 
   # GET /recipients/1
@@ -14,7 +15,7 @@ class RecipientsController < ApplicationController
 
   # GET /recipients/new
   def new
-    @recipient = Recipient.new
+    @recipient = @school.recipients.new
   end
 
   # GET /recipients/1/edit
@@ -24,11 +25,11 @@ class RecipientsController < ApplicationController
   # POST /recipients
   # POST /recipients.json
   def create
-    @recipient = Recipient.new(recipient_params)
+    @recipient = @school.recipients.new(recipient_params)
 
     respond_to do |format|
       if @recipient.save
-        format.html { redirect_to @recipient, notice: 'Recipient was successfully created.' }
+        format.html { redirect_to school_recipient_path(@school, @recipient), notice: 'Recipient was successfully created.' }
         format.json { render :show, status: :created, location: @recipient }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class RecipientsController < ApplicationController
   def update
     respond_to do |format|
       if @recipient.update(recipient_params)
-        format.html { redirect_to @recipient, notice: 'Recipient was successfully updated.' }
+        format.html { redirect_to school_recipient_path(@school, @recipient), notice: 'Recipient was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipient }
       else
         format.html { render :edit }
@@ -56,15 +57,20 @@ class RecipientsController < ApplicationController
   def destroy
     @recipient.destroy
     respond_to do |format|
-      format.html { redirect_to recipients_url, notice: 'Recipient was successfully destroyed.' }
+      format.html { redirect_to @school, notice: 'Recipient was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_school
+      @school = School.find(params[:school_id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
     def set_recipient
-      @recipient = Recipient.find(params[:id])
+      @recipient = @school.recipients.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

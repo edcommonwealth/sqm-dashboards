@@ -1,0 +1,10 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @district.name
+%p
+  %strong State:
+  = @district.state_id
+= link_to 'Edit', edit_district_path(@district)
+|
+= link_to 'Back', districts_path
