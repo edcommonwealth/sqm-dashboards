@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :districts
 
   resources :schools do
+    resources :recipient_lists
     resources :recipients do
       collection do
         get :import

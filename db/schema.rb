@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228164245) do
+ActiveRecord::Schema.define(version: 20170302154609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20170228164245) do
     t.integer  "state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "recipient_lists", force: :cascade do |t|
+    t.integer  "school_id"
+    t.string   "name"
+    t.text     "description"
+    t.text     "recipient_ids"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["school_id"], name: "index_recipient_lists_on_school_id", using: :btree
   end
 
   create_table "recipients", force: :cascade do |t|
@@ -61,4 +71,5 @@ ActiveRecord::Schema.define(version: 20170228164245) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "recipient_lists", "schools"
 end

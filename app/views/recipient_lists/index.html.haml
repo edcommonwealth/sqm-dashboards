@@ -1,0 +1,19 @@
+%h1 Listing recipient_lists
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Recipient ids
+    %th
+    %th
+    %th
+  - @recipient_lists.each do |recipient_list|
+    %tr
+      %td= recipient_list.name
+      %td= recipient_list.description
+      %td= recipient_list.recipient_ids
+      %td= link_to 'Show', [recipient_list.school, recipient_list]
+      %td= link_to 'Edit', edit_school_recipient_list_path(recipient_list.school, recipient_list)
+      %td= link_to 'Destroy', [recipient_list.school, recipient_list], :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New Recipient list', new_school_recipient_list_path(@school)

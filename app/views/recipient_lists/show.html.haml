@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b Name:
+  = @recipient_list.name
+%p
+  %b Description:
+  = @recipient_list.description
+%p
+  %b Recipient ids:
+  = @recipient_list.recipient_ids
+= link_to 'Edit', edit_school_recipient_list_path(@recipient_list.school, @recipient_list)
+|
+= link_to 'Back', school_recipient_lists_path(@recipient_list.school)

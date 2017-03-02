@@ -63,6 +63,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'seed_dump'
+  gem 'nested_scaffold'
 end
 
 group 'test' do

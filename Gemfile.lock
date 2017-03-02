@@ -111,6 +111,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
+    nested_scaffold (1.0.0)
     newrelic_rpm (3.17.1.326)
     nio4r (1.2.1)
     nokogiri (1.6.8)
@@ -247,6 +248,7 @@ DEPENDENCIES
   jquery-ui-rails
   launchy
   listen (~> 3.0.5)
+  nested_scaffold
   newrelic_rpm
   omniauth
   pg
