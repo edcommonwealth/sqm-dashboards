@@ -1,3 +1,6 @@
-%h1 New recipient_list
-= render 'form'
-= link_to 'Back', school_recipient_lists_path(@recipient_list.school)
+.row
+  .offset-sm-2.col-sm-8
+    %h3 Create A Recipient List For This School
+    = render 'form'
+    %br
+    %p= link_to 'Back',@school

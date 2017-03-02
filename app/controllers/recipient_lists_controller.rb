@@ -1,4 +1,5 @@
 class RecipientListsController < ApplicationController
+  before_action :stringify_recipient_ids, only: [:create, :update]
   before_action :set_school
   before_action :set_recipient_list, only: [:show, :edit, :update, :destroy]
 
@@ -55,6 +56,13 @@ class RecipientListsController < ApplicationController
 
     def set_recipient_list
       @recipient_list = @school.recipient_lists.find(params[:id])
+    end
+
+    def stringify_recipient_ids
+      ids = params[:recipient_list][:recipient_ids]
+      if ids.present? && ids.is_a?(Array)
+        params[:recipient_list][:recipient_ids] = ids.reject { |id| id.empty? }.join(',')
+      end
     end
 
     # Only allow a trusted parameter "white list" through.

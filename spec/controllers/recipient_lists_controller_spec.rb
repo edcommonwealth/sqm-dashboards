@@ -28,7 +28,7 @@ RSpec.describe RecipientListsController, type: :controller do
   let(:valid_attributes) {
     {
       school_id: school.id,
-      recipient_ids: '1,2,3',
+      recipient_ids: ['', '1', '2', '3'],
       name: 'Parents',
       description: 'List of parents.'
     }
@@ -88,6 +88,11 @@ RSpec.describe RecipientListsController, type: :controller do
         expect(assigns(:recipient_list)).to be_persisted
       end
 
+      it 'stores recipient_ids properly' do
+        post :create, params: {school_id: school.to_param, recipient_list: valid_attributes}, session: valid_session
+        expect(assigns(:recipient_list).recipient_ids).to eq('1,2,3')
+      end
+
       it "redirects to the created recipient_list" do
         post :create, params: {school_id: school.to_param, recipient_list: valid_attributes}, session: valid_session
         expect(response).to redirect_to(school_recipient_list_path(school, RecipientList.last))
@@ -110,7 +115,7 @@ RSpec.describe RecipientListsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {recipient_ids: '3,4,5'}
+        {recipient_ids: ['', '3', '4', '5']}
       }
 
       it "updates the requested recipient_list" do

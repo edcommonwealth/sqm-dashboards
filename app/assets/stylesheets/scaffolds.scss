@@ -50,5 +50,17 @@ footer {
 form {
   .form-group {
     padding-top: 12px;
+
+    label {
+      font-weight: bold;
+    }
+
+    .form-check-collection {
+      .form-check-label {
+        display: block;
+        padding-bottom: 12px;
+        font-weight: normal;
+      }
+    }
   }
 }
