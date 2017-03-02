@@ -40,8 +40,8 @@ class RecipientsController < ApplicationController
 
   def import
     render and return if request.get?
-    
-    Recipient.import(params[:file])
+
+    Recipient.import(@school, params[:file])
     redirect_to @school, notice: "Recipients imported."
   end
 

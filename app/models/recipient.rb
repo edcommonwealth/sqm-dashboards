@@ -8,14 +8,15 @@ class Recipient < ApplicationRecord
 
   def self.import(school, file)
     CSV.foreach(file.path, headers: true) do |row|
-      recipient_hash = row.to_hash
-      recipient = school.recipients.where(phone: recipient_hash["phone"])
-
-      if recipient.count == 1
-        recipient.first.update_attributes(recipient_hash)
-      else
-        school.recipients.create!(recipient_hash)
-      end
+      school.recipients.create!(row.to_hash)
+      # recipient_hash = row.to_hash
+      # recipient = school.recipients.where(phone: recipient_hash["phone"])
+      #
+      # if recipient.count == 1
+      #   recipient.first.update_attributes(recipient_hash)
+      # else
+      #   school.recipients.create!(recipient_hash)
+      # end
     end
   end
 

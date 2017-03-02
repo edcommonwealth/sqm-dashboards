@@ -13,8 +13,19 @@
 |
 = link_to 'Back', root_path
 
-- @school.recipients.each do |recipient|
-  .recipient
-    %p
-      %strong= recipient.name
-      = recipient.phone
+%br
+%br
+%br
+%h4 School Recipients
+%table{style: 'width: 100%;'}
+  %tbody
+    %thead
+      %th Name
+      %th Phone
+      %th{colspan: 2} Actions
+    - @school.recipients.each do |recipient|
+      %tr.recipient
+        %td= recipient.name
+        %td= recipient.phone
+        %td= link_to('Edit', edit_school_recipient_path(@school, recipient))
+        %td= link_to('Delete', school_recipient_path(@school, recipient), method: :delete, data: {confirm: 'Are you sure you want to delete this recipient?'})
