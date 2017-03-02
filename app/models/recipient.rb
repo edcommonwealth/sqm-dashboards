@@ -6,15 +6,15 @@ class Recipient < ApplicationRecord
 
   validates :name, presence: true
 
-  def self.import(file)
+  def self.import(school, file)
     CSV.foreach(file.path, headers: true) do |row|
       recipient_hash = row.to_hash
-      recipient = Recipient.where(phone: recipient_hash["phone"])
+      recipient = school.recipients.where(phone: recipient_hash["phone"])
 
       if recipient.count == 1
         recipient.first.update_attributes(recipient_hash)
       else
-        Recipient.create!(recipient_hash)
+        school.recipients.create!(recipient_hash)
       end
     end
   end
