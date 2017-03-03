@@ -18,6 +18,24 @@
 %br
 %br
 %br
+%h4 School Recipient Lists
+%table{style: 'width: 100%;'}
+  %tbody
+    %thead{style: 'font-weight: bold;'}
+      %th Name
+      %th Descriptin
+      %th{colspan: 2} Actions
+    - @school.recipient_lists.each do |recipient_list|
+      %tr.recipient
+        %td= link_to recipient_list.name, [@school, recipient_list]
+        %td= recipient_list.description
+        %td= link_to('Edit', edit_school_recipient_list_path(@school, recipient_list))
+        %td= link_to('Delete', school_recipient_list_path(@school, recipient_list), method: :delete, data: {confirm: 'Are you sure you want to delete this list?'})
+
+
+%br
+%br
+%br
 %h4 School Recipients
 %table{style: 'width: 100%;'}
   %tbody

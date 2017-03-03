@@ -23,7 +23,7 @@ RSpec.describe "recipient_lists/edit", type: :view do
 
       assert_select "textarea#recipient_list_description[name=?]", "recipient_list[description]"
 
-      assert_select "input[name=?]", "recipient_list[recipient_ids][]"
+      assert_select "input[name=?]", "recipient_list[recipient_id_array][]"
     end
   end
 end

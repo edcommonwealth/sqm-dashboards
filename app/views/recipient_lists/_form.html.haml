@@ -19,6 +19,6 @@
     = f.label :recipient_ids, 'Recipients'
     %br/
     .form-check.form-check-collection
-      = f.collection_check_boxes(:recipient_ids, @school.recipients.all, :id, :name) { |c| c.label(class: 'form-check-label') { c.check_box(class: 'form-check-input') + " #{c.text}" } }
+      = f.collection_check_boxes(:recipient_id_array, @school.recipients.all, :id, :name) { |c| c.label(class: 'form-check-label') { c.check_box(class: 'form-check-input') + " #{c.text}" } }
   .form-group
     = f.submit 'Save List', class: 'btn btn-primary'

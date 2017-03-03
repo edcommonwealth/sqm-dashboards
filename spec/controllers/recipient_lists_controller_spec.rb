@@ -28,14 +28,14 @@ RSpec.describe RecipientListsController, type: :controller do
   let(:valid_attributes) {
     {
       school_id: school.id,
-      recipient_ids: ['', '1', '2', '3'],
+      recipient_id_array: ['', '1', '2', '3'],
       name: 'Parents',
       description: 'List of parents.'
     }
   }
 
   let(:invalid_attributes) {
-    {school_id: school.id, name: 'Empty List', recipient_ids: ''}
+    {school_id: school.id, name: 'Empty List', recipient_id_array: ['']}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -115,7 +115,7 @@ RSpec.describe RecipientListsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {recipient_ids: ['', '3', '4', '5']}
+        {recipient_id_array: ['', '3', '4', '5']}
       }
 
       it "updates the requested recipient_list" do
