@@ -3,22 +3,22 @@ require 'csv'
 namespace :data do
   desc "Load in all data"
   task load: :environment do
-    return if School.count > 0
-    Rake::Task["db:seed"].invoke
-    Rake::Task["data:load_measurements"].invoke
+    # return if School.count > 0
+    # Rake::Task["db:seed"].invoke
+    Rake::Task["data:load_categories"].invoke
     Rake::Task["data:load_questions"].invoke
     # Rake::Task["data:load_student_responses"].invoke
   end
 
-  desc 'Load in measurement data'
-  task load_measurements: :environment do
+  desc 'Load in category data'
+  task load_categories: :environment do
     measures = JSON.parse(File.read(File.expand_path('../../../data/measures.json', __FILE__)))
     measures.each_with_index do |measure, index|
       category = Category.create(
         name: measure['title'],
         blurb: measure['blurb'],
         description: measure['text'],
-        external_id: index
+        external_id: index + 1
       )
 
       measure['sub'].keys.sort.each do |key|
@@ -86,9 +86,13 @@ namespace :data do
     questions.each do |question|
       category = nil
       question['category'].split('-').each do |external_id|
-        categories = Category
-        categories = category.child_categories if category.present?
+        categories = category.present? ? category.child_categories : Category
         category = categories.where(external_id: external_id).first
+        if category.nil?
+          puts 'NOTHING'
+          puts external_id
+          puts categories.inspect
+        end
       end
       question_text = question['text'].gsub(/[[:space:]]/, ' ').strip
       if question_text.index('*').nil?
@@ -102,7 +106,14 @@ namespace :data do
         )
       else
         variations.each do |variation|
-          measure.questions.create(text: question_text.gsub('.*', variation), answers: question['answers'].to_yaml)
+          category.questions.create(
+            text: question_text.gsub('.*', variation),
+            option1: question['answers'][0],
+            option2: question['answers'][1],
+            option3: question['answers'][2],
+            option4: question['answers'][3],
+            option5: question['answers'][4]
+          )
         end
       end
     end

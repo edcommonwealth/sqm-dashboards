@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+  belongs_to :category
 
   validates :text, presence: true
   validates :option1, presence: true
