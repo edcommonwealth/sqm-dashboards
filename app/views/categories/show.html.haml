@@ -1,0 +1,38 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @category.name
+%p
+  %strong Blurb:
+  = @category.blurb
+%p
+  %strong Description:
+  = @category.description
+%p
+  %strong External:
+  = @category.external_id
+
+%p
+  %strong Parent Category:
+  &nbsp;
+  = render partial: 'categories/full_path', locals: {category: @category}
+
+- if @category.child_categories.present?
+  %p
+    %strong Child Categories:
+    - @category.child_categories.each do |child_category|
+      &nbsp; 
+      = link_to child_category.name, child_category
+
+
+%p
+  %strong Questions
+
+- @category.questions.each do |question|
+  %p= link_to(question.text, question)
+
+
+
+= link_to 'Edit', edit_category_path(@category)
+|
+= link_to 'Back', categories_path

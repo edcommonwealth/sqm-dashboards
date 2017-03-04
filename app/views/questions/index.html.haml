@@ -1,0 +1,28 @@
+%p#notice= notice
+%h1 Questions
+%table
+  %thead
+    %tr
+      %th Text
+      %th Option1
+      %th Option2
+      %th Option3
+      %th Option4
+      %th Option5
+      %th Category
+      %th{:colspan => "3"}
+  %tbody
+    - @questions.each do |question|
+      %tr
+        %td= question.text
+        %td= question.option1
+        %td= question.option2
+        %td= question.option3
+        %td= question.option4
+        %td= question.option5
+        %td= link_to(question.category.name, question.category)
+        %td= link_to 'Show', question
+        %td= link_to 'Edit', edit_question_path(question)
+        %td= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Question', new_question_path
