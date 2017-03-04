@@ -1,0 +1,646 @@
+[
+  {
+    "title":"Teachers and the Teaching Environment",
+    "blurb": "Are skilled teachers working together with supportive administrators?",
+    "text":"This category measures the relevant abilities of a school's teachers and the degree to which they are receiving the support they need to grow as professionals.  It considers factors like teacher professional qualifications, effective classroom practices, and school-wide support for teaching development and growth.",
+    "sub":{
+      "A":{
+        "title":"Knowledge and Skills of Teachers",
+        "blurb": "Do qualified teachers employ effective practices?",
+        "text":"This subcategory seeks to determine the degree to which a school's teachers are prepared for their classroom assignments.  It includes measures of teacher qualifications, effective classroom practices, and professional temperament.",
+        "measures":{
+          "i":{
+            "title":"Professional Qualifications",
+            "text":"This measure includes the percentage of teachers working in their area of licensure, and draws on anonymous teacher reports on their own comfort teaching grade-level, topics, and student body.",
+            "nonlikert":[
+              {
+                "title":"Percentage of Teachers Working in Area of Licensure",
+                "benchmark":100,
+                "benchmark_explanation":"Benchmark from panel of experts.",
+                "values":{
+                  "argenziano":100,
+                  "healey":100,
+                  "brown":100,
+                  "east":100,
+                  "kennedy":100,
+                  "somervillehigh":100,
+                  "west":100,
+                  "winter":67
+                }
+              }
+            ]
+          },
+          "ii":{
+            "title":"Effective Practices",
+            "text":"This measure draws on anonymous student reports about factors like teacher clarity, support of students, and classroom management."},
+          "iii":{
+            "title":"Teacher Temperament",
+            "text":"This measure draws on anonymous student reports about the degree to which they perceive their teachers to be interested in and committed to them."
+          }
+        }
+      },
+      "B":{
+        "title":"Teaching Environment",
+        "blurb": "Are teachers supported in their development as professionals?",
+        "text":"This subcategory seeks to determine how well a school supports teachers and enables them to do their work.  It includes measures of teacher satisfaction, effective leadership, and school-wide support for teacher development.",
+        "measures":{
+          "i":{
+            "title":"Teacher Turnover",
+            "text":"This measure draws includes the percent of turnover in the teaching staff not due to retirement.",
+            "nonlikert":[
+              {
+                "title":"Teacher Turnover Rate (%)",
+                "benchmark":10,
+                "benchmark_explanation":"Benchmark from panel of experts.",
+                "values":{
+                  "argenziano":0,
+                  "healey":2,
+                  "brown":0,
+                  "east":10,
+                  "kennedy":4,
+                  "somervillehigh":2,
+                  "west":3,
+                  "winter":2
+                }
+              }
+            ]
+          },
+          "ii":{
+            "title":"Support For Teaching Development And Growth",
+            "text":"This measure includes district-wide professional development expenditures, and draws on anonymous teacher reports on the quality of professional development.",
+            "nonlikert":[
+              {
+                "title":"Professional Development Spending per Teacher",
+                "benchmark":2925.43,
+                "benchmark_explanation":"State average.",
+                "values": {
+                  "argenziano":3737,
+                  "healey":4132,
+                  "brown":2568,
+                  "east":4023,
+                  "kennedy":3795,
+                  "somervillehigh":2923,
+                  "west":4926,
+                  "winter":3385
+                }, "likert": {
+            		  "argenziano":4,
+            		  "brown":2,
+            		  "east":4,
+            		  "healey":4,
+            		  "kennedy":4,
+            		  "nextwave":1,
+            		  "somervillehigh":3,
+            		  "west":5,
+            		  "winter":4
+                }
+              }
+            ]
+          },
+          "iii":{
+            "title":"Effective Leadership",
+            "text":"This measure draws on anonymous teacher reports about the degree to which they trust their principals to make good school-wide decisions, as well as on the degree to which their principals are strong instructional leaders."
+          }
+        }
+      }
+    }
+  }, {
+    "title":"School Culture",
+    "blurb": "Is there a safe and nurturing academic environment?",
+    "text":"This category measures the degree to which the school environment is safe, caring, and academically-oriented.  It considers factors like bullying, student/teacher relationships, and regular attendance.",
+    "sub":{
+      "A":{
+        "title":"Safety",
+        "blurb": "Do students feel physically and emotionally safe at school?",
+        "text":"This subcategory seeks to determine how safe the school environment is.  It includes measures of physical safety, bullying, and trust.",
+        "measures":{
+          "i":{
+            "title":"Student Physical Safety",
+            "text":"This measure draws on anonymous student reports about the degree to which they feel physically safe at school."
+          },
+          "ii":{
+            "title":"Bullying/Trust",
+            "text":"This measure draws on anonymous student reports about the nature and frequency of school bullying, as well as on the degree to which students respect and get along with each other."
+          }
+        }
+      },
+      "B":{
+        "title": "Relationships",
+        "blurb": "Are students connected to the school and to their teachers?",
+        "text":" This subcategory seeks to determine how welcoming and caring the school environment is. It includes measures of student sense of belonging and of student/teacher relationships.",
+        "measures":{
+          "i":{
+            "title":"Sense of Belonging",
+            "text":"This measure draws on anonymous student reports about the degree to which they feel understood, supported, and accepted by students and adults at the school."
+          },
+          "ii":{
+            "title":"Student/Teacher Relationships",
+            "text":"This measure draws on anonymous student reports about the degree to which they feel respected and cared for by their teachers."
+          }
+        }
+      },
+      "C":{
+        "title":"Academic Orientation",
+        "blurb": "Do students consistently come to school ready to learn?",
+        "text":"This subcategory seeks to determine the degree to which a school encourages students to focus on meeting academic challenges. It includes measures of student attendance and graduation, as well as of academic emphasis.",
+        "measures":{
+          "i":{
+            "title":"Attendance and Graduation",
+            "text":" This measure includes the percentage of students chronically absent (more than 10% of days) from school and the percentage of students graduating on time.",
+            "nonlikert":[
+              {
+                "title":"Percentage of Students Chronically Absent",
+                "benchmark":10,
+                "benchmark_explanation":"National average.",
+                "values":{
+                  "argenziano":3.34,
+                  "healey":9.26,
+                  "brown":3.48,
+                  "east":3.74,
+                  "kennedy":8.2,
+                  "somervillehigh":16.17,
+                  "west":6.22,
+                  "winter":8.74
+                }, "likert": {
+            		  "argenziano":5,
+            		  "brown":5,
+            		  "capuano":2,
+            		  "east":5,
+            		  "fullcircle":1,
+            		  "healey":4,
+            		  "kennedy":4,
+            		  "nextwave":2,
+            		  "somervillehigh":2,
+            		  "westsomerville":4,
+            		  "winterhill":4
+            		}
+              },{
+                "title":"Average Attendance Rate (%)",
+                "benchmark":94.9,
+                "benchmark_explanation":"State average.",
+                "values":{
+                  "argenziano":95.55,
+                  "healey":94.17,
+                  "brown":95.75,
+                  "east":95.42,
+                  "kennedy":94.57,
+                  "somervillehigh":92.08,
+                  "west":95.04,
+                  "winter":94.87
+                }, "likert": {
+                  "argenziano":3,
+            		  "brown":4,
+            		  "capuano":2,
+            		  "east":3,
+            		  "fullcircle":1,
+            		  "healey":3,
+            		  "kennedy":3,
+            		  "nextwave":1,
+            		  "somervillehigh":1,
+            		  "west":3,
+            		  "winter":3
+            		}
+              },{
+                "title":"4-Year Graduation Rate (HS only)",
+                "benchmark":86.1,
+                "benchmark_explanation":"State average.",
+                "values":{"somervillehigh":82.7},
+                "likert": {"somervillehigh":2}
+              },{
+                "title":"5-Year Graduation Rate (HS only)",
+                "benchmark":87.7,
+                "benchmark_explanation":"State average",
+                "values":{"somervillehigh":86.5},
+	              "likert": {"somervillehigh":4}
+              },{
+                "title":"English Language Learner 4-Year Graduation Rate (HS only)",
+                "benchmark":63.9,"benchmark_explanation":
+                "State average",
+                "values":{"somervillehigh":66.7},
+	              "likert": {"somervillehigh":3}
+              },{
+                "title":" English Language Learner 5-Year Graduation Rate (HS only)",
+                "benchmark":70.9,
+                "benchmark_explanation":"State average",
+                "values":{"somervillehigh":77},
+	              "likert": {"somervillehigh":4}
+              },{
+                "title":"Special Education 4-Year Graduation Rate (HS only)",
+                "benchmark":69.1,
+                "benchmark_explanation":"State average",
+                "values":{"somervillehigh":69.2},
+                "likert": {"somervillehigh":3}
+              },{
+                "title":"Special Education 5-Year Graduation Rate (HS only)",
+                "benchmark":72.9,
+                "benchmark_explanation":"State average",
+                "values":{"somervillehigh":80.8},
+                "likert": {"somervillehigh":4}
+              }
+            ]
+          },
+          "ii":{
+            "title":"Academic Press",
+            "text":"This measure draws on anonymous student reports about the degree to which teachers push them to do their best, work hard, and understand the material."
+          }
+        }
+      }
+    }
+  }, {
+    "title": "Resources",
+    "blurb": "Are facilities and personnel adequate to support learning?",
+    "text": "This category measures the adequacy of a school's facility, personnel, and curriculum, as well as the degree to which it is supported by the community.  It considers factors like physical spaces and materials, class size, and family/school relationships.",
+    "sub": {
+      "A": {
+        "title": "Facilities and Personnel",
+        "blurb": "Are physical spaces and support staff sufficient to support learning?",
+        "text": "This subcategory seeks to determine the sufficiency of a school's staffing and facilities.  It measures the quality of physical spaces and curricular materials, as well as the availability of content specialists and support personnel.",
+        "measures": {
+          "i": {
+            "title": "Physical Spaces and Materials",
+            "text": "This measure draws on anonymous teacher reports about their access to high-quality materials and facilities."
+          },
+          "ii": {
+            "title": "Content Specialists and Support Staff",
+            "text": "This measure includes student-to-art-teacher, student o-counselor, and student-to-specialist ratios, and draws on anonymous teacher reports about the degree to which content specialists and support staff are available and effective.",
+            "nonlikert": [
+              {
+                "title": "Counselors per Student",
+                "benchmark": 0.004,
+                "benchmark_explanation": "Benchmark from panel of experts",
+                "values": {
+                  "argenziano": 0.003,
+                  "healey": 0.004,
+                  "brown": 0.007,
+                  "east": 0.003,
+                  "kennedy": 0.007,
+                  "somervillehigh": 0.008,
+                  "west": 0.006,
+                  "winter": 0.005
+                }
+              },
+              {
+                "title": "Instructional Support Staff (Reading Coaches, etc.) per Student",
+                "benchmark": 0.012,
+                "benchmark_explanation": "National average",
+                "values": {
+                  "argenziano": 0.011,
+                  "healey": 0.009,
+                  "brown": 0.01,
+                  "east": 0.007,
+                  "kennedy": 0.009,
+                  "somervillehigh": 0.002,
+                  "west": 0.005,
+                  "winter": 0.009
+                }
+              }
+            ]
+          }
+        }
+      },
+      "B": {
+        "title": "Curricular Resources",
+        "blurb": "Does the school have a strong and varied curriculum?",
+        "text": "This subcategory seeks to determine the degree to which a school's classrooms include the essential resources teachers need.  It includes measures of curriculum strength, curriculum variety, and class size.",
+        "measures": {
+          "i": {
+            "title": "Curricular Strength and Variety",
+            "text": "This measure includes the percentage of students completing the state core curriculum, the number of different classes offered per student, and the percentage of students participating in Advanced Placement courses in high school.  It also draws on anonymous teacher reports on the strength and variety of the school curriculum.",
+            "nonlikert": [
+              {
+                "title": "Percent of Students Completing MassCore Curriculum (HS only)",
+                "benchmark": 72.4,
+                "benchmark_explanation": "State average",
+                "values": {
+                  "somervillehigh": 53.5
+                }, "likert" :{
+                  "somervillehigh": 2
+                }
+              }, {
+                "title": "Percent of Students Taking AP Tests (HS only)",
+                "benchmark": 16,
+                "benchmark_explanation": "State average",
+                "values": {
+                  "somervillehigh": 11.3
+                }, "likert":{
+		              "somervillehigh": 2
+                }
+              }, {
+                "title": "Percent of AP Test Takers Earning Scores of 3 or Above (HS only)",
+                "benchmark": 63.1,
+                "benchmark_explanation": "State average",
+                "values": {
+                  "somervillehigh": 71.6
+                }, "likert":{
+		              "somervillehigh": 4
+                }
+              }
+            ]
+          },
+          "ii": {
+            "title": "Class Size",
+            "text": "This measure includes the average class size at each school, and draws on anonymous teacher reports about the degree to which their classes are sufficiently small to support learning.",
+            "nonlikert": [{
+                "title": "Average Class Size (#)",
+                "benchmark": 18.1,
+                "benchmark_explanation": "State average",
+                "values": {
+                  "argenziano": 20.7,
+                  "healey": 19.1,
+                  "brown": 15.5,
+                  "east": 19.4,
+                  "kennedy": 18.4,
+                  "somervillehigh": 15.8,
+                  "west": 19.4,
+                  "winter": 16.1
+                }, "likert": {
+            		  "argenziano": 2,
+            		  "brown": 2,
+            		  "capuano": 4,
+            		  "east": 2,
+            		  "fullcircle": 1,
+            		  "healey": 3,
+            		  "kennedy": 3,
+            		  "nextwave": 1,
+            	   	"somervillehigh": 4,
+            		  "westsomerville": 2,
+            		  "winter": 4
+            		}
+              }
+            ]
+          }
+        }
+      },
+      "C": {
+        "title": "Community Support",
+        "blurb": "Does the school have strong ties with families and the community?",
+        "text": "This subcategory seeks to determine the degree to which schools are supported by the surrounding community.  It includes measures of family/school relationships, community involvement, and external partnerships.",
+        "measures": {
+          "i": {
+            "title": "Family/School Relationships",
+            "text": "This measure draws on anonymous teacher reports about parental engagement, as well as anonymous student reports about the degree to which their parents support them as learners."
+          },
+          "ii": {
+            "title": "Community Involvement + External Partnerships",
+            "text": "This measure draws on anonymous teacher reports about the degree to which the school is an integrated part of the community."
+          }
+        }
+      }
+    }
+  },
+  {
+    "title": "Indicators of Academic Learning",
+    "blurb": "Are students developing academic dispositions and content knowledge?",
+    "text": "This category measures how much students are learning core academic content, developing their own academic identities, and progressing along positive trajectories.  It considers factors like test score growth, engagement in school, problem solving, and college-going rates.",
+    "sub": {
+      "A": {
+        "title": "Performance",
+        "blurb": "Are students developing their literacy and numeracy skills?",
+        "text": "This subcategory seeks to determine the degree to which students are learning core curricular content.  It includes measures of growth on standardized tests and teacher perceptions of student academic growth; in the future, it will also include portfolio assessment scores.",
+        "measures": {
+          "i": {
+            "title": "Test Score Growth",
+            "text": "This measure includes school-wide scores for student growth on standardized tests, calculated by considering prior testing history and other factors.",
+            "nonlikert": [{
+                "title": "SGP Growth Score on English MCAS",
+                "benchmark": 50,
+                "benchmark_explanation": "State average",
+                "values": {
+                  "argenziano": 49,
+                  "healey": 53,
+                  "brown": 65,
+                  "east": 61,
+                  "kennedy": 61,
+                  "somervillehigh": 75,
+                  "west": 57,
+                  "winter": 56
+                }, "likert": {
+                  "argenziano": 2,
+                  "healey": 3,
+                  "brown": 3,
+                  "east": 3,
+                  "kennedy": 3,
+                  "somervillehigh": 4,
+                  "west": 3,
+                  "winter": 3
+                }
+              }, {
+                "title": "SGP Growth Score on Math MCAS",
+                "benchmark": 50,
+                "benchmark_explanation": "State average",
+                "values": {
+                  "argenziano": 46,
+                  "healey": 59,
+                  "brown": 70,
+                  "east": 60,
+                  "kennedy": 57,
+                  "somervillehigh": 66,
+                  "west": 76.5,
+                  "winter": 57
+                }, "likert": {
+                  "argenziano": 2,
+                  "healey": 3,
+                  "brown": 4,
+                  "east": 3,
+                  "kennedy": 3,
+                  "somervillehigh": 3,
+                  "west": 4,
+                  "winter": 3
+                }
+              }
+            ]
+          },
+          "ii": {
+            "title": "Portfolio or Alternative Assessments",
+            "text": "This measure draws on anonymous teacher reports about the efforts and abilities of their students. In the future this measure will also include expert evaluation of the work done by students in classrooms."
+          }
+        }
+      },
+      "B": {
+        "title": "Student Commitment to Learning",
+        "blurb": "Do students engage in class and value the process of learning?",
+        "text": "This subcategory seeks to determine the degree to which students are invested in the process of learning.  It includes measures of student engagement and of how much students value learning.",
+        "measures": {
+          "i": {
+            "title": "Engagement in School",
+            "text": "This measure draws on anonymous student reports about their level of focus, participation, and interest in class."
+          },
+          "ii": {
+            "title": "Valuing of Learning",
+            "text": "This measure draws on anonymous student reports about how important school is to them and how much they view themselves as learners."
+          }
+        }
+      },
+      "C": {
+        "title": "Critical Thinking",
+        "blurb": "Does the school emphasize the development of problem solving skills?",
+        "text": "This subcategory seeks to determine whether students are learning to think critically about school subjects and the world around them.  It includes measures of how much problem solving is emphasized in class and, in the future, will include a measure of student problem solving ability.",
+        "measures": {
+          "i": {
+            "title": "Problem Solving Emphasis",
+            "text": "This measure draws on anonymous teacher reports about how often their students have the opportunity to generative their own interpretations of material and apply knowledge to new situations."
+          },
+          "ii": {
+            "title": "Problem Solving Skills",
+            "text": "In the future, this measure will include an assessment of student ability to address problems without obvious solutions."
+          }
+        }
+      },
+      "D": {
+        "title": "College and Career Readiness",
+        "blurb": "Are students being prepared for college and/or the workforce?",
+        "text": "This subcategory, applicable to high schools only, seeks to determine the degree to which students are prepared for college and beyond.  It measures the percentage of students directly enrolling in two- or four-year colleges upon high school graduation and, in the future, will measure the college and career performance of high school graduates.",
+        "measures": {
+          "i": {
+            "title": "College-Going",
+            "text": "This measure includes the percentage of students enrolling in college immediately after high school graduation and, in the future, will include the college grades and employment status of graduates.",
+            "nonlikert": [
+              {
+                "title": "Percentage of Students Enrolling in College (HS only)",
+                "benchmark": 75,
+                "benchmark_explanation": "Benchmark from a panel of experts",
+                "values": {
+                  "somervillehigh": 70
+                }, "likert": {
+            		  "somervillehigh": 2
+            		}
+              }
+            ]
+          },
+          "ii": {
+            "title": "College Performance",
+            "text": "In the future, this measure will include data on the percentage of students graduating from college in four or six years, as well as the percentage of students requiring college remediation."
+          }
+        }
+      }
+    }
+  },
+  {
+    "title": "Character and Wellbeing Outcomes",
+    "blurb": "Are students healthy and well-rounded?",
+    "text": "This category measures the development of traits relevant for full and rewarding lives-in society, the workplace, and their private lives.  It considers factors like perseverance and determination, participation in arts and literature, and social and emotional health.",
+    "sub": {
+      "A": {
+        "title": "Civic Engagement",
+        "blurb": "Do students understand and appreciate each other’s differences?",
+        "text": "This subcategory seeks to determine the degree to which students are prepared to thoughtfully meaningfully interact with others in a diverse society.  It measures how well students understand the perspectives of others, as well as the degree to which they get along with those unlike themselves.",
+        "measures": {
+          "i": {
+            "title": "Understanding Others",
+            "text": "In the future, this measure will draw on anonymous student reports about their ability to understand the views, emotions, and experiences of others."
+          },
+          "ii": {
+            "title": "Appreciation for Diversity",
+            "text": "This measure draws on anonymous student reports about their level of comfort working with students from a wide variety of backgrounds."
+          }
+        }
+      },
+      "B": {
+        "title": "Work Ethic",
+        "text": "This subcategory seeks to determine the degree to which students are willing to work hard on challenging tasks, even in light of setbacks.  It includes measures of perseverance, determination, and orientation toward personal growth.",
+        "measures": {
+          "i": {
+            "title": "Perseverance and Determination",
+            "text": "This measure draws on anonymous student reports about their ability to pursue goals, work hard in spite of challenges, and finish what they start."
+          },
+          "ii": {
+            "title": "Growth Mindset",
+            "text": "In the future, this measure will draw on anonymous student reports about the degree to which they see themselves as capable of expanding their skills through hard work."
+          }
+        }
+      },
+      "C": {
+        "title": "Artistic and Creative Traits",
+        "blurb": "Are students exposed to arts, literature, and creative activities?",
+        "text": "This subcategory seeks to determine the degree to which students are being nurtured as artistic and creative people.  It includes measures of student participation in arts and, in the future, will include a measure of student creativity.",
+        "measures": {
+          "i": {
+            "title": "Participation in Arts and Literature",
+            "text": "This measure draws on anonymous teacher reports about the frequency of student exposure to the arts.",
+            "nonlikert": [{
+              "title": "Ratio of Art Classes to Total Students",
+              "benchmark": 0.082,
+              "benchmark_explanation": "State average",
+              "values": {
+                "argenziano": 0.1,
+                "healey": 0.11,
+                "brown": 0.12,
+                "east": 0.1,
+                "west": 0.11,
+                "winter": 0.13
+              }, "likert": {
+                "argenziano": 4,
+                "brown": 4,
+                "east": 4,
+                "healey": 4,
+                "west": 4,
+                "winter": 5
+              }
+            }]
+          },
+          "ii": {
+            "title": "Creativity",
+            "text": "In the future, this measure will include an assessment of the ability of students to think outside-the-box when presented with different kinds of challenges."
+          }
+        }
+      },
+      "D": {
+        "title": "Health",
+        "blurb": "Are students socially, emotionally, and physically healthy?",
+        "text": "This subcategory seeks to determine the health of students and the degree to which the school supports various health outcomes.  It includes measures of student social, emotional, and physical health.",
+        "measures": {
+          "i": {
+            "title": "Social and Emotional Health",
+            "text": "This measure draws on anonymous student reports about how happy, calm, and focused they feel in school."
+          },
+          "ii": {
+            "title": "Physical Health",
+            "text": "This measure draws on data from the Youth Risk Behavior survey on student physical health, as well as on anonymous teacher reports about student access to physical education and activity.",
+            "nonlikert": [{
+                "title": "Ratio of PE Classes to Total Students",
+                "benchmark": 0.06,
+                "benchmark_explanation": "State average",
+                "values": {
+                  "argenziano": 0.05,
+                  "healey": 0.05,
+                  "brown": 0.05,
+                  "east": 0.05,
+                  "kennedy": 0.05,
+                  "west": 0.05,
+                  "winter": 0.06
+                }, "likert": {
+            		  "argenziano": 2,
+            		  "brown": 3,
+            		  "east": 2,
+            		  "healey": 2,
+            		  "west": 2,
+            		  "winter": 3
+                }
+              },
+              {
+                "title": "Percentage of Students Getting 60 Minutes of Exercise 5 Days per Week",
+                "benchmark": 55,
+                "benchmark_explanation": "National average",
+                "values": {
+                  "argenziano": 46,
+                  "healey": 43.2,
+                  "brown": 64.6,
+                  "east": 44.6,
+                  "kennedy": 55.5,
+                  "west": 61.7,
+                  "winter": 44.7
+                }, "likert": {
+            		  "argenziano": 1,
+            		  "healey": 5,
+            		  "east": 1,
+            		  "kennedy": 4,
+            		  "west": 5,
+            		  "winter": 1
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+]
