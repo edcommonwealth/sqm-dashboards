@@ -7,7 +7,7 @@ RSpec.describe "categories/show", type: :view do
       :blurb => "Blurb",
       :description => "MyText",
       :external_id => "External",
-      :parent_category_id => 2
+      :parent_category => Category.create(name: 'Parent Category')
     ))
   end
 
@@ -17,6 +17,6 @@ RSpec.describe "categories/show", type: :view do
     expect(rendered).to match(/Blurb/)
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/External/)
-    expect(rendered).to match(/2/)
+    expect(rendered).to match(/Parent Category/)
   end
 end

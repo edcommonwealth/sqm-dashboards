@@ -9,7 +9,7 @@ RSpec.describe "questions/show", type: :view do
       :option3 => "Option3",
       :option4 => "Option4",
       :option5 => "Option5",
-      :category_id => 2
+      :category => Category.create!(name: 'Category Name')
     ))
   end
 
@@ -21,6 +21,6 @@ RSpec.describe "questions/show", type: :view do
     expect(rendered).to match(/Option3/)
     expect(rendered).to match(/Option4/)
     expect(rendered).to match(/Option5/)
-    expect(rendered).to match(/2/)
+    expect(rendered).to match(/Category Name/)
   end
 end

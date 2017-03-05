@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @question_list.name
+%p
+  %strong Description:
+  = @question_list.description
+%p
+  %strong Question ids:
+  = @question_list.question_ids
+= link_to 'Edit', edit_question_list_path(@question_list)
+|
+= link_to 'Back', question_lists_path

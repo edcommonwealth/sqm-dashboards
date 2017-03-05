@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :question_lists
   resources :questions
   resources :categories
   resources :districts

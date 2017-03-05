@@ -10,7 +10,7 @@ RSpec.describe "questions/index", type: :view do
         :option3 => "Option3",
         :option4 => "Option4",
         :option5 => "Option5",
-        :category_id => 2
+        :category => Category.create(name: "Category 1")
       ),
       Question.create!(
         :text => "Text",
@@ -19,7 +19,7 @@ RSpec.describe "questions/index", type: :view do
         :option3 => "Option3",
         :option4 => "Option4",
         :option5 => "Option5",
-        :category_id => 2
+        :category => Category.create(name: "Category 2")
       )
     ])
   end
@@ -32,6 +32,7 @@ RSpec.describe "questions/index", type: :view do
     assert_select "tr>td", :text => "Option3".to_s, :count => 2
     assert_select "tr>td", :text => "Option4".to_s, :count => 2
     assert_select "tr>td", :text => "Option5".to_s, :count => 2
-    assert_select "tr>td", :text => 2.to_s, :count => 2
+    assert_select "tr>td", :text => "Category 1", :count => 1
+    assert_select "tr>td", :text => "Category 2", :count => 1
   end
 end

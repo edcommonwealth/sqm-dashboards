@@ -20,7 +20,10 @@
 %p
   %strong Category:
   &nbsp;
-  = render partial: 'categories/full_path', locals: {category: @question.category}
+  - if @question.category.present?
+    = render partial: 'categories/full_path', locals: {category: @question.category}
+  - else
+    No Category
 
 = link_to 'Edit', edit_question_path(@question)
 |
