@@ -7,10 +7,10 @@
   = @schedule.description
 %p
   %b School:
-  = @schedule.school.name
+  = link_to(@school.name, @school)
 %p
   %b Frequency hours:
-  = @schedule.frequency_hours
+  = frequency_description(@schedule.frequency_hours)
 %p
   %b Start date:
   = @schedule.start_date
@@ -25,10 +25,11 @@
   = @schedule.random
 %p
   %b Recipient list:
-  = @schedule.recipient_list.name
+  = link_to(@schedule.recipient_list.name, [@school, @schedule.recipient_list])
 %p
   %b Question list:
-  = @schedule.question_list.name
+  = link_to(@schedule.question_list.name, @schedule.question_list)
+
 = link_to 'Edit', edit_school_schedule_path(@schedule.school, @schedule)
 |
 = link_to 'Back', school_schedules_path(@schedule.school)

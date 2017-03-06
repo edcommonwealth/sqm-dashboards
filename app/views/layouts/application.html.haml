@@ -9,12 +9,14 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     .container
-      = render partial: 'layouts/header'
+      .row
+        .col
+          = render partial: 'layouts/header'
 
-      - if notice.present?
-        %p.notice= notice
+          - if notice.present?
+            %p.notice= notice
 
-      - if alert.present?
-        %p.alert= alert
+          - if alert.present?
+            %p.alert= alert
 
-      = yield
+          = yield

@@ -12,7 +12,7 @@ RSpec.describe "schedules/show", type: :view do
       :name => "Name",
       :description => "MyText",
       :school => @school,
-      :frequency_hours => 3,
+      :frequency_hours => 2 * 24 * 7,
       :active => false,
       :random => false,
       :recipient_list => @recipient_list,
@@ -25,7 +25,7 @@ RSpec.describe "schedules/show", type: :view do
     expect(rendered).to match(/Name/)
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/#{@school.name}/)
-    expect(rendered).to match(/3/)
+    expect(rendered).to match(/Every Other Week/)
     expect(rendered).to match(/false/)
     expect(rendered).to match(/false/)
     expect(rendered).to match(/#{@recipient_list.name}/)

@@ -29,17 +29,15 @@ RSpec.describe "schedules/edit", type: :view do
 
       assert_select "textarea#schedule_description[name=?]", "schedule[description]"
 
-      assert_select "input#schedule_school_id[name=?]", "schedule[school_id]"
-
-      assert_select "input#schedule_frequency_hours[name=?]", "schedule[frequency_hours]"
+      assert_select "select[name=?]", "schedule[frequency_hours]"
 
       assert_select "input#schedule_active[name=?]", "schedule[active]"
 
       assert_select "input#schedule_random[name=?]", "schedule[random]"
 
-      assert_select "input#schedule_recipient_list_id[name=?]", "schedule[recipient_list_id]"
+      assert_select "select[name=?]", "schedule[recipient_list_id]"
 
-      assert_select "input#schedule_question_list_id[name=?]", "schedule[question_list_id]"
+      assert_select "select[name=?]", "schedule[question_list_id]"
     end
   end
 end
