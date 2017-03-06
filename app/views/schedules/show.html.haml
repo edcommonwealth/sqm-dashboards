@@ -1,0 +1,34 @@
+%p#notice= notice
+%p
+  %b Name:
+  = @schedule.name
+%p
+  %b Description:
+  = @schedule.description
+%p
+  %b School:
+  = @schedule.school.name
+%p
+  %b Frequency hours:
+  = @schedule.frequency_hours
+%p
+  %b Start date:
+  = @schedule.start_date
+%p
+  %b End date:
+  = @schedule.end_date
+%p
+  %b Active:
+  = @schedule.active
+%p
+  %b Random:
+  = @schedule.random
+%p
+  %b Recipient list:
+  = @schedule.recipient_list.name
+%p
+  %b Question list:
+  = @schedule.question_list.name
+= link_to 'Edit', edit_school_schedule_path(@schedule.school, @schedule)
+|
+= link_to 'Back', school_schedules_path(@schedule.school)

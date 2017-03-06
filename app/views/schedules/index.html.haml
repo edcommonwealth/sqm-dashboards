@@ -1,0 +1,33 @@
+%h1 Listing schedules
+%table
+  %tr
+    %th Name
+    %th Description
+    %th School
+    %th Frequency hours
+    %th Start date
+    %th End date
+    %th Active
+    %th Random
+    %th Recipient list
+    %th Question list
+    %th
+    %th
+    %th
+  - @schedules.each do |schedule|
+    %tr
+      %td= schedule.name
+      %td= schedule.description
+      %td= schedule.school.name
+      %td= schedule.frequency_hours
+      %td= schedule.start_date
+      %td= schedule.end_date
+      %td= schedule.active
+      %td= schedule.random
+      %td= schedule.recipient_list.name
+      %td= schedule.question_list.name
+      %td= link_to 'Show', [schedule.school, schedule]
+      %td= link_to 'Edit', edit_school_schedule_path(schedule.school, schedule)
+      %td= link_to 'Destroy', [schedule.school, schedule], :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New Schedule', new_school_schedule_path(@school)

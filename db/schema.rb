@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305155018) do
+ActiveRecord::Schema.define(version: 20170306145359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,22 @@ ActiveRecord::Schema.define(version: 20170305155018) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "school_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "frequency_hours"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "active",            default: true
+    t.boolean  "random",            default: false
+    t.integer  "recipient_list_id"
+    t.integer  "question_list_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["school_id"], name: "index_schedules_on_school_id", using: :btree
+  end
+
   create_table "schools", force: :cascade do |t|
     t.string   "name"
     t.integer  "district_id"
@@ -102,4 +118,5 @@ ActiveRecord::Schema.define(version: 20170305155018) do
   end
 
   add_foreign_key "recipient_lists", "schools"
+  add_foreign_key "schedules", "schools"
 end

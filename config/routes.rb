@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         post :import
       end
     end
+    resources :schedules
   end
 
   devise_for :users

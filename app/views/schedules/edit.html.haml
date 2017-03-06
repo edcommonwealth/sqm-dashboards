@@ -1,0 +1,5 @@
+%h1 Editing schedule
+= render 'form'
+= link_to 'Show', [@schedule.school, @schedule]
+|
+= link_to 'Back', school_schedules_path(@schedule.school)
