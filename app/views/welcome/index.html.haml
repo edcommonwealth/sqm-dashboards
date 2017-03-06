@@ -2,5 +2,8 @@
 
 %p= link_to "Create A New School", new_school_path
 
+%br
+
+%h4 Schools
 - @schools.each do |school|
-  = link_to school.name, school
+  %p= link_to school.name, school
