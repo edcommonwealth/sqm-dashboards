@@ -18,7 +18,7 @@ RSpec.describe "question_lists/edit", type: :view do
 
       assert_select "textarea#question_list_description[name=?]", "question_list[description]"
 
-      assert_select "textarea#question_list_question_ids[name=?]", "question_list[question_ids]"
+      assert_select "input[name=?]", "question_list[question_id_array][]"
     end
   end
 end

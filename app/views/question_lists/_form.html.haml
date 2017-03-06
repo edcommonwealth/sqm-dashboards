@@ -9,12 +9,14 @@
           %li= message
   .field
     = f.label :name
-    = f.text_field :name
+    = f.text_field :name, class: 'form-control'
   .field
     = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :question_ids
-    = f.text_area :question_ids
-  .actions
-    = f.submit
+    = f.text_area :description, class: 'form-control'
+  .form-group
+    = f.label :question_id_array, 'Questions'
+    %br/
+    .form-check.form-check-collection
+      = f.collection_check_boxes(:question_id_array, Question.all, :id, :text) { |c| c.label(class: 'form-check-label') { c.check_box(class: 'form-check-input') + " #{c.text}" } }
+  .form-group
+    = f.submit 'Save List', class: 'btn btn-primary'
