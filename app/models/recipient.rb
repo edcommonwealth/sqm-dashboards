@@ -4,6 +4,8 @@ class Recipient < ApplicationRecord
   belongs_to :school
   validates_associated :school
 
+  has_many :attempts
+
   validates :name, presence: true
 
   def self.import(school, file)

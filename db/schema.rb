@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306145359) do
+ActiveRecord::Schema.define(version: 20170307153205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attempts", force: :cascade do |t|
+    t.integer  "recipient_id"
+    t.integer  "schedule_id"
+    t.integer  "recipient_schedule_id"
+    t.datetime "sent_at"
+    t.datetime "responded_at"
+    t.integer  "question_id"
+    t.integer  "translation_id"
+    t.integer  "answer_index"
+    t.integer  "open_response_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -60,6 +74,16 @@ ActiveRecord::Schema.define(version: 20170306145359) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["school_id"], name: "index_recipient_lists_on_school_id", using: :btree
+  end
+
+  create_table "recipient_schedules", force: :cascade do |t|
+    t.integer  "recipient_id"
+    t.integer  "schedule_id"
+    t.text     "upcoming_question_ids"
+    t.text     "attempted_question_ids"
+    t.datetime "last_attempt_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "recipients", force: :cascade do |t|
