@@ -7,5 +7,6 @@ class Schedule < ApplicationRecord
   validates :recipient_list, presence: true
   validates :question_list, presence: true
 
+  scope :active, -> { where(active: true).where("start_date <= ? and end_date > ?", Date.today, Date.today) }
 
 end
