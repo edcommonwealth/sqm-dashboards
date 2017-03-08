@@ -42,3 +42,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
+
+ENV['TWILIO_NUMBER'] = 'TWILIO_NUMBER'
+ENV['TWILIO_ACCOUNT_SID'] = 'TWILIO_ACCOUNT_SID'
+ENV['TWILIO_AUTH_TOKEN'] = 'TWILIO_AUTH_TOKEN'

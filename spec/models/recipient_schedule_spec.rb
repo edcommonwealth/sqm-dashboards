@@ -5,7 +5,7 @@ RSpec.describe RecipientSchedule, type: :model do
   let(:question) { Question.create!(text: 'What is the question?', option1: 'A', option2: 'B', option3: 'C', option4: 'D', option5: 'E')}
   let(:question_list) { QuestionList.create(name: 'Parent Questions', question_ids: "#{question.id},2,3")}
 
-  let(:recipient) { Recipient.create!(name: 'Parent') }
+  let(:recipient) { Recipient.create!(name: 'Parent', phone: '1112223333') }
   let(:recipient_list) { RecipientList.create(name: 'Parent List', recipient_ids: recipient.id.to_s)}
 
   let(:schedule) { Schedule.create!(name: 'Parent Schedule', recipient_list_id: recipient_list.id, question_list: question_list) }
@@ -29,14 +29,12 @@ RSpec.describe RecipientSchedule, type: :model do
   describe 'make_attempt' do
     before :each do
       Timecop.freeze
-      recipient_schedule.make_attempt
     end
 
-    it 'should contact the twillio API'
+    let!(:attempt) { recipient_schedule.make_attempt }
 
     it 'should make an attempt to ask the next question' do
-      expect(Attempt.count).to eq(1)
-      attempt = Attempt.first
+      expect(attempt).to be_persisted
       expect(attempt.recipient).to eq(recipient)
       expect(attempt.schedule).to eq(schedule)
       expect(attempt.recipient_schedule).to eq(recipient_schedule)

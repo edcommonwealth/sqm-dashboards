@@ -96,4 +96,28 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.before(:each) do
+    stub_const("Twilio::REST::Client", FakeSMS)
+  end
+end
+
+
+require 'active_support/all'
+class FakeSMS
+  Message = Struct.new(:from, :to, :body)
+
+  cattr_accessor :messages
+  self.messages = []
+
+  def initialize(_account_sid, _auth_token)
+  end
+
+  def messages
+    self
+  end
+
+  def create(from:, to:, body:)
+    self.class.messages << Message.new(from, to, body)
+  end
 end
