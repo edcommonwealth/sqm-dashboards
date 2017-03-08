@@ -54,12 +54,12 @@ RSpec.describe RecipientSchedule, type: :model do
     end
   end
 
-  describe 'make_attempt' do
+  describe 'attempt_question' do
     before :each do
       Timecop.freeze
     end
 
-    let!(:attempt) { recipient_schedule.make_attempt }
+    let!(:attempt) { recipient_schedule.attempt_question }
 
     it 'should make an attempt to ask the next question' do
       expect(attempt).to be_persisted

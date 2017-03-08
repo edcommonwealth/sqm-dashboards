@@ -11,7 +11,7 @@ class RecipientSchedule < ApplicationRecord
     Question.where(id: upcoming.first).first
   end
 
-  def make_attempt(question: next_question)
+  def attempt_question(question: next_question)
     attempt = recipient.attempts.create(
       schedule: schedule,
       recipient_schedule: self,

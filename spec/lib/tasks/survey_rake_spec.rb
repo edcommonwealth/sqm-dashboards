@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe "survey:make_attempts" do
+describe "survey:attempt_qustions" do
   include_context "rake"
 
-  let(:ready_recipient_schedules)   { double('ready recipient schedules') }
-  let(:recipient_schedules)         { double("recipient schedules", ready: []) }
+  let(:ready_recipient_schedule)   { double('ready recipient schedule', attempt_question: nil) }
+  let(:recipient_schedules)         { double("recipient schedules", ready: [ready_recipient_schedule]) }
   let(:active_schedule)             { double("active schedule", recipient_schedules: recipient_schedules) }
 
   before do
@@ -18,7 +18,8 @@ describe "survey:make_attempts" do
   end
 
   it "finds all active schedules" do
-    expect(active_schedule).to (receive(:recipient_schedules))
+    expect(ready_recipient_schedule).to receive(:attempt_question)
+    expect(active_schedule).to receive(:recipient_schedules)
     expect(Schedule).to receive(:active).and_return([active_schedule])
     subject.invoke
   end
