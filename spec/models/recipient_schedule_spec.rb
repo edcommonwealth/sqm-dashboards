@@ -8,7 +8,14 @@ RSpec.describe RecipientSchedule, type: :model do
   let(:recipient) { Recipient.create!(name: 'Parent', phone: '1112223333') }
   let(:recipient_list) { RecipientList.create(name: 'Parent List', recipient_ids: recipient.id.to_s)}
 
-  let(:schedule) { Schedule.create!(name: 'Parent Schedule', recipient_list_id: recipient_list.id, question_list: question_list) }
+  let(:schedule) do
+    Schedule.create!(
+      name: 'Parent Schedule',
+      recipient_list_id: recipient_list.id,
+      question_list: question_list,
+      frequency_hours: 24 * 7
+    )
+  end
 
   let!(:recipient_schedule) do
     RecipientSchedule.create!(
@@ -16,8 +23,29 @@ RSpec.describe RecipientSchedule, type: :model do
       schedule: schedule,
       upcoming_question_ids: "#{question.id},3",
       attempted_question_ids: '2',
-      last_attempt_at: 2.weeks.ago
+      last_attempt_at: 2.weeks.ago,
+      next_attempt_at: 2.weeks.ago + (60 * 60 * schedule.frequency_hours)
     )
+  end
+
+  let!(:not_ready_recipient_schedule) do
+    RecipientSchedule.create!(
+      recipient: recipient,
+      schedule: schedule,
+      upcoming_question_ids: "#{question.id},3",
+      attempted_question_ids: '2',
+      last_attempt_at: 1.day.ago,
+      next_attempt_at: 1.day.ago + (60 * 60 * schedule.frequency_hours)
+    )
+  end
+
+  describe 'ready' do
+    subject { schedule.recipient_schedules.ready }
+
+    it ('should only provide recipient_schedules who are ready to send a message') do
+      expect(subject.length).to eq(1)
+      expect(subject.first).to eq(recipient_schedule)
+    end
   end
 
   describe 'next_question' do
@@ -55,5 +83,8 @@ RSpec.describe RecipientSchedule, type: :model do
       expect(recipient_schedule.last_attempt_at.to_i).to eq(Time.new.to_i)
     end
 
+    it 'should update next_attempt_at' do
+      expect(recipient_schedule.next_attempt_at.to_i).to eq((Time.new + (60 * 60 * schedule.frequency_hours)).to_i)
+    end
   end
 end

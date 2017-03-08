@@ -3,11 +3,9 @@ require 'rails_helper'
 describe "survey:make_attempts" do
   include_context "rake"
 
-  
-  # let(:old_schedule)             { stub("csv data") }
-  # let(:paused_schedule)          { stub("csv data") }
-  # let(:report)       { stub("generated report", :to_csv => csv) }
-  # let(:user_records) { stub("user records for report") }
+  let(:ready_recipient_schedules)   { double('ready recipient schedules') }
+  let(:recipient_schedules)         { double("recipient schedules", ready: []) }
+  let(:active_schedule)             { double("active schedule", recipient_schedules: recipient_schedules) }
 
   before do
     # ReportGenerator.stubs(:generate)
@@ -20,6 +18,8 @@ describe "survey:make_attempts" do
   end
 
   it "finds all active schedules" do
+    expect(active_schedule).to (receive(:recipient_schedules))
+    expect(Schedule).to receive(:active).and_return([active_schedule])
     subject.invoke
   end
 end
