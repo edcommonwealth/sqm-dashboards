@@ -22,7 +22,8 @@ RSpec.describe Attempt, type: :model do
       schedule: schedule,
       upcoming_question_ids: "#{question.id},3",
       attempted_question_ids: '2',
-      last_attempt_at: 2.weeks.ago
+      last_attempt_at: 2.weeks.ago,
+      next_attempt_at: Time.new
     )
   end
 
