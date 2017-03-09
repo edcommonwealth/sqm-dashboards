@@ -16,6 +16,35 @@ describe Recipient do
   end
 
   describe "When Deleted" do
-    it 'should delete all recipient_schedules'
+    let!(:school) { School.create!(name: 'School') }
+
+    let!(:recipients) { create_recipients(school, 3) }
+    let!(:recipient_list) do
+      school.recipient_lists.create!(name: 'Parents', recipient_ids: recipients.map(&:id).join(','))
+    end
+
+    let!(:questions) { create_questions(3) }
+    let!(:question_list) do
+      QuestionList.create!(name: 'Parent Questions', question_ids: questions.map(&:id).join(','))
+    end
+
+    let!(:schedule) do
+      Schedule.create!(
+        name: 'Parent Schedule',
+        recipient_list_id: recipient_list.id,
+        question_list: question_list,
+        random: false,
+        frequency_hours: 24 * 7
+      )
+    end
+
+    it 'should delete all recipient_schedules and update all recipient_lists' do
+      expect do
+        recipients[1].destroy
+      end.to change { schedule.recipient_schedules.count }.from(3).to(2)
+
+      expect(recipient_list.recipient_ids).to eq("#{recipients[0].id},#{recipients[2].id}")
+
+    end
   end
 end
