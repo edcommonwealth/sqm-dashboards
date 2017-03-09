@@ -8,6 +8,22 @@ class Schedule < ApplicationRecord
   validates :recipient_list, presence: true
   validates :question_list, presence: true
 
+  after_create :create_recipient_schedules
+
   scope :active, -> { where(active: true).where("start_date <= ? and end_date > ?", Date.today, Date.today) }
+
+  private
+
+    def create_recipient_schedules
+      recipient_list.recipients.each do |recipient|
+        question_ids = question_list.question_ids.split(/,/)
+        question_ids = question_ids.shuffle if random
+        recipient_schedules.create(
+          recipient: recipient,
+          upcoming_question_ids: question_ids.join(','),
+          next_attempt_at: Time.new
+        )
+      end
+    end
 
 end

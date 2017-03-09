@@ -7,10 +7,10 @@
       %ul
         - question_list.errors.full_messages.each do |message|
           %li= message
-  .field
+  .form-group
     = f.label :name
     = f.text_field :name, class: 'form-control'
-  .field
+  .form-group
     = f.label :description
     = f.text_area :description, class: 'form-control'
   .form-group

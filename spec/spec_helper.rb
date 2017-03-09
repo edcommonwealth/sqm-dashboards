@@ -121,3 +121,29 @@ class FakeSMS
     self.class.messages << Message.new(from, to, body)
   end
 end
+
+def create_recipients(school, count)
+  recipients = []
+  count.times do |i|
+    recipients << school.recipients.create(
+      name: "Person#{count}",
+      phone: "#{count}" * 10,
+    )
+  end
+  return recipients
+end
+
+def create_questions(count)
+  questions = []
+  count.times do |i|
+    questions << Question.create(
+      text: "Question #{i}:#{count}",
+      option1: "Option #{i}:#{count} A",
+      option2: "Option #{i}:#{count} B",
+      option3: "Option #{i}:#{count} C",
+      option4: "Option #{i}:#{count} D",
+      option5: "Option #{i}:#{count} E"
+    )
+  end
+  return questions
+end

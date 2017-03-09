@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "survey:attempt_qustions" do
   include_context "rake"
 
-  let(:ready_recipient_schedule)   { double('ready recipient schedule', attempt_question: nil) }
+  let(:ready_recipient_schedule)    { double('ready recipient schedule', attempt_question: nil) }
   let(:recipient_schedules)         { double("recipient schedules", ready: [ready_recipient_schedule]) }
   let(:active_schedule)             { double("active schedule", recipient_schedules: recipient_schedules) }
 

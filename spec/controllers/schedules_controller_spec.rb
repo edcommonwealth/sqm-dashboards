@@ -20,9 +20,17 @@ require 'rails_helper'
 
 RSpec.describe SchedulesController, type: :controller do
 
-  let(:school) { School.create!(name: 'School') }
-  let(:recipient_list) { RecipientList.create!(name: 'Parents', recipient_id_array: [1, 2, 3]) }
-  let(:question_list) { QuestionList.create!(name: 'Parents Questions', question_id_array: [1, 2, 3]) }
+  let!(:school) { School.create!(name: 'School') }
+
+  let!(:recipients) { create_recipients(school, 3) }
+  let!(:recipient_list) do
+    school.recipient_lists.create!(name: 'Parents', recipient_ids: recipients.map(&:id).join(','))
+  end
+
+  let!(:questions) { create_questions(3) }
+  let!(:question_list) do
+    QuestionList.create!(name: 'Parent Questions', question_ids: questions.map(&:id).join(','))
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Schedule. As you add validations to Schedule, be sure to

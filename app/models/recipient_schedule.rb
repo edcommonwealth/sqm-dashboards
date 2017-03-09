@@ -4,7 +4,11 @@ class RecipientSchedule < ApplicationRecord
   belongs_to :schedule
   has_many :attempts
 
+  validates_associated :recipient
+  validates_associated :schedule
+
   scope :ready, -> { where('next_attempt_at <= ?', Time.new) }
+  scope :for, -> (recipient) { where(recipient_id: recipient.id) }
 
   def next_question
     upcoming = upcoming_question_ids.split(/,/)
@@ -19,8 +23,9 @@ class RecipientSchedule < ApplicationRecord
     )
 
     if attempt.send_message
+      return if upcoming_question_ids.blank?
       upcoming = upcoming_question_ids.split(/,/)[1..-1].join(',')
-      attempted = (attempted_question_ids.split(/,/) + [question.id]).join(',')
+      attempted = ((attempted_question_ids.try(:split, /,/) || []) + [question.id]).join(',')
       update_attributes(
         upcoming_question_ids: upcoming,
         attempted_question_ids: attempted,

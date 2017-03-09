@@ -2,11 +2,17 @@ require 'rails_helper'
 
 RSpec.describe Attempt, type: :model do
 
-  let(:question) { Question.create!(text: 'What is the question?', option1: 'A', option2: 'B', option3: 'C', option4: 'D', option5: 'E')}
-  let(:question_list) { QuestionList.create(name: 'Parent Questions', question_ids: "#{question.id},2,3")}
+  let!(:school) { School.create!(name: 'School') }
 
-  let(:recipient) { Recipient.create!(name: 'Parent', phone: '1112223333') }
-  let(:recipient_list) { RecipientList.create(name: 'Parent List', recipient_ids: recipient.id.to_s)}
+  let!(:recipient) { create_recipients(school, 1).first }
+  let!(:recipient_list) do
+    school.recipient_lists.create!(name: 'Parents', recipient_ids: "#{recipient.id}")
+  end
+
+  let!(:question) { create_questions(1).first }
+  let!(:question_list) do
+    QuestionList.create!(name: 'Parent Questions', question_ids: "#{question.id}")
+  end
 
   let(:schedule) { Schedule.create!(name: 'Parent Schedule', recipient_list_id: recipient_list.id, question_list: question_list) }
 

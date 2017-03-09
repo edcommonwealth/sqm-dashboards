@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe Recipient do
   describe "Import" do
-
     let(:school) { School.create!(name: 'School') }
     let(:data) { "name,phone\rJared,111-222-333\rLauren,222-333-4444\rAbby,333-444-5555\r" }
     let(:file) { instance_double('File', path: 'path') }
@@ -14,5 +13,9 @@ describe Recipient do
       expect(Recipient.all.map(&:name)).to eq(['Jared', 'Lauren', 'Abby'])
       expect(Recipient.all.map(&:school).uniq).to eq([school])
     end
+  end
+
+  describe "When Deleted" do
+    it 'should delete all recipient_schedules'
   end
 end
