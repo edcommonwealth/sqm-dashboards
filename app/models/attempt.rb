@@ -19,8 +19,10 @@ class Attempt < ApplicationRecord
 
     puts message.inspect
     puts message.try(:path)
+    puts message.try(:sid)
+    # message.path.split('/').last
 
-    update_attributes(sent_at: Time.new, twilio_sid: message.path.split('/').last)
+    update_attributes(sent_at: Time.new, twilio_sid: message.sid)
   end
 
 end
