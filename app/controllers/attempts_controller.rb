@@ -3,7 +3,12 @@ class AttemptsController < ApplicationController
   protect_from_forgery :except => [:twilio]
 
   def twilio
-    render plain: params.inspect
+    attempt = Attempt.where(twilio_sid: params[:MessageSid]).first
+    attempt.update_attributes(
+      answer_index: params[:Body].to_i,
+      twilio_details: params.to_h.to_yaml
+    )
+    render plain: attempt.inspect
   end
 
   # GET /attempts/1/edit

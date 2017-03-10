@@ -119,6 +119,7 @@ class FakeSMS
 
   def create(from:, to:, body:)
     self.class.messages << Message.new(from, to, body)
+    return Struct.new(:path).new('/path')
   end
 end
 
