@@ -17,12 +17,8 @@ class Attempt < ApplicationRecord
       body: "#{question.text}\n\r#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5"
     )
 
-    puts message.inspect
-    puts message.try(:path)
-    puts message.try(:sid)
-    # message.path.split('/').last
-
     update_attributes(sent_at: Time.new, twilio_sid: message.sid)
+    recipient.update_attributes(phone: client.account.messages.get(message.sid).to)
   end
 
 end
