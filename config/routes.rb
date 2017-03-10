@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/admin', to: 'admin#index', as: 'admin'
-  post '/twilio', to: 'attempt#twilio'
+  post '/twilio', to: 'attempts#twilio'
 
   root to: "welcome#index"
 end
