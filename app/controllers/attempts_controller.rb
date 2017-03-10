@@ -3,7 +3,7 @@ class AttemptsController < ApplicationController
   protect_from_forgery :except => [:twilio]
 
   def twilio
-    attempt = Attempt.where(from: params['From']).first
+    attempt = Recipient.where(phone: params['From']).first.attempts.last
     attempt.update_attributes(
       answer_index: params[:Body].to_i,
       twilio_details: params.to_h.to_yaml
