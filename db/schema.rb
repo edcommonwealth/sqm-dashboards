@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308160911) do
+ActiveRecord::Schema.define(version: 20170309191211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170308160911) do
     t.integer  "open_response_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.text     "twilio_details"
   end
 
   create_table "categories", force: :cascade do |t|

@@ -15,10 +15,13 @@ Rails.application.routes.draw do
     resources :schedules
   end
 
+  resources :attempts, only: [:get, :update]
+
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/admin', to: 'admin#index', as: 'admin'
+  post '/twilio', to: 'attempt#twilio'
 
   root to: "welcome#index"
 end
