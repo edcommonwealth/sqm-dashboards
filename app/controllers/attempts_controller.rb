@@ -1,5 +1,6 @@
 class AttemptsController < ApplicationController
   before_action :set_attempt, only: [:edit, :update]
+  protect_from_forgery :except => [:twilio]
 
   def twilio
     render plain: params.inspect
