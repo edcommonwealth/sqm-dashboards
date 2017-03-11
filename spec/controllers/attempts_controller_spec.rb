@@ -26,7 +26,7 @@ RSpec.describe AttemptsController, type: :controller do
   }
 
 
-  describe "POS #twilio" do
+  describe "POST #twilio" do
     context "with valid params" do
       let(:twilio_attributes) {
         {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+11231231234','To' => '2223334444','Body' => '3','NumMedia' => '0'}
@@ -37,6 +37,8 @@ RSpec.describe AttemptsController, type: :controller do
         attempt.reload
         expect(attempt.answer_index).to eq(3)
         expect(attempt.twilio_details).to eq(twilio_attributes.with_indifferent_access.to_yaml)
+        expect(first_attempt.answer_index).to be_nil
+        expect(first_attempt.twilio_details).to be_nil
       end
 
       it "sends back a message" do

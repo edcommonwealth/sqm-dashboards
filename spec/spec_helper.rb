@@ -100,6 +100,10 @@ RSpec.configure do |config|
   config.before(:each) do
     stub_const("Twilio::REST::Client", FakeSMS)
   end
+
+  config.after(:each) do
+    FakeSMS.reset
+  end
 end
 
 
@@ -111,6 +115,10 @@ class FakeSMS
   self.messages = []
 
   def initialize(_account_sid, _auth_token)
+  end
+
+  def self.reset
+    self.messages = []
   end
 
   def messages
