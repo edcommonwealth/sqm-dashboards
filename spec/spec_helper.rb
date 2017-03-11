@@ -119,7 +119,11 @@ class FakeSMS
 
   def create(from:, to:, body:)
     self.class.messages << Message.new(from, to, body)
-    return Struct.new(:sid).new('sid')
+    return Struct.new(:sid).new(self.class.messages.length-1)
+  end
+
+  def get(sid)
+    Struct.new(:to).new("+1#{self.class.messages[sid].to}")
   end
 end
 

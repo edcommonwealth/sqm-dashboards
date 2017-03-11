@@ -18,7 +18,7 @@ class Attempt < ApplicationRecord
     )
 
     update_attributes(sent_at: Time.new, twilio_sid: message.sid)
-    recipient.update_attributes(phone: client.account.messages.get(message.sid).to)
+    recipient.update_attributes(phone: client.messages.get(message.sid).to)
   end
 
 end

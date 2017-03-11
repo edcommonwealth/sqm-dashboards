@@ -43,12 +43,16 @@ RSpec.describe Attempt, type: :model do
 
     it 'should contact the Twilio API' do
       expect(FakeSMS.messages.length).to eq(1)
-      # expect(FakeSMS.messages.first.body).to eq('Question 0:1%0a%0aOption 0:1 A: Reply 1\n\r%0a%OaOption 0:1 B: Reply 2%0aOption 0:1 C: Reply 3%0aOption 0:1 D: Reply 4%0aOption 0:1 E: Reply 5')
-      expect(FakeSMS.messages.first.to).to eq(recipient.phone)
+      expect(FakeSMS.messages.first.body).to eq("Question 0:1\n\rOption 0:1 A: Reply 1\n\rOption 0:1 B: Reply 2\n\rOption 0:1 C: Reply 3\n\rOption 0:1 D: Reply 4\n\rOption 0:1 E: Reply 5")
+      expect(FakeSMS.messages.first.to).to eq('1111111111')
     end
 
     it 'should update sent_at' do
       expect(attempt.sent_at).to eq(Time.new)
+    end
+
+    it 'should update the recipient phone number' do
+      expect(attempt.recipient.reload.phone).to eq('+11111111111')
     end
   end
 end
