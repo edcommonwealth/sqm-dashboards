@@ -3,11 +3,11 @@ require 'csv'
 namespace :data do
   desc "Load in all data"
   task load: :environment do
-    # return if School.count > 0
-    # Rake::Task["db:seed"].invoke
+    return if School.count > 0
+    Rake::Task["db:seed"].invoke
     Rake::Task["data:load_categories"].invoke
     Rake::Task["data:load_questions"].invoke
-    # Rake::Task["data:load_student_responses"].invoke
+    Rake::Task["data:load_student_responses"].invoke
   end
 
   desc 'Load in category data'
@@ -123,26 +123,50 @@ namespace :data do
   task load_student_responses: :environment do
     ENV['BULK_PROCESS'] = 'true'
     answer_dictionary = {
-      'Slightly': 'Somewhat'
+      'Slightly': 'Somewhat',
+      'an incredible': 'a tremendous',
+      'a little': 'a little bit',
+      'slightly': 'somewhat',
+      'a little well': 'slightly well',
+      'quite': 'very',
+      'a tremendous': 'a very great',
+      'somewhat clearly': 'somewhat',
+      'almost never': 'once in a while',
+      'always': 'all the time',
+      'not at all strong': 'not strong at all',
+      'each': 'every'
     }
+    respondent_map = {}
 
     unknown_schools = {}
     missing_questions = {}
     bad_answers = {}
     year = '2016'
     ['student_responses', 'teacher_responses'].each do |file|
-      source = Measurement.sources[file.split('_')[0]]
+      # source = Measurement.sources[file.split('_')[0]]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
       csv = CSV.parse(csv_string, :headers => true)
       csv.each do |row|
         school_name = row['What school do you go to?']
         school_name = row['What school do you work at'] if school_name.nil?
         school = School.find_by_name(school_name)
+
         if school.nil?
           next if unknown_schools[school_name]
           puts "Unable to find school: #{school_name}"
           unknown_schools[school_name] = true
           next
+        end
+
+        respondent_id = row['RespondentID']
+        recipient_id = respondent_map[respondent_id]
+        if recipient_id.present?
+          recipient = school.recipients.where(id: recipient_id).first
+        else
+          recipient = school.recipients.create(
+            name: "Survey Respondent Id: #{respondent_id}"
+          )
+          respondent_map[respondent_id] = recipient.id
         end
 
         row.each do |key, value|
@@ -157,26 +181,27 @@ namespace :data do
             next
           end
 
-          answers = YAML::load(question.answers).collect { |a| a.gsub(/[[:space:]]/, ' ').strip.downcase }
-          answerIndex = answers.index(value)
+          answer_index = question.option_index(value)
           answer_dictionary.each do |k, v|
-            break if answerIndex.present?
-            answerIndex = answers.index(value.gsub(k.to_s, v.to_s)) || answers.index(value.gsub(v.to_s, k.to_s))
+            break if answer_index.present?
+            answer_index = question.option_index(value.gsub(k.to_s, v.to_s))
+            answer_index = question.option_index(value.gsub(v.to_s, k.to_s)) if answer_index.nil?
           end
 
-          if answerIndex.nil?
+          if answer_index.nil?
             next if bad_answers[key]
-            puts "Unable to find answer: #{key} = #{value} - #{answers.inspect}"
+            puts "Unable to find answer: #{key} = #{value.downcase.strip} - #{question.options.inspect}"
             bad_answers[key] = true
             next
           end
 
-          question.measurements.create(school: school, likert: answerIndex + 1, source: source)
+          responded_at = Date.strptime(row['EndDate'], '%m/%d/%Y %H:%M:%S')
+          recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
         end
       end
     end
     ENV.delete('BULK_PROCESS')
 
-    SchoolMeasure.all.each { |sm| sm.calculate_measurements }
+    # SchoolMeasure.all.each { |sm| sm.calculate_measurements }
   end
 end

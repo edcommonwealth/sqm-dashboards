@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310191800) do
+ActiveRecord::Schema.define(version: 20170311195824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20170310191800) do
     t.integer  "school_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.index ["phone"], name: "index_recipients_on_phone", using: :btree
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -126,6 +127,7 @@ ActiveRecord::Schema.define(version: 20170310191800) do
     t.integer  "district_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.text     "description"
   end
 
   create_table "users", force: :cascade do |t|
