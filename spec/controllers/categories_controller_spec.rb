@@ -45,10 +45,18 @@ RSpec.describe CategoriesController, type: :controller do
   end
 
   describe "GET #show" do
-    it "assigns the requested category as @category" do
+    it "assigns the requested school and category as @school and @category" do
+      school = School.create! name: 'School'
+      category = Category.create! valid_attributes
+      get :show, params: {school_id: school.id, id: category.to_param}, session: valid_session
+      expect(assigns(:category)).to eq(category)
+      expect(assigns(:school)).to eq(school)
+    end
+
+    it "redirects to root_path if school is not provided" do
       category = Category.create! valid_attributes
       get :show, params: {id: category.to_param}, session: valid_session
-      expect(assigns(:category)).to eq(category)
+      expect(response).to redirect_to(root_path)
     end
   end
 

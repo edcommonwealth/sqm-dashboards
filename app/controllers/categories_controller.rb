@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :set_school, only: [:show]
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
@@ -62,7 +63,12 @@ class CategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def set_school
+      redirect_to root_path and return false unless params.include?(:school_id)
+      @school = School.find(params[:school_id])
+      redirect_to root_path and return false if @school.nil?
+    end
+
     def set_category
       @category = Category.find(params[:id])
     end

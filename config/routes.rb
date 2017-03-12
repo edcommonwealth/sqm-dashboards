@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
     end
     resources :schedules
+    resources :categories, only: [:show]
   end
 
   # resources :attempts, only: [:get, :update]
