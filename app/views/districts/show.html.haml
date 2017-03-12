@@ -1,10 +1,19 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @district.name
-%p
-  %strong State:
-  = @district.state_id
-= link_to 'Edit', edit_district_path(@district)
-|
-= link_to 'Back', districts_path
+.row
+  .col-12
+    %p
+      %strong Name:
+      = @district.name
+    %p
+      %strong State:
+      = @district.state_id
+
+    %p
+      = link_to 'Edit', edit_district_path(@district)
+      |
+      = link_to 'Back', districts_path
+
+.row.mt-3
+  .col-12
+    %h4 Schools
+    - @schools.each do |school|
+      %p= link_to school.name, school

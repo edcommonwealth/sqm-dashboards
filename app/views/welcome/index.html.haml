@@ -1,9 +1,17 @@
-%p= link_to "Create A New District", new_district_path
+.row
+  .col-12
+    %p= link_to "Create A New District", new_district_path
 
-%p= link_to "Create A New School", new_school_path
+    %p= link_to "Create A New School", new_school_path
 
-%br
 
-%h4 Schools
-- @schools.each do |school|
-  %p= link_to school.name, school
+.row.mt-3
+  .col-6
+    %h4 Districts
+    - @districts.each do |district|
+      %p= link_to district.name, district
+
+  .col-6
+    %h4 Schools
+    - @schools.each do |school|
+      %p= link_to school.name, school
