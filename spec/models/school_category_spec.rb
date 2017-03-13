@@ -35,7 +35,13 @@ RSpec.describe SchoolCategory, type: :model do
     end
   end
 
-  describe 'sync_responses' do
+  describe 'answer_index_average' do
+    it 'should provide the average answer_index for all responses' do
+      expect(school_category1.answer_index_average).to eq(15.0/4.0)
+    end
+  end
+
+  describe 'sync_aggregated_responses' do
 
     let!(:category3) { Category.create!(name: 'Category 3', parent_category: category1) }
 

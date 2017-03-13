@@ -10,6 +10,7 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
+    @school_categories = @school.school_categories.for_parent_category(nil).sort
   end
 
   # GET /schools/new

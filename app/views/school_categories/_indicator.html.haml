@@ -1,0 +1,34 @@
+- num_likerts = 5
+- likert = school_category.answer_index_average
+- average_offset = (likert/num_likerts) * 100
+- zones = ['Warning Zone: Schools that fall in this range are five or more years away from reaching community-wide targets.  Consequently, this zone, as established by teachers, principals, parents, and district administrators, indicates that a school is in significant need of improvement.  If the school is not in the Warning Zone in other areas, it may be a relatively successful school overall.  Still, it must immediately develop a plan for addressing its shortcomings.', 'Watch Zone: Schools falling in this range are three or four years away from reaching community-wide targets.  This zone, established by teachers, principals, parents, and district administrators, is not an ideal place for schools to be.  But it does not mean that the school is failing.  Instead, it means that the school needs to place particular emphasis on improving its work in this area.', 'Growth Zone: Schools falling in this range earned scores just below "acceptable."  Yet these schools are close enough to the Approval Zone that they might reasonably reach it within two years.  As established by teachers, principals, parents, and district administrators, this zone is an acceptable place for schools to be if they have the leadership, focus, and resources to improve their work in a particular area.', 'Approval Zone: Schools falling in this range earned scores between "acceptable" and "ideal."  This zone, established by teachers, principals, parents, and district administrators, is the target that all schools should be striving to hit.  Scoring in this range does not mean that a school is perfect; but it does mean that it is meeting or exceeding community-wide expectations in a particular category.', 'This area represents a set of outcomes so close to perfect that they are unlikely to be realized in any school.']
+- approval_zone = [[76, 90], [77, 91], [71, 85], [73, 86], [73, 86]][school_category.category.root_index]
+
+- zone_widths = [0]
+- zone_widths << approval_zone[0] - (15 + 15)
+- zone_widths << 15
+- zone_widths << 15
+- zone_widths << approval_zone[1] - approval_zone[0]
+- zone_widths << 100 - approval_zone[1]
+
+- buffer = 0.25
+- this_school_zone = "This school scored in the range between #{(likert - buffer).round(2)} and #{(likert + buffer).round(2)}.\n\nMouse over each color to read a description of each zone."
+
+.indicator{class: (local_assigns[:small] ? 'small' : '')}
+  .indicator-circle
+    .indicator-zones{style: "margin-left: #{local_assigns[:small] ? ((average_offset - 5) * -10) : 0}%"}
+      - zone_total = 0
+      - zones.each_with_index do |zone, index|
+        %div{class: "zone#{index}", style: "width: #{zone_widths[index+1]}%", title: "#{zone}\n\nThis zone: #{(zone_total/20.0).round(2)} - #{((zone_total + zone_widths[index+1])/20.0).round(2)}\nThis school: #{(likert - buffer).round(2)} - #{(likert + buffer).round(2)}"}
+        - zone_total += zone_widths[index + 1]
+    - if local_assigns[:small]
+      -#
+        .average{title: this_school_zone}
+          This School
+    - else
+      .average{style: "left: #{average_offset - 5}%", title: this_school_zone}
+        %span This School
+
+- if local_assigns[:caption]
+  .explanation
+    * Mouse-over each colored area for detailed description.

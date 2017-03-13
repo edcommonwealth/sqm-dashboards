@@ -3,6 +3,10 @@
     %p
       %strong Name:
       = @school.name
-    %p
-      %strong District:
-      = @school.district_id
+    - if @school.district.present?
+      %p
+        %strong District:
+        = link_to @school.district.name, @school.district
+
+.row
+  = render @school_categories
