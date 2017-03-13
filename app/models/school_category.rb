@@ -20,8 +20,31 @@ class SchoolCategory < ApplicationRecord
     }
   end
 
-  def aggregate_responses
-    return if ENV['BULK_PROCESS']
+  def chained_aggregated_responses
+    _aggregated_responses = aggregated_responses
 
+    child_school_categories = category.child_categories.collect do |cc|
+      SchoolCategory.for(school, cc)
+    end.flatten
+
+    return {
+      attempt_count:
+        _aggregated_responses[:attempt_count] +
+        child_school_categories.inject(0) { |total, csc| total + csc.attempt_count },
+      response_count:
+        _aggregated_responses[:response_count] +
+        child_school_categories.inject(0) { |total, csc| total + csc.response_count },
+      answer_index_total:
+        _aggregated_responses[:answer_index_total] +
+        child_school_categories.inject(0) { |total, csc| total + csc.answer_index_total }
+    }
+  end
+
+  def sync_aggregated_responses
+    return if ENV['BULK_PROCESS']
+    update_attributes(chained_aggregated_responses)
+    if category.parent_category.present?
+      SchoolCategory.for(school, category.parent_category).each { |sc| sc.sync_aggregated_responses }
+    end
   end
 end
