@@ -3,6 +3,9 @@ class SchoolCategory < ApplicationRecord
   belongs_to :school
   belongs_to :category
 
+  validates_associated :school
+  validates_associated :category
+
   scope :for, -> (school, category) { where(school: school).where(category: category) }
 
   def aggregated_responses
@@ -14,9 +17,9 @@ class SchoolCategory < ApplicationRecord
       select('sum(attempts.answer_index) as answer_index_total')[0]
 
     return {
-      attempt_count: attempt_data.attempt_count,
-      response_count: attempt_data.response_count,
-      answer_index_total: attempt_data.answer_index_total
+      attempt_count: attempt_data.attempt_count || 0,
+      response_count: attempt_data.response_count || 0,
+      answer_index_total: attempt_data.answer_index_total || 0
     }
   end
 

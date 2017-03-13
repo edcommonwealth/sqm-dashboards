@@ -9,7 +9,8 @@ RSpec.describe RecipientSchedule, type: :model do
     school.recipient_lists.create!(name: 'Parents', recipient_ids: "#{recipient.id}")
   end
 
-  let!(:questions) { create_questions(3) }
+  let(:category) { Category.create(name: 'Category') }
+  let!(:questions) { create_questions(3, category) }
   let!(:question_list) do
     QuestionList.create!(name: 'Parent Questions', question_ids: questions.map(&:id).join(','))
   end

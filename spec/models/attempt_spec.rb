@@ -9,7 +9,8 @@ RSpec.describe Attempt, type: :model do
     school.recipient_lists.create!(name: 'Parents', recipient_ids: "#{recipient.id}")
   end
 
-  let!(:question) { create_questions(1).first }
+  let!(:category) { Category.create(name: 'Category') }
+  let!(:question) { create_questions(1, category).first }
   let!(:question_list) do
     QuestionList.create!(name: 'Parent Questions', question_ids: "#{question.id}")
   end
@@ -33,6 +34,30 @@ RSpec.describe Attempt, type: :model do
       recipient_schedule: recipient_schedule,
       question: question
     )
+  end
+
+  describe 'after_save' do
+    let!(:school_categories) { SchoolCategory.for(attempt.recipient.school, attempt.question.category) }
+
+    it 'creates the associated school_category' do
+      expect(school_categories.count).to eq(1)
+      expect(school_categories.first.attempt_count).to eq(1)
+      expect(school_categories.first.response_count).to eq(0)
+      expect(school_categories.first.answer_index_total).to eq(0)
+    end
+
+    describe 'after_update' do
+      before :each do
+        attempt.update_attributes(answer_index: 4)
+      end
+
+      it 'updates associated school_categories' do
+        expect(school_categories.count).to eq(1)
+        expect(school_categories.first.attempt_count).to eq(1)
+        expect(school_categories.first.response_count).to eq(1)
+        expect(school_categories.first.answer_index_total).to eq(4)
+      end
+    end
   end
 
   describe 'send_message' do

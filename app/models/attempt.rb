@@ -33,7 +33,7 @@ class Attempt < ApplicationRecord
       if school_category.nil?
         school_category = SchoolCategory.create(school: recipient.school, category: question.category)
       end
-      # school_category.aggregate_responses
+      school_category.sync_aggregated_responses
     end
 
 end

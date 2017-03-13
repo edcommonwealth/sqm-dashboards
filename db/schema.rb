@@ -125,11 +125,11 @@ ActiveRecord::Schema.define(version: 20170312202259) do
   create_table "school_categories", force: :cascade do |t|
     t.integer  "school_id"
     t.integer  "category_id"
-    t.integer  "attempt_count"
-    t.integer  "response_count"
-    t.integer  "answer_index_total"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "attempt_count",      default: 0
+    t.integer  "response_count",     default: 0
+    t.integer  "answer_index_total", default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.index ["category_id"], name: "index_school_categories_on_category_id", using: :btree
     t.index ["school_id"], name: "index_school_categories_on_school_id", using: :btree
   end
