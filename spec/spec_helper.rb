@@ -146,7 +146,7 @@ def create_recipients(school, count)
   return recipients
 end
 
-def create_questions(count)
+def create_questions(count, category=nil)
   questions = []
   count.times do |i|
     questions << Question.create(
@@ -155,7 +155,8 @@ def create_questions(count)
       option2: "Option #{i}:#{count} B",
       option3: "Option #{i}:#{count} C",
       option4: "Option #{i}:#{count} D",
-      option5: "Option #{i}:#{count} E"
+      option5: "Option #{i}:#{count} E",
+      category: category
     )
   end
   return questions

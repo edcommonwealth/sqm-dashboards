@@ -5,9 +5,11 @@ RSpec.describe AttemptsController, type: :controller do
   let(:valid_session) { {} }
 
   let(:schedule) { Schedule.new }
-  let(:recipient) { Recipient.create(name: 'Recipient', phone: '+11231231234') }
+  let(:school) { School.create!(name: 'School') }
+  let(:recipient) { Recipient.create!(name: 'Recipient', phone: '+11231231234') }
   let(:recipient_schedule) { RecipientSchedule.new }
-  let(:question) { Question.new }
+  let(:category) { Category.create!(name: 'Category') }
+  let(:question) { create_questions(1, category).first }
   let!(:first_attempt) {
     Attempt.create(
       schedule: schedule,

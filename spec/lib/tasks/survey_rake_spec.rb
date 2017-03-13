@@ -29,7 +29,8 @@ describe "survey:attempt_questions" do
       school.recipient_lists.create!(name: 'Parents', recipient_ids: recipients.map(&:id).join(','))
     end
 
-    let!(:questions) { create_questions(3) }
+    let!(:category) { Category.create(name: 'Category') }
+    let!(:questions) { create_questions(3, category) }
     let!(:question_list) do
       QuestionList.create!(name: 'Parent Questions', question_ids: questions.map(&:id).join(','))
     end
@@ -86,7 +87,7 @@ describe "survey:attempt_questions" do
 
       describe 'A Week Later' do
         before :each do
-          Timecop.freeze(Date.today + 8) { subject.invoke }
+          Timecop.freeze(Date.today + 10) { subject.invoke }
         end
 
         it 'should create the second attempt for each recipient with a different question' do

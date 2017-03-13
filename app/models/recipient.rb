@@ -8,6 +8,8 @@ class Recipient < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :for_school, -> (school) { where(school: school) }
+
   before_destroy :sync_lists
 
   def self.import(school, file)

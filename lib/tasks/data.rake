@@ -202,6 +202,6 @@ namespace :data do
     end
     ENV.delete('BULK_PROCESS')
 
-    # SchoolMeasure.all.each { |sm| sm.calculate_measurements }
+    SchoolCategory.all.each { |sc| sc.aggregate_responses }
   end
 end
