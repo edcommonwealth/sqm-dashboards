@@ -9,12 +9,15 @@ class Category < ApplicationRecord
 
   scope :for_parent, -> (category=nil) { where(parent_category_id: category.try(:id)) }
 
-  def root_identifier
+  def path
     p = self
-    while p.parent_category.present?
-      p = p.parent_category
-    end
-    p.name.downcase.gsub(/\s/, '-')
+    items = [p]
+    items << p while (p = p.try(:parent_category))
+    items.uniq.compact.reverse
+  end
+
+  def root_identifier
+    path.first.name.downcase.gsub(/\s/, '-')
   end
 
   def root_index

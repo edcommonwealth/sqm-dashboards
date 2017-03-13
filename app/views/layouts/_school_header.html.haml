@@ -1,0 +1,10 @@
+.row
+  .col
+    =# link_to(image_tag(@district.logo), @district) if @district.present?
+    %h2= link_to @school.name, @school
+    = simple_format(@school.description)
+    %p Data for 2015-2016 school year.
+    - if @school.district.present?
+      %p
+        %strong District:
+        = link_to @school.district.name, @school.district

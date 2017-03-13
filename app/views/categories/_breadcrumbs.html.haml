@@ -1,0 +1,2 @@
+%p
+  = school_category.category.path.map { |c| link_to(c.name, [school_category.school, c]) }.join(' > ').html_safe

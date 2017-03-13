@@ -1,12 +1,4 @@
-.row
-  .col
-    %p
-      %strong Name:
-      = @school.name
-    - if @school.district.present?
-      %p
-        %strong District:
-        = link_to @school.district.name, @school.district
+= render 'layouts/school_header'
 
 .row
   = render @school_categories

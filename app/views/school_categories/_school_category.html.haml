@@ -1,12 +1,12 @@
-.col-4.py-3
-  .school_category.p-2
+.col-6.py-3
+  .school_category.short.p-2
     %h4.title.text-center.pt-3
       = link_to(school_category.category.name, [school_category.school, school_category.category])
 
-    .indicator-container
+    .indicator-container.short
       = render 'school_categories/indicator', school_category: school_category
 
-    .description.px-2.pt-3.pb-2
+    .description.px-2.pt-3.pb-2.mt-2
       - if false #(measurements = school_category.questions.measurements.for_school(school_measure.school)).present?
         = render 'measurements/nonlikert', measurement: measurements.first, description: school_measure.measure.description
       - else

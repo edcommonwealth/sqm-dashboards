@@ -1,38 +1,30 @@
-%p#notice= notice
-%p
-  %strong Name:
-  = @category.name
-%p
-  %strong Blurb:
-  = @category.blurb
-%p
-  %strong Description:
-  = @category.description
-%p
-  %strong External:
-  = @category.external_id
+= render 'layouts/school_header'
 
-%p
-  %strong Parent Category:
-  &nbsp;
-  = render partial: 'categories/full_path', locals: {category: @category}
+.row
+  .col-12
+    %p
+      = render 'categories/breadcrumbs', school_category: @school_category
 
-- if @category.child_categories.present?
-  %p
-    %strong Child Categories:
-    - @category.child_categories.each do |child_category|
-      &nbsp; 
-      = link_to child_category.name, child_category
+.row
+  .col-12
+    .school_category.p-2
+      %h3.title.text-center.pt-3
+        = @category.name
 
+      %p= @category.description
+      %p
+        %b Total Responses:
+        = number_with_delimiter(@school_category.response_count)
 
-%p
-  %strong Questions
+        &nbsp; &nbsp; &nbsp;
 
-- @category.questions.each do |question|
-  %p= link_to(question.text, question)
+        %b Average Response:
+        = @school_category.answer_index_average.round(1)
+        (out of 5)
 
+      .indicator-container.py-3
+        = render 'school_categories/indicator', school_category: @school_category
 
-
-= link_to 'Edit', edit_category_path(@category)
-|
-= link_to 'Back', categories_path
+- if @child_school_categories.present?
+  .row
+    = render @child_school_categories

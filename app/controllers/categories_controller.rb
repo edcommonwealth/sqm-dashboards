@@ -11,6 +11,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    @school_category = SchoolCategory.for(@school, @category).first
+    @child_school_categories = SchoolCategory.for_parent_category(@school, @category)
   end
 
   # GET /categories/new
