@@ -196,7 +196,7 @@ namespace :data do
           end
 
           responded_at = Date.strptime(row['EndDate'], '%m/%d/%Y %H:%M:%S')
-          recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
+          recipient.attempts.create(question: question, answer_index: answer_index + 1, responded_at: responded_at)
         end
       end
     end

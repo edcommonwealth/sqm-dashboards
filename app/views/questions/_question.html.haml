@@ -24,15 +24,14 @@
 
     .clearfix
 
-  -#
     .show-hide
       %p
         %span{class: 'toggle', data: {toggle: 'histogram-answers'}}= "<span class='toggle'>Show</span> Histogram".html_safe
         &nbsp; | &nbsp;
         %span{class: 'toggle', data: {toggle: 'raw'}}= "<span class='toggle'>Show</span> Raw Data".html_safe
 
-      - if question.is_a?(Question) || question.is_a?(GroupedQuestion)
-        .histogram-answers.hidden
-          = render question
+      .histogram-answers.hidden
+        = render 'shared/histogram', data: aggregated_responses
 
-      %p.raw.hidden= likerts.join(', ')
+      %p.raw.hidden
+        = aggregated_responses.responses.map(&:answer_index).join(', ')
