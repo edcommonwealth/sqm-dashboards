@@ -1,0 +1,38 @@
+- aggregated_responses = question.aggregated_responses_for_school(@school)
+- return if aggregated_responses.nil?
+
+.col-6.py-3
+  .question.p-2{id: "question-#{question.id}"}
+    %p.question-text.pt-3.px-2
+      %b Question:
+      = question.text
+
+    .pb-3.px-2
+      .indicator-container.float-left
+        = render 'school_categories/indicator', info: aggregated_responses, small: true
+
+      .pl-3.pt-1.float-left
+        %p
+          %b Total Responses:
+          = aggregated_responses.count
+        %p
+          %b Most Popular:
+          = truncate(aggregated_responses.most_popular_answer, length: 27)
+        %p
+          %b Source:
+          =# question.source(@school)
+
+    .clearfix
+
+  -#
+    .show-hide
+      %p
+        %span{class: 'toggle', data: {toggle: 'histogram-answers'}}= "<span class='toggle'>Show</span> Histogram".html_safe
+        &nbsp; | &nbsp;
+        %span{class: 'toggle', data: {toggle: 'raw'}}= "<span class='toggle'>Show</span> Raw Data".html_safe
+
+      - if question.is_a?(Question) || question.is_a?(GroupedQuestion)
+        .histogram-answers.hidden
+          = render question
+
+      %p.raw.hidden= likerts.join(', ')

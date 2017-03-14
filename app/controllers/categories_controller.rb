@@ -13,6 +13,7 @@ class CategoriesController < ApplicationController
   def show
     @school_category = SchoolCategory.for(@school, @category).first
     @child_school_categories = SchoolCategory.for_parent_category(@school, @category)
+    @questions = @category.questions
   end
 
   # GET /categories/new

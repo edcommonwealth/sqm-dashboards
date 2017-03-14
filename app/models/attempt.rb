@@ -11,6 +11,7 @@ class Attempt < ApplicationRecord
 
   scope :for_category, -> (category) { joins(:question).merge(Question.for_category(category)) }
   scope :for_school, -> (school) { joins(:recipient).merge(Recipient.for_school(school)) }
+  scope :with_responses, -> { where('answer_index is not null')}
 
   def send_message
     twilio_number = ENV['TWILIO_NUMBER']

@@ -1,4 +1,4 @@
-.school_category {
+.school_category, .question {
   border: 1px solid black;
 
   .title {
@@ -63,6 +63,26 @@
         }
       }
     }
+
+    &.small {
+      height: 87px;
+
+      .indicator-circle {
+        width: 90px;
+        overflow: hidden;
+
+        .indicator-zones {
+          width: 900px;
+        }
+
+        .average {
+          border: none;
+          text-align: center;
+          width: 100%;
+          line-height: 90px;
+        }
+      }
+    }
   }
 
   &.short {
@@ -87,27 +107,3 @@
     }
   }
 }
-
-// .indicator {
-//
-//   &.small {
-//     height: 90px;
-//
-//     .indicator-circle {
-//       width: 90px;
-//       overflow: hidden;
-//
-//       .indicator-zones {
-//         width: 900px;
-//       }
-//
-//       .average {
-//         border: none;
-//         text-align: center;
-//         width: 100%;
-//         line-height: 90px;
-//       }
-//     }
-//   }
-//
-// }

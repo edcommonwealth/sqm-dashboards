@@ -4,7 +4,7 @@
       = link_to(school_category.category.name, [school_category.school, school_category.category])
 
     .indicator-container.short
-      = render 'school_categories/indicator', school_category: school_category
+      = render 'school_categories/indicator', info: school_category
 
     .description.px-2.pt-3.pb-2.mt-2
       - if false #(measurements = school_category.questions.measurements.for_school(school_measure.school)).present?
