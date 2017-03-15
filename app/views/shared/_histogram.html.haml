@@ -1,2 +1,12 @@
-%p
-  =# data.inspect
+- histogram = data.responses.map(&:answer_index).group_by { |a| a.to_s }
+%table.answers
+  %tbody
+    - data.question.options.each_with_index do |option, index|
+      %tr.answer
+        - group = histogram[(index + 1).to_s]
+        - width = (100 * (group.blank? ? 0 : group.length)) / histogram.values.flatten.length
+        %td.text
+          = "#{option}:"
+          = group.blank? ? 0 : group.length
+        %td.count
+          %div{class: "bar#{index}", style: "width: #{width}%"}

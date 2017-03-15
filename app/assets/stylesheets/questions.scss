@@ -1,3 +1,40 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.answers {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+
+  .answer {
+    border-top: 1px solid #ccc;
+
+    .text {
+      width: 50%;
+    }
+
+    td {
+      line-height: 2em;
+      div {
+        margin: 0.25em 0;
+        height: 1.5em;
+      }
+    }
+
+    .bar0 {
+      background-color: red;
+    }
+    .bar1 {
+      background-color: orange;
+    }
+    .bar2 {
+      background-color: lightgreen;
+    }
+    .bar3 {
+      background-color: green;
+    }
+    .bar4 {
+      background-color: gray;
+    }
+  }
+}

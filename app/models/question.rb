@@ -23,11 +23,11 @@ class Question < ApplicationRecord
   scope :for_category, -> (category) { where(category: category) }
 
   def options
-    [option1, option2, option3, option4, option5].map(&:downcase).map(&:strip)
+    [option1, option2, option3, option4, option5]
   end
 
   def option_index(answer)
-    options.index(answer.downcase.strip)
+    options.map(&:downcase).map(&:strip).index(answer.downcase.strip)
   end
 
   def aggregated_responses_for_school(school)

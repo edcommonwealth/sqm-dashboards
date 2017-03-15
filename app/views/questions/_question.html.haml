@@ -24,13 +24,13 @@
 
     .clearfix
 
-    .show-hide
+    .show-hide.px-2
       %p
         %a{"aria-controls" => "histogram#{question.id}", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#histogram#{question.id}"}
-          = "<span class='toggle'>Show</span> Histogram".html_safe
-        &nbsp; | &nbsp;
+          Histogram
+        &nbsp;&nbsp;|&nbsp;&nbsp;
         %a{"aria-controls" => "raw-data#{question.id}", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#raw-data#{question.id}"}
-          = "<span class='toggle'>Show</span> Raw Data".html_safe
+          Raw Data
 
       .collapse{id: "histogram#{question.id}"}
         = render 'shared/histogram', data: aggregated_responses
