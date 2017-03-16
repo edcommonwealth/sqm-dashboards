@@ -2,7 +2,7 @@
   .col
     %p
       %strong School:
-      = @school.name
+      = link_to @school.name, school_admin_path(@school)
     %p
       %strong Recipient:
       = @recipient.name

@@ -22,6 +22,7 @@ class RecipientSchedule < ApplicationRecord
   end
 
   def attempt_question(question: next_question)
+    return if recipient.opted_out?
     attempt = recipient.attempts.create(
       schedule: schedule,
       recipient_schedule: self,

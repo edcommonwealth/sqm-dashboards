@@ -57,32 +57,47 @@ RSpec.describe RecipientSchedule, type: :model do
       Timecop.freeze
     end
 
-    let!(:attempt) { recipient_schedule.attempt_question }
+    describe 'with an opted out recipient' do
+      before :each do
+        recipient_schedule.recipient.update_attributes(opted_out: true)
+      end
+      
+      let!(:attempt) { recipient_schedule.attempt_question }
 
-    it 'should make an attempt to ask the next question' do
-      expect(attempt).to be_persisted
-      expect(attempt.recipient).to eq(recipient)
-      expect(attempt.schedule).to eq(schedule)
-      expect(attempt.recipient_schedule).to eq(recipient_schedule)
-      expect(attempt.question).to eq(questions.first)
-      expect(attempt.sent_at.to_i).to eq(Time.new.to_i)
-      expect(attempt.answer_index).to be_nil
+      it 'should not do anything' do
+        expect(attempt).to be_nil
+      end
+
     end
 
-    it 'should update the upcoming_questions_ids' do
-      expect(recipient_schedule.upcoming_question_ids).to eq(questions[1..2].map(&:id).join(','))
-    end
+    describe 'with an opted in recipient' do
+      let!(:attempt) { recipient_schedule.attempt_question }
 
-    it 'should update the attempted_question_ids' do
-      expect(recipient_schedule.attempted_question_ids).to eq(questions.first.id.to_s)
-    end
+      it 'should make an attempt to ask the next question' do
+        expect(attempt).to be_persisted
+        expect(attempt.recipient).to eq(recipient)
+        expect(attempt.schedule).to eq(schedule)
+        expect(attempt.recipient_schedule).to eq(recipient_schedule)
+        expect(attempt.question).to eq(questions.first)
+        expect(attempt.sent_at.to_i).to eq(Time.new.to_i)
+        expect(attempt.answer_index).to be_nil
+      end
 
-    it 'should update last_attempt_at' do
-      expect(recipient_schedule.last_attempt_at.to_i).to eq(Time.new.to_i)
-    end
+      it 'should update the upcoming_questions_ids' do
+        expect(recipient_schedule.upcoming_question_ids).to eq(questions[1..2].map(&:id).join(','))
+      end
 
-    it 'should update next_attempt_at' do
-      expect(recipient_schedule.next_attempt_at.to_i).to eq((Time.new + (60 * 60 * schedule.frequency_hours)).to_i)
+      it 'should update the attempted_question_ids' do
+        expect(recipient_schedule.attempted_question_ids).to eq(questions.first.id.to_s)
+      end
+
+      it 'should update last_attempt_at' do
+        expect(recipient_schedule.last_attempt_at.to_i).to eq(Time.new.to_i)
+      end
+
+      it 'should update next_attempt_at' do
+        expect(recipient_schedule.next_attempt_at.to_i).to eq((Time.new + (60 * 60 * schedule.frequency_hours)).to_i)
+      end
     end
   end
 end

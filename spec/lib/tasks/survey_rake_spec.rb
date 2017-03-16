@@ -104,5 +104,30 @@ describe "survey:attempt_questions" do
         end
       end
     end
+
+    describe 'Opted Out Recipient' do
+
+      before :each do
+        recipients[1].update_attributes(opted_out: true)
+        Timecop.freeze
+        subject.invoke
+      end
+
+      it 'should create the first attempt for each recipient' do
+        recipients.each_with_index do |recipient, index|
+          recipient.reload
+          if index == 1
+            expect(recipient.attempts.count).to eq(0)
+            expect(recipient.attempts.first).to be_nil
+          else
+            expect(recipient.attempts.count).to eq(1)
+            attempt = recipient.attempts.first
+            expect(attempt.sent_at).to be_present
+            expect(attempt.answer_index).to be_nil
+          end
+        end
+      end
+    end
+
   end
 end
