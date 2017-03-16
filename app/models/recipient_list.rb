@@ -4,7 +4,6 @@ class RecipientList < ApplicationRecord
 
   validates_associated :school
   validates :name, presence: true
-  validates :recipient_ids, presence: true
 
   attr_accessor :recipient_id_array
   before_validation :convert_recipient_id_array
@@ -24,8 +23,8 @@ class RecipientList < ApplicationRecord
     end
 
     def set_recipient_id_array
-      return if recipient_ids.blank?
-      self.recipient_id_array = recipient_ids.split(',').map(&:to_i)
+      return if recipient_id_array.present?
+      self.recipient_id_array = (recipient_ids || '').split(',').map(&:to_i)
     end
 
     def sync_recipient_schedules

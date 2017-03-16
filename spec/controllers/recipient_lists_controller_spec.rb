@@ -35,7 +35,7 @@ RSpec.describe RecipientListsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    {school_id: school.id, name: 'Empty List', recipient_id_array: ['']}
+    {school_id: school.id, name: ''}
   }
 
   # This should return the minimal set of values that should be in the session

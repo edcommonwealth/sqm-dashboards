@@ -9,7 +9,7 @@ class CreateRecipients < ActiveRecord::Migration[5.0]
       t.string :ethnicity
       t.integer :home_language_id
       t.string :income
-      t.boolean :opted_out
+      t.boolean :opted_out, default: false
       t.integer :school_id
 
       t.timestamps

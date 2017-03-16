@@ -10,7 +10,7 @@
 %p
   %b Recipients:
   - @recipient_list.recipients.each do |recipient|
-    %p= recipient.name
+    %p= link_to recipient.name, [@school, recipient]
 
 = link_to 'Edit', edit_school_recipient_list_path(@recipient_list.school, @recipient_list)
 |
