@@ -143,7 +143,7 @@ namespace :data do
     bad_answers = {}
     year = '2016'
     ['student_responses', 'teacher_responses'].each do |file|
-      # source = Measurement.sources[file.split('_')[0]]
+      target_group = Question.target_groups["for_#{file.split('_')[0]}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
       csv = CSV.parse(csv_string, :headers => true)
       csv.each do |row|
@@ -179,6 +179,8 @@ namespace :data do
             puts "Unable to find question: #{key}"
             missing_questions[key] = true
             next
+          else
+            question.update_attributes(target_group: target_group) if question.unknown?
           end
 
           answer_index = question.option_index(value)

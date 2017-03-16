@@ -22,6 +22,12 @@ class Question < ApplicationRecord
 
   scope :for_category, -> (category) { where(category: category) }
 
+  enum target_group: [:unknown, :for_students, :for_teachers, :for_parents]
+
+  def source
+    target_group.gsub('for_', '')
+  end
+
   def options
     [option1, option2, option3, option4, option5]
   end
