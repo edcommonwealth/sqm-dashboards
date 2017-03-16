@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
     resources :schedules
     resources :categories, only: [:show]
+    resources :questions, only: [:show]
     get :admin
   end
 

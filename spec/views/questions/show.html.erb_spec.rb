@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "questions/show", type: :view do
   before(:each) do
+    @school = assign(:school, School.create!(name: 'School'))
     @question = assign(:question, Question.create!(
-      :text => "Text",
+      :text => "Question Text",
       :option1 => "Option1",
       :option2 => "Option2",
       :option3 => "Option3",
@@ -15,7 +16,8 @@ RSpec.describe "questions/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/Text/)
+    expect(rendered).to match(/School/)
+    expect(rendered).to match(/Question Text/)
     expect(rendered).to match(/Option1/)
     expect(rendered).to match(/Option2/)
     expect(rendered).to match(/Option3/)

@@ -55,9 +55,11 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested question as @question" do
+      school = School.create!(name: 'School')
       question = Question.create! valid_attributes
-      get :show, params: {id: question.to_param}, session: valid_session
+      get :show, params: {school_id: school.id, id: question.to_param}, session: valid_session
       expect(assigns(:question)).to eq(question)
+      expect(assigns(:school)).to eq(school)
     end
   end
 

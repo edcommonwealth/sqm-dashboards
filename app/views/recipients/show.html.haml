@@ -1,33 +1,70 @@
-%p
-  %strong Name:
-  = @recipient.name
-%p
-  %strong Phone:
-  = @recipient.phone
-%p
-  %strong Birth date:
-  = @recipient.birth_date
-%p
-  %strong Gender:
-  = @recipient.gender
-%p
-  %strong Race:
-  = @recipient.race
-%p
-  %strong Ethnicity:
-  = @recipient.ethnicity
-%p
-  %strong Home language:
-  = @recipient.home_language_id
-%p
-  %strong Income:
-  = @recipient.income
-%p
-  %strong Opted out:
-  = @recipient.opted_out
-%p
-  %strong School:
-  = @recipient.school_id
+.row
+  .col
+    %p
+      %strong School:
+      = @school.name
+    %p
+      %strong Recipient:
+      = @recipient.name
+
+    - if @recipient.phone.present?
+      %p
+        %strong Phone:
+        = @recipient.phone
+
+    - if @recipient.birth_date.present?
+      %p
+        %strong Birth date:
+        = @recipient.birth_date
+
+    - if @recipient.gender.present?
+      %p
+        %strong Gender:
+        = @recipient.gender
+
+    - if @recipient.race.present?
+      %p
+        %strong Race:
+        = @recipient.race
+
+    - if @recipient.ethnicity.present?
+      %p
+        %strong Ethnicity:
+        = @recipient.ethnicity
+
+    - if @recipient.home_language_id.present?
+      %p
+        %strong Home language:
+        = @recipient.home_language_id
+
+    - if @recipient.income.present?
+      %p
+        %strong Income:
+        = @recipient.income
+
+    %p
+      %strong Opted out:
+      = @recipient.opted_out
+
 = link_to 'Edit', edit_school_recipient_path(@school, @recipient)
 |
 = link_to 'Back', school_path(@school)
+
+
+
+%br
+%br
+%br
+%h4 Attempts
+%table{style: 'width: 100%;'}
+  %tbody
+    %thead{style: 'font-weight: bold;'}
+      %th Date
+      %th Question
+      %th Response
+    - @recipient.attempts.each do |attempt|
+      %tr.attempt
+        %td
+          = attempt.sent_at.strftime('%x') if attempt.sent_at.present?
+        %td= link_to truncate(attempt.question.text, length: 60), [@school, attempt.question], title: attempt.question.text
+        %td= "(#{attempt.answer_index}) #{attempt.response}"

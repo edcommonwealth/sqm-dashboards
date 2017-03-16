@@ -29,6 +29,5 @@ RSpec.describe "recipients/show", type: :view do
     expect(rendered).to match(/2/)
     expect(rendered).to match(/Income/)
     expect(rendered).to match(/false/)
-    expect(rendered).to match(/#{@school.to_param}/)
   end
 end

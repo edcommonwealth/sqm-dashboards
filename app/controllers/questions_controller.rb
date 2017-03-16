@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :set_school, only: [:show]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   # GET /questions
@@ -62,6 +63,12 @@ class QuestionsController < ApplicationController
   end
 
   private
+    def set_school
+      redirect_to root_path and return false unless params.include?(:school_id)
+      @school = School.find(params[:school_id])
+      redirect_to root_path and return false if @school.nil?
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])

@@ -27,6 +27,11 @@ class Attempt < ApplicationRecord
     recipient.update_attributes(phone: client.messages.get(message.sid).to)
   end
 
+  def response
+    return 'No Answer Yet' if answer_index.blank?
+    question.options[answer_index - 1]
+  end
+
   private
 
     def update_school_categories
