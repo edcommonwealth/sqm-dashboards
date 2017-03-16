@@ -7,4 +7,7 @@ class School < ApplicationRecord
 
   validates :name, presence: true
 
+  include FriendlyId
+  friendly_id :name, :use => [:slugged]
+
 end

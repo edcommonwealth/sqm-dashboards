@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316154053) do
+ActiveRecord::Schema.define(version: 20170316194122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20170316154053) do
     t.integer  "parent_category_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "slug"
+    t.index ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
   end
 
   create_table "districts", force: :cascade do |t|
@@ -141,6 +143,8 @@ ActiveRecord::Schema.define(version: 20170316154053) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "description"
+    t.string   "slug"
+    t.index ["slug"], name: "index_schools_on_slug", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|

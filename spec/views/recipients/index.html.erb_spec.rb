@@ -16,7 +16,7 @@ RSpec.describe "recipients/index", type: :view do
         :home_language_id => 2,
         :income => "Income",
         :opted_out => false,
-        :school_id => @school.to_param
+        :school_id => @school.id
       ),
       Recipient.create!(
         :name => "Name",
@@ -27,7 +27,7 @@ RSpec.describe "recipients/index", type: :view do
         :home_language_id => 2,
         :income => "Income",
         :opted_out => false,
-        :school_id => @school.to_param
+        :school_id => @school.id
       )
     ])
   end
@@ -42,6 +42,6 @@ RSpec.describe "recipients/index", type: :view do
     assert_select "tr>td", :text => 2.to_s, :count => 2
     assert_select "tr>td", :text => "Income".to_s, :count => 2
     assert_select "tr>td", :text => false.to_s, :count => 2
-    assert_select "tr>td", :text => @school.to_param, :count => 2
+    assert_select "tr>td", :text => @school.id.to_s, :count => 2
   end
 end

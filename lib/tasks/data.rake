@@ -143,7 +143,8 @@ namespace :data do
     bad_answers = {}
     year = '2016'
     ['student_responses', 'teacher_responses'].each do |file|
-      target_group = Question.target_groups["for_#{file.split('_')[0]}s"]
+      recipients = file.split('_')[0]
+      target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
       csv = CSV.parse(csv_string, :headers => true)
       csv.each do |row|
@@ -158,6 +159,11 @@ namespace :data do
           next
         end
 
+        recipient_list = school.recipient_lists.find_by_name("#{recipients.titleize} List")
+        if recipient_list.nil?
+          school.recipient_lists.create(name: "#{recipients.titleize} List")
+        end
+
         respondent_id = row['RespondentID']
         recipient_id = respondent_map[respondent_id]
         if recipient_id.present?
@@ -168,6 +174,8 @@ namespace :data do
           )
           respondent_map[respondent_id] = recipient.id
         end
+        recipient_list.recipient_id_array << recipient.id
+        recipient_list.save!
 
         row.each do |key, value|
           next if value.nil? or key.nil?

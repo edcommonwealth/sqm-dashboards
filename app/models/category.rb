@@ -9,6 +9,9 @@ class Category < ApplicationRecord
 
   scope :for_parent, -> (category=nil) { where(parent_category_id: category.try(:id)) }
 
+  include FriendlyId
+  friendly_id :name, :use => [:slugged]
+
   def path
     p = self
     items = [p]
