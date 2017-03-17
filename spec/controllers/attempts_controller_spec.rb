@@ -48,5 +48,24 @@ RSpec.describe AttemptsController, type: :controller do
         expect(response.body).to eq('Thank you!')
       end
     end
+
+    context 'with cancel params' do
+      let(:twilio_attributes) {
+        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+11231231234','To' => '2223334444','Body' => 'cAnCel','NumMedia' => '0'}
+      }
+
+      it "updates the last attempt by recipient phone number" do
+        post :twilio, params: twilio_attributes
+        attempt.reload
+        expect(attempt.answer_index).to be_nil
+        expect(attempt.twilio_details).to eq(twilio_attributes.with_indifferent_access.to_yaml)
+        expect(attempt.recipient).to be_opted_out
+      end
+
+      it "sends back a message" do
+        post :twilio, params: twilio_attributes
+        expect(response.body).to eq('Thank you, you have been opted out of these messages and will no longer receive them.')
+      end
+    end
   end
 end

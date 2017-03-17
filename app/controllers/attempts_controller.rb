@@ -4,6 +4,14 @@ class AttemptsController < ApplicationController
 
   def twilio
     attempt = Recipient.where(phone: twilio_params['From']).first.attempts.last
+
+    if (twilio_params[:Body].downcase == 'cancel')
+      attempt.recipient.update_attributes(opted_out: true)
+      attempt.update_attributes(twilio_details: twilio_params.to_h.to_yaml)
+      render plain: 'Thank you, you have been opted out of these messages and will no longer receive them.'
+      return
+    end
+
     attempt.update_attributes(
       answer_index: twilio_params[:Body].to_i,
       twilio_details: twilio_params.to_h.to_yaml

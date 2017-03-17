@@ -14,18 +14,28 @@ class Attempt < ApplicationRecord
   scope :for_school, -> (school) { joins(:recipient).merge(Recipient.for_school(school)) }
   scope :with_response, -> { where('answer_index is not null or open_response_id is not null')}
 
+  def messages
+    [
+      question.text,
+      "#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'cancel' to stop these messages."
+    ]
+  end
+
   def send_message
     twilio_number = ENV['TWILIO_NUMBER']
     client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
 
-    message = client.messages.create(
-      from: twilio_number,
-      to:   recipient.phone,
-      body: "#{question.text}\n\r#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5"
-    )
+    sids = []
+    messages.each do |message|
+      sids << client.messages.create(
+        from: twilio_number,
+        to:   recipient.phone,
+        body: message
+      ).sid
+    end
 
-    update_attributes(sent_at: Time.new, twilio_sid: message.sid)
-    recipient.update_attributes(phone: client.messages.get(message.sid).to)
+    update_attributes(sent_at: Time.new, twilio_sid: sids.join(','))
+    recipient.update_attributes(phone: client.messages.get(sids.last).to)
   end
 
   def response
