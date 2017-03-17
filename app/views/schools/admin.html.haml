@@ -68,10 +68,14 @@
         %thead{style: 'font-weight: bold;'}
           %th Name
           %th Phone
+          %th Attempts
+          %th Responses
           %th{colspan: 2} Actions
         - @school.recipients.each do |recipient|
           %tr.recipient
             %td= link_to recipient.name, [@school, recipient]
             %td= recipient.phone
+            %td= recipient.attempts_count
+            %td= recipient.responses_count
             %td= link_to('Edit', edit_school_recipient_path(@school, recipient))
             %td= link_to('Delete', school_recipient_path(@school, recipient), method: :delete, data: {confirm: 'Are you sure you want to delete this recipient?'})

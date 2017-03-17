@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316194122) do
+ActiveRecord::Schema.define(version: 20170317150205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,11 +102,16 @@ ActiveRecord::Schema.define(version: 20170316194122) do
     t.string   "ethnicity"
     t.integer  "home_language_id"
     t.string   "income"
-    t.boolean  "opted_out"
+    t.boolean  "opted_out",        default: false
     t.integer  "school_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "email"
+    t.string   "slug"
+    t.integer  "attempts_count",   default: 0
+    t.integer  "responses_count",  default: 0
     t.index ["phone"], name: "index_recipients_on_phone", using: :btree
+    t.index ["slug"], name: "index_recipients_on_slug", unique: true, using: :btree
   end
 
   create_table "schedules", force: :cascade do |t|

@@ -8,10 +8,11 @@ class Attempt < ApplicationRecord
   belongs_to :question
 
   after_save :update_school_categories
+  after_commit :update_counts
 
   scope :for_category, -> (category) { joins(:question).merge(Question.for_category(category)) }
   scope :for_school, -> (school) { joins(:recipient).merge(Recipient.for_school(school)) }
-  scope :with_responses, -> { where('answer_index is not null')}
+  scope :with_response, -> { where('answer_index is not null or open_response_id is not null')}
 
   def send_message
     twilio_number = ENV['TWILIO_NUMBER']
@@ -40,6 +41,13 @@ class Attempt < ApplicationRecord
         school_category = SchoolCategory.create(school: recipient.school, category: question.category)
       end
       school_category.sync_aggregated_responses
+    end
+
+    def update_counts
+      recipient.update_attributes(
+        attempts_count: recipient.attempts.count,
+        responses_count: recipient.attempts.with_response.count
+      )
     end
 
 end
