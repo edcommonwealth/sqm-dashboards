@@ -7,11 +7,14 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
+questions = Category.find_by_name('Family Subcategory').child_categories.map(&:questions).flatten
+QuestionList.create(name: 'Family Questions', question_id_array: questions.map(&:id))
+
+
 cambridge = District.create(name: 'Cambridge Public Schools')
 school = School.create(name: 'Graham & Parks', district: cambridge, description: 'A description of G&P')
 recipient = school.recipients.create(name: 'Jared Cosulich', phone: '650-269-3205')
-questions = Category.find_by_name('Family Subcategory').child_categories.map(&:questions).flatten
-QuestionList.create(name: 'Family Questions', question_id_array: questions.map(&:id))
+recipient_list = school.recipient_lists.create(name: 'Pilot Parent Test', recipient_id_array: [recipient.id])
 
 # somerville = District.create(name: 'Somerville Public Schools')
 #
