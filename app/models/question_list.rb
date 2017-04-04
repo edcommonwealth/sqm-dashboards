@@ -8,7 +8,7 @@ class QuestionList < ApplicationRecord
   after_initialize :set_question_id_array
 
   def questions
-    question_id_array.collect { |id| Question.where(id: id).first }
+    question_id_array.collect { |id| Question.where(id: id).first }.compact
   end
 
   private

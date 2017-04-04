@@ -5,9 +5,16 @@
 %p
   %strong Description:
   = @question_list.description
+
 %p
-  %strong Question ids:
-  = @question_list.question_ids
-= link_to 'Edit', edit_question_list_path(@question_list)
-|
-= link_to 'Back', question_lists_path
+  = link_to 'Edit', edit_question_list_path(@question_list)
+  |
+  = link_to 'Back', question_lists_path
+
+%br
+%br
+
+%p
+  %strong Questions:
+  - @question_list.questions.each do |question|
+    %p= link_to question.text, question

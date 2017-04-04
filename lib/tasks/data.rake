@@ -4,10 +4,10 @@ namespace :data do
   desc "Load in all data"
   task load: :environment do
     return if School.count > 0
-    Rake::Task["db:seed"].invoke
     Rake::Task["data:load_categories"].invoke
     Rake::Task["data:load_questions"].invoke
-    Rake::Task["data:load_student_responses"].invoke
+    Rake::Task["db:seed"].invoke
+    # Rake::Task["data:load_student_responses"].invoke
   end
 
   desc 'Load in category data'

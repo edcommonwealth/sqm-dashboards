@@ -7,7 +7,7 @@
   = @schedule.description
 %p
   %b School:
-  = link_to(@school.name, @school)
+  = link_to(@school.name, school_admin_path(@school))
 %p
   %b Frequency hours:
   = frequency_description(@schedule.frequency_hours)
