@@ -6,7 +6,7 @@ RSpec.describe AttemptsController, type: :controller do
 
   let(:schedule) { Schedule.new }
   let(:school) { School.create!(name: 'School') }
-  let(:recipient) { Recipient.create!(name: 'Recipient', phone: '+11231231234') }
+  let(:recipient) { school.recipients.create!(name: 'Recipient', phone: '+11231231234') }
   let(:recipient_schedule) { RecipientSchedule.new }
   let(:category) { Category.create!(name: 'Category') }
   let(:question) { create_questions(1, category).first }
@@ -48,7 +48,9 @@ RSpec.describe AttemptsController, type: :controller do
 
       it "sends back a message" do
         post :twilio, params: twilio_attributes
-        expect(response.body).to eq('Thank you!')
+        expect(response.body).to eq """We\'ve registered your response of Option 0:1 C.
+To see how others responded to the same question please visit
+http://test.host/schools/school/categories/category"""
       end
     end
 
