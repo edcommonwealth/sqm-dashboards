@@ -17,7 +17,7 @@ class AttemptsController < ApplicationController
       responded_at: Time.new,
       twilio_details: twilio_params.to_h.to_yaml
     )
-    render plain: "We've registered your response of #{attempt.response)}. To see how others responded to the same question please visit "
+    render plain: "We've registered your response of #{attempt.response}. To see how others responded to the same question please visit"
   end
 
   # # GET /attempts/1/edit
