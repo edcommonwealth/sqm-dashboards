@@ -5,7 +5,7 @@ class AttemptsController < ApplicationController
   def twilio
     attempt = Recipient.where(phone: twilio_params['From']).first.attempts.last
 
-    if (twilio_params[:Body].downcase == 'cancel')
+    if (twilio_params[:Body].downcase == 'stop')
       attempt.recipient.update_attributes(opted_out: true)
       attempt.update_attributes(twilio_details: twilio_params.to_h.to_yaml)
       render plain: 'Thank you, you have been opted out of these messages and will no longer receive them.'
@@ -17,7 +17,7 @@ class AttemptsController < ApplicationController
       responded_at: Time.new,
       twilio_details: twilio_params.to_h.to_yaml
     )
-    render plain: """We've registered your response of #{attempt.response}.
+    render plain: """We've registered your response of \"#{attempt.response}\".
 To see how others responded to the same question please visit
 #{school_category_url(attempt.recipient.school, attempt.question.category)}"""
   end

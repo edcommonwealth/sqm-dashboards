@@ -48,15 +48,15 @@ RSpec.describe AttemptsController, type: :controller do
 
       it "sends back a message" do
         post :twilio, params: twilio_attributes
-        expect(response.body).to eq """We\'ve registered your response of Option 0:1 C.
+        expect(response.body).to eq """We\'ve registered your response of \"Option 0:1 C\".
 To see how others responded to the same question please visit
 http://test.host/schools/school/categories/category"""
       end
     end
 
-    context 'with cancel params' do
+    context 'with stop params' do
       let(:twilio_attributes) {
-        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+11231231234','To' => '2223334444','Body' => 'cAnCel','NumMedia' => '0'}
+        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+11231231234','To' => '2223334444','Body' => 'sToP','NumMedia' => '0'}
       }
 
       it "updates the last attempt by recipient phone number" do

@@ -17,7 +17,7 @@ class Attempt < ApplicationRecord
   def messages
     [
       question.text,
-      "#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'cancel' to stop these messages."
+      "#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'stop' to stop these messages."
     ]
   end
 
