@@ -14,9 +14,10 @@ class AttemptsController < ApplicationController
 
     attempt.update_attributes(
       answer_index: twilio_params[:Body].to_i,
+      responded_at: Time.new,
       twilio_details: twilio_params.to_h.to_yaml
     )
-    render plain: 'Thank you!'
+    render plain: "We've registered your response of #{attempt.response)}. To see how others responded to the same question please visit "
   end
 
   # # GET /attempts/1/edit

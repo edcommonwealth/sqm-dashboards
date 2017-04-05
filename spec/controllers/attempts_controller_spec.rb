@@ -39,8 +39,11 @@ RSpec.describe AttemptsController, type: :controller do
         attempt.reload
         expect(attempt.answer_index).to eq(3)
         expect(attempt.twilio_details).to eq(twilio_attributes.with_indifferent_access.to_yaml)
+        expect(attempt.responded_at).to be_present
+
         expect(first_attempt.answer_index).to be_nil
         expect(first_attempt.twilio_details).to be_nil
+        expect(first_attempt.responded_at).to be_nil
       end
 
       it "sends back a message" do

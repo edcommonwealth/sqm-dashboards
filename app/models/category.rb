@@ -29,7 +29,8 @@ class Category < ApplicationRecord
       "school-culture",
       "resources",
       "indicators-of-academic-learning",
-      "character-and-wellbeing-outcomes"
+      "character-and-wellbeing-outcomes",
+      "family-questions"
     ].index(root_identifier)
   end
 
