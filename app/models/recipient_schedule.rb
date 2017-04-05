@@ -21,7 +21,7 @@ class RecipientSchedule < ApplicationRecord
     Question.where(id: upcoming.first).first
   end
 
-  def attempt_question(question: next_question)
+  def attempt_question(send_message: true, question: next_question)
     return if recipient.opted_out?
     attempt = recipient.attempts.create(
       schedule: schedule,
@@ -29,7 +29,7 @@ class RecipientSchedule < ApplicationRecord
       question: question
     )
 
-    if attempt.send_message
+    if send_message && attempt.send_message
       return if upcoming_question_ids.blank?
       upcoming = upcoming_question_ids.split(/,/)[1..-1].join(',')
       attempted = ((attempted_question_ids.try(:split, /,/) || []) + [question.id]).join(',')
