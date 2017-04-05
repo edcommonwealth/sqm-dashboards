@@ -86,5 +86,4 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'edcontext.org' }
 
-  config.middleware.insert 0, "Rack::WWWhisper"
 end

@@ -52,7 +52,6 @@ gem 'omniauth'
 
 gem 'twilio-ruby', '~> 4.11.1'
 
-gem 'rack-wwwhisper', '~> 1.0'
 
 
 group :development, :test do
