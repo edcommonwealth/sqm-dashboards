@@ -113,6 +113,7 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     nested_scaffold (1.0.0)
+    net-http-persistent (2.9.4)
     newrelic_rpm (3.17.1.326)
     nio4r (1.2.1)
     nokogiri (1.6.8)
@@ -133,6 +134,10 @@ GEM
     puma (3.7.1)
     rack (2.0.1)
     rack-test (0.6.3)
+      rack (>= 1.0)
+    rack-wwwhisper (1.1.12)
+      addressable (~> 2.0)
+      net-http-persistent (< 3.0)
       rack (>= 1.0)
     rails (5.0.1)
       actioncable (= 5.0.1)
@@ -261,6 +266,7 @@ DEPENDENCIES
   phantomjs
   poltergeist
   puma (~> 3.0)
+  rack-wwwhisper (~> 1.0)
   rails (~> 5.0.1)
   rails-controller-testing
   rspec-rails (~> 3.5)
