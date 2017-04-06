@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   # resources :attempts, only: [:get, :update]
 
   devise_for :users
+  as :user do
+    get 'users', :to => 'users#show', :as => :user_root # Rails 3
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/admin', to: 'admin#index', as: 'admin'

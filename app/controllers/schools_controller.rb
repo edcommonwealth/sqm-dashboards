@@ -1,16 +1,16 @@
 class SchoolsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
   before_action :set_school, only: [:admin, :show, :edit, :update, :destroy]
+  before_action :verify_admin, except: [:show, :create, :new]
 
-  # GET /schools
-  # GET /schools.json
-  def index
-    @schools = School.all
-  end
 
   # GET /schools/1
   # GET /schools/1.json
   def show
     @school_categories = @school.school_categories.for_parent_category(@school, nil).sort
+  end
+
+  def admin
   end
 
   # GET /schools/new
@@ -71,5 +71,12 @@ class SchoolsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_params
       params.require(:school).permit(:name, :district_id)
+    end
+
+    def verify_admin
+      return true if current_user.admin?(@school)
+
+      redirect_to root_path, notice: 'You must be logged in as an admin of that school to access that page.'
+      return false
     end
 end
