@@ -10,11 +10,20 @@
 questions = Category.find_by_name('Family Subcategory').child_categories.map(&:questions).flatten
 QuestionList.create(name: 'Family Questions', question_id_array: questions.map(&:id))
 
+user = User.create(email: 'jared@edcontext.org', password: '123456')
 
-cambridge = District.create(name: 'Cambridge Public Schools')
-school = School.create(name: 'Graham & Parks', district: cambridge, description: 'A description of G&P')
-recipient = school.recipients.create(name: 'Jared Cosulich', phone: '650-269-3205')
-recipient_list = school.recipient_lists.create(name: 'Pilot Parent Test', recipient_id_array: [recipient.id])
+district = District.create(name: 'EdContext Test District')
+school = School.create(name: 'EdContext Test School', district: district, description: 'A school used to test the EdContext System')
+recipients = [
+  school.recipients.create(name: 'Jared Cosulich', phone: '650-269-3205'),
+  school.recipients.create(name: 'Lauren Cosulich', phone: '6173522365'),
+  school.recipients.create(name: 'Jack Schneider', phone: '+1 267-968-2293'),
+  school.recipients.create(name: 'Lynisse Patin', phone: '19176566892'),
+  school.recipients.create(name: 'Khemenec Patin', phone: '(347) 534-6437'),
+]
+recipient_list = school.recipient_lists.create(name: 'Pilot Parent Test', recipient_id_array: recipients.map(&:id))
+
+user.user_schools.create(school: school)
 
 # somerville = District.create(name: 'Somerville Public Schools')
 #

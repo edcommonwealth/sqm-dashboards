@@ -14,4 +14,8 @@ class User < ApplicationRecord
   def admin?(school)
     schools.index(school).present?
   end
+
+  def super_admin?
+    [1].index(id).present?
+  end
 end

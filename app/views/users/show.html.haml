@@ -13,7 +13,7 @@
       %thead{style: 'font-weight: bold;'}
         %th Name
         %th{colspan: 2}
-        - current_user.schools.each do |school|
-          %tr.school
-            %td= link_to school.name, school
-            %td= link_to('Admin', school_admin_path(school))
+      - current_user.schools.each do |school|
+        %tr.school
+          %td= link_to school.name, school
+          %td= link_to('Admin', school_admin_path(school))
