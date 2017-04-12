@@ -2,6 +2,7 @@ module SchedulesHelper
 
   def options_for_frequency_hours
     [
+      ['Once A Day', 24],
       ['Once A Week', 24 * 7],
       ['Every Other Week', 2 * 24 * 7],
       ['Once A Month', 4 * 24 * 7]
