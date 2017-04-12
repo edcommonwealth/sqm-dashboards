@@ -12,13 +12,13 @@ namespace :data do
 
   desc 'Load in category data'
   task load_categories: :environment do
-    measures = JSON.parse(File.read(File.expand_path('../../../data/measures.json', __FILE__)))
+    measures = JSON.parse(File.read(File.expand_path('../../../data/parent_pilot_measures.json', __FILE__)))
     measures.each_with_index do |measure, index|
       category = Category.create(
         name: measure['title'],
         blurb: measure['blurb'],
         description: measure['text'],
-        external_id: index + 1
+        external_id: measure['id'] || index + 1
       )
 
       measure['sub'].keys.sort.each do |key|
@@ -82,7 +82,7 @@ namespace :data do
       'Social Studies'
     ]
 
-    questions = JSON.parse(File.read(File.expand_path('../../../data/questions.json', __FILE__)))
+    questions = JSON.parse(File.read(File.expand_path('../../../data/parent_pilot_questions.json', __FILE__)))
     questions.each do |question|
       category = nil
       question['category'].split('-').each do |external_id|

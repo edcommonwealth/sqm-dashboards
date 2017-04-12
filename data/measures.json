@@ -642,30 +642,5 @@
         }
       }
     }
-  }, {
-    "title": "Family Questions",
-    "blurb": "Questions we asked regarding families",
-    "text": "This category shows the data for all of the questions we asked of families.",
-    "sub": {
-      "A": {
-        "title": "Family Subcategory",
-        "blurb": "",
-        "text": "",
-        "measures": {
-          "i": {
-            "title": "Family Engagement",
-            "text": "How engaged are families in the school community?"
-          },
-          "ii": {
-            "title": "Family Sense of Belonging",
-            "text": "Would families like to get more involved with the school?"
-          },
-          "iii": {
-            "title": "Untapped Family Capacity",
-            "text": "Do families feel the school cares about them and how do they feel about the school?"
-          }
-        }
-      }
-    }
   }
 ]
