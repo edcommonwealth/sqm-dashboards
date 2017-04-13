@@ -124,8 +124,10 @@ describe "survey:attempt_questions" do
 
       before :each do
         recipients[1].update_attributes(opted_out: true)
-        Timecop.freeze
-        subject.invoke
+
+        now = DateTime.now
+        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+        Timecop.freeze(date) { subject.invoke }
       end
 
       it 'should create the first attempt for each recipient' do

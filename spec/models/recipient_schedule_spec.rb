@@ -38,6 +38,12 @@ RSpec.describe RecipientSchedule, type: :model do
   end
 
   describe 'ready' do
+    before :each do
+      now = DateTime.now
+      date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
+      Timecop.freeze(date)
+    end
+
     subject { schedule.recipient_schedules.ready }
 
     it ('should only provide recipient_schedules who are ready to send a message') do
@@ -96,7 +102,11 @@ RSpec.describe RecipientSchedule, type: :model do
       end
 
       it 'should update next_attempt_at' do
-        expect(recipient_schedule.next_attempt_at.to_i).to eq(Date.today.to_time.to_i + (960 * 60))
+        now = DateTime.now
+        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
+        time = date.to_time.to_i + (60 * 60 * 24 * 7)
+
+        expect(recipient_schedule.next_attempt_at.to_i).to eq(time)
       end
     end
   end
