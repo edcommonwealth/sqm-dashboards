@@ -1,8 +1,8 @@
 %header.row
-  .title.col-sm-8
+  .title.col-8
     %h2= link_to('EdContext'.html_safe, root_path)
 
-  .navigation.col-sm-4.text-right
+  .navigation.col-4.text-right
     - if current_user
       = link_to 'Sign Out', destroy_user_session_path, rel: "nofollow", method: :delete, class: 'btn btn-small grey waves-effect waves-light '
     - else
