@@ -10,6 +10,7 @@ class Attempt < ApplicationRecord
   after_save :update_school_categories
   after_commit :update_counts
 
+  scope :for_question, -> (question) { where(question_id: question.id) }
   scope :for_category, -> (category) { joins(:question).merge(Question.for_category(category)) }
   scope :for_school, -> (school) { joins(:recipient).merge(Recipient.for_school(school)) }
   scope :with_response, -> { where('answer_index is not null or open_response_id is not null')}

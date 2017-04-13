@@ -3,7 +3,8 @@ class AttemptsController < ApplicationController
   protect_from_forgery :except => [:twilio]
 
   def twilio
-    attempt = Recipient.where(phone: twilio_params['From']).first.attempts.last
+    recipient = Recipient.where(phone: twilio_params['From']).first
+    attempt = recipient.attempts.last
 
     if (twilio_params[:Body].downcase == 'stop')
       attempt.recipient.update_attributes(opted_out: true)
@@ -17,9 +18,18 @@ class AttemptsController < ApplicationController
       responded_at: Time.new,
       twilio_details: twilio_params.to_h.to_yaml
     )
-    render plain: """We've registered your response of \"#{attempt.response}\".
-To see how others responded to the same question please visit
-#{school_category_url(attempt.recipient.school, attempt.question.category)}"""
+
+    response_message = ["We've registered your response of \"#{attempt.response}\"."]
+
+    response_count = Attempt.for_question(attempt.question).for_school(recipient.school).with_response.count
+    if response_count > 1
+      response_message << "#{response_count} people have responded to this question so far. To see all responses visit"
+    else
+      response_message << 'You are the first person to respond to this question. Once more people have responded you will be able to see all responses at'
+    end
+    response_message << school_category_url(attempt.recipient.school, attempt.question.category)
+
+    render plain: response_message.join(' ')
   end
 
   # # GET /attempts/1/edit
