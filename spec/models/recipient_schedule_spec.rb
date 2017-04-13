@@ -61,7 +61,7 @@ RSpec.describe RecipientSchedule, type: :model do
       before :each do
         recipient_schedule.recipient.update_attributes(opted_out: true)
       end
-      
+
       let!(:attempt) { recipient_schedule.attempt_question }
 
       it 'should not do anything' do
@@ -96,7 +96,7 @@ RSpec.describe RecipientSchedule, type: :model do
       end
 
       it 'should update next_attempt_at' do
-        expect(recipient_schedule.next_attempt_at.to_i).to eq((Time.new + (60 * 60 * schedule.frequency_hours)).to_i)
+        expect(recipient_schedule.next_attempt_at.to_i).to eq(Date.today.to_time.to_i + (960 * 60))
       end
     end
   end

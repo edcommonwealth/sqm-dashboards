@@ -42,15 +42,30 @@ describe "survey:attempt_questions" do
         question_list: question_list,
         frequency_hours: 24 * 7,
         start_date: Time.new,
-        end_date: 1.year.from_now
+        end_date: 1.year.from_now,
+        time: 1200
       )
     end
 
-    describe 'First Attempt' do
+    describe 'First attempt not at specified time' do
+      before :each do
+        now = DateTime.now
+        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT19:00:00%z"))
+        Timecop.freeze(date) { subject.invoke }
+      end
+
+      it 'should not create any attempts' do
+        expect(Attempt.count).to eq(0)
+      end
+    end
+
+
+    describe 'First attempt at specified time' do
 
       before :each do
-        Timecop.freeze
-        subject.invoke
+        now = DateTime.now
+        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+        Timecop.freeze(date) { subject.invoke }
       end
 
       it 'should create the first attempt for each recipient' do

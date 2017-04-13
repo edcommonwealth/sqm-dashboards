@@ -28,6 +28,10 @@
     %br/
     = f.date_select :end_date, class: 'form-control'
   .form-group
+    = f.label :time, 'Time of Day (what time should people receive the text)'
+    %br/
+    = f.select :time, options_for_time, class: 'form-control'
+  .form-group
     = f.label :active
     %br/
     = f.check_box :active, class: 'form-control'

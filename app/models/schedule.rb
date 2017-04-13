@@ -8,6 +8,7 @@ class Schedule < ApplicationRecord
   validates :recipient_list, presence: true
   validates :question_list, presence: true
 
+  before_validation :set_start_date
   after_create :create_recipient_schedules
 
   scope :active, -> {
@@ -15,6 +16,11 @@ class Schedule < ApplicationRecord
   }
 
   private
+
+    def set_start_date
+      return if start_date.present?
+      self.start_date = Date.today
+    end
 
     def create_recipient_schedules
       recipient_list.recipients.each do |recipient|

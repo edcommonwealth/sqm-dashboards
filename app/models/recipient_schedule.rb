@@ -37,13 +37,17 @@ class RecipientSchedule < ApplicationRecord
         upcoming_question_ids: upcoming,
         attempted_question_ids: attempted,
         last_attempt_at: attempt.sent_at,
-        next_attempt_at: attempt.sent_at + (60 * 60 * schedule.frequency_hours)
+        next_attempt_at: next_attempt_at + (60 * 60 * schedule.frequency_hours)
       )
     end
     return attempt
   end
 
-  def self.create_for_recipient(recipient_or_recipient_id, schedule, next_attempt_at=Time.new)
+  def self.create_for_recipient(recipient_or_recipient_id, schedule, next_attempt_at=nil)
+    if next_attempt_at.nil?
+      next_attempt_at = Time.at(schedule.start_date.to_time.to_i + (60 * schedule.time))
+    end
+
     question_ids = schedule.question_list.question_ids.split(/,/)
     question_ids = question_ids.shuffle if schedule.random?
 
