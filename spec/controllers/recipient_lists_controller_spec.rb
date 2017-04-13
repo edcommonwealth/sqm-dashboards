@@ -20,6 +20,7 @@ require 'rails_helper'
 
 RSpec.describe RecipientListsController, type: :controller do
 
+  let!(:user) { User.create(email: 'test@test.com', password: '123456') }
   let(:school) { School.create!(name: 'School') }
 
   # This should return the minimal set of attributes required to create a valid
@@ -42,6 +43,11 @@ RSpec.describe RecipientListsController, type: :controller do
   # in order to pass any filters (e.g. authentication) defined in
   # RecipientListsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+
+  before :each do
+    user.user_schools.create(school: school)
+    sign_in user
+  end
 
   describe "GET #index" do
     it "assigns all recipient_lists as @recipient_lists" do

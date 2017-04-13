@@ -1,5 +1,7 @@
 class RecipientListsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_school
+  before_action :verify_admin
   before_action :set_recipient_list, only: [:show, :edit, :update, :destroy]
 
   # GET schools/1/recipient_lists
