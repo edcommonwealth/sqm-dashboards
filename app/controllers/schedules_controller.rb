@@ -1,11 +1,8 @@
 class SchedulesController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
   before_action :set_school
+  before_action :verify_admin
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
-
-  # GET schools/1/schedules
-  def index
-    @schedules = @school.schedules
-  end
 
   # GET schools/1/schedules/1
   def show
@@ -60,5 +57,12 @@ class SchedulesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def schedule_params
       params.require(:schedule).permit(:name, :description, :school_id, :frequency_hours, :start_date, :end_date, :active, :random, :recipient_list_id, :question_list_id)
+    end
+
+    def verify_admin
+      return true if current_user.admin?(@school)
+
+      redirect_to root_path, notice: 'You must be logged in as an admin of that school to access that page.'
+      return false
     end
 end

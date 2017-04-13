@@ -23,6 +23,7 @@ RSpec.describe QuestionsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Question. As you add validations to Question, be sure to
   # adjust the attributes here as well.
+  let!(:user) { User.create(email: 'test@test.com', password: '123456') }
   let (:category) { Category.create!(name: 'Category') }
   let(:valid_attributes) {
     {
@@ -44,6 +45,10 @@ RSpec.describe QuestionsController, type: :controller do
   # in order to pass any filters (e.g. authentication) defined in
   # QuestionsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+
+  before :each do
+    sign_in user
+  end
 
   describe "GET #index" do
     it "assigns all questions as @questions" do

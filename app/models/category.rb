@@ -30,7 +30,7 @@ class Category < ApplicationRecord
       "resources",
       "indicators-of-academic-learning",
       "character-and-wellbeing-outcomes",
-      "family-questions"
+      "pilot-family-questions"
     ].index(root_identifier)
   end
 

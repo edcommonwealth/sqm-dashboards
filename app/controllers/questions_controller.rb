@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
+  before_action :verify_super_admin, except: [:show]
   before_action :set_school, only: [:show]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
@@ -77,5 +79,9 @@ class QuestionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       params.require(:question).permit(:text, :option1, :option2, :option3, :option4, :option5, :category_id)
+    end
+
+    def verify_super_admin
+      user_signed_in? && current_user.super_admin?
     end
 end

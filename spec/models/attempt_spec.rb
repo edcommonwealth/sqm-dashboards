@@ -93,7 +93,7 @@ RSpec.describe Attempt, type: :model do
 
     it 'should contact the Twilio API' do
       expect(FakeSMS.messages.length).to eq(1)
-      expect(FakeSMS.messages.last.body).to eq("Question 0:1\nOption 0:1 A: Reply 1\n\rOption 0:1 B: Reply 2\n\rOption 0:1 C: Reply 3\n\rOption 0:1 D: Reply 4\n\rOption 0:1 E: Reply 5\n\rReply 'stop' to stop these messages.")
+      expect(FakeSMS.messages.last.body).to eq("Question 0:1\n\rOption 0:1 A: Reply 1\n\rOption 0:1 B: Reply 2\n\rOption 0:1 C: Reply 3\n\rOption 0:1 D: Reply 4\n\rOption 0:1 E: Reply 5\n\rReply 'stop' to stop these messages.")
       expect(FakeSMS.messages.last.to).to eq('1111111111')
     end
 

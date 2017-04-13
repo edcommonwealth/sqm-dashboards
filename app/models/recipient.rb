@@ -4,6 +4,7 @@ class Recipient < ApplicationRecord
   belongs_to :school
   validates_associated :school
 
+  has_many :recipient_schedules
   has_many :attempts
 
   validates :name, presence: true

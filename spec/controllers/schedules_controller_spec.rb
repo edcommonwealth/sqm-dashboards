@@ -20,6 +20,7 @@ require 'rails_helper'
 
 RSpec.describe SchedulesController, type: :controller do
 
+  let!(:user) { User.create(email: 'test@test.com', password: '123456') }
   let!(:school) { School.create!(name: 'School') }
 
   let!(:recipients) { create_recipients(school, 3) }
@@ -54,12 +55,9 @@ RSpec.describe SchedulesController, type: :controller do
   # SchedulesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all schedules as @schedules" do
-      schedule = Schedule.create! valid_attributes
-      get :index, params: {school_id: school.id}, session: valid_session
-      expect(assigns(:schedules)).to eq([schedule])
-    end
+  before :each do
+    user.user_schools.create(school: school)
+    sign_in user
   end
 
   describe "GET #show" do
