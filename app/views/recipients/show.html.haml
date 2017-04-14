@@ -46,6 +46,15 @@
       %strong Opted out:
       = @recipient.opted_out
 
+    - if (recipient_schedule = @recipient.recipient_schedules.first).present?
+      %p
+        %strong Last Attempt At:
+        = recipient_schedule.last_attempt_at.strftime('%A, %b %d')
+
+      %p
+        %strong Next Attempt At:
+        = recipient_schedule.next_attempt_at.strftime('%A, %b %d')
+
 = link_to 'Edit', edit_school_recipient_path(@school, @recipient)
 |
 = link_to 'Back', school_path(@school)
