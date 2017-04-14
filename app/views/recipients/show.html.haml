@@ -49,11 +49,11 @@
     - if (recipient_schedule = @recipient.recipient_schedules.first).present?
       %p
         %strong Last Attempt At:
-        = recipient_schedule.last_attempt_at.strftime('%A, %b %d')
+        = recipient_schedule.last_attempt_at.strftime('%m-%e-%y %H:%M')
 
       %p
         %strong Next Attempt At:
-        = recipient_schedule.next_attempt_at.strftime('%A, %b %d')
+        = recipient_schedule.next_attempt_at.strftime('%m-%e-%y %H:%M')
 
 = link_to 'Edit', edit_school_recipient_path(@school, @recipient)
 |
