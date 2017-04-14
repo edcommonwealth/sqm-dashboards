@@ -1,16 +1,16 @@
 - aggregated_responses = question.aggregated_responses_for_school(@school)
 - return if aggregated_responses.nil?
 
-.col-12.col-sm-6.py-3
+.col-12.col-md-6.py-3
   .question.p-2{id: "question-#{question.id}"}
     %p.question-text.pt-3.px-2
       = question.text
 
-    .pb-3.px-2
-      .indicator-container.float-left
+    .row.pt-2
+      .col-4.indicator-container.centered
         = render 'school_categories/indicator', info: aggregated_responses, small: true
 
-      .pl-3.pt-1.float-left
+      .col-8
         %p
           %b Total Responses:
           = aggregated_responses.count

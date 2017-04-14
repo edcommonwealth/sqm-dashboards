@@ -23,9 +23,9 @@ class AttemptsController < ApplicationController
 
     response_count = Attempt.for_question(attempt.question).for_school(recipient.school).with_response.count
     if response_count > 1
-      response_message << "#{response_count} people have responded to this question so far. To see all responses visit"
+      response_message << "#{response_count} people have responded to this question so far. To see all responses visit:"
     else
-      response_message << 'You are the first person to respond to this question. Once more people have responded you will be able to see all responses at'
+      response_message << 'You are the first person to respond to this question. Once more people have responded you will be able to see all responses at:'
     end
     response_message << school_category_url(attempt.recipient.school, attempt.question.category)
 

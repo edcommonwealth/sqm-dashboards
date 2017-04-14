@@ -66,7 +66,7 @@ RSpec.describe AttemptsController, type: :controller do
       end
 
       it "sends back a message" do
-        expect(response.body).to eq "We've registered your response of \"Option 0:1 C\". You are the first person to respond to this question. Once more people have responded you will be able to see all responses at http://test.host/schools/school/categories/category"
+        expect(response.body).to eq "We've registered your response of \"Option 0:1 C\". You are the first person to respond to this question. Once more people have responded you will be able to see all responses at: http://test.host/schools/school/categories/category"
       end
 
       context "with second response" do
@@ -90,7 +90,7 @@ RSpec.describe AttemptsController, type: :controller do
         end
 
         it "sends back a message" do
-          expect(response.body).to eq "We've registered your response of \"Option 0:1 D\". 2 people have responded to this question so far. To see all responses visit http://test.host/schools/school/categories/category"
+          expect(response.body).to eq "We've registered your response of \"Option 0:1 D\". 2 people have responded to this question so far. To see all responses visit: http://test.host/schools/school/categories/category"
         end
       end
     end

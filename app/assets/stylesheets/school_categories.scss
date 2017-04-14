@@ -11,6 +11,14 @@
 }
 
 .indicator-container {
+  &.centered {
+    margin-top: -3px;
+
+    .indicator-circle {
+      margin: auto;
+    }
+  }
+
   .indicator {
     padding-top: 6px;
     height: 90px;

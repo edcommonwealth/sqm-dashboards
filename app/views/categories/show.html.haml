@@ -13,12 +13,12 @@
 
       %p= @category.description
       %p
-        %b Total Responses:
+        %b Total&nbsp;Responses:
         = number_with_delimiter(@school_category.response_count)
 
         &nbsp; &nbsp; &nbsp;
 
-        %b Average Response:
+        %b Average&nbsp;Response:
         = @school_category.answer_index_average.round(1)
         (out of 5)
 
