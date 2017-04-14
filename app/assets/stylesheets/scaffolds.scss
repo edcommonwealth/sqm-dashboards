@@ -64,3 +64,14 @@ form {
     }
   }
 }
+
+@media (max-width: 978px) {
+  .container {
+    padding:0;
+    margin:0;
+  }
+
+  body {
+    padding:0;
+  }
+}
