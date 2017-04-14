@@ -40,7 +40,7 @@ RSpec.describe RecipientSchedule, type: :model do
   describe 'ready' do
     before :each do
       now = DateTime.now
-      date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
+      date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
       Timecop.freeze(date)
     end
 
@@ -103,7 +103,7 @@ RSpec.describe RecipientSchedule, type: :model do
 
       it 'should update next_attempt_at' do
         now = DateTime.now
-        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
+        date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
         time = date.to_time.to_i + (60 * 60 * 24 * 7)
 
         expect(recipient_schedule.next_attempt_at.to_i).to eq(time)

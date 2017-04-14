@@ -42,7 +42,8 @@ RSpec.describe SchedulesController, type: :controller do
       recipient_list_id: recipient_list.id,
       question_list_id: question_list.id,
       name: 'Parents Schedule',
-      description: 'Schedule for parent questions'
+      description: 'Schedule for parent questions',
+      time: (8 * 60)
     }
   }
 
@@ -95,6 +96,12 @@ RSpec.describe SchedulesController, type: :controller do
         post :create, params: {school_id: school.id, schedule: valid_attributes}, session: valid_session
         expect(assigns(:schedule)).to be_a(Schedule)
         expect(assigns(:schedule)).to be_persisted
+      end
+
+      it "updates the schedule's time to UTC from EST" do
+        post :create, params: {school_id: school.id, schedule: valid_attributes}, session: valid_session
+        expect(assigns(:schedule)).to be_a(Schedule)
+        expect(assigns(:schedule).time).to eq(60 * 12)
       end
 
       it "redirects to the created schedule" do

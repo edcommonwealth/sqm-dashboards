@@ -3,6 +3,7 @@ class SchedulesController < ApplicationController
   before_action :set_school
   before_action :verify_admin
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
+  before_action :set_time, only: [:create, :update]
 
   # GET schools/1/schedules/1
   def show
@@ -56,7 +57,12 @@ class SchedulesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def schedule_params
-      params.require(:schedule).permit(:name, :description, :school_id, :frequency_hours, :start_date, :end_date, :active, :random, :recipient_list_id, :question_list_id)
+      params.require(:schedule).permit(:name, :description, :school_id, :frequency_hours, :start_date, :end_date, :time, :active, :random, :recipient_list_id, :question_list_id)
+    end
+
+    def set_time
+      return unless schedule_params.include?(:time)
+      params[:schedule][:time] = schedule_params[:time].to_i + (4 * 60) # Go from EST to UTC (NEEDS TO BETTER)
     end
 
 end

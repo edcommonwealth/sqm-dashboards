@@ -50,7 +50,7 @@ describe "survey:attempt_questions" do
     describe 'First attempt not at specified time' do
       before :each do
         now = DateTime.now
-        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT19:00:00%z"))
+        date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT19:00:00%z"))
         Timecop.freeze(date) { subject.invoke }
       end
 
@@ -64,7 +64,7 @@ describe "survey:attempt_questions" do
 
       before :each do
         now = DateTime.now
-        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+        date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
         Timecop.freeze(date) { subject.invoke }
       end
 
@@ -126,7 +126,7 @@ describe "survey:attempt_questions" do
         recipients[1].update_attributes(opted_out: true)
 
         now = DateTime.now
-        date = ActiveSupport::TimeZone["America/New_York"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+        date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
         Timecop.freeze(date) { subject.invoke }
       end
 
