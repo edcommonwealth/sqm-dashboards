@@ -13,9 +13,24 @@ describe "survey:attempt_questions" do
     let(:active_schedule)             { double("active schedule", recipient_schedules: recipient_schedules) }
 
     it "finds all active schedules" do
+      now = DateTime.now
+      now += 1.day until now.on_weekday?
+      date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+      Timecop.freeze(date)
+
       expect(ready_recipient_schedule).to receive(:attempt_question)
       expect(active_schedule).to receive(:recipient_schedules)
       expect(Schedule).to receive(:active).and_return([active_schedule])
+      subject.invoke
+    end
+
+    it "works only on weekdays" do
+      now = DateTime.now
+      now += 1.day until now.on_weekend?
+      date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+      Timecop.freeze(date)
+
+      expect(ready_recipient_schedule).to_not receive(:attempt_question)
       subject.invoke
     end
   end
@@ -64,6 +79,7 @@ describe "survey:attempt_questions" do
 
       before :each do
         now = DateTime.now
+        now += 1.day until now.on_weekday?
         date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
         Timecop.freeze(date) { subject.invoke }
       end
@@ -126,6 +142,7 @@ describe "survey:attempt_questions" do
         recipients[1].update_attributes(opted_out: true)
 
         now = DateTime.now
+        now += 1.day until now.on_weekday?
         date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
         Timecop.freeze(date) { subject.invoke }
       end
