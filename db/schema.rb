@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417203127) do
+ActiveRecord::Schema.define(version: 20170418173141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170417203127) do
     t.datetime "updated_at",            null: false
     t.text     "twilio_details"
     t.string   "twilio_sid"
+    t.integer  "student_id"
     t.index ["twilio_sid"], name: "index_attempts_on_twilio_sid", using: :btree
   end
 
@@ -67,9 +68,10 @@ ActiveRecord::Schema.define(version: 20170417203127) do
     t.string   "option4"
     t.string   "option5"
     t.integer  "category_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "target_group", default: 0
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "target_group",           default: 0
+    t.boolean  "for_recipient_students", default: false
   end
 
   create_table "recipient_lists", force: :cascade do |t|
@@ -153,6 +155,18 @@ ActiveRecord::Schema.define(version: 20170417203127) do
     t.text     "description"
     t.string   "slug"
     t.index ["slug"], name: "index_schools_on_slug", unique: true, using: :btree
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string   "name"
+    t.string   "teacher"
+    t.date     "birthdate"
+    t.string   "gender"
+    t.string   "age"
+    t.string   "ethnicity"
+    t.integer  "recipient_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "user_schools", force: :cascade do |t|

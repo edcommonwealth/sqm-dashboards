@@ -192,6 +192,60 @@ describe "survey:attempt_questions" do
       end
     end
 
+    describe 'Multiple Students In A Family' do
+
+      before :each do
+        3.times do |i|
+          recipients[1].students.create(name: "Student#{i}")
+        end
+      end
+
+      describe 'With A FOR_CHILD Question Is Asked' do
+        before :each do
+          questions.first.update_attributes(for_recipient_students: true)
+          date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+          Timecop.freeze(date) { subject.invoke }
+        end
+
+        it 'should create one attempt per recipient regardless of students' do
+          expect(FakeSMS.messages.length).to eq(3)
+          recipients.each do |recipient|
+            expect(recipient.attempts.count).to eq(1)
+          end
+        end
+
+        it 'should store queued questions when an attempt is made on first student' do
+          recipients.each do |recipient|
+            recipient_schedule = recipient.recipient_schedules.for_schedule(schedule).first
+            expect(recipient_schedule.queued_question_ids).to be_present
+            queued_question_ids = recipient_schedule.queued_question_ids.split(/,/)
+            expect(queued_question_ids.length).to eq(2)
+            expect(queued_question_ids.first).to eq("#{questions[0].id}:#{students[1].id}")
+            expect(queued_question_ids.last).to eq("#{questions[0].id}:#{students[2].id}")
+          end
+        end
+
+        it 'should set the next_attempt_at to now when attempt is made on first student'
+
+        it 'should set the next_attempt_at to now when attempt is made on second student'
+
+        it 'should set the next_attempt_at in the future when an attempt is made on last student'
+
+        it 'should mention the students name in the text'
+      end
+
+      describe 'With A General Question Is Asked' do
+        before :each do
+          subject.invoke
+        end
+
+        it 'should not queue up an questions regardless of how many students there are'
+
+        it 'should not mention the students name in the text'
+
+      end
+    end
+
     describe 'Opted Out Recipient' do
 
       before :each do

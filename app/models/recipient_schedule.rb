@@ -9,11 +9,17 @@ class RecipientSchedule < ApplicationRecord
   validates :next_attempt_at, presence: true
 
   scope :ready, -> { where('next_attempt_at <= ?', Time.new) }
-  scope :for, -> (recipient_or_recipient_id) {
+  scope :for_recipient, -> (recipient_or_recipient_id) {
     id = recipient_or_recipient_id.is_a?(Recipient) ?
       recipient_or_recipient_id.id :
       recipient_or_recipient_id
     where(recipient_id: id)
+  }
+  scope :for_schedule, -> (schedule_or_schedule_id) {
+    id = schedule_or_schedule_id.is_a?(Schedule) ?
+      schedule_or_schedule_id.id :
+      schedule_or_schedule_id
+    where(schedule_id: id)
   }
 
   def next_question
@@ -31,11 +37,24 @@ class RecipientSchedule < ApplicationRecord
 
     return if question.nil? && unanswered_attempt.nil?
 
+    student = nil
+    
     if unanswered_attempt.nil?
+      if question.for_recipient_students?
+        students = recipient.students
+        student = students.first
+        queued = queued_question_ids.try(:split, /,/) || []
+        students[1...students.length].each do
+          queued << "#{question.id}:#{student.id}"
+        end
+        self.queued_question_ids = queued.join(',')
+      end
+
       attempt = recipient.attempts.create(
         schedule: schedule,
         recipient_schedule: self,
-        question: question
+        question: question,
+        student: student
       )
     end
 
