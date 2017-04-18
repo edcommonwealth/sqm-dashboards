@@ -1,6 +1,6 @@
 namespace :survey do
 
-  desc 'Text all Recipients ready for an Attempt (only on weekdays)'
+  desc 'Text all recipients ready for an attempt'
   task :attempt_questions => :environment do
     Schedule.active.each do |schedule|
       schedule.recipient_schedules.ready.each do |recipient_schedule|
@@ -8,4 +8,5 @@ namespace :survey do
       end
     end
   end
+
 end
