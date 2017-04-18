@@ -13,9 +13,8 @@ class AttemptsController < ApplicationController
       return
     end
 
-    attempt.update_attributes(
+    attempt.save_response(
       answer_index: twilio_params[:Body].to_i,
-      responded_at: Time.new,
       twilio_details: twilio_params.to_h.to_yaml
     )
 

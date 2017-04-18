@@ -4,38 +4,45 @@ RSpec.describe AttemptsController, type: :controller do
 
   let(:valid_session) { {} }
 
-  let(:schedule) { Schedule.new }
+  let!(:recipients) { create_recipients(school, 2) }
+  let!(:recipient_list) do
+    school.recipient_lists.create!(name: 'Parents', recipient_ids: recipients.map(&:id).join(','))
+  end
+
+  let!(:category) { Category.create(name: 'Test Category')}
+  let!(:questions) { create_questions(3, category) }
+  let!(:question_list) do
+    QuestionList.create!(name: 'Parent Questions', question_ids: questions.map(&:id).join(','))
+  end
+
+  let(:schedule) { Schedule.create(name: 'Test Schedule', question_list: question_list, recipient_list: recipient_list) }
   let(:school) { School.create!(name: 'School') }
 
-  let(:recipient) { school.recipients.create!(name: 'Recipient', phone: '+11231231234') }
-  let(:recipient_schedule) { RecipientSchedule.new }
-  let(:recipient2) { school.recipients.create!(name: 'Recipient2', phone: '+12342342345') }
-  let(:recipient_schedule2) { RecipientSchedule.new }
+  let(:recipient_schedule) { RecipientSchedule.create(recipient: recipients.first, schedule: schedule, next_attempt_at: Time.now) }
+  let(:recipient_schedule2) { RecipientSchedule.create(recipient: recipients.last, schedule: schedule, next_attempt_at: Time.now) }
 
-  let(:category) { Category.create!(name: 'Category') }
-  let(:question) { create_questions(1, category).first }
   let!(:first_attempt) {
     Attempt.create(
       schedule: schedule,
-      recipient: recipient,
+      recipient: recipients.first,
       recipient_schedule: recipient_schedule,
-      question: question
+      question: questions.first
     )
   }
   let!(:attempt) {
     Attempt.create(
       schedule: schedule,
-      recipient: recipient,
+      recipient: recipients.first,
       recipient_schedule: recipient_schedule,
-      question: question
+      question: questions.first
     )
   }
   let!(:attempt2) {
     Attempt.create(
       schedule: schedule,
-      recipient: recipient2,
+      recipient: recipients.last,
       recipient_schedule: recipient_schedule2,
-      question: question
+      question: questions.first
     )
   }
 
@@ -43,7 +50,7 @@ RSpec.describe AttemptsController, type: :controller do
   describe "POST #twilio" do
     context "with valid params" do
       let(:twilio_attributes) {
-        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+11231231234','To' => '2223334444','Body' => '3','NumMedia' => '0'}
+        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+0000000000','To' => '2223334444','Body' => '3','NumMedia' => '0'}
       }
 
       before :each do
@@ -66,19 +73,19 @@ RSpec.describe AttemptsController, type: :controller do
       end
 
       it "sends back a message" do
-        expect(response.body).to eq "We've registered your response of \"Option 0:1 C\". You are the first person to respond to this question. Once more people have responded you will be able to see all responses at: http://test.host/schools/school/categories/category"
+        expect(response.body).to eq "We've registered your response of \"Option 0:3 C\". You are the first person to respond to this question. Once more people have responded you will be able to see all responses at: http://test.host/schools/school/categories/test-category"
       end
 
       context "with second response" do
         let(:twilio_attributes2) {
-          {'MessageSid' => 'fwefwefewfewfasfsdfdf','AccountSid' => 'wefwegdbvcbrtnrn','MessagingServiceSid' => 'dfvdfvegbdfb','From' => '+12342342345','To' => '2223334444','Body' => '4','NumMedia' => '0'}
+          {'MessageSid' => 'fwefwefewfewfasfsdfdf','AccountSid' => 'wefwegdbvcbrtnrn','MessagingServiceSid' => 'dfvdfvegbdfb','From' => '+1111111111','To' => '2223334444','Body' => '4','NumMedia' => '0'}
         }
 
         before :each do
           post :twilio, params: twilio_attributes2
         end
 
-        it 'creates the second attempt with response for the question' do
+        it 'updates the second attempt with response for the school' do
           expect(attempt.question.attempts.for_school(school).with_response.count).to eq(2)
         end
 
@@ -90,14 +97,14 @@ RSpec.describe AttemptsController, type: :controller do
         end
 
         it "sends back a message" do
-          expect(response.body).to eq "We've registered your response of \"Option 0:1 D\". 2 people have responded to this question so far. To see all responses visit: http://test.host/schools/school/categories/category"
+          expect(response.body).to eq "We've registered your response of \"Option 0:3 D\". 2 people have responded to this question so far. To see all responses visit: http://test.host/schools/school/categories/test-category"
         end
       end
     end
 
     context 'with stop params' do
       let(:twilio_attributes) {
-        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+11231231234','To' => '2223334444','Body' => 'sToP','NumMedia' => '0'}
+        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+0000000000','To' => '2223334444','Body' => 'sToP','NumMedia' => '0'}
       }
 
       it "updates the last attempt by recipient phone number" do

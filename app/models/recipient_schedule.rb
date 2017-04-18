@@ -17,30 +17,53 @@ class RecipientSchedule < ApplicationRecord
   }
 
   def next_question
-    upcoming = upcoming_question_ids.split(/,/)
-    Question.where(id: upcoming.first).first
+    if queued_question_ids.present?
+      next_question_id = queued_question_ids.split(/,/).first
+    else
+      next_question_id = upcoming_question_ids.split(/,/).first
+    end
+    Question.where(id: next_question_id).first
   end
 
   def attempt_question(send_message: true, question: next_question)
     return if recipient.opted_out?
-    attempt = recipient.attempts.create(
-      schedule: schedule,
-      recipient_schedule: self,
-      question: question
-    )
+    unanswered_attempt = recipient.attempts.with_no_response.last
 
-    if send_message && attempt.send_message
-      return if upcoming_question_ids.blank?
-      upcoming = upcoming_question_ids.split(/,/)[1..-1].join(',')
-      attempted = ((attempted_question_ids.try(:split, /,/) || []) + [question.id]).join(',')
+    return if question.nil? && unanswered_attempt.nil?
+
+    if unanswered_attempt.nil?
+      attempt = recipient.attempts.create(
+        schedule: schedule,
+        recipient_schedule: self,
+        question: question
+      )
+    end
+
+    if send_message && (unanswered_attempt || attempt).send_message
+      upcoming = upcoming_question_ids.try(:split, /,/) || []
+      queued = queued_question_ids.try(:split, /,/) || []
+      attempted = attempted_question_ids.try(:split, /,/) || []
+
+      if question.present?
+        question_id = [question.id.to_s]
+        upcoming = upcoming - question_id
+        if unanswered_attempt.nil?
+          attempted += question_id
+          queued -= question_id
+        else
+          queued += question_id
+        end
+      end
+
       update_attributes(
-        upcoming_question_ids: upcoming,
-        attempted_question_ids: attempted,
-        last_attempt_at: attempt.sent_at,
+        upcoming_question_ids: upcoming.empty? ? nil : upcoming.join(','),
+        attempted_question_ids: attempted.empty? ? nil : attempted.join(','),
+        queued_question_ids: queued.empty? ? nil : queued.join(','),
+        last_attempt_at: (unanswered_attempt || attempt).sent_at,
         next_attempt_at: next_attempt_at + (60 * 60 * schedule.frequency_hours)
       )
     end
-    return attempt
+    return (unanswered_attempt || attempt)
   end
 
   def self.create_for_recipient(recipient_or_recipient_id, schedule, next_attempt_at=nil)

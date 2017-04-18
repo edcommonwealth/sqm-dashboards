@@ -132,7 +132,9 @@ class FakeSMS
   end
 
   def get(sid)
-    Struct.new(:to).new("+1#{self.class.messages[sid].to}")
+    phone = self.class.messages[sid].to
+    phone  = "+1#{phone}" unless phone.starts_with?("+1")
+    Struct.new(:to).new(phone)
   end
 end
 
@@ -140,8 +142,8 @@ def create_recipients(school, count)
   recipients = []
   count.times do |i|
     recipients << school.recipients.create(
-      name: "Person#{count}",
-      phone: "#{count}" * 10,
+      name: "Person#{i}",
+      phone: "+" + ("#{i}" * 10),
     )
   end
   return recipients

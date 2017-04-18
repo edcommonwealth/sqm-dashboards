@@ -14,6 +14,7 @@ class Attempt < ApplicationRecord
   scope :for_category, -> (category) { joins(:question).merge(Question.for_category(category)) }
   scope :for_school, -> (school) { joins(:recipient).merge(Recipient.for_school(school)) }
   scope :with_response, -> { where('answer_index is not null or open_response_id is not null')}
+  scope :with_no_response, -> { where('answer_index is null and open_response_id is null')}
 
   def messages
     [
@@ -42,6 +43,18 @@ class Attempt < ApplicationRecord
   def response
     return 'No Answer Yet' if answer_index.blank?
     question.options[answer_index - 1]
+  end
+
+  def save_response(answer_index: nil, twilio_details: nil, responded_at: Time.new)
+    update_attributes(
+      answer_index: answer_index,
+      twilio_details: twilio_details,
+      responded_at: responded_at
+    )
+
+    if recipient_schedule.queued_question_ids.present?
+      recipient_schedule.update(next_attempt_at: Time.new)
+    end
   end
 
   private

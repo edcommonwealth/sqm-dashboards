@@ -4,7 +4,7 @@ RSpec.describe Attempt, type: :model do
 
   let!(:school) { School.create!(name: 'School') }
 
-  let!(:recipient) { create_recipients(school, 1).first }
+  let!(:recipient) { school.recipients.create(name: 'name', phone: "#{1}" * 9) }
   let!(:recipient_list) do
     school.recipient_lists.create!(name: 'Parents', recipient_ids: "#{recipient.id}")
   end
@@ -94,7 +94,7 @@ RSpec.describe Attempt, type: :model do
     it 'should contact the Twilio API' do
       expect(FakeSMS.messages.length).to eq(1)
       expect(FakeSMS.messages.last.body).to eq("Question 0:1\n\rOption 0:1 A: Reply 1\n\rOption 0:1 B: Reply 2\n\rOption 0:1 C: Reply 3\n\rOption 0:1 D: Reply 4\n\rOption 0:1 E: Reply 5\n\rReply 'stop' to stop these messages.")
-      expect(FakeSMS.messages.last.to).to eq('1111111111')
+      expect(FakeSMS.messages.last.to).to eq('111111111')
     end
 
     it 'should update sent_at' do
@@ -102,7 +102,7 @@ RSpec.describe Attempt, type: :model do
     end
 
     it 'should update the recipient phone number' do
-      expect(attempt.recipient.reload.phone).to eq('+11111111111')
+      expect(attempt.recipient.reload.phone).to eq('+1111111111')
     end
   end
 end
