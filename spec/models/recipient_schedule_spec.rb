@@ -21,7 +21,7 @@ RSpec.describe RecipientSchedule, type: :model do
       recipient_list_id: recipient_list.id,
       question_list: question_list,
       random: false,
-      frequency_hours: 24 * 7
+      frequency_hours: 24
     )
   end
   let!(:recipient_schedule) { schedule.recipient_schedules.for(recipient).first }
@@ -32,8 +32,8 @@ RSpec.describe RecipientSchedule, type: :model do
       schedule: schedule,
       upcoming_question_ids: '1,3',
       attempted_question_ids: '2',
-      last_attempt_at: 1.day.ago,
-      next_attempt_at: 1.day.ago + (60 * 60 * schedule.frequency_hours)
+      last_attempt_at: Date.today + (60 * 60 * schedule.frequency_hours),
+      next_attempt_at: 1.day.from_now + (60 * 60 * schedule.frequency_hours)
     )
   end
 
@@ -73,7 +73,21 @@ RSpec.describe RecipientSchedule, type: :model do
       it 'should not do anything' do
         expect(attempt).to be_nil
       end
+    end
 
+    describe 'right before a weekend' do
+      before :each do
+        friday_time = ActiveSupport::TimeZone["UTC"].parse('2017-04-21T20:00:00')
+        Timecop.freeze()
+        recipient_schedule.update_attributes(next_attempt_at: friday_time)
+      end
+
+      let!(:attempt) { recipient_schedule.attempt_question }
+
+      it 'should schedule the next attempt for after the weekend' do
+        next_weekday_time = ActiveSupport::TimeZone["UTC"].parse('2017-04-24T20:00:00')
+        expect(recipient_schedule.reload.next_attempt_at).to eq(next_weekday_time)
+      end
     end
 
     describe 'with an opted in recipient' do
@@ -103,10 +117,11 @@ RSpec.describe RecipientSchedule, type: :model do
 
       it 'should update next_attempt_at' do
         now = DateTime.now
-        date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
-        time = date.to_time.to_i + (60 * 60 * 24 * 7)
+        date = ActiveSupport::TimeZone["Eastern Time (US & Canada)"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
+        date += 1.day
+        date += 1.day if date.on_weekend?
 
-        expect(recipient_schedule.next_attempt_at.to_i).to eq(time)
+        expect(recipient_schedule.next_attempt_at).to eq(date.to_time)
       end
     end
   end

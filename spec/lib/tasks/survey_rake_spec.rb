@@ -13,6 +13,7 @@ describe "survey:attempt_questions" do
       n += 1.day until n.on_weekday?
       return n
     }
+
     let(:ready_recipient_schedule)    { double('ready recipient schedule', attempt_question: nil) }
     let(:recipient_schedules)         { double("recipient schedules", ready: [ready_recipient_schedule]) }
     let(:active_schedule)             { double("active schedule", recipient_schedules: recipient_schedules) }

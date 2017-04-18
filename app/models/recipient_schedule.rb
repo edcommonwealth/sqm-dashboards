@@ -60,10 +60,16 @@ class RecipientSchedule < ApplicationRecord
         attempted_question_ids: attempted.empty? ? nil : attempted.join(','),
         queued_question_ids: queued.empty? ? nil : queued.join(','),
         last_attempt_at: (unanswered_attempt || attempt).sent_at,
-        next_attempt_at: next_attempt_at + (60 * 60 * schedule.frequency_hours)
+        next_attempt_at: next_valid_attempt_time
       )
     end
     return (unanswered_attempt || attempt)
+  end
+
+  def next_valid_attempt_time
+    local_time = (next_attempt_at + (60 * 60 * schedule.frequency_hours)).in_time_zone('Eastern Time (US & Canada)')
+    local_time += 1.day while local_time.on_weekend?
+    return local_time
   end
 
   def self.create_for_recipient(recipient_or_recipient_id, schedule, next_attempt_at=nil)
