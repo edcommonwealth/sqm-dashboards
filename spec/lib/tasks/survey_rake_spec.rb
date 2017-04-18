@@ -184,7 +184,7 @@ describe "survey:attempt_questions" do
         end
 
         it 'should not send anything to anyone else' do
-          expect(FakeSMS.messages.length).to eq(@existing_message_count + 1)
+          expect(FakeSMS.messages.length).to eq(@existing_message_count + 2)
           expect(recipients[0].attempts.count).to eq(1)
           expect(recipients[1].attempts.count).to eq(2)
         end
@@ -195,7 +195,7 @@ describe "survey:attempt_questions" do
 
       before :each do
         recipients[1].update_attributes(opted_out: true)
-        
+
         date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
         Timecop.freeze(date) { subject.invoke }
       end
