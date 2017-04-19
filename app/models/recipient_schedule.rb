@@ -31,30 +31,71 @@ class RecipientSchedule < ApplicationRecord
     Question.where(id: next_question_id).first
   end
 
+  def attempt_question_for_recipient_students(send_message: true, question: next_question)
+    return if recipient.opted_out?
+    return if question.nil?
+
+    if !question.for_recipient_students?
+      return attempt_question(question: question)
+    end
+
+    missing_students = []
+    recipient_attempts = attempts.for_recipient(recipient).for_question(question)
+    recipient.students.each do |student|
+      if recipient_attempts.for_student(student).empty?
+        missing_students << student
+      end
+    end
+
+    attempt = recipient.attempts.create(
+      schedule: schedule,
+      recipient_schedule: self,
+      question: question,
+      student: missing_students.first
+    )
+
+    if send_message && attempt.send_message
+      upcoming = upcoming_question_ids.try(:split, /,/) || []
+      queued = queued_question_ids.try(:split, /,/) || []
+      attempted = attempted_question_ids.try(:split, /,/) || []
+
+      if question.present?
+        question_id = [question.id.to_s]
+        upcoming = upcoming - question_id
+        if missing_students.length > 1
+          queued += question_id
+        else
+          attempted += question_id
+          queued -= question_id
+        end
+      end
+
+      update_attributes(
+        upcoming_question_ids: upcoming.empty? ? nil : upcoming.join(','),
+        attempted_question_ids: attempted.empty? ? nil : attempted.join(','),
+        queued_question_ids: queued.empty? ? nil : queued.join(','),
+        last_attempt_at: attempt.sent_at,
+        next_attempt_at: next_valid_attempt_time
+      )
+    end
+    return attempt
+  end
+
   def attempt_question(send_message: true, question: next_question)
     return if recipient.opted_out?
     unanswered_attempt = recipient.attempts.with_no_response.last
 
     return if question.nil? && unanswered_attempt.nil?
 
-    student = nil
-    
     if unanswered_attempt.nil?
       if question.for_recipient_students?
-        students = recipient.students
-        student = students.first
-        queued = queued_question_ids.try(:split, /,/) || []
-        students[1...students.length].each do
-          queued << "#{question.id}:#{student.id}"
-        end
-        self.queued_question_ids = queued.join(',')
+        return attempt_question_for_recipient_students(question: question)
       end
 
       attempt = recipient.attempts.create(
         schedule: schedule,
         recipient_schedule: self,
-        question: question,
-        student: student
+        question: question
       )
     end
 

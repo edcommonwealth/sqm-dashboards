@@ -200,6 +200,11 @@ describe "survey:attempt_questions" do
         end
       end
 
+      let(:students_recipient) { recipients[1] }
+      let(:students_recipient_schedule) {
+        recipient_schedule = students_recipient.recipient_schedules.for_schedule(schedule).first
+      }
+
       describe 'With A FOR_CHILD Question Is Asked' do
         before :each do
           questions.first.update_attributes(for_recipient_students: true)
@@ -215,23 +220,57 @@ describe "survey:attempt_questions" do
         end
 
         it 'should store queued questions when an attempt is made on first student' do
-          recipients.each do |recipient|
-            recipient_schedule = recipient.recipient_schedules.for_schedule(schedule).first
-            expect(recipient_schedule.queued_question_ids).to be_present
-            queued_question_ids = recipient_schedule.queued_question_ids.split(/,/)
-            expect(queued_question_ids.length).to eq(2)
-            expect(queued_question_ids.first).to eq("#{questions[0].id}:#{students[1].id}")
-            expect(queued_question_ids.last).to eq("#{questions[0].id}:#{students[2].id}")
-          end
+          expect(students_recipient_schedule.queued_question_ids).to be_present
+          queued_question_ids = students_recipient_schedule.queued_question_ids.split(/,/)
+          expect(queued_question_ids.length).to eq(1)
+          expect(queued_question_ids.first).to eq("#{questions[0].id}")
         end
 
-        it 'should set the next_attempt_at to now when attempt is made on first student'
+        it 'should set the next_attempt_at to now when attempt is made on first student' do
+          recipient.attempts.last.save_response(answer_index: 3)
+          expect(students_recipient_schedule.reload.next_attempt_at).to eq(Time.new)
+        end
 
-        it 'should set the next_attempt_at to now when attempt is made on second student'
+        it 'should set the next_attempt_at to now when attempt is made on second student' do
+          students_recipient.attempts.last.save_response(answer_index: 3)
+          expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(1)
+          expect(students_recipient_schedule.reload.queued_question_ids).to be_present
 
-        it 'should set the next_attempt_at in the future when an attempt is made on last student'
+          attempt = students_recipient.attempts.last
+          expect(attempt.student).to eq(students_recipient.students[1])
+          attempt.save_response(answer_index: 4)
+          expect(students_recipient_schedule.reload.next_attempt_at).to eq(Time.new)
+        end
+
+        it 'should set the next_attempt_at in the future when an attempt is made on last student' do
+          students_recipient.attempts.last.save_response(answer_index: 3)
+          expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(1)
+          expect(students_recipient_schedule.reload.queued_question_ids).to be_present
+
+          attempt = students_recipient.attempts.last
+          expect(attempt.student).to eq(students_recipient.students[1])
+          attempt.save_response(answer_index: 4)
+          expect(students_recipient_schedule.reload.next_attempt_at).to eq(Time.new)
+
+          expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(1)
+          expect(students_recipient_schedule.reload.queued_question_ids).to be_nil
+          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(Time.new)
+
+          attempt = students_recipient.attempts.last
+          expect(attempt.student).to eq(students_recipient.students[2])
+          attempt.save_response(answer_index: 2)
+          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(Time.new)
+        end
 
         it 'should mention the students name in the text'
+
+        it 'resends the question about the same student if not responded to'
+
+        it 'still sends when no students are present'
+
+        it 'doesnt store any queued_question_ids when no students are present'
+
+        it 'doesnt store any queued_question_ids when just one student is present'
       end
 
       describe 'With A General Question Is Asked' do
