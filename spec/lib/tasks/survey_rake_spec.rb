@@ -105,7 +105,7 @@ describe "survey:attempt_questions" do
     describe 'Second Attempts' do
       before :each do
         recipients.each do |recipient|
-          recipient_schedule = schedule.recipient_schedules.for(recipient).first
+          recipient_schedule = schedule.recipient_schedules.for_recipient(recipient).first
           recipient_schedule.attempt_question
         end
       end
@@ -161,7 +161,7 @@ describe "survey:attempt_questions" do
 
           Timecop.freeze(now + 7)
           recipients.each do |recipient|
-            recipient_schedule = schedule.recipient_schedules.for(recipient).first
+            recipient_schedule = schedule.recipient_schedules.for_recipient(recipient).first
             recipient_schedule.attempt_question
           end
 
@@ -185,7 +185,7 @@ describe "survey:attempt_questions" do
         end
 
         it 'should not send anything to anyone else' do
-          expect(FakeSMS.messages.length).to eq(@existing_message_count + 2)
+          expect(FakeSMS.messages.length).to eq(@existing_message_count + 1)
           expect(recipients[0].attempts.count).to eq(1)
           expect(recipients[1].attempts.count).to eq(2)
         end
@@ -206,9 +206,10 @@ describe "survey:attempt_questions" do
       }
 
       describe 'With A FOR_CHILD Question Is Asked' do
+        let!(:date) { ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z")) }
+
         before :each do
           questions.first.update_attributes(for_recipient_students: true)
-          date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
           Timecop.freeze(date) { subject.invoke }
         end
 
@@ -227,7 +228,7 @@ describe "survey:attempt_questions" do
         end
 
         it 'should set the next_attempt_at to now when attempt is made on first student' do
-          recipient.attempts.last.save_response(answer_index: 3)
+          students_recipient.attempts.last.save_response(answer_index: 3)
           expect(students_recipient_schedule.reload.next_attempt_at).to eq(Time.new)
         end
 
@@ -249,17 +250,21 @@ describe "survey:attempt_questions" do
 
           attempt = students_recipient.attempts.last
           expect(attempt.student).to eq(students_recipient.students[1])
+
+          Timecop.freeze(date + 1.day)
           attempt.save_response(answer_index: 4)
-          expect(students_recipient_schedule.reload.next_attempt_at).to eq(Time.new)
+          expect(students_recipient_schedule.reload.next_attempt_at).to eq(date + 1.day)
 
           expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(1)
           expect(students_recipient_schedule.reload.queued_question_ids).to be_nil
-          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(Time.new)
+          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(date + (60 * 60 * schedule.frequency_hours))
 
           attempt = students_recipient.attempts.last
           expect(attempt.student).to eq(students_recipient.students[2])
+
+          Timecop.freeze(date + 2.days)
           attempt.save_response(answer_index: 2)
-          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(Time.new)
+          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(date + 2.days)
         end
 
         it 'should mention the students name in the text'
