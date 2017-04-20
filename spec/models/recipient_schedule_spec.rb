@@ -91,6 +91,11 @@ RSpec.describe RecipientSchedule, type: :model do
     end
 
     describe 'with an opted in recipient' do
+      before :each do
+        date = ActiveSupport::TimeZone["UTC"].parse('2017-04-20T20:00:00')
+        Timecop.freeze(date)
+      end
+
       let!(:attempt) { recipient_schedule.attempt_question }
 
       it 'should make an attempt to ask the next question' do
