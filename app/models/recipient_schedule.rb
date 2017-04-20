@@ -31,6 +31,18 @@ class RecipientSchedule < ApplicationRecord
     Question.where(id: next_question_id).first
   end
 
+  def upcoming_question_id_array
+    upcoming_question_ids.try(:split, /,/) || []
+  end
+
+  def attempted_question_id_array
+    attempted_question_ids.try(:split, /,/) || []
+  end
+
+  def queued_question_id_array
+    queued_question_ids.try(:split, /,/) || []
+  end
+
   def attempt_question_for_recipient_students(send_message: true, question: next_question)
     return if recipient.opted_out?
     return if question.nil?
@@ -55,9 +67,9 @@ class RecipientSchedule < ApplicationRecord
     )
 
     if send_message && attempt.send_message
-      upcoming = upcoming_question_ids.try(:split, /,/) || []
-      queued = queued_question_ids.try(:split, /,/) || []
-      attempted = attempted_question_ids.try(:split, /,/) || []
+      upcoming = upcoming_question_id_array
+      queued = queued_question_id_array
+      attempted = attempted_question_id_array
 
       if question.present?
         question_id = [question.id.to_s]
@@ -100,9 +112,9 @@ class RecipientSchedule < ApplicationRecord
     end
 
     if send_message && (unanswered_attempt || attempt).send_message
-      upcoming = upcoming_question_ids.try(:split, /,/) || []
-      queued = queued_question_ids.try(:split, /,/) || []
-      attempted = attempted_question_ids.try(:split, /,/) || []
+      upcoming = upcoming_question_id_array
+      queued = queued_question_id_array
+      attempted = attempted_question_id_array
 
       if question.present?
         question_id = [question.id.to_s]
