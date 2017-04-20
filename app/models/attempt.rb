@@ -20,9 +20,17 @@ class Attempt < ApplicationRecord
   scope :with_no_response, -> { where('answer_index is null and open_response_id is null')}
 
   def messages
+    if student.present?
+      intro = "#{student.name}'s school, "
+    else
+      intro = "Your child's school, "
+    end
+
+    intro += "#{recipient.school.name}, would love your opinion on this question:"
+
     [
       #question.text,
-      "#{question.text}\r\n#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'stop' to stop these messages."
+      "#{intro}\n\r#{question.text}\n\r#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'stop' to stop these messages."
     ]
   end
 
