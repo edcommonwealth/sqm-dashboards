@@ -83,7 +83,7 @@ class RecipientSchedule < ApplicationRecord
 
   def attempt_question(send_message: true, question: next_question)
     return if recipient.opted_out?
-    unanswered_attempt = recipient.attempts.with_no_response.last
+    unanswered_attempt = recipient.attempts.not_yet_responded.last
 
     return if question.nil? && unanswered_attempt.nil?
 

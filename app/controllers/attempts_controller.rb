@@ -14,15 +14,20 @@ class AttemptsController < ApplicationController
     end
 
     attempt.save_response(
-      answer_index: twilio_params[:Body].to_i,
+      answer_index: twilio_params[:Body].to_i > 0 ? twilio_params[:Body].to_i : nil,
       twilio_details: twilio_params.to_h.to_yaml
     )
 
+    if (twilio_params[:Body].downcase == 'skip')
+      render plain: 'Thank you, this question has been skipped.'
+      return
+    end
+
     response_message = ["We've registered your response of \"#{attempt.response}\"."]
 
-    response_count = Attempt.for_question(attempt.question).for_school(recipient.school).with_response.count
-    if response_count > 1
-      response_message << "#{response_count} people have responded to this question so far. To see all responses visit:"
+    answer_count = Attempt.for_question(attempt.question).for_school(recipient.school).with_answer.count
+    if answer_count > 1
+      response_message << "#{answer_count} people have responded to this question so far. To see all responses visit:"
     else
       response_message << 'You are the first person to respond to this question. Once more people have responded you will be able to see all responses at:'
     end

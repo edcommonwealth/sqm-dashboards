@@ -16,8 +16,9 @@ class Attempt < ApplicationRecord
   scope :for_student, -> (student) { where(student_id: student.id) }
   scope :for_category, -> (category) { joins(:question).merge(Question.for_category(category)) }
   scope :for_school, -> (school) { joins(:recipient).merge(Recipient.for_school(school)) }
-  scope :with_response, -> { where('answer_index is not null or open_response_id is not null')}
-  scope :with_no_response, -> { where('answer_index is null and open_response_id is null')}
+  scope :with_answer, -> { where('answer_index is not null or open_response_id is not null')}
+  scope :with_no_answer, -> { where('answer_index is null and open_response_id is null')}
+  scope :not_yet_responded, -> { where(responded_at: nil) }
 
   def messages
     if student.present?
@@ -30,7 +31,7 @@ class Attempt < ApplicationRecord
 
     [
       #question.text,
-      "#{intro}\n\r#{question.text}\n\r#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'stop' to stop these messages."
+      "#{intro}\n\r#{question.text}\n\r#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'skip' to skip this question.\n\rReply 'stop' to stop these messages."
     ]
   end
 
@@ -81,7 +82,7 @@ class Attempt < ApplicationRecord
     def update_counts
       recipient.update_attributes(
         attempts_count: recipient.attempts.count,
-        responses_count: recipient.attempts.with_response.count
+        responses_count: recipient.attempts.with_answer.count
       )
     end
 

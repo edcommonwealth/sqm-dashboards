@@ -58,7 +58,7 @@ RSpec.describe AttemptsController, type: :controller do
       end
 
       it 'creates the first attempt with response for the question' do
-        expect(attempt.question.attempts.for_school(school).with_response.count).to eq(1)
+        expect(attempt.question.attempts.for_school(school).with_answer.count).to eq(1)
       end
 
       it "updates the last attempt by recipient phone number" do
@@ -86,7 +86,7 @@ RSpec.describe AttemptsController, type: :controller do
         end
 
         it 'updates the second attempt with response for the school' do
-          expect(attempt.question.attempts.for_school(school).with_response.count).to eq(2)
+          expect(attempt.question.attempts.for_school(school).with_answer.count).to eq(2)
         end
 
         it "updates the attempt from the second recipient" do
@@ -118,6 +118,31 @@ RSpec.describe AttemptsController, type: :controller do
       it "sends back a message" do
         post :twilio, params: twilio_attributes
         expect(response.body).to eq('Thank you, you have been opted out of these messages and will no longer receive them.')
+      end
+    end
+
+    context 'with skip params' do
+      let(:twilio_skip_attributes) {
+        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+0000000000','To' => '2223334444','Body' => 'SkIP','NumMedia' => '0'}
+      }
+
+      it "updates the last attempt by recipient phone number" do
+        post :twilio, params: twilio_skip_attributes
+        attempt.reload
+        expect(attempt.answer_index).to be_nil
+        expect(attempt.responded_at).to be_present
+        expect(attempt.twilio_details).to eq(twilio_skip_attributes.with_indifferent_access.to_yaml)
+        expect(attempt.recipient).to_not be_opted_out
+
+        school_attempts = attempt.question.attempts.for_school(school)
+        expect(school_attempts.with_answer.count).to eq(0)
+        expect(school_attempts.with_no_answer.count).to eq(3)
+        expect(school_attempts.not_yet_responded.count).to eq(2)
+      end
+
+      it "sends back a message" do
+        post :twilio, params: twilio_skip_attributes
+        expect(response.body).to eq('Thank you, this question has been skipped.')
       end
     end
   end
