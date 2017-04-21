@@ -149,4 +149,35 @@ RSpec.describe AttemptsController, type: :controller do
       end
     end
   end
+
+  describe "POST #twilio with response to repeated question" do
+    context "with valid params" do
+
+      let!(:recent_first_attempt) {
+        first_attempt.update_attributes(sent_at: Time.new)
+        return first_attempt
+      }
+
+      let(:twilio_attributes) {
+        {'MessageSid' => 'ewuefhwieuhfweiuhfewiuhf','AccountSid' => 'wefiuwhefuwehfuwefinwefw','MessagingServiceSid' => 'efwneufhwuefhweiufhiuewhf','From' => '+0000000000','To' => '2223334444','Body' => '2','NumMedia' => '0'}
+      }
+
+      before :each do
+        post :twilio, params: twilio_attributes
+      end
+
+      it "updates the first attempt (that now has the most recent sent_at)" do
+        recent_first_attempt.reload
+        expect(recent_first_attempt.answer_index).to eq(2)
+        expect(recent_first_attempt.twilio_details).to eq(twilio_attributes.with_indifferent_access.to_yaml)
+        expect(recent_first_attempt.responded_at).to be_present
+
+        expect(attempt.answer_index).to be_nil
+        expect(attempt.twilio_details).to be_nil
+        expect(attempt.responded_at).to be_nil
+
+        expect(recent_first_attempt.id).to be < attempt.id
+      end
+    end
+  end
 end
