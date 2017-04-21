@@ -21,6 +21,15 @@ recipients = [
   school.recipients.create(name: 'Lynisse Patin', phone: '19176566892'),
   school.recipients.create(name: 'Khemenec Patin', phone: '(347) 534-6437'),
 ]
+
+recipients[0].students.create(name: 'Abigail')
+recipients[0].students.create(name: 'Clara')
+
+recipients[3].students.creaet(name: 'Zara')
+recipients[3].students.creaet(name: 'Cole')
+recipients[4].students.creaet(name: 'Zara')
+recipients[4].students.creaet(name: 'Cole')
+
 recipient_list = school.recipient_lists.create(name: 'Pilot Parent Test', recipient_id_array: recipients.map(&:id))
 
 user.user_schools.create(school: school)

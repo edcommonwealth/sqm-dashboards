@@ -24,7 +24,7 @@ RSpec.describe RecipientSchedule, type: :model do
       frequency_hours: 24
     )
   end
-  let!(:recipient_schedule) { schedule.recipient_schedules.for(recipient).first }
+  let!(:recipient_schedule) { schedule.recipient_schedules.for_recipient(recipient).first }
 
   let!(:not_ready_recipient_schedule) do
     RecipientSchedule.create!(
@@ -91,6 +91,11 @@ RSpec.describe RecipientSchedule, type: :model do
     end
 
     describe 'with an opted in recipient' do
+      before :each do
+        date = ActiveSupport::TimeZone["UTC"].parse('2017-04-20T20:00:00')
+        Timecop.freeze(date)
+      end
+
       let!(:attempt) { recipient_schedule.attempt_question }
 
       it 'should make an attempt to ask the next question' do
@@ -121,7 +126,7 @@ RSpec.describe RecipientSchedule, type: :model do
         date += 1.day
         date += 1.day if date.on_weekend?
 
-        expect(recipient_schedule.next_attempt_at).to eq(date.to_time)
+        expect(recipient_schedule.reload.next_attempt_at).to eq(date.to_time)
       end
     end
   end

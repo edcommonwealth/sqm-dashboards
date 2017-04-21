@@ -37,7 +37,7 @@ class Question < ApplicationRecord
   end
 
   def aggregated_responses_for_school(school)
-    school_responses = attempts.for_school(school).with_response.order(id: :asc)
+    school_responses = attempts.for_school(school).with_answer.order(id: :asc)
     return unless school_responses.present?
 
     response_answer_total = school_responses.inject(0) { |total, response| total + response.answer_index }

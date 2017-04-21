@@ -7,6 +7,8 @@ class Recipient < ApplicationRecord
   has_many :recipient_schedules
   has_many :attempts
 
+  has_many :students
+
   validates :name, presence: true
 
   scope :for_school, -> (school) { where(school: school) }

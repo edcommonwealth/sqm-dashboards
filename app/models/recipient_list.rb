@@ -33,7 +33,7 @@ class RecipientList < ApplicationRecord
       new_ids = recipient_ids.split(/,/)
       (old_ids - new_ids).each do |deleted_recipient|
         schedules.each do |schedule|
-          schedule.recipient_schedules.for(deleted_recipient).first.destroy
+          schedule.recipient_schedules.for_recipient(deleted_recipient).first.destroy
         end
       end
 

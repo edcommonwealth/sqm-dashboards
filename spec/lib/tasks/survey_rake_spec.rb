@@ -105,7 +105,7 @@ describe "survey:attempt_questions" do
     describe 'Second Attempts' do
       before :each do
         recipients.each do |recipient|
-          recipient_schedule = schedule.recipient_schedules.for(recipient).first
+          recipient_schedule = schedule.recipient_schedules.for_recipient(recipient).first
           recipient_schedule.attempt_question
         end
       end
@@ -161,7 +161,7 @@ describe "survey:attempt_questions" do
 
           Timecop.freeze(now + 7)
           recipients.each do |recipient|
-            recipient_schedule = schedule.recipient_schedules.for(recipient).first
+            recipient_schedule = schedule.recipient_schedules.for_recipient(recipient).first
             recipient_schedule.attempt_question
           end
 
@@ -185,9 +185,146 @@ describe "survey:attempt_questions" do
         end
 
         it 'should not send anything to anyone else' do
-          expect(FakeSMS.messages.length).to eq(@existing_message_count + 2)
+          expect(FakeSMS.messages.length).to eq(@existing_message_count + 1)
           expect(recipients[0].attempts.count).to eq(1)
           expect(recipients[1].attempts.count).to eq(2)
+        end
+      end
+    end
+
+    describe 'Multiple Students In A Family' do
+
+      before :each do
+        3.times do |i|
+          recipients[1].students.create(name: "Student#{i}")
+        end
+      end
+
+      let(:students_recipient) { recipients[1] }
+      let(:students_recipient_schedule) {
+        students_recipient.recipient_schedules.for_schedule(schedule).first
+      }
+
+      describe 'With A FOR_CHILD Question Is Asked' do
+        let!(:date) { ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z")) }
+
+        before :each do
+          questions.first.update_attributes(for_recipient_students: true)
+          Timecop.freeze(date) { subject.invoke }
+        end
+
+        it 'should create one attempt per recipient regardless of students' do
+          expect(FakeSMS.messages.length).to eq(3)
+          recipients.each do |recipient|
+            expect(recipient.attempts.count).to eq(1)
+          end
+        end
+
+        it 'should store queued questions when an attempt is made on first student' do
+          expect(students_recipient_schedule.queued_question_ids).to be_present
+          queued_question_ids = students_recipient_schedule.queued_question_ids.split(/,/)
+          expect(queued_question_ids.length).to eq(1)
+          expect(queued_question_ids.first).to eq("#{questions[0].id}")
+        end
+
+        it 'should set the next_attempt_at to now when attempt is made on first student' do
+          students_recipient.attempts.last.save_response(answer_index: 3)
+          expect(students_recipient_schedule.reload.next_attempt_at).to eq(Time.new)
+        end
+
+        it 'should set the next_attempt_at in the future when an attempts are made on each student' do
+          students_recipient.attempts.last.save_response(answer_index: 3)
+          expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(1)
+          expect(students_recipient_schedule.reload.queued_question_ids).to be_present
+
+          attempt = students_recipient.attempts.last
+          expect(attempt.student).to eq(students_recipient.students[1])
+
+          Timecop.freeze(date + 1.day)
+          attempt.save_response(answer_index: 4)
+          expect(students_recipient_schedule.reload.next_attempt_at).to eq(date + 1.day)
+
+          expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(1)
+          expect(students_recipient_schedule.reload.queued_question_ids).to be_nil
+          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(date + (60 * 60 * schedule.frequency_hours))
+
+          attempt = students_recipient.attempts.last
+          expect(attempt.student).to eq(students_recipient.students[2])
+
+          Timecop.freeze(date + 2.days)
+          attempt.save_response(answer_index: 2)
+          expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(date + 2.days)
+        end
+
+        it 'should mention the students name in the text' do
+          expect(FakeSMS.messages[1].body).to match(/Student0's school, School, would love your opinion on this question/)
+        end
+
+        it 'should not mention the students name in the text if the recipient has no student specified' do
+          expect(FakeSMS.messages[0].body).to match(/Your child's school, School, would love your opinion on this question/)
+        end
+
+        it 'resends the question about the same student if not responded to' do
+          message_count = FakeSMS.messages.length
+          expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(0)
+          expect(FakeSMS.messages.length).to eq(message_count + 1)
+          expect(FakeSMS.messages.last.body).to match(/Student0's school, School/)
+          expect(FakeSMS.messages.last.body).to match(questions.first.text)
+        end
+
+        it 'doesnt store any queued_question_ids when no students are present' do
+          recipient_schedule = recipients[0].recipient_schedules.for_schedule(schedule).first
+          expect(recipient_schedule.queued_question_ids).to be_nil
+        end
+
+      end
+
+      describe 'With A General Question Is Asked' do
+        before :each do
+          subject.invoke
+        end
+
+        it 'should not queue up an questions regardless of how many students there are' do
+          expect(students_recipient_schedule.queued_question_ids).to be_nil
+        end
+
+        it 'should not mention the students name in the text' do
+          FakeSMS.messages.each do |message|
+            expect(message.body).to match(/Your child's school, School, would love your opinion on this question/)
+          end
+        end
+
+      end
+    end
+
+    describe 'One Student In A Family' do
+
+      before :each do
+        recipients[1].students.create(name: "Only Student")
+      end
+
+      let(:students_recipient) { recipients[1] }
+      let(:students_recipient_schedule) {
+        students_recipient.recipient_schedules.for_schedule(schedule).first
+      }
+
+      describe 'With A FOR_CHILD Question Is Asked' do
+        let!(:date) { ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z")) }
+
+        before :each do
+          questions.first.update_attributes(for_recipient_students: true)
+          Timecop.freeze(date) { subject.invoke }
+        end
+
+        it 'should create one attempt per recipient regardless of students' do
+          expect(FakeSMS.messages.length).to eq(3)
+          recipients.each do |recipient|
+            expect(recipient.attempts.count).to eq(1)
+          end
+        end
+
+        it 'doesnt store any queued_question_ids' do
+          expect(students_recipient_schedule.queued_question_ids).to be_nil
         end
       end
     end

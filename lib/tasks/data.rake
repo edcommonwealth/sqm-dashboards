@@ -102,7 +102,8 @@ namespace :data do
           option2: question['answers'][1],
           option3: question['answers'][2],
           option4: question['answers'][3],
-          option5: question['answers'][4]
+          option5: question['answers'][4],
+          for_recipient_students: question['child'].present?
         )
       else
         variations.each do |variation|
@@ -112,7 +113,8 @@ namespace :data do
             option2: question['answers'][1],
             option3: question['answers'][2],
             option4: question['answers'][3],
-            option5: question['answers'][4]
+            option5: question['answers'][4],
+            for_recipient_students: question['child'].present?
           )
         end
       end
