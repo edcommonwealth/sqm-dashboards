@@ -19,6 +19,7 @@ class Attempt < ApplicationRecord
   scope :with_answer, -> { where('answer_index is not null or open_response_id is not null')}
   scope :with_no_answer, -> { where('answer_index is null and open_response_id is null')}
   scope :not_yet_responded, -> { where(responded_at: nil) }
+  scope :last_sent, -> { order(sent_at: :desc) }
 
   def messages
     if student.present?

@@ -4,7 +4,7 @@ class AttemptsController < ApplicationController
 
   def twilio
     recipient = Recipient.where(phone: twilio_params['From']).first
-    attempt = recipient.attempts.last
+    attempt = recipient.attempts.last_sent.first
 
     if (twilio_params[:Body].downcase == 'stop')
       attempt.recipient.update_attributes(opted_out: true)

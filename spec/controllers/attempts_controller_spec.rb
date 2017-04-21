@@ -26,7 +26,8 @@ RSpec.describe AttemptsController, type: :controller do
       schedule: schedule,
       recipient: recipients.first,
       recipient_schedule: recipient_schedule,
-      question: questions.first
+      question: questions.first,
+      sent_at: Time.new
     )
   }
   let!(:attempt) {
@@ -34,7 +35,8 @@ RSpec.describe AttemptsController, type: :controller do
       schedule: schedule,
       recipient: recipients.first,
       recipient_schedule: recipient_schedule,
-      question: questions.first
+      question: questions.first,
+      sent_at: Time.new
     )
   }
   let!(:attempt2) {
@@ -42,7 +44,8 @@ RSpec.describe AttemptsController, type: :controller do
       schedule: schedule,
       recipient: recipients.last,
       recipient_schedule: recipient_schedule2,
-      question: questions.first
+      question: questions.first,
+      sent_at: Time.new
     )
   }
 
