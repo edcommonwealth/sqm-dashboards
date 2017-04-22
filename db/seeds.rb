@@ -25,10 +25,10 @@ recipients = [
 recipients[0].students.create(name: 'Abigail')
 recipients[0].students.create(name: 'Clara')
 
-recipients[3].students.creaet(name: 'Zara')
-recipients[3].students.creaet(name: 'Cole')
-recipients[4].students.creaet(name: 'Zara')
-recipients[4].students.creaet(name: 'Cole')
+recipients[3].students.create(name: 'Zara')
+recipients[3].students.create(name: 'Cole')
+recipients[4].students.create(name: 'Zara')
+recipients[4].students.create(name: 'Cole')
 
 recipient_list = school.recipient_lists.create(name: 'Pilot Parent Test', recipient_id_array: recipients.map(&:id))
 
