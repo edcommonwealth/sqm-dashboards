@@ -146,7 +146,7 @@ class RecipientSchedule < ApplicationRecord
 
   def self.create_for_recipient(recipient_or_recipient_id, schedule, next_attempt_at=nil)
     if next_attempt_at.nil?
-      next_attempt_at = Time.at(schedule.start_date.to_time.to_i + (60 * schedule.time))
+      next_attempt_at = next_valid_attempt_time
     end
 
     question_ids = schedule.question_list.question_ids.split(/,/)
