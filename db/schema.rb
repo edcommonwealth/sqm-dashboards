@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20170418173141) do
     t.integer  "school_id"
     t.string   "name"
     t.text     "description"
-    t.integer  "frequency_hours"
+    t.integer  "frequency_hours",   default: 24
     t.date     "start_date"
     t.date     "end_date"
     t.boolean  "active",            default: true
