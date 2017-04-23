@@ -23,16 +23,14 @@ class Attempt < ApplicationRecord
 
   def messages
     if student.present?
-      intro = "#{student.name}'s school, "
+      intro = "From #{student.name}'s school:"
     else
-      intro = "Your child's school, "
+      intro = "From your child's school:"
     end
-
-    intro += "#{recipient.school.name}, would love your opinion on this question:"
 
     [
       #question.text,
-      "#{intro}\n\r#{question.text}\n\r#{question.option1}: Reply 1\n\r#{question.option2}: Reply 2\n\r#{question.option3}: Reply 3\n\r#{question.option4}: Reply 4\n\r#{question.option5}: Reply 5\n\rReply 'skip' to skip this question.\n\rReply 'stop' to stop these messages."
+      "#{intro}\n\r#{question.text}\n\rReply with:\n\r1: #{question.option1}\n\r2: #{question.option2}\n\r3: #{question.option3}\n\r4: #{question.option4}\n\r5: #{question.option5}\n\r'skip' skips question, 'stop' stops all questions"
     ]
   end
 

@@ -257,18 +257,18 @@ describe "survey:attempt_questions" do
         end
 
         it 'should mention the students name in the text' do
-          expect(FakeSMS.messages[1].body).to match(/Student0's school, School, would love your opinion on this question/)
+          expect(FakeSMS.messages[1].body).to match(/From Student0's school:/)
         end
 
         it 'should not mention the students name in the text if the recipient has no student specified' do
-          expect(FakeSMS.messages[0].body).to match(/Your child's school, School, would love your opinion on this question/)
+          expect(FakeSMS.messages[0].body).to match(/From your child's school:/)
         end
 
         it 'resends the question about the same student if not responded to' do
           message_count = FakeSMS.messages.length
           expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(0)
           expect(FakeSMS.messages.length).to eq(message_count + 1)
-          expect(FakeSMS.messages.last.body).to match(/Student0's school, School/)
+          expect(FakeSMS.messages.last.body).to match(/From Student0's school:/)
           expect(FakeSMS.messages.last.body).to match(questions.first.text)
         end
 
@@ -290,7 +290,7 @@ describe "survey:attempt_questions" do
 
         it 'should not mention the students name in the text' do
           FakeSMS.messages.each do |message|
-            expect(message.body).to match(/Your child's school, School, would love your opinion on this question/)
+            expect(message.body).to match(/From your child's school:/)
           end
         end
 
