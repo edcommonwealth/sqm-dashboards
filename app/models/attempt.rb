@@ -30,7 +30,7 @@ class Attempt < ApplicationRecord
 
     [
       #question.text,
-      "#{intro}\n\r#{question.text}\n\rReply with:\n\r1: #{question.option1}\n\r2: #{question.option2}\n\r3: #{question.option3}\n\r4: #{question.option4}\n\r5: #{question.option5}\n\r'skip' skips question, 'stop' stops all questions"
+      "#{intro}\n\r#{question.text}\n\r#{question.option1}: reply 1\n\r#{question.option2}: 2\n\r#{question.option3}: 3\n\r#{question.option4}: 4\n\r#{question.option5}: 5\n\rskip question: skip\n\rstop all questions: stop"
     ]
   end
 

@@ -98,7 +98,7 @@ RSpec.describe Attempt, type: :model do
       # expect(FakeSMS.messages.first.body).to eq("Question 0:1")
 
       expect(FakeSMS.messages.last.to).to eq('111111111')
-      expect(FakeSMS.messages.last.body).to eq("From your child's school:\n\rQuestion 0:1\n\rReply with:\n\r1: Option 0:1 A\n\r2: Option 0:1 B\n\r3: Option 0:1 C\n\r4: Option 0:1 D\n\r5: Option 0:1 E\n\r'skip' skips question, 'stop' stops all questions")
+      expect(FakeSMS.messages.last.body).to eq("From your child's school:\n\rQuestion 0:1\n\rOption 0:1 A: reply 1\n\rOption 0:1 B: 2\n\rOption 0:1 C: 3\n\rOption 0:1 D: 4\n\rOption 0:1 E: 5\n\rskip question: skip\n\rstop all questions: stop")
     end
 
     it 'should update sent_at' do
