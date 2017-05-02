@@ -22,15 +22,11 @@ class Attempt < ApplicationRecord
   scope :last_sent, -> { order(sent_at: :desc) }
 
   def messages
-    if student.present?
-      intro = "From #{student.name}'s school:"
-    else
-      intro = "From your child's school:"
-    end
+    child_specific = student.present? ? "\n(for #{student.name})" : ''
 
     [
       #question.text,
-      "#{intro}\n\r#{question.text}\n\r#{question.option1}: reply 1\n\r#{question.option2}: 2\n\r#{question.option3}: 3\n\r#{question.option4}: 4\n\r#{question.option5}: 5\n\rskip question: skip\n\rstop all questions: stop"
+      "#{question.text}#{child_specific}\n\r#{question.option1}: Reply 1\n#{question.option2}: 2\n#{question.option3}: 3\n#{question.option4}: 4\n#{question.option5}: 5\nSkip question: skip\nStop all questions: stop"
     ]
   end
 
