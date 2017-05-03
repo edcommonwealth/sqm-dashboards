@@ -185,7 +185,7 @@ describe "survey:attempt_questions" do
         end
 
         it 'should not send anything to anyone else' do
-          expect(FakeSMS.messages.length).to eq(@existing_message_count + 1)
+          expect(FakeSMS.messages.length).to eq(@existing_message_count + 2)
           expect(recipients[0].attempts.count).to eq(1)
           expect(recipients[1].attempts.count).to eq(2)
         end
@@ -214,7 +214,7 @@ describe "survey:attempt_questions" do
         end
 
         it 'should create one attempt per recipient regardless of students' do
-          expect(FakeSMS.messages.length).to eq(3)
+          expect(FakeSMS.messages.length).to eq(6)
           recipients.each do |recipient|
             expect(recipient.attempts.count).to eq(1)
           end
@@ -257,7 +257,7 @@ describe "survey:attempt_questions" do
         end
 
         it 'should mention the students name in the text' do
-          expect(FakeSMS.messages[1].body).to match(/\(for Student0\)/)
+          expect(FakeSMS.messages[2].body).to match(/\(for Student0\)/)
         end
 
         it 'should not mention the students name in the text if the recipient has no student specified' do
@@ -267,9 +267,9 @@ describe "survey:attempt_questions" do
         it 'resends the question about the same student if not responded to' do
           message_count = FakeSMS.messages.length
           expect{students_recipient_schedule.attempt_question}.to change{students_recipient.attempts.count}.by(0)
-          expect(FakeSMS.messages.length).to eq(message_count + 1)
-          expect(FakeSMS.messages.last.body).to match(/\(for Student0\)/)
-          expect(FakeSMS.messages.last.body).to match(questions.first.text)
+          expect(FakeSMS.messages.length).to eq(message_count + 2)
+          expect(FakeSMS.messages[message_count].body).to match(questions.first.text)
+          expect(FakeSMS.messages[message_count].body).to match(/\(for Student0\)/)
         end
 
         it 'doesnt store any queued_question_ids when no students are present' do
@@ -317,7 +317,7 @@ describe "survey:attempt_questions" do
         end
 
         it 'should create one attempt per recipient regardless of students' do
-          expect(FakeSMS.messages.length).to eq(3)
+          expect(FakeSMS.messages.length).to eq(6)
           recipients.each do |recipient|
             expect(recipient.attempts.count).to eq(1)
           end

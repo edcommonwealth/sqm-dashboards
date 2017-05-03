@@ -92,13 +92,13 @@ RSpec.describe Attempt, type: :model do
     end
 
     it 'should contact the Twilio API' do
-      expect(FakeSMS.messages.length).to eq(1)
+      expect(FakeSMS.messages.length).to eq(2)
 
-      # expect(FakeSMS.messages.first.to).to eq('111111111')
-      # expect(FakeSMS.messages.first.body).to eq("Question 0:1")
+      expect(FakeSMS.messages.first.to).to eq('111111111')
+      expect(FakeSMS.messages.first.body).to eq("Question 0:1")
 
       expect(FakeSMS.messages.last.to).to eq('111111111')
-      expect(FakeSMS.messages.last.body).to eq("Question 0:1\n\rOption 0:1 A: Reply 1\nOption 0:1 B: 2\nOption 0:1 C: 3\nOption 0:1 D: 4\nOption 0:1 E: 5\nSkip question: skip\nStop all questions: stop")
+      expect(FakeSMS.messages.last.body).to eq("Option 0:1 A: Reply 1\nOption 0:1 B: 2\nOption 0:1 C: 3\nOption 0:1 D: 4\nOption 0:1 E: 5")
     end
 
     it 'should update sent_at' do
