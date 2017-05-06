@@ -6,19 +6,27 @@ class AttemptsController < ApplicationController
     recipient = Recipient.where(phone: twilio_params['From']).first
     attempt = recipient.attempts.last_sent.first
 
-    if (twilio_params[:Body].downcase == 'stop')
-      attempt.recipient.update_attributes(opted_out: true)
-      attempt.update_attributes(twilio_details: twilio_params.to_h.to_yaml)
+    all_twilio_details = (attempt.twilio_details || '').split('~!~')
+    all_twilio_details << twilio_params.to_h.to_yaml
+
+    attempt.save_response(
+      answer_index: twilio_params[:Body].to_i > 0 ? twilio_params[:Body].to_i : nil,
+      twilio_details: all_twilio_details.join('~!~')
+    )
+
+    unless (['start', 'resume', 'restart', 'yes', 'go'].index(twilio_params[:Body].downcase).nil?)
+      recipient.update_attributes(opted_out: false)
+      render plain: 'Thank you, you will now begin receiving messages again.'
+      return
+    end
+
+    unless (['stop', 'cancel', 'quit', 'no'].index(twilio_params[:Body].downcase).nil?)
+      recipient.update_attributes(opted_out: true)
       render plain: 'Thank you, you have been opted out of these messages and will no longer receive them.'
       return
     end
 
-    attempt.save_response(
-      answer_index: twilio_params[:Body].to_i > 0 ? twilio_params[:Body].to_i : nil,
-      twilio_details: twilio_params.to_h.to_yaml
-    )
-
-    if (twilio_params[:Body].downcase == 'skip')
+    unless (['skip', 'i dont know', "i don't know", 'next'].index(twilio_params[:Body].downcase).nil?)
       render plain: 'Thank you, this question has been skipped.'
       return
     end
