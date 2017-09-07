@@ -1,3 +1,6 @@
+# PSQL: /Applications/Postgres.app/Contents/Versions/9.5/bin/psql -h localhost
+
+
 require 'csv'
 
 namespace :data do
@@ -7,12 +10,12 @@ namespace :data do
     Rake::Task["data:load_categories"].invoke
     Rake::Task["data:load_questions"].invoke
     Rake::Task["db:seed"].invoke
-    # Rake::Task["data:load_student_responses"].invoke
+    Rake::Task["data:load_responses"].invoke
   end
 
   desc 'Load in category data'
   task load_categories: :environment do
-    measures = JSON.parse(File.read(File.expand_path('../../../data/parent_pilot_measures.json', __FILE__)))
+    measures = JSON.parse(File.read(File.expand_path('../../../data/measures.json', __FILE__)))
     measures.each_with_index do |measure, index|
       category = Category.create(
         name: measure['title'],
@@ -75,14 +78,11 @@ namespace :data do
   desc 'Load in question data'
   task load_questions: :environment do
     variations = [
-      'homeroom',
-      'English',
-      'Math',
-      'Science',
-      'Social Studies'
+      '[Field-MathTeacher][Field-ScienceTeacher][Field-EnglishTeacher][Field-SocialTeacher]',
+      'teacher'
     ]
 
-    questions = JSON.parse(File.read(File.expand_path('../../../data/parent_pilot_questions.json', __FILE__)))
+    questions = JSON.parse(File.read(File.expand_path('../../../data/questions.json', __FILE__)))
     questions.each do |question|
       category = nil
       question['category'].split('-').each do |external_id|
@@ -95,7 +95,7 @@ namespace :data do
         end
       end
       question_text = question['text'].gsub(/[[:space:]]/, ' ').strip
-      if question_text.index('*').nil?
+      if question_text.index('.* teacher').nil?
         category.questions.create(
           text: question_text,
           option1: question['answers'][0],
@@ -108,7 +108,7 @@ namespace :data do
       else
         variations.each do |variation|
           category.questions.create(
-            text: question_text.gsub('.*', variation),
+            text: question_text.gsub('.* teacher', variation),
             option1: question['answers'][0],
             option2: question['answers'][1],
             option3: question['answers'][2],
@@ -122,7 +122,7 @@ namespace :data do
   end
 
   desc 'Load in student and teacher responses'
-  task load_student_responses: :environment do
+  task load_responses: :environment do
     ENV['BULK_PROCESS'] = 'true'
     answer_dictionary = {
       'Slightly': 'Somewhat',
@@ -143,32 +143,45 @@ namespace :data do
     unknown_schools = {}
     missing_questions = {}
     bad_answers = {}
-    year = '2016'
+    year = '2017'
     ['student_responses', 'teacher_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
       csv = CSV.parse(csv_string, :headers => true)
-      csv.each do |row|
-        school_name = row['What school do you go to?']
-        school_name = row['What school do you work at'] if school_name.nil?
-        school = School.find_by_name(school_name)
+      csv.each_with_index do |row, index|
+        district_name = row['What district is your school in?']
+        district_name = row['To begin, please select your district.'] if district_name.nil?
+        district = District.find_or_create_by(name: district_name, state_id: 1)
+
+        school_name = row["Please select your school in #{district_name}."]
+
+        if school_name.blank?
+          # puts "BLANK SCHOOL NAME: #{district.name} - #{index}"
+          next
+        end
+
+        school = School.find_or_create_by(name: school_name)
 
         if school.nil?
           next if unknown_schools[school_name]
-          puts "Unable to find school: #{school_name}"
+          puts "Unable to find school: #{school_name} - #{index}"
           unknown_schools[school_name] = true
           next
         end
 
-        respondent_id = row['RespondentID']
+        respondent_id = row['Response ID']
         recipient_id = respondent_map[respondent_id]
         if recipient_id.present?
           recipient = school.recipients.where(id: recipient_id).first
         else
-          recipient = school.recipients.create(
-            name: "Survey Respondent Id: #{respondent_id}"
-          )
+          begin
+            recipient = school.recipients.create(
+              name: "Survey Respondent Id: #{respondent_id}"
+            )
+          rescue
+            puts "ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
+          end
           respondent_map[respondent_id] = recipient.id
         end
 
@@ -180,9 +193,10 @@ namespace :data do
         recipient_list.save!
 
         row.each do |key, value|
-          next if value.nil? or key.nil?
+          next if value.nil? or key.nil? or value.to_s == "-99"
           key = key.gsub(/[[:space:]]/, ' ').strip
           value = value.gsub(/[[:space:]]/, ' ').strip.downcase
+
           question = Question.find_by_text(key)
           if question.nil?
             next if missing_questions[key]
@@ -193,21 +207,25 @@ namespace :data do
             question.update_attributes(target_group: target_group) if question.unknown?
           end
 
-          answer_index = question.option_index(value)
-          answer_dictionary.each do |k, v|
-            break if answer_index.present?
-            answer_index = question.option_index(value.gsub(k.to_s, v.to_s))
-            answer_index = question.option_index(value.gsub(v.to_s, k.to_s)) if answer_index.nil?
+          if (value.to_i.blank?)
+            answer_index = question.option_index(value)
+            answer_dictionary.each do |k, v|
+              break if answer_index.present?
+              answer_index = question.option_index(value.gsub(k.to_s, v.to_s))
+              answer_index = question.option_index(value.gsub(v.to_s, k.to_s)) if answer_index.nil?
+            end
+
+            if answer_index.nil?
+              next if bad_answers[key]
+              puts "Unable to find answer: #{key} = #{value.downcase.strip} - #{question.options.inspect}"
+              bad_answers[key] = true
+              next
+            end
+          else
+            answer_index = value.to_i
           end
 
-          if answer_index.nil?
-            next if bad_answers[key]
-            puts "Unable to find answer: #{key} = #{value.downcase.strip} - #{question.options.inspect}"
-            bad_answers[key] = true
-            next
-          end
-
-          responded_at = Date.strptime(row['EndDate'], '%m/%d/%Y %H:%M:%S')
+          responded_at = Date.strptime(row['End Date'], '%m/%d/%Y %H:%M')
           recipient.attempts.create(question: question, answer_index: answer_index + 1, responded_at: responded_at)
         end
       end
