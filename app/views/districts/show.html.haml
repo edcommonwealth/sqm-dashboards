@@ -1,19 +1,21 @@
-.row
-  .col-12
-    %p
-      %strong Name:
-      = @district.name
-    %p
-      %strong State:
-      = @district.state_id
+- if user_signed_in? && current_user.super_admin?
+  .row.super-admin
+    .col-12
+      %p= link_to "Create A New School In This District", new_district_school_path(@district)
 
-    %p
-      = link_to 'Edit', edit_district_path(@district)
-      |
-      = link_to 'Back', districts_path
 
-.row.mt-3
-  .col-12
-    %h4 Schools
-    - @schools.each do |school|
-      %p= link_to school.name, school
+- if true || user_signed_in?
+  .row.mt-3
+    .col-6
+      %h4
+        Schools in
+        = @district.name
+      - @district.schools.each do |school|
+        %p= link_to school.name, school
+
+- else
+  .text-center.my-3.py-3
+    %h3.my-3.py-3
+      EdContext is currently in beta testing.
+    %p.py-3
+      If you have an account, please sign in.

@@ -6,7 +6,7 @@ require 'csv'
 namespace :data do
   desc "Load in all data"
   task load: :environment do
-    return if School.count > 0
+    # return if School.count > 0
     Rake::Task["data:load_categories"].invoke
     Rake::Task["data:load_questions"].invoke
     Rake::Task["db:seed"].invoke
@@ -144,12 +144,33 @@ namespace :data do
     missing_questions = {}
     bad_answers = {}
     year = '2017'
-    ['student_responses', 'teacher_responses'].each do |file|
+
+    timeToRun = 0.2 * 60 * 60
+    startIndex = 0
+    startTime = Time.new
+
+    # ['student_responses', 'teacher_responses'].each do |file|
+    ['teacher_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
       csv = CSV.parse(csv_string, :headers => true)
+      puts("LOADING CSV: #{csv.length} ROWS")
+
+      t = Time.new
       csv.each_with_index do |row, index|
+        next if index < startIndex
+
+        if Time.new - startTime >= timeToRun
+          puts("ENDING #{timeToRun} SECONDS: #{Time.new - startTime} = #{startIndex} -> #{index} = #{index - startIndex} or #{(Time.new - t) / (index - startIndex)} per second")
+          break
+        end
+
+        if index % 100 == 0
+          puts("PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
+          t = Time.new
+        end
+
         district_name = row['What district is your school in?']
         district_name = row['To begin, please select your district.'] if district_name.nil?
         district = District.find_or_create_by(name: district_name, state_id: 1)
@@ -161,7 +182,7 @@ namespace :data do
           next
         end
 
-        school = School.find_or_create_by(name: school_name)
+        school = district.schools.find_or_create_by(name: school_name)
 
         if school.nil?
           next if unknown_schools[school_name]
@@ -193,8 +214,9 @@ namespace :data do
         recipient_list.save!
 
         row.each do |key, value|
+          t1 = Time.new
           next if value.nil? or key.nil? or value.to_s == "-99"
-          key = key.gsub(/[[:space:]]/, ' ').strip
+          key = key.gsub(/[[:space:]]/, ' ').strip.gsub(/\s+/, ' ')
           value = value.gsub(/[[:space:]]/, ' ').strip.downcase
 
           question = Question.find_by_text(key)
@@ -226,7 +248,7 @@ namespace :data do
           end
 
           responded_at = Date.strptime(row['End Date'], '%m/%d/%Y %H:%M')
-          recipient.attempts.create(question: question, answer_index: answer_index + 1, responded_at: responded_at)
+          recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
         end
       end
     end
