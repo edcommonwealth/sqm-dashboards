@@ -145,8 +145,8 @@ namespace :data do
     bad_answers = {}
     year = '2017'
 
-    # timeToRun = 0.2 * 60 * 60
-    # startIndex = 0
+    timeToRun = 10000 * 60 * 60
+    startIndex = 0
     startTime = Time.new
 
     ['student_responses', 'teacher_responses'].each do |file|
