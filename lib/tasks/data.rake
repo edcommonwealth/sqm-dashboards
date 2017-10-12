@@ -145,12 +145,11 @@ namespace :data do
     bad_answers = {}
     year = '2017'
 
-    timeToRun = 0.2 * 60 * 60
-    startIndex = 0
-    startTime = Time.new
+    # timeToRun = 0.2 * 60 * 60
+    # startIndex = 0
+    # startTime = Time.new
 
-    # ['student_responses', 'teacher_responses'].each do |file|
-    ['teacher_responses'].each do |file|
+    ['student_responses', 'teacher_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
@@ -161,10 +160,10 @@ namespace :data do
       csv.each_with_index do |row, index|
         next if index < startIndex
 
-        if Time.new - startTime >= timeToRun
-          puts("ENDING #{timeToRun} SECONDS: #{Time.new - startTime} = #{startIndex} -> #{index} = #{index - startIndex} or #{(Time.new - t) / (index - startIndex)} per second")
-          break
-        end
+        # if Time.new - startTime >= timeToRun
+        #   puts("ENDING #{timeToRun} SECONDS: #{Time.new - startTime} = #{startIndex} -> #{index} = #{index - startIndex} or #{(Time.new - t) / (index - startIndex)} per second")
+        #   break
+        # end
 
         if index % 100 == 0
           puts("PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
