@@ -158,15 +158,15 @@ namespace :data do
 
       t = Time.new
       csv.each_with_index do |row, index|
-        next if index < startIndex
-
+        # next if index < startIndex
+        #
         # if Time.new - startTime >= timeToRun
         #   puts("ENDING #{timeToRun} SECONDS: #{Time.new - startTime} = #{startIndex} -> #{index} = #{index - startIndex} or #{(Time.new - t) / (index - startIndex)} per second")
         #   break
         # end
 
         if index % 100 == 0
-          puts("PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
+          puts("DATAMSG: PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
           t = Time.new
         end
 
@@ -185,7 +185,7 @@ namespace :data do
 
         if school.nil?
           next if unknown_schools[school_name]
-          puts "Unable to find school: #{school_name} - #{index}"
+          puts "DATAMSG: Unable to find school: #{school_name} - #{index}"
           unknown_schools[school_name] = true
           next
         end
@@ -200,7 +200,7 @@ namespace :data do
               name: "Survey Respondent Id: #{respondent_id}"
             )
           rescue
-            puts "ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
+            puts "DATAMSG: ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
           end
           respondent_map[respondent_id] = recipient.id
         end
