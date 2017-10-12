@@ -147,7 +147,7 @@ namespace :data do
 
     # timeToRun = 0.2 * 60 * 60
     # startIndex = 0
-    # startTime = Time.new
+    startTime = Time.new
 
     ['student_responses', 'teacher_responses'].each do |file|
       recipients = file.split('_')[0]
