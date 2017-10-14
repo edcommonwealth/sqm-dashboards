@@ -165,7 +165,7 @@ namespace :data do
         #   break
         # end
 
-        if index % 100 == 0
+        if index % 10 == 0
           puts("DATAMSG: PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
           t = Time.new
         end
