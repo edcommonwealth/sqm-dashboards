@@ -77,6 +77,7 @@ class Attempt < ApplicationRecord
     end
 
     def update_counts
+      return if ENV['BULK_PROCESS']
       recipient.update_attributes(
         attempts_count: recipient.attempts.count,
         responses_count: recipient.attempts.with_answer.count

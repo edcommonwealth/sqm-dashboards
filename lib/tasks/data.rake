@@ -145,7 +145,7 @@ namespace :data do
     bad_answers = {}
     year = '2017'
 
-    timeToRun = 10000 * 60 * 60
+    timeToRun = 6 * 60 * 60
     startIndex = 0
     startTime = Time.new
 
@@ -158,12 +158,12 @@ namespace :data do
 
       t = Time.new
       csv.each_with_index do |row, index|
-        # next if index < startIndex
-        #
-        # if Time.new - startTime >= timeToRun
-        #   puts("ENDING #{timeToRun} SECONDS: #{Time.new - startTime} = #{startIndex} -> #{index} = #{index - startIndex} or #{(Time.new - t) / (index - startIndex)} per second")
-        #   break
-        # end
+        next if index < startIndex
+
+        if Time.new - startTime >= timeToRun
+          puts("ENDING #{timeToRun} SECONDS: #{Time.new - startTime} = #{startIndex} -> #{index} = #{index - startIndex} or #{(Time.new - t) / (index - startIndex)} per second")
+          break
+        end
 
         if index % 10 == 0
           puts("DATAMSG: PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
