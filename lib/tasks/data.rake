@@ -200,7 +200,7 @@ namespace :data do
               name: "Survey Respondent Id: #{respondent_id}"
             )
           rescue
-            puts "DATAERROR: ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
+            puts "DATAERROR: INDEX: #{index} ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
           end
           respondent_map[respondent_id] = recipient.id
         end
@@ -221,7 +221,7 @@ namespace :data do
           begin
             question = Question.find_by_text(key)
           rescue Exception => e
-            puts "DATAERROR: Failed finding question: #{key} -> #{e}"
+            puts "DATAERROR: INDEX: #{index} Failed finding question: #{key} -> #{e}"
           end
 
           if question.nil?
@@ -255,7 +255,7 @@ namespace :data do
           begin
             recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
           rescue Exception => e
-            puts "DATAERROR: Attempt failed for #{recipient} -> QUESTION: #{question}, ANSWER_INDEX: #{answer_index}, RESPONDED_AT: #{responded_at}, ERROR: #{e}"
+            puts "DATAERROR: INDEX: #{index}  Attempt failed for #{recipient.inspect} -> QUESTION: #{question.inspect}, ANSWER_INDEX: #{answer_index}, RESPONDED_AT: #{responded_at}, ERROR: #{e}"
             next
           end
         end
