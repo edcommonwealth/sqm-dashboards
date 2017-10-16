@@ -185,7 +185,7 @@ namespace :data do
 
         if school.nil?
           next if unknown_schools[school_name]
-          puts "DATAMSG: Unable to find school: #{school_name} - #{index}"
+          puts "DATAERROR: Unable to find school: #{school_name} - #{index}"
           unknown_schools[school_name] = true
           next
         end
@@ -200,7 +200,7 @@ namespace :data do
               name: "Survey Respondent Id: #{respondent_id}"
             )
           rescue
-            puts "DATAMSG: ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
+            puts "DATAERROR: ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
           end
           respondent_map[respondent_id] = recipient.id
         end
@@ -221,7 +221,7 @@ namespace :data do
           question = Question.find_by_text(key)
           if question.nil?
             next if missing_questions[key]
-            puts "Unable to find question: #{key}"
+            puts "DATAERROR: Unable to find question: #{key}"
             missing_questions[key] = true
             next
           else
@@ -238,7 +238,7 @@ namespace :data do
 
             if answer_index.nil?
               next if bad_answers[key]
-              puts "Unable to find answer: #{key} = #{value.downcase.strip} - #{question.options.inspect}"
+              puts "DATAERROR: Unable to find answer: #{key} = #{value.downcase.strip} - #{question.options.inspect}"
               bad_answers[key] = true
               next
             end
@@ -247,7 +247,12 @@ namespace :data do
           end
 
           responded_at = Date.strptime(row['End Date'], '%m/%d/%Y %H:%M')
-          recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
+          begin
+            recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
+          rescue
+            puts "DATAERROR: Attempt failed for #{recipient} -> QUESTION: #{question}, ANSWER_INDEX: #{answer_index}, RESPONDED_AT: #{responded_at}"
+            next
+          end
         end
       end
     end
