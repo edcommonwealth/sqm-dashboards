@@ -218,7 +218,12 @@ namespace :data do
           key = key.gsub(/[[:space:]]/, ' ').strip.gsub(/\s+/, ' ')
           value = value.gsub(/[[:space:]]/, ' ').strip.downcase
 
-          question = Question.find_by_text(key)
+          begin
+            question = Question.find_by_text(key)
+          rescue Exception => e
+            puts "DATAERROR: Failed finding question: #{key} -> #{e}"
+          end
+
           if question.nil?
             next if missing_questions[key]
             puts "DATAERROR: Unable to find question: #{key}"
@@ -249,8 +254,8 @@ namespace :data do
           responded_at = Date.strptime(row['End Date'], '%m/%d/%Y %H:%M')
           begin
             recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
-          rescue
-            puts "DATAERROR: Attempt failed for #{recipient} -> QUESTION: #{question}, ANSWER_INDEX: #{answer_index}, RESPONDED_AT: #{responded_at}"
+          rescue Exception => e
+            puts "DATAERROR: Attempt failed for #{recipient} -> QUESTION: #{question}, ANSWER_INDEX: #{answer_index}, RESPONDED_AT: #{responded_at}, ERROR: #{e}"
             next
           end
         end
