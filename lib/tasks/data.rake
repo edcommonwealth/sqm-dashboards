@@ -147,7 +147,7 @@ namespace :data do
 
     timeToRun = 100 * 60 * 60
     startIndex = 0
-    stopIndex = 1000
+    stopIndex = 100000
     startTime = Time.new
 
     ['student_responses', 'teacher_responses'].each do |file|
@@ -167,7 +167,7 @@ namespace :data do
         end
 
         if index % 10 == 0
-          puts("DATAMSG: PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
+          puts("DATAMSG: PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO / #{endIndex - startIndex} ROWS TO GO")
           t = Time.new
         end
 
