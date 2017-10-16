@@ -145,7 +145,7 @@ namespace :data do
     bad_answers = {}
     year = '2017'
 
-    timeToRun = 6 * 60 * 60
+    timeToRun = 100 * 60 * 60
     startIndex = 0
     startTime = Time.new
 
@@ -165,7 +165,7 @@ namespace :data do
           break
         end
 
-        if index % 10 == 0
+        if index % 100 == 0
           puts("DATAMSG: PROCESSING ROW: #{index} OUT OF #{csv.length} ROWS: #{Time.new - t} - Total: #{Time.new - startTime} - #{timeToRun - (Time.new - startTime)} TO GO")
           t = Time.new
         end

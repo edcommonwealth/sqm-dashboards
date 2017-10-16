@@ -69,6 +69,7 @@ class Attempt < ApplicationRecord
   private
 
     def update_school_categories
+      return if ENV['BULK_PROCESS']
       school_category = SchoolCategory.for(recipient.school, question.category).first
       if school_category.nil?
         school_category = SchoolCategory.create(school: recipient.school, category: question.category)
