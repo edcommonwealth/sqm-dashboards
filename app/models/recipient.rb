@@ -29,6 +29,13 @@ class Recipient < ApplicationRecord
     end
   end
 
+  def update_counts
+    update_attributes(
+      attempts_count: attempts.count,
+      responses_count: attempts.with_answer.count
+    )
+  end
+
   private
 
     def sync_lists

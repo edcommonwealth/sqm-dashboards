@@ -254,5 +254,6 @@ namespace :data do
     ENV.delete('BULK_PROCESS')
 
     SchoolCategory.all.each { |sc| sc.sync_aggregated_responses }
+    Recipient.all.each { |r| r.update_counts }
   end
 end
