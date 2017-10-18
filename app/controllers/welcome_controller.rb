@@ -1,8 +1,8 @@
 class WelcomeController < ApplicationController
 
   def index
-    @districts = District.all
-    @schools = School.all
+    @districts = District.all.alphabetic
+    @schools = School.all.alphabetic
   end
 
 end

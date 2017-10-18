@@ -4,7 +4,7 @@ class DistrictsController < ApplicationController
   # GET /districts
   # GET /districts.json
   def index
-    @districts = District.all
+    @districts = District.all.alphabetic
   end
 
   # GET /districts/1

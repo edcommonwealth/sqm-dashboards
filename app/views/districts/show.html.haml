@@ -12,7 +12,7 @@
         = @district.name
 
       %br
-      - @district.schools.each do |school|
+      - @schools.each do |school|
         %p= link_to school.name, school
 
       %br
