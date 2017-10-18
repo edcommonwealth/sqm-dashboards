@@ -10,8 +10,16 @@
       %h4
         Schools in
         = @district.name
+
+      %br
       - @district.schools.each do |school|
         %p= link_to school.name, school
+
+      %br
+      %br
+      %br
+      %br
+      = link_to "View All Districts", root_path
 
 - else
   .text-center.my-3.py-3

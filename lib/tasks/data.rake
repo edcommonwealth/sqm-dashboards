@@ -145,7 +145,7 @@ namespace :data do
     bad_answers = {}
     year = '2017'
 
-    timeToRun = 100 * 60 * 60
+    timeToRun = 10 * 60
     startIndex = 0
     stopIndex = 100000
     startTime = Time.new

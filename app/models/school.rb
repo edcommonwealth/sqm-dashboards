@@ -7,6 +7,8 @@ class School < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :alphabetic, -> { order(name: :asc) }
+
   include FriendlyId
   friendly_id :name, :use => [:slugged]
 
