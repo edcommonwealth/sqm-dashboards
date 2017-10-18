@@ -6,7 +6,12 @@
 
 - if true || user_signed_in?
   .row.mt-3
-    .col-6
+    .col-3
+      .district-logo= image_tag("#{@district.name.downcase}.png", class: 'img-fluid')
+
+    .col-6.offset-1
+      %br
+      %br
       %h4
         Schools in
         = @district.name
