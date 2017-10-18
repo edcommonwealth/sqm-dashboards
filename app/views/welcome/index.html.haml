@@ -10,6 +10,7 @@
   .row.mt-3
     .col-12
       %h4 Districts
+      %br
       - @districts.each do |district|
         %p= link_to district.name, district
 
