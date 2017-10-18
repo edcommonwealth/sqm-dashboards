@@ -2,9 +2,10 @@
   .title.col-8
     %h2= link_to('MCIEA'.html_safe, root_path)
 
-  .navigation.col-4.text-right
-    - if current_user
-      = link_to 'Sign Out', destroy_user_session_path, rel: "nofollow", method: :delete, class: 'btn btn-small grey waves-effect waves-light '
-    - else
-      = link_to 'Login', new_user_session_path, class: 'btn btn-small grey waves-effect waves-light '
-      =# link_to 'Register', new_user_registration_path, class: 'btn btn-small grey waves-effect waves-light '
+  -#
+    .navigation.col-4.text-right
+      - if current_user
+        = link_to 'Sign Out', destroy_user_session_path, rel: "nofollow", method: :delete, class: 'btn btn-small grey waves-effect waves-light '
+      - else
+        = link_to 'Login', new_user_session_path, class: 'btn btn-small grey waves-effect waves-light '
+        =# link_to 'Register', new_user_registration_path, class: 'btn btn-small grey waves-effect waves-light '

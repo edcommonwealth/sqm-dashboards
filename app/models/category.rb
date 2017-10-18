@@ -25,11 +25,11 @@ class Category < ApplicationRecord
 
   def root_index
     [
-      "teachers-and-the-teaching-environment",
+      "academic-learning",
       "school-culture",
       "resources",
       "indicators-of-academic-learning",
-      "character-and-wellbeing-outcomes",
+      "citizenship-and-wellbeing",
       "pilot-family-questions"
     ].index(root_identifier)
   end
