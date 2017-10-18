@@ -1,9 +1,9 @@
 class School < ApplicationRecord
-  has_many :schedules
-  has_many :recipient_lists
+  has_many :schedules, dependent: true
+  has_many :recipient_lists, dependent: true
   belongs_to :district
-  has_many :recipients
-  has_many :school_categories
+  has_many :recipients, dependent: true
+  has_many :school_categories, dependent: true
 
   validates :name, presence: true
 
