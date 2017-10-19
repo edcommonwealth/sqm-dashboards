@@ -7,6 +7,8 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
+    district = @school.district
+    authenticate(district.name.downcase, "#{district.name.downcase}!")
     @school_categories = @school.school_categories.for_parent_category(@school, nil).sort
   end
 

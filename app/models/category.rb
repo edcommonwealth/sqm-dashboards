@@ -31,7 +31,7 @@ class Category < ApplicationRecord
       "academic-learning",
       "citizenship-and-wellbeing",
       "pilot-family-questions"
-    ].index(root_identifier)
+    ].index(root_identifier) || 0
   end
 
 end

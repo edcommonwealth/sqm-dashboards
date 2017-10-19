@@ -10,6 +10,7 @@ class DistrictsController < ApplicationController
   # GET /districts/1
   # GET /districts/1.json
   def show
+    authenticate(@district.name.downcase, "#{@district.name.downcase}!")
     @schools = @district.schools.alphabetic
   end
 
