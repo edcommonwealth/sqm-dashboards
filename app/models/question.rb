@@ -32,8 +32,13 @@ class Question < ApplicationRecord
     [option1, option2, option3, option4, option5]
   end
 
+  def options_with_reverse
+    return options.reverse if reverse?
+    options
+  end
+
   def option_index(answer)
-    options.map(&:downcase).map(&:strip).index(answer.downcase.strip)
+    options_with_reverse.map(&:downcase).map(&:strip).index(answer.downcase.strip)
   end
 
   def aggregated_responses_for_school(school)

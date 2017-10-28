@@ -1,7 +1,7 @@
 - histogram = data.responses.map(&:answer_index_with_reverse).group_by { |a| a.to_s }
 %table.answers
   %tbody
-    - data.question.options.each_with_index do |option, index|
+    - data.question.options_with_reverse.each_with_index do |option, index|
       %tr.answer
         - group = histogram[(index + 1).to_s]
         - width = (100 * (group.blank? ? 0 : group.length)) / histogram.values.flatten.length
