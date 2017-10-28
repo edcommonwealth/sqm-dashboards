@@ -40,9 +40,9 @@ class Question < ApplicationRecord
     school_responses = attempts.for_school(school).with_answer.order(id: :asc)
     return unless school_responses.present?
 
-    response_answer_total = school_responses.inject(0) { |total, response| total + response.answer_index }
+    response_answer_total = school_responses.inject(0) { |total, response| total + response.answer_index_with_reverse }
+    histogram = school_responses.group_by(&:answer_index_with_reverse)
 
-    histogram = school_responses.group_by(&:answer_index)
     most_popular_answer_index = histogram.to_a.sort_by { |info| info[1].length }.last[0]
     most_popular_answer = send("option#{most_popular_answer_index}")
 

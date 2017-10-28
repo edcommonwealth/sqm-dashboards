@@ -1,4 +1,4 @@
-- histogram = data.responses.map(&:answer_index).group_by { |a| a.to_s }
+- histogram = data.responses.map(&:answer_index_with_reverse).group_by { |a| a.to_s }
 %table.answers
   %tbody
     - data.question.options.each_with_index do |option, index|

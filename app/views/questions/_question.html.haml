@@ -35,4 +35,4 @@
         = render 'shared/histogram', data: aggregated_responses
 
       %p.collapse{id: "raw-data#{question.id}"}
-        = aggregated_responses.responses.map(&:answer_index).join(', ')
+        = aggregated_responses.responses.map(&:answer_index_with_reverse).join(', ')

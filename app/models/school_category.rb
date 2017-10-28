@@ -19,7 +19,7 @@ class SchoolCategory < ApplicationRecord
       for_school(school).
       select('count(attempts.id) as attempt_count').
       select('count(attempts.answer_index) as response_count').
-      select('sum(attempts.answer_index) as answer_index_total')[0]
+      select('sum(case when questions.reverse then 5 - attempts.answer_index else attempts.answer_index end) as answer_index_total')[0]
 
     return {
       attempt_count: attempt_data.attempt_count || 0,

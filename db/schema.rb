@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418173141) do
+ActiveRecord::Schema.define(version: 20171028181758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20170418173141) do
     t.datetime "updated_at",                             null: false
     t.integer  "target_group",           default: 0
     t.boolean  "for_recipient_students", default: false
+    t.boolean  "reverse",                default: false
   end
 
   create_table "recipient_lists", force: :cascade do |t|

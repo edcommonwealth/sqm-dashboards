@@ -76,4 +76,4 @@
         %td
           = attempt.sent_at.strftime('%x') if attempt.sent_at.present?
         %td= link_to truncate(attempt.question.text, length: 60), [@school, attempt.question], title: attempt.question.text
-        %td= "(#{attempt.answer_index}) #{attempt.response}"
+        %td= "(#{attempt.answer_index_with_reverse}) #{attempt.response}"

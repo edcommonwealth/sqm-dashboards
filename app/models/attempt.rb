@@ -51,7 +51,7 @@ class Attempt < ApplicationRecord
 
   def response
     return 'No Answer Yet' if answer_index.blank?
-    question.options[answer_index - 1]
+    question.options[answer_index_with_reverse - 1]
   end
 
   def save_response(answer_index: nil, twilio_details: nil, responded_at: Time.new)
@@ -64,6 +64,11 @@ class Attempt < ApplicationRecord
     if recipient_schedule.queued_question_ids.present?
       recipient_schedule.update(next_attempt_at: Time.new)
     end
+  end
+
+  def answer_index_with_reverse
+    return 5 - answer_index if question.reverse?
+    return answer_index
   end
 
   private
