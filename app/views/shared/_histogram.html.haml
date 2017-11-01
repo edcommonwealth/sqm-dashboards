@@ -3,7 +3,7 @@
   %tbody
     - data.question.options_with_reverse.each_with_index do |option, index|
       %tr.answer
-        - group = histogram[(index + 1).to_s]
+        - group = histogram[index.to_s]
         - width = (100 * (group.blank? ? 0 : group.length)) / histogram.values.flatten.length
         %td.text
           = "#{option}:"
