@@ -20,6 +20,7 @@ class School < ApplicationRecord
     recipients.update_all(school_id: school.id)
     school_categories.update_all(school_id: school.id)
     user_schools.update_all(school_id: school.id)
+    school.school_categories.map(&:sync_aggregated_responses)
     destroy
   end
 
