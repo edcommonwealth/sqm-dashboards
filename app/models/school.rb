@@ -15,11 +15,11 @@ class School < ApplicationRecord
 
   def merge_into(school)
     puts "Merging #{name} (#{id}) in to #{school.name} (#{school.id})"
-    schedules.update_all(school: school)
-    recipient_lists.update_all(school: school)
-    recipients.update_all(school: school)
-    school_categories.update_all(school: school)
-    user_schools.update_all(school: school)
+    schedules.update_all(school_id: school.id)
+    recipient_lists.update_all(school_id: school.id)
+    recipients.update_all(school_id: school.id)
+    school_categories.update_all(school_id: school.id)
+    user_schools.update_all(school_id: school.id)
     destroy
   end
 
