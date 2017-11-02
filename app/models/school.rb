@@ -13,7 +13,12 @@ class School < ApplicationRecord
   include FriendlyId
   friendly_id :name, :use => [:slugged]
 
-  def merge_into(school)
+  def merge_into(school_name)
+    school = district.schools.where(name: school_name).first
+    if school.nil?
+      puts "Unable to find school named #{school_name} in district (#{district.name})"
+      return
+    end
     puts "Merging #{name} (#{id}) in to #{school.name} (#{school.id})"
     schedules.update_all(school_id: school.id)
     recipient_lists.update_all(school_id: school.id)
