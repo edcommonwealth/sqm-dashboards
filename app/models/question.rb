@@ -48,7 +48,7 @@ class Question < ApplicationRecord
     response_answer_total = school_responses.inject(0) { |total, response| total + response.answer_index_with_reverse }
     histogram = school_responses.group_by(&:answer_index_with_reverse)
 
-    most_popular_answer_index = histogram.to_a.sort_by { |info| info[1].length }.last[0]
+    most_popular_answer_index = histogram.to_a.sort_by { |info| info[1].length }.last[0] + 1
     most_popular_answer = options_with_reverse[most_popular_answer_index - 1]
 
     AggregatedResponses.new(
