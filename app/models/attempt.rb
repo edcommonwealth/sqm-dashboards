@@ -67,7 +67,7 @@ class Attempt < ApplicationRecord
   end
 
   def answer_index_with_reverse
-    return 5 - answer_index if question.reverse?
+    return 6 - answer_index if question.reverse?
     return answer_index
   end
 
