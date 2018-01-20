@@ -17,59 +17,37 @@ namespace :data do
   task load_categories: :environment do
     measures = JSON.parse(File.read(File.expand_path('../../../data/measures.json', __FILE__)))
     measures.each_with_index do |measure, index|
-      category = Category.create(
-        name: measure['title'],
+      category = Category.create_with(
         blurb: measure['blurb'],
         description: measure['text'],
         external_id: measure['id'] || index + 1
-      )
+      ).find_or_create_by(name: measure['title'])
 
       measure['sub'].keys.sort.each do |key|
         subinfo = measure['sub'][key]
-        subcategory = category.child_categories.create(
-          name: subinfo['title'],
+        subcategory = category.child_categories.create_with(
           blurb: subinfo['blurb'],
           description: subinfo['text'],
           external_id: key
-        )
+        ).find_or_create_by(name: subinfo['title'])
 
         subinfo['measures'].keys.sort.each do |subinfo_key|
           subsubinfo = subinfo['measures'][subinfo_key]
-          subsubcategory = subcategory.child_categories.create(
-            name: subsubinfo['title'],
+          subsubcategory = subcategory.child_categories.create_with(
             blurb: subsubinfo['blurb'],
             description: subsubinfo['text'],
             external_id: subinfo_key
-          )
+          ).find_or_create_by(name: subsubinfo['title'])
 
-          # if subsubinfo['nonlikert'].present?
-          #   subsubinfo['nonlikert'].each do |nonlikert_info|
-          #     next unless nonlikert_info['likert'].present?
-          #     nonlikert = subsubcategory.child_measures.create(
-          #       name: nonlikert_info['title'],
-          #       description: nonlikert_info['benchmark_explanation'],
-          #       benchmark: nonlikert_info['benchmark']
-          #     )
-          #
-          #    name_map = {
-          #       "argenziano": "dr-albert-f-argenziano-school-at-lincoln-park",
-          #       "healey": "arthur-d-healey-school",
-          #       "brown": "benjamin-g-brown-school",
-          #       "east": "east-somerville-community-school",
-          #       "kennedy": "john-f-kennedy-elementary-school",
-          #       "somervillehigh": "somerville-high-school",
-          #       "west": "west-somerville-neighborhood-school",
-          #       "winter": "winter-hill-community-innovation-school"
-          #     }
-          #
-          #     nonlikert_info['likert'].each do |key, likert|
-          #       school_name = name_map[key.to_sym]
-          #       next if school_name.nil?
-          #       school = School.friendly.find(school_name)
-          #       nonlikert.measurements.create(school: school, likert: likert, nonlikert: nonlikert_info['values'][key])
-          #     end
-          #   end
-          # end
+          if subsubinfo['nonlikert'].present?
+            subsubinfo['nonlikert'].each do |nonlikert_info|
+              puts("NONLIKERT FOUND: #{nonlikert_info['title']}")
+              nonlikert = subsubcategory.child_categories.create_with(
+                benchmark_description: nonlikert_info['benchmark_explanation'],
+                benchmark: nonlikert_info['benchmark']
+              ).find_or_create_by(name: nonlikert_info['title'])
+            end
+          end
         end
       end
     end

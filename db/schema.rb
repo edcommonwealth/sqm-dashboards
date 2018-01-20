@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171028181758) do
+ActiveRecord::Schema.define(version: 20180119145356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,11 @@ ActiveRecord::Schema.define(version: 20171028181758) do
     t.text     "description"
     t.string   "external_id"
     t.integer  "parent_category_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "slug"
+    t.float    "benchmark"
+    t.string   "benchmark_description"
     t.index ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
   end
 
@@ -144,6 +146,7 @@ ActiveRecord::Schema.define(version: 20171028181758) do
     t.integer  "answer_index_total", default: 0
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.float    "nonlikert"
     t.index ["category_id"], name: "index_school_categories_on_category_id", using: :btree
     t.index ["school_id"], name: "index_school_categories_on_school_id", using: :btree
   end
