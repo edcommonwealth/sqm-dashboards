@@ -13,14 +13,23 @@
 
       %p= @category.description
       %p
-        %b Total&nbsp;Responses:
-        = number_with_delimiter(@school_category.response_count)
+        - if @school_category.response_count > 0
+          %b Total&nbsp;Responses:
+          = number_with_delimiter(@school_category.response_count)
 
-        &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp;
 
-        %b Average&nbsp;Response:
-        = @school_category.answer_index_average.round(1)
-        (out of 5)
+          %b Average&nbsp;Response:
+          = @school_category.answer_index_average.round(1)
+          (out of 5)
+
+        - if @school_category.response_count > 0 && @school_category.zscore.present?
+          &nbsp; &nbsp; &nbsp;
+
+        - if @school_category.zscore.present?
+          %b Administrative&nbsp;Data
+          = @school_category.zscore.round(1) + 3
+          (out of 5)
 
       .indicator-container.py-3
         = render 'school_categories/indicator', info: @school_category

@@ -241,16 +241,48 @@ namespace :data do
       end
     end
     ENV.delete('BULK_PROCESS')
+
+    sync_school_category_aggregates
+
+    Recipient.all.each { |r| r.update_counts }
+  end
+
+  desc 'Load in nonlikert values for each school'
+  task load_nonlikert_values: :environment do
+    ENV['BULK_PROCESS'] = 'true'
+
+    csv_string = File.read(File.expand_path("../../../data/samplenonlikert.csv", __FILE__))
+    csv = CSV.parse(csv_string, :headers => true)
+    puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
+
+    t = Time.new
+    school_category_id = -1
+    csv.each_with_index do |row, index|
+      nonlikert_category = Category.find_by_name(row["NonLikert Title"])
+      district = District.find_by_name(row["District"])
+      school = district.schools.find_by_name(row["School"])
+      school_category = school.school_categories.find_or_create_by(category: nonlikert_category)
+      school_category.update(
+        nonlikert: row["Value"],
+        zscore: row["Z-Score"]
+      )
+      school_category_id = school_category.id
+    end
+
+    ENV.delete('BULK_PROCESS')
+
+    sync_school_category_aggregates
+  end
+
+  def sync_school_category_aggregates
     School.all.each do |school|
       Category.all.each do |category|
         school_category = SchoolCategory.for(school, category).first
         if school_category.nil?
-          school_category = SchoolCategory.create(school: school, category: category)
+          school_category = school.school_categories.create(category: category)
         end
         school_category.sync_aggregated_responses
       end
     end
-
-    Recipient.all.each { |r| r.update_counts }
   end
 end

@@ -1,5 +1,11 @@
 - num_likerts = 5
+
 - likert = info.answer_index_average
+- zscore = info.zscore.present? ? info.zscore + 3 : nil
+- if zscore.present?
+  - likert = info.answer_index_average.nan? ? zscore : (info.answer_index_average + zscore) / 2
+- likert = likert.round(1)
+
 - average_offset = (likert/num_likerts) * 100
 
 - approval_zone = [[76, 90], [77, 91], [71, 85], [73, 86], [73, 86], []][info.category.root_index]
@@ -32,7 +38,7 @@
           This School
     - else
       .average{style: "left: #{average_offset - 5}%", title: this_school_zone}
-        %span This School
+        %span= "This School #{likert}"
 
 - if local_assigns[:caption]
   .explanation
