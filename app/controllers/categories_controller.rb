@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
     district = @school.district
     authenticate(district.name.downcase, "#{district.name.downcase}!")
     @school_category = SchoolCategory.for(@school, @category).first
-    @child_school_categories = SchoolCategory.for_parent_category(@school, @category)
+    @child_school_categories = SchoolCategory.for_parent_category(@school, @category).valid
     @questions = @category.questions
   end
 
