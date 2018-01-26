@@ -11,6 +11,7 @@ namespace :data do
     Rake::Task["data:load_questions"].invoke
     Rake::Task["db:seed"].invoke
     Rake::Task["data:load_responses"].invoke
+    Rake::Task["data:load_nonlikert_values"].invoke
   end
 
   desc 'Load in category data'
@@ -123,7 +124,7 @@ namespace :data do
     bad_answers = {}
     year = '2017'
 
-    timeToRun = 10 * 60
+    timeToRun = 120 * 60
     startIndex = 0
     stopIndex = 100000
     startTime = Time.new
@@ -251,19 +252,36 @@ namespace :data do
   task load_nonlikert_values: :environment do
     ENV['BULK_PROCESS'] = 'true'
 
-    csv_string = File.read(File.expand_path("../../../data/samplenonlikert.csv", __FILE__))
+    csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17AdminData.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
     puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
 
     t = Time.new
     school_category_id = -1
     csv.each_with_index do |row, index|
-      nonlikert_category = Category.find_by_name(row["NonLikert Title"])
-      district = District.find_by_name(row["District"])
-      school = district.schools.find_by_name(row["School"])
+      base = Category
+      category_ids = row["Category"].split("-")
+      category_ids.each do |category_id|
+        puts("#{category_id} -> #{base.find_by_external_id(category_id).try(:name)}")
+        base = base.find_by_external_id(category_id).child_categories
+      end
+
+      nonlikert_category = base.find_or_create_by(name: row["NonLikert Title"])
+
+      if nonlikert_category.nil?
+        puts("Unable to find nonlikert category: #{row["NonLikert Title"]}")
+        next
+      else
+        if (benchmark = row["B_MCIEA"]).present?
+          nonlikert_category.update(benchmark: benchmark)
+        end
+      end
+
+      district = District.find_or_create_by(name: row["District"], state_id: 1)
+      school = district.schools.find_or_create_by(name: row["School"])
       school_category = school.school_categories.find_or_create_by(category: nonlikert_category)
       school_category.update(
-        nonlikert: row["Value"],
+        nonlikert: row["NL_Value"],
         zscore: row["Z-Score"]
       )
       school_category_id = school_category.id

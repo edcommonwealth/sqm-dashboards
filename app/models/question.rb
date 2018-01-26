@@ -5,7 +5,8 @@ AggregatedResponses = Struct.new(
   :count,
   :answer_index_total,
   :answer_index_average,
-  :most_popular_answer
+  :most_popular_answer,
+  :zscore
 )
 
 class Question < ApplicationRecord
