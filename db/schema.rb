@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180120150542) do
+ActiveRecord::Schema.define(version: 20180128015651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180120150542) do
     t.string   "slug"
     t.float    "benchmark"
     t.string   "benchmark_description"
+    t.string   "zones"
     t.index ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
   end
 

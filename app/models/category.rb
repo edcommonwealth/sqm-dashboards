@@ -34,4 +34,12 @@ class Category < ApplicationRecord
     ].index(root_identifier) || 0
   end
 
+  def zone_widths
+    return nil if zones.nil?
+    split_zones = zones.split(",")
+    split_zones.each_with_index.map do |zone, index|
+      (zone.to_f - (index == 0 ? 0 : split_zones[index - 1]).to_f).round(2)
+    end
+  end
+
 end
