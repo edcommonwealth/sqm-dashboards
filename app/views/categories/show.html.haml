@@ -33,7 +33,7 @@
             = "(Benchmark: #{@school_category.category.benchmark})"
             &nbsp;
           - if @school_category.zscore.present?
-            = [(@school_category.zscore.round(1) + 3), 5].min
+            = @school_category.zscore.round(1) + 3
             (out of 5)
 
 
