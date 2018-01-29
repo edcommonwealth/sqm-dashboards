@@ -1,5 +1,3 @@
-- num_likerts = 5
-
 - likert = info.answer_index_average
 - zscore = info.zscore.present? ? info.zscore + 3 : nil
 - if zscore.present?
@@ -8,21 +6,24 @@
 
 - return if likert.nan?
 
+- num_likerts = 5
 - average_offset = (likert/num_likerts) * 100
 
-- approval_zone = [[76, 90], [77, 91], [71, 85], [73, 86], [73, 86], []][info.category.root_index]
+- default_approval_zone = [[76, 90], [77, 91], [71, 85], [73, 86], [73, 86], []][info.category.root_index]
 
-- if approval_zone.present?
-  - zone_widths = [0]
-  - zone_widths << approval_zone[0] - (15 + 15)
-  - zone_widths << 15
-  - zone_widths << 15
-  - zone_widths << approval_zone[1] - approval_zone[0]
-  - zone_widths << 100 - approval_zone[1]
-  - zones = ['Warning Zone: Schools that fall in this range are five or more years away from reaching community-wide targets.  Consequently, this zone, as established by teachers, principals, parents, and district administrators, indicates that a school is in significant need of improvement.  If the school is not in the Warning Zone in other areas, it may be a relatively successful school overall.  Still, it must immediately develop a plan for addressing its shortcomings.', 'Watch Zone: Schools falling in this range are three or four years away from reaching community-wide targets.  This zone, established by teachers, principals, parents, and district administrators, is not an ideal place for schools to be.  But it does not mean that the school is failing.  Instead, it means that the school needs to place particular emphasis on improving its work in this area.', 'Growth Zone: Schools falling in this range earned scores just below "acceptable."  Yet these schools are close enough to the Approval Zone that they might reasonably reach it within two years.  As established by teachers, principals, parents, and district administrators, this zone is an acceptable place for schools to be if they have the leadership, focus, and resources to improve their work in a particular area.', 'Approval Zone: Schools falling in this range earned scores between "acceptable" and "ideal."  This zone, established by teachers, principals, parents, and district administrators, is the target that all schools should be striving to hit.  Scoring in this range does not mean that a school is perfect; but it does mean that it is meeting or exceeding community-wide expectations in a particular category.', 'This area represents a set of outcomes so close to perfect that they are unlikely to be realized in any school.']
-- else
-  - zone_widths = [0, 100]
-  - zones = ['There is not yet any national data to compare to for this measure.']
+- zone_descriptions = ['Warning Zone: Schools that fall in this range are five or more years away from reaching community-wide targets.  Consequently, this zone, as established by teachers, principals, parents, and district administrators, indicates that a school is in significant need of improvement.  If the school is not in the Warning Zone in other areas, it may be a relatively successful school overall.  Still, it must immediately develop a plan for addressing its shortcomings.', 'Watch Zone: Schools falling in this range are three or four years away from reaching community-wide targets.  This zone, established by teachers, principals, parents, and district administrators, is not an ideal place for schools to be.  But it does not mean that the school is failing.  Instead, it means that the school needs to place particular emphasis on improving its work in this area.', 'Growth Zone: Schools falling in this range earned scores just below "acceptable."  Yet these schools are close enough to the Approval Zone that they might reasonably reach it within two years.  As established by teachers, principals, parents, and district administrators, this zone is an acceptable place for schools to be if they have the leadership, focus, and resources to improve their work in a particular area.', 'Approval Zone: Schools falling in this range earned scores between "acceptable" and "ideal."  This zone, established by teachers, principals, parents, and district administrators, is the target that all schools should be striving to hit.  Scoring in this range does not mean that a school is perfect; but it does mean that it is meeting or exceeding community-wide expectations in a particular category.', 'This area represents a set of outcomes so close to perfect that they are unlikely to be realized in any school.']
+
+- if (zone_widths = info.category.zone_widths).nil?
+  - if default_approval_zone.present?
+    - zone_widths = [default_approval_zone[0] - (15 + 15)]
+    - zone_widths << 15
+    - zone_widths << 15
+    - zone_widths << default_approval_zone[1] - default_approval_zone[0]
+    - zone_widths << 100 - default_approval_zone[1]
+    - zone_widths = zone_widths.map { |z| z / 20.0 }
+  - else
+    - zone_widths = [5]
+    - zone_descriptions = ['There is not yet any national data to compare to for this measure.']
 
 - buffer = 0.25
 - this_school_zone = "This school scored in the range between #{(likert - buffer).round(2)} and #{(likert + buffer).round(2)}.\n\nMouse over each color to read a description of each zone."
@@ -31,9 +32,9 @@
   .indicator-circle
     .indicator-zones{style: "margin-left: #{local_assigns[:small] ? ((average_offset - 5) * -10) : 0}%"}
       - zone_total = 0
-      - zones.each_with_index do |zone, index|
-        %div{class: "zone#{index}", style: "width: #{zone_widths[index+1]}%", title: "#{zone}\n\nThis zone: #{(zone_total/20.0).round(2)} - #{((zone_total + zone_widths[index+1])/20.0).round(2)}\nThis school: #{(likert - buffer).round(2)} - #{(likert + buffer).round(2)}"}
-        - zone_total += zone_widths[index + 1]
+      - zone_descriptions.each_with_index do |zone, index|
+        %div{class: "zone#{index}", style: "width: #{zone_widths[index]*20}%", title: "#{zone}\n\nThis zone: #{(zone_total).round(2)} - #{((zone_total + zone_widths[index])).round(2)}\nThis school: #{(likert - buffer).round(2)} - #{(likert + buffer).round(2)}"}
+        - zone_total += zone_widths[index]
     - if local_assigns[:small]
       -#
         .average{title: this_school_zone}
