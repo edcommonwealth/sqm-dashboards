@@ -37,13 +37,11 @@ class SchoolCategory < ApplicationRecord
       SchoolCategory.for(school, cc).valid
     end.flatten.compact
 
-    new_zscore = zscore
-    if new_zscore.nil?
-      zscore_categories = child_school_categories.select { |csc| csc.zscore.present? }
-      if zscore_categories.length > 0
-        total_zscore = zscore_categories.inject(0) { |total, zc| total + zc.zscore }
-        new_zscore = total_zscore / zscore_categories.length
-      end
+    average_zscore = nil
+    zscore_categories = child_school_categories.select { |csc| csc.zscore.present? }
+    if zscore_categories.length > 0
+      total_zscore = zscore_categories.inject(0) { |total, zc| total + zc.zscore }
+      average_zscore = total_zscore / zscore_categories.length
     end
 
     return {
@@ -56,7 +54,7 @@ class SchoolCategory < ApplicationRecord
       answer_index_total:
         _aggregated_responses[:answer_index_total] +
         child_school_categories.inject(0) { |total, csc| total + csc.answer_index_total },
-      zscore: new_zscore
+      zscore: average_zscore.present? ? average_zscore : zscore
     }
   end
 

@@ -282,7 +282,7 @@ namespace :data do
       school_category = school.school_categories.find_or_create_by(category: nonlikert_category)
       school_category.update(
         nonlikert: row["NL_Value"],
-        zscore: row["Z-Score"]
+        zscore: [row["Z-Score"].to_f,2].min
       )
       school_category_id = school_category.id
     end
