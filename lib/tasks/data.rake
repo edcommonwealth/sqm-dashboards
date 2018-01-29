@@ -256,13 +256,10 @@ namespace :data do
     csv = CSV.parse(csv_string, :headers => true)
     puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
 
-    t = Time.new
-    school_category_id = -1
     csv.each_with_index do |row, index|
       base = Category
       category_ids = row["Category"].split("-")
       category_ids.each do |category_id|
-        puts("#{category_id} -> #{base.find_by_external_id(category_id).try(:name)}")
         base = base.find_by_external_id(category_id).child_categories
       end
 
@@ -284,12 +281,42 @@ namespace :data do
         nonlikert: row["NL_Value"],
         zscore: [row["Z-Score"].to_f,2].min
       )
-      school_category_id = school_category.id
     end
 
     ENV.delete('BULK_PROCESS')
 
     sync_school_category_aggregates
+  end
+
+  desc 'Load in nonlikert values for each school'
+  task load_custom_zones: :environment do
+    ENV['BULK_PROCESS'] = 'true'
+
+    csv_string = File.read(File.expand_path("../../../data/Benchmarks2016-2017.csv", __FILE__))
+    csv = CSV.parse(csv_string, :headers => true)
+
+    csv.each_with_index do |row, index|
+      next if row["Warning High"].blank?
+
+      category = Category.find_by_name(row["Subcategory"])
+
+      if category.nil?
+        puts "Unable to find category #{row["Subcategory"]}"
+        next
+      end
+
+      custom_zones = [
+        row["Warning High"],
+        row["Watch High"],
+        row["Growth High"],
+        row["Approval High"],
+        5
+      ]
+
+      puts "#{category.name} -> #{custom_zones.join(",")}"
+
+      category.update(zones: custom_zones.join(","))
+    end
   end
 
   def sync_school_category_aggregates
