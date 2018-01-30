@@ -8,6 +8,7 @@ class Category < ApplicationRecord
   validates :name, presence: true
 
   scope :for_parent, -> (category=nil) { where(parent_category_id: category.try(:id)) }
+  scope :likert, -> { where("benchmark is null") }
 
   include FriendlyId
   friendly_id :name, :use => [:slugged]
@@ -34,12 +35,45 @@ class Category < ApplicationRecord
     ].index(root_identifier) || 0
   end
 
+  def custom_zones
+    return [] if zones.nil?
+    zones.split(",").map(&:to_f)
+  end
+
   def zone_widths
     return nil if zones.nil?
-    split_zones = zones.split(",")
 
-    w = split_zones.each_with_index.map do |zone, index|
-      (zone.to_f - (index == 0 ? 0 : split_zones[index - 1]).to_f).round(2)
+    w = custom_zones.each_with_index.map do |zone, index|
+      (zone - index == 0 ? 0 : custom_zones[index - 1]).round(2)
+    end
+  end
+
+  def sync_child_zones
+    likert_child_categories = child_categories.likert
+    return unless likert_child_categories.present?
+    total_zones = [0,0,0,0,0]
+    valid_child_categories = 0
+    likert_child_categories.each do |cc|
+      if cc.zones.nil?
+        cc.sync_child_zones
+      end
+
+      if cc.zones.nil?
+        puts "NO ZONES: #{name} -> #{cc.name}"
+        next
+      end
+
+      valid_child_categories += 1
+
+      cc.custom_zones.each_with_index do |zone, index|
+        total_zones[index] += zone
+      end
+    end
+
+    if valid_child_categories > 0
+      average_zones = total_zones.map { |zone| zone / valid_child_categories }
+      # puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones}"
+      update(zones: average_zones)
     end
   end
 

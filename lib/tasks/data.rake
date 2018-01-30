@@ -288,7 +288,7 @@ namespace :data do
     sync_school_category_aggregates
   end
 
-  desc 'Load in nonlikert values for each school'
+  desc 'Load in custom zones for each category'
   task load_custom_zones: :environment do
     ENV['BULK_PROCESS'] = 'true'
 
@@ -317,6 +317,8 @@ namespace :data do
 
       category.update(zones: custom_zones.join(","))
     end
+
+    Category.all.each { |category| category.sync_child_zones }
   end
 
   def sync_school_category_aggregates

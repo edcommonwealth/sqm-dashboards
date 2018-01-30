@@ -1,1 +1,35 @@
-,Subcategory,Improvement Step,Warning High,Watch Low,Watch High,Growth Low,Growth High,Approval Low,Approval High,Ideal Low1A-i,Professional Qualifications,0.49,2.06,2.07,2.56,2.57,3.05,3.06,4.2,4.211A-ii,Effective Practices,0.54,1.89,1.9,2.43,2.44,2.97,2.98,4.17,4.181B-i,Professional Community,0.58,2.04,2.05,2.63,2.64,3.21,3.22,4.2,4.211B-ii,Support For Teaching Development And Growth,0.52,1.76,1.77,2.29,2.3,2.81,2.82,3.93,3.941B-iii,Effective Leadership,0.55,1.92,1.93,2.48,2.49,3.02,3.03,4.01,4.022A-i,Student Physical Safety,0.48,2.51,2.52,2.99,3,3.47,3.48,3.54,3.552A-ii,Student Emotional Safety,0.48,2.23,2.24,2.72,2.73,3.2,3.21,3.51,3.522B-i,Sense of Belonging,0.49,1.75,1.76,2.25,2.26,2.74,2.75,4.07,4.082B-ii,Student/Teacher Relationships,0.49,1.62,1.63,2.12,2.13,2.62,2.63,4.02,4.032C-i,Valuing of Learning,0.43,2.16,2.17,2.6,2.61,3.03,3.04,4.09,4.12C-ii,Academic Challenge,0.5,2.21,2.22,2.72,2.73,3.21,3.22,4.03,4.043A-i,Physical Spaces and Materials,0.5,1.68,1.69,2.19,2.2,2.69,2.7,3.71,3.723A-ii,Content Specialists and Support Staff,0.49,2.06,2.07,2.57,2.58,3.06,3.07,3.77,3.783B-i,Curricular Strength and Variety,0.45,1.96,1.97,2.42,2.43,2.87,2.88,4.14,4.153B-ii,Cultural Responsiveness,0.43,1.92,1.93,2.35,2.36,2.78,2.79,4.08,4.093B-iii,Co-Curricular Resources,,,,,,,,,3C-i,Family/School Relationships,0.47,1.58,1.59,2.07,2.08,2.54,2.55,3.75,3.763C-ii,Community Involvement and External Partners,0.53,1.8,1.81,2.33,2.34,2.86,2.87,3.95,3.964A-i,Performance Growth,,,,,,,,,4A-ii,Overall performance,,,,,,,,,4B-i,Engagement in School,0.55,1.6,1.61,2.15,2.16,2.7,2.71,3.81,3.824B-ii,Degree completion,,,,,,,,,4C-i,Problem Solving Emphasis,0.53,1.63,1.64,2.17,2.18,2.7,2.71,3.77,3.784C-ii,Problem Solving Skills,,,,,,,,,4D-i,College-Going and Persistence,,,,,,,,,4D-ii,Career Preparation and Placement,,,,,,,,,5A-i,Appreciation for Diversity,0.55,1.86,1.87,2.42,2.43,2.97,2.98,3.89,3.95A-ii,Civic Participation,0.5,1.97,1.98,2.47,2.48,2.97,2.98,3.86,3.875B-i,Perseverance and Determination,0.45,1.93,1.94,2.39,2.4,2.84,2.85,3.96,3.975B-ii,Growth Mindset,0.47,1.73,1.74,2.22,2.23,2.69,2.7,3.59,3.65C-i,Participation in Creative and Performing Arts,0.53,1.25,1.26,1.79,1.8,2.32,2.33,3.77,3.785C-ii,Valuing Creative and Performing Arts,0.54,1.35,1.36,1.9,1.91,2.43,2.44,3.93,3.945D-i,Social and Emotional Health,0.48,1.7,1.71,2.18,2.19,2.66,2.67,3.81,3.825D-ii,Physical Health,0.53,1.77,1.78,2.3,2.31,2.83,2.84,3.88,3.89
+,Subcategory,Improvement Step,Warning High,Watch Low,Watch High,Growth Low,Growth High,Approval Low,Approval High,Ideal Low
+1A-i,Professional Qualifications,0.50,1.98,1.99,2.49,2.50,2.99,3.00,4.20,4.21
+1A-ii,Effective Practices,0.50,1.98,1.99,2.49,2.50,2.99,3.00,4.20,4.21
+1B-i,Professional Community,0.50,2.18,2.19,2.69,2.70,3.19,3.20,4.20,4.21
+1B-ii,Support for Growth & Development,0.50,1.98,1.99,2.49,2.50,2.99,3.00,4.00,4.01
+1B-iii,Effective Leadership,0.50,1.98,1.99,2.49,2.50,2.99,3.00,4.00,4.01
+2A-i,Physical Safety,0.50,2.28,2.29,2.79,2.80,3.29,3.30,4.00,4.01
+2A-ii,Emotional Safety,0.50,2.28,2.29,2.79,2.80,3.29,3.30,4.00,4.01
+2B-i,Sense of Belonging,0.50,1.73,1.74,2.24,2.25,2.74,2.75,4.00,4.01
+2B-ii,Student-Teacher Relationships,0.50,1.73,1.74,2.24,2.25,2.74,2.75,4.00,4.01
+2C-i,Valuing of Learning,0.50,2.18,2.19,2.69,2.70,3.19,3.20,4.00,4.01
+2C-ii,Academic Challenge,0.50,2.18,2.19,2.69,2.70,3.19,3.20,4.00,4.01
+3A-i,Physical Space & Materials,0.50,1.83,1.84,2.34,2.35,2.84,2.85,3.75,3.76
+3A-ii,Content Specialists & Support,0.50,1.83,1.84,2.34,2.35,2.84,2.85,3.75,3.76
+3B-i,Curricular Strength & Variety,0.50,1.83,1.84,2.34,2.35,2.84,2.85,4.10,4.11
+3B-ii,Cultural Responsiveness,0.50,1.83,1.84,2.34,2.35,2.84,2.85,4.10,4.11
+3B-iii,Co-Curricular Activities,0.50,1.83,1.84,2.34,2.35,2.84,2.85,4.10,4.11
+3C-i,Family-School Relationships,0.50,1.68,1.69,2.19,2.20,2.69,2.70,3.90,3.91
+3C-ii,Community Involvement,0.50,1.68,1.69,2.19,2.20,2.69,2.70,3.90,3.91
+4A-i,Performance Growth,0.50,1.98,1.99,2.49,2.50,2.99,3.00,4.00,4.01
+4A-ii,Overall Performance,0.50,1.98,1.99,2.49,2.50,2.99,3.00,4.00,4.01
+4B-i,Engagement in School,0.50,1.88,1.89,2.39,2.40,2.89,2.90,3.90,3.91
+4B-ii,Degree Completion,0.50,1.88,1.89,2.39,2.40,2.89,2.90,3.90,3.91
+4C-i,Problem Solving Emphasis,0.50,1.88,1.89,2.39,2.40,2.89,2.90,3.90,3.91
+4C-ii,Problem Solving Skills,0.50,1.88,1.89,2.39,2.40,2.89,2.90,3.80,3.81
+4D-i,College Going and Persistence,0.50,1.88,1.89,2.39,2.40,2.89,2.90,3.80,3.81
+4D-ii,Career Preparation and Placement,0.50,1.98,1.99,2.49,2.50,2.99,3.00,3.90,3.91
+5A-i,Appreciation for Diversity,0.50,1.98,1.99,2.49,2.50,2.99,3.00,3.90,3.91
+5A-ii,Civic Participation,0.50,1.98,1.99,2.49,2.50,2.99,3.00,3.90,3.91
+5B-i,Perseverance and Determination,0.50,1.73,1.74,2.24,2.25,2.74,2.75,3.80,3.81
+5B-ii,Growth Mindset,0.50,1.73,1.74,2.24,2.25,2.74,2.75,3.80,3.81
+5C-i,Participation in Arts,0.50,1.73,1.74,2.24,2.25,2.74,2.75,3.80,3.81
+5C-ii,Valuing Arts,0.50,1.73,1.74,2.24,2.25,2.74,2.75,3.80,3.81
+5D-i,Social and Emotional Health,0.50,1.73,1.74,2.24,2.25,2.74,2.75,3.80,3.81
+5D-ii,Physical Health,0.50,1.73,1.74,2.24,2.25,2.74,2.75,3.80,3.81
