@@ -43,9 +43,12 @@ class Category < ApplicationRecord
   def zone_widths
     return nil if zones.nil?
 
-    w = custom_zones.each_with_index.map do |zone, index|
-      (zone - index == 0 ? 0 : custom_zones[index - 1]).round(2)
+    widths = custom_zones.each_with_index.map do |zone, index|
+      (zone - (index == 0 ? 0 : custom_zones[index - 1])).round(2)
     end
+
+    widths[4] = widths[4] + (5 - widths.sum)
+    return widths
   end
 
   def sync_child_zones
@@ -60,20 +63,22 @@ class Category < ApplicationRecord
 
       if cc.zones.nil?
         puts "NO ZONES: #{name} -> #{cc.name}"
-        next
-      end
+      else
+        valid_child_categories += 1
 
-      valid_child_categories += 1
+        # puts "ZONES: #{name} | #{cc.name} | #{cc.zones}"
 
-      cc.custom_zones.each_with_index do |zone, index|
-        total_zones[index] += zone
+        cc.custom_zones.each_with_index do |zone, index|
+          # puts "ZONE: #{name} | #{zone} | #{index}"
+          total_zones[index] += zone
+        end
       end
     end
 
     if valid_child_categories > 0
       average_zones = total_zones.map { |zone| zone / valid_child_categories }
-      # puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones}"
-      update(zones: average_zones)
+      # puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones} | #{zone_widths}"
+      update(zones: average_zones.join(","))
     end
   end
 
