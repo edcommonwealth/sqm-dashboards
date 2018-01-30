@@ -9,7 +9,7 @@ class SchoolsController < ApplicationController
   def show
     district = @school.district
     authenticate(district.name.downcase, "#{district.name.downcase}!")
-    @school_categories = @school.school_categories.for_parent_category(@school, nil).sort
+    @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.sort
   end
 
   def admin

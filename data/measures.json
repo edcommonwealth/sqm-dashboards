@@ -210,7 +210,7 @@
       }
     }
   }, {
-    "title": "Indicators of Academic Learning",
+    "title": "Academic Learning",
     "blurb": "Are students developing academic dispositions and content knowledge?",
     "text": "This category measures how much students are learning core academic content, developing their own academic identities, and progressing along positive trajectories.  It considers factors like academic performance, engagement in school, problem solving, and college-going rates.",
     "sub": {
@@ -320,7 +320,7 @@
     }
   },
   {
-    "title": "Character and Wellbeing Outcomes",
+    "title": "Citizenship and Wellbeing",
     "blurb": "Are students healthy and well-rounded?",
     "text": "This category measures the development of traits relevant for full and rewarding lives-in society, the workplace, and their private lives.  It considers factors like perseverance and determination, participation in arts and literature, and social and emotional health.",
     "sub": {
