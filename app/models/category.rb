@@ -66,10 +66,10 @@ class Category < ApplicationRecord
       else
         valid_child_categories += 1
 
-        # puts "ZONES: #{name} | #{cc.name} | #{cc.zones}"
+        puts "ZONES: #{name} | #{cc.name} | #{cc.zones}"
 
         cc.custom_zones.each_with_index do |zone, index|
-          # puts "ZONE: #{name} | #{zone} | #{index}"
+          puts "ZONE: #{name} | #{zone} | #{index}"
           total_zones[index] += zone
         end
       end
@@ -77,7 +77,7 @@ class Category < ApplicationRecord
 
     if valid_child_categories > 0
       average_zones = total_zones.map { |zone| zone / valid_child_categories }
-      # puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones} | #{zone_widths}"
+      puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones} | #{zone_widths}"
       update(zones: average_zones.join(","))
     end
   end
