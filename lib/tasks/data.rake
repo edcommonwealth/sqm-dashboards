@@ -277,10 +277,14 @@ namespace :data do
       district = District.find_or_create_by(name: row["District"], state_id: 1)
       school = district.schools.find_or_create_by(name: row["School"])
       school_category = school.school_categories.find_or_create_by(category: nonlikert_category)
-      school_category.update(
-        nonlikert: row["NL_Value"],
-        zscore: [row["Z-Score"].to_f,2].min
-      )
+      if row["Z-Score"].blank?
+        school_category.destroy
+      else
+        school_category.update(
+          nonlikert: row["NL_Value"],
+          zscore: [row["Z-Score"].to_f,2].min
+        )
+      end
     end
 
     ENV.delete('BULK_PROCESS')
@@ -318,7 +322,29 @@ namespace :data do
       category.update(zones: custom_zones.join(","))
     end
 
+    ENV.delete('BULK_PROCESS')
+
     Category.all.each { |category| category.sync_child_zones }
+  end
+
+  desc 'Move all likert survey results to a new submeasure of current measure'
+  task move_likert_to_submeasures: :environment do
+    Question.all.each do |q|
+      category = q.category
+      next unless category.name.index("Scale").nil?
+      new_category_name = "#{category.name} Scale"
+      new_category = category.child_categories.where(name: new_category_name).first
+      if new_category.nil?
+        new_category = category.child_categories.create(
+          name: new_category_name,
+          blurb: "This measure contains all survey responses for #{category.name}",
+          description: category.description
+        )
+      end
+      q.update(category: new_category)
+    end
+
+    sync_school_category_aggregates
   end
 
   def sync_school_category_aggregates
