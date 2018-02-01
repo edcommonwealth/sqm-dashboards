@@ -337,8 +337,9 @@ namespace :data do
       if new_category.nil?
         new_category = category.child_categories.create(
           name: new_category_name,
-          blurb: "This measure contains all survey responses for #{category.name}",
-          description: category.description
+          blurb: "This measure contains all survey responses for #{category.name}.",
+          description: "The following survey questions concern perceptions of #{category.name}.",
+          zones: category.zones
         )
       end
       q.update(category: new_category)
