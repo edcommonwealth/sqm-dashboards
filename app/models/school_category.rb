@@ -26,7 +26,10 @@ class SchoolCategory < ApplicationRecord
     return {
       attempt_count: attempt_data.attempt_count || 0,
       response_count: attempt_data.response_count || 0,
-      answer_index_total: attempt_data.answer_index_total || 0
+      answer_index_total: attempt_data.answer_index_total || 0,
+      zscore: attempt_data.answer_index_total.nil? ?
+        zscore :
+        attempt_data.answer_index_total.to_f / attempt_data.response_count.to_f - 3.to_f
     }
   end
 
@@ -54,7 +57,7 @@ class SchoolCategory < ApplicationRecord
       answer_index_total:
         _aggregated_responses[:answer_index_total] +
         child_school_categories.inject(0) { |total, csc| total + csc.answer_index_total },
-      zscore: average_zscore.present? ? average_zscore : zscore
+      zscore: average_zscore.present? ? average_zscore : _aggregated_responses[:zscore]
     }
   end
 

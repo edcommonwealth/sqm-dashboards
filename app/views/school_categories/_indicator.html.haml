@@ -1,7 +1,6 @@
 - likert = info.answer_index_average
 - zscore = info.zscore.present? ? info.zscore + 3 : nil
-- if zscore.present?
-  - likert = info.answer_index_average.nan? ? zscore : (info.answer_index_average + zscore) / 2
+- likert = zscore if zscore.present?
 - likert = likert.round(1)
 
 - return if likert.nan?
