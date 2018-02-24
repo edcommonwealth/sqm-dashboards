@@ -283,14 +283,14 @@ namespace :data do
       else
         school_category.update(
           nonlikert: row["NL_Value"],
-          zscore: [row["Z-Score"].to_f,2].min
+          zscore: [-2,[row["Z-Score"].to_f,2].min].max
         )
       end
     end
 
     ENV.delete('BULK_PROCESS')
 
-    sync_school_category_aggregates
+    # sync_school_category_aggregates
   end
 
   desc 'Load in custom zones for each category'
