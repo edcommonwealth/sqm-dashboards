@@ -252,8 +252,8 @@ namespace :data do
   task load_nonlikert_values: :environment do
     ENV['BULK_PROCESS'] = 'true'
 
-    # csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17AdminData.csv", __FILE__))
-    csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17_SGP.csv", __FILE__))
+    csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17AdminData.csv", __FILE__))
+    # csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17_SGP.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
     puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
 
@@ -290,7 +290,7 @@ namespace :data do
 
     ENV.delete('BULK_PROCESS')
 
-    # sync_school_category_aggregates
+    sync_school_category_aggregates
   end
 
   desc 'Load in custom zones for each category'
