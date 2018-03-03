@@ -342,6 +342,7 @@
       "B": {
         "title": "Work Ethic",
         "text": "This subcategory seeks to determine the degree to which students are willing to work hard on challenging tasks, even in light of setbacks.  It includes measures of perseverance, determination, and orientation toward personal growth.",
+        "blurb": "Are students learning to work hard on challenging tasks?",
         "measures": {
           "i": {
             "title": "Perseverance and Determination",

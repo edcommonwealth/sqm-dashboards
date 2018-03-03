@@ -9,7 +9,7 @@ class SchoolCategory < ApplicationRecord
   scope :for, -> (school, category) { where(school: school).where(category: category) }
   scope :for_parent_category, -> (school, category=nil) { where(school: school).joins(:category).merge(Category.for_parent(category)) }
 
-  scope :valid, -> { where("answer_index_total > 0 or zscore is not null") }
+  scope :valid, -> { where("answer_index_total > 10 or zscore is not null") }
 
   def answer_index_average
     answer_index_total.to_f / response_count.to_f
