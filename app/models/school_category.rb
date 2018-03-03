@@ -1,5 +1,7 @@
 class SchoolCategory < ApplicationRecord
 
+  MIN_RESPONSE_COUNT = 10
+
   belongs_to :school
   belongs_to :category
 
@@ -9,7 +11,7 @@ class SchoolCategory < ApplicationRecord
   scope :for, -> (school, category) { where(school: school).where(category: category) }
   scope :for_parent_category, -> (school, category=nil) { where(school: school).joins(:category).merge(Category.for_parent(category)) }
 
-  scope :valid, -> { where("answer_index_total > 10 or zscore is not null") }
+  scope :valid, -> { where("response_count > #{MIN_RESPONSE_COUNT} or zscore is not null") }
 
   def answer_index_average
     answer_index_total.to_f / response_count.to_f
@@ -29,7 +31,9 @@ class SchoolCategory < ApplicationRecord
       answer_index_total: attempt_data.answer_index_total || 0,
       zscore: attempt_data.answer_index_total.nil? ?
         zscore :
-        attempt_data.answer_index_total.to_f / attempt_data.response_count.to_f - 3.to_f
+        (attempt_data.response_count > MIN_RESPONSE_COUNT ?
+          (attempt_data.answer_index_total.to_f / attempt_data.response_count.to_f - 3.to_f) :
+          nil)
     }
   end
 
