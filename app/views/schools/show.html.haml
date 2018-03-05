@@ -1,6 +1,13 @@
 = render 'layouts/school_header'
 
 .row
-  = render @school_categories
+  - if @school_categories.blank?
+    .row.pt-3.mt-3
+      .col
+        %h3 Insufficient Responses
+
+        %p No data is displayed for this school because of insufficient responses.
+  - else
+    = render @school_categories
 
 = render "shared/performance_spectrum"
