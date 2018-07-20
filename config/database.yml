@@ -6,17 +6,17 @@ default: &default
 
 development:
   <<: *default
-  database: edcontext_development
+  database: mciea_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: edcontext_test
+# test:
+#   <<: *default
+#   database: edcontext_test
 
-production:
-  <<: *default
-  database: edcontext_production
-  username: edcontext
-  password: <%= ENV['EDCONTEXT_DATABASE_PASSWORD'] %>
+# production:
+#   <<: *default
+#   database: edcontext_production
+#   username: edcontext
+#   password: <%= ENV['EDCONTEXT_DATABASE_PASSWORD'] %>

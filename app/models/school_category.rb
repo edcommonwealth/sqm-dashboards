@@ -10,6 +10,7 @@ class SchoolCategory < ApplicationRecord
 
   scope :for, -> (school, category) { where(school: school).where(category: category) }
   scope :for_parent_category, -> (school, category=nil) { where(school: school).joins(:category).merge(Category.for_parent(category)) }
+  scope :in, -> (year) { where(year: year) }
 
   scope :valid, -> { where("response_count > #{MIN_RESPONSE_COUNT} or zscore is not null") }
 
@@ -17,8 +18,9 @@ class SchoolCategory < ApplicationRecord
     answer_index_total.to_f / response_count.to_f
   end
 
-  def aggregated_responses
+  def aggregated_responses(year)
     attempt_data = Attempt.
+      created_in(year).
       for_category(category).
       for_school(school).
       select('count(attempts.id) as attempt_count').
@@ -37,8 +39,8 @@ class SchoolCategory < ApplicationRecord
     }
   end
 
-  def chained_aggregated_responses
-    _aggregated_responses = aggregated_responses
+  def chained_aggregated_responses(year)
+    _aggregated_responses = aggregated_responses(year)
 
     child_school_categories = category.child_categories.collect do |cc|
       SchoolCategory.for(school, cc).valid
@@ -65,15 +67,15 @@ class SchoolCategory < ApplicationRecord
     }
   end
 
-  def sync_aggregated_responses
+  def sync_aggregated_responses(year)
     return if ENV['BULK_PROCESS']
-    update_attributes(chained_aggregated_responses)
+    update_attributes(chained_aggregated_responses(year))
     if category.parent_category.present?
-      parent_school_category = SchoolCategory.for(school, category.parent_category).first
+      parent_school_category = SchoolCategory.for(school, category.parent_category).in(year).first
       if parent_school_category.nil?
-        parent_school_category = SchoolCategory.create(school: school, category: category.parent_category)
+        parent_school_category = SchoolCategory.create(school: school, category: category.parent_category, year: year)
       end
-      parent_school_category.sync_aggregated_responses
+      parent_school_category.sync_aggregated_responses(year)
     end
   end
 end

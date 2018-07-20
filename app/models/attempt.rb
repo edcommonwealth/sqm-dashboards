@@ -20,6 +20,7 @@ class Attempt < ApplicationRecord
   scope :with_no_answer, -> { where('answer_index is null and open_response_id is null')}
   scope :not_yet_responded, -> { where(responded_at: nil) }
   scope :last_sent, -> { order(sent_at: :desc) }
+  scope :created_in, -> (year) { where('extract(year from attempts.created_at) = ?', year) }
 
   def messages
     child_specific = student.present? ? " (for #{student.name})" : ''

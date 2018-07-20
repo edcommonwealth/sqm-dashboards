@@ -1,5 +1,21 @@
-# PSQL: /Applications/Postgres.app/Contents/Versions/9.5/bin/psql -h localhost
+# PSQL: /Applications/Postgres.app/Contents/Versions/9.6/bin/psql -h localhost
 
+# LOAD DATA
+# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate
+# /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development latest.dump
+# rake db:migrate
+# run console: SchoolCategory.update_all(year: '2017')
+# rake data:load_questions_csv
+# rake data:load_responses
+
+
+# Add:
+#
+# Category: unique_external_id (string)
+# School Category: year (string)
+#
+# Update:
+# Add year to existing school categories
 
 require 'csv'
 
@@ -54,7 +70,7 @@ namespace :data do
     end
   end
 
-  desc 'Load in question data'
+  desc 'Load in question data from json'
   task load_questions: :environment do
     variations = [
       '[Field-MathTeacher][Field-ScienceTeacher][Field-EnglishTeacher][Field-SocialTeacher]',
@@ -71,6 +87,7 @@ namespace :data do
           puts 'NOTHING'
           puts external_id
           puts categories.inspect
+          category = categories.create(name: question['Category Name'], external_id: external_id)
         end
       end
       question_text = question['text'].gsub(/[[:space:]]/, ' ').strip
@@ -100,6 +117,59 @@ namespace :data do
     end
   end
 
+  desc 'Load in question data from csv'
+  task load_questions_csv: :environment do
+    variations = [
+      '[Field-MathTeacher][Field-ScienceTeacher][Field-EnglishTeacher][Field-SocialTeacher]',
+      'teacher'
+    ]
+
+    csv_string = File.read(File.expand_path('../../../data/MeasureKey2018.csv', __FILE__))
+    csv = CSV.parse(csv_string, :headers => true)
+
+    t = Time.new
+    csv.each_with_index do |question, index|
+      category = nil
+      question['Category'].split('-').each do |external_id_raw|
+        external_id = external_id_raw.gsub(/[[:space:]]/, ' ').strip
+        categories = category.present? ? category.child_categories : Category
+        category = categories.where(external_id: external_id).first
+        if category.nil?
+          puts 'NOTHING'
+          puts "#{question['Category']} -- #{external_id}"
+          puts categories.map { |c| "#{c.name} - |#{c.external_id}| == |#{external_id}|: - #{external_id == c.external_id}"}.join(" ---- ")
+          category = categories.create(name: question['Category Name'], external_id: external_id)
+        end
+      end
+      question_text = question['Question Text'].gsub(/[[:space:]]/, ' ').strip
+      if question_text.index('.* teacher').nil?
+        category.questions.create(
+          text: question_text,
+          option1: question['R1'],
+          option2: question['R2'],
+          option3: question['R3'],
+          option4: question['R4'],
+          option5: question['R5'],
+          for_recipient_students: question['Level'] == "Students",
+          external_id: question['qid']
+        )
+      else
+        variations.each do |variation|
+          category.questions.create(
+            text: question_text.gsub('.* teacher', variation),
+            option1: question['R1'],
+            option2: question['R2'],
+            option3: question['R3'],
+            option4: question['R4'],
+            option5: question['R5'],
+            for_recipient_students: question['Level'] == "Students",
+            external_id: question['qid']
+          )
+        end
+      end
+    end
+  end
+
   desc 'Load in student and teacher responses'
   task load_responses: :environment do
     ENV['BULK_PROCESS'] = 'true'
@@ -122,14 +192,15 @@ namespace :data do
     unknown_schools = {}
     missing_questions = {}
     bad_answers = {}
-    year = '2017'
+    year = '2018'
 
     timeToRun = 120 * 60
     startIndex = 0
     stopIndex = 100000
     startTime = Time.new
 
-    ['student_responses', 'teacher_responses'].each do |file|
+    # ['student_responses', 'teacher_responses'].each do |file|
+    ['student_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
@@ -150,14 +221,17 @@ namespace :data do
           t = Time.new
         end
 
-        district_name = row['What district is your school in?']
-        district_name = row['To begin, please select your district.'] if district_name.nil?
+        district_name = row['District']
+        if district_name.blank?
+          next
+        end
+        # district_name = row['To begin, please select your district.'] if district_name.nil?
         district = District.find_or_create_by(name: district_name, state_id: 1)
 
-        school_name = row["Please select your school in #{district_name}."]
+        school_name = row["School.#{district_name}"]
 
         if school_name.blank?
-          # puts "BLANK SCHOOL NAME: #{district.name} - #{index}"
+          puts "BLANK SCHOOL NAME: #{district.name} - #{index}"
           next
         end
 
@@ -170,11 +244,13 @@ namespace :data do
           next
         end
 
-        respondent_id = row['Response ID']
-        recipient_id = respondent_map[respondent_id]
+        respondent_id = row['StudentID']
+        recipient_id = respondent_map["#{school.id}-#{respondent_id}"]
         if recipient_id.present?
           recipient = school.recipients.where(id: recipient_id).first
-        else
+        end
+
+        if recipient.nil?
           begin
             recipient = school.recipients.create(
               name: "Survey Respondent Id: #{respondent_id}"
@@ -182,7 +258,7 @@ namespace :data do
           rescue
             puts "DATAERROR: INDEX: #{index} ERROR AT #{index} - #{district.name} - #{school_name} #{school}: #{respondent_id}"
           end
-          respondent_map[respondent_id] = recipient.id
+          respondent_map["#{school.id}-#{respondent_id}"] = recipient.id
         end
 
         recipient_list = school.recipient_lists.find_by_name("#{recipients.titleize} List")
@@ -199,7 +275,7 @@ namespace :data do
           value = value.gsub(/[[:space:]]/, ' ').strip.downcase
 
           begin
-            question = Question.find_by_text(key)
+            question = Question.find_by_external_id(key)
           rescue Exception => e
             puts "DATAERROR: INDEX: #{index} Failed finding question: #{key} -> #{e}"
           end
@@ -350,14 +426,17 @@ namespace :data do
   end
 
   def sync_school_category_aggregates
+    year = '2018'
     School.all.each do |school|
       Category.all.each do |category|
-        school_category = SchoolCategory.for(school, category).first
+        school_category = SchoolCategory.for(school, category).in(year).first
         if school_category.nil?
-          school_category = school.school_categories.create(category: category)
+          school_category = school.school_categories.create(category: category, year: year)
         end
-        school_category.sync_aggregated_responses
+        school_category.sync_aggregated_responses(year)
       end
     end
   end
 end
+
+#<SchoolCategory id: 1, school_id: 1, category_id: 1, attempt_count: 277, response_count: 277, answer_index_total: 1073, created_at: "2017-10-17 00:21:52", updated_at: "2018-03-03 17:24:53", nonlikert: nil, zscore: 0.674396962759463, year: "2017">
