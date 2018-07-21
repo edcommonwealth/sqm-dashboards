@@ -14,7 +14,7 @@ class SchoolsController < ApplicationController
     @years = @school_categories.map(&:year).map(&:to_i).sort
     @year = (params[:year] || @years.first).to_i
     @years.delete(@year)
-    @school_categories.select { |sc| sc.year.to_i == @year }
+    # @school_categories.select { |sc| sc.year.to_i == @year }
   end
 
   def admin
