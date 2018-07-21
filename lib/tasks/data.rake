@@ -5,6 +5,7 @@
 # rails c -> SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv; rake data:load_responses
 
+# sudo heroku run rake data:load_questions_csv -a mciea-beta
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 
 # Add:
@@ -221,7 +222,7 @@ namespace :data do
         end
 
         district_name = row['District']
-        if district_name.blank? && district_name == "NA"
+        if district_name.blank? || district_name == "NA"
           next
         end
         # district_name = row['To begin, please select your district.'] if district_name.nil?
@@ -229,7 +230,7 @@ namespace :data do
 
         school_name = row["School.#{district_name}"]
 
-        if school_name.blank? && school_name == "NA"
+        if school_name.blank? || school_name == "NA"
           puts "BLANK SCHOOL NAME: #{district.name} - #{index}"
           next
         end
