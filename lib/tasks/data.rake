@@ -1,12 +1,10 @@
 # PSQL: /Applications/Postgres.app/Contents/Versions/9.6/bin/psql -h localhost
 
 # LOAD DATA
-# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate
-# /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development latest.dump
-# rake db:migrate
-# run console: SchoolCategory.update_all(year: '2017')
-# rake data:load_questions_csv
-# rake data:load_responses
+# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development latest.dump; rake db:migrate;
+# rails c -> SchoolCategory.update_all(year: '2017')
+# rake data:load_questions_csv; rake data:load_responses
+
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 
 # Add:
@@ -20,6 +18,8 @@
 require 'csv'
 
 namespace :data do
+  @year = 2018
+
   desc "Load in all data"
   task load: :environment do
     # return if School.count > 0
@@ -192,7 +192,6 @@ namespace :data do
     unknown_schools = {}
     missing_questions = {}
     bad_answers = {}
-    year = '2018'
 
     timeToRun = 120 * 60
     startIndex = 0
@@ -203,7 +202,7 @@ namespace :data do
     ['student_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
-      csv_string = File.read(File.expand_path("../../../data/#{file}_#{year}.csv", __FILE__))
+      csv_string = File.read(File.expand_path("../../../data/#{file}_#{@year}.csv", __FILE__))
       csv = CSV.parse(csv_string, :headers => true)
       puts("LOADING CSV: #{csv.length} ROWS")
 
@@ -244,7 +243,7 @@ namespace :data do
           next
         end
 
-        respondent_id = row['StudentID']
+        respondent_id = row['X']
         recipient_id = respondent_map["#{school.id}-#{respondent_id}"]
         if recipient_id.present?
           recipient = school.recipients.where(id: recipient_id).first
@@ -271,7 +270,7 @@ namespace :data do
         row.each do |key, value|
           t1 = Time.new
           next if value.nil? or key.nil? or value.to_s == "-99"
-          key = key.gsub(/[[:space:]]/, ' ').strip.gsub(/\s+/, ' ')
+          key = key.gsub(/[[:space:]]/, ' ').gsub(/\./, '-').strip.gsub(/\s+/, ' ')
           value = value.gsub(/[[:space:]]/, ' ').strip.downcase
 
           begin
@@ -307,7 +306,9 @@ namespace :data do
             answer_index = value.to_i
           end
 
-          responded_at = Date.strptime(row['End Date'], '%m/%d/%Y %H:%M')
+          next if answer_index == 0
+
+          responded_at = Date.today#strptime(row['End Date'], '%m/%d/%Y %H:%M')
           begin
             recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
           rescue Exception => e
@@ -321,7 +322,7 @@ namespace :data do
 
     sync_school_category_aggregates
 
-    Recipient.all.each { |r| r.update_counts }
+    Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   desc 'Load in nonlikert values for each school'
@@ -426,14 +427,15 @@ namespace :data do
   end
 
   def sync_school_category_aggregates
-    year = 2018
-    School.all.each do |school|
+    # School.all.each do |school|
+    District.where(name: 'Winchester').first.schools.where(name: "Ambrose Elementary School").each do |school|
       Category.all.each do |category|
-        school_category = SchoolCategory.for(school, category).in(year).first
+        school_category = SchoolCategory.for(school, category).in(@year).first
         if school_category.nil?
-          school_category = school.school_categories.create(category: category, year: year)
+          school_category = school.school_categories.create(category: category, year: @year)
         end
         school_category.sync_aggregated_responses
+        puts("SYNC: #{school.name}-#{category.name}-#{@year}: #{school_category.answer_index_total}")
       end
     end
   end

@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
     @year = (params[:year] || @years.first).to_i
     @years.delete(@year)
     @school_category = school_categories.in(@year).first
-    @child_school_categories = SchoolCategory.for_parent_category(@school, @category).valid
+    @child_school_categories = SchoolCategory.for_parent_category(@school, @category).in(@year).valid
     @questions = @category.questions
   end
 

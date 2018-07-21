@@ -1,7 +1,7 @@
 .row
   .col
     =# link_to(image_tag(@district.logo), @district) if @district.present?
-    %h2= link_to @school.name, @school
+    %h2= link_to @school.name, school_path(@school, year: @year)
     = simple_format(@school.description)
     - if @year.present?
       %p

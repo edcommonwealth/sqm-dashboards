@@ -32,7 +32,7 @@ class SchoolCategory < ApplicationRecord
       response_count: attempt_data.response_count || 0,
       answer_index_total: attempt_data.answer_index_total || 0,
       zscore: attempt_data.answer_index_total.nil? ?
-        zscore :
+        (attempt_data.response_count > MIN_RESPONSE_COUNT ? zscore : nil) :
         (attempt_data.response_count > MIN_RESPONSE_COUNT ?
           (attempt_data.answer_index_total.to_f / attempt_data.response_count.to_f - 3.to_f) :
           nil)
@@ -43,7 +43,7 @@ class SchoolCategory < ApplicationRecord
     _aggregated_responses = aggregated_responses
 
     child_school_categories = category.child_categories.collect do |cc|
-      SchoolCategory.for(school, cc).valid
+      SchoolCategory.for(school, cc).in(year).valid
     end.flatten.compact
 
     average_zscore = nil
@@ -70,6 +70,7 @@ class SchoolCategory < ApplicationRecord
   def sync_aggregated_responses
     return if ENV['BULK_PROCESS']
     update_attributes(chained_aggregated_responses)
+    return if response_count == 0
     if category.parent_category.present?
       parent_school_category = SchoolCategory.for(school, category.parent_category).in(year).first
       if parent_school_category.nil?

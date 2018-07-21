@@ -8,6 +8,7 @@
       %h3 Insufficient Responses
       %p No data is displayed for this school because of insufficient responses.
 - else
-  = render @school_categories
+  .row
+    = render @school_categories
 
 = render "shared/performance_spectrum"
