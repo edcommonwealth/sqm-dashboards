@@ -426,14 +426,14 @@ namespace :data do
   end
 
   def sync_school_category_aggregates
-    year = '2018'
+    year = 2018
     School.all.each do |school|
       Category.all.each do |category|
         school_category = SchoolCategory.for(school, category).in(year).first
         if school_category.nil?
           school_category = school.school_categories.create(category: category, year: year)
         end
-        school_category.sync_aggregated_responses(year)
+        school_category.sync_aggregated_responses
       end
     end
   end

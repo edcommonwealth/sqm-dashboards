@@ -18,7 +18,7 @@ class SchoolCategory < ApplicationRecord
     answer_index_total.to_f / response_count.to_f
   end
 
-  def aggregated_responses(year)
+  def aggregated_responses
     attempt_data = Attempt.
       created_in(year).
       for_category(category).
@@ -39,8 +39,8 @@ class SchoolCategory < ApplicationRecord
     }
   end
 
-  def chained_aggregated_responses(year)
-    _aggregated_responses = aggregated_responses(year)
+  def chained_aggregated_responses
+    _aggregated_responses = aggregated_responses
 
     child_school_categories = category.child_categories.collect do |cc|
       SchoolCategory.for(school, cc).valid
@@ -67,15 +67,15 @@ class SchoolCategory < ApplicationRecord
     }
   end
 
-  def sync_aggregated_responses(year)
+  def sync_aggregated_responses
     return if ENV['BULK_PROCESS']
-    update_attributes(chained_aggregated_responses(year))
+    update_attributes(chained_aggregated_responses)
     if category.parent_category.present?
       parent_school_category = SchoolCategory.for(school, category.parent_category).in(year).first
       if parent_school_category.nil?
         parent_school_category = SchoolCategory.create(school: school, category: category.parent_category, year: year)
       end
-      parent_school_category.sync_aggregated_responses(year)
+      parent_school_category.sync_aggregated_responses
     end
   end
 end
