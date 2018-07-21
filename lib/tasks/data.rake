@@ -7,7 +7,14 @@
 # run console: SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv
 # rake data:load_responses
+# sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 
+Access Key ID:
+AKIAIU4VEKWV23W2WKSQ
+Secret Access Key:
+4BPB9kpNTUCj/pwWXA/u59zO5Jj4/y0gNWm3MjvN
+
+sudo heroku pg:backups:restore 'https://s3.amazonaws.com/irrationaldesign/latest.dump' DATABASE_URL -a mciea-beta
 
 # Add:
 #

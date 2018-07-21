@@ -8,6 +8,9 @@
         Data from
         = "#{@year - 1}-#{@year}"
         school year.
+        Show:
+        - @years.each do |year|
+          = link_to(year, school_category_path(@school_category.school, @school_category.category, year: year))
     - if @school.district.present?
       %p
         %strong District:
