@@ -9,7 +9,12 @@ class SchoolsController < ApplicationController
   def show
     district = @school.district
     authenticate(district.name.downcase, "#{district.name.downcase}!")
+
     @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.sort
+    @years = @school_categories.map(&:year).map(&:to_i).sort
+    @year = (params[:year] || @years.first).to_i
+    @years.delete(@year)
+    @school_categories.select { |sc| sc.year.to_i == @year }
   end
 
   def admin
