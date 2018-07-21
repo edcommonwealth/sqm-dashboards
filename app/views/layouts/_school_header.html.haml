@@ -8,11 +8,14 @@
         Data from
         = "#{@year - 1}-#{@year}"
         school year.
-    -# if @years.present?
+    - if @years.present?
       %p
         Show year:
         - @years.each do |year|
-          = link_to("#{year - 1}-#{year}", school_category_path(@school_category.school, @school_category.category, year: year))
+          - if @school_category.present?
+            = link_to("#{year - 1}-#{year}", school_category_path(@school_category.school, @school_category.category, year: year))
+          - else
+            = link_to("#{year - 1}-#{year}", school_path(@school, year: year))
     - if @school.district.present?
       %p
         %strong District:
