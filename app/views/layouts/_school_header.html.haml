@@ -12,7 +12,7 @@
       %p
         Show year:
         - @years.each do |year|
-          = link_to(year, school_category_path(@school_category.school, @school_category.category, year: year))
+          = link_to("#{year - 1} - #{year}", school_category_path(@school_category.school, @school_category.category, year: year))
     - if @school.district.present?
       %p
         %strong District:
