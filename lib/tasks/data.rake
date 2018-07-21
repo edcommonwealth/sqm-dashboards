@@ -310,7 +310,7 @@ namespace :data do
 
           next if answer_index == 0
 
-          responded_at = Date.strptime(row['recordedDate'], '%Y-%m-%d %H:%M:%S')
+          responded_at = Date.strptime(row['recordedDate'], '%Y-%m-%d %H:%M:%S') rescue Date.today
           begin
             recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
           rescue Exception => e
