@@ -14,8 +14,9 @@ class CategoriesController < ApplicationController
     district = @school.district
     authenticate(district.name.downcase, "#{district.name.downcase}!")
     school_categories = SchoolCategory.for(@school, @category)
-    @years = school_categories.map(&:year)
+    @years = school_categories.map(&:year).map(&:to_i).sort
     @year = (params[:year] || @years.first).to_i
+    @years.delete(@year)
     @school_category = SchoolCategory.for(@school, @category).in(@year).first
     @child_school_categories = SchoolCategory.for_parent_category(@school, @category).valid
     @questions = @category.questions
