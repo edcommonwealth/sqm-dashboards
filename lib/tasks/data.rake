@@ -199,8 +199,8 @@ namespace :data do
     stopIndex = 100000
     startTime = Time.new
 
-    # ['student_responses', 'teacher_responses'].each do |file|
-    ['student_responses'].each do |file|
+    # ['student_responses'].each do |file|
+    ['student_responses', 'teacher_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{@year}.csv", __FILE__))
@@ -272,6 +272,7 @@ namespace :data do
           t1 = Time.new
           next if value.nil? or key.nil? or value.to_s == "-99"
           key = key.gsub(/[[:space:]]/, ' ').gsub(/\./, '-').strip.gsub(/\s+/, ' ')
+          key = key.gsub(/-4-5/, '').gsub(/-6-12/, '')
           value = value.gsub(/[[:space:]]/, ' ').strip.downcase
 
           begin
@@ -309,7 +310,7 @@ namespace :data do
 
           next if answer_index == 0
 
-          responded_at = Date.today#strptime(row['End Date'], '%m/%d/%Y %H:%M')
+          responded_at = Date.strptime(row['recordedDate'], '%Y-%m-%d %H:%M:%S')
           begin
             recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
           rescue Exception => e
@@ -428,15 +429,13 @@ namespace :data do
   end
 
   def sync_school_category_aggregates
-    # School.all.each do |school|
-    District.where(name: 'Winchester').first.schools.where(name: "Ambrose Elementary School").each do |school|
+    School.all.each do |school|
       Category.all.each do |category|
         school_category = SchoolCategory.for(school, category).in(@year).first
         if school_category.nil?
           school_category = school.school_categories.create(category: category, year: @year)
         end
         school_category.sync_aggregated_responses
-        puts("SYNC: #{school.name}-#{category.name}-#{@year}: #{school_category.answer_index_total}")
       end
     end
   end
