@@ -3,7 +3,11 @@
     =# link_to(image_tag(@district.logo), @district) if @district.present?
     %h2= link_to @school.name, @school
     = simple_format(@school.description)
-    %p Data from 2016-2017 school year.
+    - if @year.present?
+      %p
+        Data from
+        = "#{@year - 1}-#{@year}"
+        school year.
     - if @school.district.present?
       %p
         %strong District:

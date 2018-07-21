@@ -13,7 +13,8 @@ class CategoriesController < ApplicationController
   def show
     district = @school.district
     authenticate(district.name.downcase, "#{district.name.downcase}!")
-    @school_category = SchoolCategory.for(@school, @category).first
+    @year = (params[:year] || "2017").to_i
+    @school_category = SchoolCategory.for(@school, @category).in(@year).first
     @child_school_categories = SchoolCategory.for_parent_category(@school, @category).valid
     @questions = @category.questions
   end
