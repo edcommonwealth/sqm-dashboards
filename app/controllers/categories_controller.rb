@@ -19,7 +19,7 @@ class CategoriesController < ApplicationController
     @years.delete(@year)
     @school_category = school_categories.in(@year).first
     @child_school_categories = SchoolCategory.for_parent_category(@school, @category).in(@year).valid
-    @questions = @category.questions
+    @questions = @category.questions.created_in(@year)
   end
 
   # GET /categories/new

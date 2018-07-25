@@ -22,6 +22,7 @@ class Question < ApplicationRecord
   validates :option5, presence: true
 
   scope :for_category, -> (category) { where(category: category) }
+  scope :created_in, -> (year) { where('extract(year from questions.created_at) = ?', year) }
 
   enum target_group: [:unknown, :for_students, :for_teachers, :for_parents]
 

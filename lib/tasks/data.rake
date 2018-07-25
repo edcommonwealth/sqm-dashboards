@@ -5,6 +5,8 @@
 # rails c -> SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv; rake data:load_responses
 
+# sudo heroku run rake db:migrate -a mciea-beta
+# sudo heroku run console -a mciea-beta
 # sudo heroku run rake data:load_questions_csv -a mciea-beta
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 
