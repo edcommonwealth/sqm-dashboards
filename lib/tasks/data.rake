@@ -154,7 +154,8 @@ namespace :data do
           option4: question['R4'],
           option5: question['R5'],
           for_recipient_students: question['Level'] == "Students",
-          external_id: question['qid']
+          external_id: question['qid'],
+          reverse: question['reverse'] == "1"
         )
       else
         variations.each do |variation|
@@ -166,7 +167,8 @@ namespace :data do
             option4: question['R4'],
             option5: question['R5'],
             for_recipient_students: question['Level'] == "Students",
-            external_id: question['qid']
+            external_id: question['qid'],
+            reverse: question['reverse'] == "1"
           )
         end
       end
@@ -202,7 +204,7 @@ namespace :data do
     startTime = Time.new
 
     # ['student_responses'].each do |file|
-    ['student_responses', 'teacher_responses'].each do |file|
+    ['teacher_responses', 'student_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{@year}.csv", __FILE__))
