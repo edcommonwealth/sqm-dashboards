@@ -5,8 +5,10 @@
 # rails c -> SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv; rake data:load_responses
 
+# sudo heroku pg:reset DATABASE -a mciea-beta
+# sudo heroku pg:backups:restore 'https://s3.amazonaws.com/irrationaldesign/latest.dump' DATABASE_URL -a mciea-beta
 # sudo heroku run rake db:migrate -a mciea-beta
-# sudo heroku run console -a mciea-beta
+# sudo heroku run console -a mciea-beta -> SchoolCategory.update_all(year: '2017')
 # sudo heroku run rake data:load_questions_csv -a mciea-beta
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 
@@ -155,7 +157,7 @@ namespace :data do
           option5: question['R5'],
           for_recipient_students: question['Level'] == "Students",
           external_id: question['qid'],
-          reverse: question['reverse'] == "1"
+          reverse: question['Reverse'] == "1"
         )
       else
         variations.each do |variation|
@@ -168,7 +170,7 @@ namespace :data do
             option5: question['R5'],
             for_recipient_students: question['Level'] == "Students",
             external_id: question['qid'],
-            reverse: question['reverse'] == "1"
+            reverse: question['Reverse'] == "1"
           )
         end
       end
