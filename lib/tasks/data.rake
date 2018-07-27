@@ -206,7 +206,7 @@ namespace :data do
     startTime = Time.new
 
     # ['student_responses'].each do |file|
-    ['teacher_responses', 'student_responses'].each do |file|
+    ['student_responses', 'teacher_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{@year}.csv", __FILE__))
@@ -250,8 +250,8 @@ namespace :data do
           next
         end
 
-        respondent_id = row['X']
-        recipient_id = respondent_map["#{school.id}-#{respondent_id}"]
+        respondent_id = index
+        recipient_id = respondent_map["#{@year}-#{school.id}-#{respondent_id}"]
         if recipient_id.present?
           recipient = school.recipients.where(id: recipient_id).first
         end
