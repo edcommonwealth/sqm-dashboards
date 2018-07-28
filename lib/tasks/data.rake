@@ -202,7 +202,7 @@ namespace :data do
 
     timeToRun = 120 * 60
     startIndex = 0
-    stopIndex = 1000000
+    stopIndex = 100000
     startTime = Time.new
 
     # ['student_responses'].each do |file|
@@ -327,6 +327,10 @@ namespace :data do
       end
     end
     ENV.delete('BULK_PROCESS')
+
+    sync_school_category_aggregates
+
+    Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   desc 'Load in nonlikert values for each school'
