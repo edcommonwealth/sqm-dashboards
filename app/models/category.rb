@@ -26,7 +26,7 @@ class Category < ApplicationRecord
 
   def root_index
     [
-      "teachers-and-the-teaching-environment",
+      "teachers-and-teaching-environment",
       "school-culture",
       "resources",
       "academic-learning",
