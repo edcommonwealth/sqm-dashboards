@@ -202,7 +202,7 @@ namespace :data do
 
     timeToRun = 120 * 60
     startIndex = 0
-    stopIndex = 100000
+    stopIndex = 1000000
     startTime = Time.new
 
     # ['student_responses'].each do |file|
@@ -250,8 +250,8 @@ namespace :data do
           next
         end
 
-        respondent_id = index
-        recipient_id = respondent_map["#{@year}-#{school.id}-#{respondent_id}"]
+        respondent_id = "#{recipients}-#{index}-#{row["X_recordId"]}"
+        recipient_id = respondent_map["#{school.id}-#{@year}-#{respondent_id}"]
         if recipient_id.present?
           recipient = school.recipients.where(id: recipient_id).first
         end
@@ -327,10 +327,6 @@ namespace :data do
       end
     end
     ENV.delete('BULK_PROCESS')
-
-    sync_school_category_aggregates
-
-    Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   desc 'Load in nonlikert values for each school'
@@ -432,6 +428,13 @@ namespace :data do
     end
 
     sync_school_category_aggregates
+  end
+
+  desc 'Sync all school category aggregates'
+  task sync: :environment do
+    sync_school_category_aggregates
+
+    Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   def sync_school_category_aggregates
