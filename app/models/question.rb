@@ -63,4 +63,8 @@ class Question < ApplicationRecord
       most_popular_answer
     )
   end
+
+  def normalized_text
+    text.gsub("[science/math/English/social studies]", "")
+  end
 end
