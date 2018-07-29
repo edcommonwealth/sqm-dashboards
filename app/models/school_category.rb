@@ -14,6 +14,10 @@ class SchoolCategory < ApplicationRecord
 
   scope :valid, -> { where("response_count > #{MIN_RESPONSE_COUNT} or zscore is not null") }
 
+  def root_index
+    category.root_index
+  end
+
   def answer_index_average
     answer_index_total.to_f / response_count.to_f
   end
