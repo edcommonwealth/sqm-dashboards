@@ -9,6 +9,6 @@
       %p No data is displayed for this school because of insufficient responses.
 - else
   .row
-    = render @school_categories.sort(&:root_index)
+    = render @school_categories.sort { |a, b| a.root_index <=> b.root_index }
 
 = render "shared/performance_spectrum"
