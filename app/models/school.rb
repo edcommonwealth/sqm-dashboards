@@ -24,9 +24,9 @@ class School < ApplicationRecord
     recipient_lists.update_all(school_id: school.id)
     recipients.update_all(school_id: school.id)
     school_categories.each do |school_category|
-      if school.school_categories.where(name: school_category.name).blank?
+      if school.school_categories.for(school_category.school, school_category.category).blank?
         school_category.update(school_id: school.id)
-      else 
+      else
         school_category.destroy
       end
     end
