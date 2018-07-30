@@ -433,7 +433,7 @@ namespace :data do
       q.update(category: new_category)
     end
 
-    sync_school_category_aggregates
+    # sync_school_category_aggregates
   end
 
   desc 'Sync all school category aggregates'
