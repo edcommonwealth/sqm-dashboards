@@ -23,7 +23,13 @@ class School < ApplicationRecord
     schedules.update_all(school_id: school.id)
     recipient_lists.update_all(school_id: school.id)
     recipients.update_all(school_id: school.id)
-    school_categories.update_all(school_id: school.id)
+    school_categories.each do |school_category|
+      if school.school_categories.where(name: school_category.name).blank?
+        school_category.update(school_id: school.id)
+      else 
+        school_category.destroy
+      end
+    end
     user_schools.update_all(school_id: school.id)
     school.school_categories.map(&:sync_aggregated_responses)
     destroy

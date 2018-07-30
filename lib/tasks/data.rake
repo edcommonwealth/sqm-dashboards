@@ -8,7 +8,7 @@
 # sudo heroku pg:reset DATABASE -a mciea-beta
 # sudo heroku pg:backups:restore 'https://s3.amazonaws.com/irrationaldesign/latest.dump' DATABASE_URL -a mciea-beta
 # sudo heroku run rake db:migrate -a mciea-beta
-# sudo heroku run console -a mciea-beta -> SchoolCategory.update_all(year: '2017')
+# sudo heroku run console -a mciea-beta -> SchoolCategory.update_all(year: '2017') --  RENAME SCHOOLS
 # sudo heroku run rake data:load_questions_csv -a mciea-beta
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 
@@ -316,6 +316,8 @@ namespace :data do
 
           next if answer_index == 0
 
+          answer_index = 6 - answer_index if question.reverse?
+
           responded_at = Date.strptime(row['recordedDate'], '%Y-%m-%d %H:%M:%S') rescue Date.today
           begin
             recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
@@ -328,16 +330,16 @@ namespace :data do
     end
     ENV.delete('BULK_PROCESS')
 
-    sync_school_category_aggregates
-
-    Recipient.created_in(@year).each { |r| r.update_counts }
+    # sync_school_category_aggregates
+    #
+    # Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   desc 'Load in nonlikert values for each school'
   task load_nonlikert_values: :environment do
     ENV['BULK_PROCESS'] = 'true'
 
-    csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17AdminData.csv", __FILE__))
+    csv_string = File.read(File.expand_path("../../../data/MCIEA_17-18AdminData.csv", __FILE__))
     # csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17_SGP.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
     puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
@@ -375,7 +377,7 @@ namespace :data do
 
     ENV.delete('BULK_PROCESS')
 
-    sync_school_category_aggregates
+    # sync_school_category_aggregates
   end
 
   desc 'Load in custom zones for each category'
