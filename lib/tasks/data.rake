@@ -11,6 +11,8 @@
 # sudo heroku run console -a mciea-beta -> SchoolCategory.update_all(year: '2017') --  RENAME SCHOOLS
 # sudo heroku run rake data:load_questions_csv -a mciea-beta
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
+# sudo heroku run rake data:move_likert_to_submeasures -a mciea-beta
+# sudo heroku run:detached rake data:sync -a mciea-beta --size performance-l
 
 # Add:
 #
@@ -205,11 +207,12 @@ namespace :data do
     stopIndex = 100000
     startTime = Time.new
 
-    # ['student_responses'].each do |file|
-    ['student_responses', 'teacher_responses'].each do |file|
+    ['teacher_responses'].each do |file|
+    # ['student_responses', 'teacher_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
-      csv_string = File.read(File.expand_path("../../../data/#{file}_#{@year}.csv", __FILE__))
+      csv_string = File.read(File.expand_path("../../../data/MCIEA2018_teachersLowell_dashboard080518.csv", __FILE__))
+      # csv_string = File.read(File.expand_path("../../../data/#{file}_#{@year}.csv", __FILE__))
       csv = CSV.parse(csv_string, :headers => true)
       puts("LOADING CSV: #{csv.length} ROWS")
 
@@ -330,16 +333,16 @@ namespace :data do
     end
     ENV.delete('BULK_PROCESS')
 
-    # sync_school_category_aggregates
-    #
-    # Recipient.created_in(@year).each { |r| r.update_counts }
+    sync_school_category_aggregates
+
+    Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   desc 'Load in nonlikert values for each school'
   task load_nonlikert_values: :environment do
     ENV['BULK_PROCESS'] = 'true'
 
-    csv_string = File.read(File.expand_path("../../../data/MCIEA_17-18AdminData.csv", __FILE__))
+    # csv_string = File.read(File.expand_path("../../../data/MCIEA_17-18AdminData.csv", __FILE__))
     # csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17_SGP.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
     puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
