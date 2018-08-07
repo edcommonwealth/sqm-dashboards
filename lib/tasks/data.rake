@@ -6,10 +6,11 @@
 # rake data:load_questions_csv; rake data:load_responses
 
 # sudo heroku pg:reset DATABASE -a mciea-beta
-# sudo heroku pg:backups:restore 'https://s3.amazonaws.com/irrationaldesign/latest.dump' DATABASE_URL -a mciea-beta
+# sudo heroku pg:backups:restore 'https://s3.amazonaws.com/irrationaldesign/data-070318.dump' DATABASE_URL -a mciea-beta
 # sudo heroku run rake db:migrate -a mciea-beta
-# sudo heroku run console -a mciea-beta -> SchoolCategory.update_all(year: '2017') --  RENAME SCHOOLS = s = SCHOOLS; s.each { |correct, incorrect| District.find_by_name("Boston").schools.find_by_name(incorrect[0]).update(name: incorrect) }
-#        s.map { |correct, incorrect| District.find_by_name("Boston").schools.find_by_name(incorrect.to_s).merge_into(correct)
+# sudo heroku run console -a mciea-beta -> SchoolCategory.update_all(year: '2017') --
+#        RENAME SCHOOLS = s = SCHOOLS; s.each { |correct, incorrect| District.find_by_name("Boston").schools.find_by_name(incorrect[0]).update(name: correct) }
+#        s.map { |correct, incorrect| District.find_by_name("Boston").schools.find_by_name(incorrect.to_s).merge_into(correct) }
 # sudo heroku run rake data:load_questions_csv -a mciea-beta
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 # sudo heroku run rake data:move_likert_to_submeasures -a mciea-beta
