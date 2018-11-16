@@ -30,7 +30,7 @@ class Category < ApplicationRecord
       "school-culture",
       "resources",
       "academic-learning",
-      "citizenship-and-wellbeing",
+      "community-and-wellbeing",
       "pilot-family-questions"
     ].index(root_identifier) || 0
   end
