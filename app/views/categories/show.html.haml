@@ -40,12 +40,13 @@
       .indicator-container.py-3
         = render 'school_categories/indicator', info: @school_category
 
-- if @child_school_categories.present?
-  .row
-    = render @child_school_categories
+- unless @school.district.name == "Boston" && @category.slug == "effective-leadership"
+  - if @child_school_categories.present?
+    .row
+      = render @child_school_categories
 
-- if @questions.present?
-  .row
-    = render @questions
+  - if @questions.present?
+    .row
+      = render @questions
 
 = render "shared/performance_spectrum"

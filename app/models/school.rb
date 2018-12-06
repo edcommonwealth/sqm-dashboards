@@ -13,6 +13,16 @@ class School < ApplicationRecord
   include FriendlyId
   friendly_id :name, :use => [:slugged]
 
+  def available_responders_for(question)
+    if question.target_group == "for_students"
+      return student_count || 1
+    elsif question.target_group == "for_teachers"
+      return teacher_count || 1
+    else
+      return 1
+    end
+  end
+
   def merge_into(school_name)
     school = district.schools.where(name: school_name).first
     if school.nil?
