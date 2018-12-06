@@ -1,12 +1,12 @@
 # PSQL: /Applications/Postgres.app/Contents/Versions/9.6/bin/psql -h localhost
 
 # LOAD DATA
-# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development latest.dump; rake db:migrate;
+# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development  beta-data-080818.dump; rake db:migrate;
 # rails c -> SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv; rake data:load_responses
 
 # sudo heroku pg:reset DATABASE -a mciea-beta
-# sudo heroku pg:backups:restore 'https://s3.amazonaws.com/irrationaldesign/data-070318.dump' DATABASE_URL -a mciea-beta
+# sudo heroku pg:backups:restore 'https://s3.amazonaws.com/irrationaldesign/beta-data-080818.dump' DATABASE_URL -a mciea-beta
 # sudo heroku run rake db:migrate -a mciea-beta
 # sudo heroku run console -a mciea-beta -> SchoolCategory.update_all(year: '2017') --
 #        RENAME SCHOOLS = s = SCHOOLS; s.each { |correct, incorrect| District.find_by_name("Boston").schools.find_by_name(incorrect[0]).update(name: correct) }
@@ -461,3 +461,43 @@ namespace :data do
 end
 
 #<SchoolCategory id: 1, school_id: 1, category_id: 1, attempt_count: 277, response_count: 277, answer_index_total: 1073, created_at: "2017-10-17 00:21:52", updated_at: "2018-03-03 17:24:53", nonlikert: nil, zscore: 0.674396962759463, year: "2017">
+
+
+# require 'csv'
+# student_counts_string = File.read(File.expand_path("data/bps_student_counts.csv"))
+# student_counts = CSV.parse(student_counts_string, :headers => true)
+# missing_schools = []
+# student_counts.each_with_index do |count, index|
+#   school = School.find_by_name(count["SCHOOL NAME"])
+#
+#   if school.nil?
+#     puts("Unable to find school: #{count["SCHOOL NAME"]}")
+#     missing_schools << count["SCHOOL NAME"]
+#     next
+#   end
+#
+#   school.update(student_count: count["Student Enrollment (Grades 4-11)"])
+# end
+# puts ""
+# puts "MISSING SCHOOLS: #{missing_schools.length}"
+# missing_schools.each { |s| puts(s) }
+#
+#
+# require 'csv'
+# teacher_counts_string = File.read(File.expand_path("data/bps_teacher_counts.csv"))
+# teacher_counts = CSV.parse(teacher_counts_string, :headers => true)
+# missing_schools = []
+# teacher_counts.each_with_index do |count, index|
+#   school = School.find_by_name(count["SCHOOL NAME"])
+#
+#   if school.nil?
+#     puts("Unable to find school: #{count["SCHOOL NAME"]}")
+#     missing_schools << count["SCHOOL NAME"]
+#     next
+#   end
+#
+#   school.update(teacher_count: count["Teacher Count"])
+# end
+# puts ""
+# puts "MISSING SCHOOLS: #{missing_schools.length}"
+# missing_schools.each { |s| puts(s) }
