@@ -54,4 +54,4 @@
         - if school_questions.length > 1
           %p= "More than one school question: #{school_questions.length}"
         - school_question = school_questions.first
-        %p= "Attempts: #{school_question.attempt_count}, Responses: #{school_question.response_count}, Response Rate: #{school_question.response_rate}"
+        %p= "Attempts: #{school_question.attempt_count}, Responses: #{school_question.response_count}, Response Rate: #{number_to_percentage(school_question.response_rate * 100, precision: 0)}"
