@@ -14,9 +14,9 @@ class School < ApplicationRecord
   friendly_id :name, :use => [:slugged]
 
   def available_responders_for(question)
-    if question.target_group == "for_students"
+    if question.for_students?
       return student_count || 1
-    elsif question.target_group == "for_teachers"
+    elsif question.for_teachers?
       return teacher_count || 1
     else
       return 1

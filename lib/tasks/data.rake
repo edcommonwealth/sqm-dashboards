@@ -501,3 +501,62 @@ end
 # puts ""
 # puts "MISSING SCHOOLS: #{missing_schools.length}"
 # missing_schools.each { |s| puts(s) }
+#
+#
+# Category.joins(:questions).uniq.all.each do |category|
+#   category.school_categories.includes(school: [:district]).find_in_batches(batch_size: 100) do |group|
+#     group.each do |school_category|
+#       school_questions = []
+#
+#       category.questions.created_in(school_category.year).each do |question|
+#         school = school_category.school
+#         next if school.district.name != "Boston"
+#         attempt_count = Attempt.
+#           created_in(school_category.year).
+#           for_question(question).
+#           for_school(school).count
+#
+#         available_responders = school.available_responders_for(question)
+#         school_questions << school_category.school_questions.new(
+#           school: school,
+#           question: question,
+#           school_category: school_category,
+#           year: school_category.year,
+#           attempt_count: available_responders,
+#           response_count: attempt_count,
+#           response_rate: attempt_count.to_f / available_responders.to_f
+#         )
+#       end
+#
+#       SchoolQuestion.import school_questions
+#       valid_questions = school_questions.select { |sc| sc.response_rate > 0.3 }
+#       school_category.update(
+#           valid_child_count: valid_questions.length
+#       )
+#     end
+#
+#   end
+# end
+#
+# loop do
+#   categories = Category.joins(:school_categories)
+#           .merge(SchoolCategory.where("valid_child_count is not null"))
+#           .uniq
+#   break if categories.count == 0
+#   categories.all.each do |category|
+#     parent_category = category.parent_category
+#
+#     parent_category.school_categories.find_in_batches(batch_size: 100) do |group|
+#         group.each do |school_category|
+#           next if school_category.valid_child_count.present?
+#
+#           school = school_category.school
+#           children = SchoolCategory.for_parent_category(school, parent_category).in(school_category.year)
+#           school_category.update(
+#             valid_child_count: children.where("valid_child_count > 1").count
+#           )
+#         end
+#       end
+#     end
+#   end
+# end

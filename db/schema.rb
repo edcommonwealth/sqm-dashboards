@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180711164051) do
+ActiveRecord::Schema.define(version: 20181218154720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,17 +152,33 @@ ActiveRecord::Schema.define(version: 20180711164051) do
     t.float    "nonlikert"
     t.float    "zscore"
     t.string   "year"
+    t.integer  "valid_child_count"
+    t.integer  "response_rate"
     t.index ["category_id"], name: "index_school_categories_on_category_id", using: :btree
     t.index ["school_id"], name: "index_school_categories_on_school_id", using: :btree
+  end
+
+  create_table "school_questions", force: :cascade do |t|
+    t.integer  "school_id"
+    t.integer  "question_id"
+    t.integer  "school_category_id"
+    t.integer  "attempt_count"
+    t.integer  "response_count"
+    t.float    "response_rate"
+    t.string   "year"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "schools", force: :cascade do |t|
     t.string   "name"
     t.integer  "district_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.text     "description"
     t.string   "slug"
+    t.integer  "student_count"
+    t.integer  "teacher_count"
     t.index ["slug"], name: "index_schools_on_slug", unique: true, using: :btree
   end
 

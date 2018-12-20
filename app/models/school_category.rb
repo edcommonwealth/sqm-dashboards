@@ -5,6 +5,8 @@ class SchoolCategory < ApplicationRecord
   belongs_to :school
   belongs_to :category
 
+  has_many :school_questions
+
   validates_associated :school
   validates_associated :category
 
