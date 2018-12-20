@@ -455,7 +455,7 @@ namespace :data do
       category.school_categories.includes(school: [:district]).find_in_batches(batch_size: 100) do |group|
         group.each do |school_category|
           school_questions = []
-
+          new_school_questions = []
           category.questions.created_in(school_category.year).each do |question|
             school = school_category.school
             next if school.district.name != "Boston"
@@ -465,18 +465,26 @@ namespace :data do
               for_school(school).count
 
             available_responders = school.available_responders_for(question)
-            school_questions << school_category.school_questions.new(
-              school: school,
-              question: question,
-              school_category: school_category,
-              year: school_category.year,
-              attempt_count: available_responders,
-              response_count: attempt_count,
-              response_rate: attempt_count.to_f / available_responders.to_f
-            )
+
+            school_question = school_category.school_questions.for(school, question)
+            if school_question.present?
+              school_questions << school_question
+            else
+              school_question = school_category.school_questions.new(
+                school: school,
+                question: question,
+                school_category: school_category,
+                year: school_category.year,
+                attempt_count: available_responders,
+                response_count: attempt_count,
+                response_rate: attempt_count.to_f / available_responders.to_f
+              )
+              new_school_questions << school_question
+              school_questions << school_question
+            end
           end
 
-          SchoolQuestion.import school_questions
+          SchoolQuestion.import new_school_questions
           valid_questions = school_questions.select { |sc| sc.response_rate > 0.3 }
           school_category.update(
               valid_child_count: valid_questions.length
@@ -544,7 +552,6 @@ end
 #
 #
 
-#
 # loop do
 #   categories = Category.joins(:school_categories)
 #           .merge(SchoolCategory.where("valid_child_count is not null"))

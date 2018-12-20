@@ -36,6 +36,9 @@
             = @school_category.zscore.round(1) + 3
             (out of 5)
 
+        %b Valid&nbsp;Children:
+          = @school_category.valid_child_count || "N/A"
+
 
       .indicator-container.py-3
         = render 'school_categories/indicator', info: @school_category

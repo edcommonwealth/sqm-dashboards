@@ -1,5 +1,6 @@
 - aggregated_responses = question.aggregated_responses_for_school(@school)
 - return if aggregated_responses.nil?
+- school_question = SchoolQuestion.for(@school, question)
 - valid_responses = (aggregated_responses.count.to_f / @school.available_responders_for(question).to_f) >= 0.3
 
 .col-12.col-md-6.py-3
@@ -47,3 +48,7 @@
 
         %p.collapse{id: "raw-data#{question.id}"}
           = aggregated_responses.responses.map(&:answer_index_with_reverse).join(', ')
+
+    - if school_question.present?
+      .clearfix
+        %p= "Attempts: #{school_question.attempt_count}, Responses: #{school_question.response_count}, Response Rate: #{school_question.response_rate}"
