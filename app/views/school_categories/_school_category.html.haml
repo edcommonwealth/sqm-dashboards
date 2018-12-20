@@ -3,7 +3,7 @@
     %h4.title.text-center.pt-3
       = link_to(school_category.category.name, school_category_path(school_category.school, school_category.category, year: school_category.year))
 
-    - if (school_category.valid_child_count || 1) > 0
+    - if school_category.school.district.name != "Boston" || (school_category.valid_child_count || 1) > 0
       .indicator-container.short
         = render 'school_categories/indicator', info: school_category
 
