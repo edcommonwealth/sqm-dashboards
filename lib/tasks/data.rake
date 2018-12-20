@@ -449,7 +449,7 @@ namespace :data do
     Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
-  desc 'Create SchoolQuestions'
+  desc 'Create School Questions'
   task create_school_questions: :environment do
     Category.joins(:questions).uniq.all.each do |category|
       category.school_categories.includes(school: [:district]).find_in_batches(batch_size: 100) do |group|
@@ -552,25 +552,39 @@ end
 #
 #
 
+# level = 1
+# categories = Category.joins(:questions).uniq.all
 # loop do
-#   categories = Category.joins(:school_categories)
-#           .merge(SchoolCategory.where("valid_child_count is not null"))
-#           .uniq
-#   break if categories.count == 0
-#   categories.all.each do |category|
+#   parent_categories = []
+#   categories.each_with_index do |category, i|
 #     parent_category = category.parent_category
+#     next if parent_category.nil? || parent_categories.include?(parent_category)
+#     parent_categories << parent_category
 #
-#     parent_category.school_categories.find_in_batches(batch_size: 100) do |group|
-#         group.each do |school_category|
-#           next if school_category.valid_child_count.present?
+#     school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston'")
+#     school_categories.each_with_index do |school_category, index|
+#       school = school_category.school
 #
-#           school = school_category.school
-#           children = SchoolCategory.for_parent_category(school, parent_category).in(school_category.year)
-#           school_category.update(
-#             valid_child_count: children.where("valid_child_count > 1").count
-#           )
-#         end
-#       end
+#       children = SchoolCategory.for_parent_category(school, parent_category).in(school_category.year)
+#       valid_child_count = children.where("valid_child_count > 0").count
+#       school_category.update(
+#         valid_child_count: valid_child_count
+#       )
+#       puts ""
+#       puts ""
+#       puts("#{level} (#{i}/#{categories.length}) UPDATED (#{index}/#{school_categories.length}): #{school.slug} -> #{parent_category.slug} -> #{school_category.year} -> #{valid_child_count}  --- PARENT: #{parent_categories.length}")
+#       puts ""
+#       puts ""
 #     end
 #   end
+#
+#   puts ""
+#   puts ""
+#   puts "PARENT CATEGORIES: #{parent_categories.uniq.length}"
+#   puts ""
+#   puts ""
+#
+#   level += 1
+#   categories = parent_categories.uniq
+#   break if categories.blank?
 # end

@@ -3,16 +3,20 @@
     %h4.title.text-center.pt-3
       = link_to(school_category.category.name, school_category_path(school_category.school, school_category.category, year: school_category.year))
 
-    .indicator-container.short
-      = render 'school_categories/indicator', info: school_category
+    - if (school_category.valid_child_count || 1) > 0
+      .indicator-container.short
+        = render 'school_categories/indicator', info: school_category
 
-    .description.px-2.pt-3.pb-2.mt-2
-      - if false #(measurements = school_category.questions.measurements.for_school(school_measure.school)).present?
-        = render 'measurements/nonlikert', measurement: measurements.first, description: school_measure.measure.description
-      - else
-        = school_category.category.blurb || truncate(school_category.category.description, length: 108)
+      .description.px-2.pt-3.pb-2.mt-2
+        - if false #(measurements = school_category.questions.measurements.for_school(school_measure.school)).present?
+          = render 'measurements/nonlikert', measurement: measurements.first, description: school_measure.measure.description
+        - else
+          = school_category.category.blurb || truncate(school_category.category.description, length: 108)
 
-      - if school_category.valid_child_count.present?
-        %br
-        %br
-        %p= "Valid Child Count: #{school_category.valid_child_count}"
+    - else
+      .row.pt-2
+        .col-12.centered
+          .px-2
+            %h5 Insufficient Responses
+            %p No data is displayed for this measure because of insufficient responses.
+            -#%p= "Responded: #{aggregated_responses.count}, Possible: #{@school.available_responders_for(question)}"
