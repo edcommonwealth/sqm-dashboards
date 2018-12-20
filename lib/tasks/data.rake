@@ -16,6 +16,8 @@
 # sudo heroku run rake data:move_likert_to_submeasures -a mciea-beta
 # sudo heroku run:detached rake data:sync -a mciea-beta --size performance-l
 
+# sudo heroku run:detached rake data:create_school_questions -a mciea-beta --size performance-l
+
 # Add:
 #
 # Category: unique_external_id (string)
@@ -447,6 +449,44 @@ namespace :data do
     Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
+  desc 'Create SchoolQuestions'
+  task create_school_questions: :environment do
+    Category.joins(:questions).uniq.all.each do |category|
+      category.school_categories.includes(school: [:district]).find_in_batches(batch_size: 100) do |group|
+        group.each do |school_category|
+          school_questions = []
+
+          category.questions.created_in(school_category.year).each do |question|
+            school = school_category.school
+            next if school.district.name != "Boston"
+            attempt_count = Attempt.
+              created_in(school_category.year).
+              for_question(question).
+              for_school(school).count
+
+            available_responders = school.available_responders_for(question)
+            school_questions << school_category.school_questions.new(
+              school: school,
+              question: question,
+              school_category: school_category,
+              year: school_category.year,
+              attempt_count: available_responders,
+              response_count: attempt_count,
+              response_rate: attempt_count.to_f / available_responders.to_f
+            )
+          end
+
+          SchoolQuestion.import school_questions
+          valid_questions = school_questions.select { |sc| sc.response_rate > 0.3 }
+          school_category.update(
+              valid_child_count: valid_questions.length
+          )
+        end
+
+      end
+    end
+  end
+
   def sync_school_category_aggregates
     School.all.each do |school|
       Category.all.each do |category|
@@ -503,40 +543,7 @@ end
 # missing_schools.each { |s| puts(s) }
 #
 #
-# Category.joins(:questions).uniq.all.each do |category|
-#   category.school_categories.includes(school: [:district]).find_in_batches(batch_size: 100) do |group|
-#     group.each do |school_category|
-#       school_questions = []
-#
-#       category.questions.created_in(school_category.year).each do |question|
-#         school = school_category.school
-#         next if school.district.name != "Boston"
-#         attempt_count = Attempt.
-#           created_in(school_category.year).
-#           for_question(question).
-#           for_school(school).count
-#
-#         available_responders = school.available_responders_for(question)
-#         school_questions << school_category.school_questions.new(
-#           school: school,
-#           question: question,
-#           school_category: school_category,
-#           year: school_category.year,
-#           attempt_count: available_responders,
-#           response_count: attempt_count,
-#           response_rate: attempt_count.to_f / available_responders.to_f
-#         )
-#       end
-#
-#       SchoolQuestion.import school_questions
-#       valid_questions = school_questions.select { |sc| sc.response_rate > 0.3 }
-#       school_category.update(
-#           valid_child_count: valid_questions.length
-#       )
-#     end
-#
-#   end
-# end
+
 #
 # loop do
 #   categories = Category.joins(:school_categories)
