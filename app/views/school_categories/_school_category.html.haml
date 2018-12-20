@@ -13,4 +13,5 @@
         = school_category.category.blurb || truncate(school_category.category.description, length: 108)
 
       - if school_category.valid_child_count.present?
+        %br
         %p= "Valid Child Count: #{school_category.valid_child_count}"
