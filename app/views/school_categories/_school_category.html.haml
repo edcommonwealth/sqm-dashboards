@@ -14,9 +14,11 @@
           = school_category.category.blurb || truncate(school_category.category.description, length: 108)
 
     - else
-      .row.pt-2
+      .row.py-1
         .col-12.centered
           .px-2
             %h5 Insufficient Responses
             %p No data is displayed for this measure because of insufficient responses.
-            -#%p= "Responded: #{aggregated_responses.count}, Possible: #{@school.available_responders_for(question)}"
+            %br
+            %br
+            %br

@@ -14,7 +14,7 @@ class SchoolCategory < ApplicationRecord
   scope :for_parent_category, -> (school, category=nil) { where(school: school).joins(:category).merge(Category.for_parent(category)) }
   scope :in, -> (year) { where(year: year) }
 
-  scope :valid, -> { where("zscore is not null") }
+  scope :valid, -> { where("zscore is not null or valid_child_count is not null") }
 
   def root_index
     category.root_index
