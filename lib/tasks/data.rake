@@ -459,10 +459,10 @@ namespace :data do
           category.questions.created_in(school_category.year).each do |question|
             school = school_category.school
             next if school.district.name != "Boston"
-            attempt_count = Attempt.
+            attempts = Attempt.
               created_in(school_category.year).
               for_question(question).
-              for_school(school).count
+              for_school(school)
 
             available_responders = school.available_responders_for(question)
 
@@ -476,8 +476,11 @@ namespace :data do
                 school_category: school_category,
                 year: school_category.year,
                 attempt_count: available_responders,
-                response_count: attempt_count,
-                response_rate: attempt_count.to_f / available_responders.to_f
+                response_count: attempts.count,
+                response_rate: attempts.count.to_f / available_responders.to_f
+                response_total: attempts.sum do |a|
+                  question.reverse? ? 6 - a.answer_index : a.answer_index
+                end
               )
               new_school_questions << school_question
               school_questions << school_question
