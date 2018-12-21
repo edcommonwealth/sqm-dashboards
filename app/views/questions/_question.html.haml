@@ -30,7 +30,7 @@
               %h5 Insufficient Responses
               %p No data is displayed for this question because of insufficient responses.
               -#%p= "Responded: #{aggregated_responses.count}, Possible: #{@school.available_responders_for(question)}"
-              %p= "Source: #{question.target_group}"
+              %p= "Source: #{question.for_teachers? ? "Teachers" : "Students"}"
 
     - if valid_responses
       .clearfix

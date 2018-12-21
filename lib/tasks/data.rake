@@ -567,7 +567,7 @@ end
 #     school_category.update(
 #       valid_child_count: school_question_data.valid_child_count,
 #       response_count: school_question_data.response_count,
-#       response_total: school_question_data.response_total
+#       answer_index_total: school_question_data.response_total
 #     )
 #   end
 # end
@@ -584,13 +584,15 @@ end
 #       school = school_category.school
 #
 #       children = SchoolCategory.for_parent_category(school, parent_category).in(school_category.year)
-#       valid_child_count = children.where("valid_child_count > 0").count
+#       valid_children = children.where("valid_child_count > 0")
 #       school_category.update(
-#         valid_child_count: valid_child_count
+#         valid_child_count: valid_children.count,
+#         response_count: valid_children.sum(&:response_count),
+#         answer_index_total: valid_children.sum(&:answer_index_total)
 #       )
 #       puts ""
 #       puts ""
-#       puts("#{level} (#{i}/#{categories.length}) UPDATED (#{index}/#{school_categories.length}): #{school.slug} -> #{parent_category.slug} -> #{school_category.year} -> #{valid_child_count}  --- PARENT: #{parent_categories.length}")
+#       puts("#{level} (#{i}/#{categories.length}) UPDATED (#{index}/#{school_categories.length}): #{school.slug} -> #{parent_category.slug} -> #{school_category.year} -> #{valid_children.count}  --- PARENT: #{parent_categories.length}")
 #       puts ""
 #       puts ""
 #     end
