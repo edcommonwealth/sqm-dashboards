@@ -452,7 +452,7 @@ namespace :data do
   desc 'Create School Questions'
   task create_school_questions: :environment do
     Category.joins(:questions).uniq.all.each do |category|
-      category.school_categories.includes(school: [:district]).find_in_batches(batch_size: 100) do |group|
+      category.school_categories.joins(school: :district).where("districts.name = 'Boston'").find_in_batches(batch_size: 100) do |group|
         group.each do |school_category|
           school_questions = []
           new_school_questions = []
