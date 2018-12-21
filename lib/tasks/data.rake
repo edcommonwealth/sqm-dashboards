@@ -460,20 +460,20 @@ namespace :data do
             school = school_category.school
             next if school.district.name != "Boston"
 
-            attempt_data = Attempt.
-              joins(:question).
-              created_in(school_category.year).
-              for_question(question).
-              for_school(school).
-              select('count(attempts.answer_index) as response_count').
-              select('sum(case when questions.reverse then 6 - attempts.answer_index else attempts.answer_index end) as answer_index_total')[0]
-
-            available_responders = school.available_responders_for(question)
-
             school_question = school_category.school_questions.for(school, question).first
             if school_question.present?
               school_questions << school_question
             else
+              attempt_data = Attempt.
+                joins(:question).
+                created_in(school_category.year).
+                for_question(question).
+                for_school(school).
+                select('count(attempts.answer_index) as response_count').
+                select('sum(case when questions.reverse then 6 - attempts.answer_index else attempts.answer_index end) as answer_index_total')[0]
+
+              available_responders = school.available_responders_for(question)
+
               school_question = school_category.school_questions.new(
                 school: school,
                 question: question,
