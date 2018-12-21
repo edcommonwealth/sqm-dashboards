@@ -461,6 +461,7 @@ namespace :data do
             next if school.district.name != "Boston"
 
             attempt_data = Attempt.
+              joins(:question).
               created_in(school_category.year).
               for_question(question).
               for_school(school).
@@ -469,7 +470,7 @@ namespace :data do
 
             available_responders = school.available_responders_for(question)
 
-            school_question = school_category.school_questions.for(school, question)
+            school_question = school_category.school_questions.for(school, question).first
             if school_question.present?
               school_questions << school_question
             else
