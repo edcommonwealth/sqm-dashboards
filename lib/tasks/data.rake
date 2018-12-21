@@ -16,7 +16,7 @@
 # sudo heroku run rake data:move_likert_to_submeasures -a mciea-beta
 # sudo heroku run:detached rake data:sync -a mciea-beta --size performance-l
 
-# sudo heroku run:detached rake data:create_school_questions -a mciea-beta --size performance-l
+# sudo heroku run:detached rake data:create_school_questions -a mciea-dashboard --size performance-l
 
 # Add:
 #
@@ -459,10 +459,13 @@ namespace :data do
           category.questions.created_in(school_category.year).each do |question|
             school = school_category.school
             next if school.district.name != "Boston"
-            attempts = Attempt.
+
+            attempt_data = Attempt.
               created_in(school_category.year).
               for_question(question).
-              for_school(school)
+              for_school(school).
+              select('count(attempts.answer_index) as response_count').
+              select('sum(case when questions.reverse then 6 - attempts.answer_index else attempts.answer_index end) as answer_index_total')[0]
 
             available_responders = school.available_responders_for(question)
 
@@ -476,11 +479,9 @@ namespace :data do
                 school_category: school_category,
                 year: school_category.year,
                 attempt_count: available_responders,
-                response_count: attempts.count,
-                response_rate: attempts.count.to_f / available_responders.to_f,
-                response_total: attempts.sum do |a|
-                  question.reverse? ? 6 - a.answer_index : a.answer_index
-                end
+                response_count: attempt_data.response_count,
+                response_rate: attempt_data.response_count.to_f / available_responders.to_f,
+                response_total: attempt_data.answer_index_total
               )
               new_school_questions << school_question
               school_questions << school_question
