@@ -477,7 +477,7 @@ namespace :data do
                 year: school_category.year,
                 attempt_count: available_responders,
                 response_count: attempts.count,
-                response_rate: attempts.count.to_f / available_responders.to_f
+                response_rate: attempts.count.to_f / available_responders.to_f,
                 response_total: attempts.sum do |a|
                   question.reverse? ? 6 - a.answer_index : a.answer_index
                 end
