@@ -490,10 +490,6 @@ namespace :data do
           end
 
           SchoolQuestion.import new_school_questions
-          valid_questions = school_questions.select { |sc| sc.response_rate > 0.3 }
-          school_category.update(
-              valid_child_count: valid_questions.length
-          )
         end
 
       end
@@ -559,6 +555,23 @@ end
 
 # level = 1
 # categories = Category.joins(:questions).uniq.all
+# categories.each do |category|
+#   category.school_categories.joins(school: :district).where("districts.name = 'Boston'").each do |school_category|
+#     school_question_data = school_category.
+#       school_questions.
+#       where("response_rate > 0.3").
+#       select('count(response_count) as valid_child_count').
+#       select('sum(response_count) as response_count').
+#       select('sum(response_total) as response_total')[0]
+#
+#     school_category.update(
+#       valid_child_count: school_question_data.valid_child_count,
+#       response_count: school_question_data.response_count,
+#       response_total: school_question_data.response_total
+#     )
+#   end
+# end
+#
 # loop do
 #   parent_categories = []
 #   categories.each_with_index do |category, i|
