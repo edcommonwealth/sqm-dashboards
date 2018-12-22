@@ -27,12 +27,13 @@
         .row.pt-2
           .col-12.centered
             .px-2
+              %br
               %h5 Insufficient Responses
               %p No data is displayed for this question because of insufficient responses.
               -#%p= "Responded: #{aggregated_responses.count}, Possible: #{@school.available_responders_for(question)}"
               %p= "Source: #{question.for_teachers? ? "Teachers" : "Students"}"
               %br
-              %br
+
 
     - if valid_responses
       .clearfix
