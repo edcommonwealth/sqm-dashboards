@@ -567,7 +567,8 @@ end
 #     school_category.update(
 #       valid_child_count: school_question_data.valid_child_count,
 #       response_count: school_question_data.response_count,
-#       answer_index_total: school_question_data.response_total
+#       answer_index_total: school_question_data.response_total,
+#       zscore: (school_question_data.response_total.to_f/school_question_data.response_count.to_f) - 3.to_f
 #     )
 #   end
 # end
@@ -588,7 +589,8 @@ end
 #       school_category.update(
 #         valid_child_count: valid_children.count,
 #         response_count: valid_children.sum(&:response_count),
-#         answer_index_total: valid_children.sum(&:answer_index_total)
+#         answer_index_total: valid_children.sum(&:answer_index_total),
+#         zscore: (valid_children.sum(&:answer_index_total).to_f / valid_children.sum(&:response_count).to_f) - 3.to_f
 #       )
 #       puts ""
 #       puts ""
