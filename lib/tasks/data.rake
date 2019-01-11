@@ -1,7 +1,7 @@
 # PSQL: /Applications/Postgres.app/Contents/Versions/9.6/bin/psql -h localhost
 
 # LOAD DATA
-# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development  beta-data-080818.dump; rake db:migrate;
+# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development latest.dump; rake db:migrate;
 # rails c -> SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv; rake data:load_responses
 
@@ -354,6 +354,8 @@ namespace :data do
       base = Category
       category_ids = row["Category"].split("-")
       category_ids.each do |category_id|
+        category_id = category_id.downcase if category_id.downcase =~ /i/
+        puts "CATEGORY: #{category_id} -> #{row["Category"]}"
         base = base.find_by_external_id(category_id).child_categories
       end
 
@@ -363,7 +365,7 @@ namespace :data do
         puts("Unable to find nonlikert category: #{row["NonLikert Title"]}")
         next
       else
-        if (benchmark = row["B_MCIEA"]).present?
+        if (benchmark = row["Benchmark"]).present?
           nonlikert_category.update(benchmark: benchmark)
         end
       end
@@ -371,12 +373,12 @@ namespace :data do
       district = District.find_or_create_by(name: row["District"], state_id: 1)
       school = district.schools.find_or_create_by(name: row["School"])
       school_category = school.school_categories.find_or_create_by(category: nonlikert_category)
-      if row["Z-Score"].blank?
+      if row["Likert_Value"].blank?
         school_category.destroy
       else
         school_category.update(
           nonlikert: row["NL_Value"],
-          zscore: [-2,[row["Z-Score"].to_f,2].min].max
+          zscore: [-2,[row["Likert_Value"].to_f-3,2].min].max
         )
       end
     end
@@ -553,19 +555,36 @@ end
 #
 #
 
+
+
+# min_response_rate = 0.3
 # level = 1
-# categories = Category.joins(:questions).uniq.all
+# # categories = Category.joins(:questions).uniq.all
+# categories = [Category.find_by_slug("student-emotional-safety-scale")]
 # categories.each do |category|
-#   category.school_categories.joins(school: :district).where("districts.name = 'Boston'").each do |school_category|
+#   # category.school_categories.joins(school: :district).where("districts.name = 'Boston'").each do |school_category|
+#   category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug = 'boston-community-leadership-academy'").each do |school_category|
 #     school_question_data = school_category.
 #       school_questions.
-#       where("response_rate > 0.3").
+#       where("response_rate > #{min_response_rate}").
 #       select('count(response_count) as valid_child_count').
 #       select('sum(response_count) as response_count').
 #       select('sum(response_total) as response_total')[0]
 #
+#     valid_child_count = school_question_data.valid_child_count
+#     school_questions = school_category.school_questions.joins(:question)
+#     student_questions = school_questions.merge(Question.for_students)
+#     teacher_questions = school_questions.merge(Question.for_teachers)
+#     if (student_questions.count > 0 && teacher_questions.count > 0)
+#       if (student_questions.where("response_rate > #{min_response_rate}").count == 0 ||
+#           teacher_questions.where("response_rate > #{min_response_rate}").count == 0)
+#           valid_child_count = 0
+#       end
+#     end
+#
+#     puts "VALID CHILD COUNT: #{valid_child_count}"
 #     school_category.update(
-#       valid_child_count: school_question_data.valid_child_count,
+#       valid_child_count: valid_child_count,
 #       response_count: school_question_data.response_count,
 #       answer_index_total: school_question_data.response_total,
 #       zscore: (school_question_data.response_total.to_f/school_question_data.response_count.to_f) - 3.to_f
@@ -580,7 +599,8 @@ end
 #     next if parent_category.nil? || parent_categories.include?(parent_category)
 #     parent_categories << parent_category
 #
-#     school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston'")
+#     # school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston'")
+#     school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug='boston-community-leadership-academy'")
 #     school_categories.each_with_index do |school_category, index|
 #       school = school_category.school
 #
