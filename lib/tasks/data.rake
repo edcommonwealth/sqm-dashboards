@@ -355,7 +355,6 @@ namespace :data do
       category_ids = row["Category"].split("-")
       category_ids.each do |category_id|
         category_id = category_id.downcase if category_id.downcase =~ /i/
-        puts "CATEGORY: #{category_id} -> #{row["Category"]}"
         base = base.find_by_external_id(category_id).child_categories
       end
 
@@ -372,13 +371,14 @@ namespace :data do
 
       district = District.find_or_create_by(name: row["District"], state_id: 1)
       school = district.schools.find_or_create_by(name: row["School"])
-      school_category = school.school_categories.find_or_create_by(category: nonlikert_category)
+      school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "2018")
       if row["Likert_Value"].blank?
         school_category.destroy
       else
         school_category.update(
           nonlikert: row["NL_Value"],
-          zscore: [-2,[row["Likert_Value"].to_f-3,2].min].max
+          zscore: [-2,[row["Likert_Value"].to_f-3,2].min].max,
+          year: "2018"
         )
       end
     end
