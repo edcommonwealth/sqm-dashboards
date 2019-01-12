@@ -385,7 +385,7 @@ namespace :data do
 
     ENV.delete('BULK_PROCESS')
 
-    # sync_school_category_aggregates
+    sync_school_category_aggregates
   end
 
   desc 'Load in custom zones for each category'
@@ -557,76 +557,76 @@ end
 
 
 
-# min_response_rate = 0.3
-# level = 1
-# # categories = Category.joins(:questions).uniq.all
+min_response_rate = 0.3
+level = 1
+categories = Category.joins(:questions).uniq.all
 # categories = [Category.find_by_slug("student-emotional-safety-scale")]
-# categories.each do |category|
-#   # category.school_categories.joins(school: :district).where("districts.name = 'Boston'").each do |school_category|
-#   category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug = 'boston-community-leadership-academy'").each do |school_category|
-#     school_question_data = school_category.
-#       school_questions.
-#       where("response_rate > #{min_response_rate}").
-#       select('count(response_count) as valid_child_count').
-#       select('sum(response_count) as response_count').
-#       select('sum(response_total) as response_total')[0]
-#
-#     valid_child_count = school_question_data.valid_child_count
-#     school_questions = school_category.school_questions.joins(:question)
-#     student_questions = school_questions.merge(Question.for_students)
-#     teacher_questions = school_questions.merge(Question.for_teachers)
-#     if (student_questions.count > 0 && teacher_questions.count > 0)
-#       if (student_questions.where("response_rate > #{min_response_rate}").count == 0 ||
-#           teacher_questions.where("response_rate > #{min_response_rate}").count == 0)
-#           valid_child_count = 0
-#       end
-#     end
-#
-#     puts "VALID CHILD COUNT: #{valid_child_count}"
-#     school_category.update(
-#       valid_child_count: valid_child_count,
-#       response_count: school_question_data.response_count,
-#       answer_index_total: school_question_data.response_total,
-#       zscore: (school_question_data.response_total.to_f/school_question_data.response_count.to_f) - 3.to_f
-#     )
-#   end
-# end
-#
-# loop do
-#   parent_categories = []
-#   categories.each_with_index do |category, i|
-#     parent_category = category.parent_category
-#     next if parent_category.nil? || parent_categories.include?(parent_category)
-#     parent_categories << parent_category
-#
-#     # school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston'")
-#     school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug='boston-community-leadership-academy'")
-#     school_categories.each_with_index do |school_category, index|
-#       school = school_category.school
-#
-#       children = SchoolCategory.for_parent_category(school, parent_category).in(school_category.year)
-#       valid_children = children.where("valid_child_count > 0")
-#       school_category.update(
-#         valid_child_count: valid_children.count,
-#         response_count: valid_children.sum(&:response_count),
-#         answer_index_total: valid_children.sum(&:answer_index_total),
-#         zscore: (valid_children.sum(&:answer_index_total).to_f / valid_children.sum(&:response_count).to_f) - 3.to_f
-#       )
-#       puts ""
-#       puts ""
-#       puts("#{level} (#{i}/#{categories.length}) UPDATED (#{index}/#{school_categories.length}): #{school.slug} -> #{parent_category.slug} -> #{school_category.year} -> #{valid_children.count}  --- PARENT: #{parent_categories.length}")
-#       puts ""
-#       puts ""
-#     end
-#   end
-#
-#   puts ""
-#   puts ""
-#   puts "PARENT CATEGORIES: #{parent_categories.uniq.length}"
-#   puts ""
-#   puts ""
-#
-#   level += 1
-#   categories = parent_categories.uniq
-#   break if categories.blank?
-# end
+categories.each do |category|
+  category.school_categories.joins(school: :district).where("districts.name = 'Boston'").each do |school_category|
+  # category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug = 'boston-community-leadership-academy'").each do |school_category|
+    school_question_data = school_category.
+      school_questions.
+      where("response_rate > #{min_response_rate}").
+      select('count(response_count) as valid_child_count').
+      select('sum(response_count) as response_count').
+      select('sum(response_total) as response_total')[0]
+
+    valid_child_count = school_question_data.valid_child_count
+    school_questions = school_category.school_questions.joins(:question)
+    student_questions = school_questions.merge(Question.for_students)
+    teacher_questions = school_questions.merge(Question.for_teachers)
+    if (student_questions.count > 0 && teacher_questions.count > 0)
+      if (student_questions.where("response_rate > #{min_response_rate}").count == 0 ||
+          teacher_questions.where("response_rate > #{min_response_rate}").count == 0)
+          valid_child_count = 0
+      end
+    end
+
+    puts "VALID CHILD COUNT: #{valid_child_count}"
+    school_category.update(
+      valid_child_count: valid_child_count,
+      response_count: school_question_data.response_count,
+      answer_index_total: school_question_data.response_total,
+      zscore: (school_question_data.response_total.to_f/school_question_data.response_count.to_f) - 3.to_f
+    )
+  end
+end
+
+loop do
+  parent_categories = []
+  categories.each_with_index do |category, i|
+    parent_category = category.parent_category
+    next if parent_category.nil? || parent_categories.include?(parent_category)
+    parent_categories << parent_category
+
+    # school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston'")
+    school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug='boston-community-leadership-academy'")
+    school_categories.each_with_index do |school_category, index|
+      school = school_category.school
+
+      children = SchoolCategory.for_parent_category(school, parent_category).in(school_category.year)
+      valid_children = children.where("valid_child_count > 0")
+      school_category.update(
+        valid_child_count: valid_children.count,
+        response_count: valid_children.sum(&:response_count),
+        answer_index_total: valid_children.sum(&:answer_index_total),
+        zscore: (valid_children.sum(&:answer_index_total).to_f / valid_children.sum(&:response_count).to_f) - 3.to_f
+      )
+      puts ""
+      puts ""
+      puts("#{level} (#{i}/#{categories.length}) UPDATED (#{index}/#{school_categories.length}): #{school.slug} -> #{parent_category.slug} -> #{school_category.year} -> #{valid_children.count}  --- PARENT: #{parent_categories.length}")
+      puts ""
+      puts ""
+    end
+  end
+
+  puts ""
+  puts ""
+  puts "PARENT CATEGORIES: #{parent_categories.uniq.length}"
+  puts ""
+  puts ""
+
+  level += 1
+  categories = parent_categories.uniq
+  break if categories.blank?
+end
