@@ -378,14 +378,15 @@ namespace :data do
         school_category.update(
           nonlikert: row["NL_Value"],
           zscore: [-2,[row["Likert_Value"].to_f-3,2].min].max,
-          year: "2018"
+          year: "2018",
+          valid_child_count: 1
         )
       end
     end
 
     ENV.delete('BULK_PROCESS')
 
-    sync_school_category_aggregates
+    # sync_school_category_aggregates
   end
 
   desc 'Load in custom zones for each category'
