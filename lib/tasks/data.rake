@@ -383,16 +383,16 @@ namespace :data do
         )
       end
 
-      pc = nonlikert_category.parent_category
-      while pc != nil
-        psc = SchoolCategory.for(school, pc).in(school_category.year).first
-        if psc != nil
-          psc.update(valid_child_count: (psc.valid_child_count || 0) + 1)
-          pc = pc.parent_category
-        else
-          pc = nil
-        end
-      end
+      # pc = nonlikert_category.parent_category
+      # while pc != nil
+      #   psc = SchoolCategory.for(school, pc).in(school_category.year).first
+      #   if psc != nil
+      #     psc.update(valid_child_count: (psc.valid_child_count || 0) + 1)
+      #     pc = pc.parent_category
+      #   else
+      #     pc = nil
+      #   end
+      # end
 
     end
 

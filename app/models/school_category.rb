@@ -62,13 +62,13 @@ class SchoolCategory < ApplicationRecord
     return {
       attempt_count:
         _aggregated_responses[:attempt_count] +
-        child_school_categories.inject(0) { |total, csc| total + csc.attempt_count },
+        child_school_categories.inject(0) { |total, csc| total + csc.attempt_count || 0 },
       response_count:
         _aggregated_responses[:response_count] +
-        child_school_categories.inject(0) { |total, csc| total + csc.response_count },
+        child_school_categories.inject(0) { |total, csc| total + csc.response_count || 0 },
       answer_index_total:
         _aggregated_responses[:answer_index_total] +
-        child_school_categories.inject(0) { |total, csc| total + csc.answer_index_total },
+        child_school_categories.inject(0) { |total, csc| total + csc.answer_index_total || 0 },
       zscore: average_zscore.present? ? average_zscore : _aggregated_responses[:zscore]
     }
   end
