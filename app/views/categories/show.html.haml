@@ -15,14 +15,17 @@
 
       %p= @category.description
       - if valid
-        -# %p
-        -#   - if @school_category.response_count > 0
-        -#     %b Average:
-        -#     - likert = @school_category.answer_index_average
-        -#     - zscore = @school_category.zscore.present? ? @school_category.zscore + 3 : nil
-        -#     - likert = zscore if zscore.present?
-        -#     - likert = likert.round(1)
-        -#     = number_with_delimiter(likert)
+        %p
+          - if @school_category.category.benchmark.present?
+            %b Administrative&nbsp;Data:
+            - if @school_category.nonlikert.present?
+              = @school_category.nonlikert
+              = "(Benchmark: #{@school_category.category.benchmark})"
+              &nbsp;
+            - if @school_category.zscore.present?
+              = @school_category.zscore.round(1) + 3
+              (out of 5)
+
 
         .indicator-container.py-3
           = render 'school_categories/indicator', info: @school_category
