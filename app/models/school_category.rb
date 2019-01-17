@@ -52,6 +52,8 @@ class SchoolCategory < ApplicationRecord
       SchoolCategory.for(school, cc).in(year).valid
     end.flatten.compact
 
+    return {} if child_school_categories.blank?
+
     average_zscore = nil
     zscore_categories = child_school_categories.select { |csc| csc.zscore.present? }
     if zscore_categories.length > 0
@@ -76,7 +78,7 @@ class SchoolCategory < ApplicationRecord
   def sync_aggregated_responses
     return if ENV['BULK_PROCESS']
     update_attributes(chained_aggregated_responses)
-    return if response_count == 0
+    return if response_count == 0 && zscore.nil?
     if category.parent_category.present?
       parent_school_category = SchoolCategory.for(school, category.parent_category).in(year).first
       if parent_school_category.nil?

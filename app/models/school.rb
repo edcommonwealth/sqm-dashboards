@@ -37,7 +37,7 @@ class School < ApplicationRecord
       school_category.update(school_id: school.id)
       existing_school_category = school.school_categories.for(school_category.school, school_category.category).in(school_category.year)
       if existing_school_category.present?
-        if existing_school_category.attempt_count == 0
+        if existing_school_category.attempt_count == 0 && existing_school_category.zscore.nil?
           existing_school_category.destroy
         else
           school_category.destroy
