@@ -9,6 +9,16 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Roboto:300,700'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+    / Global site tag (gtag.js) - Google Analytics
+    %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=UA-132936999-1"}
+    :javascript
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-132936999-1');
+
   %body
     .container
       .row
