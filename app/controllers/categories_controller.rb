@@ -13,14 +13,17 @@ class CategoriesController < ApplicationController
   def show
     district = @school.district
     authenticate(district.name.downcase, "#{district.name.downcase}!")
+
     school_categories = SchoolCategory.for(@school, @category)
+    @years = school_categories.map(&:year).map(&:to_i).sort
+    @year = (params[:year] || @years.first || "2018").to_i
+    @years.delete(@year)
+
     if school_categories.empty?
       school_categories = [SchoolCategory.new(school: @school, category: @category, year: @year)]
     end
-    @years = school_categories.map(&:year).map(&:to_i).sort
-    @year = (params[:year] || @years.first).to_i
-    @years.delete(@year)
-    @school_category = school_categories.in(@year).first
+
+    @school_category = school_categories.select { |sc| sc.year.to_s == @year.to_s }.first
     @child_school_categories = SchoolCategory.for_parent_category(@school, @category).in(@year).valid.to_a
     missing_categories = Category.for_parent(@category) - @child_school_categories.map(&:category)
     missing_categories.each do |category|
