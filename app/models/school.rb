@@ -48,7 +48,7 @@ class School < ApplicationRecord
     reload
 
     user_schools.update_all(school_id: school.id)
-    school.school_categories.map(&:sync_aggregated_responses)
+    # school.school_categories.map(&:sync_aggregated_responses)
     destroy
   end
 
