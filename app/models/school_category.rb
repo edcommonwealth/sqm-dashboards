@@ -55,13 +55,11 @@ class SchoolCategory < ApplicationRecord
     return {} if child_school_categories.blank?
 
     average_zscore = nil
-    zscore_categories = child_school_categories.select { |csc| csc.zscore.present? }
+    zscore_categories = child_school_categories.select { |csc| csc.zscore.present? && !csc.zscore.nan? }
     if zscore_categories.length > 0
       total_zscore = zscore_categories.inject(0) { |total, zc| total + zc.zscore }
       average_zscore = total_zscore / zscore_categories.length
     end
-
-
 
     return {
       attempt_count:
