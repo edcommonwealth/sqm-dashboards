@@ -11,9 +11,16 @@ class SchoolsController < ApplicationController
     authenticate(district.name.downcase, "#{district.name.downcase}!")
 
     @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.sort
+
     @years = @school_categories.map(&:year).map(&:to_i).sort.uniq
-    @year = (params[:year] || @years.last).to_i
+    @year = (params[:year] || @years.last || "2018").to_i
     @years.delete(@year)
+
+    missing_categories = Category.root - @school_categories.map(&:category)
+    missing_categories.each do |category|
+      @school_categories << category.school_categories.new(school: @school, year: @year)
+    end
+
     @school_categories = @school_categories.select { |sc| sc.year.to_i == @year }
   end
 

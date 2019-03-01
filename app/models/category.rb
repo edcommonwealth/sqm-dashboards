@@ -25,6 +25,10 @@ class Category < ApplicationRecord
   end
 
   def root_index
+    Category.root_identifiers.index(root_identifier) || 0
+  end
+
+  def self.root_identifiers
     [
       "teachers-and-the-teaching-environment",
       "school-culture",
@@ -32,7 +36,11 @@ class Category < ApplicationRecord
       "academic-learning",
       "community-and-wellbeing",
       "pilot-family-questions"
-    ].index(root_identifier) || 0
+    ]
+  end
+
+  def self.root
+    Category.where(parent_category: nil).select { |c| self.root_identifiers.index(c.slug) }
   end
 
   def custom_zones
