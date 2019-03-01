@@ -27,6 +27,7 @@ class CategoriesController < ApplicationController
     @child_school_categories = SchoolCategory.for_parent_category(@school, @category).in(@year).valid.to_a
     missing_categories = Category.for_parent(@category) - @child_school_categories.map(&:category)
     missing_categories.each do |category|
+      next if category.benchmark.present?
       @child_school_categories << category.school_categories.new(school: @school)
     end
     @questions = @category.questions.created_in(@year)
