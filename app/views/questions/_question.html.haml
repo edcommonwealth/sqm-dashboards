@@ -1,5 +1,5 @@
 - aggregated_responses = question.aggregated_responses_for_school(@school)
-- return if aggregated_responses.nil?
+-# return if aggregated_responses.nil?
 - school_question = SchoolQuestion.for(@school, question).first
 - valid_responses = school_question.nil? ? true : school_question.response_rate > 0.3 # || (aggregated_responses.count.to_f / @school.available_responders_for(question).to_f)) >= 0.3
 
