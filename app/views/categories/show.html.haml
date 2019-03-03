@@ -1,4 +1,4 @@
-- valid = @school_category.school.district.name != "Boston" || (@school_category.valid_child_count || 1) > 0
+- valid = @school_category.school.district.name != "Boston" || (((@school_category.valid_child_count || 1) > 0) && (@school_category.category.benchmark.blank?))
 
 = render 'layouts/school_header'
 
