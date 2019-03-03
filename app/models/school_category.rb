@@ -17,7 +17,9 @@ class SchoolCategory < ApplicationRecord
   scope :valid, -> { where("zscore is not null or valid_child_count is not null") }
 
   def admin?
-    category.child_categories.each { |cc| return false if cc.benchmark.blank? }
+    child_categories = category.child_categories
+    return false if child_categories.blank?
+    child_categories.each { |cc| return false if cc.benchmark.blank? }
     return true
   end
 
