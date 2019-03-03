@@ -30,6 +30,11 @@ class CategoriesController < ApplicationController
       next if category.benchmark.present?
       @child_school_categories << category.school_categories.new(school: @school)
     end
+
+    if district.name == "Boston"
+      @child_school_categories = @child_school_categories.reject { |csc| csc.admin? }
+    end
+
     @questions = @category.questions.created_in(@year)
   end
 
