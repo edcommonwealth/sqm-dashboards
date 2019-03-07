@@ -37,7 +37,6 @@
               %p No data is displayed for this measure because of insufficient responses.
 
 - unless @school.district.name == "Boston" && @category.slug == "effective-leadership-scale"
-  - raise "HI"
   - if @child_school_categories.present?
     .row
       = render @child_school_categories
