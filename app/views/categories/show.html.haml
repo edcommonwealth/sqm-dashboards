@@ -2,10 +2,11 @@
 
 = render 'layouts/school_header'
 
-.row
-  .col-12
-    %p
-      = render 'categories/breadcrumbs', school_category: @school_category
+- if @school_category.school.district.name != "Boston"
+  .row
+    .col-12
+      %p
+        = render 'categories/breadcrumbs', school_category: @school_category
 
 .row
   .col-12
