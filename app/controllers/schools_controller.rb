@@ -7,16 +7,22 @@ class SchoolsController < ApplicationController
   # GET /schools/1
   # GET /schools/1.json
   def show
-    district = @school.district
-    authenticate(district.name.downcase, "#{district.name.downcase}!")
+    @district = @school.district
+    authenticate(@district.name.downcase, "#{@district.name.downcase}!")
 
-    @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.sort
+    if @district.name == "Boston"
+      @categories = Category.joins(:questions)
+      @school_categories = SchoolCategory.where(school: @school).where(category: @categories).to_a
+    else
+      @categories = Category.root
+      @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.sort
+    end
 
     @years = @school_categories.map(&:year).map(&:to_i).sort.uniq
     @year = (params[:year] || @years.last || "2018").to_i
     @years.delete(@year)
 
-    missing_categories = Category.root - @school_categories.map(&:category)
+    missing_categories = @categories - @school_categories.map(&:category)
     missing_categories.each do |category|
       @school_categories << category.school_categories.new(school: @school, year: @year)
     end

@@ -83,6 +83,8 @@ class SchoolCategory < ApplicationRecord
   end
 
   def sync_aggregated_responses
+    # This doesn't seem to be taking into account valid_child_count or Boston's "Community and Wellbeing" category which should be suppressed if the "Health" category is the only child category visible.
+
     return if ENV['BULK_PROCESS']
     update_attributes(chained_aggregated_responses)
     return if response_count == 0 && zscore.nil?
