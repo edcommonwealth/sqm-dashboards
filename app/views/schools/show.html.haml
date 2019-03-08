@@ -15,7 +15,8 @@
     - hash
   - grouped.each do |root_category, group|
     .row.pt-3.mt-3
-      %h3= root_category.name
+      .col-12
+        %h3= root_category.name
     .row
       = render group.sort { |a, b| a.category.name <=> b.category.name }
 - else
