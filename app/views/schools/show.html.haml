@@ -8,8 +8,16 @@
       %h3 Insufficient Responses
       %p No data is displayed for this school because of insufficient responses.
 - elsif @district.name == "Boston"
-  .row
-    = render @school_categories.sort { |a, b| a.category.name <=> b.category.name }
+  - grouped = @school_categories.inject({}) do |hash, item|
+    - all = hash[item.category.path.first] || []
+    - all << item
+    - hash[item.category.path.first] = all
+    - hash
+  - grouped.each do |root_category, group|
+    .row.pt-3.mt-3
+      %h3= root_category.name
+    .row
+      = render group.sort { |a, b| a.category.name <=> b.category.name }
 - else
   .row
     = render @school_categories.sort { |a, b| a.root_index <=> b.root_index }
