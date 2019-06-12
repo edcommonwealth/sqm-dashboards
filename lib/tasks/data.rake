@@ -41,6 +41,93 @@ namespace :data do
     Rake::Task["data:load_nonlikert_values"].invoke
   end
 
+  desc 'Check question / category data against existing data'
+  task check_questions: :environment do
+    csv_string = File.read(File.expand_path('../../../data/MeasureKey2019.csv', __FILE__))
+    csv = CSV.parse(csv_string, :headers => true)
+
+    t = Time.new
+    csv.each_with_index do |question, index|
+      existing_question = Question.find_by_external_id(question['qid'])
+      if existing_question.blank?
+        puts "NOT FOUND: #{question['qid']} -> #{question["Question Text"]}"
+      else
+        if Question.where(external_id: question['qid']).count > 1
+          puts "MULTIPLE FOUND: #{question['qid']}"
+        end
+
+        question_text = question['Question Text'].gsub(/[[:space:]]/, ' ').strip
+        if existing_question.text != question_text
+          puts "CHANGED TEXT: #{question['qid']} -> #{question_text} != #{existing_question.text}"
+        end
+
+        5.times do |j|
+          i = j + 1
+          if existing_question.send("option#{i}") != question["R#{i}"]
+            if question["R#{i}"].blank?
+              puts "MISSING #{i}: #{question.inspect}"
+            else
+              puts "CHANGED OPTION #{i}: #{question['qid']} -> #{question["R#{i}"]} != #{existing_question.send("option#{i}")}"
+            end
+          end
+        end
+      end
+    end
+  end
+
+  desc 'Sync questions / category data against existing data'
+  task sync_questions: :environment do
+    csv_string = File.read(File.expand_path('../../../data/MeasureKey2019.csv', __FILE__))
+    csv = CSV.parse(csv_string, :headers => true)
+
+    t = Time.new
+    csv.each_with_index do |question, index|
+      existing_question = Question.find_by_external_id(question['qid'])
+      if existing_question.blank?
+        categories = Category.where(name: question['Category Name'].titleize)
+        if categories.blank?
+          puts "Category not found for new question: #{question['Category Name'].titleize} - #{question['qid']}"
+        elsif categories.count > 1
+          puts "Multiple categories found for new question: #{question['Category Name']} - #{question['qid']}"
+        else
+          puts "CREATING NEW QUESTION: #{categories.first.name} - #{question['qid']} - #{question['Question Text']}"
+          categories.first.questions.create(
+            external_id: question['qid'],
+            text: question['Question Text'],
+            option1: question['R1'],
+            option2: question['R2'],
+            option3: question['R3'],
+            option4: question['R4'],
+            option5: question['R5'],
+            target_group: question['qid'].starts_with?('s') ? 'for_students' : 'for_teachers'
+          )
+        end
+      else
+        if Question.where(external_id: question['qid']).count > 1
+          puts "MULTIPLE FOUND: #{question['qid']}"
+        end
+
+        question_text = question['Question Text'].gsub(/[[:space:]]/, ' ').strip
+        if existing_question.text != question_text
+          existing_question.update(text: question_text)
+          puts "UPDATING TEXT: #{question['qid']} -> #{question_text} != #{existing_question.text}"
+        end
+
+        5.times do |j|
+          i = j + 1
+          if existing_question.send("option#{i}") != question["R#{i}"]
+            if question["R#{i}"].blank?
+              puts "MISSING #{i}: #{question.inspect}"
+            else
+              existing_question.update("option#{i}": question["R#{i}"])
+              puts "UPDATING OPTION #{i}: #{question['qid']} -> #{question["R#{i}"]} != #{existing_question.send("option#{i}")}"
+            end
+          end
+        end
+      end
+    end
+  end
+
   desc 'Load in category data'
   task load_categories: :environment do
     measures = JSON.parse(File.read(File.expand_path('../../../data/measures.json', __FILE__)))
@@ -343,25 +430,32 @@ namespace :data do
 
   desc 'Load in nonlikert values for each school'
   task load_nonlikert_values: :environment do
-    ENV['BULK_PROCESS'] = 'true'
-
-    csv_string = File.read(File.expand_path("../../../data/MCIEA_17-18AdminData.csv", __FILE__))
+    csv_string = File.read(File.expand_path("../data/MCIEA_17-18AdminData.csv", __FILE__))
     # csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17_SGP.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
     puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
 
+    errors = []
     csv.each_with_index do |row, index|
+      next if row["Likert_Value"].blank?
       base = Category
       category_ids = row["Category"].split("-")
       category_ids.each do |category_id|
         category_id = category_id.downcase if category_id.downcase =~ /i/
-        base = base.find_by_external_id(category_id).child_categories
+        base = base.find_by_external_id(category_id)
+        if base.nil?
+          row["reason"] = "Unable to find category_id #{category_id} for category #{row["Category"]}"
+          errors << row
+          next
+        end
+        base = base.child_categories
       end
 
-      nonlikert_category = base.find_or_create_by(name: row["NonLikert Title"])
+      nonlikert_category = base.where(name: row["NonLikert Title"]).first
 
       if nonlikert_category.nil?
-        puts("Unable to find nonlikert category: #{row["NonLikert Title"]}")
+        row["reason"] = "Unable to find nonlikert category: #{row["NonLikert Title"]} in #{}"
+        errors << row
         next
       else
         if (benchmark = row["Benchmark"]).present?
@@ -369,36 +463,43 @@ namespace :data do
         end
       end
 
-      district = District.find_or_create_by(name: row["District"], state_id: 1)
-      school = district.schools.find_or_create_by(name: row["School"])
-      school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "2018")
-      if row["Likert_Value"].blank?
-        school_category.destroy
-      else
-        school_category.update(
-          nonlikert: row["NL_Value"],
-          zscore: [-2,[row["Likert_Value"].to_f-3,2].min].max,
-          year: "2018",
-          valid_child_count: 1
-        )
+      district = District.where(name: row["District"], state_id: 1).first
+      if district.blank?
+        row["reason"] = "DISTRICT NOT FOUND: #{row["District"]}"
+        errors << row
+        next
       end
 
-      # pc = nonlikert_category.parent_category
-      # while pc != nil
-      #   psc = SchoolCategory.for(school, pc).in(school_category.year).first
-      #   if psc != nil
-      #     psc.update(valid_child_count: (psc.valid_child_count || 0) + 1)
-      #     pc = pc.parent_category
-      #   else
-      #     pc = nil
-      #   end
-      # end
+      school = district.schools.where(name: row["School"]).first
+      if school.blank?
+        row["reason"] = "SCHOOL NOT FOUND: #{row["School"]}"
+        errors << row
+        next
+      end
 
+      school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "2018")
+      if school_category.blank?
+        row["reason"] = "SCHOOL CATEGORY NOT FOUND: #{school.name} #{nonlikert_category.name}"
+        errors << row
+        next
+      end
+
+      zscore = (([-2,[row["Likert_Value"].to_f-3,2].min].max * 10).to_i).to_f / 10.0
+      school_category.update(
+        nonlikert: row["NL_Value"],
+        zscore: zscore.to_f,
+        year: "2018",
+        valid_child_count: 1
+      )
+
+      school_category.reload.sync_aggregated_responses
     end
 
-    ENV.delete('BULK_PROCESS')
+    errors.each do |error|
+      puts "#{error["reason"]}: #{error["NonLikert Title"]} -> #{error["Likert_Value"]}"
+    end
 
-    # sync_school_category_aggregates
+    puts "COUNT: #{SchoolCategory.where(attempt_count: 0, answer_index_total: 0).where("nonlikert is not null and zscore is null").count}"
   end
 
   desc 'Load in custom zones for each category'
@@ -589,6 +690,8 @@ end
 #     student_questions = school_questions.merge(Question.for_students)
 #     teacher_questions = school_questions.merge(Question.for_teachers)
 #     if (student_questions.count > 0 && teacher_questions.count > 0)
+        # NEED TO CHECK IF STUDENT OR TEACHER QUESTIONS EXIST
+
 #       if (student_questions.where("response_rate > #{min_response_rate}").count == 0 ||
 #           teacher_questions.where("response_rate > #{min_response_rate}").count == 0)
 #           valid_child_count = 0
@@ -605,6 +708,8 @@ end
 #   end
 # end
 #
+# categories = Category.where("slug like '%-scale'")
+#
 # loop do
 #   parent_categories = []
 #   categories.each_with_index do |category, i|
@@ -612,8 +717,7 @@ end
 #     next if parent_category.nil? || parent_categories.include?(parent_category)
 #     parent_categories << parent_category
 #
-#     # school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston'")
-#     school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug='boston-community-leadership-academy'")
+#     school_categories = parent_category.school_categories.joins(school: :district).where("districts.name = 'Boston'")
 #     school_categories.each_with_index do |school_category, index|
 #       school = school_category.school
 #
@@ -625,11 +729,6 @@ end
 #         answer_index_total: valid_children.sum(&:answer_index_total),
 #         zscore: (valid_children.sum(&:answer_index_total).to_f / valid_children.sum(&:response_count).to_f) - 3.to_f
 #       )
-#       puts ""
-#       puts ""
-#       puts("#{level} (#{i}/#{categories.length}) UPDATED (#{index}/#{school_categories.length}): #{school.slug} -> #{parent_category.slug} -> #{school_category.year} -> #{valid_children.count}  --- PARENT: #{parent_categories.length}")
-#       puts ""
-#       puts ""
 #     end
 #   end
 #
@@ -639,7 +738,167 @@ end
 #   puts ""
 #   puts ""
 #
-#   level += 1
+#   # level += 1
 #   categories = parent_categories.uniq
 #   break if categories.blank?
+# end
+
+# total = 0
+# District.find_by_name('Somerville').schools.each do |school|
+#   base_categories = Category.joins(:questions).map(&:parent_category).to_a.flatten.uniq
+#   base_categories.each do |category|
+#     SchoolCategory.for(school, category).in("2018").valid.each do |school_category|
+#       dup_school_categories = SchoolCategory.for(school, category).in("2018")
+#       if dup_school_categories.count > 1
+#         dup_school_categories.each { |dsc| dsc.destroy unless dsc.id == school_category.id }
+#         school_category.sync_aggregated_responses
+#         parent = category.parent_category
+#         while parent != nil
+#           SchoolCategory.for(school, parent).in("2018").valid.each do |parent_school_category|
+#             parent_dup_school_categories = SchoolCategory.for(school, parent).in("2018")
+#             if parent_dup_school_categories.count > 1
+#               parent_dup_school_categories.each { |pdsc| pdsc.destroy unless pdsc.id == parent_school_category.id }
+#               parent_school_category.sync_aggregated_responses
+#             end
+#           end
+#           parent = parent.parent_category
+#         end
+#         # total += 1
+#       end
+#     end
+#   end
+# end
+#
+# puts "TOTAL: #{total}"
+
+
+# [
+#   "baldwin-early-learning-pilot-academy"
+# ].each do |slug|
+#   school = School.find_by_slug(slug)
+#   base_categories = Category.joins(:questions).to_a.flatten.uniq
+#   base_categories.each do |category|
+#     SchoolCategory.for(school, category).in("2018").valid.each do |school_category|
+#       dup_school_categories = SchoolCategory.for(school, category).in("2018")
+#       if dup_school_categories.count > 1
+#         dup_school_categories.each { |dsc| dsc.destroy unless dsc.id == school_category.id }
+#         school_category.sync_aggregated_responses
+#         parent = category.parent_category
+#         while parent != nil
+#           SchoolCategory.for(school, parent).in("2018").valid.each do |parent_school_category|
+#             parent_dup_school_categories = SchoolCategory.for(school, parent).in("2018")
+#             if parent_dup_school_categories.count > 1
+#               parent_dup_school_categories.each { |pdsc| pdsc.destroy unless pdsc.id == parent_school_category.id }
+#               parent_school_category.sync_aggregated_responses
+#             end
+#           end
+#           parent = parent.parent_category
+#         end
+#       end
+#     end
+#   end
+# end
+#
+# category = Category.find_by_slug("professional-qualifications-scale")
+# category.school_categories.joins(:school).each do |school_category|
+#   school_question_data = school_category.
+#     school_questions.
+#     where("response_rate > #{min_response_rate}").
+#     select('count(response_count) as valid_child_count').
+#     select('sum(response_count) as response_count').
+#     select('sum(response_total) as response_total')[0]
+#
+#   valid_child_count = school_question_data.valid_child_count
+#   school_questions = school_category.school_questions.joins(:question)
+#   student_questions = school_questions.merge(Question.for_students)
+#   teacher_questions = school_questions.merge(Question.for_teachers)
+#   if (student_questions.count > 0 && teacher_questions.count > 0)
+#     if (student_questions.where("response_rate > #{min_response_rate}").count == 0 ||
+#         teacher_questions.where("response_rate > #{min_response_rate}").count == 0)
+#         valid_child_count = 0
+#     end
+#   end
+#
+#   puts "VALID CHILD COUNT: #{valid_child_count}"
+#   school_category.update(
+#     valid_child_count: valid_child_count,
+#     response_count: school_question_data.response_count,
+#     answer_index_total: school_question_data.response_total,
+#     zscore: (school_question_data.response_total.to_f/school_question_data.response_count.to_f) - 3.to_f
+#   )
+# end
+#
+#
+# category = Category.find_by_slug("professional-qualifications-scale")
+# school = School.find_by_slug("young-achievers-science-and-math-k-8-school")
+# school_category = SchoolCategory.for(school,category).in("2018").first
+# school_category.school_questions.each do |school_question|
+#   attempt_data = Attempt.
+#     joins(:question).
+#     created_in(school_category.year).
+#     for_question(school_question.question).
+#     for_school(school).
+#     select('count(attempts.answer_index) as response_count').
+#     select('sum(case when questions.reverse then 6 - attempts.answer_index else attempts.answer_index end) as answer_index_total')[0]
+#
+#   available_responders = school.available_responders_for(school_question.question)
+#
+#   school_question.update(
+#     attempt_count: available_responders,
+#     response_count: attempt_data.response_count,
+#     response_rate: attempt_data.response_count.to_f / available_responders.to_f,
+#     response_total: attempt_data.answer_index_total
+#   )
+# end
+#
+# min_response_rate = 0.3
+# school_question_data = school_category.
+#   school_questions.
+#   where("response_rate > #{min_response_rate}").
+#   select('count(response_count) as valid_child_count').
+#   select('sum(response_count) as response_count').
+#   select('sum(response_total) as response_total')[0]
+#
+# valid_child_count = school_question_data.valid_child_count
+# school_questions = school_category.school_questions.joins(:question)
+# student_questions = school_questions.merge(Question.for_students)
+# teacher_questions = school_questions.merge(Question.for_teachers)
+# if (student_questions.count > 0 && teacher_questions.count > 0)
+#   if (student_questions.where("response_rate > #{min_response_rate}").count == 0 ||
+#       teacher_questions.where("response_rate > #{min_response_rate}").count == 0)
+#       valid_child_count = 0
+#   end
+# end
+#
+# puts "VALID CHILD COUNT: #{valid_child_count}"
+# school_category.update(
+#   valid_child_count: valid_child_count,
+#   response_count: school_question_data.response_count,
+#   answer_index_total: school_question_data.response_total,
+#   zscore: (school_question_data.response_total.to_f/school_question_data.response_count.to_f) - 3.to_f
+# )
+#
+# parent = category.parent_category
+# while parent != nil
+#   SchoolCategory.for(school, parent).in("2018").valid.each do |parent_school_category|
+#     parent_school_category.sync_aggregated_responses
+#   end
+#   parent = parent.parent_category
+# end
+#
+#
+# category = Category.find_by_slug("health")
+# District.find_by_name("Boston").schools.each do |school|
+#   school_category = SchoolCategory.for(school, category).in("2018")
+#   valid_children = SchoolCategory.for_parent_category(school, category).in("2018").where("valid_child_count > 0")
+#   if valid_children.count == 1 && valid_children.first.category.slug == "physical-health"
+#     school_category.update(valid_child_count: 0)
+#     parent = category.parent_category
+#     while parent != nil do
+#       parent_school_category = SchoolCategory.for(school, parent).in("2018")
+#       valid_children = SchoolCategory.for_parent_category(school, parent).in("2018").where("valid_child_count > 0")
+#       parent_school_category.update(valid_child_count: valid_children.count)
+#       parent = parent.parent_category
+#     end
+#   end
 # end
