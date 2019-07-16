@@ -29,7 +29,7 @@
 require 'csv'
 
 namespace :data do
-  @year = 2018
+  @year = 2019
 
   desc "Load in all data"
   task load: :environment do
@@ -298,8 +298,8 @@ namespace :data do
     stopIndex = 100000
     startTime = Time.new
 
-    # ['student_responses'].each do |file|
-    ['student_responses', 'teacher_responses'].each do |file|
+    ['student_responses'].each do |file|
+    # ['student_responses', 'teacher_responses'].each do |file|
       recipients = file.split('_')[0]
       target_group = Question.target_groups["for_#{recipients}s"]
       csv_string = File.read(File.expand_path("../../../data/#{file}_#{@year}.csv", __FILE__))
