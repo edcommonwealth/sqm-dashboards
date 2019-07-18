@@ -223,7 +223,7 @@ namespace :data do
       'teacher'
     ]
 
-    csv_string = File.read(File.expand_path('../../../data/MeasureKey2018.csv', __FILE__))
+    csv_string = File.read(File.expand_path('../../../data/MeasureKey2019.csv', __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
 
     t = Time.new
@@ -310,6 +310,7 @@ namespace :data do
       t = Time.new
       csv.each_with_index do |row, index|
         next if index < startIndex
+        break if index > 100
 
         if Time.new - startTime >= timeToRun || index > stopIndex
           puts("ENDING #{timeToRun} SECONDS: #{Time.new - startTime} = #{startIndex} -> #{index} = #{index - startIndex} or #{(Time.new - t) / (index - startIndex)} per second")
@@ -345,7 +346,7 @@ namespace :data do
           next
         end
 
-        respondent_id = "#{recipients}-#{index}-#{row["ResponseID"]}"
+        respondent_id = "#{recipients}-#{index}-#{row["ResponseId"]}"
         recipient_id = respondent_map["#{school.id}-#{@year}-#{respondent_id}"]
         if recipient_id.present?
           recipient = school.recipients.where(id: recipient_id).first
@@ -479,7 +480,7 @@ namespace :data do
         next
       end
 
-      school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "2018")
+      school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "2019")
       if school_category.blank?
         row["reason"] = "SCHOOL CATEGORY NOT FOUND: #{school.name} #{nonlikert_category.name}"
         errors << row
@@ -490,7 +491,7 @@ namespace :data do
       school_category.update(
         nonlikert: row["NL_Value"],
         zscore: zscore.to_f,
-        year: "2018",
+        year: "2019",
         valid_child_count: 1
       )
 

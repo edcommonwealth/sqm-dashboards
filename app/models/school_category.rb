@@ -55,11 +55,14 @@ class SchoolCategory < ApplicationRecord
   def chained_aggregated_responses
     _aggregated_responses = aggregated_responses
 
-    child_school_categories = category.child_categories.collect do |cc|
-      SchoolCategory.for(school, cc).in(year).valid
-    end.flatten.compact
+    child_school_categories = []
+    if category.child_categories.length > 0
+      child_school_categories = category.child_categories.collect do |cc|
+        SchoolCategory.for(school, cc).in(year).valid
+      end.flatten.compact
 
-    return {} if child_school_categories.blank?
+      return {} if child_school_categories.blank?
+    end
 
     average_zscore = nil
     zscore_categories = child_school_categories.select { |csc| csc.zscore.present? && !csc.zscore.nan? }

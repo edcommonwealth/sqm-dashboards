@@ -16,7 +16,7 @@ class CategoriesController < ApplicationController
 
     school_categories = SchoolCategory.for(@school, @category)
     @years = school_categories.map(&:year).map(&:to_i).sort
-    @year = (params[:year] || @years.first || "2018").to_i
+    @year = (params[:year] || @years.first || "2019").to_i
     @years.delete(@year)
 
     if school_categories.empty?
