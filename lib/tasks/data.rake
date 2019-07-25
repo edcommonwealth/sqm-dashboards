@@ -295,7 +295,7 @@ namespace :data do
     bad_answers = {}
 
     timeToRun = 120 * 60
-    startIndex = 0
+    startIndex = 26055
     stopIndex = 100000
     startTime = Time.new
 
