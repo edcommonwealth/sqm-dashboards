@@ -294,9 +294,9 @@ namespace :data do
     missing_questions = {}
     bad_answers = {}
 
-    timeToRun = 120 * 60
-    startIndex = 26055
-    stopIndex = 100000
+    timeToRun = 120000 * 60
+    startIndex = 0
+    stopIndex = 1000000
     startTime = Time.new
 
     # ['teacher_responses'].each do |file|
