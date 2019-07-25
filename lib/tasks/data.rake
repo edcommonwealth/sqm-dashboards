@@ -321,7 +321,7 @@ namespace :data do
           t = Time.new
         end
 
-        district_name = row['Q111']
+        district_name = row['Q111'].strip
         if district_name.blank? || district_name == "NA"
           puts "DISTRICT NOT FOUND: #{district_name}"
           next
@@ -329,7 +329,7 @@ namespace :data do
         # district_name = row['To begin, please select your district.'] if district_name.nil?
         district = District.find_or_create_by(name: district_name, state_id: 1)
 
-        school_name = row["SchoolName"]
+        school_name = row["SchoolName"].strip
 
         if school_name.blank? || school_name == "NA"
           puts "BLANK SCHOOL NAME: #{district.name} - #{index}"
@@ -345,7 +345,7 @@ namespace :data do
           next
         end
 
-        respondent_id = "#{recipients}-#{index}-#{row["ResponseId"]}"
+        respondent_id = "#{recipients}-#{index}-#{row["ResponseId"].strip}"
         recipient_id = respondent_map["#{school.id}-#{@year}-#{respondent_id}"]
         if recipient_id.present?
           recipient = school.recipients.where(id: recipient_id).first
