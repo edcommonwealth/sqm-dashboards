@@ -427,7 +427,7 @@ namespace :data do
 
     sync_school_category_aggregates
 
-    Recipient.created_in(@year).each { |r| r.update_counts }
+    # Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   desc 'Load in nonlikert values for each school'
