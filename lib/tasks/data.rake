@@ -1,7 +1,7 @@
 # PSQL: /Applications/Postgres.app/Contents/Versions/9.6/bin/psql -h localhost
 
 # LOAD DATA
-# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development beta-data-071819.dump; rake db:migrate;
+# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development latest.dump; rake db:migrate;
 # rails c -> SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv; rake data:load_responses
 
@@ -12,7 +12,7 @@
 #        RENAME SCHOOLS = s = SCHOOLS; s.each { |correct, incorrect| District.find_by_name("Boston").schools.find_by_name(incorrect[0]).update(name: correct) }
 #        s.map { |correct, incorrect| District.find_by_name("Boston").schools.find_by_name(incorrect.to_s).merge_into(correct) }
 # sudo heroku run rake data:load_questions_csv -a mciea-beta
-# sudo heroku run rake data:sync_questions -a mciea-beta
+# sudo heroku run rake data:load_questions_csv data:sync_questions -a mciea-beta
 # sudo heroku run:detached rake data:load_responses -a mciea-beta --size performance-l
 # sudo heroku run rake data:move_likert_to_submeasures -a mciea-beta
 # sudo heroku run:detached rake data:sync -a mciea-beta --size performance-l
@@ -44,12 +44,12 @@ namespace :data do
 
   desc 'Check question / category data against existing data'
   task check_questions: :environment do
-    csv_string = File.read(File.expand_path('../../../data/MeasureKey2019.csv', __FILE__))
+    csv_string = File.read(File.expand_path("../../../data/MeasureKey#{@year}.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
 
     t = Time.new
     csv.each_with_index do |question, index|
-      existing_question = Question.find_by_external_id(question['qid'])
+      existing_question = Question.created_in(@year).find_by_external_id(question['qid'])
       if existing_question.blank?
         puts "NOT FOUND: #{question['qid']} -> #{question["Question Text"]}"
       else
@@ -78,12 +78,12 @@ namespace :data do
 
   desc 'Sync questions / category data against existing data'
   task sync_questions: :environment do
-    csv_string = File.read(File.expand_path('../../../data/MeasureKey2019.csv', __FILE__))
+    csv_string = File.read(File.expand_path("../../../data/MeasureKey#{@year}.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
 
     t = Time.new
     csv.each_with_index do |question, index|
-      existing_question = Question.find_by_external_id(question['qid'])
+      existing_question = Question.created_in(@year).find_by_external_id(question['qid'])
       if existing_question.blank?
         categories = Category.where(name: question['Category Name'].titleize)
         if categories.blank?
@@ -104,7 +104,7 @@ namespace :data do
           )
         end
       else
-        if Question.where(external_id: question['qid']).count > 1
+        if Question.created_in(@year).where(external_id: question['qid']).count > 1
           puts "MULTIPLE FOUND: #{question['qid']}"
         end
 
@@ -223,13 +223,13 @@ namespace :data do
       'teacher'
     ]
 
-    csv_string = File.read(File.expand_path('../../../data/MeasureKey2019.csv', __FILE__))
+    csv_string = File.read(File.expand_path("../../../data/MeasureKey#{@year}.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
 
     t = Time.new
     csv.each_with_index do |question, index|
       category = nil
-      question['Category'].split('-').each do |external_id_raw|
+      question['Category19'].split('-').each do |external_id_raw|
         external_id = external_id_raw.gsub(/[[:space:]]/, ' ').strip
         categories = category.present? ? category.child_categories : Category
         category = categories.where(external_id: external_id).first
@@ -377,7 +377,7 @@ namespace :data do
           value = value.gsub(/[[:space:]]/, ' ').strip.downcase
 
           begin
-            question = Question.find_by_external_id(key)
+            question = Question.created_in(@year).find_by_external_id(key)
           rescue Exception => e
             puts "DATAERROR: INDEX: #{index} Failed finding question: #{key} -> #{e}"
           end
@@ -479,7 +479,7 @@ namespace :data do
         next
       end
 
-      school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "2019")
+      school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "#{@year}")
       if school_category.blank?
         row["reason"] = "SCHOOL CATEGORY NOT FOUND: #{school.name} #{nonlikert_category.name}"
         errors << row
@@ -490,7 +490,7 @@ namespace :data do
       school_category.update(
         nonlikert: row["NL_Value"],
         zscore: zscore.to_f,
-        year: "2019",
+        year: "#{@year}",
         valid_child_count: 1
       )
 
