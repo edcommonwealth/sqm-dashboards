@@ -1,3 +1,4 @@
+- return if info.nil?
 - likert = info.answer_index_average
 - zscore = info.zscore.present? ? info.zscore + 3 : nil
 - likert = zscore if zscore.present?
