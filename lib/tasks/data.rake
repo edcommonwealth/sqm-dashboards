@@ -564,7 +564,7 @@ namespace :data do
   task sync: :environment do
     sync_school_category_aggregates
 
-    Recipient.created_in(@year).each { |r| r.update_counts }
+    # Recipient.created_in(@year).each { |r| r.update_counts }
   end
 
   desc 'Create School Questions'
@@ -903,4 +903,13 @@ end
 #       parent = parent.parent_category
 #     end
 #   end
+# end
+
+# Question.created_in(2019).each do |question|
+#   previous_year_question = Question.created_in(2018).find_by_external_id(question.external_id)
+#   if previous_year_question.nil?
+#     puts("No previous year question: #{question.external_id}")
+#     previous_year_question = Question.created_in(2018).find_by_external_id("s-peff-q6")
+#   end
+#   question.update(category: previous_year_question.category)
 # end
