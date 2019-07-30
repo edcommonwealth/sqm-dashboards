@@ -618,25 +618,15 @@ namespace :data do
   end
 
   def sync_school_category_aggregates
-    categories = []
-    Question.created_in(2019).where(reverse: true).each do |question|
-      categories << question.category
-    end
-    categories.uniq.each do |category|
-      category.school_categories.in(2019).each do |school_category|
+    School.all.each do |school|
+      Category.all.each do |category|
+        school_category = SchoolCategory.for(school, category).in(@year).first
+        if school_category.nil?
+          school_category = school.school_categories.create(category: category, year: @year)
+        end
         school_category.sync_aggregated_responses
       end
     end
-
-    # School.all.each do |school|
-    #   Category.all.each do |category|
-    #     school_category = SchoolCategory.for(school, category).in(@year).first
-    #     if school_category.nil?
-    #       school_category = school.school_categories.create(category: category, year: @year)
-    #     end
-    #     school_category.sync_aggregated_responses
-    #   end
-    # end
   end
 end
 
@@ -929,6 +919,9 @@ end
 
 # categories = []
 # Question.created_in(2019).where(reverse: true).each do |question|
+#   question.attempts.each do |attempt|
+#     attempt.update(answer_index: 6 - attempt.answer_index)
+#   end
 #   categories << question.category
 # end
 # categories.uniq.each do |category|
