@@ -100,7 +100,8 @@ namespace :data do
             option3: question['R3'],
             option4: question['R4'],
             option5: question['R5'],
-            target_group: question['qid'].starts_with?('s') ? 'for_students' : 'for_teachers'
+            target_group: question['qid'].starts_with?('s') ? 'for_students' : 'for_teachers',
+            reverse: question['Reverse'] == "1"
           )
         end
       else
@@ -198,7 +199,8 @@ namespace :data do
           option3: question['answers'][2],
           option4: question['answers'][3],
           option5: question['answers'][4],
-          for_recipient_students: question['child'].present?
+          for_recipient_students: question['child'].present?,
+          reverse: question['Reverse'] == "1"
         )
       else
         variations.each do |variation|
@@ -209,7 +211,8 @@ namespace :data do
             option3: question['answers'][2],
             option4: question['answers'][3],
             option5: question['answers'][4],
-            for_recipient_students: question['child'].present?
+            for_recipient_students: question['child'].present?,
+            reverse: question['Reverse'] == "1"
           )
         end
       end
@@ -411,7 +414,7 @@ namespace :data do
 
           next if answer_index == 0
 
-          answer_index = 6 - answer_index if question.reverse?
+          # answer_index = 6 - answer_index if question.reverse?
 
           responded_at = Date.strptime(row['recordedDate'], '%Y-%m-%d %H:%M:%S') rescue Date.today
           begin
@@ -615,15 +618,25 @@ namespace :data do
   end
 
   def sync_school_category_aggregates
-    School.all.each do |school|
-      Category.all.each do |category|
-        school_category = SchoolCategory.for(school, category).in(@year).first
-        if school_category.nil?
-          school_category = school.school_categories.create(category: category, year: @year)
-        end
+    categories = []
+    Question.created_in(2019).where(reverse: true).each do |question|
+      categories << question.category
+    end
+    categories.uniq.each do |category|
+      category.school_categories.in(2019).each do |school_category|
         school_category.sync_aggregated_responses
       end
     end
+
+    # School.all.each do |school|
+    #   Category.all.each do |category|
+    #     school_category = SchoolCategory.for(school, category).in(@year).first
+    #     if school_category.nil?
+    #       school_category = school.school_categories.create(category: category, year: @year)
+    #     end
+    #     school_category.sync_aggregated_responses
+    #   end
+    # end
   end
 end
 
@@ -912,4 +925,14 @@ end
 #     previous_year_question = Question.created_in(2018).find_by_external_id("s-peff-q6")
 #   end
 #   question.update(category: previous_year_question.category)
+# end
+
+# categories = []
+# Question.created_in(2019).where(reverse: true).each do |question|
+#   categories << question.category
+# end
+# categories.uniq.each do |category|
+#   category.school_categories.in(2019).each do |school_category|
+#     school_category.sync_aggregated_responses
+#   end
 # end
