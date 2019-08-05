@@ -5,17 +5,16 @@
     = simple_format(@school.description)
     - if @year.present?
       %p
-        Data from
-        = "#{@year - 1}-#{@year}"
-        school year.
+
     - if @years.present?
       %p
-        Show year:
-        - @years.each do |year|
+        %b Data from:
+        - @years.sort.reverse.each do |year|
+          &nbsp; &nbsp;
           - if @school_category.present?
-            = link_to("#{year - 1}-#{year}", school_category_path(@school_category.school, @school_category.category, year: year))
+            = link_to_unless(year == @year, "#{year - 1}-#{year}", school_category_path(@school_category.school, @school_category.category, year: year))
           - else
-            = link_to("#{year - 1}-#{year}", school_path(@school, year: year))
+            = link_to_unless(year == @year, "#{year - 1}-#{year}", school_path(@school, year: year))
     - if @school.district.present?
       %p
         %strong District:

@@ -20,7 +20,6 @@ class SchoolsController < ApplicationController
 
     @years = @school_categories.map(&:year).map(&:to_i).sort.uniq
     @year = (params[:year] || @years.last || "2019").to_i
-    @years.delete(@year)
 
     missing_categories = @categories - @school_categories.map(&:category)
     missing_categories.each do |category|
