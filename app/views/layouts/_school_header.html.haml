@@ -9,7 +9,7 @@
     - if @years.present?
       %p
         %b Data from:
-        - @years.sort.reverse.each do |year|
+        - @years.sort.each do |year|
           &nbsp; &nbsp;
           - if @school_category.present?
             = link_to_unless(year == @year, "#{year - 1}-#{year}", school_category_path(@school_category.school, @school_category.category, year: year))
