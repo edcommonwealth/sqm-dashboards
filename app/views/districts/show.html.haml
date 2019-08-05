@@ -18,6 +18,7 @@
 
       %br
       - @schools.each do |school|
+        - next if ["dorchester-academy", "william-mckinley-school", "edco-youth"].index(school.slug)
         %p= link_to school.name, school
 
       %br
