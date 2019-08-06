@@ -573,11 +573,11 @@ namespace :data do
   desc 'Create School Questions'
   task create_school_questions: :environment do
     Category.joins(:questions).uniq.all.each do |category|
-      category.school_categories.joins(school: :district).where("districts.name = 'Boston'").find_in_batches(batch_size: 100) do |group|
+      category.school_categories.in(@year).joins(school: :district).where("districts.name = 'Boston'").find_in_batches(batch_size: 100) do |group|
         group.each do |school_category|
           school_questions = []
           new_school_questions = []
-          category.questions.created_in(school_category.year).each do |question|
+          category.questions.created_in(@year).each do |question|
             school = school_category.school
             next if school.district.name != "Boston"
 
@@ -653,8 +653,9 @@ end
 # missing_schools.each { |s| puts(s) }
 #
 #
+
 # require 'csv'
-# teacher_counts_string = File.read(File.expand_path("data/bps_teacher_counts.csv"))
+# teacher_counts_string = File.read(File.expand_path("data/bps_counts_2019.csv"))
 # teacher_counts = CSV.parse(teacher_counts_string, :headers => true)
 # missing_schools = []
 # teacher_counts.each_with_index do |count, index|
@@ -666,7 +667,10 @@ end
 #     next
 #   end
 #
-#   school.update(teacher_count: count["Teacher Count"])
+#   school.update(
+#     student_count: count["Students in grades 4-11"],
+#     teacher_count: count["Teacher Denominator"]
+#   )
 # end
 # puts ""
 # puts "MISSING SCHOOLS: #{missing_schools.length}"
@@ -778,20 +782,25 @@ end
 
 
 # [
-#   "baldwin-early-learning-pilot-academy"
+#   "hennigan-elementary",
+#   "henderson-k-12",
+#   "mattahunt",
+#   "lyndon-k-8"
 # ].each do |slug|
+#   year = 2019
 #   school = School.find_by_slug(slug)
 #   base_categories = Category.joins(:questions).to_a.flatten.uniq
 #   base_categories.each do |category|
-#     SchoolCategory.for(school, category).in("2018").valid.each do |school_category|
-#       dup_school_categories = SchoolCategory.for(school, category).in("2018")
+#     SchoolCategory.for(school, category).in(year).each do |school_category|
+#       dup_school_categories = SchoolCategory.for(school, category).in(year)
 #       if dup_school_categories.count > 1
+#         puts dup_school_categories.first.inspect
 #         dup_school_categories.each { |dsc| dsc.destroy unless dsc.id == school_category.id }
 #         school_category.sync_aggregated_responses
 #         parent = category.parent_category
 #         while parent != nil
-#           SchoolCategory.for(school, parent).in("2018").valid.each do |parent_school_category|
-#             parent_dup_school_categories = SchoolCategory.for(school, parent).in("2018")
+#           SchoolCategory.for(school, parent).in(year).valid.each do |parent_school_category|
+#             parent_dup_school_categories = SchoolCategory.for(school, parent).in(year)
 #             if parent_dup_school_categories.count > 1
 #               parent_dup_school_categories.each { |pdsc| pdsc.destroy unless pdsc.id == parent_school_category.id }
 #               parent_school_category.sync_aggregated_responses
