@@ -54,6 +54,7 @@ class School < ApplicationRecord
     base_categories = Category.joins(:questions).to_a.flatten.uniq
     base_categories.each do |category|
       SchoolCategory.for(school, category).each do |school_category|
+        year = school_category.year
         dup_school_categories = SchoolCategory.for(school, category).in(year)
         if dup_school_categories.count > 1
           dup_school_categories.each { |dsc| dsc.destroy unless dsc.id == school_category.id }
