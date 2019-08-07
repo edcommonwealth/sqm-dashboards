@@ -48,7 +48,31 @@ class School < ApplicationRecord
     reload
 
     user_schools.update_all(school_id: school.id)
+
     school.school_categories.map(&:sync_aggregated_responses)
+
+    base_categories = Category.joins(:questions).to_a.flatten.uniq
+    base_categories.each do |category|
+      SchoolCategory.for(school, category).each do |school_category|
+        dup_school_categories = SchoolCategory.for(school, category).in(year)
+        if dup_school_categories.count > 1
+          dup_school_categories.each { |dsc| dsc.destroy unless dsc.id == school_category.id }
+          school_category.sync_aggregated_responses
+          parent = category.parent_category
+          while parent != nil
+            SchoolCategory.for(school, parent).in(year).valid.each do |parent_school_category|
+              parent_dup_school_categories = SchoolCategory.for(school, parent).in(year)
+              if parent_dup_school_categories.count > 1
+                parent_dup_school_categories.each { |pdsc| pdsc.destroy unless pdsc.id == parent_school_category.id }
+                parent_school_category.sync_aggregated_responses
+              end
+            end
+            parent = parent.parent_category
+          end
+        end
+      end
+    end
+
     destroy
   end
 
