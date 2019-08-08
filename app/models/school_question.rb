@@ -9,6 +9,7 @@ class SchoolQuestion < ApplicationRecord
   validates_associated :school_category
 
   scope :for, -> (school, question) { where(school_id: school.id, question_id: question.id) }
+  scope :in, -> (year) { where(year: year) }
 
   def sync_attempts
     attempt_data = Attempt.
