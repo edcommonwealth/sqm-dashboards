@@ -10,16 +10,16 @@ class SchoolsController < ApplicationController
     @district = @school.district
     authenticate(@district.name.downcase, "#{@district.name.downcase}!")
 
+    @years = [2017, 2018, 2019]
+    @year = (params[:year] || @years.last).to_i
+
     if @district.name == "Boston"
       @categories = Category.joins(:questions)
-      @school_categories = SchoolCategory.where(school: @school).where(category: @categories).to_a
+      @school_categories = SchoolCategory.where(school: @school).where(category: @categories).in(@year).to_a
     else
       @categories = Category.root
-      @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.sort
+      @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.in(@year).sort
     end
-
-    @years = @school_categories.map(&:year).map(&:to_i).sort.uniq
-    @year = (params[:year] || @years.last || "2019").to_i
 
     missing_categories = @categories - @school_categories.map(&:category)
     missing_categories.each do |category|
