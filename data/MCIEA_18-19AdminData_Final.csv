@@ -1,0 +1,316 @@
+District,School,Category,NonLikert Title,NL_Value,Likert_Value,Benchmark,Data Type
+Attleboro,Attleboro High School,2-C-i,Chronic absence rate,19.7,3.03,10,%
+Attleboro,Cyril K. Brennan Middle School,2-C-i,Chronic absence rate,9.6,4.04,10,%
+Attleboro,Robert J. Coelho Middle School,2-C-i,Chronic absence rate,11,3.9,10,%
+Attleboro,Hyman Fine Elementary School,2-C-i,Chronic absence rate,3.4,4.66,10,%
+Attleboro,Hill-Roberts Elementary School,2-C-i,Chronic absence rate,8.2,4.18,10,%
+Attleboro,A. Irvin Studley Elementary School,2-C-i,Chronic absence rate,8.1,4.19,10,%
+Attleboro,Peter Thacher Elementary School,2-C-i,Chronic absence rate,13,3.7,10,%
+Attleboro,Wamsutta Middle School,2-C-i,Chronic absence rate,8.7,4.13,10,%
+Attleboro,Thomas Willett Elementary School,2-C-i,Chronic absence rate,6,4.4,10,%
+Milford,Brookside Elementary School,2-C-i,Chronic absence rate,12.1,3.79,10,%
+Milford,Memorial Elementary School,2-C-i,Chronic absence rate,11.5,3.85,10,%
+Milford,Milford High School,2-C-i,Chronic absence rate,21.9,2.81,10,%
+Milford,Shining Star Early Childhood Center,2-C-i,Chronic absence rate,30.5,1.95,10,%
+Milford,Stacy Middle School,2-C-i,Chronic absence rate,12.7,3.73,10,%
+Milford,Woodland Elementary School,2-C-i,Chronic absence rate,6.8,4.32,10,%
+Revere,Beachmont Elementary School,2-C-i,Chronic absence rate,4.2,4.58,10,%
+Revere,Garfield Elementary School,2-C-i,Chronic absence rate,9.3,4.07,10,%
+Revere,Garfield Middle School,2-C-i,Chronic absence rate,8.5,4.15,10,%
+Revere,Hill Elementary School,2-C-i,Chronic absence rate,3.3,4.67,10,%
+Revere,Lincoln Elementary School,2-C-i,Chronic absence rate,7.9,4.21,10,%
+Revere,Paul Revere Elementary School,2-C-i,Chronic absence rate,10.1,3.99,10,%
+Revere,Revere High School,2-C-i,Chronic absence rate,13.8,3.62,10,%
+Revere,Rumney Marsh Academy,2-C-i,Chronic absence rate,5,4.5,10,%
+Revere,Seacoast High School,2-C-i,Chronic absence rate,76.9,0,10,%
+Revere,Susan B. Anthony Middle School,2-C-i,Chronic absence rate,8.1,4.19,10,%
+Revere,Whelan Elementary School,2-C-i,Chronic absence rate,5.9,4.41,10,%
+Winchester,Ambrose Elementary School,2-C-i,Chronic absence rate,3.8,4.62,10,%
+Winchester,Lincoln Elementary School,2-C-i,Chronic absence rate,1.6,4.84,10,%
+Winchester,Lynch Elementary School,2-C-i,Chronic absence rate,4,4.6,10,%
+Winchester,McCall Middle School,2-C-i,Chronic absence rate,4.2,4.58,10,%
+Winchester,Muraco Elementary School,2-C-i,Chronic absence rate,3.1,4.69,10,%
+Winchester,Vinson-Owen Elementary School,2-C-i,Chronic absence rate,4.2,4.58,10,%
+Winchester,Winchester High School,2-C-i,Chronic absence rate,7.2,4.28,10,%
+Attleboro,Attleboro High School,3-A-i,Average class size,20.6,3.94,20,
+Attleboro,Cyril K. Brennan Middle School,3-A-i,Average class size,24.4,3.56,20,
+Attleboro,Robert J. Coelho Middle School,3-A-i,Average class size,27,3.3,20,
+Attleboro,Hyman Fine Elementary School,3-A-i,Average class size,25.1,3.49,20,
+Attleboro,Hill-Roberts Elementary School,3-A-i,Average class size,24,3.6,20,
+Attleboro,A. Irvin Studley Elementary School,3-A-i,Average class size,13.7,4.63,20,
+Attleboro,Peter Thacher Elementary School,3-A-i,Average class size,11.8,4.82,20,
+Attleboro,Wamsutta Middle School,3-A-i,Average class size,25.1,3.49,20,
+Attleboro,Thomas Willett Elementary School,3-A-i,Average class size,13.9,4.61,20,
+Milford,Brookside Elementary School,3-A-i,Average class size,18.8,4.12,20,
+Milford,Memorial Elementary School,3-A-i,Average class size,20.3,3.97,20,
+Milford,Milford High School,3-A-i,Average class size,18.5,4.15,20,
+Milford,Shining Star Early Childhood Center,3-A-i,Average class size,16,4.4,20,
+Milford,Stacy Middle School,3-A-i,Average class size,22,3.8,20,
+Milford,Woodland Elementary School,3-A-i,Average class size,22.5,3.75,20,
+Revere,Beachmont Elementary School,3-A-i,Average class size,17,4.3,20,
+Revere,Garfield Elementary School,3-A-i,Average class size,19,4.1,20,
+Revere,Garfield Middle School,3-A-i,Average class size,21,3.9,20,
+Revere,Hill Elementary School,3-A-i,Average class size,19,4.1,20,
+Revere,Lincoln Elementary School,3-A-i,Average class size,19,4.1,20,
+Revere,Paul Revere Elementary School,3-A-i,Average class size,21,3.9,20,
+Revere,Revere High School,3-A-i,Average class size,16.8,4.32,20,
+Revere,Rumney Marsh Academy,3-A-i,Average class size,21,3.9,20,
+Revere,Seacoast High School,3-A-i,Average class size,7,5,20,
+Revere,Susan B. Anthony Middle School,3-A-i,Average class size,23,3.7,20,
+Revere,Whelan Elementary School,3-A-i,Average class size,24,3.6,20,
+Winchester,Ambrose Elementary School,3-A-i,Average class size,19.7,4.03,20,
+Winchester,Lincoln Elementary School,3-A-i,Average class size,19.2,4.08,20,
+Winchester,Lynch Elementary School,3-A-i,Average class size,19.4,4.06,20,
+Winchester,McCall Middle School,3-A-i,Average class size,22.6,3.74,20,
+Winchester,Muraco Elementary School,3-A-i,Average class size,17.9,4.21,20,
+Winchester,Vinson-Owen Elementary School,3-A-i,Average class size,20.4,3.96,20,
+Winchester,Winchester High School,3-A-i,Average class size,17,4.3,20,
+Attleboro,Attleboro High School,3-B-i,Percent AP test takers scoring 3 or higher (HS only),53,5,20,%
+Milford,Milford High School,3-B-i,Percent AP test takers scoring 3 or higher (HS only),58.5,5,20,%
+Revere,Revere High School,3-B-i,Percent AP test takers scoring 3 or higher (HS only),50,5,20,%
+Winchester,Winchester High School,3-B-i,Percent AP test takers scoring 3 or higher (HS only),90.5,5,20,%
+Attleboro,Attleboro High School,3-B-i,Percent juniors and seniors enrolled in one AP (HS only),21.82130584,2.909507445,30,%
+Milford,Milford High School,3-B-i,Percent juniors and seniors enrolled in one AP (HS only),45.23,5,30,%
+Revere,Revere High School,3-B-i,Percent juniors and seniors enrolled in one AP (HS only),18,2.4,30,%
+Revere,Seacoast High School,3-B-i,Percent juniors and seniors enrolled in one AP (HS only),0,0,30,%
+Winchester,Winchester High School,3-B-i,Percent juniors and seniors enrolled in one AP (HS only),23,3.066666667,30,%
+Attleboro,Attleboro High School,3-B-i,Percent students of color enrolled in advanced coursework,32.9,3.615384615,36.4,%
+Revere,Revere High School,3-B-i,Percent students of color enrolled in advanced coursework,12.3,1.351648352,36.4,%
+Revere,Seacoast High School,3-B-i,Percent students of color enrolled in advanced coursework,0,0,36.4,%
+Winchester,Winchester High School,3-B-i,Percent students of color enrolled in advanced coursework,31,3.406593407,36.4,%
+Attleboro,Attleboro High School,3-A-ii,Student to instructional support staff ratio,15.28896673,1.409121358,43.4,
+Attleboro,Cyril K. Brennan Middle School,3-A-ii,Student to instructional support staff ratio,16.97142857,1.564186965,43.4,
+Attleboro,Robert J. Coelho Middle School,3-A-ii,Student to instructional support staff ratio,19.14705882,1.764705882,43.4,
+Attleboro,Hyman Fine Elementary School,3-A-ii,Student to instructional support staff ratio,16.46428571,1.517445688,43.4,
+Attleboro,Hill-Roberts Elementary School,3-A-ii,Student to instructional support staff ratio,15.65517241,1.442873033,43.4,
+Attleboro,A. Irvin Studley Elementary School,3-A-ii,Student to instructional support staff ratio,13.65517241,1.258541236,43.4,
+Attleboro,Peter Thacher Elementary School,3-A-ii,Student to instructional support staff ratio,11.80555556,1.088069637,43.4,
+Attleboro,Wamsutta Middle School,3-A-ii,Student to instructional support staff ratio,17,1.566820276,43.4,
+Attleboro,Thomas Willett Elementary School,3-A-ii,Student to instructional support staff ratio,13.93103448,1.283966312,43.4,
+Milford,Brookside Elementary School,3-A-ii,Student to instructional support staff ratio,14.1506647,1.304208728,43.4,
+Milford,Memorial Elementary School,3-A-ii,Student to instructional support staff ratio,16.60311958,1.530241436,43.4,
+Milford,Milford High School,3-A-ii,Student to instructional support staff ratio,46.38888889,4.27547363,43.4,
+Milford,Shining Star Early Childhood Center,3-A-ii,Student to instructional support staff ratio,5.482388974,0.505289306,43.4,
+Milford,Stacy Middle School,3-A-ii,Student to instructional support staff ratio,32.74691358,3.018148717,43.4,
+Milford,Woodland Elementary School,3-A-ii,Student to instructional support staff ratio,22.85714286,2.106649112,43.4,
+Revere,Beachmont Elementary School,3-A-ii,Student to instructional support staff ratio,38,3.502304147,43.4,
+Revere,Garfield Elementary School,3-A-ii,Student to instructional support staff ratio,39.57894737,3.647829251,43.4,
+Revere,Garfield Middle School,3-A-ii,Student to instructional support staff ratio,71.75,5,43.4,
+Revere,Hill Elementary School,3-A-ii,Student to instructional support staff ratio,65.81818182,5,43.4,
+Revere,Lincoln Elementary School,3-A-ii,Student to instructional support staff ratio,59,5,43.4,
+Revere,Paul Revere Elementary School,3-A-ii,Student to instructional support staff ratio,46.3,4.267281106,43.4,
+Revere,Revere High School,3-A-ii,Student to instructional support staff ratio,75.25925926,5,43.4,
+Revere,Rumney Marsh Academy,3-A-ii,Student to instructional support staff ratio,56.36363636,5,43.4,
+Revere,Seacoast High School,3-A-ii,Student to instructional support staff ratio,30.33333333,2.795698924,43.4,
+Revere,Susan B. Anthony Middle School,3-A-ii,Student to instructional support staff ratio,76.875,5,43.4,
+Revere,Whelan Elementary School,3-A-ii,Student to instructional support staff ratio,23.63636364,2.178466695,43.4,
+Winchester,Ambrose Elementary School,3-A-ii,Student to instructional support staff ratio,65.66666667,5,43.4,
+Winchester,Lincoln Elementary School,3-A-ii,Student to instructional support staff ratio,86.2,5,43.4,
+Winchester,Lynch Elementary School,3-A-ii,Student to instructional support staff ratio,60.875,5,43.4,
+Winchester,McCall Middle School,3-A-ii,Student to instructional support staff ratio,276,5,43.4,
+Winchester,Muraco Elementary School,3-A-ii,Student to instructional support staff ratio,94,5,43.4,
+Winchester,Vinson-Owen Elementary School,3-A-ii,Student to instructional support staff ratio,83.4,5,43.4,
+Winchester,Winchester High School,3-A-ii,Student to instructional support staff ratio,135.9,5,43.4,
+Milford,Milford High School,4-D-i,College enrollment rate (HS only),69,4.207317073,65.6,%
+Revere,Revere High School,4-D-i,College enrollment rate (HS only),69,4.207317073,65.6,%
+Revere,Seacoast High School,4-D-i,College enrollment rate (HS only),31.9,1.945121951,65.6,%
+Winchester,Winchester High School,4-D-i,College enrollment rate (HS only),90.5,5,65.6,%
+Milford,Milford High School,4-B-ii,4-year on-time graduation rate (HS only),91.4,4.57,80,%
+Revere,Revere High School,4-B-ii,4-year on-time graduation rate (HS only),92.8,4.64,80,%
+Revere,Seacoast High School,4-B-ii,4-year on-time graduation rate (HS only),29.5,1.475,80,%
+Winchester,Winchester High School,4-B-ii,4-year on-time graduation rate (HS only),94.9,4.745,80,%
+Milford,Brookside Elementary School,1-A-i,Percentage teachers with 5+ years of experience,90,4.5,80,%
+Milford,Memorial Elementary School,1-A-i,Percentage teachers with 5+ years of experience,92,4.6,80,%
+Milford,Milford High School,1-A-i,Percentage teachers with 5+ years of experience,82,4.1,80,%
+Milford,Shining Star Early Childhood Center,1-A-i,Percentage teachers with 5+ years of experience,80,4,80,%
+Milford,Stacy Middle School,1-A-i,Percentage teachers with 5+ years of experience,89,4.45,80,%
+Milford,Woodland Elementary School,1-A-i,Percentage teachers with 5+ years of experience,85,4.25,80,%
+Revere,Beachmont Elementary School,1-A-i,Percentage teachers with 5+ years of experience,75,3.75,80,%
+Revere,Garfield Middle School,1-A-i,Percentage teachers with 5+ years of experience,47,2.35,80,%
+Revere,Hill Elementary School,1-A-i,Percentage teachers with 5+ years of experience,76,3.8,80,%
+Revere,Lincoln Elementary School,1-A-i,Percentage teachers with 5+ years of experience,68,3.4,80,%
+Revere,Paul Revere Elementary School,1-A-i,Percentage teachers with 5+ years of experience,63,3.15,80,%
+Revere,Revere High School,1-A-i,Percentage teachers with 5+ years of experience,61,3.05,80,%
+Revere,Rumney Marsh Academy,1-A-i,Percentage teachers with 5+ years of experience,49,2.45,80,%
+Revere,Seacoast High School,1-A-i,Percentage teachers with 5+ years of experience,0.41,0.0205,80,%
+Revere,Susan B. Anthony Middle School,1-A-i,Percentage teachers with 5+ years of experience,67,3.35,80,%
+Revere,Whelan Elementary School,1-A-i,Percentage teachers with 5+ years of experience,82,4.1,80,%
+Winchester,Ambrose Elementary School,1-A-i,Percentage teachers with 5+ years of experience,82,4.1,80,%
+Winchester,Lincoln Elementary School,1-A-i,Percentage teachers with 5+ years of experience,66.6,3.33,80,%
+Winchester,Lynch Elementary School,1-A-i,Percentage teachers with 5+ years of experience,60,3,80,%
+Winchester,McCall Middle School,1-A-i,Percentage teachers with 5+ years of experience,71,3.55,80,%
+Winchester,Muraco Elementary School,1-A-i,Percentage teachers with 5+ years of experience,69,3.45,80,%
+Winchester,Vinson-Owen Elementary School,1-A-i,Percentage teachers with 5+ years of experience,84,4.2,80,%
+Winchester,Winchester High School,1-A-i,Percentage teachers with 5+ years of experience,92,4.6,80,%
+Milford,Milford High School,4-B-ii,5-year graduation rate (HS only),93.3,4.390588235,85,%
+Revere,Revere High School,4-B-ii,5-year graduation rate (HS only),90.4,4.254117647,85,%
+Revere,Seacoast High School,4-B-ii,5-year graduation rate (HS only),27.8,1.308235294,85,%
+Winchester,Winchester High School,4-B-ii,5-year graduation rate (HS only),99.3,4.672941176,85,%
+Attleboro,Attleboro High School,1-A-iii,Percent teacher returning (excluding retirement),90.6,4.263529412,85,%
+Attleboro,Cyril K. Brennan Middle School,1-A-iii,Percent teacher returning (excluding retirement),100,4.705882353,85,%
+Attleboro,Hyman Fine Elementary School,1-A-iii,Percent teacher returning (excluding retirement),92.9,4.371764706,85,%
+Attleboro,Hill-Roberts Elementary School,1-A-iii,Percent teacher returning (excluding retirement),89.3,4.202352941,85,%
+Attleboro,A. Irvin Studley Elementary School,1-A-iii,Percent teacher returning (excluding retirement),93.5,4.4,85,%
+Attleboro,Peter Thacher Elementary School,1-A-iii,Percent teacher returning (excluding retirement),83.3,3.92,85,%
+Attleboro,Wamsutta Middle School,1-A-iii,Percent teacher returning (excluding retirement),91.2,4.291764706,85,%
+Attleboro,Thomas Willett Elementary School,1-A-iii,Percent teacher returning (excluding retirement),100,4.705882353,85,%
+Milford,Brookside Elementary School,1-A-iii,Percent teacher returning (excluding retirement),97.5,4.588235294,85,%
+Milford,Memorial Elementary School,1-A-iii,Percent teacher returning (excluding retirement),97.5,4.588235294,85,%
+Milford,Milford High School,1-A-iii,Percent teacher returning (excluding retirement),96.8,4.555294118,85,%
+Milford,Shining Star Early Childhood Center,1-A-iii,Percent teacher returning (excluding retirement),100,4.705882353,85,%
+Milford,Stacy Middle School,1-A-iii,Percent teacher returning (excluding retirement),96.2,4.527058824,85,%
+Milford,Woodland Elementary School,1-A-iii,Percent teacher returning (excluding retirement),94.8,4.461176471,85,%
+Revere,Beachmont Elementary School,1-A-iii,Percent teacher returning (excluding retirement),100,4.705882353,85,%
+Revere,Garfield Middle School,1-A-iii,Percent teacher returning (excluding retirement),96,4.517647059,85,%
+Revere,Hill Elementary School,1-A-iii,Percent teacher returning (excluding retirement),100,4.705882353,85,%
+Revere,Lincoln Elementary School,1-A-iii,Percent teacher returning (excluding retirement),96,4.517647059,85,%
+Revere,Paul Revere Elementary School,1-A-iii,Percent teacher returning (excluding retirement),97,4.564705882,85,%
+Revere,Revere High School,1-A-iii,Percent teacher returning (excluding retirement),92,4.329411765,85,%
+Revere,Rumney Marsh Academy,1-A-iii,Percent teacher returning (excluding retirement),85,4,85,%
+Revere,Seacoast High School,1-A-iii,Percent teacher returning (excluding retirement),90,4.235294118,85,%
+Revere,Susan B. Anthony Middle School,1-A-iii,Percent teacher returning (excluding retirement),85,4,85,%
+Revere,Whelan Elementary School,1-A-iii,Percent teacher returning (excluding retirement),97,4.564705882,85,%
+Winchester,Ambrose Elementary School,1-A-iii,Percent teacher returning (excluding retirement),92.3,4.343529412,85,%
+Winchester,Lincoln Elementary School,1-A-iii,Percent teacher returning (excluding retirement),84.8,3.990588235,85,%
+Winchester,Lynch Elementary School,1-A-iii,Percent teacher returning (excluding retirement),82.4,3.877647059,85,%
+Winchester,McCall Middle School,1-A-iii,Percent teacher returning (excluding retirement),79.3,3.731764706,85,%
+Winchester,Muraco Elementary School,1-A-iii,Percent teacher returning (excluding retirement),88.6,4.169411765,85,%
+Winchester,Vinson-Owen Elementary School,1-A-iii,Percent teacher returning (excluding retirement),91.9,4.324705882,85,%
+Winchester,Winchester High School,1-A-iii,Percent teacher returning (excluding retirement),90.3,4.249411765,85,%
+Attleboro,Attleboro High School,2-C-i,Average daily attendance,93.2,4.142222222,90,%
+Attleboro,Cyril K. Brennan Middle School,2-C-i,Average daily attendance,95.1,4.226666667,90,%
+Attleboro,Robert J. Coelho Middle School,2-C-i,Average daily attendance,95.7,4.253333333,90,%
+Attleboro,Hyman Fine Elementary School,2-C-i,Average daily attendance,96.2,4.275555556,90,%
+Attleboro,Hill-Roberts Elementary School,2-C-i,Average daily attendance,95.4,4.24,90,%
+Attleboro,A. Irvin Studley Elementary School,2-C-i,Average daily attendance,95.5,4.244444444,90,%
+Attleboro,Peter Thacher Elementary School,2-C-i,Average daily attendance,94.9,4.217777778,90,%
+Attleboro,Wamsutta Middle School,2-C-i,Average daily attendance,95.7,4.253333333,90,%
+Attleboro,Thomas Willett Elementary School,2-C-i,Average daily attendance,95.4,4.24,90,%
+Milford,Brookside Elementary School,2-C-i,Average daily attendance,94.9,4.217777778,90,%
+Milford,Memorial Elementary School,2-C-i,Average daily attendance,94.9,4.217777778,90,%
+Milford,Milford High School,2-C-i,Average daily attendance,92.9,4.128888889,90,%
+Milford,Shining Star Early Childhood Center,2-C-i,Average daily attendance,91.3,4.057777778,90,%
+Milford,Stacy Middle School,2-C-i,Average daily attendance,94.8,4.213333333,90,%
+Milford,Woodland Elementary School,2-C-i,Average daily attendance,95.8,4.257777778,90,%
+Revere,Beachmont Elementary School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Revere,Garfield Elementary School,2-C-i,Average daily attendance,95,4.222222222,90,%
+Revere,Garfield Middle School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Revere,Hill Elementary School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Revere,Lincoln Elementary School,2-C-i,Average daily attendance,95,4.222222222,90,%
+Revere,Paul Revere Elementary School,2-C-i,Average daily attendance,95,4.222222222,90,%
+Revere,Revere High School,2-C-i,Average daily attendance,94,4.177777778,90,%
+Revere,Rumney Marsh Academy,2-C-i,Average daily attendance,96,4.266666667,90,%
+Revere,Seacoast High School,2-C-i,Average daily attendance,75,3.333333333,90,%
+Revere,Susan B. Anthony Middle School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Revere,Whelan Elementary School,2-C-i,Average daily attendance,95,4.222222222,90,%
+Winchester,Ambrose Elementary School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Winchester,Lincoln Elementary School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Winchester,Lynch Elementary School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Winchester,McCall Middle School,2-C-i,Average daily attendance,96.2,4.275555556,90,%
+Winchester,Muraco Elementary School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Winchester,Vinson-Owen Elementary School,2-C-i,Average daily attendance,96,4.266666667,90,%
+Winchester,Winchester High School,2-C-i,Average daily attendance,95.7,4.253333333,90,%
+Attleboro,Attleboro High School,3-B-i,Percent graduates completing MassCORE (HS only),87.4,3.884444444,90,%
+Milford,Milford High School,3-B-i,Percent graduates completing MassCORE (HS only),99.6,5,90,%
+Revere,Revere High School,3-B-i,Percent graduates completing MassCORE (HS only),100,5,90,%
+Revere,Seacoast High School,3-B-i,Percent graduates completing MassCORE (HS only),100,5,90,%
+Winchester,Winchester High School,3-B-i,Percent graduates completing MassCORE (HS only),87.3,3.88,90,%
+Attleboro,Attleboro High School,1-A-i,Percentage teachers teaching in area of licensure,98.2,4.134736842,95,%
+Attleboro,Cyril K. Brennan Middle School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,Robert J. Coelho Middle School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,Hyman Fine Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,Hill-Roberts Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,A. Irvin Studley Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,Peter Thacher Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,Wamsutta Middle School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,Thomas Willett Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Milford,Brookside Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Milford,Memorial Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Milford,Milford High School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Milford,Shining Star Early Childhood Center,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Milford,Stacy Middle School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Milford,Woodland Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Beachmont Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Garfield Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Garfield Middle School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Hill Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Lincoln Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Paul Revere Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Revere High School,1-A-i,Percentage teachers teaching in area of licensure,95.54,4.022736842,95,%
+Revere,Rumney Marsh Academy,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Seacoast High School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Revere,Susan B. Anthony Middle School,1-A-i,Percentage teachers teaching in area of licensure,97.69,4.113263158,95,%
+Revere,Whelan Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Winchester,Ambrose Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Winchester,Lincoln Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Winchester,Lynch Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Winchester,McCall Middle School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Winchester,Muraco Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Winchester,Vinson-Owen Elementary School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Winchester,Winchester High School,1-A-i,Percentage teachers teaching in area of licensure,100,5,95,%
+Attleboro,Attleboro High School,3-A-ii,Student to guidance counselor ratio,249.4285714,4.1,250,
+Attleboro,Cyril K. Brennan Middle School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Attleboro,Robert J. Coelho Middle School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Attleboro,Hyman Fine Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Attleboro,Hill-Roberts Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Attleboro,A. Irvin Studley Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Attleboro,Peter Thacher Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Attleboro,Wamsutta Middle School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Attleboro,Thomas Willett Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Milford,Brookside Elementary School,3-A-ii,Student to guidance counselor ratio,479,1.71,250,
+Milford,Memorial Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Milford,Milford High School,3-A-ii,Student to guidance counselor ratio,194.8333333,4.55,250,
+Milford,Shining Star Early Childhood Center,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Milford,Stacy Middle School,3-A-ii,Student to guidance counselor ratio,353.6666667,2.96,250,
+Milford,Woodland Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Revere,Beachmont Elementary School,3-A-ii,Student to guidance counselor ratio,342,3.08,250,
+Revere,Garfield Elementary School,3-A-ii,Student to guidance counselor ratio,376,2.74,250,
+Revere,Garfield Middle School,3-A-ii,Student to guidance counselor ratio,574,0.76,250,
+Revere,Hill Elementary School,3-A-ii,Student to guidance counselor ratio,724,0,250,
+Revere,Lincoln Elementary School,3-A-ii,Student to guidance counselor ratio,649,0,250,
+Revere,Paul Revere Elementary School,3-A-ii,Student to guidance counselor ratio,463,1.87,250,
+Revere,Revere High School,3-A-ii,Student to guidance counselor ratio,225.7777778,4.24,250,
+Revere,Rumney Marsh Academy,3-A-ii,Student to guidance counselor ratio,310,3.4,250,
+Revere,Seacoast High School,3-A-ii,Student to guidance counselor ratio,91,5,250,
+Revere,Susan B. Anthony Middle School,3-A-ii,Student to guidance counselor ratio,307.5,3.42,250,
+Revere,Whelan Elementary School,3-A-ii,Student to guidance counselor ratio,780,0,250,
+Winchester,Ambrose Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Winchester,Lincoln Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Winchester,Lynch Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Winchester,McCall Middle School,3-A-ii,Student to guidance counselor ratio,220.8,4.29,250,
+Winchester,Muraco Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Winchester,Vinson-Owen Elementary School,3-A-ii,Student to guidance counselor ratio,0,0,250,
+Winchester,Winchester High School,3-A-ii,Student to guidance counselor ratio,271.8,3.78,250,
+Attleboro,Attleboro High School,5-D-ii,Medical staff to student ratio,582,3.104,750,
+Attleboro,Cyril K. Brennan Middle School,5-D-ii,Medical staff to student ratio,594,3.168,750,
+Attleboro,Robert J. Coelho Middle School,5-D-ii,Medical staff to student ratio,651,3.472,750,
+Attleboro,Hyman Fine Elementary School,5-D-ii,Medical staff to student ratio,461,2.458666667,750,
+Attleboro,Hill-Roberts Elementary School,5-D-ii,Medical staff to student ratio,454,2.421333333,750,
+Attleboro,A. Irvin Studley Elementary School,5-D-ii,Medical staff to student ratio,396,2.112,750,
+Attleboro,Peter Thacher Elementary School,5-D-ii,Medical staff to student ratio,141.6666667,0.755555556,750,
+Attleboro,Wamsutta Middle School,5-D-ii,Medical staff to student ratio,578,3.082666667,750,
+Attleboro,Thomas Willett Elementary School,5-D-ii,Medical staff to student ratio,404,2.154666667,750,
+Milford,Brookside Elementary School,5-D-ii,Medical staff to student ratio,479,2.554666667,750,
+Milford,Memorial Elementary School,5-D-ii,Medical staff to student ratio,479,2.554666667,750,
+Milford,Milford High School,5-D-ii,Medical staff to student ratio,584.5,3.117333333,750,
+Milford,Shining Star Early Childhood Center,5-D-ii,Medical staff to student ratio,119.3333333,0.636444444,750,
+Milford,Stacy Middle School,5-D-ii,Medical staff to student ratio,530.5,2.829333333,750,
+Milford,Woodland Elementary School,5-D-ii,Medical staff to student ratio,508,2.709333333,750,
+Revere,Beachmont Elementary School,5-D-ii,Medical staff to student ratio,342,1.824,750,
+Revere,Garfield Elementary School,5-D-ii,Medical staff to student ratio,752,4.010666667,750,
+Revere,Garfield Middle School,5-D-ii,Medical staff to student ratio,574,3.061333333,750,
+Revere,Hill Elementary School,5-D-ii,Medical staff to student ratio,724,3.861333333,750,
+Revere,Lincoln Elementary School,5-D-ii,Medical staff to student ratio,649,3.461333333,750,
+Revere,Paul Revere Elementary School,5-D-ii,Medical staff to student ratio,463,2.469333333,750,
+Revere,Revere High School,5-D-ii,Medical staff to student ratio,677.3333333,3.612444444,750,
+Revere,Rumney Marsh Academy,5-D-ii,Medical staff to student ratio,620,3.306666667,750,
+Revere,Seacoast High School,5-D-ii,Medical staff to student ratio,91,0.485333333,750,
+Revere,Susan B. Anthony Middle School,5-D-ii,Medical staff to student ratio,615,3.28,750,
+Revere,Whelan Elementary School,5-D-ii,Medical staff to student ratio,780,4.16,750,
+Winchester,Ambrose Elementary School,5-D-ii,Medical staff to student ratio,394,2.101333333,750,
+Winchester,Lincoln Elementary School,5-D-ii,Medical staff to student ratio,431,2.298666667,750,
+Winchester,Lynch Elementary School,5-D-ii,Medical staff to student ratio,487,2.597333333,750,
+Winchester,McCall Middle School,5-D-ii,Medical staff to student ratio,552,2.944,750,
+Winchester,Muraco Elementary School,5-D-ii,Medical staff to student ratio,376,2.005333333,750,
+Winchester,Vinson-Owen Elementary School,5-D-ii,Medical staff to student ratio,417,2.224,750,
+Winchester,Winchester High School,5-D-ii,Medical staff to student ratio,339.75,1.812,750,
