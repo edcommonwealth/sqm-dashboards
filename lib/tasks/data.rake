@@ -1,7 +1,11 @@
 # PSQL: /Applications/Postgres.app/Contents/Versions/9.6/bin/psql -h localhost
 
+
+# aws s3 presign s3://irrationaldesign/beta-data-080719a.dump
+# sudo heroku pg:backups:restore 'https://irrationaldesign.s3.amazonaws.com/beta-data-080719a.dump?AWSAccessKeyId=AKIAIDGE3EMQEWUQZUJA&Signature=KrabUOeggEd5wrjLQ4bvgd9eZGU%3D&Expires=1565267251' DATABASE_URL -a mciea-beta
+
 # LOAD DATA
-# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development latest.dump; rake db:migrate;
+# RAILS_ENV=development rails db:environment:set db:drop db:create db:migrate; /Applications/Postgres.app/Contents/Versions/9.6/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -d mciea_development beta-data-08092019.dump; rake db:migrate;
 # rails c -> SchoolCategory.update_all(year: '2017')
 # rake data:load_questions_csv; rake data:load_responses
 
@@ -435,7 +439,7 @@ namespace :data do
 
   desc 'Load in nonlikert values for each school'
   task load_nonlikert_values: :environment do
-    csv_string = File.read(File.expand_path("../data/MCIEA_17-18AdminData.csv", __FILE__))
+    csv_string = File.read(File.expand_path("../../../data/MCIEA_18-19AdminData_Final.csv", __FILE__))
     # csv_string = File.read(File.expand_path("../../../data/MCIEA_16-17_SGP.csv", __FILE__))
     csv = CSV.parse(csv_string, :headers => true)
     puts("LOADING NONLIKERT CSV: #{csv.length} ROWS")
@@ -477,14 +481,14 @@ namespace :data do
 
       school = district.schools.where(name: row["School"]).first
       if school.blank?
-        row["reason"] = "SCHOOL NOT FOUND: #{row["School"]}"
+        row["reason"] = "SCHOOL NOT FOUND: #{row["School"]} (#{district.name})"
         errors << row
         next
       end
 
       school_category = school.school_categories.find_or_create_by(category: nonlikert_category, year: "#{@year}")
       if school_category.blank?
-        row["reason"] = "SCHOOL CATEGORY NOT FOUND: #{school.name} #{nonlikert_category.name}"
+        row["reason"] = "SCHOOL CATEGORY NOT FOUND: #{school.name} (#{district.name}) #{nonlikert_category.name}"
         errors << row
         next
       end
@@ -682,10 +686,13 @@ end
 
 # min_response_rate = 0.3
 # level = 1
-# categories = Category.joins(:questions).uniq.all
+# # categories = Category.joins(:questions).uniq.all
 # # categories = [Category.find_by_slug("student-emotional-safety-scale")]
+# questions = Question.created_in(2019).where(reverse: true, target_group: "for_students")
+# categories = questions.map(&:category).uniq
+#
 # categories.each do |category|
-#   category.school_categories.joins(school: :district).where("districts.name = 'Boston'").each do |school_category|
+#   category.school_categories.in(2019).joins(school: :district).where("districts.name = 'Boston'").each do |school_category|
 #   # category.school_categories.joins(school: :district).where("districts.name = 'Boston' and schools.slug = 'boston-community-leadership-academy'").each do |school_category|
 #     school_question_data = school_category.
 #       school_questions.
@@ -699,8 +706,8 @@ end
 #     student_questions = school_questions.merge(Question.for_students)
 #     teacher_questions = school_questions.merge(Question.for_teachers)
 #     if (student_questions.count > 0 && teacher_questions.count > 0)
-        # NEED TO CHECK IF STUDENT OR TEACHER QUESTIONS EXIST
-
+#         # NEED TO CHECK IF STUDENT OR TEACHER QUESTIONS EXIST
+#
 #       if (student_questions.where("response_rate > #{min_response_rate}").count == 0 ||
 #           teacher_questions.where("response_rate > #{min_response_rate}").count == 0)
 #           valid_child_count = 0
@@ -782,25 +789,21 @@ end
 
 
 # [
-#   "hennigan-elementary",
-#   "henderson-k-12",
-#   "mattahunt",
-#   "lyndon-k-8"
+#   "next-wave-full-circle"
 # ].each do |slug|
-#   year = 2019
 #   school = School.find_by_slug(slug)
-#   base_categories = Category.joins(:questions).to_a.flatten.uniq
+#   base_categories = Category.all.to_a.flatten.uniq
 #   base_categories.each do |category|
-#     SchoolCategory.for(school, category).in(year).each do |school_category|
-#       dup_school_categories = SchoolCategory.for(school, category).in(year)
+#     SchoolCategory.for(school, category).in(2018).each do |school_category|
+#       dup_school_categories = SchoolCategory.for(school, category).in(school_category.year)
 #       if dup_school_categories.count > 1
 #         puts dup_school_categories.first.inspect
 #         dup_school_categories.each { |dsc| dsc.destroy unless dsc.id == school_category.id }
 #         school_category.sync_aggregated_responses
 #         parent = category.parent_category
 #         while parent != nil
-#           SchoolCategory.for(school, parent).in(year).valid.each do |parent_school_category|
-#             parent_dup_school_categories = SchoolCategory.for(school, parent).in(year)
+#           SchoolCategory.for(school, parent).in(school_category.year).valid.each do |parent_school_category|
+#             parent_dup_school_categories = SchoolCategory.for(school, parent).in(school_category.year)
 #             if parent_dup_school_categories.count > 1
 #               parent_dup_school_categories.each { |pdsc| pdsc.destroy unless pdsc.id == parent_school_category.id }
 #               parent_school_category.sync_aggregated_responses
@@ -937,4 +940,23 @@ end
 #   category.school_categories.in(2019).each do |school_category|
 #     school_category.sync_aggregated_responses
 #   end
+# end
+
+# questions = Question.created_in(2019).where(reverse: true, target_group: "for_students")
+# categories = questions.map(&:category).uniq
+# schools = District.find_by_name("Boston").schools
+# schools.each_with_index do |school, si|
+#   ENV['BULK_PROCESS'] = 'true'
+#
+#   questions.each_with_index do |question, qi|
+#     attempts = Attempt.for_school(school).for_question(question)
+#     puts "XXXXX School #{si}/#{schools.length}, Question #{qi}/#{questions.length}, Attempts: #{attempts.length}"
+#     attempts.each do |attempt|
+#       attempt.update(answer_index: attempt.answer_index_with_reverse)
+#     end
+#
+#     SchoolQuestion.for(school, question).in(2019).each { |sq| sq.sync_attempts() }
+#   end
+#
+#   ENV.delete('BULK_PROCESS')
 # end
