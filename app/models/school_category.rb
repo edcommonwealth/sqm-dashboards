@@ -53,6 +53,8 @@ class SchoolCategory < ApplicationRecord
   end
 
   def chained_aggregated_responses
+    return {} if nonlikert.present?
+
     _aggregated_responses = aggregated_responses
 
     child_school_categories = []
