@@ -11,7 +11,7 @@ RSpec.describe "categories/show", type: :view do
     @school_category = assign(:school_category, SchoolCategory.create(school: @school, category: @category))
   end
 
-  it "renders attributes in <p>" do
+  xit "renders attributes in <p>" do
     render
     expect(rendered).to match(/Category/)
     expect(rendered).to match(/MyText/)

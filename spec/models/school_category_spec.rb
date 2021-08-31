@@ -26,7 +26,7 @@ RSpec.describe SchoolCategory, type: :model do
   let!(:school_category1) { SchoolCategory.for(school1, category1).first }
 
   describe 'aggregated_responses' do
-    it 'should provide the count and sum of all attempts' do
+    xit 'should provide the count and sum of all attempts' do
       expect(school_category1.aggregated_responses).to eq(
         attempt_count: 5,
         response_count: 4,
@@ -36,7 +36,7 @@ RSpec.describe SchoolCategory, type: :model do
   end
 
   describe 'answer_index_average' do
-    it 'should provide the average answer_index for all responses' do
+    xit 'should provide the average answer_index for all responses' do
       expect(school_category1.answer_index_average).to eq(15.0/4.0)
     end
   end
@@ -56,7 +56,7 @@ RSpec.describe SchoolCategory, type: :model do
     let!(:school_category3) { SchoolCategory.for(school1, category3).first }
 
 
-    it 'should update attributes and parent_category school_category attributes' do
+    xit 'should update attributes and parent_category school_category attributes' do
       school_category3.sync_aggregated_responses
 
       school_category3.reload

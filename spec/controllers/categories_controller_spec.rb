@@ -31,6 +31,10 @@ RSpec.describe CategoriesController, type: :controller do
     {name: ''}
   }
 
+  let(:district) {
+    District.create! name: 'District'
+  }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # CategoriesController. Be sure to keep this updated too.
@@ -46,7 +50,7 @@ RSpec.describe CategoriesController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested school and category as @school and @category" do
-      school = School.create! name: 'School'
+      school = School.create! name: 'School', district: district
       category = Category.create! valid_attributes
       get :show, params: {school_id: school.id, id: category.to_param}, session: valid_session
       expect(assigns(:category)).to eq(category)
