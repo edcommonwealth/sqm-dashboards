@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :questions
   resources :categories
   resources :districts
+  resources :experiments
 
   resources :schools do
     resources :recipient_lists
