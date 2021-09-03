@@ -1,139 +1,1509 @@
 [
-  {"category": "1-A-i", "text": "Given your preparation for teaching how comfortable are you teaching at the grade-level you have been assigned?", "answers": ["Not at all comfortable", "Slightly comfortable", "Somewhat comfortable", "Mostly comfortable", "Extremely comfortable"]},
-  {"category": "1-A-i", "text": "How prepared are you for teaching the topics that you are expected to teach in your assignment?", "answers": ["Not prepared at all", "Slightly prepared", "Somewhat prepared", "Mostly prepared", "Thoroughly prepared"]},
-  {"category": "1-A-i", "text": "How confident are you in working with the student body at your school?", "answers": ["Not at all confident","Slightly confident","Somewhat confident","Mostly confident","Extremely confident"]},
-  {"category": "1-A-ii", "text": "Overall, how much have you learned from your .* teacher?", "answers": ["Almost nothing", "A little bit", "Some", "Quite a bit", "A tremendous amount"]},
-  {"category": "1-A-ii", "text": "For this class, how clearly does your .* teacher present the information that you need to learn?", "answers": ["Not at all clearly", "A little bit clearly", "Somewhat", "Quite clearly", "Extremely clearly"]},
-  {"category": "1-A-ii", "text": "When you need extra help, how good is your .* teacher at giving you that help?", "answers": ["Not at all good", "Slightly good", "Somewhat good", "Quite good", "Extremely good"]},
-  {"category": "1-A-ii", "text": "How good is your .* teacher at teaching in the way that you personally learn best?", "answers": ["Not at all good", "Slightly good", "Somewhat good", "Quite good", "Extremely good"]},
-  {"category": "1-A-ii", "text": "How well can your .* teacher tell whether or not you understand a topic?", "answers": ["Not at all well", "A little well", "Somewhat well", "Quite well", "Extremely well"]},
-  {"category": "1-A-ii", "text": "How interesting does your .* teacher make the things you are learning?", "answers": ["Not at all interesting", "Slightly interesting", "Somewhat interesting", "Quite interesting", "Extremely interesting"]},
-  {"category": "1-A-ii", "text": "How good is your .* teacher at helping you learn?", "answers": ["Not at all good", "Slightly good", "Somewhat good", "Quite good", "Extremely good"]},
-  {"category": "1-B-i", "text": "How many teachers in this school feel responsible to help each other do their best?", "answers": ["None", "Some", "About half", "Most", "Nearly all"]},
-  {"category": "1-B-i", "text": "How many teachers in this school take responsibility for improving the school?", "answers": ["None", "Some", "About half", "Most", "Nearly all"]},
-  {"category": "1-B-i", "text": "How many teachers in this school set high standards for themselves?", "answers": ["None", "Some", "About half", "Most", "Nearly all"]},
-  {"category": "1-B-i", "text": "This year, how often have you had conversations with your colleagues about the goals of this school?", "answers": ["Never", "Less than once a month", "Two or three times a month", "Once or twice a week", "Almost daily"]},
-  {"category": "1-B-i", "text": "This year, how often have you had conversations with your colleagues about what helps students learn?", "answers": ["Never", "Less than once a month", "Two or three times a month", "Once or twice a week", "Almost daily"]},
-  {"category": "1-B-i", "text": "As a faculty, how well do you do talking through views, opinions, and values?", "answers": ["Not at all well", "Slightly well", "Somewhat well","Quite well","Tremendously well"]},
-  {"category": "1-B-i", "text": "This year, how often have you had colleagues observe your classroom?", "answers": ["Never", "Once or twice", "Three or four times","Five to nine times","More than 10 times"]},
-  {"category": "1-B-i", "text": "This year, how often have you received useful suggestions for curriculum materials from colleagues?", "answers": ["Never", "Once or twice", "Three or four times","Five to nine times","More than 10 times"]},
-  {"category": "1-B-ii", "text": "To what extent has your professional development included enough time to explore new ideas?", "answers": ["Not at all", "A little bit", "Somewhat", "Quite a bit", "A tremendous amount"]},
-  {"category": "1-B-ii", "text": "How much would you say that your professional development has been sustained/consistent (rather than discontinuous)?", "answers": ["Not at all sustained", "Slightly sustained", "Somewhat sustained", "Quite sustained", "Thoroughly sustained"]},
-  {"category": "1-B-ii", "text": "To what extent has your professional development been connected to the topics you teach?", "answers": ["Not at all connected", "Slightly connected", "Somewhat connected", "Quite connected", "Tremendously connected"]},
-  {"category": "1-B-ii", "text": "Overall, how strong has support for your professional growth been?", "answers": ["Not strong at all", "Slightly strong", "Moderately strong", "Quite strong", "Extremely strong"]},
-  {"category": "1-B-ii", "text": "How often do teachers here work together to plan curriculum and instruction?", "answers": ["Almost never", "Once in a while", "Sometimes", "Frequently", "Almost all the time"]},
-  {"category": "1-B-ii", "text": "How hard do teachers here work to coordinate their teaching with instruction at other grade levels?", "answers": ["Not hard at all", "A little hard", "Somewhat hard", "Quite hard", "Extremely hard"]},
-  {"category": "1-B-ii", "text": "How often do teachers here collaborate to make the school run effectively?", "answers": ["Almost never", "Once in a while", "Sometimes", "Frequently", "Almost all the time"]},
-  {"category": "1-B-iii", "text": "To what extent do you trust your principal at his or her word?", "answers": ["Not at all", "A little bit", "Somewhat", "Quite a bit", "A tremendous amount"]},
-  {"category": "1-B-iii", "text": "At your school, how comfortable are you raising concerns with the principal?", "answers": ["Not at all comfortable", "Slightly comfortable", "Somewhat comfortable", "Quite comfortable", "Extremely comfortable"]},
-  {"category": "1-B-iii", "text": "How much do you trust your principal to stand up for you in disagreements with parents?", "answers": ["Not at all", "A little bit ", "Somewhat", "Quite a bit", "A tremendous amount"]},
-  {"category": "1-B-iii", "text": "To what extent do you think your principal has the best interests of the school in mind? ", "answers": ["Not at all", "A little bit ", "Somewhat", "Quite a bit", "A tremendous amount"]},
-  {"category": "1-B-iii", "text": "How effectively does your principal communicate a clear vision of teaching and learning? ", "answers": ["Not at all effectively", "Slightly effectively", "Somewhat effectively", "Quite effectively", "Extremely effectively"]},
-  {"category": "1-B-iii", "text": "How effectively does your principal press teachers to engage in good pedagogical practice?", "answers": ["Not at all effectively", "Slightly effectively", "Somewhat effectively", "Quite effectively", "Extremely effectively"]},
-  {"category": "1-B-iii", "text": "How carefully does your principal track students’ academic progress?", "answers": ["Not carefully at all", "Slightly carefully", "Somewhat carefully", "Quite carefully", "Extremely carefully"]},
-  {"category": "1-B-iii", "text": "How much does your principal know about what’s going on in teachers’ classrooms?", "answers": ["Almost nothing", "A little bit", "A moderate amount", "Quite a bit", "A tremendous amount"]},
-  {"category": "2-A-i", "text": "How often do you worry about violence at your school?", "answers": ["Almost never", "Rarely", "Occassionaly", "Regularly", "Very frequently"]},
-  {"category": "2-A-i", "text": "How often do students get into physical fights at your school?", "answers": ["Almost never", "Rarely", "Occasionally", "Regularly", "Very frequently"]},
-  {"category": "2-A-i", "text": "Overall, how safe do you feel at school?", "answers": ["Extremely unsafe", "Quite unsafe", "Somewhat unsafe", "Quite safe", "Extremely safe"]},
-  {"category": "2-A-i", "text": "How often do you feel like you might be harmed by someone at school?", "answers": ["Almost never", "Rarely", "Occasionally", "Regularly", "Very frequently"]},
-  {"category": "2-A-ii", "text": "How often are students bullied at school?", "answers": ["Almost never", "Rarely", "Occasionally", "Regularly", "Very frequently"]},
-  {"category": "2-A-ii", "text": "How often are students bullied because of who they are?", "answers": ["Almost never", "Rarely", "Occasionally", "Regularly", "Very frequently"]},
-  {"category": "2-A-ii", "text": "Overall, how unkind are students to each other?", "answers": ["Very unkind", "Quite unkind", "Somewhat unkind", "A little bit unkind", "Not at all unkind"]},
-  {"category": "2-A-ii", "text": "How often do you observe students teasing other students at your school?", "answers": ["Almost never", "Rarely", "Occasionally", "Regularly", "Very frequently"]},
-  {"category": "2-A-ii", "text": "How often do you think students at your school are bullied online?", "answers": ["Almost never", "Rarely", "Occasionally", "Regularly", "Very frequently"]},
-  {"category": "2-A-ii", "text": "How worried are you that you will be bullied because of who you are?", "answers": ["Not at all worrried", "Slightly worried", "Somewhat worried", "Quite worried", "Extremely worried"]},
-  {"category": "2-B-i", "text": "How much do students at this school care about each other? ", "answers": ["Not at all", "A little bit", "Somewhat", "A good amount", "A lot"]},
-  {"category": "2-B-i", "text": "How often do students at this school help each other learn? ", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Almost all the time"]},
-  {"category": "2-B-i", "text": "How well do students at this school get along with each other?", "answers": ["Not at all", "A little bit", "Somewhat", "Quite a bit", "A great deal"]},
-  {"category": "2-B-i", "text": "At this school, how respectful are students to each other?", "answers": ["Not respectful at all", "A little bit respectful", "Somewhat respectful", "Quite respectful", "Tremendously respectful"]},
-  {"category": "2-B-i", "text": "Overall, how much do you feel like you belong at your school?", "answers": ["Do not belong", "Belong a little bit", "Belong somewhat ", "Belong quite a bit", "Almost totally belong"]},
-  {"category": "2-B-i", "text": "At your school, how accepted do you feel by the other students? ", "answers": ["Not at all accepted", "A little accepted", "Somewhat accepted", "Quite accepted", "Extremely accepted"]},
-  {"category": "2-B-i", "text": "How well do people at your school understand you?", "answers": ["Don't understand me", "Understand me a little", "Understand me somewhat", "Understand me quite a bit", "Understand me extremely well"]},
-  {"category": "2-B-i", "text": "How much support do the adults at your school give you?", "answers": ["No support at all", "A little bit of support", "Some support", "Quite a bit of support", "A great deal of support"]},
-  {"category": "2-B-i", "text": "How much respect do students in your school show you? ", "answers": ["No respect at all", "A little bit of respect", "Some respect", "Quite a bit of respect", "A great deal of respect"]},
-  {"category": "2-B-i", "text": "How connected do you feel to the adults at your school? ", "answers": ["Not at all connected", "Slightly connected", "Somewhat connected", "Quite connected", "Extremely well connected"]},
-  {"category": "2-B-ii", "text": "When your .* teacher asks how you are doing, how often do you feel that he/she is really interested in your answer?", "answers": ["Almost never", "Once in awhile", "Sometimes", "Often", "Almost Always"]},
-  {"category": "2-B-ii", "text": "How interested is your .* teacher in what you do outside of class?", "answers": ["Not at all interested", "A little bit interested", "Slightly interested", "Quite interested", "Extremely interested"]},
-  {"category": "2-B-ii", "text": "If you walked into class upset, how concerned would your .* teacher be?", "answers": ["Not at all concerned", "A little bit concerned", "Somewhat concerned", "Quite concerned", "Extremely concerned"]},
-  {"category": "2-B-ii", "text": "If you came back to visit class three years from now, how excited would your .* teacher be to see you?", "answers": ["Not at all excited", "A little bit excited", "Somewhat excited", "Quite excited", "Extremely excited"]},
-  {"category": "2-B-ii", "text": "If you had something on your mind, how carefully would your .* teacher listen to you?", "answers": ["Not at all carefully", "A little carefully", "Somewhat carefully", "Quite carefully", "Extremely carefully"]},
-  {"category": "2-C-i", "text": "Overall, how important is school to you?", "answers": ["Not at all important", "Slightly important", "Somewhat important", "Quite important", "Extremely important"]},
-  {"category": "2-C-i", "text": "How often do you use ideas from school in your daily life?", "answers": ["Almost never", "Once in awhile", "Sometimes", "Often", "Very frequently"]},
-  {"category": "2-C-i", "text": "How interesting do you find the things you learn in school?", "answers": ["Not at all interesting", "Slightly interesting", "Somewhat interesting", "Quite interesting ", "Extremely interesting"]},
-  {"category": "2-C-i", "text": "How curious are you to learn more about things you talked about in school?", "answers": ["Not at all curious", "Slightly curious", "Somewhat curious", "Quite curious", "Extremely curious"]},
-  {"category": "2-C-i", "text": "How much do you enjoy learning in school?", "answers": ["Do not enjoy at all", "Enjoy a little bit", "Enjoy somewhat", "Enjoy quite a bit", "Enjoy a tremendous amount"]},
-  {"category": "2-C-i", "text": "How much do you see yourself as a learner?", "answers": ["Don't see myself as a learner at all","See myself as a learner a little bit","See myself somewhat as a learner","See myself as a learner to some extent","See myself completely as a learner"]},
-  {"category": "2-C-ii", "text": "How much does your .* teacher encourage you to do your best?", "answers": ["Does not encourage me at all", "Encourages me a little bit", "Encourages me some", "Encourages me quite a bit", "Encourages me a tremendous amount"]},
-  {"category": "2-C-ii", "text": "When you feel like giving up on a difficult task, how likely is it that your .* teacher will help you keep trying?", "answers": ["Not at all likely", "Slightly likely", "Somewhat likely", "Quite likely", "Extremely likely"]},
-  {"category": "2-C-ii", "text": "How often does your .* teacher ask you to explain your answers?", "answers": ["Almost never", "Once in awhile", "Sometimes", "Often", "Almost always"]},
-  {"category": "2-C-ii", "text": "In this class, how hard does your .* teacher make you think? ", "answers": ["Not hard at all", "Slightly hard", "Somewhat hard", "Quite hard", "Extremely hard"]},
-  {"category": "2-C-ii", "text": "How often does your .* teacher take time to make sure you understand the material?", "answers": ["Almost never","Once in a while","Sometimes","Often","Almost always"]},
-  {"category": "3-A-i", "text": "How adequate is your access to the materials you need to effectively teach?", "answers": ["Not at all adequate", "Somewhat adequate", "Mostly adequate", "Totally adequate", "More than adequate"]},
-  {"category": "3-A-i", "text": "How adequate is your access to the technology you need to effectively teach?", "answers": ["Not at all adequate", "Somewhat adequate", "Mostly adequate", "Totally adequate", "More than adequate"]},
-  {"category": "3-A-i", "text": "How adequate is the support you receive for using technology? ", "answers": ["Not at all adequate", "Somewhat adequate", "Mostly adequate", "Totally adequate", "More than adequate"]},
-  {"category": "3-A-i", "text": "How sufficient is the physical space for school activities?", "answers": ["Not at all sufficient", "Somewhat insufficient", "Moderately sufficient", "Totally sufficient", "More than sufficient"]},
-  {"category": "3-A-i", "text": "How well-maintained are school facilities?", "answers": ["Not at all well-maintained","Slightly well-maintained","Moderately well-maintained","Quite well-maintained","Extremely well-maintained"]},
-  {"category": "3-A-ii", "text": "Overall, how effective is the support students receive from non-teaching staff?", "answers": ["Not effective", "Slightly effective", "Somewhat effective", "Effective", "Very effective"]},
-  {"category": "3-A-ii", "text": "How adeqaute is the number of non-teaching support staff?", "answers": ["Not at all adequate", "Somewhat inadequate", "Mostly adequate", "Totally adequate", "More than adequate"]},
-  {"category": "3-A-ii", "text": "How often are non-teaching support staff available for students with non-academic issues?", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Almost always"]},
-  {"category": "3-A-ii", "text": "How often are non-teaching support staff available for students who are struggling academically?", "answers": ["Almost never", "Once in a while","Sometimes","Often", "Almost always"]},
-  {"category": "3-A-ii", "text": "When you are hurt, sad, or just need to talk to someone, is there an adult at school other than your teacher you can go to?", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Almost all the time"]},
-  {"category": "3-A-ii", "text": "When you need help learning something, is there an adult at school other than your teacher who can work with you?", "answers": ["Almost never", "Once in a while","Sometimes","Often", "Almost all the time"]},
-  {"category": "3-B-i", "text": "Overall, how rigorous is the curriculum that you are expected to teach?", "answers": ["Not at all rigorous", "A little bit rigorous", "Somewhat rigorous", "Rigorous", "Very rigorous"]},
-  {"category": "3-B-i", "text": "How coherent is the curriculum that you are expected to teach?", "answers": ["Not at all coherent", "A little bit coherent", "Somewhat coherent", "Coherent", "Very coherent"]},
-  {"category": "3-B-i", "text": "If one of your students transferred to another district with a challenging assortment of courses, how well prepared would he or she be?", "answers": ["Not at all prepared", "A little bit prepared", "Somewhat prepared", "Prepared", "Very prepared"]},
-  {"category": "3-B-i", "text": "How well-rounded is the curriculum that you and your colleagues teach?", "answers": ["Not at all well-rounded", "Slightly well-rounded", "Somewhat well-rounded", "Well-rounded", "Very well-rounded"]},
-  {"category": "3-B-ii", "text": "How able are you to integrate material from different cultures into your class?", "answers": ["Not able", "Slightly able", "Somewhat able", "Quite able", "Extremely able"]},
-  {"category": "3-B-ii", "text": "How often do you integrate culturally diverse content into your teaching?", "answers": ["Almost never", "Once in awhile", "Sometimes", "Quite a bit", "A great deal"]},
-  {"category": "3-B-ii", "text": "How often do you use teaching strategies to facilitate learning among culturally diverse students?", "answers": ["Almost never", "Once in awhile", "Sometimes", "Quite a bit", "A great deal"]},
-  {"category": "3-B-ii", "text": "How motivated are you to integrate culturally diverse content in your classroom?", "answers": ["Not motivated", "Slightly motivated", "Somewhat motivated", "Quite motivated", "Extremely motivated"]},
-  {"category": "3-C-i", "text": "How often do you meet in person with parents at your school?", "answers": ["Almost never", "Once or twice per year", "Every few months", "Monthly", "Every few weeks"]},
-  {"category": "3-C-i", "text": "How involved have parents been in fundraising efforts at your school?", "answers": ["Not at all involved", "A little bit involved", "Somewhat involved", "Quite involved", "Extremely involved "]},
-  {"category": "3-C-i", "text": "How involved have parents been with parent groups at your school?", "answers": ["Not at all involved", "A little bit involved", "Somewhat involved", "Quite involved", "Extremely involved "]},
-  {"category": "3-C-i", "text": "How often does the average parent help out at your school?", "answers": ["Almost never","Once or twice per year","Every few months","Monthly","Every few weeks"]},
-  {"category": "3-C-ii", "text": "How effectively does this school connect with immigrant families, providing translation when necessary?", "answers": ["Not at all effectively", "Slightly effectively", "Somewhat effectively", "Effectively", "Very effectively"]},
-  {"category": "3-C-ii", "text": "How effectively does this school respond to the needs and values of the surrounding community?", "answers": ["Not at all effectively", "Slightly effectively", "Somewhat effectively", "Effectively", "Very effectively"]},
-  {"category": "3-C-ii", "text": "To what extent are all groups of parents represented in the governance of the school?", "answers": ["Not at all represented", "Slightly represented", "Somewhat represented", "Well represented", "Very well represented"]},
-  {"category": "3-C-ii", "text": "Overall, how effectively does this school connect with the community?", "answers": ["Not at all effectively", "Slightly effectively", "Somewhat effectively", "Effectively", "Very effectively"]},
-  {"category": "4-A-ii", "text": "Relative to what you know of students this age, how much effort did your students put forth in your class this year?", "answers": ["Almost no effort", "A little bit of effort", "Some effort", "Quite a bit of effort", "A tremendous amount of effort"]},
-  {"category": "4-A-ii", "text": "If student work from your classes was compared with work from \"average\" Massachusetts classes of the same grades/subjects, how do you think an objective observer would rate the work?", "answers": ["Significantly below grade-level average", "Somewhat below grade-level average", "Average for the grade level", "Above grade-level average", "Significantly above grade-level average"]},
-  {"category": "4-A-ii", "text": "If an observer sat in on one of your classes for a week, how would she or he rate your students?", "answers": ["Significantly below grade-level average","Somewhat below grade-level average","Average for the grade level","Above grade-level average","Significantly above grade-level average"]},
-  {"category": "4-B-i", "text": "How excited are you about going to this class? ", "answers": ["Not at all excited", "A little bit excited", "Somewhat excited", "Quite excited", "Extremely excited"]},
-  {"category": "4-B-i", "text": "Overall, how interested are you in this class?", "answers": ["Not at all interested", "A little bit interested", "Somewhat interested", "Quite interested", "Extremely interested"]},
-  {"category": "4-B-i", "text": "How often do you take time outside of class to learn more about what you are studying in class?", "answers": ["Almost never","Once in a while","Sometimes","Often","Very often"]},
-  {"category": "4-C-i", "text": "How often do students at your school come up with their own interpretations of material?  ", "answers": ["Almost never", "Once in a while", "Sometimes", "Frequently", "Almost all the time"]},
-  {"category": "4-C-i", "text": "How often do students apply ideas they have learned to new situations? ", "answers": ["Almost never", "Once in a while", "Sometimes", "Frequently", "Almost all the time"]},
-  {"category": "4-C-i", "text": "How often do students collaborate in class to solve complex problems?", "answers": ["Almost never","Once in a while", "Sometimes", "Frequently", "Almost all the time"]},
-  {"category": "5-A-i", "text": "How often do you attempt to understand your friends better by trying to figure out what they are thinking? ", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Very frequently"]},
-  {"category": "5-A-i", "text": "How often do you try to think of more than one explanation for why someone else acted as they did? ", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Very frequently"]},
-  {"category": "5-A-i", "text": "Overall, how often do you try to understand the point of view of other people? ", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Very frequently"]},
-  {"category": "5-A-i", "text": "How often do you try to figure out what motivates others to behave as they do?", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Very frequently"]},
-  {"category": "5-A-i", "text": "In general, how often do you try to understand how other people see things?", "answers": ["Almost never", "Once in a while", "Sometimes", "Often", "Very frequently"]},
-  {"category": "5-A-ii", "text": "How much do you believe that being concerned with national, state, and local issues is everyone's responsibility?", "answers": ["Not at all", "A little bit", "Somewhat", "Quite a bit", "A great deal"]},
-  {"category": "5-A-ii", "text": "How important is it to you to get involved in improving your community? ", "answers": ["Not at all important", "Slightly important", "Somewhat important", "Quite important", "Extremely important"]},
-  {"category": "5-A-ii", "text": "How important is it to you to actively challenge inequalities in society?", "answers": ["Not at all important", "Slightly important", "Somewhat", "Quite important", "Extremely important"]},
-  {"category": "5-A-ii", "text": "How important is it to you to take action when something in society needs changing?", "answers": ["Not at all important", "Slightly important", "Somewhat important", "Quite important", "Extremely important"]},
-  {"category": "5-B-i", "text": "If you face a problem while working towards an important goal, how well can you keep working? ", "answers": ["Not well at all", "Slightly well", "Somewhat well", "Quite well", "Extremely well"]},
-  {"category": "5-B-i", "text": "How important is it to you to finish things you start?", "answers": ["Not important at all", "Slightly important", "Somewhat important", "Quite important", "Extremely important"]},
-  {"category": "5-B-i", "text": "How confident are you that you can remain focused on what you are doing, even when there are distractions? ", "answers": ["Not confident at all", "Slightly confident", "Somewhat confident", "Quite confident", "Extremely confident"]},
-  {"category": "5-B-i", "text": "If you fail to reach an important goal, how likely are you to try again? ", "answers": ["Not likely at all", "Slightly likely", "Somewhat likely", "Quite likely", "Extremely likely"]},
-  {"category": "5-B-i", "text": "How likely is it that you can motivate yourself to do unpleasant tasks if they will help you meet your goals?", "answers": ["Not likely at all", "Slightly likely", "Somewhat likely", "Quite likely", "Extremely likely"]},
-  {"category": "5-B-ii", "text": "How much do you think you can change your own intelligence?", "answers": ["Can't change it at all", "Can change it a bit", "Can change it somewhat","Can change it significantly", "Can change it tremendously"]},
-  {"category": "5-B-ii", "text": "How much do you think that being good at math is something you can change?", "answers": ["Can't change it at all", "Can change it a bit", "Can change it somewhat","Can change it significantly", "Can change it tremendously"]},
-  {"category": "5-B-ii", "text": "How much do you think that needing to try really hard in a subject at school means you can’t be good at it?", "answers": ["Don't think that at all", "Think that it a bit", "Think that somewhat","Think that quite a bit", "Think that very much"]},
-  {"category": "5-C-i", "text": "In a typical week at your school, what is the minimum amount of time a student could spend in creative arts instruction or activities?", "answers": ["Less than one hour","One hour per week", "Two or three hours per week", "Four or five hours per week", "More than five hours per week"]},
-  {"category": "5-C-i", "text": "In a typical week at your school, what is the average amount of time a student could spend in creative arts instruction or activities?", "answers": ["Less than one hour","One hour per week", "Two or three hours per week", "Four or five hours per week", "More than five hours per week"]},
-  {"category": "5-C-i", "text": "In a typical week at your school, what is the maximum amount of time a student could spend in creative arts instruction or activities?", "answers": ["Less than one hour","One hour per week", "Two or three hours per week", "Four or five hours per week", "More than five hours per week"]},
-  {"category": "5-C-i", "text": "In a typical week, how much time do you spend in creative arts instruction or activities?", "answers": ["Less than one hour","One hour per week", "Two or three hours per week", "Four or five hours per week", "More than five hours per week"]},
-  {"category": "5-C-ii", "text": "If your friends or family wanted to go to an art museum, how interested would you be in going?", "answers": ["Not at all interested","Slightly interested", "Somewhat interested", "Quite interested", "Extremely interested"]},
-  {"category": "5-C-ii", "text": "If your school had an orchestra or a band, how interested would you be in learning how to play an instrument?", "answers": ["Not at all interested","Slightly interested", "Somewhat interested", "Quite interested", "Extremely interested"]},
-  {"category": "5-C-ii", "text": "If your friends or family wanted to go to a play, how interested would you be in going?", "answers": ["Not at all interested","Slightly interested", "Somewhat interested", "Quite interested", "Extremely interested"]},
-  {"category": "5-D-i", "text": "On a regular day at school, how often do you feel relaxed? ", "answers": ["Almost never relaxed", "Rarely relaxed", "Sometimes relaxed", "Often relaxed", "Very often relaxed"]},
-  {"category": "5-D-i", "text": "How often are you enthusiastic at school? ", "answers": ["Almost never enthusiastic", "Rarely enthusiastic", "Sometimes enthusiastic", "Often enthusiastic", "Almost always enthusiastic"]},
-  {"category": "5-D-i", "text": "How often are you enthusiastic at school? ", "answers": ["Almost never enthusiastic", "Rarely enthusiastic", "Sometimes enthusiastic", "Often enthusiastic", "Very often enthusiastic"]},
-  {"category": "5-D-i", "text": "On a normal day in school, how confident do you feel? ", "answers": ["Not at all confident", "A bit confident", "Somewhat confident", "Significantly confident", "Very confident"]},
-  {"category": "5-D-i", "text": "On a normal day in school, how much are you able to concentrate?", "answers": ["Can't concentrate at all", "Can concentrate a bit","Can concentrate somewhat","Can concentrate well","Can concentrate extremely well"]},
-  {"category": "5-D-ii", "text": "In a typical week at your school, what is the minimum amount of time a student could spend engaged in physical activity?", "answers": ["Less than one hour", "One hour per week", "Two or three hours per week", "Four or five hours per week", "More than five hours per week"]},
-  {"category": "5-D-ii", "text": "In a typical week at your school, what is the average amount of time a student could spend engaged in physical activity?", "answers": ["Less than one hour", "One hour per week", "Two or three hours per week", "Four or five hours per week", "More than five hours per week"]},
-  {"category": "5-D-ii", "text": "In a typical week at your school, what is the maximum amount of time a student could spend engaged in physical activity?", "answers": ["Less than one hour", "One hour per week", "Two or three hours per week", "Four or five hours per week", "More than five hours per week"]}
+  {
+    "category": "1-A-i",
+    "text": "Given your preparation for teaching how comfortable are you teaching at the grade-level you have been assigned?",
+    "answers": [
+      "Not at all comfortable",
+      "Slightly comfortable",
+      "Somewhat comfortable",
+      "Mostly comfortable",
+      "Extremely comfortable"
+    ]
+  },
+  {
+    "category": "1-A-i",
+    "text": "How prepared are you for teaching the topics that you are expected to teach in your assignment?",
+    "answers": [
+      "Not prepared at all",
+      "Slightly prepared",
+      "Somewhat prepared",
+      "Mostly prepared",
+      "Thoroughly prepared"
+    ]
+  },
+  {
+    "category": "1-A-i",
+    "text": "How confident are you in working with the student body at your school?",
+    "answers": [
+      "Not at all confident",
+      "Slightly confident",
+      "Somewhat confident",
+      "Mostly confident",
+      "Extremely confident"
+    ]
+  },
+  {
+    "category": "1-A-ii",
+    "text": "Overall, how much have you learned from your .* teacher?",
+    "answers": [
+      "Almost nothing",
+      "A little bit",
+      "Some",
+      "Quite a bit",
+      "A tremendous amount"
+    ]
+  },
+  {
+    "category": "1-A-ii",
+    "text": "For this class, how clearly does your .* teacher present the information that you need to learn?",
+    "answers": [
+      "Not at all clearly",
+      "A little bit clearly",
+      "Somewhat",
+      "Quite clearly",
+      "Extremely clearly"
+    ]
+  },
+  {
+    "category": "1-A-ii",
+    "text": "When you need extra help, how good is your .* teacher at giving you that help?",
+    "answers": [
+      "Not at all good",
+      "Slightly good",
+      "Somewhat good",
+      "Quite good",
+      "Extremely good"
+    ]
+  },
+  {
+    "category": "1-A-ii",
+    "text": "How good is your .* teacher at teaching in the way that you personally learn best?",
+    "answers": [
+      "Not at all good",
+      "Slightly good",
+      "Somewhat good",
+      "Quite good",
+      "Extremely good"
+    ]
+  },
+  {
+    "category": "1-A-ii",
+    "text": "How well can your .* teacher tell whether or not you understand a topic?",
+    "answers": [
+      "Not at all well",
+      "A little well",
+      "Somewhat well",
+      "Quite well",
+      "Extremely well"
+    ]
+  },
+  {
+    "category": "1-A-ii",
+    "text": "How interesting does your .* teacher make the things you are learning?",
+    "answers": [
+      "Not at all interesting",
+      "Slightly interesting",
+      "Somewhat interesting",
+      "Quite interesting",
+      "Extremely interesting"
+    ]
+  },
+  {
+    "category": "1-A-ii",
+    "text": "How good is your .* teacher at helping you learn?",
+    "answers": [
+      "Not at all good",
+      "Slightly good",
+      "Somewhat good",
+      "Quite good",
+      "Extremely good"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "How many teachers in this school feel responsible to help each other do their best?",
+    "answers": [
+      "None",
+      "Some",
+      "About half",
+      "Most",
+      "Nearly all"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "How many teachers in this school take responsibility for improving the school?",
+    "answers": [
+      "None",
+      "Some",
+      "About half",
+      "Most",
+      "Nearly all"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "How many teachers in this school set high standards for themselves?",
+    "answers": [
+      "None",
+      "Some",
+      "About half",
+      "Most",
+      "Nearly all"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "This year, how often have you had conversations with your colleagues about the goals of this school?",
+    "answers": [
+      "Never",
+      "Less than once a month",
+      "Two or three times a month",
+      "Once or twice a week",
+      "Almost daily"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "This year, how often have you had conversations with your colleagues about what helps students learn?",
+    "answers": [
+      "Never",
+      "Less than once a month",
+      "Two or three times a month",
+      "Once or twice a week",
+      "Almost daily"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "As a faculty, how well do you do talking through views, opinions, and values?",
+    "answers": [
+      "Not at all well",
+      "Slightly well",
+      "Somewhat well",
+      "Quite well",
+      "Tremendously well"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "This year, how often have you had colleagues observe your classroom?",
+    "answers": [
+      "Never",
+      "Once or twice",
+      "Three or four times",
+      "Five to nine times",
+      "More than 10 times"
+    ]
+  },
+  {
+    "category": "1-B-i",
+    "text": "This year, how often have you received useful suggestions for curriculum materials from colleagues?",
+    "answers": [
+      "Never",
+      "Once or twice",
+      "Three or four times",
+      "Five to nine times",
+      "More than 10 times"
+    ]
+  },
+  {
+    "category": "1-B-ii",
+    "text": "To what extent has your professional development included enough time to explore new ideas?",
+    "answers": [
+      "Not at all",
+      "A little bit",
+      "Somewhat",
+      "Quite a bit",
+      "A tremendous amount"
+    ]
+  },
+  {
+    "category": "1-B-ii",
+    "text": "How much would you say that your professional development has been sustained/consistent (rather than discontinuous)?",
+    "answers": [
+      "Not at all sustained",
+      "Slightly sustained",
+      "Somewhat sustained",
+      "Quite sustained",
+      "Thoroughly sustained"
+    ]
+  },
+  {
+    "category": "1-B-ii",
+    "text": "To what extent has your professional development been connected to the topics you teach?",
+    "answers": [
+      "Not at all connected",
+      "Slightly connected",
+      "Somewhat connected",
+      "Quite connected",
+      "Tremendously connected"
+    ]
+  },
+  {
+    "category": "1-B-ii",
+    "text": "Overall, how strong has support for your professional growth been?",
+    "answers": [
+      "Not strong at all",
+      "Slightly strong",
+      "Moderately strong",
+      "Quite strong",
+      "Extremely strong"
+    ]
+  },
+  {
+    "category": "1-B-ii",
+    "text": "How often do teachers here work together to plan curriculum and instruction?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Frequently",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "1-B-ii",
+    "text": "How hard do teachers here work to coordinate their teaching with instruction at other grade levels?",
+    "answers": [
+      "Not hard at all",
+      "A little hard",
+      "Somewhat hard",
+      "Quite hard",
+      "Extremely hard"
+    ]
+  },
+  {
+    "category": "1-B-ii",
+    "text": "How often do teachers here collaborate to make the school run effectively?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Frequently",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "To what extent do you trust your principal at his or her word?",
+    "answers": [
+      "Not at all",
+      "A little bit",
+      "Somewhat",
+      "Quite a bit",
+      "A tremendous amount"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "At your school, how comfortable are you raising concerns with the principal?",
+    "answers": [
+      "Not at all comfortable",
+      "Slightly comfortable",
+      "Somewhat comfortable",
+      "Quite comfortable",
+      "Extremely comfortable"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "How much do you trust your principal to stand up for you in disagreements with parents?",
+    "answers": [
+      "Not at all",
+      "A little bit ",
+      "Somewhat",
+      "Quite a bit",
+      "A tremendous amount"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "To what extent do you think your principal has the best interests of the school in mind? ",
+    "answers": [
+      "Not at all",
+      "A little bit ",
+      "Somewhat",
+      "Quite a bit",
+      "A tremendous amount"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "How effectively does your principal communicate a clear vision of teaching and learning? ",
+    "answers": [
+      "Not at all effectively",
+      "Slightly effectively",
+      "Somewhat effectively",
+      "Quite effectively",
+      "Extremely effectively"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "How effectively does your principal press teachers to engage in good pedagogical practice?",
+    "answers": [
+      "Not at all effectively",
+      "Slightly effectively",
+      "Somewhat effectively",
+      "Quite effectively",
+      "Extremely effectively"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "How carefully does your principal track students’ academic progress?",
+    "answers": [
+      "Not carefully at all",
+      "Slightly carefully",
+      "Somewhat carefully",
+      "Quite carefully",
+      "Extremely carefully"
+    ]
+  },
+  {
+    "category": "1-B-iii",
+    "text": "How much does your principal know about what’s going on in teachers’ classrooms?",
+    "answers": [
+      "Almost nothing",
+      "A little bit",
+      "A moderate amount",
+      "Quite a bit",
+      "A tremendous amount"
+    ]
+  },
+  {
+    "category": "2-A-i",
+    "text": "How often do you worry about violence at your school?",
+    "answers": [
+      "Almost never",
+      "Rarely",
+      "Occassionaly",
+      "Regularly",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-A-i",
+    "text": "How often do students get into physical fights at your school?",
+    "answers": [
+      "Almost never",
+      "Rarely",
+      "Occasionally",
+      "Regularly",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-A-i",
+    "text": "Overall, how safe do you feel at school?",
+    "answers": [
+      "Extremely unsafe",
+      "Quite unsafe",
+      "Somewhat unsafe",
+      "Quite safe",
+      "Extremely safe"
+    ]
+  },
+  {
+    "category": "2-A-i",
+    "text": "How often do you feel like you might be harmed by someone at school?",
+    "answers": [
+      "Almost never",
+      "Rarely",
+      "Occasionally",
+      "Regularly",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-A-ii",
+    "text": "How often are students bullied at school?",
+    "answers": [
+      "Almost never",
+      "Rarely",
+      "Occasionally",
+      "Regularly",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-A-ii",
+    "text": "How often are students bullied because of who they are?",
+    "answers": [
+      "Almost never",
+      "Rarely",
+      "Occasionally",
+      "Regularly",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-A-ii",
+    "text": "Overall, how unkind are students to each other?",
+    "answers": [
+      "Very unkind",
+      "Quite unkind",
+      "Somewhat unkind",
+      "A little bit unkind",
+      "Not at all unkind"
+    ]
+  },
+  {
+    "category": "2-A-ii",
+    "text": "How often do you observe students teasing other students at your school?",
+    "answers": [
+      "Almost never",
+      "Rarely",
+      "Occasionally",
+      "Regularly",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-A-ii",
+    "text": "How often do you think students at your school are bullied online?",
+    "answers": [
+      "Almost never",
+      "Rarely",
+      "Occasionally",
+      "Regularly",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-A-ii",
+    "text": "How worried are you that you will be bullied because of who you are?",
+    "answers": [
+      "Not at all worrried",
+      "Slightly worried",
+      "Somewhat worried",
+      "Quite worried",
+      "Extremely worried"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "How much do students at this school care about each other? ",
+    "answers": [
+      "Not at all",
+      "A little bit",
+      "Somewhat",
+      "A good amount",
+      "A lot"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "How often do students at this school help each other learn? ",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "How well do students at this school get along with each other?",
+    "answers": [
+      "Not at all",
+      "A little bit",
+      "Somewhat",
+      "Quite a bit",
+      "A great deal"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "At this school, how respectful are students to each other?",
+    "answers": [
+      "Not respectful at all",
+      "A little bit respectful",
+      "Somewhat respectful",
+      "Quite respectful",
+      "Tremendously respectful"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "Overall, how much do you feel like you belong at your school?",
+    "answers": [
+      "Do not belong",
+      "Belong a little bit",
+      "Belong somewhat ",
+      "Belong quite a bit",
+      "Almost totally belong"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "At your school, how accepted do you feel by the other students? ",
+    "answers": [
+      "Not at all accepted",
+      "A little accepted",
+      "Somewhat accepted",
+      "Quite accepted",
+      "Extremely accepted"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "How well do people at your school understand you?",
+    "answers": [
+      "Don't understand me",
+      "Understand me a little",
+      "Understand me somewhat",
+      "Understand me quite a bit",
+      "Understand me extremely well"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "How much support do the adults at your school give you?",
+    "answers": [
+      "No support at all",
+      "A little bit of support",
+      "Some support",
+      "Quite a bit of support",
+      "A great deal of support"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "How much respect do students in your school show you? ",
+    "answers": [
+      "No respect at all",
+      "A little bit of respect",
+      "Some respect",
+      "Quite a bit of respect",
+      "A great deal of respect"
+    ]
+  },
+  {
+    "category": "2-B-i",
+    "text": "How connected do you feel to the adults at your school? ",
+    "answers": [
+      "Not at all connected",
+      "Slightly connected",
+      "Somewhat connected",
+      "Quite connected",
+      "Extremely well connected"
+    ]
+  },
+  {
+    "category": "2-B-ii",
+    "text": "When your .* teacher asks how you are doing, how often do you feel that he/she is really interested in your answer?",
+    "answers": [
+      "Almost never",
+      "Once in awhile",
+      "Sometimes",
+      "Often",
+      "Almost Always"
+    ]
+  },
+  {
+    "category": "2-B-ii",
+    "text": "How interested is your .* teacher in what you do outside of class?",
+    "answers": [
+      "Not at all interested",
+      "A little bit interested",
+      "Slightly interested",
+      "Quite interested",
+      "Extremely interested"
+    ]
+  },
+  {
+    "category": "2-B-ii",
+    "text": "If you walked into class upset, how concerned would your .* teacher be?",
+    "answers": [
+      "Not at all concerned",
+      "A little bit concerned",
+      "Somewhat concerned",
+      "Quite concerned",
+      "Extremely concerned"
+    ]
+  },
+  {
+    "category": "2-B-ii",
+    "text": "If you came back to visit class three years from now, how excited would your .* teacher be to see you?",
+    "answers": [
+      "Not at all excited",
+      "A little bit excited",
+      "Somewhat excited",
+      "Quite excited",
+      "Extremely excited"
+    ]
+  },
+  {
+    "category": "2-B-ii",
+    "text": "If you had something on your mind, how carefully would your .* teacher listen to you?",
+    "answers": [
+      "Not at all carefully",
+      "A little carefully",
+      "Somewhat carefully",
+      "Quite carefully",
+      "Extremely carefully"
+    ]
+  },
+  {
+    "category": "2-C-i",
+    "text": "Overall, how important is school to you?",
+    "answers": [
+      "Not at all important",
+      "Slightly important",
+      "Somewhat important",
+      "Quite important",
+      "Extremely important"
+    ]
+  },
+  {
+    "category": "2-C-i",
+    "text": "How often do you use ideas from school in your daily life?",
+    "answers": [
+      "Almost never",
+      "Once in awhile",
+      "Sometimes",
+      "Often",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "2-C-i",
+    "text": "How interesting do you find the things you learn in school?",
+    "answers": [
+      "Not at all interesting",
+      "Slightly interesting",
+      "Somewhat interesting",
+      "Quite interesting ",
+      "Extremely interesting"
+    ]
+  },
+  {
+    "category": "2-C-i",
+    "text": "How curious are you to learn more about things you talked about in school?",
+    "answers": [
+      "Not at all curious",
+      "Slightly curious",
+      "Somewhat curious",
+      "Quite curious",
+      "Extremely curious"
+    ]
+  },
+  {
+    "category": "2-C-i",
+    "text": "How much do you enjoy learning in school?",
+    "answers": [
+      "Do not enjoy at all",
+      "Enjoy a little bit",
+      "Enjoy somewhat",
+      "Enjoy quite a bit",
+      "Enjoy a tremendous amount"
+    ]
+  },
+  {
+    "category": "2-C-i",
+    "text": "How much do you see yourself as a learner?",
+    "answers": [
+      "Don't see myself as a learner at all",
+      "See myself as a learner a little bit",
+      "See myself somewhat as a learner",
+      "See myself as a learner to some extent",
+      "See myself completely as a learner"
+    ]
+  },
+  {
+    "category": "2-C-ii",
+    "text": "How much does your .* teacher encourage you to do your best?",
+    "answers": [
+      "Does not encourage me at all",
+      "Encourages me a little bit",
+      "Encourages me some",
+      "Encourages me quite a bit",
+      "Encourages me a tremendous amount"
+    ]
+  },
+  {
+    "category": "2-C-ii",
+    "text": "When you feel like giving up on a difficult task, how likely is it that your .* teacher will help you keep trying?",
+    "answers": [
+      "Not at all likely",
+      "Slightly likely",
+      "Somewhat likely",
+      "Quite likely",
+      "Extremely likely"
+    ]
+  },
+  {
+    "category": "2-C-ii",
+    "text": "How often does your .* teacher ask you to explain your answers?",
+    "answers": [
+      "Almost never",
+      "Once in awhile",
+      "Sometimes",
+      "Often",
+      "Almost always"
+    ]
+  },
+  {
+    "category": "2-C-ii",
+    "text": "In this class, how hard does your .* teacher make you think? ",
+    "answers": [
+      "Not hard at all",
+      "Slightly hard",
+      "Somewhat hard",
+      "Quite hard",
+      "Extremely hard"
+    ]
+  },
+  {
+    "category": "2-C-ii",
+    "text": "How often does your .* teacher take time to make sure you understand the material?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Almost always"
+    ]
+  },
+  {
+    "category": "3-A-i",
+    "text": "How adequate is your access to the materials you need to effectively teach?",
+    "answers": [
+      "Not at all adequate",
+      "Somewhat adequate",
+      "Mostly adequate",
+      "Totally adequate",
+      "More than adequate"
+    ]
+  },
+  {
+    "category": "3-A-i",
+    "text": "How adequate is your access to the technology you need to effectively teach?",
+    "answers": [
+      "Not at all adequate",
+      "Somewhat adequate",
+      "Mostly adequate",
+      "Totally adequate",
+      "More than adequate"
+    ]
+  },
+  {
+    "category": "3-A-i",
+    "text": "How adequate is the support you receive for using technology? ",
+    "answers": [
+      "Not at all adequate",
+      "Somewhat adequate",
+      "Mostly adequate",
+      "Totally adequate",
+      "More than adequate"
+    ]
+  },
+  {
+    "category": "3-A-i",
+    "text": "How sufficient is the physical space for school activities?",
+    "answers": [
+      "Not at all sufficient",
+      "Somewhat insufficient",
+      "Moderately sufficient",
+      "Totally sufficient",
+      "More than sufficient"
+    ]
+  },
+  {
+    "category": "3-A-i",
+    "text": "How well-maintained are school facilities?",
+    "answers": [
+      "Not at all well-maintained",
+      "Slightly well-maintained",
+      "Moderately well-maintained",
+      "Quite well-maintained",
+      "Extremely well-maintained"
+    ]
+  },
+  {
+    "category": "3-A-ii",
+    "text": "Overall, how effective is the support students receive from non-teaching staff?",
+    "answers": [
+      "Not effective",
+      "Slightly effective",
+      "Somewhat effective",
+      "Effective",
+      "Very effective"
+    ]
+  },
+  {
+    "category": "3-A-ii",
+    "text": "How adeqaute is the number of non-teaching support staff?",
+    "answers": [
+      "Not at all adequate",
+      "Somewhat inadequate",
+      "Mostly adequate",
+      "Totally adequate",
+      "More than adequate"
+    ]
+  },
+  {
+    "category": "3-A-ii",
+    "text": "How often are non-teaching support staff available for students with non-academic issues?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Almost always"
+    ]
+  },
+  {
+    "category": "3-A-ii",
+    "text": "How often are non-teaching support staff available for students who are struggling academically?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Almost always"
+    ]
+  },
+  {
+    "category": "3-A-ii",
+    "text": "When you are hurt, sad, or just need to talk to someone, is there an adult at school other than your teacher you can go to?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "3-A-ii",
+    "text": "When you need help learning something, is there an adult at school other than your teacher who can work with you?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "3-B-i",
+    "text": "Overall, how rigorous is the curriculum that you are expected to teach?",
+    "answers": [
+      "Not at all rigorous",
+      "A little bit rigorous",
+      "Somewhat rigorous",
+      "Rigorous",
+      "Very rigorous"
+    ]
+  },
+  {
+    "category": "3-B-i",
+    "text": "How coherent is the curriculum that you are expected to teach?",
+    "answers": [
+      "Not at all coherent",
+      "A little bit coherent",
+      "Somewhat coherent",
+      "Coherent",
+      "Very coherent"
+    ]
+  },
+  {
+    "category": "3-B-i",
+    "text": "If one of your students transferred to another district with a challenging assortment of courses, how well prepared would he or she be?",
+    "answers": [
+      "Not at all prepared",
+      "A little bit prepared",
+      "Somewhat prepared",
+      "Prepared",
+      "Very prepared"
+    ]
+  },
+  {
+    "category": "3-B-i",
+    "text": "How well-rounded is the curriculum that you and your colleagues teach?",
+    "answers": [
+      "Not at all well-rounded",
+      "Slightly well-rounded",
+      "Somewhat well-rounded",
+      "Well-rounded",
+      "Very well-rounded"
+    ]
+  },
+  {
+    "category": "3-B-ii",
+    "text": "How able are you to integrate material from different cultures into your class?",
+    "answers": [
+      "Not able",
+      "Slightly able",
+      "Somewhat able",
+      "Quite able",
+      "Extremely able"
+    ]
+  },
+  {
+    "category": "3-B-ii",
+    "text": "How often do you integrate culturally diverse content into your teaching?",
+    "answers": [
+      "Almost never",
+      "Once in awhile",
+      "Sometimes",
+      "Quite a bit",
+      "A great deal"
+    ]
+  },
+  {
+    "category": "3-B-ii",
+    "text": "How often do you use teaching strategies to facilitate learning among culturally diverse students?",
+    "answers": [
+      "Almost never",
+      "Once in awhile",
+      "Sometimes",
+      "Quite a bit",
+      "A great deal"
+    ]
+  },
+  {
+    "category": "3-B-ii",
+    "text": "How motivated are you to integrate culturally diverse content in your classroom?",
+    "answers": [
+      "Not motivated",
+      "Slightly motivated",
+      "Somewhat motivated",
+      "Quite motivated",
+      "Extremely motivated"
+    ]
+  },
+  {
+    "category": "3-C-i",
+    "text": "How often do you meet in person with parents at your school?",
+    "answers": [
+      "Almost never",
+      "Once or twice per year",
+      "Every few months",
+      "Monthly",
+      "Every few weeks"
+    ]
+  },
+  {
+    "category": "3-C-i",
+    "text": "How involved have parents been in fundraising efforts at your school?",
+    "answers": [
+      "Not at all involved",
+      "A little bit involved",
+      "Somewhat involved",
+      "Quite involved",
+      "Extremely involved "
+    ]
+  },
+  {
+    "category": "3-C-i",
+    "text": "How involved have parents been with parent groups at your school?",
+    "answers": [
+      "Not at all involved",
+      "A little bit involved",
+      "Somewhat involved",
+      "Quite involved",
+      "Extremely involved "
+    ]
+  },
+  {
+    "category": "3-C-i",
+    "text": "How often does the average parent help out at your school?",
+    "answers": [
+      "Almost never",
+      "Once or twice per year",
+      "Every few months",
+      "Monthly",
+      "Every few weeks"
+    ]
+  },
+  {
+    "category": "3-C-ii",
+    "text": "How effectively does this school connect with immigrant families, providing translation when necessary?",
+    "answers": [
+      "Not at all effectively",
+      "Slightly effectively",
+      "Somewhat effectively",
+      "Effectively",
+      "Very effectively"
+    ]
+  },
+  {
+    "category": "3-C-ii",
+    "text": "How effectively does this school respond to the needs and values of the surrounding community?",
+    "answers": [
+      "Not at all effectively",
+      "Slightly effectively",
+      "Somewhat effectively",
+      "Effectively",
+      "Very effectively"
+    ]
+  },
+  {
+    "category": "3-C-ii",
+    "text": "To what extent are all groups of parents represented in the governance of the school?",
+    "answers": [
+      "Not at all represented",
+      "Slightly represented",
+      "Somewhat represented",
+      "Well represented",
+      "Very well represented"
+    ]
+  },
+  {
+    "category": "3-C-ii",
+    "text": "Overall, how effectively does this school connect with the community?",
+    "answers": [
+      "Not at all effectively",
+      "Slightly effectively",
+      "Somewhat effectively",
+      "Effectively",
+      "Very effectively"
+    ]
+  },
+  {
+    "category": "4-A-ii",
+    "text": "Relative to what you know of students this age, how much effort did your students put forth in your class this year?",
+    "answers": [
+      "Almost no effort",
+      "A little bit of effort",
+      "Some effort",
+      "Quite a bit of effort",
+      "A tremendous amount of effort"
+    ]
+  },
+  {
+    "category": "4-A-ii",
+    "text": "If student work from your classes was compared with work from \"average\" Massachusetts classes of the same grades/subjects, how do you think an objective observer would rate the work?",
+    "answers": [
+      "Significantly below grade-level average",
+      "Somewhat below grade-level average",
+      "Average for the grade level",
+      "Above grade-level average",
+      "Significantly above grade-level average"
+    ]
+  },
+  {
+    "category": "4-A-ii",
+    "text": "If an observer sat in on one of your classes for a week, how would she or he rate your students?",
+    "answers": [
+      "Significantly below grade-level average",
+      "Somewhat below grade-level average",
+      "Average for the grade level",
+      "Above grade-level average",
+      "Significantly above grade-level average"
+    ]
+  },
+  {
+    "category": "4-B-i",
+    "text": "How excited are you about going to this class? ",
+    "answers": [
+      "Not at all excited",
+      "A little bit excited",
+      "Somewhat excited",
+      "Quite excited",
+      "Extremely excited"
+    ]
+  },
+  {
+    "category": "4-B-i",
+    "text": "Overall, how interested are you in this class?",
+    "answers": [
+      "Not at all interested",
+      "A little bit interested",
+      "Somewhat interested",
+      "Quite interested",
+      "Extremely interested"
+    ]
+  },
+  {
+    "category": "4-B-i",
+    "text": "How often do you take time outside of class to learn more about what you are studying in class?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Very often"
+    ]
+  },
+  {
+    "category": "4-C-i",
+    "text": "How often do students at your school come up with their own interpretations of material?  ",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Frequently",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "4-C-i",
+    "text": "How often do students apply ideas they have learned to new situations? ",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Frequently",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "4-C-i",
+    "text": "How often do students collaborate in class to solve complex problems?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Frequently",
+      "Almost all the time"
+    ]
+  },
+  {
+    "category": "5-A-i",
+    "text": "How often do you attempt to understand your friends better by trying to figure out what they are thinking? ",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "5-A-i",
+    "text": "How often do you try to think of more than one explanation for why someone else acted as they did? ",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "5-A-i",
+    "text": "Overall, how often do you try to understand the point of view of other people? ",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "5-A-i",
+    "text": "How often do you try to figure out what motivates others to behave as they do?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "5-A-i",
+    "text": "In general, how often do you try to understand how other people see things?",
+    "answers": [
+      "Almost never",
+      "Once in a while",
+      "Sometimes",
+      "Often",
+      "Very frequently"
+    ]
+  },
+  {
+    "category": "5-A-ii",
+    "text": "How much do you believe that being concerned with national, state, and local issues is everyone's responsibility?",
+    "answers": [
+      "Not at all",
+      "A little bit",
+      "Somewhat",
+      "Quite a bit",
+      "A great deal"
+    ]
+  },
+  {
+    "category": "5-A-ii",
+    "text": "How important is it to you to get involved in improving your community? ",
+    "answers": [
+      "Not at all important",
+      "Slightly important",
+      "Somewhat important",
+      "Quite important",
+      "Extremely important"
+    ]
+  },
+  {
+    "category": "5-A-ii",
+    "text": "How important is it to you to actively challenge inequalities in society?",
+    "answers": [
+      "Not at all important",
+      "Slightly important",
+      "Somewhat",
+      "Quite important",
+      "Extremely important"
+    ]
+  },
+  {
+    "category": "5-A-ii",
+    "text": "How important is it to you to take action when something in society needs changing?",
+    "answers": [
+      "Not at all important",
+      "Slightly important",
+      "Somewhat important",
+      "Quite important",
+      "Extremely important"
+    ]
+  },
+  {
+    "category": "5-B-i",
+    "text": "If you face a problem while working towards an important goal, how well can you keep working? ",
+    "answers": [
+      "Not well at all",
+      "Slightly well",
+      "Somewhat well",
+      "Quite well",
+      "Extremely well"
+    ]
+  },
+  {
+    "category": "5-B-i",
+    "text": "How important is it to you to finish things you start?",
+    "answers": [
+      "Not important at all",
+      "Slightly important",
+      "Somewhat important",
+      "Quite important",
+      "Extremely important"
+    ]
+  },
+  {
+    "category": "5-B-i",
+    "text": "How confident are you that you can remain focused on what you are doing, even when there are distractions? ",
+    "answers": [
+      "Not confident at all",
+      "Slightly confident",
+      "Somewhat confident",
+      "Quite confident",
+      "Extremely confident"
+    ]
+  },
+  {
+    "category": "5-B-i",
+    "text": "If you fail to reach an important goal, how likely are you to try again? ",
+    "answers": [
+      "Not likely at all",
+      "Slightly likely",
+      "Somewhat likely",
+      "Quite likely",
+      "Extremely likely"
+    ]
+  },
+  {
+    "category": "5-B-i",
+    "text": "How likely is it that you can motivate yourself to do unpleasant tasks if they will help you meet your goals?",
+    "answers": [
+      "Not likely at all",
+      "Slightly likely",
+      "Somewhat likely",
+      "Quite likely",
+      "Extremely likely"
+    ]
+  },
+  {
+    "category": "5-B-ii",
+    "text": "How much do you think you can change your own intelligence?",
+    "answers": [
+      "Can't change it at all",
+      "Can change it a bit",
+      "Can change it somewhat",
+      "Can change it significantly",
+      "Can change it tremendously"
+    ]
+  },
+  {
+    "category": "5-B-ii",
+    "text": "How much do you think that being good at math is something you can change?",
+    "answers": [
+      "Can't change it at all",
+      "Can change it a bit",
+      "Can change it somewhat",
+      "Can change it significantly",
+      "Can change it tremendously"
+    ]
+  },
+  {
+    "category": "5-B-ii",
+    "text": "How much do you think that needing to try really hard in a subject at school means you can’t be good at it?",
+    "answers": [
+      "Don't think that at all",
+      "Think that it a bit",
+      "Think that somewhat",
+      "Think that quite a bit",
+      "Think that very much"
+    ]
+  },
+  {
+    "category": "5-C-i",
+    "text": "In a typical week at your school, what is the minimum amount of time a student could spend in creative arts instruction or activities?",
+    "answers": [
+      "Less than one hour",
+      "One hour per week",
+      "Two or three hours per week",
+      "Four or five hours per week",
+      "More than five hours per week"
+    ]
+  },
+  {
+    "category": "5-C-i",
+    "text": "In a typical week at your school, what is the average amount of time a student could spend in creative arts instruction or activities?",
+    "answers": [
+      "Less than one hour",
+      "One hour per week",
+      "Two or three hours per week",
+      "Four or five hours per week",
+      "More than five hours per week"
+    ]
+  },
+  {
+    "category": "5-C-i",
+    "text": "In a typical week at your school, what is the maximum amount of time a student could spend in creative arts instruction or activities?",
+    "answers": [
+      "Less than one hour",
+      "One hour per week",
+      "Two or three hours per week",
+      "Four or five hours per week",
+      "More than five hours per week"
+    ]
+  },
+  {
+    "category": "5-C-i",
+    "text": "In a typical week, how much time do you spend in creative arts instruction or activities?",
+    "answers": [
+      "Less than one hour",
+      "One hour per week",
+      "Two or three hours per week",
+      "Four or five hours per week",
+      "More than five hours per week"
+    ]
+  },
+  {
+    "category": "5-C-ii",
+    "text": "If your friends or family wanted to go to an art museum, how interested would you be in going?",
+    "answers": [
+      "Not at all interested",
+      "Slightly interested",
+      "Somewhat interested",
+      "Quite interested",
+      "Extremely interested"
+    ]
+  },
+  {
+    "category": "5-C-ii",
+    "text": "If your school had an orchestra or a band, how interested would you be in learning how to play an instrument?",
+    "answers": [
+      "Not at all interested",
+      "Slightly interested",
+      "Somewhat interested",
+      "Quite interested",
+      "Extremely interested"
+    ]
+  },
+  {
+    "category": "5-C-ii",
+    "text": "If your friends or family wanted to go to a play, how interested would you be in going?",
+    "answers": [
+      "Not at all interested",
+      "Slightly interested",
+      "Somewhat interested",
+      "Quite interested",
+      "Extremely interested"
+    ]
+  },
+  {
+    "category": "5-D-i",
+    "text": "On a regular day at school, how often do you feel relaxed? ",
+    "answers": [
+      "Almost never relaxed",
+      "Rarely relaxed",
+      "Sometimes relaxed",
+      "Often relaxed",
+      "Very often relaxed"
+    ]
+  },
+  {
+    "category": "5-D-i",
+    "text": "How often are you enthusiastic at school? ",
+    "answers": [
+      "Almost never enthusiastic",
+      "Rarely enthusiastic",
+      "Sometimes enthusiastic",
+      "Often enthusiastic",
+      "Almost always enthusiastic"
+    ]
+  },
+  {
+    "category": "5-D-i",
+    "text": "How often are you enthusiastic at school? ",
+    "answers": [
+      "Almost never enthusiastic",
+      "Rarely enthusiastic",
+      "Sometimes enthusiastic",
+      "Often enthusiastic",
+      "Very often enthusiastic"
+    ]
+  },
+  {
+    "category": "5-D-i",
+    "text": "On a normal day in school, how confident do you feel? ",
+    "answers": [
+      "Not at all confident",
+      "A bit confident",
+      "Somewhat confident",
+      "Significantly confident",
+      "Very confident"
+    ]
+  },
+  {
+    "category": "5-D-i",
+    "text": "On a normal day in school, how much are you able to concentrate?",
+    "answers": [
+      "Can't concentrate at all",
+      "Can concentrate a bit",
+      "Can concentrate somewhat",
+      "Can concentrate well",
+      "Can concentrate extremely well"
+    ]
+  },
+  {
+    "category": "5-D-ii",
+    "text": "In a typical week at your school, what is the minimum amount of time a student could spend engaged in physical activity?",
+    "answers": [
+      "Less than one hour",
+      "One hour per week",
+      "Two or three hours per week",
+      "Four or five hours per week",
+      "More than five hours per week"
+    ]
+  },
+  {
+    "category": "5-D-ii",
+    "text": "In a typical week at your school, what is the average amount of time a student could spend engaged in physical activity?",
+    "answers": [
+      "Less than one hour",
+      "One hour per week",
+      "Two or three hours per week",
+      "Four or five hours per week",
+      "More than five hours per week"
+    ]
+  },
+  {
+    "category": "5-D-ii",
+    "text": "In a typical week at your school, what is the maximum amount of time a student could spend engaged in physical activity?",
+    "answers": [
+      "Less than one hour",
+      "One hour per week",
+      "Two or three hours per week",
+      "Four or five hours per week",
+      "More than five hours per week"
+    ]
+  }
 ]

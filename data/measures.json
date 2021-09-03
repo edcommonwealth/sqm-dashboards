@@ -1,128 +1,131 @@
 [
   {
-    "title":"Teachers and the Teaching Environment",
+    "title": "Teachers and the Teaching Environment",
     "blurb": "Are skilled teachers working together with supportive administrators?",
-    "text":"This category measures the relevant abilities of a school's teachers and the degree to which they are receiving the support they need to grow as professionals.  It considers factors like teacher professional qualifications, effective classroom practices, and school-wide support for teaching development and growth.",
-    "sub":{
-      "A":{
-        "title":"Knowledge and Skills of Teachers",
+    "text": "This category measures the relevant abilities of a school's teachers and the degree to which they are receiving the support they need to grow as professionals.  It considers factors like teacher professional qualifications, effective classroom practices, and school-wide support for teaching development and growth.",
+    "sub": {
+      "A": {
+        "title": "Knowledge and Skills of Teachers",
         "blurb": "Do qualified teachers employ effective practices?",
-        "text":"This subcategory seeks to determine the degree to which a school's teachers are prepared for their classroom assignments.  It includes measures of teacher qualifications and effective classroom practices.",
-        "measures":{
-          "i":{
-            "title":"Professional Qualifications",
-            "text":"This measure includes the percentage of teachers working in their area of licensure, and draws on anonymous teacher reports on their own comfort teaching grade-level, topics, and student body.",
-            "nonlikert":[
+        "text": "This subcategory seeks to determine the degree to which a school's teachers are prepared for their classroom assignments.  It includes measures of teacher qualifications and effective classroom practices.",
+        "measures": {
+          "i": {
+            "title": "Professional Qualifications",
+            "text": "This measure includes the percentage of teachers working in their area of licensure, and draws on anonymous teacher reports on their own comfort teaching grade-level, topics, and student body.",
+            "nonlikert": [
               {
-                "title":"Percentage of Teachers Working in Area of Licensure",
-                "benchmark":100,
-                "benchmark_explanation":"Benchmark from panel of experts."
+                "title": "Percentage of Teachers Working in Area of Licensure",
+                "benchmark": 100,
+                "benchmark_explanation": "Benchmark from panel of experts."
               }
             ]
           },
           "ii": {
-            "title":"Effective Practices",
-            "text":"This measure draws on anonymous student reports about factors like teacher clarity, support of students, and classroom management."
+            "title": "Effective Practices",
+            "text": "This measure draws on anonymous student reports about factors like teacher clarity, support of students, and classroom management."
           }
         }
       },
-      "B":{
-        "title":"Teaching Environment",
+      "B": {
+        "title": "Teaching Environment",
         "blurb": "Are teachers supported in their development as professionals?",
-        "text":"This subcategory seeks to determine how well a school supports teachers and enables them to do their work.  It includes measures of teacher satisfaction, effective leadership, and school-wide support for teacher development.",
-        "measures":{
-          "i":{
-            "title":"Professional Community",
-            "text":"This measure includes teacher reports on the professional community and includes the teacher retention rate.",
-            "nonlikert":[
+        "text": "This subcategory seeks to determine how well a school supports teachers and enables them to do their work.  It includes measures of teacher satisfaction, effective leadership, and school-wide support for teacher development.",
+        "measures": {
+          "i": {
+            "title": "Professional Community",
+            "text": "This measure includes teacher reports on the professional community and includes the teacher retention rate.",
+            "nonlikert": [
               {
-                "title":"Teacher Retention Rate (%)",
-                "benchmark":90,
-                "benchmark_explanation":"Benchmark from panel of experts."
+                "title": "Teacher Retention Rate (%)",
+                "benchmark": 90,
+                "benchmark_explanation": "Benchmark from panel of experts."
               }
             ]
           },
-          "ii":{
-            "title":"Support For Teaching Development And Growth",
-            "text":"This measure includes district-wide professional development expenditures, and draws on anonymous teacher reports on the quality of professional development.",
-            "nonlikert":[
+          "ii": {
+            "title": "Support For Teaching Development And Growth",
+            "text": "This measure includes district-wide professional development expenditures, and draws on anonymous teacher reports on the quality of professional development.",
+            "nonlikert": [
               {
-                "title":"Professional Development Spending per Teacher",
-                "benchmark":2925.43,
-                "benchmark_explanation":"State average."
-               }
+                "title": "Professional Development Spending per Teacher",
+                "benchmark": 2925.43,
+                "benchmark_explanation": "State average."
+              }
             ]
           },
-          "iii":{
-            "title":"Effective Leadership",
-            "text":"This measure draws on anonymous teacher reports about the degree to which they trust their principals to make good school-wide decisions, as well as on the degree to which their principals are strong instructional leaders."
+          "iii": {
+            "title": "Effective Leadership",
+            "text": "This measure draws on anonymous teacher reports about the degree to which they trust their principals to make good school-wide decisions, as well as on the degree to which their principals are strong instructional leaders."
           }
         }
       }
     }
-  }, {
-    "title":"School Culture",
+  },
+  {
+    "title": "School Culture",
     "blurb": "Is there a safe and nurturing academic environment?",
-    "text":"This category measures the degree to which the school environment is safe, caring, and academically-oriented.  It considers factors like bullying, student/teacher relationships, and student valuing of learning.",
-    "sub":{
-      "A":{
-        "title":"Safety",
+    "text": "This category measures the degree to which the school environment is safe, caring, and academically-oriented.  It considers factors like bullying, student/teacher relationships, and student valuing of learning.",
+    "sub": {
+      "A": {
+        "title": "Safety",
         "blurb": "Do students feel physically and emotionally safe at school?",
-        "text":"This subcategory seeks to determine how safe the school environment is.  It includes measures of physical safety, bullying, and trust.",
-        "measures":{
-          "i":{
-            "title":"Student Physical Safety",
-            "text":"This measure draws on anonymous student reports about the degree to which they feel physically safe at school."
+        "text": "This subcategory seeks to determine how safe the school environment is.  It includes measures of physical safety, bullying, and trust.",
+        "measures": {
+          "i": {
+            "title": "Student Physical Safety",
+            "text": "This measure draws on anonymous student reports about the degree to which they feel physically safe at school."
           },
-          "ii":{
-            "title":"Student Emotional Safety",
-            "text":"This measure draws on anonymous student and teacher reports about the nature and frequency of school bullying and emotional harassment."
+          "ii": {
+            "title": "Student Emotional Safety",
+            "text": "This measure draws on anonymous student and teacher reports about the nature and frequency of school bullying and emotional harassment."
           }
         }
       },
-      "B":{
+      "B": {
         "title": "Relationships",
         "blurb": "Are students connected to the school and to their teachers?",
-        "text":" This subcategory seeks to determine how welcoming and caring the school environment is. It includes measures of student sense of belonging and of student/teacher relationships.",
-        "measures":{
-          "i":{
-            "title":"Sense of Belonging",
-            "text":"This measure draws on anonymous student reports about the degree to which they feel understood, supported, and accepted by students and adults at the school."
+        "text": " This subcategory seeks to determine how welcoming and caring the school environment is. It includes measures of student sense of belonging and of student/teacher relationships.",
+        "measures": {
+          "i": {
+            "title": "Sense of Belonging",
+            "text": "This measure draws on anonymous student reports about the degree to which they feel understood, supported, and accepted by students and adults at the school."
           },
-          "ii":{
-            "title":"Student/Teacher Relationships",
-            "text":"This measure draws on anonymous student reports about the degree to which they feel respected and cared for by their teachers."
+          "ii": {
+            "title": "Student/Teacher Relationships",
+            "text": "This measure draws on anonymous student reports about the degree to which they feel respected and cared for by their teachers."
           }
         }
       },
-      "C":{
-        "title":"Academic Challenge",
+      "C": {
+        "title": "Academic Challenge",
         "blurb": "Do students consistently come to school ready to learn?",
-        "text":"This subcategory seeks to determine the degree to which a school encourages students to focus on meeting academic challenges. It includes measures of student attendance and graduation, as well as of academic emphasis.",
-        "measures":{
-          "i":{
+        "text": "This subcategory seeks to determine the degree to which a school encourages students to focus on meeting academic challenges. It includes measures of student attendance and graduation, as well as of academic emphasis.",
+        "measures": {
+          "i": {
             "title": "Valuing of Learning",
             "text": "This measure includes attendance rates and also draws on anonymous student reports about how important school is to them and how much they view themselves as learners.",
-            "nonlikert":[
+            "nonlikert": [
               {
-                "title":"Percentage of Students Chronically Absent",
-                "benchmark":10,
-                "benchmark_explanation":"National average."
-	            },{
-                "title":"Average Attendance Rate (%)",
-                "benchmark":94.9,
-                "benchmark_explanation":"State average."
+                "title": "Percentage of Students Chronically Absent",
+                "benchmark": 10,
+                "benchmark_explanation": "National average."
+              },
+              {
+                "title": "Average Attendance Rate (%)",
+                "benchmark": 94.9,
+                "benchmark_explanation": "State average."
               }
             ]
           },
-          "ii":{
-            "title":"Academic Challenge",
-            "text":"This measure draws on anonymous student reports about the degree to which teachers push them to do their best, work hard, and understand the material."
+          "ii": {
+            "title": "Academic Challenge",
+            "text": "This measure draws on anonymous student reports about the degree to which teachers push them to do their best, work hard, and understand the material."
           }
         }
       }
     }
-  }, {
+  },
+  {
     "title": "Resources",
     "blurb": "Are facilities and personnel adequate to support learning?",
     "text": "This category measures the adequacy of a school's facility, personnel, and curriculum, as well as the degree to which it is supported by the community.  It considers factors like physical spaces and materials, class size, and family/school relationships.",
@@ -135,11 +138,13 @@
           "i": {
             "title": "Physical Spaces and Materials",
             "text": "This measure draws on anonymous teacher reports about their access to high-quality materials and facilities as well as administrative data on class size.",
-            "nonlikert": [{
+            "nonlikert": [
+              {
                 "title": "Average Class Size (#)",
                 "benchmark": 18.1,
                 "benchmark_explanation": "State average"
-            }]
+              }
+            ]
           },
           "ii": {
             "title": "Content Specialists and Support Staff",
@@ -172,11 +177,13 @@
                 "title": "Percent of Students Completing MassCore Curriculum (HS only)",
                 "benchmark": 72.4,
                 "benchmark_explanation": "State average"
-              }, {
+              },
+              {
                 "title": "Percent of Students Taking AP Tests (HS only)",
                 "benchmark": 16,
                 "benchmark_explanation": "State average"
-              }, {
+              },
+              {
                 "title": "Percent of AP Test Takers Earning Scores of 3 or Above (HS only)",
                 "benchmark": 63.1,
                 "benchmark_explanation": "State average"
@@ -209,7 +216,8 @@
         }
       }
     }
-  }, {
+  },
+  {
     "title": "Academic Learning",
     "blurb": "Are students developing academic dispositions and content knowledge?",
     "text": "This category measures how much students are learning core academic content, developing their own academic identities, and progressing along positive trajectories.  It considers factors like academic performance, engagement in school, problem solving, and college-going rates.",
@@ -222,11 +230,13 @@
           "i": {
             "title": "Performance Growth",
             "text": "This measure includes school-wide scores for student growth on standardized tests, calculated by considering prior testing history and other factors. As new measures become available, this measure will change to better reflect student learning.",
-            "nonlikert": [{
+            "nonlikert": [
+              {
                 "title": "SGP Growth Score on English MCAS",
                 "benchmark": 50,
                 "benchmark_explanation": "State average"
-              }, {
+              },
+              {
                 "title": "SGP Growth Score on Math MCAS",
                 "benchmark": 50,
                 "benchmark_explanation": "State average"
@@ -251,30 +261,36 @@
           "ii": {
             "title": "Degree completion",
             "text": "This measure includes ",
-            "nonlikert": [{
-                "title":"4-Year Graduation Rate (HS only)",
-                "benchmark":86.1,
-                "benchmark_explanation":"State average."
-              },{
-                "title":"5-Year Graduation Rate (HS only)",
-                "benchmark":87.7,
-                "benchmark_explanation":"State average"
-              },{
-                "title":"English Language Learner 4-Year Graduation Rate (HS only)",
-                "benchmark":63.9,"benchmark_explanation":
-                "State average"
-              },{
-                "title":" English Language Learner 5-Year Graduation Rate (HS only)",
-                "benchmark":70.9,
-                "benchmark_explanation":"State average"
-              },{
-                "title":"Special Education 4-Year Graduation Rate (HS only)",
-                "benchmark":69.1,
-                "benchmark_explanation":"State average"
-              },{
-                "title":"Special Education 5-Year Graduation Rate (HS only)",
-                "benchmark":72.9,
-                "benchmark_explanation":"State average"
+            "nonlikert": [
+              {
+                "title": "4-Year Graduation Rate (HS only)",
+                "benchmark": 86.1,
+                "benchmark_explanation": "State average."
+              },
+              {
+                "title": "5-Year Graduation Rate (HS only)",
+                "benchmark": 87.7,
+                "benchmark_explanation": "State average"
+              },
+              {
+                "title": "English Language Learner 4-Year Graduation Rate (HS only)",
+                "benchmark": 63.9,
+                "benchmark_explanation": "State average"
+              },
+              {
+                "title": " English Language Learner 5-Year Graduation Rate (HS only)",
+                "benchmark": 70.9,
+                "benchmark_explanation": "State average"
+              },
+              {
+                "title": "Special Education 4-Year Graduation Rate (HS only)",
+                "benchmark": 69.1,
+                "benchmark_explanation": "State average"
+              },
+              {
+                "title": "Special Education 5-Year Graduation Rate (HS only)",
+                "benchmark": 72.9,
+                "benchmark_explanation": "State average"
               }
             ]
           }
@@ -362,14 +378,17 @@
           "i": {
             "title": "Participation in Creative and Performing Arts",
             "text": "This measure draws on anonymous teacher and student reports about the frequency of student exposure to the arts.",
-            "nonlikert": [{
-              "title": "Ratio of Art Classes to Total Students",
-              "benchmark": 0.082,
-              "benchmark_explanation": "State average"
-            },{
-              "title": "Art Instruction Hours Per Student Per Week",
-              "benchmark": 1
-            }]
+            "nonlikert": [
+              {
+                "title": "Ratio of Art Classes to Total Students",
+                "benchmark": 0.082,
+                "benchmark_explanation": "State average"
+              },
+              {
+                "title": "Art Instruction Hours Per Student Per Week",
+                "benchmark": 1
+              }
+            ]
           },
           "ii": {
             "title": "Valuing Creative and Performing Arts",
@@ -389,11 +408,13 @@
           "ii": {
             "title": "Physical Health",
             "text": "This measure draws on anonymous teacher reports about student access to physical education and activity.",
-            "nonlikert": [{
+            "nonlikert": [
+              {
                 "title": "Ratio of PE Classes to Total Students",
                 "benchmark": 0.06,
                 "benchmark_explanation": "State average"
-              },{
+              },
+              {
               }
             ]
           }
