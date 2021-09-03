@@ -33,8 +33,6 @@
 
 require 'csv'
 
-# remove this comment
-
 namespace :data do
   @year = 2019
 
