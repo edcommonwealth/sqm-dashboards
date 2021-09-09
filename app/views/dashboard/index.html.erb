@@ -1,1 +1,54 @@
 <h1><%= @school.name %></h1>
+
+<% heading_gutter = 30 %>
+<% graph_height = @construct_graph_row_presenters.length * ConstructGraphParameters::CONSTRUCT_ROW_HEIGHT + heading_gutter %>
+<svg viewbox="0 0 <%= ConstructGraphParameters::TOTAL_GRAPH_WIDTH %> <%= graph_height %>" width=<%= ConstructGraphParameters::TOTAL_GRAPH_WIDTH %> height=<%= graph_height %> xmlns="http://www.w3.org/2000/svg">
+  <% graph_center = ConstructGraphParameters::GRAPH_WIDTH / 2 %>
+  <% label_padding_right = 24 %>
+
+  <% warning_zone = ConstructGraphParameters::WARNING_ZONE %>
+  <% watch_zone = ConstructGraphParameters::WATCH_ZONE %>
+  <% growth_zone = ConstructGraphParameters::GROWTH_ZONE %>
+  <% approval_zone = ConstructGraphParameters::APPROVAL_ZONE %>
+  <% ideal_zone = ConstructGraphParameters::IDEAL_ZONE %>
+
+  <% key_benchmark_width = ConstructGraphParameters::KEY_BENCHMARK_WIDTH %>
+  <% key_benchmark_left_edge = graph_center - key_benchmark_width / 2 %>
+
+  <% construct_row_height = ConstructGraphParameters::CONSTRUCT_ROW_HEIGHT %>
+  <% construct_row_bar_height = ConstructGraphParameters::CONSTRUCT_ROW_BAR_HEIGHT %>
+
+  <svg id="graph-background" x="25%" y="0" width="75%">
+    <g id="scale-headings">
+      <text x=<%= warning_zone.left_edge + warning_zone.width / 2 %> y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Warning</text>
+      <text x=<%= watch_zone.left_edge + watch_zone.width / 2 %> y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Watch</text>
+      <text x=<%= growth_zone.left_edge + growth_zone.width / 2 %> y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Growth</text>
+      <text x=<%= approval_zone.left_edge + approval_zone.width / 2 %> y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Approval</text>
+      <text x=<%= ideal_zone.left_edge + ideal_zone.width / 2 %> y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Ideal</text>
+    </g>
+
+    <g id="scale-background" transform="translate(0, <%= heading_gutter %>)">
+      <rect id="warning-zone" x=<%= warning_zone.left_edge %> y="0" width=<%= warning_zone.width %> height="100%" fill=<%= ConstructGraphParameters::ZoneColor::WARNING %> fill-opacity="0.2" />
+      <rect id="watch-zone" x=<%= watch_zone.left_edge %> y="0" width=<%= watch_zone.width %> height="100%" fill=<%= ConstructGraphParameters::ZoneColor::WATCH %> fill-opacity="0.2" />
+      <rect id="growth-zone" x=<%= growth_zone.left_edge %> y="0" width=<%= growth_zone.width %> height="100%" fill=<%= ConstructGraphParameters::ZoneColor::GROWTH %> fill-opacity="0.2" />
+      <rect id="approval-zone" x=<%= approval_zone.left_edge %> y="0" width=<%= approval_zone.width %> height="100%" fill=<%= ConstructGraphParameters::ZoneColor::APPROVAL %> fill-opacity="0.2" />
+      <rect id="ideal-zone" x=<%= ideal_zone.left_edge %> y="0" width=<%= ideal_zone.width %> height="100%" fill=<%= ConstructGraphParameters::ZoneColor::IDEAL %> fill-opacity="0.2" />
+
+      <rect id="key-benchmark" x=<%= key_benchmark_left_edge %> y="0" width=<%= key_benchmark_width %> height="100%" fill="black" />
+    </g>
+  </svg>
+
+  <g id="construct-rows">
+    <svg id="construct-row-labels" x="0" y=<%= heading_gutter %>>
+      <%= @construct_graph_row_presenters.each_with_index do |presenter, index| %>
+        <text x="25%" dx=<%= -1 * label_padding_right %> y=<%= index * construct_row_height + construct_row_height / 2 %> text-anchor="end" dominant-baseline="middle"><%= presenter.construct_title %></text>
+      <% end %>
+    </svg>
+
+    <svg id="construct-row-bars" x="25%" y=<%= heading_gutter %>>
+      <%= @construct_graph_row_presenters.each_with_index do |presenter, index| %>
+        <rect x=<%= graph_center - presenter.x_offset %> y=<%= index * construct_row_height + (construct_row_height - construct_row_bar_height) / 2 %> width="<%= presenter.bar_width %>" height=<%= construct_row_bar_height %> fill=<%= presenter.bar_color %> />
+      <% end %>
+    </svg>
+  </g>
+</svg>
