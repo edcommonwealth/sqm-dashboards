@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   resources :question_lists
   resources :questions
   resources :categories
-  resources :districts
+  resources :districts do
+    resources :schools, only: [:index, :show] do
+      resources :dashboard, only: [:index]
+    end
+  end
   resources :experiments
 
   resources :schools do
