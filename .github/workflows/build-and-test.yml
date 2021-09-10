@@ -12,7 +12,7 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
         ports:
           - 5432:5432
@@ -28,6 +28,7 @@ jobs:
       RAILS_ENV: test
       PGHOST: localhost
       PGUSER: postgres
+      PGPASSWORD: postgres
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
