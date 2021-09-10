@@ -7,7 +7,6 @@ Rails.application.routes.draw do
       resources :dashboard, only: [:index]
     end
   end
-  resources :experiments
 
   resources :schools do
     resources :recipient_lists
