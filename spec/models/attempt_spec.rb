@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Attempt, type: :model do
 
+  describe 'a failing test' do
+    it 'fails' do
+      expect(true).to be_falsey
+    end
+  end
+
   let!(:school) { School.create!(name: 'School') }
 
   let!(:recipient) { school.recipients.create(name: 'name', phone: "#{1}" * 9) }
