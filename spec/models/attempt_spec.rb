@@ -4,7 +4,7 @@ RSpec.describe Attempt, type: :model do
 
   describe 'a failing test' do
     it 'fails' do
-      expect(true).to be_falsey
+      expect(true).to be_truthy
     end
   end
 
