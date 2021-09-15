@@ -41,7 +41,7 @@
   <g id="construct-rows">
     <svg id="construct-row-labels" x="0" y=<%= heading_gutter %>>
       <%= @construct_graph_row_presenters.each_with_index do |presenter, index| %>
-        <text x="25%" dx=<%= -1 * label_padding_right %> y=<%= index * construct_row_height + construct_row_height / 2 %> text-anchor="end" dominant-baseline="middle"><%= presenter.construct_title %></text>
+        <text x="25%" dx=<%= -1 * label_padding_right %> y=<%= index * construct_row_height + construct_row_height / 2 %> text-anchor="end" dominant-baseline="middle"><%= presenter.construct_name %></text>
       <% end %>
     </svg>
 

@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Construct.destroy_all
+Construct.create construct_id: '1A-i', name: 'Professional Qualifications', watch_low_benchmark: 2.5, growth_low_benchmark: 3.0, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.7
 
 # questions = Category.find_by_name('Family Subcategory').child_categories.map(&:questions).flatten
 # QuestionList.create(name: 'Family Questions', question_id_array: questions.map(&:id))

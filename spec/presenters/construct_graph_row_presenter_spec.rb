@@ -9,7 +9,7 @@ RSpec.describe "construct graph row presenter" do
 
   let(:construct) {
     Construct.new(
-      title: 'Some Title',
+      name: 'Some Title',
       watch_low_benchmark: watch_low_benchmark,
       growth_low_benchmark: growth_low_benchmark,
       approval_low_benchmark: approval_low_benchmark,
@@ -23,7 +23,7 @@ RSpec.describe "construct graph row presenter" do
 
   shared_examples_for 'construct_title' do
     it('returns the construct title') do
-      expect(presenter.construct_title).to eq 'Some Title'
+      expect(presenter.construct_name).to eq 'Some Title'
     end
   end
 

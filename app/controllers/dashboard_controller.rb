@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
   def index
     authenticate(district.name.downcase, "#{district.name.downcase}!")
     @construct_graph_row_presenters = [
-      ConstructGraphRowPresenter.new(construct: professional_qualifications_construct, score: 4.8)
+      ConstructGraphRowPresenter.new(construct: Construct.find_by_construct_id('1A-i'), score: 4.8)
     ]
   end
 
@@ -20,10 +20,6 @@ class DashboardController < ApplicationController
 
   def district
     @district ||= @school.district
-  end
-
-  def professional_qualifications_construct
-    Construct.new title: "Professional Qualifications", watch_low_benchmark: 2.48, growth_low_benchmark: 2.99, approval_low_benchmark: 3.49, ideal_low_benchmark: 4.7
   end
 
 end

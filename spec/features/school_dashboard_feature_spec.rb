@@ -20,6 +20,7 @@ feature "School dashboard", type: feature do
     visit "/districts/winchester/schools/#{school.slug}/dashboard?year=2020-21"
 
     expect(page).to have_text(school.name)
+    expect(page).to have_text('Professional Qualifications')
   end
 
   let(:username) { 'winchester' }

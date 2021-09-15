@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181221180917) do
+ActiveRecord::Schema.define(version: 20210915151547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "attempts", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -47,6 +46,15 @@ ActiveRecord::Schema.define(version: 20181221180917) do
     t.string   "benchmark_description"
     t.string   "zones"
     t.index ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
+  end
+
+  create_table "constructs", force: :cascade do |t|
+    t.string "construct_id"
+    t.string "name"
+    t.float  "watch_low_benchmark"
+    t.float  "growth_low_benchmark"
+    t.float  "approval_low_benchmark"
+    t.float  "ideal_low_benchmark"
   end
 
   create_table "districts", force: :cascade do |t|

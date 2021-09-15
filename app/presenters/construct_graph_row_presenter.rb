@@ -5,8 +5,8 @@ class ConstructGraphRowPresenter
     @score = score
   end
 
-  def construct_title
-    @construct.title
+  def construct_name
+    @construct.name
   end
 
   def bar_color
