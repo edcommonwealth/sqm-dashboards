@@ -6,6 +6,8 @@ feature "School dashboard", type: feature do
     School.create name: 'Winchester High School', slug: 'winchester-high-school', district: district
   }
 
+  let(:construct_row_bars) { page.all('rect.construct-row-bar') }
+
   scenario "User authentication fails" do
     page.driver.browser.basic_authorize('wrong username', 'wrong password')
 
@@ -21,6 +23,8 @@ feature "School dashboard", type: feature do
 
     expect(page).to have_text(school.name)
     expect(page).to have_text('Professional Qualifications')
+    first_row_bar = construct_row_bars.first
+    expect(first_row_bar['width']).to eq '283'
   end
 
   let(:username) { 'winchester' }

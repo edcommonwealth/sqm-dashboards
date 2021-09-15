@@ -5,9 +5,31 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
 
+Item.destroy_all
 Construct.destroy_all
-Construct.create construct_id: '1A-i', name: 'Professional Qualifications', watch_low_benchmark: 2.5, growth_low_benchmark: 3.0, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.7
+
+csv_file = File.read(Rails.root.join('data', 'AY2020-21_construct_items.csv'))
+CSV.parse(csv_file, headers: true).each do |row|
+  scale = row['Scale']
+  unless scale.nil?
+    construct_id = row['Scale'].split(' ').first
+    construct_name = row['Scale'].remove("#{construct_id} ")
+    watch_low = row['Watch Low']
+    growth_low = row['Growth Low']
+    approval_low = row['Approval Low']
+    ideal_low = row['Ideal Low']
+    if Construct.find_by_construct_id(construct_id).nil?
+      Construct.create construct_id: construct_id, name: construct_name, watch_low_benchmark: watch_low, growth_low_benchmark: growth_low, approval_low_benchmark: approval_low, ideal_low_benchmark: ideal_low
+    end
+
+    item_prompt = row['Survey Item']
+    Item.create construct: Construct.find_by_construct_id(construct_id), prompt: item_prompt
+  end
+
+
+end
 
 # questions = Category.find_by_name('Family Subcategory').child_categories.map(&:questions).flatten
 # QuestionList.create(name: 'Family Questions', question_id_array: questions.map(&:id))
