@@ -1,5 +1,25 @@
 <h1><%= @school.name %></h1>
 
+<div>
+  <h2>Areas Of Interest</h2>
+
+  <select name="academic-year">
+    <option value="<%= @academic_year %>" selected><%= format_academic_year(@academic_year) %></option>
+  </select>
+
+  <select name="district">
+    <option value="<%= @district.name %>" selected><%= @district.name %></option>
+  </select>
+
+  <select name="school">
+    <option value="<%= @school.slug %>" selected><%= @school.name %></option>
+  </select>
+</div>
+
+<div>
+  <h2>Top & Bottom 5 Distance From Benchmark</h2>
+</div>
+
 <% heading_gutter = 30 %>
 <% graph_height = @construct_graph_row_presenters.length * ConstructGraphParameters::CONSTRUCT_ROW_HEIGHT + heading_gutter %>
 <svg viewbox="0 0 <%= ConstructGraphParameters::TOTAL_GRAPH_WIDTH %> <%= graph_height %>" width=<%= ConstructGraphParameters::TOTAL_GRAPH_WIDTH %> height=<%= graph_height %> xmlns="http://www.w3.org/2000/svg">

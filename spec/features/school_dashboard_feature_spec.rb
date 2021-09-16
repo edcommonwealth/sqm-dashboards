@@ -31,6 +31,10 @@ feature "School dashboard", type: feature do
 
     visit "/districts/winchester/schools/#{school.slug}/dashboard?year=#{ay_2020_21}"
 
+    expect(page).to have_select('academic-year', selected: '2020 – 2021')
+    expect(page).to have_select('district', selected: 'Winchester')
+    expect(page).to have_select('school', selected: 'Winchester High School')
+
     expect(page).to have_text(school.name)
     expect(page).to have_text('Professional Qualifications')
     first_row_bar = construct_row_bars.first
