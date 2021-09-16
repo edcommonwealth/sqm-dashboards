@@ -77,7 +77,7 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq 29
+      expect(presenter.x_offset).to eq -29
     end
   end
 
@@ -95,7 +95,7 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to be > 0
+      expect(presenter.x_offset).to eq -216
     end
   end
 
@@ -113,7 +113,7 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq 424
+      expect(presenter.x_offset).to eq -424
     end
   end
 end

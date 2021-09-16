@@ -25,19 +25,7 @@ class ConstructGraphRowPresenter
   end
 
   def bar_width
-    percentage = (@score - zone.low_benchmark) / (zone.high_benchmark - zone.low_benchmark)
-    case zone.type
-    when :ideal
-      (percentage * ideal_zone_params.width + approval_zone_params.width).round
-    when :approval
-      (percentage * approval_zone_params.width).round
-    when :growth
-      (percentage * growth_zone_params.width).round
-    when :watch
-      (percentage * watch_zone_params.width + growth_zone_params.width).round
-    else
-      (percentage * warning_zone_params.width + watch_zone_params.width + growth_zone_params.width).round
-    end
+    unrounded_bar_width.round
   end
 
   def x_offset
@@ -45,11 +33,30 @@ class ConstructGraphRowPresenter
     when :ideal, :approval
       0
     else
-      bar_width
+      -1 * bar_width
     end
   end
 
   private
+
+  def unrounded_bar_width
+    case zone.type
+    when :ideal
+      percentage * ideal_zone_params.width + approval_zone_params.width
+    when :approval
+      percentage * approval_zone_params.width
+    when :growth
+      percentage * growth_zone_params.width
+    when :watch
+      percentage * watch_zone_params.width + growth_zone_params.width
+    else
+      percentage * warning_zone_params.width + watch_zone_params.width + growth_zone_params.width
+    end
+  end
+
+  def percentage
+    (@score - zone.low_benchmark) / (zone.high_benchmark - zone.low_benchmark)
+  end
 
   def zone
     @construct.zone_for_score(@score)

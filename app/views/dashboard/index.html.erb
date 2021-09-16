@@ -47,7 +47,7 @@
 
     <svg id="construct-row-bars" x="25%" y=<%= heading_gutter %>>
       <%= @construct_graph_row_presenters.each_with_index do |presenter, index| %>
-        <rect class="construct-row-bar" x=<%= graph_center - presenter.x_offset %> y=<%= index * construct_row_height + (construct_row_height - construct_row_bar_height) / 2 %> width="<%= presenter.bar_width %>" height=<%= construct_row_bar_height %> fill=<%= presenter.bar_color %> />
+        <rect class="construct-row-bar" x=<%= graph_center + presenter.x_offset %> y=<%= index * construct_row_height + (construct_row_height - construct_row_bar_height) / 2 %> width="<%= presenter.bar_width %>" height=<%= construct_row_bar_height %> fill=<%= presenter.bar_color %> />
       <% end %>
     </svg>
   </g>
