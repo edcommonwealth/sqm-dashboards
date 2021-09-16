@@ -1,6 +1,6 @@
 require 'csv'
 
-Item.destroy_all
+SurveyItem.destroy_all
 Construct.destroy_all
 
 csv_file = File.read(Rails.root.join('data', 'AY2020-21_construct_items.csv'))
@@ -18,7 +18,7 @@ CSV.parse(csv_file, headers: true).each do |row|
     end
 
     item_prompt = row['Survey Item']
-    Item.create construct: Construct.find_by_construct_id(construct_id), prompt: item_prompt
+    SurveyItem.create construct: Construct.find_by_construct_id(construct_id), prompt: item_prompt
   end
 end
 
