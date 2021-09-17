@@ -1,0 +1,33 @@
+
+.font-bitter {
+  font-family: 'Bitter', serif;
+}
+
+.font-cabin {
+  font-family: 'Cabin', sans-serif;
+}
+
+.weight-700 {
+  font-weight: 700;
+}
+
+.weight-600 {
+  font-weight: 600;
+}
+
+.weight-400 {
+  font-weight: 400;
+}
+
+.h1 {
+  @extend .font-bitter;
+  @extend .weight-600;
+  font-size: 40px;
+}
+
+.p {
+  @extend .font-cabin;
+  @extend .weight-400;
+  font-size: 17px;
+}
+

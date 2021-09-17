@@ -37,11 +37,11 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns a bar width equal to the approval zone width plus the proportionate ideal zone width') do
-      expect(presenter.bar_width).to eq 324
+      expect(presenter.bar_width).to eq "37.5%"
     end
 
     it('returns an x-offset of 0') do
-      expect(presenter.x_offset).to eq 0
+      expect(presenter.x_offset).to eq "50%"
     end
   end
 
@@ -55,11 +55,11 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns a bar width equal to the proportionate approval zone width') do
-      expect(presenter.bar_width).to eq 108
+      expect(presenter.bar_width).to eq "12.5%"
     end
 
     it('returns an x-offset of 0') do
-      expect(presenter.x_offset).to eq 0
+      expect(presenter.x_offset).to eq "50%"
     end
   end
 
@@ -73,11 +73,11 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns a bar width equal to the proportionate growth zone width') do
-      expect(presenter.bar_width).to eq 29
+      expect(presenter.bar_width).to eq "3.33%"
     end
 
     it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq -29
+      expect(presenter.x_offset).to eq "46.67%"
     end
   end
 
@@ -91,11 +91,11 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns a bar width equal to the proportionate watch zone width plus the growth zone width') do
-      expect(presenter.bar_width).to eq 216
+      expect(presenter.bar_width).to eq "25.01%"
     end
 
     it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq -216
+      expect(presenter.x_offset).to eq "25.0%"
     end
   end
 
@@ -109,11 +109,11 @@ RSpec.describe "construct graph row presenter" do
     end
 
     it('returns a bar width equal to the proportionate warning zone width plus the watch & growth zone widths') do
-      expect(presenter.bar_width).to eq 424
+      expect(presenter.bar_width).to eq "49.13%"
     end
 
     it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq -424
+      expect(presenter.x_offset).to eq "0.87%"
     end
   end
 end

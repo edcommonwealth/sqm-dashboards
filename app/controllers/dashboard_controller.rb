@@ -16,7 +16,11 @@ class DashboardController < ApplicationController
   end
 
   def district
-    @district ||= school.district
+    @district ||= District.find_by_slug district_slug
+  end
+
+  def district_slug
+    params[:district_id]
   end
 
   def school_slug

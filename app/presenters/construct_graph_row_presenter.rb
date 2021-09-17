@@ -24,32 +24,38 @@ class ConstructGraphRowPresenter
   end
 
   def bar_width
-    unrounded_bar_width.round
+    "#{(bar_width_percentage * 100).round(2)}%"
   end
 
   def x_offset
     case zone.type
     when :ideal, :approval
-      0
+      "50%"
     else
-      -1 * bar_width
+      "#{((0.5 - bar_width_percentage) * 100).round(2)}%"
     end
   end
 
   private
 
-  def unrounded_bar_width
+  IDEAL_ZONE_WIDTH_PERCENTAGE = 0.5 / 2
+  APPROVAL_ZONE_WIDTH_PERCENTAGE = 0.5 / 2
+  GROWTH_ZONE_WIDTH_PERCENTAGE = 0.5 / 3
+  WATCH_ZONE_WIDTH_PERCENTAGE = 0.5 / 3
+  WARNING_ZONE_WIDTH_PERCENTAGE = 0.5 / 3
+
+  def bar_width_percentage
     case zone.type
     when :ideal
-      percentage * ideal_zone_params.width + approval_zone_params.width
+      percentage * IDEAL_ZONE_WIDTH_PERCENTAGE + APPROVAL_ZONE_WIDTH_PERCENTAGE
     when :approval
-      percentage * approval_zone_params.width
+      percentage * APPROVAL_ZONE_WIDTH_PERCENTAGE
     when :growth
-      percentage * growth_zone_params.width
+      percentage * GROWTH_ZONE_WIDTH_PERCENTAGE
     when :watch
-      percentage * watch_zone_params.width + growth_zone_params.width
+      percentage * WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
     else
-      percentage * warning_zone_params.width + watch_zone_params.width + growth_zone_params.width
+      percentage * WARNING_ZONE_WIDTH_PERCENTAGE + WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
     end
   end
 
@@ -59,25 +65,5 @@ class ConstructGraphRowPresenter
 
   def zone
     @construct.zone_for_score(@score)
-  end
-
-  def ideal_zone_params
-    ConstructGraphParameters::IDEAL_ZONE
-  end
-
-  def approval_zone_params
-    ConstructGraphParameters::APPROVAL_ZONE
-  end
-
-  def growth_zone_params
-    ConstructGraphParameters::GROWTH_ZONE
-  end
-
-  def watch_zone_params
-    ConstructGraphParameters::WATCH_ZONE
-  end
-
-  def warning_zone_params
-    ConstructGraphParameters::WARNING_ZONE
   end
 end
