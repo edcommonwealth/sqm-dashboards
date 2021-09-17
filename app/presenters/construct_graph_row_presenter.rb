@@ -1,5 +1,4 @@
 class ConstructGraphRowPresenter
-
   def initialize(construct:, score:)
     @construct = construct
     @score = score
