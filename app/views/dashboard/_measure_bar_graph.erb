@@ -1,0 +1,43 @@
+<div class="white-bg paxl border-radius-8">
+
+  <% heading_gutter = 30 %>
+  <% measure_row_height = 40 %>
+  <% graph_height = measure_graph_row_presenters.length * measure_row_height + heading_gutter %>
+  <% measure_row_bar_height = 20 %>
+  <% label_padding_right = 24 %>
+  <svg width="100%" height=<%= graph_height %> xmlns="http://www.w3.org/2000/svg">
+    <svg id="graph-background" x="25%" y="0" width="75%">
+      <g id="scale-headings">
+        <text class="graph-header" x="8.335%" y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Warning</text>
+        <text class="graph-header" x="25%" y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Watch</text>
+        <text class="graph-header" x="41.665%" y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Growth</text>
+        <text class="graph-header" x="62.5%" y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Approval</text>
+        <text class="graph-header" x="87.5%" y=<%= heading_gutter / 2 %> text-anchor="middle" dominant-baseline="middle">Ideal</text>
+      </g>
+
+      <g id="scale-background" transform="translate(0, <%= heading_gutter %>)">
+        <rect id="warning-zone" x="0" y="0" width="16.67%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::WARNING %> fill-opacity="0.2" />
+        <rect id="watch-zone" x="16.67%" y="0" width="16.67%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::WATCH %> fill-opacity="0.2" />
+        <rect id="growth-zone" x="33.33%" y="0" width="16.67%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::GROWTH %> fill-opacity="0.2" />
+        <rect id="approval-zone" x="50%" y="0" width="25%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::APPROVAL %> fill-opacity="0.2" />
+        <rect id="ideal-zone" x="75%" y="0" width="25%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::IDEAL %> fill-opacity="0.2" />
+
+        <rect id="key-benchmark" x="50%" transform="translate(-1, 0)" y="0" width="2" height="100%" fill="black" />
+      </g>
+    </svg>
+
+    <g id="measure-rows">
+      <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
+        <%= measure_graph_row_presenters.each_with_index do |presenter, index| %>
+          <text class="font-cabin weight-600" x="25%" dx=<%= -1 * label_padding_right %> y=<%= index * measure_row_height + measure_row_height / 2 %> text-anchor="end" dominant-baseline="middle"><%= presenter.measure_name %></text>
+        <% end %>
+      </svg>
+
+      <svg id="measure-row-bars" x="25%" y=<%= heading_gutter %> width="75%">
+        <%= measure_graph_row_presenters.each_with_index do |presenter, index| %>
+          <rect class="measure-row-bar" x="<%= presenter.x_offset %>" y=<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %> width="<%= presenter.bar_width %>" height=<%= measure_row_bar_height %> fill=<%= presenter.bar_color %> />
+        <% end %>
+      </svg>
+    </g>
+  </svg>
+  </div>

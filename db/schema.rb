@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210917074250) do
+ActiveRecord::Schema.define(version: 20210920175116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,15 +48,6 @@ ActiveRecord::Schema.define(version: 20210917074250) do
     t.index ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
   end
 
-  create_table "constructs", force: :cascade do |t|
-    t.string "construct_id"
-    t.string "name"
-    t.float  "watch_low_benchmark"
-    t.float  "growth_low_benchmark"
-    t.float  "approval_low_benchmark"
-    t.float  "ideal_low_benchmark"
-  end
-
   create_table "districts", force: :cascade do |t|
     t.string   "name"
     t.integer  "state_id"
@@ -64,6 +55,16 @@ ActiveRecord::Schema.define(version: 20210917074250) do
     t.datetime "updated_at", null: false
     t.string   "slug"
     t.index ["slug"], name: "index_districts_on_slug", unique: true, using: :btree
+  end
+
+  create_table "measures", force: :cascade do |t|
+    t.string  "measure_id",             null: false
+    t.string  "name"
+    t.float   "watch_low_benchmark",    null: false
+    t.float   "growth_low_benchmark",   null: false
+    t.float   "approval_low_benchmark", null: false
+    t.float   "ideal_low_benchmark",    null: false
+    t.integer "subcategory_id",         null: false
   end
 
   create_table "question_lists", force: :cascade do |t|
@@ -193,6 +194,10 @@ ActiveRecord::Schema.define(version: 20210917074250) do
     t.index ["slug"], name: "index_schools_on_slug", unique: true, using: :btree
   end
 
+  create_table "sqm_categories", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "name"
     t.string   "teacher"
@@ -205,16 +210,22 @@ ActiveRecord::Schema.define(version: 20210917074250) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "survey_items", force: :cascade do |t|
-    t.integer "construct_id"
-    t.string  "prompt"
+  create_table "subcategories", force: :cascade do |t|
+    t.string  "name"
+    t.integer "sqm_category_id"
   end
 
-  create_table "survey_responses", force: :cascade do |t|
+  create_table "survey_item_responses", force: :cascade do |t|
     t.string  "academic_year"
     t.integer "likert_score"
-    t.integer "school_id"
-    t.integer "survey_item_id"
+    t.integer "school_id",      null: false
+    t.integer "survey_item_id", null: false
+  end
+
+  create_table "survey_items", force: :cascade do |t|
+    t.integer "measure_id",     null: false
+    t.string  "survey_item_id", null: false
+    t.string  "prompt"
   end
 
   create_table "user_schools", force: :cascade do |t|
@@ -242,11 +253,13 @@ ActiveRecord::Schema.define(version: 20210917074250) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "measures", "subcategories"
   add_foreign_key "recipient_lists", "schools"
   add_foreign_key "schedules", "schools"
   add_foreign_key "school_categories", "categories"
   add_foreign_key "school_categories", "schools"
-  add_foreign_key "survey_items", "constructs"
-  add_foreign_key "survey_responses", "schools"
-  add_foreign_key "survey_responses", "survey_items"
+  add_foreign_key "subcategories", "sqm_categories"
+  add_foreign_key "survey_item_responses", "schools"
+  add_foreign_key "survey_item_responses", "survey_items"
+  add_foreign_key "survey_items", "measures"
 end

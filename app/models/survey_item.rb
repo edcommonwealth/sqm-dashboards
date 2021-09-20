@@ -1,3 +1,3 @@
 class SurveyItem < ActiveRecord::Base
-  belongs_to :construct
+  belongs_to :measure
 end

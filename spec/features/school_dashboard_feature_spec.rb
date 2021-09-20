@@ -4,18 +4,18 @@ feature "School dashboard", type: feature do
   let(:district) { District.create name: 'Winchester' }
   let(:school) { School.create name: 'Winchester High School', slug: 'winchester-high-school', district: district }
 
-  let(:construct) { Construct.find_by_construct_id('1A-i') }
+  let(:measure) { Measure.find_by_measure_id('1A-i') }
 
-  let(:survey_item_1_for_construct) { SurveyItem.create construct: construct }
-  let(:survey_item_2_for_construct) { SurveyItem.create construct: construct }
+  let(:survey_item_1_for_measure) { SurveyItem.create measure: measure, survey_item_id: '1' }
+  let(:survey_item_2_for_measure) { SurveyItem.create measure: measure, survey_item_id: '2' }
 
-  let(:construct_row_bars) { page.all('rect.construct-row-bar') }
+  let(:measure_row_bars) { page.all('rect.measure-row-bar') }
 
   let(:ay_2020_21) { '2020-21' }
 
   before :each do
-    SurveyResponse.create academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_construct, likert_score: 4
-    SurveyResponse.create academic_year: ay_2020_21, school: school, survey_item: survey_item_2_for_construct, likert_score: 5
+    SurveyItemResponse.create academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_measure, likert_score: 4
+    SurveyItemResponse.create academic_year: ay_2020_21, school: school, survey_item: survey_item_2_for_measure, likert_score: 5
   end
 
   scenario "User authentication fails" do
@@ -37,8 +37,8 @@ feature "School dashboard", type: feature do
 
     expect(page).to have_text(school.name)
     expect(page).to have_text('Professional Qualifications')
-    first_row_bar = construct_row_bars.first
-    expect(first_row_bar['width']).to eq '179'
+    first_row_bar = measure_row_bars.first
+    expect(first_row_bar['width']).to eq '20.66%'
   end
 
   let(:username) { 'winchester' }

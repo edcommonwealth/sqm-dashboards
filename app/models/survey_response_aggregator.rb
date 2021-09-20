@@ -5,11 +5,11 @@ class Array
 end
 
 class SurveyResponseAggregator
-  def self.score(academic_year:, school:, construct:)
-    SurveyResponse
+  def self.score(academic_year:, school:, measure:)
+    SurveyItemResponse
       .where(academic_year: academic_year)
       .where(school: school)
-      .filter { |survey_response| survey_response.survey_item.construct == construct }
+      .filter { |survey_response| survey_response.survey_item.measure == measure }
       .map { |survey_response| survey_response.likert_score }
       .average
   end

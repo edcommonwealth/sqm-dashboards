@@ -1,4 +1,4 @@
-module ConstructGraphParameters
+module MeasureGraphParameters
   module ZoneColor
     WARNING = "#FF73C0"
     WATCH = "#F096AD"

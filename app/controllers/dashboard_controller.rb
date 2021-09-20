@@ -1,10 +1,10 @@
 class DashboardController < ApplicationController
   def index
     authenticate(district.name.downcase, "#{district.name.downcase}!")
-    @construct_graph_row_presenters = Construct.where(construct_id: '1A-i').map do | construct |
-      ConstructGraphRowPresenter.new(
-        construct: construct,
-        score: SurveyResponseAggregator.score(school: school, academic_year: academic_year, construct: construct)
+    @measure_graph_row_presenters = Measure.where(measure_id: '1A-i').map do | measure |
+      MeasureGraphRowPresenter.new(
+        measure: measure,
+        score: SurveyResponseAggregator.score(school: school, academic_year: academic_year, measure: measure)
       )
     end
   end

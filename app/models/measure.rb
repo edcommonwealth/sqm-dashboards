@@ -1,4 +1,6 @@
-class Construct < ActiveRecord::Base
+class Measure < ActiveRecord::Base
+  belongs_to :subcategory
+
   Zone = Struct.new(:low_benchmark, :high_benchmark, :type) do
     def includes_score?(score)
       score > low_benchmark and score < high_benchmark

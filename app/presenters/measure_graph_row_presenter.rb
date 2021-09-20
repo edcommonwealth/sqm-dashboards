@@ -1,25 +1,25 @@
-class ConstructGraphRowPresenter
-  def initialize(construct:, score:)
-    @construct = construct
+class MeasureGraphRowPresenter
+  def initialize(measure:, score:)
+    @measure = measure
     @score = score
   end
 
-  def construct_name
-    @construct.name
+  def measure_name
+    @measure.name
   end
 
   def bar_color
     case zone.type
     when :ideal
-      ConstructGraphParameters::ZoneColor::IDEAL
+      MeasureGraphParameters::ZoneColor::IDEAL
     when :approval
-      ConstructGraphParameters::ZoneColor::APPROVAL
+      MeasureGraphParameters::ZoneColor::APPROVAL
     when :growth
-      ConstructGraphParameters::ZoneColor::GROWTH
+      MeasureGraphParameters::ZoneColor::GROWTH
     when :watch
-      ConstructGraphParameters::ZoneColor::WATCH
+      MeasureGraphParameters::ZoneColor::WATCH
     else
-      ConstructGraphParameters::ZoneColor::WARNING
+      MeasureGraphParameters::ZoneColor::WARNING
     end
   end
 
@@ -64,6 +64,6 @@ class ConstructGraphRowPresenter
   end
 
   def zone
-    @construct.zone_for_score(@score)
+    @measure.zone_for_score(@score)
   end
 end
