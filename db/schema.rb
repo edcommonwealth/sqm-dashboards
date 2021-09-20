@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210920175116) do
+ActiveRecord::Schema.define(version: 20210920194221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,9 +51,10 @@ ActiveRecord::Schema.define(version: 20210920175116) do
   create_table "districts", force: :cascade do |t|
     t.string   "name"
     t.integer  "state_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "slug"
+    t.integer  "qualtrics_code"
     t.index ["slug"], name: "index_districts_on_slug", unique: true, using: :btree
   end
 
@@ -185,12 +186,13 @@ ActiveRecord::Schema.define(version: 20210920175116) do
   create_table "schools", force: :cascade do |t|
     t.string   "name"
     t.integer  "district_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.text     "description"
     t.string   "slug"
     t.integer  "student_count"
     t.integer  "teacher_count"
+    t.integer  "qualtrics_code"
     t.index ["slug"], name: "index_schools_on_slug", unique: true, using: :btree
   end
 

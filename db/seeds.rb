@@ -1,7 +1,30 @@
 require 'csv'
 
-csv_file = File.read(Rails.root.join('data', '2021-measure-key.csv'))
-CSV.parse(csv_file, headers: true).each do |row|
+qualtrics_district_and_school_code_key = File.read(Rails.root.join('data', 'qualtrics_district_and_school_code_key.csv'))
+CSV.parse(qualtrics_district_and_school_code_key, headers: true).each do |row|
+  district_name = row['District']
+  district_code = row['District Code']
+  school_name = row['School Name']
+  school_code = row['School Code']
+  school_slug = school_name.parameterize
+
+  district = District.find_by_name(district_name)
+  if district.nil?
+    District.create name: district_name, qualtrics_code: district_code, slug: district_name.parameterize, state_id: 1
+  else
+    district.update(qualtrics_code: district_code) if district.qualtrics_code.nil?
+  end
+
+  school = School.find_by_slug(school_slug)
+  if school.nil?
+    School.create district: district, name: school_name, qualtrics_code: school_code, slug: school_slug
+  else
+    school.update(qualtrics_code: school_code) if school.qualtrics_code.nil?
+  end
+end
+
+measure_key_2021 = File.read(Rails.root.join('data', '2021-measure-key.csv'))
+CSV.parse(measure_key_2021, headers: true).each do |row|
   next if row['Source'] == 'Admin Data'
 
   category_name = row['Category']

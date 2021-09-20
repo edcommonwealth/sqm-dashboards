@@ -20,9 +20,8 @@ RSpec.describe DistrictsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all districts as @districts" do
-      district = District.create! valid_attributes
       get :index, params: {}, session: valid_session
-      expect(assigns(:districts)).to eq([district])
+      expect(assigns(:districts)).to eq(District.all.alphabetic)
     end
   end
 

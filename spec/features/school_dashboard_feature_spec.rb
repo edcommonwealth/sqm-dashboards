@@ -1,8 +1,8 @@
 require "rails_helper"
 
 feature "School dashboard", type: feature do
-  let(:district) { District.create name: 'Winchester' }
-  let(:school) { School.create name: 'Winchester High School', slug: 'winchester-high-school', district: district }
+  let(:district) { District.find_by_slug 'winchester' }
+  let(:school) { School.find_by_slug 'winchester-high-school' }
 
   let(:measure) { Measure.find_by_measure_id('1A-i') }
 
