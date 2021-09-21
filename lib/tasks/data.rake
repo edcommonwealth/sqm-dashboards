@@ -36,6 +36,14 @@ require 'csv'
 namespace :data do
   @year = 2019
 
+  desc "load survey responses"
+  task load_survey_responses: :environment do
+    filepath = Rails.root.join('data', 'survey_results', '2020-21_teacher_survey_responses.csv')
+    puts "=====================> Loading data from csv at path: #{filepath}"
+    SurveyResponsesDataLoader.load_data filepath: filepath
+    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+  end
+
   desc "Load in all data"
   task load: :environment do
     # return if School.count > 0

@@ -19,6 +19,7 @@ CSV.parse(qualtrics_district_and_school_code_key, headers: true).each do |row|
   else
     district.update(qualtrics_code: district_code) if district.qualtrics_code.nil?
   end
+  district = District.find_by_name(district_name)
 
   school = School.find_by_slug(school_slug)
   if school.nil?

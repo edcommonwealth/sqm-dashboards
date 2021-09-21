@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SurveyResponseAggregator, type: :model do
+describe SurveyResponseAggregator do
   let(:category) { SqmCategory.create }
   let(:subcategory) { Subcategory.create sqm_category: category }
 
