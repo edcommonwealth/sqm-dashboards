@@ -28,7 +28,7 @@ class DashboardController < ApplicationController
   end
 
   def academic_year
-    @academic_year ||= params[:year]
+    @academic_year ||= AcademicYear.find_by_range params[:year]
   end
 
 end

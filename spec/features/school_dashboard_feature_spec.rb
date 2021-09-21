@@ -11,7 +11,7 @@ feature "School dashboard", type: feature do
 
   let(:measure_row_bars) { page.all('rect.measure-row-bar') }
 
-  let(:ay_2020_21) { '2020-21' }
+  let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
 
   before :each do
     SurveyItemResponse.create response_id: '123abc', academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_measure, likert_score: 4
@@ -29,7 +29,7 @@ feature "School dashboard", type: feature do
   scenario "User views a school dashboard" do
     page.driver.browser.basic_authorize(username, password)
 
-    visit "/districts/winchester/schools/#{school.slug}/dashboard?year=#{ay_2020_21}"
+    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
 
     expect(page).to have_select('academic-year', selected: '2020 – 2021')
     expect(page).to have_select('district', selected: 'Winchester')

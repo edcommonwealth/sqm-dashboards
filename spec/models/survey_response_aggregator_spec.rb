@@ -4,8 +4,8 @@ describe SurveyResponseAggregator, type: :model do
   let(:category) { SqmCategory.create }
   let(:subcategory) { Subcategory.create sqm_category: category }
 
-  let(:ay_2020_21) { '2020-21' }
-  let(:ay_2021_22) { '2021-22' }
+  let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
+  let(:ay_2021_22) { AcademicYear.find_by_range '2021-22' }
 
   let(:school_a) { School.create name: 'School A' }
   let(:school_b) { School.create name: 'School A' }

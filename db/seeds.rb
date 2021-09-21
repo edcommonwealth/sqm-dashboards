@@ -1,5 +1,10 @@
 require 'csv'
 
+academic_year_ranges = ['2020-21', '2021-22']
+academic_year_ranges.each do |range|
+  AcademicYear.create range: range if AcademicYear.find_by_range(range).nil?
+end
+
 qualtrics_district_and_school_code_key = File.read(Rails.root.join('data', 'qualtrics_district_and_school_code_key.csv'))
 CSV.parse(qualtrics_district_and_school_code_key, headers: true).each do |row|
   district_name = row['District']

@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210921133545) do
+ActiveRecord::Schema.define(version: 20210921155142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "academic_years", force: :cascade do |t|
+    t.string "range", null: false
+    t.index ["range"], name: "index_academic_years_on_range", unique: true, using: :btree
+  end
 
   create_table "attempts", force: :cascade do |t|
     t.integer  "recipient_id"
@@ -218,11 +223,11 @@ ActiveRecord::Schema.define(version: 20210921133545) do
   end
 
   create_table "survey_item_responses", force: :cascade do |t|
-    t.string  "academic_year"
     t.integer "likert_score"
-    t.integer "school_id",      null: false
-    t.integer "survey_item_id", null: false
-    t.string  "response_id",    null: false
+    t.integer "school_id",        null: false
+    t.integer "survey_item_id",   null: false
+    t.string  "response_id",      null: false
+    t.integer "academic_year_id", null: false
   end
 
   create_table "survey_items", force: :cascade do |t|
@@ -262,6 +267,7 @@ ActiveRecord::Schema.define(version: 20210921133545) do
   add_foreign_key "school_categories", "categories"
   add_foreign_key "school_categories", "schools"
   add_foreign_key "subcategories", "sqm_categories"
+  add_foreign_key "survey_item_responses", "academic_years"
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "survey_items"
   add_foreign_key "survey_items", "measures"
