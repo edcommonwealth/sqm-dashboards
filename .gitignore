@@ -23,3 +23,4 @@ config/local_env.yml
 .DS_Store
 
 .idea/
+Gemfile.lock
