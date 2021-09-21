@@ -14,8 +14,8 @@ feature "School dashboard", type: feature do
   let(:ay_2020_21) { '2020-21' }
 
   before :each do
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_measure, likert_score: 4
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school, survey_item: survey_item_2_for_measure, likert_score: 5
+    SurveyItemResponse.create response_id: '123abc', academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_measure, likert_score: 4
+    SurveyItemResponse.create response_id: '456efg', academic_year: ay_2020_21, school: school, survey_item: survey_item_2_for_measure, likert_score: 5
   end
 
   scenario "User authentication fails" do

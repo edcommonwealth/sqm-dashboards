@@ -20,29 +20,29 @@ describe SurveyResponseAggregator, type: :model do
   let(:survey_item_2_for_measure_b) { SurveyItem.create measure: measure_b, survey_item_id: 'si2b' }
 
   before :each do
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_a, survey_item: survey_item_1_for_measure_a, likert_score: 1
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_a, survey_item: survey_item_2_for_measure_a, likert_score: 2
+    SurveyItemResponse.create response_id: '01', academic_year: ay_2020_21, school: school_a, survey_item: survey_item_1_for_measure_a, likert_score: 1
+    SurveyItemResponse.create response_id: '02', academic_year: ay_2020_21, school: school_a, survey_item: survey_item_2_for_measure_a, likert_score: 2
 
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_a, survey_item: survey_item_1_for_measure_b, likert_score: 1
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_a, survey_item: survey_item_2_for_measure_b, likert_score: 3
+    SurveyItemResponse.create response_id: '03', academic_year: ay_2020_21, school: school_a, survey_item: survey_item_1_for_measure_b, likert_score: 1
+    SurveyItemResponse.create response_id: '04', academic_year: ay_2020_21, school: school_a, survey_item: survey_item_2_for_measure_b, likert_score: 3
 
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_b, survey_item: survey_item_1_for_measure_a, likert_score: 1
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_b, survey_item: survey_item_2_for_measure_a, likert_score: 4
+    SurveyItemResponse.create response_id: '05', academic_year: ay_2020_21, school: school_b, survey_item: survey_item_1_for_measure_a, likert_score: 1
+    SurveyItemResponse.create response_id: '06', academic_year: ay_2020_21, school: school_b, survey_item: survey_item_2_for_measure_a, likert_score: 4
 
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_b, survey_item: survey_item_1_for_measure_b, likert_score: 1
-    SurveyItemResponse.create academic_year: ay_2020_21, school: school_b, survey_item: survey_item_2_for_measure_b, likert_score: 5
+    SurveyItemResponse.create response_id: '07', academic_year: ay_2020_21, school: school_b, survey_item: survey_item_1_for_measure_b, likert_score: 1
+    SurveyItemResponse.create response_id: '08', academic_year: ay_2020_21, school: school_b, survey_item: survey_item_2_for_measure_b, likert_score: 5
 
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_a, survey_item: survey_item_1_for_measure_a, likert_score: 2
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_a, survey_item: survey_item_2_for_measure_a, likert_score: 3
+    SurveyItemResponse.create response_id: '09', academic_year: ay_2021_22, school: school_a, survey_item: survey_item_1_for_measure_a, likert_score: 2
+    SurveyItemResponse.create response_id: '10', academic_year: ay_2021_22, school: school_a, survey_item: survey_item_2_for_measure_a, likert_score: 3
 
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_a, survey_item: survey_item_1_for_measure_b, likert_score: 2
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_a, survey_item: survey_item_2_for_measure_b, likert_score: 4
+    SurveyItemResponse.create response_id: '11', academic_year: ay_2021_22, school: school_a, survey_item: survey_item_1_for_measure_b, likert_score: 2
+    SurveyItemResponse.create response_id: '12', academic_year: ay_2021_22, school: school_a, survey_item: survey_item_2_for_measure_b, likert_score: 4
 
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_b, survey_item: survey_item_1_for_measure_a, likert_score: 2
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_b, survey_item: survey_item_2_for_measure_a, likert_score: 5
+    SurveyItemResponse.create response_id: '13', academic_year: ay_2021_22, school: school_b, survey_item: survey_item_1_for_measure_a, likert_score: 2
+    SurveyItemResponse.create response_id: '14', academic_year: ay_2021_22, school: school_b, survey_item: survey_item_2_for_measure_a, likert_score: 5
 
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_b, survey_item: survey_item_1_for_measure_b, likert_score: 3
-    SurveyItemResponse.create academic_year: ay_2021_22, school: school_b, survey_item: survey_item_2_for_measure_b, likert_score: 5
+    SurveyItemResponse.create response_id: '15', academic_year: ay_2021_22, school: school_b, survey_item: survey_item_1_for_measure_b, likert_score: 3
+    SurveyItemResponse.create response_id: '16', academic_year: ay_2021_22, school: school_b, survey_item: survey_item_2_for_measure_b, likert_score: 5
   end
 
   describe '.score' do
