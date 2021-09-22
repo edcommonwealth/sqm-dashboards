@@ -7,7 +7,7 @@ class SurveyResponsesDataLoader
     parsed_csv_file = CSV.parse(csv_file, headers: true)
     survey_items = parsed_csv_file.headers
                          .filter { |header| !header.nil? }
-                         .filter { |header| header.start_with? 't-' }
+                         .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
                          .map { |survey_item_id| SurveyItem.find_by_survey_item_id survey_item_id }
 
     parsed_csv_file.each do |row|
@@ -29,9 +29,9 @@ class SurveyResponsesDataLoader
     school = school(row: row)
     return if school.nil?
 
-    return unless SurveyItemResponse.find_by_response_id(response_id).nil?
-
     survey_items.each do |survey_item|
+      return unless SurveyItemResponse.where(response_id: response_id, survey_item: survey_item).empty?
+
       likert_score = row[survey_item.survey_item_id]
       next if likert_score.nil?
       SurveyItemResponse.create(
