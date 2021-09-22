@@ -1,7 +1,9 @@
 require 'csv'
 
 class SurveyResponsesDataLoader
+  @@survey_item_responses = []
   def self.load_data(filepath:)
+    @@survey_item_responses = []
     csv_file = File.read(filepath)
 
     parsed_csv_file = CSV.parse(csv_file, headers: true)
@@ -13,6 +15,8 @@ class SurveyResponsesDataLoader
     parsed_csv_file.each do |row|
       process_row row: row, survey_items: survey_items
     end
+
+    SurveyItemResponse.import @@survey_item_responses
   end
 
   private
@@ -34,7 +38,7 @@ class SurveyResponsesDataLoader
 
       likert_score = row[survey_item.survey_item_id]
       next if likert_score.nil?
-      SurveyItemResponse.create(
+      @@survey_item_responses << SurveyItemResponse.new(
         response_id: response_id,
         academic_year: academic_year,
         school: school,
