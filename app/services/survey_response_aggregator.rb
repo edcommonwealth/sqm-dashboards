@@ -1,9 +1,3 @@
-class Array
-  def average
-    self.sum.to_f / self.size
-  end
-end
-
 class SurveyResponseAggregator
   def self.score(academic_year:, school:, measure:)
     SurveyItemResponse
