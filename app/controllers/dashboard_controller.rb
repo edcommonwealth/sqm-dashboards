@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
   private
 
   def measure_ids
-    %w(1A-i)
+    %w(1A-i 2A-i)
   end
 
   def presenter_for_measure(measure)
