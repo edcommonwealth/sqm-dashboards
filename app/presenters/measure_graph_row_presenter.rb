@@ -9,18 +9,7 @@ class MeasureGraphRowPresenter
   end
 
   def bar_color
-    case zone.type
-    when :ideal
-      MeasureGraphParameters::ZoneColor::IDEAL
-    when :approval
-      MeasureGraphParameters::ZoneColor::APPROVAL
-    when :growth
-      MeasureGraphParameters::ZoneColor::GROWTH
-    when :watch
-      MeasureGraphParameters::ZoneColor::WATCH
-    else
-      MeasureGraphParameters::ZoneColor::WARNING
-    end
+    "fill-#{zone.type}"
   end
 
   def bar_width

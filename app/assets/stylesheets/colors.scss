@@ -1,14 +1,50 @@
-$red: #C92F47;
+$black: #3E3A38;
+$gray-1: #595959;
+$gray-2: #CECECE;
+$gray-3: #F9F9F9;
+$white: #FFFFFF;
+$blue: #01788E;
+$red: #C93047;
+
+$teal: #00B0B3;
+$mint: #B2D236;
+
 $beige: #EFEBE1;
+
+$warning: #FF73C0;
+$watch: #F096AD;
+$growth: #E0BA9A;
+$approval: #D0DD86;
+$ideal: #C0FF73;
 
 .red {
   color: $red;
 }
 
-.beige-bg {
+.bg-beige {
   background-color: $beige;
 }
 
-.white-bg {
-  background-color: white;
+.bg-white {
+  background-color: $white;
+}
+
+.fill-warning {
+  fill: $warning;
+}
+
+.fill-watch {
+  fill: $watch;
+}
+
+.fill-growth {
+  fill: $growth;
+}
+
+.fill-approval {
+  fill: $approval;
+}
+
+.fill-ideal {
+  fill: $ideal;
 }

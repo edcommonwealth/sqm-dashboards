@@ -1,4 +1,4 @@
-<div class="white-bg p-4 border-radius-8">
+<div class="bg-white p-4 border-radius-8">
 
   <% heading_gutter = 30 %>
   <% footer_gutter = 50 %>
@@ -35,11 +35,11 @@
       </g>
 
       <g id="scale-background" transform="translate(0, <%= heading_gutter %>)">
-        <rect id="warning-zone" x="0" y="0" width="16.67%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::WARNING %> opacity="0.2" filter="url(#inset-shadow)"/>
-        <rect id="watch-zone" x="16.67%" y="0" width="16.67%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::WATCH %> opacity="0.2" filter="url(#inset-shadow)"/>
-        <rect id="growth-zone" x="33.33%" y="0" width="16.67%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::GROWTH %> opacity="0.2" filter="url(#inset-shadow)"/>
-        <rect id="approval-zone" x="50%" y="0" width="25%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::APPROVAL %> opacity="0.2" filter="url(#inset-shadow)"/>
-        <rect id="ideal-zone" x="75%" y="0" width="25%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::IDEAL %> opacity="0.2" filter="url(#inset-shadow)"/>
+        <rect id="warning-zone" class="fill-warning" x="0" y="0" width="16.67%" height="100%" opacity="0.2" filter="url(#inset-shadow)"/>
+        <rect id="watch-zone" class="fill-watch" x="16.67%" y="0" width="16.67%" height="100%" opacity="0.2" filter="url(#inset-shadow)"/>
+        <rect id="growth-zone" class="fill-growth" x="33.33%" y="0" width="16.67%" height="100%" opacity="0.2" filter="url(#inset-shadow)"/>
+        <rect id="approval-zone" class="fill-approval" x="50%" y="0" width="25%" height="100%" opacity="0.2" filter="url(#inset-shadow)"/>
+        <rect id="ideal-zone" class="fill-ideal" x="75%" y="0" width="25%" height="100%" opacity="0.2" filter="url(#inset-shadow)"/>
 
         <rect id="key-benchmark" x="50%" transform="translate(-1, 0)" y="0" width="2" height="100%" fill="black"/>
       </g>
@@ -54,7 +54,7 @@
 
       <svg id="measure-row-bars" x="25%" y=<%= heading_gutter %> width="75%">
         <%= measure_graph_row_presenters.each_with_index do |presenter, index| %>
-          <rect class="measure-row-bar" x="<%= presenter.x_offset %>" y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>" width="<%= presenter.bar_width %>" height=<%= measure_row_bar_height %> fill=<%= presenter.bar_color %> />
+          <rect class="measure-row-bar <%= presenter.bar_color %>" x="<%= presenter.x_offset %>" y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>" width="<%= presenter.bar_width %>" height=<%= measure_row_bar_height %> />
         <% end %>
       </svg>
     </g>

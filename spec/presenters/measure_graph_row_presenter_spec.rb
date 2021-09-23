@@ -33,7 +33,7 @@ RSpec.describe MeasureGraphRowPresenter do
     it_behaves_like 'measure_name'
 
     it('returns the correct color') do
-      expect(presenter.bar_color).to eq MeasureGraphParameters::ZoneColor::IDEAL
+      expect(presenter.bar_color).to eq "fill-ideal"
     end
 
     it('returns a bar width equal to the approval zone width plus the proportionate ideal zone width') do
@@ -51,7 +51,7 @@ RSpec.describe MeasureGraphRowPresenter do
     it_behaves_like 'measure_name'
 
     it("returns the correct color") do
-      expect(presenter.bar_color).to eq MeasureGraphParameters::ZoneColor::APPROVAL
+      expect(presenter.bar_color).to eq "fill-approval"
     end
 
     it('returns a bar width equal to the proportionate approval zone width') do
@@ -69,7 +69,7 @@ RSpec.describe MeasureGraphRowPresenter do
     it_behaves_like 'measure_name'
 
     it("returns the correct color") do
-      expect(presenter.bar_color).to eq MeasureGraphParameters::ZoneColor::GROWTH
+      expect(presenter.bar_color).to eq "fill-growth"
     end
 
     it('returns a bar width equal to the proportionate growth zone width') do
@@ -87,7 +87,7 @@ RSpec.describe MeasureGraphRowPresenter do
     it_behaves_like 'measure_name'
 
     it("returns the correct color") do
-      expect(presenter.bar_color).to eq MeasureGraphParameters::ZoneColor::WATCH
+      expect(presenter.bar_color).to eq "fill-watch"
     end
 
     it('returns a bar width equal to the proportionate watch zone width plus the growth zone width') do
@@ -105,7 +105,7 @@ RSpec.describe MeasureGraphRowPresenter do
     it_behaves_like 'measure_name'
 
     it("returns the correct color") do
-      expect(presenter.bar_color).to eq MeasureGraphParameters::ZoneColor::WARNING
+      expect(presenter.bar_color).to eq "fill-warning"
     end
 
     it('returns a bar width equal to the proportionate warning zone width plus the watch & growth zone widths') do
