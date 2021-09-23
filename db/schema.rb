@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210921155142) do
+ActiveRecord::Schema.define(version: 20210923113404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 20210921155142) do
     t.float   "approval_low_benchmark", null: false
     t.float   "ideal_low_benchmark",    null: false
     t.integer "subcategory_id",         null: false
+    t.index ["measure_id"], name: "index_measures_on_measure_id", using: :btree
+    t.index ["subcategory_id"], name: "index_measures_on_subcategory_id", using: :btree
   end
 
   create_table "question_lists", force: :cascade do |t|
@@ -228,12 +230,18 @@ ActiveRecord::Schema.define(version: 20210921155142) do
     t.integer "survey_item_id",   null: false
     t.string  "response_id",      null: false
     t.integer "academic_year_id", null: false
+    t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id", using: :btree
+    t.index ["response_id"], name: "index_survey_item_responses_on_response_id", using: :btree
+    t.index ["school_id"], name: "index_survey_item_responses_on_school_id", using: :btree
+    t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id", using: :btree
   end
 
   create_table "survey_items", force: :cascade do |t|
     t.integer "measure_id",     null: false
     t.string  "survey_item_id", null: false
     t.string  "prompt"
+    t.index ["measure_id"], name: "index_survey_items_on_measure_id", using: :btree
+    t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id", using: :btree
   end
 
   create_table "user_schools", force: :cascade do |t|
