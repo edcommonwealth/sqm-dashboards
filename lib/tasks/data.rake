@@ -38,9 +38,7 @@ namespace :data do
 
   desc "load survey responses"
   task load_survey_responses: :environment do
-    survey_groups = %w(2020-21_teacher 2020-21_student)
-    survey_groups.each do |survey_group|
-      filepath = Rails.root.join('data', 'survey_results', "#{survey_group}_survey_responses.csv")
+    Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath: filepath
     end
