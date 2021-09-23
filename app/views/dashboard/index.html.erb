@@ -1,24 +1,24 @@
 <h1><%= @school.name %></h1>
 
-<div class="beige-bg ph120 pv80">
+<div class="beige-bg px-6 py-4">
   <div class="fdr fjb fac">
     <h2 class="h1">Areas Of Interest</h2>
-    <div>
-      <select name="academic-year">
+    <div class="fdr">
+      <select class="ml-3 custom-select-lg" name="academic-year">
         <option value="<%= @academic_year %>" selected><%= format_academic_year(@academic_year) %></option>
       </select>
 
-      <select name="district">
+      <select class="ml-3 custom-select-lg" name="district">
         <option value="<%= @district.slug %>" selected><%= @district.name %></option>
       </select>
 
-      <select name="school">
+      <select class="ml-3 custom-select-lg" name="school">
         <option value="<%= @school.slug %>" selected><%= @school.name %></option>
       </select>
     </div>
   </div>
 
-  <div class="mtl">
+  <div class="mt-4">
     <h2 class="h1 red">Distance from benchmark</h2>
     <p class="p">This graph shows how much a score is above or below the benchmark of any given scale.</p>
   </div>
