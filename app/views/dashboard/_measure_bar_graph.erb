@@ -1,7 +1,7 @@
-<div class="white-bg paxl border-radius-8">
+<div class="white-bg p-4 border-radius-8">
 
   <% heading_gutter = 30 %>
-  <% footer_gutter = 50  %>
+  <% footer_gutter = 50 %>
   <% measure_row_height = 40 %>
   <% graph_height = measure_graph_row_presenters.length * measure_row_height + heading_gutter + footer_gutter %>
   <% graph_background_height = graph_height - footer_gutter %>
@@ -12,16 +12,16 @@
 
     <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feComponentTransfer in=SourceAlpha>
-        <feFuncA type="table" tableValues="1 0" />
+        <feFuncA type="table" tableValues="1 0"/>
       </feComponentTransfer>
       <feGaussianBlur stdDeviation="4"/>
       <feOffset dx="0" dy="5" result="offsetblur"/>
       <feFlood flood-color="rgb(0, 0, 0)" result="color"/>
       <feComposite in2="offsetblur" operator="in"/>
-      <feComposite in2="SourceAlpha" operator="in" />
+      <feComposite in2="SourceAlpha" operator="in"/>
       <feMerge>
-        <feMergeNode in="SourceGraphic" />
-        <feMergeNode />
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode/>
       </feMerge>
     </filter>
 
@@ -41,7 +41,7 @@
         <rect id="approval-zone" x="50%" y="0" width="25%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::APPROVAL %> opacity="0.2" filter="url(#inset-shadow)"/>
         <rect id="ideal-zone" x="75%" y="0" width="25%" height="100%" fill=<%= MeasureGraphParameters::ZoneColor::IDEAL %> opacity="0.2" filter="url(#inset-shadow)"/>
 
-        <rect id="key-benchmark" x="50%" transform="translate(-1, 0)" y="0" width="2" height="100%" fill="black" />
+        <rect id="key-benchmark" x="50%" transform="translate(-1, 0)" y="0" width="2" height="100%" fill="black"/>
       </g>
     </svg>
 
@@ -54,13 +54,13 @@
 
       <svg id="measure-row-bars" x="25%" y=<%= heading_gutter %> width="75%">
         <%= measure_graph_row_presenters.each_with_index do |presenter, index| %>
-          <rect class="measure-row-bar" x="<%= presenter.x_offset %>" y=<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %> width="<%= presenter.bar_width %>" height=<%= measure_row_bar_height %> fill=<%= presenter.bar_color %> />
+          <rect class="measure-row-bar" x="<%= presenter.x_offset %>" y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>" width="<%= presenter.bar_width %>" height=<%= measure_row_bar_height %> fill=<%= presenter.bar_color %> />
         <% end %>
       </svg>
     </g>
 
     <g id="legend">
-      <text class="graph-footer" x="58.33%" y=<%=  graph_background_height + (footer_gutter /2)%>>Benchmark</text>
+      <text class="graph-footer" x="58.33%" y="<%= graph_background_height + (footer_gutter / 2) %>">Benchmark</text>
     </g>
   </svg>
-  </div>
+</div>
