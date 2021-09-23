@@ -15,7 +15,8 @@ class School < ApplicationRecord
 
   def self.find_by_district_code_and_school_code(district_code, school_code)
     School
-      .where(district: District.find_by_qualtrics_code(district_code))
+      .joins(:district)
+      .where(districts: {qualtrics_code: district_code})
       .find_by_qualtrics_code(school_code)
   end
 
