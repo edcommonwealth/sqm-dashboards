@@ -13,6 +13,12 @@ class School < ApplicationRecord
   include FriendlyId
   friendly_id :name, :use => [:slugged]
 
+  def self.find_by_district_code_and_school_code(district_code, school_code)
+    School
+      .where(district: District.find_by_qualtrics_code(district_code))
+      .find_by_qualtrics_code(school_code)
+  end
+
   def available_responders_for(question)
     if question.for_students?
       return student_count || 1

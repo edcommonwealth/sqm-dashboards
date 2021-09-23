@@ -2,6 +2,7 @@ require 'csv'
 
 class SurveyResponsesDataLoader
   @@survey_item_responses = []
+
   def self.load_data(filepath:)
     @@survey_item_responses = []
     csv_file = File.read(filepath)
@@ -23,14 +24,15 @@ class SurveyResponsesDataLoader
 
   def self.process_row(row:, survey_items:)
     response_date = Date.parse(row['Recorded Date'])
-    academic_year = academic_year date: response_date
+    academic_year = AcademicYear.find_by_date response_date
 
     response_id = row['Response ID']
 
+    district_code = row['district_code']
     school_code = row['school_code']
     return if school_code.nil?
 
-    school = school(row: row)
+    school = School.find_by_district_code_and_school_code(district_code, school_code)
     return if school.nil?
 
     survey_items.each do |survey_item|
@@ -49,24 +51,4 @@ class SurveyResponsesDataLoader
 
   end
 
-  def self.school(row:)
-    district_code = row['district_code']
-    school_code = row['school_code']
-    return nil if school_code.nil?
-
-    School
-       .where({district: District.find_by_qualtrics_code(district_code), qualtrics_code: school_code})
-       .first
-  end
-
-  def self.academic_year(date:)
-    if date.month > 7
-      ay_range_start = date.year
-      ay_range_end = date.year + 1
-    else
-      ay_range_start = date.year - 1
-      ay_range_end = date.year
-    end
-    AcademicYear.find_by_range("#{ay_range_start}-#{ay_range_end.to_s[2, 3]}")
-  end
 end
