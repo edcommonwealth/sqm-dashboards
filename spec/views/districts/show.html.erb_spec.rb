@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "districts/show", type: :view do
   before(:each) do
     @district = assign(:district, District.create!(
-      :name => "District Name",
+      :name => "Milford",
       :state_id => 2
     ))
 
@@ -14,7 +14,7 @@ RSpec.describe "districts/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/District Name/)
+    expect(rendered).to match(/Milford/)
     expect(rendered).to match(/2/)
     3.times do |i|
       expect(rendered).to match(/School #{i}/)

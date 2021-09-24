@@ -6,7 +6,7 @@ RSpec.describe DistrictsController, type: :controller do
   # District. As you add validations to District, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {name: 'District'}
+    {name: 'Milford'}
   }
 
   let(:invalid_attributes) {
