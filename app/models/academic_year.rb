@@ -1,7 +1,7 @@
 class AcademicYear < ActiveRecord::Base
 
   def self.find_by_date(date)
-    if date.month > 7
+    if date.month > 6
       ay_range_start = date.year
       ay_range_end = date.year + 1
     else
