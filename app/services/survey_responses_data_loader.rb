@@ -50,6 +50,7 @@ class SurveyResponsesDataLoader
     end.compact
   end
 
+  private_class_method :process_row
 end
 
 module StringMonkeyPatches
