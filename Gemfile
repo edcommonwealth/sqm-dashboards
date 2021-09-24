@@ -37,7 +37,6 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'haml'
 
-gem "therubyracer"
 gem 'bootstrap', '~> 4.0.0.alpha6'
 
 gem 'jquery-ui-rails'
