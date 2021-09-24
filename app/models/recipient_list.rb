@@ -28,8 +28,8 @@ class RecipientList < ApplicationRecord
     end
 
     def sync_recipient_schedules
-      return unless recipient_ids_was.present? && recipient_ids_was != recipient_ids
-      old_ids = recipient_ids_was.split(/,/)
+      return unless recipient_ids_before_last_save.present? && recipient_ids_before_last_save != recipient_ids
+      old_ids = recipient_ids_before_last_save.split(/,/)
       new_ids = recipient_ids.split(/,/)
       (old_ids - new_ids).each do |deleted_recipient|
         schedules.each do |schedule|
