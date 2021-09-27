@@ -15,7 +15,11 @@ class SurveyResponsesDataLoader
       process_row row: row, survey_items: survey_items
     end
 
-    SurveyItemResponse.import survey_item_responses.compact.flatten
+    batch_progress = ->(rows_size, num_batches, current_batch_number, batch_duration_in_secs) {
+      puts "======================> Row size: #{rows_size}, Number of batches: #{num_batches}, Current batch number: #{current_batch_number}"
+    }
+
+    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 10, batch_progress: batch_progress
   end
 
   private

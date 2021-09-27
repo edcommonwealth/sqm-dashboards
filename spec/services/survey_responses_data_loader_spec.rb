@@ -81,7 +81,7 @@ describe SurveyResponsesDataLoader do
       end
 
       it 'loads all the survey item responses for a given survey response' do
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 0
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 2
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
