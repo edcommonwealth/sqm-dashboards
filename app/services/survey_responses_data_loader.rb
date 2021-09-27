@@ -21,13 +21,13 @@ class SurveyResponsesDataLoader
   private
 
   def self.process_row(row:, survey_items:)
-    response_date = Date.parse(row['Recorded Date'])
+    response_date = Date.parse(row['Recorded Date'] || row['RecordedDate'])
     academic_year = AcademicYear.find_by_date response_date
 
-    response_id = row['Response ID']
+    response_id = row['Response ID'] || row['ResponseId']
 
-    district_code = row['District']
-    school_code = row['School']
+    district_code = row['District'] || row['district']
+    school_code = row['School'] || row['school']
     return if school_code.nil?
 
     school = School.find_by_district_code_and_school_code(district_code, school_code)
