@@ -9,6 +9,15 @@ This is a Rails project, deployed on Heroku.
 
 
 ## Local development
+Install Postgres and running first.
+
+(MacOS, Optional), you can use Homebrew:
+```
+$ brew install postgres
+$ brew services start postgresql
+```
+
+Once postgres is installed and running, install the required gems and then migrate the database.
 ```
 $ bundle install
 $ bundle exec rake db:create db:migrate db:seed
@@ -28,21 +37,13 @@ You can load these into the database and index them for use in the webapp by run
 
 You can start by generating fake data:
 ```
-$ bundle exec rake data:generate
+$ bundle exec rake db:fixtures:load
 ```
 
-Loading all the real response data take a while, so you can start by loading only a sample of the data for one particular school with:
-
+## Running tests
 ```
-$ bundle exec rake data:load_sample
+$ bundle exec rake test
 ```
-
-This loads all the data:
-
-```
-$ bundle exec rake data:load
-```
-
 
 ## Demo deploy
 Get the code and make a new repo without any history.
