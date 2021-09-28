@@ -22,7 +22,7 @@ RSpec.describe MeasureGraphRowPresenter do
   }
 
   shared_examples_for 'measure_name' do
-    it('returns the measure name') do
+    it 'returns the measure name' do
       expect(presenter.measure_name).to eq 'Some Title'
     end
   end
@@ -32,15 +32,15 @@ RSpec.describe MeasureGraphRowPresenter do
 
     it_behaves_like 'measure_name'
 
-    it('returns the correct color') do
+    it 'returns the correct color' do
       expect(presenter.bar_color).to eq "fill-ideal"
     end
 
-    it('returns a bar width equal to the approval zone width plus the proportionate ideal zone width') do
+    it 'returns a bar width equal to the approval zone width plus the proportionate ideal zone width' do
       expect(presenter.bar_width).to eq "37.5%"
     end
 
-    it('returns an x-offset of 0') do
+    it 'returns an x-offset of 0' do
       expect(presenter.x_offset).to eq "50%"
     end
   end
@@ -50,15 +50,15 @@ RSpec.describe MeasureGraphRowPresenter do
 
     it_behaves_like 'measure_name'
 
-    it("returns the correct color") do
+    it "returns the correct color" do
       expect(presenter.bar_color).to eq "fill-approval"
     end
 
-    it('returns a bar width equal to the proportionate approval zone width') do
+    it 'returns a bar width equal to the proportionate approval zone width' do
       expect(presenter.bar_width).to eq "12.5%"
     end
 
-    it('returns an x-offset of 0') do
+    it 'returns an x-offset of 0' do
       expect(presenter.x_offset).to eq "50%"
     end
   end
@@ -68,52 +68,58 @@ RSpec.describe MeasureGraphRowPresenter do
 
     it_behaves_like 'measure_name'
 
-    it("returns the correct color") do
+    it "returns the correct color" do
       expect(presenter.bar_color).to eq "fill-growth"
     end
 
-    it('returns a bar width equal to the proportionate growth zone width') do
-      expect(presenter.bar_width).to eq "3.33%"
+    it 'returns a bar width equal to the proportionate growth zone width' do
+      expect(presenter.bar_width).to eq "13.33%"
     end
 
-    it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq "46.67%"
+    context 'in order to achieve the visual effect' do
+      it 'returns an x-offset equal to 50% minus the bar width' do
+        expect(presenter.x_offset).to eq "36.67%"
+      end
     end
   end
 
   context('when the score is in the Watch zone') do
-    let(:score) { 3.0 }
+    let(:score) { 2.9 }
 
     it_behaves_like 'measure_name'
 
-    it("returns the correct color") do
+    it "returns the correct color" do
       expect(presenter.bar_color).to eq "fill-watch"
     end
 
-    it('returns a bar width equal to the proportionate watch zone width plus the growth zone width') do
-      expect(presenter.bar_width).to eq "25.0%"
+    it 'returns a bar width equal to the proportionate watch zone width plus the growth zone width' do
+      expect(presenter.bar_width).to eq "33.33%"
     end
 
-    it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq "25.0%"
+    context 'in order to achieve the visual effect' do
+      it 'returns an x-offset equal to 50% minus the bar width' do
+        expect(presenter.x_offset).to eq "16.67%"
+      end
     end
   end
 
   context('when the score is in the Warning zone') do
-    let(:score) { 2.8 }
+    let(:score) { 1.0 }
 
     it_behaves_like 'measure_name'
 
-    it("returns the correct color") do
+    it "returns the correct color" do
       expect(presenter.bar_color).to eq "fill-warning"
     end
 
-    it('returns a bar width equal to the proportionate warning zone width plus the watch & growth zone widths') do
-      expect(presenter.bar_width).to eq "49.12%"
+    it 'returns a bar width equal to the proportionate warning zone width plus the watch & growth zone widths' do
+      expect(presenter.bar_width).to eq "50.0%"
     end
 
-    it('returns an x-offset equal to the bar width') do
-      expect(presenter.x_offset).to eq "0.88%"
+    context 'in order to achieve the visual effect' do
+      it 'returns an x-offset equal to 50% minus the bar width' do
+        expect(presenter.x_offset).to eq "0.0%"
+      end
     end
   end
 end

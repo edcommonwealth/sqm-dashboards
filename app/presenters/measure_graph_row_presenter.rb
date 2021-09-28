@@ -40,11 +40,11 @@ class MeasureGraphRowPresenter
     when :approval
       percentage * APPROVAL_ZONE_WIDTH_PERCENTAGE
     when :growth
-      percentage * GROWTH_ZONE_WIDTH_PERCENTAGE
+      (1 - percentage) * GROWTH_ZONE_WIDTH_PERCENTAGE
     when :watch
-      percentage * WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
+      (1 - percentage) * WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
     else
-      percentage * WARNING_ZONE_WIDTH_PERCENTAGE + WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
+      (1 - percentage) * WARNING_ZONE_WIDTH_PERCENTAGE + WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
     end
   end
 
