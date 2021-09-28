@@ -11,16 +11,13 @@ class SurveyResponsesDataLoader
                        .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
                        .map { |survey_item_id| SurveyItem.find_by_survey_item_id survey_item_id }
 
-      batch_progress = ->(rows_size, num_batches, current_batch_number, batch_duration_in_secs) {
-        puts "======================> Number of survey item responses: #{rows_size}, Number of batches: #{num_batches}, Current batch number: #{current_batch_number}"
-      }
 
       file.lazy.each_slice(1000) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers: headers).map do |row|
           process_row row: row, survey_items: survey_items
         end
 
-        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000, batch_progress: batch_progress
+        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
       end
     end
   end
