@@ -78,6 +78,11 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.10.0)
     execjs (2.8.1)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     ffi (1.15.4)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
@@ -258,6 +263,7 @@ DEPENDENCIES
   capybara
   database_cleaner
   devise
+  factory_bot_rails
   friendly_id (~> 5.1.0)
   haml
   jbuilder (~> 2.5)

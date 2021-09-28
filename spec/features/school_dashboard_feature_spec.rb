@@ -5,16 +5,21 @@ feature 'School dashboard', type: feature do
   let(:school) { School.find_by_slug 'winchester-high-school' }
   let(:school_in_same_district) { School.find_by_slug 'muraco-elementary-school' }
 
+  let(:category) { SqmCategory.find_by_name('Teachers & Leadership') }
+  let(:subcategory) { Subcategory.find_by_name('Teachers & The Teaching Environment') }
+  let(:measures_for_subcategory) { Measure.where(subcategory: subcategory) }
+  let(:survey_items_for_subcategory) { SurveyItem.where(measure: measures_for_subcategory) }
+
   let(:measure_1A_i) { Measure.find_by_measure_id('1A-i') }
   let(:measure_2A_i) { Measure.find_by_measure_id('2A-i') }
   let(:measure_4C_i) { Measure.find_by_measure_id('4C-i') }
 
   let(:survey_item_1_for_measure_1A_i) { SurveyItem.create measure: measure_1A_i, survey_item_id: rand.to_s }
   let(:survey_item_2_for_measure_1A_i) { SurveyItem.create measure: measure_1A_i, survey_item_id: rand.to_s }
-  let(:survey_item_1_for_measure_2A_i) { SurveyItem.create measure: measure_2A_i, survey_item_id: rand.to_s }
-  let(:survey_item_2_for_measure_2A_i) { SurveyItem.create measure: measure_2A_i, survey_item_id: rand.to_s }
-  let(:survey_item_1_for_measure_4C_i) { SurveyItem.create measure: measure_4C_i, survey_item_id: rand.to_s }
-  let(:survey_item_2_for_measure_4C_i) { SurveyItem.create measure: measure_4C_i, survey_item_id: rand.to_s }
+
+  let(:survey_items_for_measure_1A_i) { SurveyItem.where(measure: measure_1A_i) }
+  let(:survey_items_for_measure_2A_i) { SurveyItem.where(measure: measure_2A_i) }
+  let(:survey_items_for_measure_4C_i) { SurveyItem.where(measure: measure_4C_i) }
 
   let(:measure_row_bars) { page.all('rect.measure-row-bar') }
 
@@ -24,24 +29,27 @@ feature 'School dashboard', type: feature do
   let(:password) { 'winchester!' }
 
   before :each do
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                              survey_item: survey_item_1_for_measure_1A_i, likert_score: 4
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                              survey_item: survey_item_2_for_measure_1A_i, likert_score: 5
+    survey_items_for_measure_1A_i.each do |survey_item|
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4
+    end
 
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                              survey_item: survey_item_1_for_measure_2A_i, likert_score: 5
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                              survey_item: survey_item_2_for_measure_2A_i, likert_score: 5
+    survey_items_for_measure_2A_i.each do |survey_item|
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 5
+    end
 
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                              survey_item: survey_item_1_for_measure_4C_i, likert_score: 1
+    survey_items_for_measure_4C_i.each do |survey_item|
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 1
+    end
+
+    survey_items_for_subcategory.each do |survey_item|
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4
+    end
   end
 
   scenario 'User authentication fails' do
     page.driver.browser.basic_authorize('wrong username', 'wrong password')
 
-    visit "/districts/winchester/schools/#{school.slug}/dashboard?year=2020-21"
+    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=2020-21"
 
     expect(page).not_to have_text(school.name)
   end
@@ -59,7 +67,7 @@ feature 'School dashboard', type: feature do
 
     expect(page).to have_text('Professional Qualifications')
     professional_qualifications_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '1A-i' }
-    expect(professional_qualifications_row['width']).to eq '20.66%'
+    expect(professional_qualifications_row['width']).to eq '10.33%'
     expect(professional_qualifications_row['x']).to eq '50%'
 
     expect(page).to have_text('Student Physical Safety')
@@ -78,6 +86,11 @@ feature 'School dashboard', type: feature do
     problem_solving_emphasis_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '4C-i' }
     expect(student_physical_safety_row_index).to be < professional_qualifications_row_index
     expect(professional_qualifications_row_index).to be < problem_solving_emphasis_row_index
+
+    click_on 'Browse'
+
+    expect(page).to have_text('Teachers & Leadership')
+    expect(page).to have_text('Approval')
   end
 
     # visit photos_path
@@ -97,7 +110,7 @@ feature 'School dashboard', type: feature do
     expect(page.all('.school-options[selected]')[0].text).to eq 'Winchester High School'
 
     school_options = page.all('.school-options')
-    school_options.each_with_index do |school , index| 
+    school_options.each_with_index do |school , index|
       break if index == school_options.length-1
       expect(school.text).to be < school_options[index+1].text
     end
@@ -113,7 +126,7 @@ feature 'School dashboard', type: feature do
     expect(page.all('.district-options[selected]')[0].text).to eq 'Winchester'
 
     district_options = page.all('.district-options')
-    district_options.each_with_index do |district , index| 
+    district_options.each_with_index do |district , index|
       break if index == district_options.length-1
       expect(district.text).to be < district_options[index+1].text
     end

@@ -1,0 +1,7 @@
+<h1><%= @category.name %></h1>
+
+<% @category.subcategories.each do |subcategory| %>
+  <h2><%= subcategory.name %></h2>
+  <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter } %>
+<% end %>
+

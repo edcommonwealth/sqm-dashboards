@@ -17,8 +17,12 @@ $growth: #E0BA9A;
 $approval: #D0DD86;
 $ideal: #C0FF73;
 
-.red {
+.color-red {
   color: $red;
+}
+
+.color-black {
+  color: $black;
 }
 
 .bg-beige {
@@ -27,6 +31,10 @@ $ideal: #C0FF73;
 
 .bg-white {
   background-color: $white;
+}
+
+.fill-black {
+  fill: $black;
 }
 
 .fill-warning {
@@ -47,4 +55,16 @@ $ideal: #C0FF73;
 
 .fill-ideal {
   fill: $ideal;
+}
+
+.stroke-black {
+  stroke: $black;
+}
+
+.stroke-gray-1 {
+  stroke: $gray-1;
+}
+
+.stroke-gray-2 {
+  stroke: $gray-2;
 }

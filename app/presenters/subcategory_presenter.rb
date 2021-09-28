@@ -1,0 +1,34 @@
+class SubcategoryPresenter
+  def initialize(subcategory:, academic_year:, school:)
+    @subcategory = subcategory
+    @academic_year = academic_year
+    @school = school
+  end
+
+  def name
+    @subcategory.name
+  end
+
+  def gauge_presenter
+    average_score = SurveyItemResponse.for_measures(measures)
+      .where(academic_year: @academic_year, school: @school)
+      .average(:likert_score)
+
+    GaugePresenter.new(scale: scale, score: average_score)
+  end
+
+  private
+
+  def scale
+    Scale.new(
+      watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
+      growth_low_benchmark: measures.map(&:growth_low_benchmark).average,
+      approval_low_benchmark: measures.map(&:approval_low_benchmark).average,
+      ideal_low_benchmark: measures.map(&:ideal_low_benchmark).average,
+    )
+  end
+
+  def measures
+    @measures ||= @subcategory.measures
+  end
+end

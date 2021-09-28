@@ -26,7 +26,7 @@ class MeasureGraphRowPresenter
     when :ideal, :approval
       "50%"
     else
-      "#{((0.5 - bar_width_percentage) * 100).round(2)}%"
+      "#{((0.5 - bar_width_percentage) * 100).abs.round(2)}%"
     end
   end
 
@@ -66,6 +66,12 @@ class MeasureGraphRowPresenter
   end
 
   def zone
-    @measure.zone_for_score(@score)
+    scale = Scale.new(
+      watch_low_benchmark: @measure.watch_low_benchmark,
+      growth_low_benchmark: @measure.growth_low_benchmark,
+      approval_low_benchmark: @measure.approval_low_benchmark,
+      ideal_low_benchmark: @measure.ideal_low_benchmark,
+    )
+    scale.zone_for_score(@score)
   end
 end

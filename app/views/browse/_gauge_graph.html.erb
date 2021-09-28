@@ -1,0 +1,60 @@
+<% outer_radius = 100 %>
+<% inner_radius = 50 %>
+<% stroke_width = 1 %>
+<% key_benchmark_indicator_height = 10 %>
+<% scale = -Math::PI %>
+
+<svg
+  viewBox="<%= -(outer_radius + stroke_width) %> <%= -(outer_radius + stroke_width) %> <%= 2*(outer_radius + stroke_width) %> <%= outer_radius + 2*stroke_width + key_benchmark_indicator_height %>"
+  width="400"
+  height="200"
+>
+  <path
+    class="gauge-fill <%= gauge.color_class %>"
+    d="M <%= -outer_radius %> <%= key_benchmark_indicator_height %>
+       A <%= outer_radius %> <%= outer_radius %> 0 0 1 <%= outer_radius * Math.cos((1 - gauge.score_percentage) * scale) %> <%= outer_radius * Math.sin((1 - gauge.score_percentage) * scale) + key_benchmark_indicator_height %>
+       L <%= inner_radius * Math.cos((1 - gauge.score_percentage) * scale) %> <%= inner_radius * Math.sin((1 - gauge.score_percentage) * scale) + key_benchmark_indicator_height %>
+       A <%= inner_radius %> <%= inner_radius %> 0 0 0 <%= -inner_radius %> <%= key_benchmark_indicator_height %>
+       L <%= -outer_radius %> <%= key_benchmark_indicator_height %>"
+    fill="none"
+    stroke="none"
+  />
+
+  <text
+    class="gauge-title font-bitter fill-black"
+    x="0"
+    y="<% -10 + key_benchmark_indicator_height %>"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    <%= gauge.title %>
+  </text>
+
+  <path
+    class="gauge-outline stroke-gray-2"
+    d="M <%= -outer_radius %> <%= key_benchmark_indicator_height %>
+       A <%= outer_radius %> <%= outer_radius %> 0 0 1 <%= outer_radius * Math.cos(0) %> <%= outer_radius * Math.sin(0) + key_benchmark_indicator_height %>
+       L <%= inner_radius * Math.cos(0) %> <%= inner_radius * Math.sin(0) + key_benchmark_indicator_height %>
+       A <%= inner_radius %> <%= inner_radius %> 0 0 0 <%= -inner_radius %> <%= key_benchmark_indicator_height %>
+       L <%= -outer_radius %> <%= key_benchmark_indicator_height %>"
+    fill="none"
+    stroke-width="<%= stroke_width %>"
+  />
+
+  <line
+    class="zone-benchmark stroke-gray-2"
+    x1="<%= outer_radius * Math.cos((1 - gauge.key_benchmark_percentage) * scale) %>" y1="<%= outer_radius * Math.sin((1 - gauge.key_benchmark_percentage) * scale) + key_benchmark_indicator_height %>"
+    x2="<%= inner_radius * Math.cos((1 - gauge.key_benchmark_percentage) * scale) %>" y2="<%= inner_radius * Math.sin((1 - gauge.key_benchmark_percentage) * scale) + key_benchmark_indicator_height %>"
+    stroke-width="<%= stroke_width %>"
+  />
+
+  <path
+    class="key-benchmark-indicator fill-black"
+    d="M 0 <%= -(outer_radius - key_benchmark_indicator_height + 2) %>
+       L <%= key_benchmark_indicator_height/Math.sqrt(3) %> <%= -outer_radius %>
+       L <%= -key_benchmark_indicator_height/Math.sqrt(3) %> <%= -outer_radius %>
+       L 0 <%= -(outer_radius - key_benchmark_indicator_height + 2) %>"
+    transform="rotate(<%= 180.0 * gauge.key_benchmark_percentage - 90 %> 0 <%= key_benchmark_indicator_height %>)"
+    stroke="none"
+  />
+</svg>
