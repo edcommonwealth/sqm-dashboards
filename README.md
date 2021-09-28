@@ -42,7 +42,7 @@ $ bundle exec rake db:fixtures:load
 
 ## Running tests
 ```
-$ bundle exec rake test
+$ bundle exec rake
 ```
 
 ## Demo deploy
