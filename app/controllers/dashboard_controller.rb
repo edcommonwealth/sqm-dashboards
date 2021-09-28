@@ -9,7 +9,9 @@ class DashboardController < ApplicationController
   private
 
   def measure_ids
-    %w(1A-i 2A-i 4C-i)
+    Measure.all.map {|measure |
+      measure.measure_id
+    }
   end
 
   def presenter_for_measure(measure)

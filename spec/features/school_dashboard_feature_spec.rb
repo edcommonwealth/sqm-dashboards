@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-feature "School dashboard", type: feature do
+feature 'School dashboard', type: feature do
   let(:district) { District.find_by_slug 'winchester' }
   let(:school) { School.find_by_slug 'winchester-high-school' }
 
@@ -20,16 +20,21 @@ feature "School dashboard", type: feature do
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
 
   before :each do
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_measure_1A_i, likert_score: 4
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item_2_for_measure_1A_i, likert_score: 5
+    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                              survey_item: survey_item_1_for_measure_1A_i, likert_score: 4
+    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                              survey_item: survey_item_2_for_measure_1A_i, likert_score: 5
 
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_measure_2A_i, likert_score: 5
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item_2_for_measure_2A_i, likert_score: 5
+    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                              survey_item: survey_item_1_for_measure_2A_i, likert_score: 5
+    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                              survey_item: survey_item_2_for_measure_2A_i, likert_score: 5
 
-    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item_1_for_measure_4C_i, likert_score: 1
+    SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                              survey_item: survey_item_1_for_measure_4C_i, likert_score: 1
   end
 
-  scenario "User authentication fails" do
+  scenario 'User authentication fails' do
     page.driver.browser.basic_authorize('wrong username', 'wrong password')
 
     visit "/districts/winchester/schools/#{school.slug}/dashboard?year=2020-21"
@@ -37,7 +42,7 @@ feature "School dashboard", type: feature do
     expect(page).not_to have_text(school.name)
   end
 
-  scenario "User views a school dashboard" do
+  scenario 'User views a school dashboard' do
     page.driver.browser.basic_authorize(username, password)
 
     visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
@@ -49,16 +54,21 @@ feature "School dashboard", type: feature do
     expect(page).to have_text(school.name)
 
     expect(page).to have_text('Professional Qualifications')
-    expect(measure_row_bars[0]['width']).to eq '20.66%'
-    expect(measure_row_bars[0]['x']).to eq '50%'
+    professional_qualifications_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '1A-i' }
+    expect(professional_qualifications_row['width']).to eq '20.66%'
+    expect(professional_qualifications_row['x']).to eq '50%'
 
     expect(page).to have_text('Student Physical Safety')
-    expect(measure_row_bars[1]['width']).to eq '50.0%'
-    expect(measure_row_bars[1]['x']).to eq '50%'
+    student_physical_safety_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '2A-i' }
+    expect(student_physical_safety_row['width']).to eq '50.0%'
+    expect(student_physical_safety_row['x']).to eq '50%'
 
     expect(page).to have_text('Problem Solving Emphasis')
-    expect(measure_row_bars[2]['width']).to eq '50.0%'
-    expect(measure_row_bars[2]['x']).to eq '0.0%'
+    problem_solving_emphasis_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '4C-i' }
+    expect(problem_solving_emphasis_row['width']).to eq '50.0%'
+    expect(problem_solving_emphasis_row['x']).to eq '0.0%'
+
+    page.assert_selector('.measure-row-bar', count: Measure.count)
   end
 
   let(:username) { 'winchester' }

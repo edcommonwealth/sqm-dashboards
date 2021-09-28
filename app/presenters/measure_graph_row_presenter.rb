@@ -8,6 +8,10 @@ class MeasureGraphRowPresenter
     @measure.name
   end
 
+  def measure_id
+    @measure.measure_id
+  end
+
   def bar_color
     "fill-#{zone.type}"
   end

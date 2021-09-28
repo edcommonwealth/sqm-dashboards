@@ -54,7 +54,7 @@
 
       <svg id="measure-row-bars" x="25%" y=<%= heading_gutter %> width="75%">
         <%= measure_graph_row_presenters.each_with_index do |presenter, index| %>
-          <rect class="measure-row-bar <%= presenter.bar_color %>" x="<%= presenter.x_offset %>" y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>" width="<%= presenter.bar_width %>" height=<%= measure_row_bar_height %> />
+          <rect class="measure-row-bar <%= presenter.bar_color %>" x="<%= presenter.x_offset %>" y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>" width="<%= presenter.bar_width %>" height=<%= measure_row_bar_height %> data-for-measure-id="<%= presenter.measure_id  %>"/>
         <% end %>
       </svg>
     </g>
