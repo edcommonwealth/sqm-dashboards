@@ -1,4 +1,5 @@
 class MeasureGraphRowPresenter
+  include Comparable
   def initialize(measure:, score:)
     @measure = measure
     @score = score
@@ -27,6 +28,14 @@ class MeasureGraphRowPresenter
     else
       "#{((0.5 - bar_width_percentage) * 100).round(2)}%"
     end
+  end
+
+  def <=>(other_presenter)
+    if x_offset.to_f == other_presenter.x_offset.to_f
+      return bar_width.to_f <=> other_presenter.bar_width.to_f
+    end
+
+    x_offset.to_f <=> other_presenter.x_offset.to_f
   end
 
   private

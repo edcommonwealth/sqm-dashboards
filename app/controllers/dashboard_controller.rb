@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
     @measure_graph_row_presenters = measure_ids
                                       .map { |measure_id| Measure.find_by_measure_id measure_id }
                                       .map(&method(:presenter_for_measure))
+                                      .sort().reverse
   end
 
   private

@@ -69,6 +69,11 @@ feature 'School dashboard', type: feature do
     expect(problem_solving_emphasis_row['x']).to eq '0.0%'
 
     page.assert_selector('.measure-row-bar', count: Measure.count)
+    professional_qualifications_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '1A-i' }
+    student_physical_safety_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '2A-i' }
+    problem_solving_emphasis_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '4C-i' }
+    expect(student_physical_safety_row_index).to be < professional_qualifications_row_index
+    expect(professional_qualifications_row_index).to be < problem_solving_emphasis_row_index
   end
 
   let(:username) { 'winchester' }

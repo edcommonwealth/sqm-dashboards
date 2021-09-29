@@ -122,4 +122,24 @@ RSpec.describe MeasureGraphRowPresenter do
       end
     end
   end
+
+  context 'sorting scores' do
+    it 'selects a shorter bar width before a longer bar' do
+      this_presenter = MeasureGraphRowPresenter.new measure: measure, score: 3.7
+      other_presenter = MeasureGraphRowPresenter.new measure: measure, score: 4.4
+      expect(this_presenter <=> other_presenter).to be < 0
+    end
+
+    it 'selects a warning bar before a ideal bar' do
+      this_presenter = MeasureGraphRowPresenter.new measure: measure, score: 1.0
+      other_presenter = MeasureGraphRowPresenter.new measure: measure, score: 5.0
+      expect(this_presenter <=> other_presenter).to be < 0
+    end
+
+    it 'selects an ideal bar after a warning bar' do
+      this_presenter = MeasureGraphRowPresenter.new measure: measure, score: 4.4
+      other_presenter = MeasureGraphRowPresenter.new measure: measure, score: 1.0
+      expect(this_presenter <=> other_presenter).to be > 0
+    end
+  end
 end
