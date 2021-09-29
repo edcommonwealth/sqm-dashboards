@@ -7,12 +7,20 @@
       <option value="<%= @academic_year %>" selected><%= format_academic_year(@academic_year) %></option>
     </select>
 
-    <select class="ml-3 custom-select-lg" name="district">
-      <option value="<%= @district.slug %>" selected><%= @district.name %></option>
+    <select id="select-district" class="ml-3 custom-select-lg" name="district">
+      <% @districts.each do |district| %>
+        <option  class="district-options" value="<%= district.slug %>" <%= @district.slug == district.slug ? "selected" : nil %>>
+          <%= district.name %>
+        </option>
+      <% end %>
     </select>
 
-    <select class="ml-3 custom-select-lg" name="school">
-      <option value="<%= @school.slug %>" selected><%= @school.name %></option>
+    <select id="select-school" class="ml-3 custom-select-lg" name="school">
+      <% @schools.each do |school| %>
+        <option class="school-options" value="<%= school.slug %>" <%= @school.slug == school.slug ? "selected" : nil %> >
+          <%= school.name %>
+        </option>
+      <% end %>
     </select>
   </div>
 </div>

@@ -60,4 +60,11 @@ describe SurveyResponseAggregator do
       expect(SurveyResponseAggregator.score(academic_year: ay_2021_22, school: school_b, measure: measure_b)).to eq 4.0
     end
   end
+
+  describe '.find_responses_by_measure' do
+    it 'returns all survey item responses corresponding to a year school and measure' do
+      expect(SurveyResponseAggregator.find_responses_by_measure(academic_year: ay_2020_21, school: school_a, measure: measure_a).count).to eq 2
+    end
+
+  end
 end
