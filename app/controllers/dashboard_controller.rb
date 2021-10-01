@@ -6,31 +6,34 @@ class DashboardController < ApplicationController
     @measure_graph_row_presenters = measure_ids
                                       .map { |measure_id| Measure.find_by_measure_id measure_id }
                                       .map(&method(:presenter_for_measure))
-                                      .sort().reverse
+                                      .sort
+                                      .reverse
   end
 
   private
 
   def measure_ids
-    Measure.all.map {|measure |
-      measure.measure_id
-    }
+    Measure.all.map(&:measure_id)
   end
 
   def presenter_for_measure(measure)
+    score = SurveyItemResponse.for_measure(measure)
+                              .where(academic_year: academic_year, school: school)
+                              .average(:likert_score)
+
     MeasureGraphRowPresenter.new(
       measure: measure,
-      score: SurveyResponseAggregator.score(school: school, academic_year: academic_year, measure: measure)
+      score: score
     )
   end
 
   def school
-    @school = schools.first  if params[:school_id] == "first"
+    @school = schools.first if params[:school_id] == "first"
     @school ||= School.find_by_slug school_slug
   end
 
   def schools
-    @schools = School.where(district: district).sort_by { | school| school.name } 
+    @schools = School.where(district: district).sort_by(&:name)
   end
 
   def district
@@ -38,7 +41,7 @@ class DashboardController < ApplicationController
   end
 
   def districts
-    @districts = District.all.sort_by {|district| district.name}
+    @districts = District.all.sort_by(&:name)
   end
 
   def district_slug
