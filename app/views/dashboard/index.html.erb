@@ -7,5 +7,7 @@
     <h2 class="h2 color-black">Distance from benchmark</h2>
   </div>
 
-  <%= render partial: "variance_graph", locals: { presenters: @presenters } %>
+  <%= render partial: "variance_graph", locals: { presenters: @measure_graph_row_presenters} %>
+
+  <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
 </div>

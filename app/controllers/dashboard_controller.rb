@@ -1,12 +1,20 @@
 class DashboardController < SqmApplicationController
 
   def index
-    @presenters = measure_ids
-                    .map { |measure_id| Measure.find_by_measure_id measure_id }
-                    .map(&method(:presenter_for_measure))
-                    .sort
-                    .reverse
+    @measure_graph_row_presenters = measure_ids
+                                      .map { |measure_id| Measure.find_by_measure_id measure_id }
+                                      .map(&method(:presenter_for_measure))
+                                      .sort
+                                      .reverse
+
+    @category_presenters = SqmCategory.all.map { |sqm_category| CategoryPresenter.new(
+      category: sqm_category,
+      academic_year: academic_year,
+      school: school,
+    )}
+
   end
+
 
   private
 

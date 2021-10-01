@@ -20,25 +20,25 @@
   font-weight: 400;
 }
 
-.h1 {
+.sub-header {
   @extend .font-bitter;
   @extend .weight-600;
   font-size: 40px;
 }
 
-.h2 {
+.sub-header-2 {
   @extend .font-bitter;
   @extend .weight-700;
   font-size: 28px;
 }
 
-.h3 {
+.sub-header-3 {
   @extend .font-bitter;
   @extend .weight-700;
   font-size: 20px;
 }
 
-.h4 {
+.sub-header-4 {
   @extend .font-bitter;
   @extend .weight-600;
   font-size: 16px;

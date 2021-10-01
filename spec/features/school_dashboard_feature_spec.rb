@@ -104,7 +104,7 @@ feature 'School dashboard', type: feature do
     expect(page).to have_text('Teachers & Leadership')
     expect(page).to have_text('Approval')
 
-      end
+  end
 
   scenario 'user sees schools in the same district' do
     page.driver.browser.basic_authorize(username, password)

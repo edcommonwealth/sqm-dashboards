@@ -2,6 +2,8 @@ $black: #3E3A38;
 $gray-1: #595959;
 $gray-2: #CECECE;
 $gray-3: #F9F9F9;
+$gray-4: #F3F3F3;
+
 $white: #FFFFFF;
 $blue: #01788E;
 $red: #C93047;
@@ -46,6 +48,10 @@ $ideal: #C0FF73;
 
 .fill-black {
   fill: $black;
+}
+
+.bg-gray {
+  background-color: $gray-4;
 }
 
 .fill-warning {

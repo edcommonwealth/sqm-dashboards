@@ -14,11 +14,17 @@ class SubcategoryPresenter
   end
 
   def gauge_presenter
-    average_score = SurveyItemResponse.for_measures(measures)
+    GaugePresenter.new(scale: scale, score: average_score)
+  end
+
+  def subcategory_card_presenter
+    SubcategoryCardPresenter.new(scale: scale, score: average_score)
+  end
+
+  def average_score
+    SurveyItemResponse.for_measures(measures)
       .where(academic_year: @academic_year, school: @school)
       .average(:likert_score)
-
-    GaugePresenter.new(scale: scale, score: average_score)
   end
 
   private
