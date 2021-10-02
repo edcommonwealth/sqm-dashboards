@@ -1,29 +1,23 @@
-<% outer_radius = 100 %>
-<% inner_radius = 50 %>
-<% stroke_width = 1 %>
-<% key_benchmark_indicator_height = 10 %>
-<% scale = -Math::PI %>
-
 <svg
-  viewBox="<%= -(outer_radius + stroke_width) %> <%= -(outer_radius + stroke_width) %> <%= 2*(outer_radius + stroke_width) %> <%= outer_radius + 2*stroke_width + key_benchmark_indicator_height %>"
+  viewBox="<%= viewbox.x %> <%= viewbox.y %> <%= viewbox.width %> <%= viewbox.height %>"
   width="400"
   height="200"
 >
   <path
     class="gauge-fill <%= gauge.color_class %>"
-    d="M <%= -outer_radius %> <%= key_benchmark_indicator_height %>
-       A <%= outer_radius %> <%= outer_radius %> 0 0 1 <%= outer_radius * Math.cos((1 - gauge.score_percentage) * scale) %> <%= outer_radius * Math.sin((1 - gauge.score_percentage) * scale) + key_benchmark_indicator_height %>
-       L <%= inner_radius * Math.cos((1 - gauge.score_percentage) * scale) %> <%= inner_radius * Math.sin((1 - gauge.score_percentage) * scale) + key_benchmark_indicator_height %>
-       A <%= inner_radius %> <%= inner_radius %> 0 0 0 <%= -inner_radius %> <%= key_benchmark_indicator_height %>
-       L <%= -outer_radius %> <%= key_benchmark_indicator_height %>"
+    d="<%= move_to(point: arc_start_point) %>
+       <%= draw_arc(radius: outer_radius, percentage: gauge.score_percentage, clockwise: true) %>
+       <%= draw_line_to(point: arc_end_line_destination(radius: inner_radius, percentage: gauge.score_percentage)) %>
+       <%= draw_arc(radius: inner_radius, percentage: 0, clockwise: false) %>
+       <%= draw_line_to(point: arc_end_line_destination(radius: outer_radius, percentage: 0)) %>"
     fill="none"
     stroke="none"
   />
 
   <text
     class="gauge-title font-bitter fill-black"
-    x="0"
-    y="<% -10 + key_benchmark_indicator_height %>"
+    x="<%= arc_center.x %>"
+    y="<%= arc_center.y - 10 %>"
     text-anchor="middle"
     dominant-baseline="middle"
   >
@@ -32,29 +26,31 @@
 
   <path
     class="gauge-outline stroke-gray-2"
-    d="M <%= -outer_radius %> <%= key_benchmark_indicator_height %>
-       A <%= outer_radius %> <%= outer_radius %> 0 0 1 <%= outer_radius * Math.cos(0) %> <%= outer_radius * Math.sin(0) + key_benchmark_indicator_height %>
-       L <%= inner_radius * Math.cos(0) %> <%= inner_radius * Math.sin(0) + key_benchmark_indicator_height %>
-       A <%= inner_radius %> <%= inner_radius %> 0 0 0 <%= -inner_radius %> <%= key_benchmark_indicator_height %>
-       L <%= -outer_radius %> <%= key_benchmark_indicator_height %>"
+    d="<%= move_to(point: arc_start_point) %>
+       <%= draw_arc(radius: outer_radius, percentage: 1, clockwise: true) %>
+       <%= draw_line_to(point: arc_end_line_destination(radius: inner_radius, percentage: 1)) %>
+       <%= draw_arc(radius: inner_radius, percentage: 0, clockwise: false) %>
+       <%= draw_line_to(point: arc_end_line_destination(radius: outer_radius, percentage: 0)) %>"
     fill="none"
     stroke-width="<%= stroke_width %>"
   />
 
   <line
-    class="zone-benchmark stroke-gray-2"
-    x1="<%= outer_radius * Math.cos((1 - gauge.key_benchmark_percentage) * scale) %>" y1="<%= outer_radius * Math.sin((1 - gauge.key_benchmark_percentage) * scale) + key_benchmark_indicator_height %>"
-    x2="<%= inner_radius * Math.cos((1 - gauge.key_benchmark_percentage) * scale) %>" y2="<%= inner_radius * Math.sin((1 - gauge.key_benchmark_percentage) * scale) + key_benchmark_indicator_height %>"
+    class="zone-benchmark stroke-black"
+    x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.key_benchmark_percentage)).x %>"
+    y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.key_benchmark_percentage)).y %>"
+    x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.key_benchmark_percentage)).x %>"
+    y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.key_benchmark_percentage)).y %>"
     stroke-width="<%= stroke_width %>"
   />
 
   <path
     class="key-benchmark-indicator fill-black"
-    d="M 0 <%= -(outer_radius - key_benchmark_indicator_height + 2) %>
-       L <%= key_benchmark_indicator_height/Math.sqrt(3) %> <%= -outer_radius %>
-       L <%= -key_benchmark_indicator_height/Math.sqrt(3) %> <%= -outer_radius %>
-       L 0 <%= -(outer_radius - key_benchmark_indicator_height + 2) %>"
-    transform="rotate(<%= 180.0 * gauge.key_benchmark_percentage - 90 %> 0 <%= key_benchmark_indicator_height %>)"
+    d="<%= move_to(point: indicator_tip) %>
+       <%= draw_line_to(point: indicator_right_corner) %>
+       <%= draw_line_to(point: indicator_left_corner) %>
+       <%= draw_line_to(point: indicator_tip) %>"
+    transform="rotate(<%= rotation_angle_for(percentage: gauge.key_benchmark_percentage) %> <%= arc_center.x %> <%= arc_center.y %>)"
     stroke="none"
   />
 </svg>
