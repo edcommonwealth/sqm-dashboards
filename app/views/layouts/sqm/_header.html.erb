@@ -1,10 +1,7 @@
-<header class="row">
-  <div class="title col-12">
-    <div class="float-right">
-      <%= link_to("Frequently Asked Questions", "/MCIEA-Data-Dashboard-FAQ.pdf", class: 'faq', target: '_blank') %>
-    </div>
-    <h2 style="clear: right; text-align: center; margin-bottom: 30px;">
-      <%= link_to(image_tag('logo.png'), root_path) %>
-    </h2>
+<header class="row py-4 align-items-center">
+  <div class="col">
+      <%= link_to image_tag('logo.png', class: 'height-56'), root_path %>
+      <a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/dashboard?year=2020-21">Dashboard</a>
+      <a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/browse/teachers-and-leadership?year=2020-21">Browse</a>
   </div>
 </header>

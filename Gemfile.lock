@@ -47,10 +47,10 @@ GEM
       execjs (~> 2)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootstrap (4.0.0)
-      autoprefixer-rails (>= 6.0.3)
-      popper_js (>= 1.12.9, < 2)
-      sass (>= 3.5.2)
+    bootstrap (5.1.0)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 2.9.3, < 3)
+      sassc-rails (>= 2.0.0)
     builder (3.2.4)
     byebug (11.1.3)
     capybara (3.35.3)
@@ -134,7 +134,7 @@ GEM
       rack-protection
     orm_adapter (0.5.0)
     pg (1.2.3)
-    popper_js (1.16.0)
+    popper_js (2.9.3)
     public_suffix (4.0.6)
     puma (3.12.6)
     racc (1.5.2)
@@ -195,11 +195,6 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -258,7 +253,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
-  bootstrap (~> 4.0.0.alpha6)
+  bootstrap
   byebug
   capybara
   database_cleaner

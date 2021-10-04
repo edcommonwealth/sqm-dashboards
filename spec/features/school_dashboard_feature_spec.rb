@@ -68,17 +68,17 @@ feature 'School dashboard', type: feature do
 
     expect(page).to have_text('Professional Qualifications')
     professional_qualifications_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '1A-i' }
-    expect(professional_qualifications_row['width']).to eq '10.33%'
-    expect(professional_qualifications_row['x']).to eq '50%'
+    expect(professional_qualifications_row['width']).to eq '8.26%'
+    expect(professional_qualifications_row['x']).to eq '60%'
 
     expect(page).to have_text('Student Physical Safety')
     student_physical_safety_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '2A-i' }
-    expect(student_physical_safety_row['width']).to eq '50.0%'
-    expect(student_physical_safety_row['x']).to eq '50%'
+    expect(student_physical_safety_row['width']).to eq '40.0%'
+    expect(student_physical_safety_row['x']).to eq '60%'
 
     expect(page).to have_text('Problem Solving Emphasis')
     problem_solving_emphasis_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '4C-i' }
-    expect(problem_solving_emphasis_row['width']).to eq '50.0%'
+    expect(problem_solving_emphasis_row['width']).to eq '60.0%'
     expect(problem_solving_emphasis_row['x']).to eq '0.0%'
 
     measure_row_bar_with_no_responses = measure_row_bars.find { |item| item['data-for-measure-id'] == '3A-i' }
@@ -114,8 +114,6 @@ feature 'School dashboard', type: feature do
   scenario 'user sees schools in the same district' do
     page.driver.browser.basic_authorize(username, password)
     visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
-
-    assert_selector "h1", text: school.name
 
     expected_num_of_schools = district.schools.count
     expect(page.all('.school-options').count).to eq expected_num_of_schools

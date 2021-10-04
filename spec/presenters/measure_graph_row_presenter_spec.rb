@@ -37,11 +37,11 @@ RSpec.describe MeasureGraphRowPresenter do
     end
 
     it 'returns a bar width equal to the approval zone width plus the proportionate ideal zone width' do
-      expect(presenter.bar_width).to eq "37.5%"
+      expect(presenter.bar_width).to eq "30.0%"
     end
 
-    it 'returns an x-offset of 0' do
-      expect(presenter.x_offset).to eq "50%"
+    it 'returns an x-offset of 60%' do
+      expect(presenter.x_offset).to eq "60%"
     end
   end
 
@@ -55,11 +55,11 @@ RSpec.describe MeasureGraphRowPresenter do
     end
 
     it 'returns a bar width equal to the proportionate approval zone width' do
-      expect(presenter.bar_width).to eq "12.5%"
+      expect(presenter.bar_width).to eq "10.0%"
     end
 
-    it 'returns an x-offset of 0' do
-      expect(presenter.x_offset).to eq "50%"
+    it 'returns an x-offset of 60%' do
+      expect(presenter.x_offset).to eq "60%"
     end
   end
 
@@ -73,12 +73,12 @@ RSpec.describe MeasureGraphRowPresenter do
     end
 
     it 'returns a bar width equal to the proportionate growth zone width' do
-      expect(presenter.bar_width).to eq "13.33%"
+      expect(presenter.bar_width).to eq "16.0%"
     end
 
     context 'in order to achieve the visual effect' do
-      it 'returns an x-offset equal to 50% minus the bar width' do
-        expect(presenter.x_offset).to eq "36.67%"
+      it 'returns an x-offset equal to 60% minus the bar width' do
+        expect(presenter.x_offset).to eq "44.0%"
       end
     end
   end
@@ -93,12 +93,12 @@ RSpec.describe MeasureGraphRowPresenter do
     end
 
     it 'returns a bar width equal to the proportionate watch zone width plus the growth zone width' do
-      expect(presenter.bar_width).to eq "33.33%"
+      expect(presenter.bar_width).to eq "40.0%"
     end
 
     context 'in order to achieve the visual effect' do
-      it 'returns an x-offset equal to 50% minus the bar width' do
-        expect(presenter.x_offset).to eq "16.67%"
+      it 'returns an x-offset equal to 60% minus the bar width' do
+        expect(presenter.x_offset).to eq "20.0%"
       end
     end
   end
@@ -113,11 +113,11 @@ RSpec.describe MeasureGraphRowPresenter do
     end
 
     it 'returns a bar width equal to the proportionate warning zone width plus the watch & growth zone widths' do
-      expect(presenter.bar_width).to eq "50.0%"
+      expect(presenter.bar_width).to eq "60.0%"
     end
 
     context 'in order to achieve the visual effect' do
-      it 'returns an x-offset equal to 50% minus the bar width' do
+      it 'returns an x-offset equal to 60% minus the bar width' do
         expect(presenter.x_offset).to eq "0.0%"
       end
     end

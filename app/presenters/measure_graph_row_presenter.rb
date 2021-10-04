@@ -24,9 +24,9 @@ class MeasureGraphRowPresenter
   def x_offset
     case zone.type
     when :ideal, :approval
-      "50%"
+      "60%"
     else
-      "#{((0.5 - bar_width_percentage) * 100).abs.round(2)}%"
+      "#{((0.6 - bar_width_percentage) * 100).abs.round(2)}%"
     end
   end
 
@@ -47,11 +47,11 @@ class MeasureGraphRowPresenter
 
   private
 
-  IDEAL_ZONE_WIDTH_PERCENTAGE = 0.5 / 2
-  APPROVAL_ZONE_WIDTH_PERCENTAGE = 0.5 / 2
-  GROWTH_ZONE_WIDTH_PERCENTAGE = 0.5 / 3
-  WATCH_ZONE_WIDTH_PERCENTAGE = 0.5 / 3
-  WARNING_ZONE_WIDTH_PERCENTAGE = 0.5 / 3
+  IDEAL_ZONE_WIDTH_PERCENTAGE = 0.2
+  APPROVAL_ZONE_WIDTH_PERCENTAGE = 0.2
+  GROWTH_ZONE_WIDTH_PERCENTAGE = 0.2
+  WATCH_ZONE_WIDTH_PERCENTAGE = 0.2
+  WARNING_ZONE_WIDTH_PERCENTAGE = 0.2
 
   def bar_width_percentage
     case zone.type

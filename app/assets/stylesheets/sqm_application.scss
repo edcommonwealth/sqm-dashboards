@@ -1,4 +1,4 @@
-$spacer: 8px;
+$spacer: 0.5rem;
 $spacers: (
         0: 0,
         1: ($spacer * .25),
@@ -16,3 +16,8 @@ $spacers: (
 @import "borders";
 @import "flex";
 @import "dashboard";
+
+
+.height-56 {
+  height: 56px;
+}

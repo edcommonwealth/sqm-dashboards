@@ -1,10 +1,10 @@
 class DashboardController < ApplicationController
   layout "sqm/application"
+  before_action :authenticate_district
 
   def index
     schools
     districts
-    authenticate(district.name.downcase, "#{district.name.downcase}!")
     @measure_graph_row_presenters = measure_ids
                                       .map { |measure_id| Measure.find_by_measure_id measure_id }
                                       .map(&method(:presenter_for_measure))
@@ -13,6 +13,10 @@ class DashboardController < ApplicationController
   end
 
   private
+
+  def authenticate_district
+    authenticate(district.name.downcase, "#{district.name.downcase}!")
+  end
 
   def measure_ids
     Measure.all.map(&:measure_id)
