@@ -1,21 +1,4 @@
-$spacer: 8px;
-$spacers: (
-        0: 0,
-        1: ($spacer * .25),
-        2: ($spacer * .5),
-        3: $spacer,
-        4: ($spacer * 2),
-        5: ($spacer * 3),
-        6: ($spacer * 4),
-        7: ($spacer * 5),
-);
-
 @import "bootstrap";
-@import "fonts";
-@import "colors";
-@import "borders";
-@import "flex";
 @import "scaffolds";
 @import "school_categories";
 @import "questions";
-@import "dashboard";

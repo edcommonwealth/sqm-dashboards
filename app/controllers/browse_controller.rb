@@ -1,4 +1,6 @@
 class BrowseController < ApplicationController
+  layout "sqm/application"
+
   def show
     @category = CategoryPresenter.new(
       category: SqmCategory.find_by_name('Teachers & Leadership'),

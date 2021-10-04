@@ -1,4 +1,6 @@
 class DashboardController < ApplicationController
+  layout "sqm/application"
+
   def index
     schools
     districts

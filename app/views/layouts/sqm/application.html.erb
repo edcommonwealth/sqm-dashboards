@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <link href="https://fonts.googleapis.com/css?family=Bitter:400,600,700" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet" type="text/css"/>
+  <title>MCIEA</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'sqm_application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=UA-132936999-1" type="javascript"></script>
+  <script type="javascript">
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-132936999-1');
+  </script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <%= render partial: 'layouts/sqm/header' %>
+
+      <%= yield %>
+    </div>
+  </div>
+</div>
+</body>
+</html>
