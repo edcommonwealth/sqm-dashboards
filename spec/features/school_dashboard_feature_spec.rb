@@ -13,6 +13,7 @@ feature 'School dashboard', type: feature do
   let(:measure_1A_i) { Measure.find_by_measure_id('1A-i') }
   let(:measure_2A_i) { Measure.find_by_measure_id('2A-i') }
   let(:measure_4C_i) { Measure.find_by_measure_id('4C-i') }
+  let(:measure_with_no_survey_responses) { Measure.find_by_measure_id('3A-i') }
 
   let(:survey_item_1_for_measure_1A_i) { SurveyItem.create measure: measure_1A_i, survey_item_id: rand.to_s }
   let(:survey_item_2_for_measure_1A_i) { SurveyItem.create measure: measure_1A_i, survey_item_id: rand.to_s }
@@ -80,6 +81,17 @@ feature 'School dashboard', type: feature do
     expect(problem_solving_emphasis_row['width']).to eq '50.0%'
     expect(problem_solving_emphasis_row['x']).to eq '0.0%'
 
+    measure_row_bar_with_no_responses = measure_row_bars.find { |item| item['data-for-measure-id'] == '3A-i' }
+
+    # puts measure_with_no_survey_responses.id
+    # puts measure_with_no_survey_responses.measure_id
+    # survey_item_responses = SurveyItemResponse.for_measure(measure_with_no_survey_responses)
+    # responses_count = SurveyItemResponse.count
+
+    # expect(responses_count).to eq survey_item_responses.count
+    # expect(survey_item_responses.count).to eq 0
+    expect(measure_row_bar_with_no_responses['width']).to eq '0.0%'
+
     page.assert_selector('.measure-row-bar', count: Measure.count)
     professional_qualifications_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '1A-i' }
     student_physical_safety_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '2A-i' }
@@ -91,7 +103,8 @@ feature 'School dashboard', type: feature do
 
     expect(page).to have_text('Teachers & Leadership')
     expect(page).to have_text('Approval')
-  end
+
+      end
 
     # visit photos_path
     # assert_selector 'h1', text: 'Photos'

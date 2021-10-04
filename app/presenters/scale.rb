@@ -4,6 +4,7 @@ class Scale
     @growth_low_benchmark = growth_low_benchmark
     @approval_low_benchmark = approval_low_benchmark
     @ideal_low_benchmark = ideal_low_benchmark
+    @warning_low_benchmark = 1
   end
 
   Zone = Struct.new(:low_benchmark, :high_benchmark, :type)
@@ -28,6 +29,10 @@ class Scale
     Zone.new(@ideal_low_benchmark, 5.0, :ideal)
   end
 
+  def no_zone
+    Zone.new(0,@warning_low_benchmark,:no_zone)
+  end
+
   def zone_for_score(score)
     case score
     when ideal_zone.low_benchmark..ideal_zone.high_benchmark
@@ -38,8 +43,10 @@ class Scale
       growth_zone
     when watch_zone.low_benchmark..watch_zone.high_benchmark
       watch_zone
-    else
+    when 1..warning_zone.high_benchmark
       warning_zone
+    else
+      no_zone
     end
   end
 end

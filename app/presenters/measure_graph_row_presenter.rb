@@ -30,12 +30,19 @@ class MeasureGraphRowPresenter
     end
   end
 
-  def <=>(other_presenter)
-    if x_offset.to_f == other_presenter.x_offset.to_f
-      return bar_width.to_f <=> other_presenter.bar_width.to_f
+  def order
+    case zone.type
+    when :ideal, :approval
+      bar_width_percentage
+    when :warning, :watch, :growth
+      -bar_width_percentage
+    when :no_zone
+      -100
     end
+  end
 
-    x_offset.to_f <=> other_presenter.x_offset.to_f
+  def <=>(other_presenter)
+    order <=> other_presenter.order
   end
 
   private
@@ -56,8 +63,10 @@ class MeasureGraphRowPresenter
       (1 - percentage) * GROWTH_ZONE_WIDTH_PERCENTAGE
     when :watch
       (1 - percentage) * WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
-    else
+    when :warning
       (1 - percentage) * WARNING_ZONE_WIDTH_PERCENTAGE + WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
+    else
+      0.0
     end
   end
 
