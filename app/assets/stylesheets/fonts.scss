@@ -59,8 +59,6 @@
 }
 
 .link {
-  @extend .font-cabin;
-  @extend .weight-600;
-  font-size: 16px;
-  color: $blue;
+  @extend .color-blue;
+  text-decoration: none;
 }

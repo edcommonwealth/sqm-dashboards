@@ -16,6 +16,10 @@ module HeaderHelper
     dashboard_link(district_slug: school.district.slug, school_slug: school.slug, academic_year_range: academic_year.range, uri_path: request.fullpath)
   end
 
+  def link_weight(path:)
+    active?(path: path) ? 'weight-700' : 'weight-400'
+  end
+
   private
 
   def dashboard_link(district_slug:, school_slug:, academic_year_range:, uri_path:)
@@ -23,6 +27,10 @@ module HeaderHelper
       return "/districts/#{district_slug}/schools/#{school_slug}/dashboard?year=#{academic_year_range}"
     end
     "/districts/#{district_slug}/schools/#{school_slug}/browse/teachers-and-leadership?year=#{academic_year_range}"
+  end
+
+  def active?(path:)
+    request.fullpath.include? path
   end
 
 end

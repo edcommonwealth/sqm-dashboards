@@ -4,10 +4,10 @@
       <div class="col d-flex justify-content-start align-items-center">
         <p class="me-6"><%= link_to image_tag('logo.png', class: 'height-56'), root_path %></p>
         <p class="me-4">
-          <a class="h3" href="<%= link_to_dashboard(district: @district, school: @school, academic_year: @academic_year) %>">Dashboard</a>
+          <a class="h3 link <%= link_weight(path: 'dashboard') %>" href="<%= link_to_dashboard(district: @district, school: @school, academic_year: @academic_year) %>">Dashboard</a>
         </p>
         <p>
-          <a class="h3" href="<%= link_to_browse(district: @district, school: @school, academic_year: @academic_year) %>">Browse</a>
+          <a class="h3 link <%= link_weight(path: 'browse') %>" href="<%= link_to_browse(district: @district, school: @school, academic_year: @academic_year) %>">Browse</a>
         </p>
       </div>
 
