@@ -1,35 +1,14 @@
-<div class="fdr fjb fac">
-  <h2 class="h1">Areas Of Interest</h2>
-  <div class="fdr">
-    <select class="ml-3 custom-select-lg" name="academic-year">
-      <option value="<%= @academic_year %>" selected><%= format_academic_year(@academic_year) %></option>
-    </select>
+<% content_for :navigation do %>
+  <h2 class="h1 color-white">Areas Of Interest</h2>
+<% end %>
 
-    <select id="select-district" class="ml-3 custom-select-lg" name="district">
-      <% @districts.each do |district| %>
-        <option  class="district-options" value="<%= district.slug %>" <%= @district.slug == district.slug ? "selected" : nil %>>
-          <%= district.name %>
-        </option>
-      <% end %>
-    </select>
-
-    <select id="select-school" class="ml-3 custom-select-lg" name="school">
-      <% @schools.each do |school| %>
-        <option class="school-options" value="<%= school.slug %>" <%= @school.slug == school.slug ? "selected" : nil %> >
-          <%= school.name %>
-        </option>
-      <% end %>
-    </select>
-  </div>
-</div>
-
-<div class="bg-beige mt-4 p-5">
+<div class="bg-color-beige mt-4 p-5">
 
   <div>
     <h2 class="h1 color-red">Distance from benchmark</h2>
     <p class="body-large">This graph shows how much a score is above or below the benchmark of any given scale.</p>
   </div>
 
-  <%= render partial: "variance_graph", locals: { presenters: @measure_graph_row_presenters } %>
+  <%= render partial: "variance_graph", locals: { presenters: @presenters } %>
 
 </div>

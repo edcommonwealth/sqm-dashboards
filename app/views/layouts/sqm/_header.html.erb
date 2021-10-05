@@ -1,7 +1,47 @@
-<header class="row py-4 align-items-center">
-  <div class="col">
-      <%= link_to image_tag('logo.png', class: 'height-56'), root_path %>
-      <a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/dashboard?year=2020-21">Dashboard</a>
-      <a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/browse/teachers-and-leadership?year=2020-21">Browse</a>
+<header>
+  <div class="container">
+    <div class="row py-4 justify-content-between align-items-center">
+      <div class="col d-flex justify-content-start align-items-center">
+        <p class="me-6"><%= link_to image_tag('logo.png', class: 'height-56'), root_path %></p>
+        <p class="me-4"><a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/dashboard?year=2020-21">Dashboard</a></p>
+        <p><a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/browse/teachers-and-leadership?year=2020-21">Browse</a></p>
+      </div>
+
+      <div class="col d-flex justify-content-end">
+        <select id="select-district" class="form-select" name="district">
+          <% @districts.each do |district| %>
+            <option class="district-options" value="<%= district.slug %>" <%= @district.slug == district.slug ? "selected" : nil %>>
+              <%= district.name %>
+            </option>
+          <% end %>
+        </select>
+
+        <select id="select-school" class="ms-3 form-select" name="school">
+          <% @schools.each do |school| %>
+            <option class="school-options" value="<%= school.slug %>" <%= @school.slug == school.slug ? "selected" : nil %> >
+              <%= school.name %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-color-blue">
+    <div class="container">
+      <div class="row py-4 justify-content-between align-items-center">
+        <div class="col">
+          <% if content_for?(:navigation) %>
+            <%= yield(:navigation) %>
+          <% end %>
+        </div>
+
+        <div class="col-2">
+          <select class="form-select" name="academic-year">
+            <option value="<%= @academic_year %>" selected><%= format_academic_year(@academic_year) %></option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
