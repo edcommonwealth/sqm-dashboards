@@ -4,17 +4,17 @@
       <div class="col d-flex justify-content-start align-items-center">
         <p class="me-6"><%= link_to image_tag('logo.png', class: 'height-56'), root_path %></p>
         <p class="me-4">
-          <a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/dashboard?year=2020-21">Dashboard</a>
+          <a class="h3" href="<%= link_to_dashboard(district: @district, school: @school, academic_year: @academic_year) %>">Dashboard</a>
         </p>
         <p>
-          <a class="h3" href="/districts/<%= @district.slug %>/schools/<%= @school.slug %>/browse/teachers-and-leadership?year=2020-21">Browse</a>
+          <a class="h3" href="<%= link_to_browse(district: @district, school: @school, academic_year: @academic_year) %>">Browse</a>
         </p>
       </div>
 
       <div class="col d-flex justify-content-end">
         <select id="select-district" class="form-select" name="district">
           <% @districts.each do |district| %>
-            <option class="district-options" value="<%= district.slug %>" <%= @district.slug == district.slug ? "selected" : nil %>>
+            <option class="district-options" value="<%= district_url_for(district: district, academic_year: @academic_year) %>" <%= @district.slug == district.slug ? "selected" : nil %>>
               <%= district.name %>
             </option>
           <% end %>
@@ -22,7 +22,7 @@
 
         <select id="select-school" class="ms-3 form-select" name="school">
           <% @schools.each do |school| %>
-            <option class="school-options" value="<%= school.slug %>" <%= @school.slug == school.slug ? "selected" : nil %> >
+            <option class="school-options" value="<%= school_url_for(school: school, academic_year: @academic_year) %>" <%= @school.slug == school.slug ? "selected" : nil %> >
               <%= school.name %>
             </option>
           <% end %>

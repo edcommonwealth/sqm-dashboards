@@ -106,11 +106,6 @@ feature 'School dashboard', type: feature do
 
       end
 
-    # visit photos_path
-    # assert_selector 'h1', text: 'Photos'
-    # assert_equal 1, all('.photo-deletable').count
-    # click_on 'Delete'
-    # page.driver.browser.switch_to.alert.accept
   scenario 'user sees schools in the same district' do
     page.driver.browser.basic_authorize(username, password)
     visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
@@ -119,6 +114,7 @@ feature 'School dashboard', type: feature do
     expect(page.all('.school-options').count).to eq expected_num_of_schools
     expect(page.all('.school-options[selected]').count).to eq 1
     expect(page.all('.school-options[selected]')[0].text).to eq 'Winchester High School'
+    expect(page.all('.school-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
 
     school_options = page.all('.school-options')
     school_options.each_with_index do |school , index|
@@ -135,6 +131,7 @@ feature 'School dashboard', type: feature do
     expect(page.all('.district-options').count).to eq expected_num_of_districts
     expect(page.all('.district-options[selected]').count).to eq 1
     expect(page.all('.district-options[selected]')[0].text).to eq 'Winchester'
+    expect(page.all('.district-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{district.schools.alphabetic.first.slug}/dashboard?year=#{ay_2020_21.range}"
 
     district_options = page.all('.district-options')
     district_options.each_with_index do |district , index|
