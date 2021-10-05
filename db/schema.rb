@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210923113404) do
+ActiveRecord::Schema.define(version: 20211005145740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 20210923113404) do
 
   create_table "sqm_categories", id: :serial, force: :cascade do |t|
     t.string "name"
+    t.text "description"
   end
 
   create_table "students", id: :serial, force: :cascade do |t|

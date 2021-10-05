@@ -35,8 +35,11 @@ CSV.parse(measure_key_2021, headers: true).each do |row|
 
   category_name = row['Category']
 
-  if SqmCategory.find_by_name(category_name).nil?
-    SqmCategory.create name: category_name
+  category = SqmCategory.find_or_create_by(name: category_name)
+
+  if category.description.nil?
+    category.description = row['Category Description']
+    category.save
   end
 
   subcategory_name = row['Subcategory']
