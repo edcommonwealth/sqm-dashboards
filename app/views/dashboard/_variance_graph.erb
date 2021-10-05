@@ -1,128 +1,125 @@
-<div class="bg-color-white p-4 border-radius-8">
+<svg width="100%" height=<%= graph_height(presenters.size) %> xmlns="http://www.w3.org/2000/svg">
 
-  <svg width="100%" height=<%= graph_height(presenters.size) %> xmlns="http://www.w3.org/2000/svg">
+  <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+    <feComponentTransfer in=SourceAlpha>
+      <feFuncA type="table" tableValues="1 0"/>
+    </feComponentTransfer>
+    <feGaussianBlur stdDeviation="4"/>
+    <feOffset dx="0" dy="5" result="offsetblur"/>
+    <feFlood flood-color="rgb(0, 0, 0)" result="color"/>
+    <feComposite in2="offsetblur" operator="in"/>
+    <feComposite in2="SourceAlpha" operator="in"/>
+    <feMerge>
+      <feMergeNode in="SourceGraphic"/>
+      <feMergeNode/>
+    </feMerge>
+  </filter>
 
-    <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feComponentTransfer in=SourceAlpha>
-        <feFuncA type="table" tableValues="1 0"/>
-      </feComponentTransfer>
-      <feGaussianBlur stdDeviation="4"/>
-      <feOffset dx="0" dy="5" result="offsetblur"/>
-      <feFlood flood-color="rgb(0, 0, 0)" result="color"/>
-      <feComposite in2="offsetblur" operator="in"/>
-      <feComposite in2="SourceAlpha" operator="in"/>
-      <feMerge>
-        <feMergeNode in="SourceGraphic"/>
-        <feMergeNode/>
-      </feMerge>
-    </filter>
-
-    <svg
-      id="graph-background"
-      x="<%= label_width_percentage %>%"
-      y="0"
-      width="<%= graph_width_percentage %>%"
-      height=<%= graph_background_height(number_of_rows: presenters.size) %>
-    >
-      <g id="zone-headings">
-        <%= zones.each_with_index do |zone, index| %>
-          <text
-            class="zone-header"
-            x="<%= index * zone_width_percentage + zone_width_percentage / 2.0 %>%"
-            y="<%= heading_gutter / 2 %>"
-            text-anchor="middle"
-            dominant-baseline="middle"
-          >
-            <%= zone.capitalize %>
-          </text>
-        <% end %>
-      </g>
-
-      <g id="zone-background" transform="translate(0, <%= heading_gutter %>)">
-        <%= zones.each_with_index do |zone, index| %>
-          <rect
-            id="<%= zone %>-zone"
-            class="zone-background fill-<%= zone %>"
-            x="<%= index * zone_width_percentage %>%"
-            y="0"
-            width="<%= zone_width_percentage %>%"
-            height="100%"
-            opacity="0.2"
-            filter="url(#inset-shadow)"
-            />
-        <% end %>
-      </g>
-    </svg>
-
-    <g id="measure-rows">
-      <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
-        <%= presenters.each_with_index do |presenter, index| %>
-          <text
-            class="font-cabin"
-            x="<%= label_width_percentage %>%"
-            dx="<%= -1 * label_padding_right %>"
-            y="<%= index * measure_row_height + measure_row_height / 2 %>"
-            text-anchor="end"
-            dominant-baseline="middle"
-          >
-            <%= presenter.measure_name %>
-          </text>
-        <% end %>
-      </svg>
-
-      <svg
-        id="measure-row-bars"
-        x="<%= label_width_percentage %>%"
-        y="<%= heading_gutter %>"
-        width="<%= graph_width_percentage %>%"
-      >
-        <%= presenters.each_with_index do |presenter, index| %>
-          <rect
-            class="measure-row-bar <%= presenter.bar_color %>"
-            x="<%= presenter.x_offset %>"
-            y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>"
-            width="<%= presenter.bar_width %>"
-            height=<%= measure_row_bar_height %> data-for-measure-id="<%= presenter.measure_id %>"
-            stroke="none"
-            />
-        <% end %>
-      </svg>
+  <svg
+    id="graph-background"
+    x="<%= label_width_percentage %>%"
+    y="0"
+    width="<%= graph_width_percentage %>%"
+    height=<%= graph_background_height(number_of_rows: presenters.size) %>
+  >
+    <g id="zone-headings">
+      <%= zones.each_with_index do |zone, index| %>
+        <text
+          class="zone-header weight-600"
+          x="<%= index * zone_width_percentage + zone_width_percentage / 2.0 %>%"
+          y="<%= heading_gutter / 2 %>"
+          text-anchor="middle"
+          dominant-baseline="middle"
+        >
+          <%= zone.capitalize %>
+        </text>
+      <% end %>
     </g>
 
-    <svg
-      id="key-benchmark"
-      x="<%= label_width_percentage %>%"
-      y="0"
-      width="<%= graph_width_percentage %>%"
-      height="<%= graph_background_height(number_of_rows: presenters.size) %>"
-    >
-      <g transform="translate(0, <%= heading_gutter %>)">
+    <g id="zone-background" transform="translate(0, <%= heading_gutter %>)">
+      <%= zones.each_with_index do |zone, index| %>
         <rect
-          id="key-benchmark"
-          x="60%"
-          transform="translate(-1, 0)"
+          id="<%= zone %>-zone"
+          class="zone-background fill-<%= zone %>"
+          x="<%= index * zone_width_percentage %>%"
           y="0"
-          width="4"
+          width="<%= zone_width_percentage %>%"
           height="100%"
-          fill="black"
-        />
-      </g>
+          opacity="0.2"
+          filter="url(#inset-shadow)"
+          />
+      <% end %>
+    </g>
+  </svg>
+
+  <g id="measure-rows">
+    <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
+      <%= presenters.each_with_index do |presenter, index| %>
+        <text
+          class="font-cabin"
+          x="<%= label_width_percentage %>%"
+          dx="<%= -1 * label_padding_right %>"
+          y="<%= index * measure_row_height + measure_row_height / 2 %>"
+          text-anchor="end"
+          dominant-baseline="middle"
+        >
+          <%= presenter.measure_name %>
+        </text>
+      <% end %>
     </svg>
 
     <svg
-      id="legend"
+      id="measure-row-bars"
       x="<%= label_width_percentage %>%"
-      y="0"
+      y="<%= heading_gutter %>"
       width="<%= graph_width_percentage %>%"
     >
-      <text
-        class="graph-footer"
-        x="60%"
-        y="<%= graph_background_height(number_of_rows: presenters.size) + (footer_gutter / 2) %>"
-        text-anchor="middle"
-      >
-        Benchmark
-      </text>
+      <%= presenters.each_with_index do |presenter, index| %>
+        <rect
+          class="measure-row-bar <%= presenter.bar_color %>"
+          x="<%= presenter.x_offset %>"
+          y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>"
+          width="<%= presenter.bar_width %>"
+          height=<%= measure_row_bar_height %> data-for-measure-id="<%= presenter.measure_id %>"
+          stroke="none"
+          />
+      <% end %>
     </svg>
+  </g>
+
+  <svg
+    id="key-benchmark"
+    x="<%= label_width_percentage %>%"
+    y="0"
+    width="<%= graph_width_percentage %>%"
+    height="<%= graph_background_height(number_of_rows: presenters.size) %>"
+  >
+    <g transform="translate(0, <%= heading_gutter %>)">
+      <rect
+        id="key-benchmark"
+        x="60%"
+        transform="translate(-1, 0)"
+        y="0"
+        width="4"
+        height="100%"
+        fill="black"
+        />
+    </g>
   </svg>
-</div>
+
+  <svg
+    id="legend"
+    x="<%= label_width_percentage %>%"
+    y="0"
+    width="<%= graph_width_percentage %>%"
+  >
+    <text
+      class="graph-footer"
+      x="60%"
+      y="<%= graph_background_height(number_of_rows: presenters.size) + (footer_gutter / 2) %>"
+      text-anchor="middle"
+    >
+      Benchmark
+    </text>
+  </svg>
+</svg>

@@ -5,11 +5,10 @@ $gray-3: #F9F9F9;
 $white: #FFFFFF;
 $blue: #01788E;
 $red: #C93047;
+$light-blue: #FAFCFD;
 
 $teal: #00B0B3;
 $mint: #B2D236;
-
-$beige: #EFEBE1;
 
 $warning: #FF73C0;
 $watch: #F096AD;
@@ -33,8 +32,8 @@ $ideal: #C0FF73;
   color: $blue;
 }
 
-.bg-color-beige {
-  background-color: $beige;
+.bg-color-light-blue {
+  background-color: $light-blue;
 }
 
 .bg-color-blue {

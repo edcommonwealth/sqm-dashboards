@@ -28,7 +28,7 @@ module VarianceHelper
   end
 
   def label_width_percentage
-    25
+    30
   end
 
   def graph_width_percentage

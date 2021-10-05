@@ -2,13 +2,10 @@
   <h2 class="h1 color-white">Areas Of Interest</h2>
 <% end %>
 
-<div class="bg-color-beige mt-4 p-5">
-
-  <div>
-    <h2 class="h1 color-red">Distance from benchmark</h2>
-    <p class="body-large mb-6">This graph shows how much a score is above or below the benchmark of any given scale.</p>
+<div class="card">
+  <div class="mb-5">
+    <h2 class="h2 color-black">Distance from benchmark</h2>
   </div>
 
   <%= render partial: "variance_graph", locals: { presenters: @presenters } %>
-
 </div>
