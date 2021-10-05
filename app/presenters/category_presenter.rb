@@ -9,6 +9,10 @@ class CategoryPresenter
     @category.name
   end
 
+  def description
+    @category.description
+  end
+
   def subcategories
     @category.subcategories.map do |subcategory|
       SubcategoryPresenter.new(

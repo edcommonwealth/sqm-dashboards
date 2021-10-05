@@ -5,10 +5,10 @@ describe 'browse/show.html.erb' do
     academic_year = create(:academic_year, range: '1989-90')
     school = create(:school, name: 'Best School')
 
-    category = create(:sqm_category, name: 'Some Category')
+    category = create(:sqm_category, name: 'Some Category', description: 'Some description of the category')
 
-    subcategory1 = create(:subcategory, sqm_category: category, name: 'A subcategory')
-    subcategory2 = create(:subcategory_with_measures, sqm_category: category, name: 'Another subcategory')
+    subcategory1 = create(:subcategory, sqm_category: category, name: 'A subcategory', description: 'Some description of the subcategory')
+    subcategory2 = create(:subcategory_with_measures, sqm_category: category, name: 'Another subcategory', description: 'Another description of the subcategory')
 
     measure1 = create(:measure, subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
 
@@ -21,14 +21,20 @@ describe 'browse/show.html.erb' do
     render
   end
 
-  it 'renders the category name' do
+  it 'renders the category name and description' do
     expect(rendered).to match /Some Category/
+    expect(rendered).to match /Some description of the category/
   end
 
   context 'for each subcategory' do
     it 'renders the subcategory name' do
       expect(rendered).to match /A subcategory/
       expect(rendered).to match /Another subcategory/
+    end
+
+    it 'renders the subcategory description' do
+      expect(rendered).to match /Some description of the subcategory/
+      expect(rendered).to match /Another description of the subcategory/
     end
 
     it 'renders the zone title and fill color for the gauge graph' do

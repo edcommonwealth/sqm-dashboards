@@ -9,6 +9,10 @@ class SubcategoryPresenter
     @subcategory.name
   end
 
+  def description
+    @subcategory.description
+  end
+
   def gauge_presenter
     average_score = SurveyItemResponse.for_measures(measures)
       .where(academic_year: @academic_year, school: @school)

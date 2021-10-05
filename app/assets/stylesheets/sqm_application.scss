@@ -1,22 +1,10 @@
-$spacer: 0.5rem;
-$spacers: (
-    0: 0,
-    1: ($spacer * .25),
-    2: ($spacer * .5),
-    3: $spacer,
-    4: ($spacer * 2),
-    5: ($spacer * 3),
-    6: ($spacer * 4),
-    7: ($spacer * 5),
-);
-
+@import "bootstrap-overrides";
 @import "bootstrap";
 @import "reset";
-@import "fonts";
 @import "colors";
+@import "fonts";
 @import "borders";
 @import "dashboard";
-
 
 .height-56 {
   height: 56px;
@@ -27,4 +15,15 @@ $spacers: (
   @extend .p-5;
   border-radius: 8px;
   box-shadow: 0 0 6px rgba($black, 0.25);
+}
+
+.section {
+  @extend .mt-5;
+  @extend .bg-color-white;
+  @extend .p-7;
+}
+
+.gauge-graph-lg {
+  width: 468px;
+  height: auto;
 }

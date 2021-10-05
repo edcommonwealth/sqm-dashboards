@@ -1,10 +1,12 @@
 FactoryBot.define do
   factory :sqm_category do
     name { "A category" }
+    description { "A description of a category" }
   end
 
   factory :subcategory do
     name { "A subcategory" }
+    description { "A description of a subcategory" }
     sqm_category
 
     factory :subcategory_with_measures do

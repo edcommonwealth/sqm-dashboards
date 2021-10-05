@@ -19,10 +19,10 @@ module GaugeHelper
   end
 
   def viewbox
-    x = -(outer_radius + stroke_width)
-    y = -(outer_radius + key_benchmark_indicator_gutter + stroke_width)
-    width = 2*outer_radius + 2*stroke_width
-    height = outer_radius + key_benchmark_indicator_gutter + 2*stroke_width
+    x = arc_center.x - (outer_radius + stroke_width)
+    y = arc_center.y - (outer_radius + stroke_width) - key_benchmark_indicator_gutter
+    width = 2*(outer_radius + stroke_width)
+    height = outer_radius + 2*stroke_width + key_benchmark_indicator_gutter
     Rect.new(x, y, width, height)
   end
 
