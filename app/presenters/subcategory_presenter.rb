@@ -42,3 +42,4 @@ class SubcategoryPresenter
     @measures ||= @subcategory.measures
   end
 end
+

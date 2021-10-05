@@ -12,17 +12,16 @@
 .category-card {
   flex-basis: 20%;
   align-items: center;
-  padding: 0 10px;
+  justify-content: space-between;
+  height: 600px;
 }
 
 .category-card__title {
   flex-basis: 20%;
-  text-align: center;
 }
 
 .category-card__description {
   flex-basis: 20%;
-  text-align: center;
 }
 
 .subcategory-card {
@@ -30,6 +29,7 @@
   border: 1px solid #CECECE;
   background-color: $gray-4;
   width: 90%;
+  margin: auto;
   padding: 8px;
   border: 1px solid #CECECE;
   font-size: 14px;
@@ -38,19 +38,20 @@
 .subcategory-card__benchmark-icon {
   fill: Red;
 }
-.subcategory-card__name {
-  flex-basis: 20%;
-}
+
 .subcategory-card__benchmark-item {
   align-items: center;
 }
+
 .subcategory-card__circle-container {
-  flex-basis: 30%;
+  flex: 0 0 50px;
+  padding: 0;
 }
 
 .subcategory-card__benchmark-label {
   font-size: 30px;
 }
+
 .school-quality-frameworks {
   background-color: $white;
 }

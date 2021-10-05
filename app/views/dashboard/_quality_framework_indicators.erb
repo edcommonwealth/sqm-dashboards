@@ -3,26 +3,26 @@
 
   <div class="row">
     <% category_presenters.each do |category_presenter| %>
-      <section class="category-card column">
-        <div class="category-card__title"><h3><%= category_presenter.name %></h3></div>
-        <p class="category-card__description">This category measures the relevant abilities of a school's teachers and the degree to which they are receiving the support they need to grow as professionals. </p>
-        <div class="subcategory-card border-radius-8 fdc">
-          <div class="subcategory-card__benchmark-list" >
+      <section class="category-card column d-flex flex-column">
+        <div class="category-card__title text-center"><h3><%= category_presenter.name %></h3></div>
+        <p class="category-card__description text-center"><%= category_presenter.description %></p>
+        <div class="subcategory-card border-radius-8">
+          <div class="subcategory-card__benchmark-list">
             <% category_presenter.subcategories.each do |subcategory | %>
               <% presenter = subcategory.subcategory_card_presenter %>
               <div class="subcategory-card__benchmark-item row">
-                <div class="subcategory-card__circle-container " style="width:50px; height:50px;">
-                  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <div class="subcategory-card__circle-container">
+                  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:50px; height:50px;">
                     <circle class="subcategory-card__benchmark-icon <%= presenter.color %>" cx="50" cy="50" r="35"/>
                     <text class="subcategory-card__benchmark-label" x="<%= presenter.offset %>" y= "55"><%= presenter.abbreviation %></text>
                   </svg>
                 </div>
-                  <p class="subcategory-card__name"><%= subcategory.name %></p>
+                  <div class="subcategory-card__name col"><%= subcategory.name %></div>
                 </div>
             <% end %>
           </div>
         </div>
-        <button class="view-details mt-3">View Details</button>
+        <div class="text-center"><button class="view-details mt-3">View Details</button></div>
       </section>
     <% end %>
 
