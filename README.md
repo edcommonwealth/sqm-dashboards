@@ -47,7 +47,7 @@ The seed file populates the following tables
 | Measure | In the bar graph measures represent a single bar |
 | SurveyItem | This table has an attribute `prompt` that is the question asked |
 
-SurveyItemResponses does not get populated at this stage.  
+SurveyItemResponses does not get populated at this stage.
 
 ### Database
 Postgres
@@ -81,20 +81,35 @@ None yet
 Bootstrap 5
 ## Loading Data
 
-SurveyItemResponses is the most important table to understand.
+SurveyItemResponses is the most important table to understand. SurveyItemResponses is the data that will change year to year and makes up the majority of the database records.  Roughly 500,000 SurveyItemResponses per year.
 
-SurveyItemResponses is the data that will change year to year and makes up the majority of the database records.  Roughly 150,000 SurveyItemResponses per year.  
+Some notes:
+- The data loading task assumes that the CSV files live in the `#{RAILS_ROOT}/data/survey_responses` directory
+- The data loading task is idempotent, i.e. it can be run multiple times without duplicating previously-ingested data
+
+How to run the data loading task:
 
 ```bash
 # locally
-bundle exec rake data:load_survey_responses
+$ bundle exec rake data:load_survey_responses
 
 # on heroku staging environment
-heroku run -a mciea-beta rake data:load_survey_responses
+$ heroku run:detached -a mciea-beta bundle exec rake data:load_survey_responses
 
 # on heroku production environment
-heroku run -a mciea-dashboard rake data:load_survey_responses
+$ heroku run:detached -a mciea-dashboard bundle rake data:load_survey_responses
 ```
+
+For convenience, you can use the following script for loading data on Heroku:
+
+```bash
+# on heroku staging environment
+$ ./scripts/load_survey_responses_on_heroku beta
+
+# on heroku production environment
+$ ./scripts/load_survey_responses_on_heroku dashboard
+```
+
 
 ## Running tests
 
@@ -115,7 +130,7 @@ $ bundle exec rake
 
 ## Continuous Integration
 
-Pushing commits to the main branch triggers auto-deployment to the staging environment.  
+Pushing commits to the main branch triggers auto-deployment to the staging environment.
 
 Deployments to production must be done through the Heroku web interface or via the Heroku command line
 
