@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211005192509) do
+ActiveRecord::Schema.define(version: 20211006174717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20211005192509) do
     t.float "approval_low_benchmark", null: false
     t.float "ideal_low_benchmark", null: false
     t.integer "subcategory_id", null: false
+    t.text "description"
     t.index ["measure_id"], name: "index_measures_on_measure_id"
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end

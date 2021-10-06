@@ -1,7 +1,6 @@
 @import "bootstrap-overrides";
 @import "bootstrap";
 @import "clear-margin-padding";
-@import "fonts";
 @import "colors";
 @import "fonts";
 @import "borders";
@@ -30,4 +29,54 @@
 .gauge-graph-lg {
   width: 468px;
   height: auto;
+}
+
+.gauge-graph-sm {
+  width: 268px;
+  height: auto;
+}
+
+.measure-presenter {
+  flex-basis: 33%;
+}
+
+.measure-description {
+  text-align: center;
+}
+
+.measure-card {
+  @extend .bg-gray;
+  box-shadow: 0px -1px 0px $gray-2;
+}
+
+.arrow-up:before
+{
+  content: "";
+  position: relative;
+  top: -26px;
+  left: 183px;
+
+  border-width: 2.8em;
+  border-style: solid;
+
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: $gray-2;
+}
+
+.arrow-up:after
+{
+  content: "";
+  position: relative;
+  top: -24px;
+  left: 90px;
+
+  border-width: 3em;
+  border-style: solid;
+
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: $gray-4;
 }

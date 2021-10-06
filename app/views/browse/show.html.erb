@@ -1,15 +1,30 @@
-<h1 class="h1 color-red"><%= @category.name %></h1>
+<h1 class="sub-header font-bitter color-red"><%= @category.name %></h1>
 <h2 class="col-8 body-large"><%= @category.description %></h2>
 
 <% @category.subcategories.each do |subcategory| %>
   <section class="section">
-    <h2 class="h2 mb-7"><%= subcategory.name %></h2>
+    <h2 class="sub-header-2 font-bitter mb-7"><%= subcategory.name %></h2>
 
     <div class="d-flex justify-space-between align-items-end">
       <div>
-        <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter, gauge_class: 'gauge-graph-lg' } %>
+        <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter, gauge_class: 'gauge-graph-lg', font_class: 'font-bitter' } %>
       </div>
       <h2 class="body-large mx-7"><%= subcategory.description %></h2>
     </div>
+
+    <div class="arrow-up mt-6"></div>
+
+    <div class="measure-card d-flex px-7 pt-10 pb-7 mt-4 ">
+      <% subcategory.measure_presenters.each do |measure_presenter| %>
+        <div class="measure-presenter d-flex flex-column justify-space-between align-items-center px-5">
+          <h3 class="measure-description sub-header-4 mb-5 "><%= measure_presenter.name %></h3>
+          <div>
+            <%= render partial: "gauge_graph", locals: { gauge: measure_presenter.gauge_presenter, gauge_class: 'gauge-graph-sm', font_class: 'font-cabin'} %>
+          </div>
+          <p class="measure-description body-small mt-5 mb-4 "><%= measure_presenter.description %></p>
+        </div>
+      <% end %>
+    </div>
+
   </section>
 <% end %>

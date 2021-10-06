@@ -27,6 +27,10 @@ class SubcategoryPresenter
       .average(:likert_score)
   end
 
+  def measure_presenters
+    measures.map { |measure| MeasurePresenter.new(measure: measure, academic_year: @academic_year, school: @school) }
+  end
+
   private
 
   def scale

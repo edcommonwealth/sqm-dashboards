@@ -11,10 +11,12 @@ describe 'browse/show.html.erb' do
     subcategory2 = create(:subcategory_with_measures, sqm_category: category, name: 'Another subcategory', description: 'Another description of the subcategory')
 
     measure1 = create(:measure, subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
-
     survey_item1 = create(:survey_item, measure: measure1)
+    create(:survey_item_response, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 1)
 
-    survey_item_response1 = create(:survey_item_response, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 3)
+    measure2 = create(:measure, name: 'The second measure', description: 'The second measure description', subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
+    survey_item2 = create(:survey_item, measure: measure2)
+    create(:survey_item_response, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 5)
 
     assign :category, CategoryPresenter.new(category: category, academic_year: academic_year, school: school)
 
@@ -40,6 +42,21 @@ describe 'browse/show.html.erb' do
     it 'renders the zone title and fill color for the gauge graph' do
       expect(rendered).to match /Growth/
       expect(rendered).to match /fill-growth/
+    end
+  end
+
+  context 'for each measure' do
+    it 'renders the measure name' do
+      expect(rendered).to match /The second measure/
+    end
+
+    it 'renders the measure description' do
+      expect(rendered).to match /The second measure description/
+    end
+
+    it 'renders a gauge graph and the zone title color' do
+      expect(rendered).to match /Ideal/
+      expect(rendered).to match /fill-ideal/
     end
   end
 end

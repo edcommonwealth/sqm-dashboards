@@ -38,8 +38,7 @@ CSV.parse(measure_key_2021, headers: true).each do |row|
   category = SqmCategory.find_or_create_by(name: category_name)
 
   if category.description.nil?
-    category.description = row['Category Description']
-    category.save
+    category.update(description: row['Category Description'])
   end
 
   subcategory_name = row['Subcategory']
@@ -51,13 +50,14 @@ CSV.parse(measure_key_2021, headers: true).each do |row|
 
   measure_id = row['Measure Id']
 
-  if Measure.find_by_measure_id(measure_id).nil?
-    measure_name = row['Measures']
-    watch_low = row['Watch Low']
-    growth_low = row['Growth Low']
-    approval_low = row['Approval Low']
-    ideal_low = row['Ideal Low']
-    Measure.create subcategory: Subcategory.find_by_name(subcategory_name), measure_id: measure_id, name: measure_name, watch_low_benchmark: watch_low, growth_low_benchmark: growth_low, approval_low_benchmark: approval_low, ideal_low_benchmark: ideal_low
+  measure_name = row['Measures']
+  watch_low = row['Watch Low']
+  growth_low = row['Growth Low']
+  approval_low = row['Approval Low']
+  ideal_low = row['Ideal Low']
+  measure = Measure.find_or_create_by(measure_id: measure_id, subcategory: Subcategory.find_by_name(subcategory_name), name: measure_name, watch_low_benchmark: watch_low, growth_low_benchmark: growth_low, approval_low_benchmark: approval_low, ideal_low_benchmark: ideal_low)
+  if measure.description.nil?
+    measure.update description: row['Measure Description']
   end
 
   survey_item_id = row['Survey Item ID']
