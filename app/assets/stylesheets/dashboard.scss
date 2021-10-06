@@ -1,4 +1,6 @@
 @import 'fonts';
+@import 'bootstrap';
+@import 'fonts';
 
 .graph-header {
   @extend .font-bitter;
@@ -9,26 +11,42 @@
   font-family: 'Cabin', sans-serif;
 }
 
+.icon-heart {
+  width: 28px;
+  height: 32px;
+}
+
 .category-card {
   flex-basis: 20%;
-  align-items: center;
-  justify-content: space-between;
-  height: 600px;
+  height: 750px;
 }
 
 .category-card__title {
-  flex-basis: 20%;
+  height: 13%;
 }
 
 .category-card__description {
-  flex-basis: 20%;
+  height: 40%;
+  @extend .font-cabin;
+  @extend .weight-400;
+}
+
+.category-card__button {
+  height: 10%;
+}
+
+.category-card__icon {
+  height: 7%;
+}
+
+.category-card__subcategory {
+  height: 30%;
 }
 
 .subcategory-card {
-  flex-basis: 20%;
   border: 1px solid #CECECE;
   background-color: $gray-4;
-  width: 90%;
+  min-width: 95%;
   margin: auto;
   padding: 8px;
   border: 1px solid #CECECE;
@@ -40,12 +58,22 @@
 }
 
 .subcategory-card__benchmark-item {
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
+  @extend .my-3;
 }
 
-.subcategory-card__circle-container {
-  flex: 0 0 50px;
-  padding: 0;
+.subcategory-card__circle {
+  min-width: 26px;
+  min-height: 26px;
+  margin-right: 4px;
+  border-radius: 50%;
+  height: 26px;
+  width: 26px;
+  text-align: center;
+  @extend .font-cabin;
+  @extend .weight-400;
 }
 
 .subcategory-card__benchmark-label {

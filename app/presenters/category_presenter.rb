@@ -13,12 +13,27 @@ class CategoryPresenter
     @category.description
   end
 
+  def icon
+    case name
+    when 'Teachers & Leadership'
+      'icon-apple'
+    when 'School Culture'
+      'icon-school'
+    when 'Resources'
+      'icon-people'
+    when 'Academic Learning'
+      'icon-mortar-board'
+    else 'Citizenship & Wellbeing'
+       'icon-heart'
+    end
+  end
+
   def subcategories
     @category.subcategories.map do |subcategory|
       SubcategoryPresenter.new(
         subcategory: subcategory,
         academic_year: @academic_year,
-        school: @school,
+        school: @school
       )
     end
   end

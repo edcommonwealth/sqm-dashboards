@@ -10,17 +10,8 @@ class SubcategoryCardPresenter
     abbreviations[zone.type]
   end
 
-  def svg
-
-  end
-
-  def offset
-    return 40 unless abbreviation.length > 1
-    27
-  end
-
   def color
-    "fill-#{zone.type}"
+    "bg-#{zone.type}"
   end
 
   private

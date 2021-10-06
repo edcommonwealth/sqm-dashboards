@@ -19,7 +19,7 @@ describe SubcategoryCardPresenter do
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "fill-warning"
+      expect(subcategory_card_presenter.color).to eq "bg-warning"
     end
   end
 
@@ -30,7 +30,7 @@ describe SubcategoryCardPresenter do
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "fill-watch"
+      expect(subcategory_card_presenter.color).to eq "bg-watch"
     end
   end
 
@@ -41,7 +41,7 @@ describe SubcategoryCardPresenter do
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "fill-growth"
+      expect(subcategory_card_presenter.color).to eq "bg-growth"
     end
   end
 
@@ -52,7 +52,7 @@ describe SubcategoryCardPresenter do
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "fill-approval"
+      expect(subcategory_card_presenter.color).to eq "bg-approval"
     end
   end
 
@@ -63,7 +63,7 @@ describe SubcategoryCardPresenter do
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "fill-ideal"
+      expect(subcategory_card_presenter.color).to eq "bg-ideal"
     end
   end
 end
