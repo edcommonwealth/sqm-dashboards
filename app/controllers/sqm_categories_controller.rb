@@ -1,4 +1,4 @@
-class BrowseController < SqmApplicationController
+class SqmCategoriesController < SqmApplicationController
 
   def show
     @category = CategoryPresenter.new(
