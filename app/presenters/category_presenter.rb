@@ -16,15 +16,15 @@ class CategoryPresenter
   def icon
     case name
     when 'Teachers & Leadership'
-      'icon-apple'
+      'apple-alt'
     when 'School Culture'
-      'icon-school'
+      'school'
     when 'Resources'
-      'icon-people'
+      'users-cog'
     when 'Academic Learning'
-      'icon-mortar-board'
+      'graduation-cap'
     else 'Citizenship & Wellbeing'
-       'icon-heart'
+       'heart'
     end
   end
 

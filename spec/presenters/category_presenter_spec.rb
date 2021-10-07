@@ -44,11 +44,11 @@ describe CategoryPresenter do
   end
 
   it 'returns the correct icon for the given category' do
-    expect(teachers_and_leadership_presenter.icon).to eq 'icon-apple'
-    expect(school_culture_presenter.icon).to eq 'icon-school'
-    expect(resources_presenter.icon).to eq 'icon-people'
-    expect(academic_learning_presenter.icon).to eq 'icon-mortar-board'
-    expect(citizenship_and_wellbeing_presenter.icon).to eq 'icon-heart'
+    expect(teachers_and_leadership_presenter.icon).to eq 'apple-alt'
+    expect(school_culture_presenter.icon).to eq 'school'
+    expect(resources_presenter.icon).to eq 'users-cog'
+    expect(academic_learning_presenter.icon).to eq 'graduation-cap'
+    expect(citizenship_and_wellbeing_presenter.icon).to eq 'heart'
 
   end
 

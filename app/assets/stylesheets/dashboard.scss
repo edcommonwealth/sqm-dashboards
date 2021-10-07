@@ -11,22 +11,17 @@
   font-family: 'Cabin', sans-serif;
 }
 
-.icon-heart {
-  width: 28px;
-  height: 32px;
-}
-
 .category-card {
   flex-basis: 20%;
-  height: 750px;
+  height: 600px;
 }
 
 .category-card__title {
-  height: 13%;
+  height: 9%;
 }
 
 .category-card__description {
-  height: 40%;
+  height: 44%;
   @extend .font-cabin;
   @extend .weight-400;
 }
