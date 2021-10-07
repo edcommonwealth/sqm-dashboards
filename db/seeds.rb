@@ -37,9 +37,18 @@ CSV.parse(measure_key_2021, headers: true).each do |row|
 
   category = SqmCategory.find_or_create_by(name: category_name)
 
-  if category.description.nil?
-    category.update(description: row['Category Description'])
-  end
+  category_slugs = {
+    'Teachers & Leadership' => 'teachers-and-leadership',
+    'School Culture' => 'school-culture',
+    'Resources' => 'resources',
+    'Academic Learning' => 'academic-learning',
+    'Citizenship & Wellbeing' => 'citizenship-and-wellbeing',
+  }
+
+  category.description = row['Category Description']
+  category.slug = category_slugs[category_name]
+  category.sort_index = category_slugs.keys.index(category_name)
+  category.save
 
   subcategory_name = row['Subcategory']
 

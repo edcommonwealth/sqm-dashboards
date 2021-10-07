@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211006174717) do
+ActiveRecord::Schema.define(version: 20211007204840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,9 @@ ActiveRecord::Schema.define(version: 20211006174717) do
   create_table "sqm_categories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.string "slug"
+    t.integer "sort_index"
+    t.index ["slug"], name: "index_sqm_categories_on_slug", unique: true
   end
 
   create_table "students", id: :serial, force: :cascade do |t|

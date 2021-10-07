@@ -8,6 +8,7 @@ $white: #FFFFFF;
 $blue: #01788E;
 $red: #C93047;
 $light-blue: #FAFCFD;
+$dark-blue: #004D61;
 
 $teal: #00B0B3;
 $mint: #B2D236;
@@ -40,6 +41,12 @@ $ideal: #C0FF73;
 
 .bg-color-light-blue {
   background-color: $light-blue;
+}
+
+.nav-tabs {
+  .bg-color-dark-blue {
+    background-color: $dark-blue;
+  }
 }
 
 .bg-color-blue {

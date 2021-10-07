@@ -1,7 +1,25 @@
 FactoryBot.define do
+
+  factory :district do
+    name { "#{rand} District" }
+    slug { name.parameterize }
+  end
+
+  factory :school do
+    name { "#{rand} School" }
+    slug { name.parameterize }
+    district
+  end
+
+  factory :academic_year do
+    range { '2050-51' }
+  end
+
   factory :sqm_category do
     name { "A category" }
     description { "A description of a category" }
+    slug { 'a-category' }
+    sort_index { 1 }
   end
 
   factory :subcategory do
@@ -32,14 +50,6 @@ FactoryBot.define do
   factory :survey_item do
     survey_item_id { rand.to_s }
     measure
-  end
-
-  factory :academic_year do
-    range { '2050-51' }
-  end
-
-  factory :school do
-    name { "#{rand} School" }
   end
 
   factory :survey_item_response do

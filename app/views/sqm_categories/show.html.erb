@@ -1,3 +1,15 @@
+<% content_for :navigation do %>
+  <nav class="nav nav-tabs">
+    <% @categories.each do |category| %>
+      <div class="nav-item">
+        <%= link_to [@district, @school, category, { year: @academic_year.range }], class: ["font-bitter", "weight-600","nav-link", "bg-color-dark-blue", current_page?([@district, @school, category, { year: @academic_year.range }]) ? "active" : ""] do %>
+          <i class="fa fa-<%= category.icon %> me-2"></i> <%= category.name %>
+        <% end %>
+      </div>
+    <% end %>
+  </nav>
+<% end %>
+
 <h1 class="sub-header font-bitter color-red"><%= @category.name %></h1>
 <h2 class="col-8 body-large"><%= @category.description %></h2>
 
@@ -19,7 +31,7 @@
         <div class="measure-presenter d-flex flex-column justify-space-between align-items-center px-5">
           <h3 class="measure-description sub-header-4 mb-5 "><%= measure_presenter.name %></h3>
           <div>
-            <%= render partial: "gauge_graph", locals: { gauge: measure_presenter.gauge_presenter, gauge_class: 'gauge-graph-sm', font_class: 'font-cabin'} %>
+            <%= render partial: "gauge_graph", locals: { gauge: measure_presenter.gauge_presenter, gauge_class: 'gauge-graph-sm', font_class: 'font-cabin' } %>
           </div>
           <p class="measure-description body-small mt-5 mb-4 "><%= measure_presenter.description %></p>
         </div>

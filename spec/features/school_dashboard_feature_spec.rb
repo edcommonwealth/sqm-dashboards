@@ -104,6 +104,9 @@ feature 'School dashboard', type: feature do
     expect(page).to have_text('Teachers & Leadership')
     expect(page).to have_text('Approval')
 
+    click_on 'School Culture'
+
+    expect(page).to have_text('This category measures the degree to which the school environment is safe, caring, and academically-oriented.')
   end
 
   scenario 'user sees schools in the same district' do

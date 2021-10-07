@@ -37,4 +37,8 @@ class CategoryPresenter
       )
     end
   end
+
+  def to_model
+    @category
+  end
 end

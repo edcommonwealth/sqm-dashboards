@@ -6,6 +6,7 @@ describe 'sqm_categories/show.html.erb' do
     school = create(:school, name: 'Best School')
 
     category = create(:sqm_category, name: 'Some Category', description: 'Some description of the category')
+    category_presenter = CategoryPresenter.new(category: category, academic_year: academic_year, school: school)
 
     subcategory1 = create(:subcategory, sqm_category: category, name: 'A subcategory', description: 'Some description of the subcategory')
     subcategory2 = create(:subcategory_with_measures, sqm_category: category, name: 'Another subcategory', description: 'Another description of the subcategory')
@@ -18,7 +19,12 @@ describe 'sqm_categories/show.html.erb' do
     survey_item2 = create(:survey_item, measure: measure2)
     create(:survey_item_response, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 5)
 
-    assign :category, CategoryPresenter.new(category: category, academic_year: academic_year, school: school)
+    assign :category, category_presenter
+
+    assign :categories, [category_presenter]
+    assign :school, school
+    assign :district, create(:district)
+    assign :academic_year, academic_year
 
     render
   end
