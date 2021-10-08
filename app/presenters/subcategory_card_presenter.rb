@@ -1,17 +1,28 @@
-class SubcategoryCardPresenter 
+class SubcategoryCardPresenter
 
   def initialize(scale:, score:)
     @scale = scale
     @score = score
   end
 
-  def abbreviation
-    abbreviations = { approval: "A", ideal: "I", growth: "G", watch: "Wa", warning: "Wr", no_zone: "N" }
-    abbreviations[zone.type]
+  def display_icon?
+    zone.type != :no_zone
+  end
+
+  def harvey_ball_icon
+    icons_by_zone_type = {
+      ideal: "full-circle",
+      approval: "three-quarter-circle",
+      growth: "half-circle",
+      watch: "one-quarter-circle",
+      warning: "empty-circle",
+      no_zone: "empty-circle"
+    }
+    icons_by_zone_type[zone.type]
   end
 
   def color
-    "bg-#{zone.type}"
+    zone.type.to_s
   end
 
   private

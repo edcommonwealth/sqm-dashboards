@@ -33,10 +33,6 @@ describe SubcategoryPresenter do
     expect(subcategory_presenter.gauge_presenter.title).to eq 'Growth'
   end
 
-  it 'returns a measure presenter for each measure in the subcategory' do
-    # expect(category_presenter.subcategories.map(&:name)).to eq ['A subcategory', 'Another subcategory']
-  end
-
   def create_survey_item_responses_for_different_years_and_schools(survey_item)
     create(:survey_item_response, survey_item: survey_item, school: school, likert_score: 1)
     create(:survey_item_response, survey_item: survey_item, academic_year: academic_year, likert_score: 1)

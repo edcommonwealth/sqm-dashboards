@@ -1,3 +1,47 @@
+<svg>
+  <symbol viewBox="0 0 24 24" id="empty-circle">
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="one-quarter-circle">
+    <path d="
+                      M 12 0
+                      A 12 12 0 0 1 24 12
+                      L 12 12
+                      L 12 0"
+          stroke="none"
+      />
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="half-circle">
+    <path d="
+                      M 12 0
+                      A 12 12 0 1 1 12 24
+                      L 12 12
+                      L 12 0"
+          stroke="none"
+      />
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="three-quarter-circle">
+    <path d="
+                      M 12 0
+                      A 12 12 0 1 1 0 12
+                      L 12 12
+                      L 12 0"
+          stroke="none"
+      />
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="full-circle">
+    <circle cx="12" cy="12" r="11.5" stroke="#3E3A38"/>
+  </symbol>
+</svg>
+
+
 <div class="school-quality-frameworks card mt-5 p-4 border-radius-8">
   <h2 class="sub-header-2">School Quality Framework Indicators</h2>
 
@@ -18,7 +62,12 @@
               <% category_presenter.subcategories.each do |subcategory | %>
                 <% presenter = subcategory.subcategory_card_presenter %>
                 <div class="subcategory-card__benchmark-item">
-                  <div class="subcategory-card__circle <%= presenter.color %>"><%= presenter.abbreviation%></div>
+                  <svg class="subcategory-card__circle" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <% if presenter.display_icon? %>
+                      <use class="fill-<%= presenter.color %>" xlink:href="#<%= presenter.harvey_ball_icon %>"></use>
+                    <% end %>
+                  </svg>
+
                   <div class="subcategory-card__name"><%= subcategory.name %></div>
                 </div>
               <% end %>

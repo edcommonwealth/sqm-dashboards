@@ -14,56 +14,89 @@ describe SubcategoryCardPresenter do
 
   context 'when the given score is in the Warning zone for the given scale' do
     let(:score) { 1 }
-    it 'returns the abbreviation of the zone' do
-      expect(subcategory_card_presenter.abbreviation).to eq "Wr"
+
+    it 'returns a boolean indicating that the icon should be displayed' do
+      expect(subcategory_card_presenter.display_icon?).to be_truthy
+    end
+
+    it 'returns the icon that represents the zone' do
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "empty-circle"
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "bg-warning"
+      expect(subcategory_card_presenter.color).to eq "warning"
     end
   end
 
   context 'when the given score is in the Watch zone for the given scale' do
     let(:score) { 2 }
-    it 'returns the abbreviation of the zone' do
-      expect(subcategory_card_presenter.abbreviation).to eq "Wa"
+
+    it 'returns a boolean indicating that the icon should be displayed' do
+      expect(subcategory_card_presenter.display_icon?).to be_truthy
+    end
+
+    it 'returns the icon that represents the zone' do
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "one-quarter-circle"
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "bg-watch"
+      expect(subcategory_card_presenter.color).to eq "watch"
     end
   end
 
   context 'when the given score is in the Growth zone for the given scale' do
     let(:score) { 3 }
-    it 'returns the abbreviation of the zone' do
-      expect(subcategory_card_presenter.abbreviation).to eq "G"
+
+    it 'returns a boolean indicating that the icon should be displayed' do
+      expect(subcategory_card_presenter.display_icon?).to be_truthy
+    end
+
+    it 'returns the icon that represents the zone' do
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "half-circle"
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "bg-growth"
+      expect(subcategory_card_presenter.color).to eq "growth"
     end
   end
 
   context 'when the given score is in the Approval zone for the given scale' do
     let(:score) { 4 }
-    it 'returns the abbreviation of the zone' do
-      expect(subcategory_card_presenter.abbreviation).to eq "A"
+
+    it 'returns a boolean indicating that the icon should be displayed' do
+      expect(subcategory_card_presenter.display_icon?).to be_truthy
+    end
+
+    it 'returns the icon that represents the zone' do
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "three-quarter-circle"
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "bg-approval"
+      expect(subcategory_card_presenter.color).to eq "approval"
     end
   end
 
   context 'when the given score is in the Ideal zone for the given scale' do
     let(:score) { 5 }
-    it 'returns the abbreviation of the zone' do
-      expect(subcategory_card_presenter.abbreviation).to eq "I"
+
+    it 'returns a boolean indicating that the icon should be displayed' do
+      expect(subcategory_card_presenter.display_icon?).to be_truthy
+    end
+
+    it 'returns the icon that represents the zone' do
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "full-circle"
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "bg-ideal"
+      expect(subcategory_card_presenter.color).to eq "ideal"
+    end
+  end
+
+  context 'when the given score is invalid for the given scale' do
+    let(:score) { 0 }
+
+    it 'returns a boolean indicating that the icon should be displayed' do
+      expect(subcategory_card_presenter.display_icon?).to be_falsey
     end
   end
 end
