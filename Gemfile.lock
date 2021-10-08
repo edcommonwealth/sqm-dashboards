@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/twalpole/apparition.git
+  revision: ca86be4d54af835d531dbcd2b86e7b2c77f85f34
+  ref: ca86be4d54af835d531dbcd2b86e7b2c77f85f34
+  specs:
+    apparition (0.6.0)
+      capybara (~> 3.13, < 4)
+      websocket-driver (>= 0.6.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -112,19 +121,19 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     method_source (1.0.0)
-    mini_mime (1.1.1)
+    mini_mime (1.1.2)
     mini_portile2 (2.6.1)
     minitest (5.14.4)
     multi_json (1.15.0)
     nested_scaffold (1.1.0)
     newrelic_rpm (8.0.0)
     nio4r (2.5.8)
-    nokogiri (1.12.4)
+    nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
-    nokogiri (1.12.4-x86_64-darwin)
+    nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.12.4-x86_64-linux)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     omniauth (2.0.4)
       hashie (>= 3.4.6)
@@ -251,6 +260,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
+  apparition!
   bootstrap
   byebug
   capybara

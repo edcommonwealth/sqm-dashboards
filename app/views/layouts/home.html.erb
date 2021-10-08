@@ -1,0 +1,12 @@
+<html>
+<head>
+  <title>Our new layout</title>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <%= yield %>
+  <script>
+    window.schools = <%= @schools.map{ |school| school_mapper(school) }.to_json.html_safe %>;
+  </script>
+</body>
+</html>

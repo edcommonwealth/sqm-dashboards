@@ -34,5 +34,6 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin#index', as: 'admin'
   post '/twilio', to: 'attempts#twilio'
 
+  get '/welcome', to: 'home#index'
   root to: "welcome#index"
 end

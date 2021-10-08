@@ -71,6 +71,7 @@ group 'test' do
   gem 'rspec-rails', '~> 4.1.2'
   gem 'rails-controller-testing'
   gem 'capybara'
+  gem 'apparition', github: 'twalpole/apparition', ref: 'ca86be4d54af835d531dbcd2b86e7b2c77f85f34'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'timecop'

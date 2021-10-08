@@ -1,7 +1,85 @@
 require 'rails_helper'
+# include Rails.application.routes.url_helpers
+
+def district_admin_sees_student_physical_safety
+  expect(page).to have_text('Student Physical Safety')
+  student_physical_safety_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '2A-i' }
+  expect(student_physical_safety_row['width']).to eq '40.0%'
+  expect(student_physical_safety_row['x']).to eq '60%'
+end
+
+def district_admin_sees_problem_solving_emphasis
+  expect(page).to have_text('Problem Solving Emphasis')
+  problem_solving_emphasis_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '4C-i' }
+  expect(problem_solving_emphasis_row['width']).to eq '60.0%'
+  expect(problem_solving_emphasis_row['x']).to eq '0.0%'
+end
+
+def district_admin_sees_professional_qualifications
+  expect(page).to have_text('Professional Qualifications')
+  professional_qualifications_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '1A-i' }
+  expect(professional_qualifications_row['width']).to eq '8.26%'
+  expect(professional_qualifications_row['x']).to eq '60%'
+end
+
+def go_to_school_dashboard_from_welcome_page(district, school)
+  select district.name, from: 'district-dropdown'
+  select school.name, from: 'school-dropdown'
+  click_on 'Go'
+end
+
+def go_to_different_school_in_same_district(school)
+  select school.name, from: 'select-school'
+end
+
+def go_to_different_district(district)
+  select district.name, from: 'select-district'
+end
+
+def district_admin_sees_schools_change
+  expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/#{SqmCategory.first.slug}?year=2020-21"
+  expect(page).to have_current_path(expected_path)
+end
+
+def district_admin_sees_district_change
+  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/browse/#{SqmCategory.first.slug}?year=2020-21"
+  expect(page).to have_current_path(expected_path)
+end
+
+def district_admin_sees_measures_in_correct_order
+  professional_qualifications_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '1A-i' }
+  student_physical_safety_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '2A-i' }
+  problem_solving_emphasis_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '4C-i' }
+  expect(student_physical_safety_row_index).to be < professional_qualifications_row_index
+  expect(professional_qualifications_row_index).to be < problem_solving_emphasis_row_index
+end
+
+def district_admin_sees_dashboard_content
+  expect(page).to have_select('academic-year', selected: '2020 – 2021')
+  expect(page).to have_select('district', selected: 'Winchester')
+  expect(page).to have_select('school', selected: 'Winchester High School')
+  expect(page).to have_text(school.name)
+
+  district_admin_sees_professional_qualifications
+  district_admin_sees_student_physical_safety
+  district_admin_sees_problem_solving_emphasis
+
+  measure_row_bar_with_no_responses = measure_row_bars.find { |item| item['data-for-measure-id'] == '3A-i' }
+  expect(measure_row_bar_with_no_responses['width']).to eq '0.0%'
+
+  page.assert_selector('.measure-row-bar', count: Measure.count)
+
+  district_admin_sees_measures_in_correct_order
+end
+
+def district_admin_sees_browse_content
+  expect(page).to have_text('Teachers & Leadership')
+  expect(page).to have_text('Approval')
+end
 
 feature 'School dashboard', type: feature do
   let(:district) { District.find_by_slug 'winchester' }
+  let(:different_district) { District.find_by_slug 'boston' }
   let(:school) { School.find_by_slug 'winchester-high-school' }
   let(:school_in_same_district) { School.find_by_slug 'muraco-elementary-school' }
 
@@ -31,19 +109,23 @@ feature 'School dashboard', type: feature do
 
   before :each do
     survey_items_for_measure_1A_i.each do |survey_item|
-      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                                survey_item: survey_item, likert_score: 4
     end
 
     survey_items_for_measure_2A_i.each do |survey_item|
-      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 5
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                                survey_item: survey_item, likert_score: 5
     end
 
     survey_items_for_measure_4C_i.each do |survey_item|
-      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 1
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                                survey_item: survey_item, likert_score: 1
     end
 
     survey_items_for_subcategory.each do |survey_item|
-      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4
+      SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
+                                survey_item: survey_item, likert_score: 4
     end
   end
 
@@ -55,58 +137,25 @@ feature 'School dashboard', type: feature do
     expect(page).not_to have_text(school.name)
   end
 
-  scenario 'User views a school dashboard' do
-    page.driver.browser.basic_authorize(username, password)
+  scenario 'District Admin views a school dashboard', js: true do
+    page.driver.basic_authorize(username, password)
 
-    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
+    visit '/welcome'
+    go_to_school_dashboard_from_welcome_page(district, school)
 
-    expect(page).to have_select('academic-year', selected: '2020 – 2021')
-    expect(page).to have_select('district', selected: 'Winchester')
-    expect(page).to have_select('school', selected: 'Winchester High School')
-
-    expect(page).to have_text(school.name)
-
-    expect(page).to have_text('Professional Qualifications')
-    professional_qualifications_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '1A-i' }
-    expect(professional_qualifications_row['width']).to eq '8.26%'
-    expect(professional_qualifications_row['x']).to eq '60%'
-
-    expect(page).to have_text('Student Physical Safety')
-    student_physical_safety_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '2A-i' }
-    expect(student_physical_safety_row['width']).to eq '40.0%'
-    expect(student_physical_safety_row['x']).to eq '60%'
-
-    expect(page).to have_text('Problem Solving Emphasis')
-    problem_solving_emphasis_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '4C-i' }
-    expect(problem_solving_emphasis_row['width']).to eq '60.0%'
-    expect(problem_solving_emphasis_row['x']).to eq '0.0%'
-
-    measure_row_bar_with_no_responses = measure_row_bars.find { |item| item['data-for-measure-id'] == '3A-i' }
-
-    # puts measure_with_no_survey_responses.id
-    # puts measure_with_no_survey_responses.measure_id
-    # survey_item_responses = SurveyItemResponse.for_measure(measure_with_no_survey_responses)
-    # responses_count = SurveyItemResponse.count
-
-    # expect(responses_count).to eq survey_item_responses.count
-    # expect(survey_item_responses.count).to eq 0
-    expect(measure_row_bar_with_no_responses['width']).to eq '0.0%'
-
-    page.assert_selector('.measure-row-bar', count: Measure.count)
-    professional_qualifications_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '1A-i' }
-    student_physical_safety_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '2A-i' }
-    problem_solving_emphasis_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '4C-i' }
-    expect(student_physical_safety_row_index).to be < professional_qualifications_row_index
-    expect(professional_qualifications_row_index).to be < problem_solving_emphasis_row_index
+    district_admin_sees_dashboard_content
 
     click_on 'Browse'
-
-    expect(page).to have_text('Teachers & Leadership')
-    expect(page).to have_text('Approval')
+    district_admin_sees_browse_content
 
     click_on 'School Culture'
-
     expect(page).to have_text('This category measures the degree to which the school environment is safe, caring, and academically-oriented.')
+
+    go_to_different_school_in_same_district(school_in_same_district)
+    district_admin_sees_schools_change
+
+    go_to_different_district(different_district)
+    district_admin_sees_district_change
   end
 
   scenario 'user sees schools in the same district' do
@@ -120,9 +169,10 @@ feature 'School dashboard', type: feature do
     expect(page.all('.school-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
 
     school_options = page.all('.school-options')
-    school_options.each_with_index do |school , index|
-      break if index == school_options.length-1
-      expect(school.text).to be < school_options[index+1].text
+    school_options.each_with_index do |school, index|
+      break if index == school_options.length - 1
+
+      expect(school.text).to be < school_options[index + 1].text
     end
 
     visit "/districts/#{district.slug}/schools/#{school.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
@@ -134,13 +184,14 @@ feature 'School dashboard', type: feature do
     expect(page.all('.school-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{school.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
 
     school_options = page.all('.school-options')
-    school_options.each_with_index do |school , index|
-      break if index == school_options.length-1
-      expect(school.text).to be < school_options[index+1].text
+    school_options.each_with_index do |school, index|
+      break if index == school_options.length - 1
+
+      expect(school.text).to be < school_options[index + 1].text
     end
   end
 
-  scenario 'user sees all districts in dropdown menu'  do
+  scenario 'user sees all districts in dropdown menu' do
     page.driver.browser.basic_authorize(username, password)
     visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
 
@@ -151,9 +202,10 @@ feature 'School dashboard', type: feature do
     expect(page.all('.district-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{district.schools.alphabetic.first.slug}/dashboard?year=#{ay_2020_21.range}"
 
     district_options = page.all('.district-options')
-    district_options.each_with_index do |district , index|
-      break if index == district_options.length-1
-      expect(district.text).to be < district_options[index+1].text
+    district_options.each_with_index do |district, index|
+      break if index == district_options.length - 1
+
+      expect(district.text).to be < district_options[index + 1].text
     end
 
     visit "/districts/#{district.slug}/schools/#{school.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
@@ -165,10 +217,10 @@ feature 'School dashboard', type: feature do
     expect(page.all('.district-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{district.schools.alphabetic.first.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
 
     district_options = page.all('.district-options')
-    district_options.each_with_index do |district , index|
-      break if index == district_options.length-1
-      expect(district.text).to be < district_options[index+1].text
+    district_options.each_with_index do |district, index|
+      break if index == district_options.length - 1
+
+      expect(district.text).to be < district_options[index + 1].text
     end
   end
-
 end

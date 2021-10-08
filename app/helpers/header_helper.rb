@@ -16,6 +16,14 @@ module HeaderHelper
     dashboard_link(district_slug: school.district.slug, school_slug: school.slug, academic_year_range: academic_year.range, uri_path: request.fullpath)
   end
 
+  def school_mapper(school)
+    {
+      name: school.name,
+      district_id: school.district_id,
+      url: district_school_dashboard_index_path(school.district, school, {year: AcademicYear.first.range})
+    }
+  end
+
   def link_weight(path:)
     active?(path: path) ? 'weight-700' : 'weight-400'
   end
