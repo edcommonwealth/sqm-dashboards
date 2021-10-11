@@ -21,10 +21,11 @@
   box-shadow: 0 0 6px rgba($black, 0.25);
 }
 
-.section {
+.subcategory-section {
   @extend .mt-5;
   @extend .bg-color-white;
   @extend .p-7;
+  box-shadow: 0 0 3px rgba($black, 0.25);
 }
 
 .gauge-graph-lg {
