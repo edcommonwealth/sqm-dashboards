@@ -1,12 +1,15 @@
+@import 'colors';
+@import 'fonts';
+
 .nav-tabs {
   margin-bottom: -1rem;
-  border-bottom: 1px solid transparent;
+
   .nav-link {
-    color: white;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    @extend .font-bitter;
+    background-color: $dark-blue;
   }
 }
+
 .nav-item {
   margin-right: 1px;
 }

@@ -1,3 +1,6 @@
+@import 'colors';
+@import 'fonts';
+
 $spacer: 0.5rem;
 $spacers: (
   0: 0,
@@ -12,3 +15,8 @@ $spacers: (
   9: ($spacer * 7),
   10: ($spacer * 8),
 );
+
+$nav-link-color: $white;
+$nav-link-font-weight: 600;
+$nav-tabs-border-color: transparent;
+$nav-tabs-border-radius: 15px;

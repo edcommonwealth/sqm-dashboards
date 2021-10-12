@@ -2,7 +2,7 @@
   <nav class="nav nav-tabs">
     <% @categories.each do |category| %>
       <div class="nav-item">
-        <%= link_to [@district, @school, category, { year: @academic_year.range }], class: ["font-bitter", "weight-600","nav-link", "bg-color-dark-blue", current_page?([@district, @school, category, { year: @academic_year.range }]) ? "active" : ""] do %>
+        <%= link_to [@district, @school, category, { year: @academic_year.range }], class: ["nav-link", current_page?([@district, @school, category, { year: @academic_year.range }]) ? "active" : ""] do %>
           <i class="fa fa-<%= category.icon %> me-2"></i> <%= category.name %>
         <% end %>
       </div>
