@@ -11,6 +11,7 @@ RSpec.describe "schools/show", type: :view do
 
   it "renders attributes in <p>" do
     render
+    puts rendered.class
     expect(rendered).to match(/School/)
     expect(rendered).to match(/District/)
   end

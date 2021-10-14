@@ -27,7 +27,7 @@ class GaugePresenter
   end
 
   def percentage_for(number)
-    number ||= 0
+    return 0 if number.nil?
     scale_minimum = @scale.warning_zone.low_benchmark
     scale_maximum = @scale.ideal_zone.high_benchmark
 
