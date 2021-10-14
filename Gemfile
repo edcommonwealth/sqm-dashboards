@@ -8,7 +8,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.4.1'
+gem 'rails', '~> 6.1.4.1'
 
 gem 'pg'
 
