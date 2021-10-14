@@ -125,7 +125,7 @@ describe "survey:attempt_questions" do
 
       describe 'A Week Later' do
         before :each do
-          recipients[1].attempts.first.update_attributes(
+          recipients[1].attempts.first.update(
             answer_index: 4,
             responded_at: Time.new
           )
@@ -209,7 +209,7 @@ describe "survey:attempt_questions" do
         let!(:date) { ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z")) }
 
         before :each do
-          questions.first.update_attributes(for_recipient_students: true)
+          questions.first.update(for_recipient_students: true)
           Timecop.freeze(date) { subject.invoke }
         end
 
@@ -312,7 +312,7 @@ describe "survey:attempt_questions" do
         let!(:date) { ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z")) }
 
         before :each do
-          questions.first.update_attributes(for_recipient_students: true)
+          questions.first.update(for_recipient_students: true)
           Timecop.freeze(date) { subject.invoke }
         end
 
@@ -332,7 +332,7 @@ describe "survey:attempt_questions" do
     describe 'Opted Out Recipient' do
 
       before :each do
-        recipients[1].update_attributes(opted_out: true)
+        recipients[1].update(opted_out: true)
 
         date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
         Timecop.freeze(date) { subject.invoke }

@@ -91,7 +91,7 @@ class SchoolCategory < ApplicationRecord
     # This doesn't seem to be taking into account valid_child_count or Boston's "Community and Wellbeing" category which should be suppressed if the "Health" category is the only child category visible.
 
     return if ENV['BULK_PROCESS']
-    update_attributes(chained_aggregated_responses)
+    update(chained_aggregated_responses)
     return if response_count == 0 && zscore.nil?
     if category.parent_category.present?
       parent_school_category = SchoolCategory.for(school, category.parent_category).in(year).first

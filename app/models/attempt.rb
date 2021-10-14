@@ -46,8 +46,8 @@ class Attempt < ApplicationRecord
       ).sid
     end
 
-    update_attributes(sent_at: Time.new, twilio_sid: sids.join(','))
-    recipient.update_attributes(phone: client.messages.get(sids.last).to)
+    update(sent_at: Time.new, twilio_sid: sids.join(','))
+    recipient.update(phone: client.messages.get(sids.last).to)
   end
 
   def response
@@ -56,7 +56,7 @@ class Attempt < ApplicationRecord
   end
 
   def save_response(answer_index: nil, twilio_details: nil, responded_at: Time.new)
-    update_attributes(
+    update(
       answer_index: answer_index,
       twilio_details: twilio_details,
       responded_at: responded_at

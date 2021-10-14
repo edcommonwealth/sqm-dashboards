@@ -33,7 +33,7 @@ RSpec.describe "recipients/index", type: :view do
   end
 
   it "renders a list of recipients" do
-    render
+    render(template: "recipients/index.html.haml")
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "Phone".to_s, :count => 2
     assert_select "tr>td", :text => "Gender".to_s, :count => 2

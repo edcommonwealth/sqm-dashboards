@@ -39,14 +39,14 @@ describe RecipientList do
     it 'should delete recipient_schedules if a recipient is removed' do
       modified_recipient_ids = recipients.map(&:id)[0,2].join(',')
       expect do
-        recipient_list.update_attributes(recipient_ids: modified_recipient_ids)
+        recipient_list.update(recipient_ids: modified_recipient_ids)
       end.to change { schedule.recipient_schedules.count }.from(3).to(2)
     end
 
     it 'should create recipient_schedules if a recipient is added' do
       new_recipients = create_recipients(school, 2)
       expect do
-        recipient_list.update_attributes(recipient_ids: (recipients + new_recipients).map(&:id).join(','))
+        recipient_list.update(recipient_ids: (recipients + new_recipients).map(&:id).join(','))
       end.to change { schedule.recipient_schedules.count }.from(3).to(5)
     end
   end

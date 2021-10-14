@@ -15,7 +15,7 @@ RSpec.describe "questions/show", type: :view do
   end
 
   it "renders attributes in <p>" do
-    render
+    render(template: "questions/show.html.haml")
     expect(rendered).to match(/School/)
     expect(rendered).to match(/Question Text/)
     expect(rendered).to match(/Option1/)

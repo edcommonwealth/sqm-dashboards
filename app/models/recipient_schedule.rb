@@ -82,7 +82,7 @@ class RecipientSchedule < ApplicationRecord
         end
       end
 
-      update_attributes(
+      update(
         upcoming_question_ids: upcoming.empty? ? nil : upcoming.join(','),
         attempted_question_ids: attempted.empty? ? nil : attempted.join(','),
         queued_question_ids: queued.empty? ? nil : queued.join(','),
@@ -127,7 +127,7 @@ class RecipientSchedule < ApplicationRecord
         end
       end
 
-      update_attributes(
+      update(
         upcoming_question_ids: upcoming.empty? ? nil : upcoming.join(','),
         attempted_question_ids: attempted.empty? ? nil : attempted.join(','),
         queued_question_ids: queued.empty? ? nil : queued.join(','),

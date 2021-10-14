@@ -15,13 +15,13 @@ class AttemptsController < ApplicationController
     )
 
     unless (['start', 'resume', 'restart', 'yes', 'go'].index(twilio_params[:Body].downcase).nil?)
-      recipient.update_attributes(opted_out: false)
+      recipient.update(opted_out: false)
       render plain: 'Thank you, you will now begin receiving messages again.'
       return
     end
 
     unless (['stop', 'cancel', 'quit', 'no'].index(twilio_params[:Body].downcase).nil?)
-      recipient.update_attributes(opted_out: true)
+      recipient.update(opted_out: true)
       render plain: 'Thank you, you have been opted out of these messages and will no longer receive them.'
       return
     end

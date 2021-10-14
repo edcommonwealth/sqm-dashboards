@@ -65,7 +65,7 @@ RSpec.describe RecipientSchedule, type: :model do
 
     describe 'with an opted out recipient' do
       before :each do
-        recipient_schedule.recipient.update_attributes(opted_out: true)
+        recipient_schedule.recipient.update(opted_out: true)
       end
 
       let!(:attempt) { recipient_schedule.attempt_question }
@@ -79,7 +79,7 @@ RSpec.describe RecipientSchedule, type: :model do
       before :each do
         friday_time = ActiveSupport::TimeZone["UTC"].parse('2017-04-21T20:00:00')
         Timecop.freeze()
-        recipient_schedule.update_attributes(next_attempt_at: friday_time)
+        recipient_schedule.update(next_attempt_at: friday_time)
       end
 
       let!(:attempt) { recipient_schedule.attempt_question }

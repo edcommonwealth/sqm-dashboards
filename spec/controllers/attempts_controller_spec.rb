@@ -184,7 +184,7 @@ RSpec.describe AttemptsController, type: :controller do
     context "with valid params" do
 
       let!(:recent_first_attempt) {
-        first_attempt.update_attributes(sent_at: Time.new)
+        first_attempt.update(sent_at: Time.new)
         return first_attempt
       }
 

@@ -23,7 +23,7 @@ class Recipient < ApplicationRecord
       # recipient = school.recipients.where(phone: recipient_hash["phone"])
       #
       # if recipient.count == 1
-      #   recipient.first.update_attributes(recipient_hash)
+      #   recipient.first.update(recipient_hash)
       # else
       #   school.recipients.create!(recipient_hash)
       # end
@@ -31,7 +31,7 @@ class Recipient < ApplicationRecord
   end
 
   def update_counts
-    update_attributes(
+    update(
       attempts_count: attempts.count,
       responses_count: attempts.with_answer.count
     )
@@ -43,7 +43,7 @@ class Recipient < ApplicationRecord
       school.recipient_lists.each do |recipient_list|
         next if recipient_list.recipient_id_array.index(id).nil?
         updated_ids = recipient_list.recipient_id_array - [id]
-        recipient_list.update_attributes(recipient_id_array: updated_ids)
+        recipient_list.update(recipient_id_array: updated_ids)
       end
     end
 

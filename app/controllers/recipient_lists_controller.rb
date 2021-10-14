@@ -35,7 +35,7 @@ class RecipientListsController < ApplicationController
 
   # PUT schools/1/recipient_lists/1
   def update
-    if @recipient_list.update_attributes(recipient_list_params)
+    if @recipient_list.update(recipient_list_params)
       redirect_to([@recipient_list.school, @recipient_list], notice: 'Recipient list was successfully updated.')
     else
       render action: 'edit'

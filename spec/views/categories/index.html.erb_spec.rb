@@ -21,7 +21,7 @@ RSpec.describe "categories/index", type: :view do
   end
 
   it "renders a list of categories" do
-    render
+    render(template: "categories/index.html.haml")
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "Blurb".to_s, :count => 2
     assert_select "tr>td", :text => "MyText".to_s, :count => 2

@@ -31,7 +31,7 @@ class SchedulesController < ApplicationController
 
   # PUT schools/1/schedules/1
   def update
-    if @schedule.update_attributes(schedule_params)
+    if @schedule.update(schedule_params)
       redirect_to([@schedule.school, @schedule], notice: 'Schedule was successfully updated.')
     else
       render action: 'edit'

@@ -25,7 +25,7 @@ RSpec.describe "questions/index", type: :view do
   end
 
   it "renders a list of questions" do
-    render
+    render(template: "questions/index.html.haml")
     assert_select "tr>td", :text => "Text".to_s, :count => 2
     assert_select "tr>td", :text => "Option1".to_s, :count => 2
     assert_select "tr>td", :text => "Option2".to_s, :count => 2

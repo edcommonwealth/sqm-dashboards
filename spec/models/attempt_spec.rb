@@ -48,7 +48,7 @@ RSpec.describe Attempt, type: :model do
 
     describe 'after_update' do
       before :each do
-        attempt.update_attributes(answer_index: 4)
+        attempt.update(answer_index: 4)
       end
 
       xit 'updates associated school_categories' do
@@ -73,13 +73,13 @@ RSpec.describe Attempt, type: :model do
     end
 
     it 'are updated when an attempt is responded to' do
-      attempt.update_attributes(answer_index: 2)
+      attempt.update(answer_index: 2)
       expect(recipient.attempts_count).to eq(1)
       expect(recipient.responses_count).to eq(1)
     end
 
     it 'are updated when an attempt is responded to with an open-ended response' do
-      attempt.update_attributes(open_response_id: 1)
+      attempt.update(open_response_id: 1)
       expect(recipient.attempts_count).to eq(1)
       expect(recipient.responses_count).to eq(1)
     end
