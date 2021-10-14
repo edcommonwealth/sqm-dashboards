@@ -1,4 +1,4 @@
-namespace :one_off
+namespace :one_off do
   task clean_up_somerville: :environment do
     combined_school = School.find_by_name 'Next Wave/Full Circle'
     combined_school.update qualtrics_code: 5
