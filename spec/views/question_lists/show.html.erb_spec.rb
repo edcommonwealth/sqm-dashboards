@@ -10,7 +10,7 @@ RSpec.describe "question_lists/show", type: :view do
   end
 
   it "renders attributes in <p>" do
-    render(template: "question_lists/show.html.haml")
+    render(template: "question_lists/show")
     expect(rendered).to match(/Name/)
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(/MyText/)

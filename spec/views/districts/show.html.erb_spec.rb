@@ -13,7 +13,7 @@ RSpec.describe "districts/show", type: :view do
   end
 
   it "renders attributes in <p>" do
-    render(template: "districts/show.html.haml")
+    render(template: "districts/show")
     expect(rendered).to match(/Milford/)
     expect(rendered).to match(/2/)
     3.times do |i|

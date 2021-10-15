@@ -10,7 +10,7 @@ RSpec.describe "schools/show", type: :view do
   end
 
   it "renders attributes in <p>" do
-    render(template: "schools/show.html.haml")
+    render(template: "schools/show")
     expect(rendered).to match(/School/)
     expect(rendered).to match(/District/)
   end
