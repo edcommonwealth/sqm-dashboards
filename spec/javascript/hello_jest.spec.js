@@ -9,7 +9,4 @@ describe('this test should pass', () => {
     const jester = new Jester()
     expect(jester.hello()).toBe("Hello")
   })
-  test('fail', () => {
-    expect(false).toBe(true)
-  })
 })
