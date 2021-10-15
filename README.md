@@ -1,6 +1,7 @@
 # edcontext
 
 This project contains three pieces:
+
 - A webapp for visualizing and understanding MCIEA survey data
 - Tasks for processing and indexing raw survey data
 - Experimental work to conduct survey samples via text message
@@ -12,29 +13,38 @@ This is a Rails project, deployed on Heroku.
 Live app: [https://mciea-dashboard.herokuapp.com/](https://mciea-dashboard.herokuapp.com/)
 Live dashboard: [http://mciea-dashboard.herokuapp.com/districts/winchester/schools/winchester-high-school/dashboard?year=2020-21](http://mciea-dashboard.herokuapp.com/districts/winchester/schools/winchester-high-school/dashboard?year=2020-21)
 
-
 ## Local development
+
 Install Postgres and running first.
 
 (MacOS, Optional), you can use Homebrew:
+
 ```
-$ brew install postgres
-$ brew services start postgresql
+brew install postgres
+brew services start postgresql
 ```
+
 Linux:
 
 Install postgres.  Known working version is version 13
 
-```
+```bash
 https://www.postgresql.org/download/
 ```
 
-
 Once postgres is installed and running, install the required gems and then migrate the database.
+
+```bash
+bundle install
+bundle exec rake db:create db:migrate db:seed
 ```
-$ bundle install
-$ bundle exec rake db:create db:migrate db:seed
+
+Install the javascript dependencies
+```bash
+yarn install
 ```
+
+
 At this point you can run the app and login.  There won't be any data yet though; keep reading!
 
 The seed file populates the following tables
@@ -50,6 +60,7 @@ The seed file populates the following tables
 SurveyItemResponses does not get populated at this stage.
 
 ### Database
+
 Postgres
 
 ### Gems
@@ -75,15 +86,18 @@ None yet.  Hoping to integrate with Powerschool and Aspen for school administrat
 
 ### Javascript libraries
 
-None yet
+Esbuild is used as the javascript bundler.  The javascript testing library is jest.  
 
 ### css
+
 Bootstrap 5
+
 ## Loading Data
 
 SurveyItemResponses is the most important table to understand. SurveyItemResponses is the data that will change year to year and makes up the majority of the database records.  Roughly 500,000 SurveyItemResponses per year.
 
 Some notes:
+
 - The data loading task assumes that the CSV files live in the `#{RAILS_ROOT}/data/survey_responses` directory
 - The data loading task is idempotent, i.e. it can be run multiple times without duplicating previously-ingested data
 
@@ -110,7 +124,6 @@ $ ./scripts/load_survey_responses_on_heroku beta
 $ ./scripts/load_survey_responses_on_heroku dashboard
 ```
 
-
 ## Running tests
 
 Prepare the test database.
@@ -120,12 +133,19 @@ bundle exec rake db:test:prepare
 ```
 
 If you need to look at the rails console for the test environment
+
 ```bash
 RAILS_ENV=test rails c
 ```
 
+```bash
+bundle exec rake
 ```
-$ bundle exec rake
+
+Run javascript tests
+
+```bash
+yarn test
 ```
 
 ## Continuous Integration
@@ -133,5 +153,3 @@ $ bundle exec rake
 Pushing commits to the main branch triggers auto-deployment to the staging environment.
 
 Deployments to production must be done through the Heroku web interface or via the Heroku command line
-
-
