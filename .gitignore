@@ -25,3 +25,11 @@ config/local_env.yml
 .idea/
 
 /config/master.key
+
+/config/credentials/staging.key
+
+/config/credentials/production.key
+
+/config/credentials/test.key
+
+/config/credentials/development.key
