@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
+export function initializeListenersForHomeDropdowns(){
+document.addEventListener('turbolinks:load', () => {
   const districtDropdown = document.querySelector('#district-dropdown');
   if (districtDropdown) {
     districtDropdown.addEventListener('change', event => {
@@ -23,3 +24,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+return true;
+}
