@@ -39,7 +39,7 @@ jobs:
         run: bundle install
       - name: Create DB
         run: bundle exec rake db:test:prepare
-      - name: Run tests
+      - name: Run rails tests
         run: bundle exec rake
       - name: Install javascript dependencies
         run: yarn install

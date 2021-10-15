@@ -4,4 +4,4 @@ set -eux
 
 git rev-parse --show-toplevel
 
-bundle exec rake && git push
+bundle exec rake && yarn test && git push
