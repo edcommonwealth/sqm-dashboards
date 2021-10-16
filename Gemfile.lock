@@ -164,7 +164,8 @@ GEM
     pg (1.2.3)
     popper_js (2.9.3)
     public_suffix (4.0.6)
-    puma (3.12.6)
+    puma (5.5.2)
+      nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-protection (2.1.0)
@@ -299,9 +300,10 @@ DEPENDENCIES
   listen (~> 3.0.5)
   nested_scaffold
   newrelic_rpm
+  nokogiri (>= 1.12.5)
   omniauth
   pg
-  puma (~> 3.0)
+  puma (>= 5.5.2)
   rails (~> 6.1.4.1)
   rails-controller-testing
   rspec-rails (~> 4.1.2)
