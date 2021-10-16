@@ -40,10 +40,10 @@ bundle exec rake db:create db:migrate db:seed
 ```
 
 Install the javascript dependencies
+
 ```bash
 yarn install
 ```
-
 
 At this point you can run the app and login.  There won't be any data yet though; keep reading!
 
@@ -151,5 +151,24 @@ yarn test
 ## Continuous Integration
 
 Pushing commits to the main branch triggers auto-deployment to the staging environment.
+Use the ship-it script from the main branch when you're ready to deploy to staging
+
+```bash
+scripts/ship-it.sh
+```
 
 Deployments to production must be done through the Heroku web interface or via the Heroku command line
+
+## Running the development server
+
+Start esbuild for dynamic compilation of javascript assets.
+
+```bash
+yarn build --watch
+```
+
+Start the puma web server
+
+```bash
+bin/rails s
+```
