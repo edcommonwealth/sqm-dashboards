@@ -2,8 +2,73 @@
   <h2 class="sub-header color-white">Areas Of Interest</h2>
 <% end %>
 
+<svg class="d-none">
+  <symbol viewBox="0 0 24 24" id="empty-circle">
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="one-quarter-circle">
+    <path d="
+                      M 12 0
+                      A 12 12 0 0 1 24 12
+                      L 12 12
+                      L 12 0"
+          stroke="none"
+      />
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="half-circle">
+    <path d="
+                      M 12 0
+                      A 12 12 0 1 1 12 24
+                      L 12 12
+                      L 12 0"
+          stroke="none"
+      />
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="three-quarter-circle">
+    <path d="
+                      M 12 0
+                      A 12 12 0 1 1 0 12
+                      L 12 12
+                      L 12 0"
+          stroke="none"
+      />
+    <circle cx="12" cy="12" r="11.5" fill="none" stroke="#3E3A38"/>
+  </symbol>
+
+  <symbol viewBox="0 0 24 24" id="full-circle">
+    <circle cx="12" cy="12" r="11.5" stroke="#3E3A38"/>
+  </symbol>
+</svg>
+
 <div class="card">
-  <h2 class="sub-header-2">School Quality Framework Indicators</h2>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="sub-header-2">School Quality Framework Indicators</h2>
+
+    <div class="harvey-ball__legend">
+      <div class="font-size-14">Warning</div>
+      <svg class="ms-3 me-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <use class="fill-warning" xlink:href="#empty-circle"></use>
+      </svg>
+      <svg class="mx-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <use class="fill-watch" xlink:href="#one-quarter-circle"></use>
+      </svg>
+      <svg class="mx-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <use class="fill-growth" xlink:href="#half-circle"></use>
+      </svg>
+      <svg class="mx-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <use class="fill-approval" xlink:href="#three-quarter-circle"></use>
+      </svg>
+      <svg class="ms-1 me-3" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <use class="fill-ideal" xlink:href="#full-circle"></use>
+      </svg>
+      <div class="font-size-14">Ideal</div>
+    </div>
+  </div>
 
   <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
 </div>

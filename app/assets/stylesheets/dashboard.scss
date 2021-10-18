@@ -1,5 +1,7 @@
 @import 'bootstrap';
+@import 'colors';
 @import 'fonts';
+@import 'borders';
 
 .graph-header {
   @extend .font-bitter;
@@ -8,6 +10,15 @@
 
 .graph-footer {
   font-family: 'Cabin', sans-serif;
+}
+
+.harvey-ball__legend {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  @extend .p-3;
+  @extend .bg-color-gray-3;
+  @extend .border-radius-8;
 }
 
 .category-card {
