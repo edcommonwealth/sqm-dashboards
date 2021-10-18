@@ -1,3 +1,9 @@
+@import 'colors';
+
 .border-radius-8 {
   border-radius: 8px;
+}
+
+.border-gray-2 {
+  border: 1px solid $gray-2;
 }

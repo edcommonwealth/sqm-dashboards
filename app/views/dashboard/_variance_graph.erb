@@ -5,8 +5,8 @@
       <feFuncA type="table" tableValues="1 0"/>
     </feComponentTransfer>
     <feGaussianBlur stdDeviation="4"/>
-    <feOffset dx="0" dy="5" result="offsetblur"/>
-    <feFlood flood-color="rgb(0, 0, 0)" result="color"/>
+    <feOffset dx="0" dy="0" result="offsetblur"/>
+    <feFlood flood-color="rgb(62, 58, 56, 0.25)" result="color"/>
     <feComposite in2="offsetblur" operator="in"/>
     <feComposite in2="SourceAlpha" operator="in"/>
     <feMerge>
@@ -21,6 +21,7 @@
     y="0"
     width="<%= graph_width_percentage %>%"
     height=<%= graph_background_height(number_of_rows: presenters.size) %>
+    filter="url(#inset-shadow)"
   >
     <g id="zone-headings">
       <%= zones.each_with_index do |zone, index| %>
@@ -40,13 +41,13 @@
       <%= zones.each_with_index do |zone, index| %>
         <rect
           id="<%= zone %>-zone"
-          class="zone-background fill-<%= zone %>"
+          class="zone-background bg-fill-<%= zone %>"
           x="<%= index * zone_width_percentage %>%"
           y="0"
           width="<%= zone_width_percentage %>%"
           height="100%"
-          opacity="0.2"
-          filter="url(#inset-shadow)"
+          stroke="#CECECE"
+          stroke-width="1"
           />
       <% end %>
     </g>

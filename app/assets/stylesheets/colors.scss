@@ -1,23 +1,29 @@
 $black: #3E3A38;
 $gray-1: #595959;
 $gray-2: #CECECE;
-$gray-3: #F9F9F9;
-$gray-4: #F3F3F3;
-
-$white: #FFFFFF;
-$blue: #01788E;
-$red: #C93047;
+$gray-3: #F3F3F3;
 $light-blue: #FAFCFD;
+$white: #FFFFFF;
+
+$blue: #01788E;
 $dark-blue: #004D61;
 
-$teal: #00B0B3;
-$mint: #B2D236;
+$red: #C93047;
+$dark-red: #920020;
 
-$warning: #FF73C0;
-$watch: #F096AD;
-$growth: #E0BA9A;
-$approval: #D0DD86;
-$ideal: #C0FF73;
+$gold: #FFC857;
+$light-gold: #FFFAEE;
+$purple: #49416D;
+$light-purple: #EDECF0;
+
+$teal: #00B0B3;
+$lime: #B2D236;
+
+$warning: $gold;
+$watch: $gold;
+$growth: $gold;
+$approval: $purple;
+$ideal: $purple;
 
 .color-red {
   color: $red;
@@ -56,7 +62,7 @@ $ideal: #C0FF73;
 }
 
 .bg-gray {
-  background-color: $gray-4;
+  background-color: $gray-3;
 }
 
 .bg-warning {
@@ -66,15 +72,32 @@ $ideal: #C0FF73;
 .bg-watch {
   background-color: $watch;
 }
+
 .bg-growth {
   background-color: $growth;
 }
+
 .bg-approval {
   background-color: $approval;
 }
+
 .bg-ideal {
   background-color: $ideal;
 }
+
+.bg-fill-warning,
+.bg-fill-watch,
+.bg-fill-growth
+{
+  fill: $light-gold;
+}
+
+.bg-fill-approval,
+.bg-fill-ideal
+{
+  fill: $light-purple;
+}
+
 .fill-warning {
   fill: $warning;
 }
