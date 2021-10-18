@@ -36,7 +36,7 @@
 
 - add esbuild gem 'jsbundling-rails'.  Unified installer for webpacker rollup and esbuild
   - `bin/bundle install`
-  - `bin/rails javascript:install:esbuild
+  - `bin/rails javascript:install:esbuild`
 - clear the tmp directory to make sure asset compilation with esbuild does not complain about missing file templates
   - bundle exec rake tmp:clear
 - move javascript files to new location
