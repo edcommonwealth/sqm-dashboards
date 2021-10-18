@@ -58,6 +58,10 @@ RSpec.configure do |config|
     Rails.application.load_seed # loading seeds
   end
 
+  config.before(:each, js: true) do
+    Capybara.page.driver.resize(3000, 3000)
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

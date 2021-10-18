@@ -1,4 +1,6 @@
 class CategoryPresenter
+  attr_reader :category
+
   def initialize(category:, academic_year:, school:)
     @category = category
     @academic_year = academic_year
@@ -11,6 +13,10 @@ class CategoryPresenter
 
   def description
     @category.description
+  end
+
+  def id
+    @category.slug
   end
 
   def icon

@@ -1,25 +1,30 @@
 require 'rails_helper'
 # include Rails.application.routes.url_helpers
 
+def row_for(measure_id:)
+  expect(page).to have_css("[data-for-measure-id='#{measure_id}']")
+  measure_row_bars.find { |item| item['data-for-measure-id'] == "#{measure_id}" }
+end
+
+def district_admin_sees_professional_qualifications
+  expect(page).to have_text('Professional Qualifications')
+  professional_qualifications_row = row_for(measure_id: '1A-i')
+  expect(professional_qualifications_row['width']).to eq '8.26%'
+  expect(professional_qualifications_row['x']).to eq '60%'
+end
+
 def district_admin_sees_student_physical_safety
   expect(page).to have_text('Student Physical Safety')
-  student_physical_safety_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '2A-i' }
+  student_physical_safety_row = row_for(measure_id: '2A-i')
   expect(student_physical_safety_row['width']).to eq '40.0%'
   expect(student_physical_safety_row['x']).to eq '60%'
 end
 
 def district_admin_sees_problem_solving_emphasis
   expect(page).to have_text('Problem Solving Emphasis')
-  problem_solving_emphasis_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '4C-i' }
+  problem_solving_emphasis_row = row_for(measure_id: '4C-i')
   expect(problem_solving_emphasis_row['width']).to eq '60.0%'
   expect(problem_solving_emphasis_row['x']).to eq '0.0%'
-end
-
-def district_admin_sees_professional_qualifications
-  expect(page).to have_text('Professional Qualifications')
-  professional_qualifications_row = measure_row_bars.find { |item| item['data-for-measure-id'] == '1A-i' }
-  expect(professional_qualifications_row['width']).to eq '8.26%'
-  expect(professional_qualifications_row['x']).to eq '60%'
 end
 
 def go_to_school_dashboard_from_welcome_page(district, school)
@@ -47,11 +52,13 @@ def district_admin_sees_district_change
 end
 
 def district_admin_sees_measures_in_correct_order
-  professional_qualifications_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '1A-i' }
-  student_physical_safety_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '2A-i' }
-  problem_solving_emphasis_row_index = measure_row_bars.find_index { |item| item['data-for-measure-id'] == '4C-i' }
-  expect(student_physical_safety_row_index).to be < professional_qualifications_row_index
-  expect(professional_qualifications_row_index).to be < problem_solving_emphasis_row_index
+  def index_of_row_for(measure_id:)
+    expect(page).to have_css("[data-for-measure-id='#{measure_id}']")
+    measure_row_bars.find_index { |item| item['data-for-measure-id'] == "#{measure_id}" }
+  end
+
+  expect(index_of_row_for(measure_id: '2A-i')).to be < index_of_row_for(measure_id: '1A-i')
+  expect(index_of_row_for(measure_id: '1A-i')).to be < index_of_row_for(measure_id: '4C-i')
 end
 
 def district_admin_sees_dashboard_content
@@ -64,8 +71,7 @@ def district_admin_sees_dashboard_content
   district_admin_sees_student_physical_safety
   district_admin_sees_problem_solving_emphasis
 
-  measure_row_bar_with_no_responses = measure_row_bars.find { |item| item['data-for-measure-id'] == '3A-i' }
-  expect(measure_row_bar_with_no_responses['width']).to eq '0.0%'
+  expect(row_for(measure_id: '3A-i')['width']).to eq '0.0%'
 
   page.assert_selector('.measure-row-bar', count: Measure.count)
 
@@ -75,6 +81,10 @@ end
 def district_admin_sees_browse_content
   expect(page).to have_text('Teachers & Leadership')
   expect(page).to have_text('Approval')
+end
+
+def measure_row_bars
+  page.all('rect.measure-row-bar')
 end
 
 feature 'School dashboard', type: feature do
@@ -99,8 +109,6 @@ feature 'School dashboard', type: feature do
   let(:survey_items_for_measure_1A_i) { SurveyItem.where(measure: measure_1A_i) }
   let(:survey_items_for_measure_2A_i) { SurveyItem.where(measure: measure_2A_i) }
   let(:survey_items_for_measure_4C_i) { SurveyItem.where(measure: measure_4C_i) }
-
-  let(:measure_row_bars) { page.all('rect.measure-row-bar') }
 
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
 
@@ -143,6 +151,14 @@ feature 'School dashboard', type: feature do
     visit '/welcome'
     go_to_school_dashboard_from_welcome_page(district, school)
 
+    district_admin_sees_dashboard_content
+
+    within('section#school-culture') do
+      expect(page).to have_text('View Details')
+      click_on 'View Details'
+    end
+    district_admin_sees_browse_content
+    click_on 'Dashboard'
     district_admin_sees_dashboard_content
 
     click_on 'Browse'
