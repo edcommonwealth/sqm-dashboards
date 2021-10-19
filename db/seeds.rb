@@ -42,7 +42,7 @@ CSV.parse(measure_key_2021, headers: true).each do |row|
     'School Culture' => 'school-culture',
     'Resources' => 'resources',
     'Academic Learning' => 'academic-learning',
-    'Citizenship & Wellbeing' => 'citizenship-and-wellbeing',
+    'Community & Wellbeing' => 'community-and-wellbeing',
   }
 
   category.description = row['Category Description']

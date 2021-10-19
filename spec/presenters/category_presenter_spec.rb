@@ -29,8 +29,8 @@ describe CategoryPresenter do
     return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
   end
 
-  let(:citizenship_and_wellbeing_presenter) do
-    category = SqmCategory.find_by_name("Citizenship & Wellbeing")
+  let(:community_and_wellbeing_presenter) do
+    category = SqmCategory.find_by_name("Community & Wellbeing")
     return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
   end
 
@@ -48,7 +48,7 @@ describe CategoryPresenter do
     expect(school_culture_presenter.icon).to eq 'school'
     expect(resources_presenter.icon).to eq 'users-cog'
     expect(academic_learning_presenter.icon).to eq 'graduation-cap'
-    expect(citizenship_and_wellbeing_presenter.icon).to eq 'heart'
+    expect(community_and_wellbeing_presenter.icon).to eq 'heart'
   end
 
   it 'returns the correct id for the given category' do
@@ -56,7 +56,7 @@ describe CategoryPresenter do
     expect(school_culture_presenter.id).to eq 'school-culture'
     expect(resources_presenter.id).to eq 'resources'
     expect(academic_learning_presenter.id).to eq 'academic-learning'
-    expect(citizenship_and_wellbeing_presenter.id).to eq 'citizenship-and-wellbeing'
+    expect(community_and_wellbeing_presenter.id).to eq 'community-and-wellbeing'
   end
 
 end

@@ -29,7 +29,7 @@ class CategoryPresenter
       'users-cog'
     when 'Academic Learning'
       'graduation-cap'
-    else 'Citizenship & Wellbeing'
+    else 'Community & Wellbeing'
        'heart'
     end
   end
