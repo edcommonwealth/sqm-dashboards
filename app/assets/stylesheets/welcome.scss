@@ -1,0 +1,37 @@
+@import "bootstrap-overrides";
+@import "bootstrap";
+@import "clear-margin-padding";
+@import "colors";
+@import "fonts";
+@import "borders";
+
+.hero-image {
+  background-image: url(image-path("hero.png"));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.hero-text {
+  color: $white;
+  text-align: center;
+}
+
+.hero-description{
+  max-width: 588px;
+  margin: auto;
+  font-size: 20px;
+}
+
+.welcome-controls {
+  @extend .py-5;
+}
+
+.btn-secondary {
+  @include button-variant($black, transparent, $white,
+    $gray-1, transparent, $white,
+    $black, $black, $white,
+    $gray-2, transparent, $white);
+}

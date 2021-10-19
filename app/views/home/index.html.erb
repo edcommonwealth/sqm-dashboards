@@ -1,6 +1,22 @@
-<%= collection_select(:district, :id, @districts, :id, :name, {}, {id: 'district-dropdown'}) %>
+<div class="hero-image">
+  <div class="hero-text">
+    <h1 class="sub-header">School Quality Measures Dashboard</h1>
+    <p class="hero-description">A school quality framework with multiple measures that offers a fair and comprehensive
+      picture of school performance</p>
+  </div>
+</div>
+<div class="bg-color-blue">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-6 welcome-controls d-flex justify-content-center">
+        <%= collection_select(:district, :id, @districts, :id, :name, { prompt: 'Select a district', selected: "" }, { id: 'district-dropdown', 'data-id': 'district-dropdown', class: 'form-select' }) %>
 
-<select id="school-dropdown">
-</select>
+        <select id="school-dropdown" class="mx-3 form-select" data-id="school-dropdown" disabled>
+          <option value="Select a school">Select a school</option>
+        </select>
 
-<button data-id="go-to-school">Go</button>
+        <button data-id="go-to-school" class="mx-3 btn btn-secondary" disabled>Go</button>
+      </div>
+    </div>
+  </div>
+</div>

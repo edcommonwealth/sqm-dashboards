@@ -1,12 +1,27 @@
 <html>
 <head>
-  <title>Our new layout</title>
+  <title>MCIEA</title>
+  <link href="https://fonts.googleapis.com/css?family=Bitter:400,600,700" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet" type="text/css"/>
+  <%= stylesheet_link_tag 'sqm_application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-  <%= yield %>
-  <script>
-    window.schools = <%= @schools.map{ |school| school_mapper(school) }.to_json.html_safe %>;
-  </script>
+
+<header>
+  <div class="container">
+    <div class="row py-4 justify-content-between align-items-center">
+      <div class="col d-flex justify-content-start align-items-center">
+        <%= link_to image_tag('sqm_logo.png', alt: 'MCIEA School Quality Measures Dashboard', class: 'height-56 me-7'), root_path %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<%= yield %>
+<script>
+  window.schools = <%= @schools.map{ |school| school_mapper(school) }.to_json.html_safe %>;
+</script>
 </body>
 </html>
