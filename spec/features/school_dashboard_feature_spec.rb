@@ -1,11 +1,6 @@
 require 'rails_helper'
 # include Rails.application.routes.url_helpers
 
-def row_for(measure_id:)
-  expect(page).to have_css("[data-for-measure-id='#{measure_id}']")
-  measure_row_bars.find { |item| item['data-for-measure-id'] == "#{measure_id}" }
-end
-
 def district_admin_sees_professional_qualifications
   expect(page).to have_text('Professional Qualifications')
   professional_qualifications_row = row_for(measure_id: '1A-i')
@@ -54,7 +49,7 @@ end
 def district_admin_sees_measures_in_correct_order
   def index_of_row_for(measure_id:)
     expect(page).to have_css("[data-for-measure-id='#{measure_id}']")
-    measure_row_bars.find_index { |item| item['data-for-measure-id'] == "#{measure_id}" }
+    page.all('rect.measure-row-bar').find_index { |item| item['data-for-measure-id'] == "#{measure_id}" }
   end
 
   expect(index_of_row_for(measure_id: '2A-i')).to be < index_of_row_for(measure_id: '1A-i')
@@ -83,8 +78,9 @@ def district_admin_sees_browse_content
   expect(page).to have_text('Approval')
 end
 
-def measure_row_bars
-  page.all('rect.measure-row-bar')
+def row_for(measure_id:)
+  expect(page).to have_css("[data-for-measure-id='#{measure_id}']")
+  page.all('rect.measure-row-bar').find { |item| item['data-for-measure-id'] == "#{measure_id}" }
 end
 
 feature 'School dashboard', type: feature do
@@ -153,7 +149,7 @@ feature 'School dashboard', type: feature do
 
     district_admin_sees_dashboard_content
 
-    within('section#school-culture') do
+    within('section#teachers-and-leadership') do
       expect(page).to have_text('View Details')
       click_on 'View Details'
     end
