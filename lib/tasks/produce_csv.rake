@@ -1,6 +1,10 @@
 require 'csv'
 
 namespace :dupes do
+  # produce CSV file that displays:
+  # | district_name | school_name    | school_slug | created_at | updated_at |
+  # | Dist1         | Jefferson High | jefferson-high | created_at | updated_at |
+  # | Dist1         | Jefferson High | lincoln-high | created_at | updated_at |
   task record_csv: :environment do
     csv_string = CSV.generate do |csv|
       csv << [ 'District Name', 'School Name', 'School Slug', 'Creation Time', 'Updated Time' ]
@@ -15,9 +19,22 @@ namespace :dupes do
 
     puts csv_string
   end
-end
 
-# produce CSV file that displays:
-    # | district_name | school_name    | school_slug | created_at | updated_at |
-    # | Dist1         | Jefferson High | jefferson-high | created_at | updated_at |
-    # | Dist1         | Jefferson High | lincoln-high | created_at | updated_at |
+  task dedup_schools: :environment do
+    School.all.order(:district_id, :name, :created_at).each do |school|
+      schools = School.where(name: school.name, district: school.district).order(:created_at)
+      if schools.length > 1
+        school_to_keep = schools.first
+        schools.each do |school_to_destroy|
+          next if school_to_destroy == school_to_keep
+
+          SurveyItemResponse.where(school: school_to_destroy) do |response|
+            response.update(school: school_to_keep)
+          end
+
+          school_to_destroy.destroy
+        end
+      end
+    end
+  end
+end
