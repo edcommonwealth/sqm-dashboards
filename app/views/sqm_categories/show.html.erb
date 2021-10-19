@@ -19,7 +19,7 @@
 
     <div class="d-flex justify-space-between align-items-end">
       <div>
-        <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter, gauge_class: 'gauge-graph-lg', font_class: 'font-bitter' } %>
+        <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter, gauge_class: 'gauge-graph-lg', font_class: 'sub-header-3' } %>
       </div>
       <h2 class="body-large mx-7"><%= subcategory.description %></h2>
     </div>
@@ -31,7 +31,7 @@
         <div class="measure-presenter d-flex flex-column justify-space-between align-items-center px-5">
           <h3 class="measure-description sub-header-4 mb-5 "><%= measure_presenter.name %></h3>
           <div>
-            <%= render partial: "gauge_graph", locals: { gauge: measure_presenter.gauge_presenter, gauge_class: 'gauge-graph-sm', font_class: 'font-cabin' } %>
+            <%= render partial: "gauge_graph", locals: { gauge: measure_presenter.gauge_presenter, gauge_class: 'gauge-graph-sm', font_class: 'weight-700' } %>
           </div>
           <p class="measure-description body-small mt-5 mb-4 "><%= measure_presenter.description %></p>
         </div>
