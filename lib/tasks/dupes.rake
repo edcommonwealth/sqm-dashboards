@@ -30,8 +30,10 @@ namespace :dupes do
 
           school_to_keep.update(qualtrics_code: school_to_destroy.qualtrics_code)
 
-          SurveyItemResponse.where(school: school_to_destroy) do |response|
-            response.update(school: school_to_keep)
+          SurveyItemResponse.where(school: school_to_destroy).each do |response|
+            success = response.update(school: school_to_keep)
+            puts "Attempted to update survey item response with id #{response.id} to point to school with id #{school_to_keep.id}. Successful? #{success}"
+            puts response.reload.school_id
           end
 
           school_to_destroy.destroy
