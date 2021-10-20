@@ -37,12 +37,12 @@ def go_to_different_district(district)
 end
 
 def district_admin_sees_schools_change
-  expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/#{SqmCategory.first.slug}?year=2020-21"
+  expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/dashboard?year=2020-21"
   expect(page).to have_current_path(expected_path)
 end
 
 def district_admin_sees_district_change
-  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/browse/#{SqmCategory.first.slug}?year=2020-21"
+  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/dashboard?year=2020-21"
   expect(page).to have_current_path(expected_path)
 end
 
@@ -141,11 +141,25 @@ feature 'School dashboard', type: feature do
     expect(page).not_to have_text(school.name)
   end
 
-  scenario 'District Admin views a school dashboard', js: true do
+  scenario 'District Admin navigates the site', js: true do
     page.driver.basic_authorize(username, password)
 
     visit '/welcome'
     go_to_school_dashboard_from_welcome_page(district, school)
+
+    district_admin_sees_dashboard_content
+
+    go_to_different_school_in_same_district(school_in_same_district)
+    district_admin_sees_schools_change
+
+    go_to_different_district(different_district)
+    district_admin_sees_district_change
+  end
+
+  scenario 'District Admin views a school dashboard' do
+    page.driver.browser.basic_authorize(username, password)
+
+    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
 
     district_admin_sees_dashboard_content
 
@@ -154,6 +168,7 @@ feature 'School dashboard', type: feature do
       click_on 'View Details'
     end
     district_admin_sees_browse_content
+
     click_on 'Dashboard'
     district_admin_sees_dashboard_content
 
@@ -162,12 +177,6 @@ feature 'School dashboard', type: feature do
 
     click_on 'School Culture'
     expect(page).to have_text('This category measures the degree to which the school environment is safe, caring, and academically-oriented.')
-
-    go_to_different_school_in_same_district(school_in_same_district)
-    district_admin_sees_schools_change
-
-    go_to_different_district(different_district)
-    district_admin_sees_district_change
   end
 
   scenario 'user sees schools in the same district' do
