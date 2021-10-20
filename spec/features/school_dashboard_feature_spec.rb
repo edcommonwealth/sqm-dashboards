@@ -3,23 +3,17 @@ require 'rails_helper'
 
 def district_admin_sees_professional_qualifications
   expect(page).to have_text('Professional Qualifications')
-  professional_qualifications_row = row_for(measure_id: '1A-i')
-  expect(professional_qualifications_row['width']).to eq '8.26%'
-  expect(professional_qualifications_row['x']).to eq '60%'
+  expect(page).to have_css("[data-for-measure-id='1A-i'][width='8.26%'][x='60%']")
 end
 
 def district_admin_sees_student_physical_safety
   expect(page).to have_text('Student Physical Safety')
-  student_physical_safety_row = row_for(measure_id: '2A-i')
-  expect(student_physical_safety_row['width']).to eq '40.0%'
-  expect(student_physical_safety_row['x']).to eq '60%'
+  expect(page).to have_css("[data-for-measure-id='2A-i'][width='40.0%'][x='60%']")
 end
 
 def district_admin_sees_problem_solving_emphasis
   expect(page).to have_text('Problem Solving Emphasis')
-  problem_solving_emphasis_row = row_for(measure_id: '4C-i')
-  expect(problem_solving_emphasis_row['width']).to eq '60.0%'
-  expect(problem_solving_emphasis_row['x']).to eq '0.0%'
+  expect(page).to have_css("[data-for-measure-id='4C-i'][width='60.0%'][x='0.0%']")
 end
 
 def go_to_school_dashboard_from_welcome_page(district, school)
@@ -66,7 +60,7 @@ def district_admin_sees_dashboard_content
   district_admin_sees_student_physical_safety
   district_admin_sees_problem_solving_emphasis
 
-  expect(row_for(measure_id: '3A-i')['width']).to eq '0.0%'
+  expect(page).to have_css("[data-for-measure-id='3A-i'][width='0.0%']")
 
   page.assert_selector('.measure-row-bar', count: Measure.count)
 
@@ -76,11 +70,6 @@ end
 def district_admin_sees_browse_content
   expect(page).to have_text('Teachers & Leadership')
   expect(page).to have_text('Approval')
-end
-
-def row_for(measure_id:)
-  expect(page).to have_css("[data-for-measure-id='#{measure_id}']")
-  page.all('rect.measure-row-bar').find { |item| item['data-for-measure-id'] == "#{measure_id}" }
 end
 
 feature 'School dashboard', type: feature do
@@ -156,17 +145,14 @@ feature 'School dashboard', type: feature do
     district_admin_sees_district_change
   end
 
-  scenario 'District Admin views a school dashboard' do
-    page.driver.browser.basic_authorize(username, password)
+  scenario 'District Admin views a school dashboard', js: true do
+    page.driver.basic_authorize(username, password)
 
     visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
 
     district_admin_sees_dashboard_content
 
-    within('section#teachers-and-leadership') do
-      expect(page).to have_text('View Details')
-      click_on 'View Details'
-    end
+    click_on 'View Details', match: :first
     district_admin_sees_browse_content
 
     click_on 'Dashboard'
