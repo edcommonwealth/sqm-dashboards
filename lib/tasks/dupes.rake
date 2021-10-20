@@ -21,7 +21,7 @@ namespace :dupes do
   end
 
   task dedup_schools: :environment do
-    School.all.order(:district_id, :name, :created_at).each do |school|
+    School.all.each do |school|
       schools = School.where(name: school.name, district: school.district).order(:created_at)
       if schools.length > 1
         school_to_keep = schools.first
