@@ -145,8 +145,8 @@ feature 'School dashboard', type: feature do
     district_admin_sees_district_change
   end
 
-  scenario 'District Admin views a school dashboard', js: true do
-    page.driver.basic_authorize(username, password)
+  scenario 'District Admin views a school dashboard' do
+    page.driver.browser.basic_authorize(username, password)
 
     visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
 
