@@ -28,6 +28,8 @@ namespace :dupes do
         schools.each do |school_to_destroy|
           next if school_to_destroy == school_to_keep
 
+          school_to_keep.update(qualtrics_code: school_to_destroy.qualtrics_code)
+
           SurveyItemResponse.where(school: school_to_destroy) do |response|
             response.update(school: school_to_keep)
           end
