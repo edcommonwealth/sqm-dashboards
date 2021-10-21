@@ -19,10 +19,15 @@
   text-align: center;
 }
 
-.hero-description{
+.hero-description {
   max-width: 588px;
   margin: auto;
   font-size: 20px;
+}
+
+img.framework-wheel {
+  width: 442px;
+  max-width: 100%;
 }
 
 .welcome-controls {
@@ -34,4 +39,21 @@
     $gray-1, transparent, $white,
     $black, $black, $white,
     $gray-2, transparent, $white);
+}
+
+#landing-accordion {
+  max-width: 550px;
+}
+
+footer {
+  color: $white;
+  .btn {
+    @extend .font-bitter;
+    @extend .font-size-14;
+    @extend .weight-700;
+  }
+}
+.footer-content {
+  margin: auto;
+  max-width: 792px;
 }

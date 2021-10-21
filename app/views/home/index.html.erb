@@ -20,3 +20,54 @@
     </div>
   </div>
 </div>
+
+<div class="bg-color-light-blue pt-12 pb-11">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <%= image_tag('framework_wheel.png', alt: 'MCIEA School Quality Framework Wheel', class: 'framework-wheel') %>
+      </div>
+      <div class="col-lg-7">
+        <h2 class="mb-4">School Quality Measures Framework</h2>
+        <p>Through a strand of work led by professor Jack Schneider at the University of Massachusetts Lowell and a team
+          of researchers, MCIEA is reimagining how we measure the quality of our schools and the learning experiences of
+          our students.</p>
+        <p>To achieve this goal, MCIEA sought input from stakeholders in each consortium district to build a school
+          quality framework that reflects what the public wants to know about their schools.</p>
+        <p>The framework has been built around multiple measures, which include academic, social-emotional, and school
+          culture indicators, in order to piece together a fairer and more comprehensive picture of school performance.
+          It
+          consists of five major categories.</p>
+
+        <div id="landing-accordion" class="accordion mt-6">
+          <% @categories.each do |category| %>
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="<%= category.slug %>-header">
+                <button class="accordion-button sub-header-4 collapsed" data-bs-toggle="collapse" data-bs-target="#<%= category.slug %>-item" aria-expanded="false" aria-controls="<%= category.slug %>-item">
+                  <%= category.name %>
+                </button>
+              </h3>
+              <div id="<%= category.slug %>-item" class="accordion-collapse collapse" aria-labelledby="<%= category.slug %>-header" data-bs-parent="#landing-accordion">
+                <div class="accordion-body">
+                  <%= category.description %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-color-blue text-center py-11 mt-12px">
+  <div class="footer-content">
+    <h2 class="mb-4">About MCIEA</h2>
+    <p>The Massachusetts Consortium for Innovative Education Assessment (MCIEA) is a partnership of Massachusetts public
+      school districts and their local teacher unions, joined together to create a fair and effective accountability
+      system that is guided by a set of principles and offers a more dynamic picture of student learning and school
+      quality than a single standardized test. MCIEA seeks to increase achievement for all students, close inequitable
+      achievement gaps, and better prepare students for college, career, and life.</p>
+    <a href="https://www.mciea.org/about.html" target="_blank" class="btn btn-secondary mt-4">Learn More</a>
+  </div>
+</footer>

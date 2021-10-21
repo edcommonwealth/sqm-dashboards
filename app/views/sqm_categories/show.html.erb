@@ -11,7 +11,7 @@
 <% end %>
 
 <h1 class="sub-header font-bitter color-red"><%= @category.name %></h1>
-<h2 class="col-8 body-large"><%= @category.description %></h2>
+<p class="col-8 body-large"><%= @category.description %></p>
 
 <% @category.subcategories.each do |subcategory| %>
   <section class="subcategory-section">
@@ -23,7 +23,7 @@
       <div>
         <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter, gauge_class: 'gauge-graph-lg', font_class: 'sub-header-3' } %>
       </div>
-      <h2 class="body-large mx-7"><%= subcategory.description %></h2>
+      <p class="body-large mx-7"><%= subcategory.description %></p>
     </div>
     </div>
 

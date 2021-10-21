@@ -1,3 +1,5 @@
+import 'bootstrap';
+
 export function initializeListenersForHomeDropdowns() {
   const districtDropdown = document.querySelector("#district-dropdown");
   if (districtDropdown) {

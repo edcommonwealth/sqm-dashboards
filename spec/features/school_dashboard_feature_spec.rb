@@ -70,6 +70,7 @@ feature 'School dashboard', type: feature do
     page.driver.basic_authorize(username, password)
 
     visit '/welcome'
+    expect(page).to have_text("Teachers & Leadership")
     go_to_school_dashboard_from_welcome_page(district, school)
 
     district_admin_sees_dashboard_content
