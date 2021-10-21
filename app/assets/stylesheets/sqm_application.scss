@@ -7,7 +7,7 @@
 @import "dashboard";
 @import "navigation";
 @import "buttons";
-@import "scss/fontawesome.scss" ;
+@import "scss/fontawesome.scss";
 @import "scss/solid.scss";
 
 .height-56 {
@@ -25,7 +25,6 @@
 .subcategory-section {
   @extend .mt-5;
   @extend .bg-color-white;
-  @extend .p-7;
   box-shadow: 0 0 3px rgba($black, 0.25);
 }
 
@@ -57,34 +56,28 @@
   box-shadow: 0px -1px 0px $gray-2;
 }
 
-.arrow-up:before
-{
-  content: "";
+.arrow-container {
   position: relative;
-  top: -26px;
-  left: 183px;
-
-  border-width: 2.8em;
-  border-style: solid;
-
-  border-top-color: transparent;
-  border-right-color: transparent;
-  border-left-color: transparent;
-  border-bottom-color: $gray-2;
+  top: -50px;
+  left: 220px;
 }
 
-.arrow-up:after
-{
-  content: "";
-  position: relative;
-  top: -24px;
-  left: 90px;
+.arrow {
+  background-color: $gray-3;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  width: 96px;
+  height: 48px;
+  position: absolute;
+  top: 2px;
+  left: 1px;
+}
 
-  border-width: 3em;
-  border-style: solid;
-
-  border-top-color: transparent;
-  border-right-color: transparent;
-  border-left-color: transparent;
-  border-bottom-color: $gray-3;
+.arrow-shadow {
+  background-color: $gray-2;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  width: 98px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
