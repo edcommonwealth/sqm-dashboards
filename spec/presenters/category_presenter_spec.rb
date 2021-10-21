@@ -50,13 +50,4 @@ describe CategoryPresenter do
     expect(academic_learning_presenter.icon).to eq 'graduation-cap'
     expect(community_and_wellbeing_presenter.icon).to eq 'heart'
   end
-
-  it 'returns the correct id for the given category' do
-    expect(teachers_and_leadership_presenter.id).to eq 'teachers-and-leadership'
-    expect(school_culture_presenter.id).to eq 'school-culture'
-    expect(resources_presenter.id).to eq 'resources'
-    expect(academic_learning_presenter.id).to eq 'academic-learning'
-    expect(community_and_wellbeing_presenter.id).to eq 'community-and-wellbeing'
-  end
-
 end

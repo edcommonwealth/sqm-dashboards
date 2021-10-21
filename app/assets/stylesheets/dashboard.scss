@@ -1,4 +1,5 @@
 @import 'bootstrap';
+@import 'bootstrap-overrides';
 @import 'colors';
 @import 'fonts';
 @import 'borders';
@@ -19,33 +20,6 @@
   @extend .p-3;
   @extend .bg-color-gray-3;
   @extend .border-radius-8;
-}
-
-.category-card {
-  flex-basis: 20%;
-  height: 600px;
-}
-
-.category-card__title {
-  height: 9%;
-}
-
-.category-card__description {
-  height: 44%;
-  @extend .font-cabin;
-  @extend .weight-400;
-}
-
-.category-card__button {
-  height: 10%;
-}
-
-.category-card__icon {
-  height: 7%;
-}
-
-.category-card__subcategory {
-  height: 30%;
 }
 
 .subcategory-card {
@@ -85,7 +59,12 @@
 }
 
 .school-quality-frameworks {
-  background-color: $white;
+  display: grid;
+  row-gap: map-get($spacers, 4);
+  column-gap: map-get($spacers, 5);
+  grid-auto-flow: column;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows:  repeat(4, max-content);
 }
 
 .zone-header {

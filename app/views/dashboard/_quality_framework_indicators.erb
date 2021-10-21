@@ -1,40 +1,26 @@
-<div class="school-quality-frameworks">
+<div class="mt-5 school-quality-frameworks">
+  <% category_presenters.each do |category_presenter| %>
+    <div class="text-center">
+      <i class="fa fa-<%= category_presenter.icon %> fa-2x color-gray-2"></i>
+    </div>
+    <div class="text-center">
+      <h3 class="sub-header-3">
+        <%= link_to [@district, @school, category_presenter.category, { year: @academic_year.range }] do %>
+          <%= category_presenter.name %>
+        <% end %>
+      </h3>
+    </div>
 
-  <div class="row mt-5">
-    <% category_presenters.each do |category_presenter| %>
-      <section id="<%= category_presenter.id %>" class="category-card column d-flex flex-column justify-space-between align-items-center">
+    <p class="body-small text-center"><%= category_presenter.description %></p>
 
-        <div class="category-card__icon">
-          <i class="fa fa-<%= category_presenter.icon %> fa-2x color-gray-2"></i>
+    <div>
+      <div class="subcategory-card border-radius-8">
+        <div class="subcategory-card__benchmark-list">
+          <% category_presenter.subcategories.each do |subcategory| %>
+            <%= render partial: 'subcategory_card', locals: { presenter: subcategory.subcategory_card_presenter, subcategory: subcategory } %>
+          <% end %>
         </div>
-        <div class="category-card__title text-center"><h3 class="sub-header-3"><%= category_presenter.name %></h3></div>
-
-        <p class="category-card__description text-center"><%= category_presenter.description %></p>
-
-        <div class="category-card__subcategory">
-          <div class="subcategory-card border-radius-8">
-            <div class="subcategory-card__benchmark-list">
-              <% category_presenter.subcategories.each do |subcategory | %>
-                <% presenter = subcategory.subcategory_card_presenter %>
-                <div class="subcategory-card__benchmark-item">
-                  <svg class="subcategory-card__circle" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                    <% if presenter.display_icon? %>
-                      <use class="fill-<%= presenter.color %>" xlink:href="#<%= presenter.harvey_ball_icon %>"></use>
-                    <% end %>
-                  </svg>
-
-                  <div class="subcategory-card__name"><%= subcategory.name %></div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-        <div class="category-card__button text-center">
-          <%= link_to [@district, @school, category_presenter.category, { year: @academic_year.range }], id: category_presenter.id, class: ["view-details", "mt-3"] do %>View Details<% end %>
-        </div>
-      </section>
-    <% end %>
-
-  </div>
+      </div>
+    </div>
+  <% end %>
 </div>

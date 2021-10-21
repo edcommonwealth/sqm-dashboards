@@ -17,7 +17,7 @@
 .card {
   @extend .bg-color-white;
   @extend .mb-5;
-  @extend .p-5;
+  @extend .p-7;
   border-radius: 8px;
   box-shadow: 0 0 6px rgba($black, 0.25);
 }
@@ -40,7 +40,7 @@
 }
 
 .gauge-title {
-  margin-top: -1.5em; 
+  margin-top: -1.5em;
   margin-bottom: 0;
 }
 

@@ -15,10 +15,6 @@ class CategoryPresenter
     @category.description
   end
 
-  def id
-    @category.slug
-  end
-
   def icon
     case name
     when 'Teachers & Leadership'
