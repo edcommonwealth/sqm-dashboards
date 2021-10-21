@@ -23,23 +23,22 @@ class DashboardController < SqmApplicationController
   end
 
   def presenter_for_measure(measure)
-    sufficient_data = SurveyItemResponse.sufficient_data?(measure: measure, academic_year: academic_year, school: school)
-
-    unless sufficient_data
-      return MeasureGraphRowPresenter.new(
-        measure: measure,
-        sufficient_data: false
-      )
-    end
-
-    score = SurveyItemResponse.for_measure(measure)
-                              .where(academic_year: academic_year, school: school)
-                              .average(:likert_score)
+    score = sufficient_data?(measure: measure) ? score(measure: measure) : nil
 
     MeasureGraphRowPresenter.new(
       measure: measure,
       score: score
     )
+  end
+
+  def sufficient_data?(measure:)
+    SurveyItemResponse.sufficient_data?(measure: measure, academic_year: academic_year, school: school)
+  end
+
+  def score(measure:)
+    SurveyItemResponse.for_measure(measure)
+                      .where(academic_year: academic_year, school: school)
+                      .average(:likert_score)
   end
 
 end

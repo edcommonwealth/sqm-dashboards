@@ -16,10 +16,10 @@ describe 'dashboard/index.html.erb' do
   context 'when there are measures for which, in the given academic year, the school has insufficient responses' do
     let(:measure_graph_row_presenters) {
       [
-        MeasureGraphRowPresenter.new(measure: support_for_teaching, score: 0, sufficient_data: false),
-        MeasureGraphRowPresenter.new(measure: create(:measure), score: 0, sufficient_data: true),
-        MeasureGraphRowPresenter.new(measure: effective_leadership, score: 0, sufficient_data: false),
-        MeasureGraphRowPresenter.new(measure: professional_qualifications, score: 0, sufficient_data: false)
+        MeasureGraphRowPresenter.new(measure: support_for_teaching, score: nil),
+        MeasureGraphRowPresenter.new(measure: create(:measure), score: rand),
+        MeasureGraphRowPresenter.new(measure: effective_leadership, score: nil),
+        MeasureGraphRowPresenter.new(measure: professional_qualifications, score: nil)
       ]
     }
 
@@ -31,7 +31,7 @@ describe 'dashboard/index.html.erb' do
   context 'when there are no measures for which, in the given academic year, the school has insufficient responses' do
     let(:measure_graph_row_presenters) {
       [
-        MeasureGraphRowPresenter.new(measure: create(:measure), score: 0, sufficient_data: true)
+        MeasureGraphRowPresenter.new(measure: create(:measure), score: rand)
       ]
     }
 

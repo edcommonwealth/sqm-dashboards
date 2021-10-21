@@ -44,6 +44,6 @@ module VarianceHelper
   end
 
   def measures_with_insufficient_data(presenters:)
-    presenters.filter { |presenter| !presenter.sufficient_data? }
+    presenters.filter { |presenter| presenter.score == nil }
   end
 end
