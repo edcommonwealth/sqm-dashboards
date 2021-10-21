@@ -16,9 +16,9 @@ FactoryBot.define do
   end
 
   factory :sqm_category do
-    name { "A category" }
+    name { "A #{rand} category" }
     description { "A description of a category" }
-    slug { 'a-category' }
+    slug { "a-#{rand}-category" }
     sort_index { 1 }
   end
 

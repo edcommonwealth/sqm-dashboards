@@ -1,8 +1,13 @@
 class MeasureGraphRowPresenter
   include Comparable
-  def initialize(measure:, score:)
+  def initialize(measure:, score: 0, sufficient_data: true)
     @measure = measure
     @score = score
+    @sufficient_data = sufficient_data
+  end
+
+  def sufficient_data?
+    @sufficient_data
   end
 
   def measure_name

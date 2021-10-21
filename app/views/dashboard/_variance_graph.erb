@@ -1,3 +1,8 @@
+
+<% unless measures_with_insufficient_data(presenters: presenters).empty? %>
+<p>Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= measures_with_insufficient_data(presenters: presenters).map(&:measure_name).join('; ') %>.</p>
+<% end %>
+
 <svg width="100%" height=<%= graph_height(presenters.size) %> xmlns="http://www.w3.org/2000/svg">
 
   <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">

@@ -42,4 +42,8 @@ module VarianceHelper
   def zone_width_percentage
     100.0/zones.size
   end
+
+  def measures_with_insufficient_data(presenters:)
+    presenters.filter { |presenter| !presenter.sufficient_data? }
+  end
 end
