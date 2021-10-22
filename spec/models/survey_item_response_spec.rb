@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SurveyItemResponse, type: :model do
-  describe '.sufficient_data?' do
+  describe '.score_for_measure' do
     let(:measure) { create(:measure) }
     let(:school) { create(:school) }
     let(:ay) { create(:academic_year) }
@@ -23,7 +23,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns the average of the likert scores of the survey items' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to eq 4
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to eq 4
         end
       end
 
@@ -35,7 +35,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns nil' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to be_nil
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
         end
       end
     end
@@ -55,7 +55,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns the average of the likert scores of the survey items' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to eq 3
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to eq 3
         end
       end
 
@@ -67,7 +67,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns nil' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to be_nil
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
         end
       end
     end
@@ -87,7 +87,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns the average of the likert scores of the survey items' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to eq 5
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to eq 5
         end
       end
 
@@ -102,7 +102,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns nil' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to be_nil
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
         end
       end
 
@@ -117,7 +117,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns nil' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to be_nil
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
         end
       end
 
@@ -132,7 +132,7 @@ describe SurveyItemResponse, type: :model do
         end
 
         it 'returns nil' do
-          expect(SurveyItemResponse.score(measure: measure, school: school, academic_year: ay)).to be_nil
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
         end
       end
     end

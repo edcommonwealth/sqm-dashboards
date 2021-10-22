@@ -22,7 +22,7 @@ class DashboardController < SqmApplicationController
   end
 
   def presenter_for_measure(measure)
-    score = SurveyItemResponse.score(measure: measure, school: school, academic_year: academic_year)
+    score = SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: academic_year)
 
     MeasureGraphRowPresenter.new(measure: measure, score: score)
   end

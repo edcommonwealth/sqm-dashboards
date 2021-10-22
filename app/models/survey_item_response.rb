@@ -11,7 +11,7 @@ class SurveyItemResponse < ActiveRecord::Base
   scope :for_teacher_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 't-%'") }
   scope :for_student_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 's-%'") }
 
-  def self.score(measure:, school:, academic_year:)
+  def self.score_for_measure(measure:, school:, academic_year:)
     return nil unless SurveyItemResponse.sufficient_data?(measure: measure, school: school, academic_year: academic_year)
 
     SurveyItemResponse.for_measure(measure)
