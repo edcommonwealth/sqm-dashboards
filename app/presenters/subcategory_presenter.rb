@@ -22,9 +22,7 @@ class SubcategoryPresenter
   end
 
   def average_score
-    SurveyItemResponse.for_measures(measures)
-      .where(academic_year: @academic_year, school: @school)
-      .average(:likert_score)
+    @average_score ||= SurveyItemResponse.score_for_subcategory(subcategory: @subcategory, school: @school, academic_year: @academic_year)
   end
 
   def measure_presenters

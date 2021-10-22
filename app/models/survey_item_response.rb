@@ -6,10 +6,13 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :school
   belongs_to :survey_item
 
-  scope :for_measures, ->(measures) { joins(:survey_item).where('survey_items.measure_id': measures.map(&:id)) }
   scope :for_measure, ->(measure) { joins(:survey_item).where('survey_items.measure_id': measure.id) }
-  scope :teacher_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 't-%'") }
-  scope :student_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 's-%'") }
+
+  def self.score_for_subcategory(subcategory:, school:, academic_year:)
+    SurveyItemResponse.for_measures(subcategory.measures)
+                      .where(academic_year: academic_year, school: school)
+                      .average(:likert_score)
+  end
 
   def self.score_for_measure(measure:, school:, academic_year:)
     return nil unless SurveyItemResponse.sufficient_data?(measure: measure, school: school, academic_year: academic_year)
@@ -20,6 +23,10 @@ class SurveyItemResponse < ActiveRecord::Base
   end
 
   private
+
+  scope :for_measures, ->(measures) { joins(:survey_item).where('survey_items.measure_id': measures.map(&:id)) }
+  scope :teacher_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 't-%'") }
+  scope :student_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 's-%'") }
 
   def self.sufficient_data?(measure:, school:, academic_year:)
     meets_teacher_threshold = true
