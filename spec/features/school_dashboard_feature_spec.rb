@@ -227,9 +227,7 @@ def district_admin_sees_dashboard_content
   district_admin_sees_student_physical_safety
   district_admin_sees_problem_solving_emphasis
 
-  expect(page).to have_css("[data-for-measure-id='3A-i'][width='0.0%']")
-
-  page.assert_selector('.measure-row-bar', count: Measure.count)
+  page.assert_selector('.measure-row-bar', count: 5)
 
   district_admin_sees_measures_in_correct_order
 end

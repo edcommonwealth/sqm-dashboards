@@ -1,9 +1,9 @@
-
 <% unless measures_with_insufficient_data(presenters: presenters).empty? %>
 <p>Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= measures_with_insufficient_data(presenters: presenters).map(&:measure_name).join('; ') %>.</p>
 <% end %>
 
-<svg width="100%" height=<%= graph_height(presenters.size) %> xmlns="http://www.w3.org/2000/svg">
+<% displayed_presenters = measures_with_sufficient_data(presenters: presenters) %>
+<svg width="100%" height=<%= graph_height(displayed_presenters.size) %> xmlns="http://www.w3.org/2000/svg">
 
   <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
     <feComponentTransfer in=SourceAlpha>
@@ -25,7 +25,7 @@
     x="<%= label_width_percentage %>%"
     y="0"
     width="<%= graph_width_percentage %>%"
-    height=<%= graph_background_height(number_of_rows: presenters.size) %>
+    height=<%= graph_background_height(number_of_rows: displayed_presenters.size) %>
     filter="url(#inset-shadow)"
   >
     <g id="zone-headings">
@@ -60,7 +60,7 @@
 
   <g id="measure-rows">
     <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
-      <%= presenters.each_with_index do |presenter, index| %>
+      <%= displayed_presenters.each_with_index do |presenter, index| %>
         <text
           class="font-cabin"
           x="<%= label_width_percentage %>%"
@@ -68,6 +68,7 @@
           y="<%= index * measure_row_height + measure_row_height / 2 %>"
           text-anchor="end"
           dominant-baseline="middle"
+          data-variance-row-label
         >
           <%= presenter.measure_name %>
         </text>
@@ -80,13 +81,14 @@
       y="<%= heading_gutter %>"
       width="<%= graph_width_percentage %>%"
     >
-      <%= presenters.each_with_index do |presenter, index| %>
+      <%= displayed_presenters.each_with_index do |presenter, index| %>
         <rect
           class="measure-row-bar <%= presenter.bar_color %>"
           x="<%= presenter.x_offset %>"
           y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>"
           width="<%= presenter.bar_width %>"
-          height=<%= measure_row_bar_height %> data-for-measure-id="<%= presenter.measure_id %>"
+          height=<%= measure_row_bar_height %>
+          data-for-measure-id="<%= presenter.measure_id %>"
           stroke="none"
           />
       <% end %>
@@ -98,7 +100,7 @@
     x="<%= label_width_percentage %>%"
     y="0"
     width="<%= graph_width_percentage %>%"
-    height="<%= graph_background_height(number_of_rows: presenters.size) %>"
+    height="<%= graph_background_height(number_of_rows: displayed_presenters.size) %>"
   >
     <g transform="translate(0, <%= heading_gutter %>)">
       <rect
@@ -122,7 +124,7 @@
     <text
       class="graph-footer"
       x="60%"
-      y="<%= graph_background_height(number_of_rows: presenters.size) + (footer_gutter / 2) %>"
+      y="<%= graph_background_height(number_of_rows: displayed_presenters.size) + (footer_gutter / 2) %>"
       text-anchor="middle"
     >
       Benchmark
