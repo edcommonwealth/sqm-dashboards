@@ -29,33 +29,33 @@ feature 'School dashboard', type: feature do
   let(:password) { 'winchester!' }
 
   before :each do
+    survey_item_responses = []
+
     survey_items_for_measure_1A_i.each do |survey_item|
-      200.times do
-        SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                                  survey_item: survey_item, likert_score: 4
+      SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4)
       end
     end
 
     survey_items_for_measure_2A_i.each do |survey_item|
-      200.times do
-        SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                                  survey_item: survey_item, likert_score: 5
+      SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 5)
       end
     end
 
     survey_items_for_measure_4C_i.each do |survey_item|
-      200.times do
-        SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                                  survey_item: survey_item, likert_score: 1
+      SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 1)
       end
     end
 
     survey_items_for_subcategory.each do |survey_item|
       200.times do
-        SurveyItemResponse.create response_id: rand.to_s, academic_year: ay_2020_21, school: school,
-                                  survey_item: survey_item, likert_score: 4
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4)
       end
     end
+
+    SurveyItemResponse.import survey_item_responses
   end
 
   scenario 'User authentication fails' do

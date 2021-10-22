@@ -11,15 +11,17 @@ describe SurveyItemResponse, type: :model do
       let(:teacher_survey_item_2) { create(:survey_item, survey_item_id: 't-question-2', measure: measure) }
       let(:teacher_survey_item_3) { create(:survey_item, survey_item_id: 't-question-3', measure: measure) }
 
-      context 'and there is sufficient teacher data' do
+      context "and the number of responses for each of the measure's survey items meets the teacher threshold of 17" do
         before :each do
-          4.times do
+          17.times do
             create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school, likert_score: 3)
-            create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school, likert_score: 5)
-            create(:survey_item_response, survey_item: teacher_survey_item_2, academic_year: ay, school: school, likert_score: 3)
-            create(:survey_item_response, survey_item: teacher_survey_item_2, academic_year: ay, school: school, likert_score: 5)
           end
-          create(:survey_item_response, survey_item: teacher_survey_item_2, academic_year: ay, school: school, likert_score: 4)
+          17.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_2, academic_year: ay, school: school, likert_score: 4)
+          end
+          17.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_3, academic_year: ay, school: school, likert_score: 5)
+          end
         end
 
         it 'returns the average of the likert scores of the survey items' do
@@ -27,10 +29,53 @@ describe SurveyItemResponse, type: :model do
         end
       end
 
-      context 'and there is insufficient teacher data' do
+      context "and the average number of responses across the measure's survey items meets the teacher threshold of 17" do
         before :each do
-          (SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1).times do
-            create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school)
+          19.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school, likert_score: 3)
+          end
+          16.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_2, academic_year: ay, school: school, likert_score: 4)
+          end
+          16.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_3, academic_year: ay, school: school, likert_score: 5)
+          end
+        end
+
+        it 'returns the average of the likert scores of the survey items' do
+          average_score = 3.941
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_within(0.001).of(average_score)
+        end
+      end
+
+      context "and none of the measure's survey items meets the teacher threshold of 17" do
+        before :each do
+          16.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school, likert_score: rand)
+          end
+          16.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_2, academic_year: ay, school: school, likert_score: rand)
+          end
+          16.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_3, academic_year: ay, school: school, likert_score: rand)
+          end
+        end
+
+        it 'returns nil' do
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
+        end
+      end
+
+      context "and the average number of responses across the measure's survey items does not meet the teacher threshold of 17" do
+        before :each do
+          18.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school, likert_score: rand)
+          end
+          16.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_2, academic_year: ay, school: school, likert_score: rand)
+          end
+          16.times do
+            create(:survey_item_response, survey_item: teacher_survey_item_3, academic_year: ay, school: school, likert_score: rand)
           end
         end
 
@@ -43,26 +88,73 @@ describe SurveyItemResponse, type: :model do
     context 'when the measure includes only student data' do
       let(:student_survey_item_1) { create(:survey_item, survey_item_id: 's-question-1', measure: measure) }
       let(:student_survey_item_2) { create(:survey_item, survey_item_id: 's-question-2', measure: measure) }
+      let(:student_survey_item_3) { create(:survey_item, survey_item_id: 's-question-3', measure: measure) }
 
-      context 'and there is sufficient student data' do
+      context "and the number of responses for each of the measure's survey items meets the student threshold of 196" do
         before :each do
-          (SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD/4).times do
-            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: 1)
-            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: 5)
-            create(:survey_item_response, survey_item: student_survey_item_2, academic_year: ay, school: school, likert_score: 1)
-            create(:survey_item_response, survey_item: student_survey_item_2, academic_year: ay, school: school, likert_score: 5)
+          196.times do
+            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: 3)
+          end
+          196.times do
+            create(:survey_item_response, survey_item: student_survey_item_2, academic_year: ay, school: school, likert_score: 4)
+          end
+          196.times do
+            create(:survey_item_response, survey_item: student_survey_item_3, academic_year: ay, school: school, likert_score: 5)
           end
         end
 
         it 'returns the average of the likert scores of the survey items' do
-          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to eq 3
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to eq 4
         end
       end
 
-      context 'and there insufficient student data' do
+      context "and the average number of responses across the measure's survey items meets the student threshold of 196" do
         before :each do
-          (SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1).times do
-            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school)
+          200.times do
+            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: 3)
+          end
+          195.times do
+            create(:survey_item_response, survey_item: student_survey_item_2, academic_year: ay, school: school, likert_score: 4)
+          end
+          193.times do
+            create(:survey_item_response, survey_item: student_survey_item_3, academic_year: ay, school: school, likert_score: 5)
+          end
+        end
+
+        it 'returns the average of the likert scores of the survey items' do
+          average_score = 3.988
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_within(0.001).of(average_score)
+        end
+      end
+
+      context "and none of the measure's survey items meets the student threshold of 196" do
+        before :each do
+          195.times do
+            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: rand)
+          end
+          195.times do
+            create(:survey_item_response, survey_item: student_survey_item_2, academic_year: ay, school: school, likert_score: rand)
+          end
+          195.times do
+            create(:survey_item_response, survey_item: student_survey_item_3, academic_year: ay, school: school, likert_score: rand)
+          end
+        end
+
+        it 'returns nil' do
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
+        end
+      end
+
+      context "and the average number of responses across the measure's survey items does not meet the student threshold of 196" do
+        before :each do
+          200.times do
+            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: rand)
+          end
+          196.times do
+            create(:survey_item_response, survey_item: student_survey_item_2, academic_year: ay, school: school, likert_score: rand)
+          end
+          191.times do
+            create(:survey_item_response, survey_item: student_survey_item_3, academic_year: ay, school: school, likert_score: rand)
           end
         end
 
