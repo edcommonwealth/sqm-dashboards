@@ -15,7 +15,6 @@ class DashboardController < SqmApplicationController
 
   end
 
-
   private
 
   def measure_ids
@@ -23,22 +22,8 @@ class DashboardController < SqmApplicationController
   end
 
   def presenter_for_measure(measure)
-    score = sufficient_data?(measure: measure) ? score(measure: measure) : nil
+    score = SurveyItemResponse.score(measure: measure, school: school, academic_year: academic_year)
 
-    MeasureGraphRowPresenter.new(
-      measure: measure,
-      score: score
-    )
+    MeasureGraphRowPresenter.new(measure: measure, score: score)
   end
-
-  def sufficient_data?(measure:)
-    SurveyItemResponse.sufficient_data?(measure: measure, academic_year: academic_year, school: school)
-  end
-
-  def score(measure:)
-    SurveyItemResponse.for_measure(measure)
-                      .where(academic_year: academic_year, school: school)
-                      .average(:likert_score)
-  end
-
 end
