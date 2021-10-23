@@ -14,7 +14,6 @@ gem 'pg'
 
 # Use Puma as the app server
 gem "puma", ">= 5.5.2"
-# Use SCSS for stylesheets
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes

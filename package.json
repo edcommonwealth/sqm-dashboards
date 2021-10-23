@@ -16,7 +16,7 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
     "test": "jest",
-    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --watch & sass ./app/assets/stylesheets/sqm_application.scss ./app/assets/builds/sqm_application.css --no-source-map --load-path=node_modules --watch & sass ./app/assets/stylesheets/welcome.scss ./app/assets/builds/welcome.css --no-source-map --load-path=node_modules"
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules & sass ./app/assets/stylesheets/sqm_application.scss ./app/assets/builds/sqm_application.css --no-source-map --load-path=node_modules & sass ./app/assets/stylesheets/welcome.scss ./app/assets/builds/welcome.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {
     "jest": "^27.2.5"
