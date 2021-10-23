@@ -1,5 +1,4 @@
 // Entry point for the build script in your package.json
-
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
@@ -15,3 +14,4 @@ document.addEventListener("turbolinks:load", () => {
   initializeListenersForNavDropdowns()
   initializeListenersForHomeDropdowns()
 })
+import * as bootstrap from "bootstrap"

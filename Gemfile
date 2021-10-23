@@ -15,7 +15,6 @@ gem 'pg'
 # Use Puma as the app server
 gem "puma", ">= 5.5.2"
 # Use SCSS for stylesheets
-gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -40,8 +39,6 @@ gem 'bootsnap', require: false
 
 gem 'haml'
 
-gem 'bootstrap'
-
 gem 'friendly_id', '~> 5.1.0'
 
 gem 'newrelic_rpm'
@@ -54,6 +51,7 @@ gem 'twilio-ruby', '~> 4.11.1'
 gem 'activerecord-import'
 
 gem 'jsbundling-rails'
+gem 'cssbundling-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
