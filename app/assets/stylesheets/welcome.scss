@@ -25,9 +25,25 @@
   font-size: 20px;
 }
 
-img.framework-wheel {
-  width: 442px;
-  max-width: 100%;
+.framework-wheel-container {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .align-items-center;
+
+  img {
+    width: 442px;
+    max-width: 100%;
+  }
+
+  p {
+    color: $gray-1;
+    font-size: 12px;
+    max-width: 410px;
+    @extend .text-center;
+    @extend .bg-color-gray-3;
+    @extend .p-3;
+    @extend .border-radius-8;
+  }
 }
 
 .welcome-controls {
