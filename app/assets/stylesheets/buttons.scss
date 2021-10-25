@@ -1,12 +1,12 @@
 @import "colors";
 
 .view-details {
-  background-color: #01788E;
+  background-color: $blue;
   font-family: 'Bitter', sans-serif;
   font-weight: 600;
   font-size: 14px;
   color: $white;
   padding: 8px 16px;
-  border: 0px;
+  border: 0;
   text-decoration: none;
 }

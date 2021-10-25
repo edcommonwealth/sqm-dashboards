@@ -44,10 +44,18 @@ describe CategoryPresenter do
   end
 
   it 'returns the correct icon for the given category' do
-    expect(teachers_and_leadership_presenter.icon).to eq 'apple-alt'
-    expect(school_culture_presenter.icon).to eq 'school'
-    expect(resources_presenter.icon).to eq 'users-cog'
-    expect(academic_learning_presenter.icon).to eq 'graduation-cap'
-    expect(community_and_wellbeing_presenter.icon).to eq 'heart'
+    expect(teachers_and_leadership_presenter.icon_class).to eq 'fas fa-apple-alt'
+    expect(school_culture_presenter.icon_class).to eq 'fas fa-school'
+    expect(resources_presenter.icon_class).to eq 'fas fa-users-cog'
+    expect(academic_learning_presenter.icon_class).to eq 'fas fa-graduation-cap'
+    expect(community_and_wellbeing_presenter.icon_class).to eq 'fas fa-heart'
+  end
+
+  it 'returns the correct color for the given category' do
+    expect(teachers_and_leadership_presenter.icon_color_class).to eq 'color-blue'
+    expect(school_culture_presenter.icon_color_class).to eq 'color-red'
+    expect(resources_presenter.icon_color_class).to eq 'color-black'
+    expect(academic_learning_presenter.icon_color_class).to eq 'color-lime'
+    expect(community_and_wellbeing_presenter.icon_color_class).to eq 'color-teal'
   end
 end

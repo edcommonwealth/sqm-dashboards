@@ -44,7 +44,7 @@
             <div class="accordion-item">
               <h3 class="accordion-header" id="<%= category.slug %>-header">
                 <button class="accordion-button sub-header-4 collapsed" data-bs-toggle="collapse" data-bs-target="#<%= category.slug %>-item" aria-expanded="false" aria-controls="<%= category.slug %>-item">
-                  <%= category.name %>
+                  <i class="<%= category.icon_class %> fa-lg fa-fw me-3 <%= category.icon_color_class %>"></i> <%= category.name %>
                 </button>
               </h3>
               <div id="<%= category.slug %>-item" class="accordion-collapse collapse" aria-labelledby="<%= category.slug %>-header" data-bs-parent="#landing-accordion">

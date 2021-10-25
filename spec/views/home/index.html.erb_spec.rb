@@ -5,7 +5,7 @@ describe 'home/index.html.erb' do
 
   before :each do
     assign :districts, [create(:district), create(:district)]
-    assign :categories, [create(:sqm_category)]
+    assign :categories, [CategoryPresenter.new(category: create(:sqm_category))]
     render
   end
 
