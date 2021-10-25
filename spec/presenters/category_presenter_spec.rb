@@ -6,32 +6,32 @@ describe CategoryPresenter do
     subcategory2 = Subcategory.new(name: 'Another subcategory')
 
     category = SqmCategory.new(name: 'Some Category', subcategories: [subcategory1, subcategory2], description: 'A description for some Category')
-    return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
+    return CategoryPresenter.new(category: category)
   end
 
   let(:teachers_and_leadership_presenter) do
     category = SqmCategory.find_by_name("Teachers & Leadership")
-    return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
+    return CategoryPresenter.new(category: category)
   end
 
   let(:school_culture_presenter) do
     category = SqmCategory.find_by_name("School Culture")
-    return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
+    return CategoryPresenter.new(category: category)
   end
 
   let(:resources_presenter) do
     category = SqmCategory.find_by_name("Resources")
-    return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
+    return CategoryPresenter.new(category: category)
   end
 
   let(:academic_learning_presenter) do
     category = SqmCategory.find_by_name("Academic Learning")
-    return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
+    return CategoryPresenter.new(category: category)
   end
 
   let(:community_and_wellbeing_presenter) do
     category = SqmCategory.find_by_name("Community & Wellbeing")
-    return CategoryPresenter.new(category: category, academic_year: AcademicYear.new, school: School.new)
+    return CategoryPresenter.new(category: category)
   end
 
   it 'returns the name and description of the category' do
@@ -40,7 +40,7 @@ describe CategoryPresenter do
   end
 
   it 'maps subcategories to subcategory presenters' do
-    expect(category_presenter.subcategories.map(&:name)).to eq ['A subcategory', 'Another subcategory']
+    expect(category_presenter.subcategories(academic_year: AcademicYear.new, school: School.new).map(&:name)).to eq ['A subcategory', 'Another subcategory']
   end
 
   it 'returns the correct icon for the given category' do

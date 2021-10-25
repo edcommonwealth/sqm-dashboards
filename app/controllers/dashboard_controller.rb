@@ -7,12 +7,7 @@ class DashboardController < SqmApplicationController
                                       .sort
                                       .reverse
 
-    @category_presenters = SqmCategory.all.map { |sqm_category| CategoryPresenter.new(
-      category: sqm_category,
-      academic_year: academic_year,
-      school: school,
-    )}
-
+    @category_presenters = SqmCategory.all.map { |sqm_category| CategoryPresenter.new(category: sqm_category) }
   end
 
   private
@@ -22,7 +17,7 @@ class DashboardController < SqmApplicationController
   end
 
   def presenter_for_measure(measure)
-    score = SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: academic_year)
+    score = SurveyItemResponse.score_for_measure(measure: measure, school: @school, academic_year: @academic_year)
 
     MeasureGraphRowPresenter.new(measure: measure, score: score)
   end

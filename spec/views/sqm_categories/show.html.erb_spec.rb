@@ -6,7 +6,7 @@ describe 'sqm_categories/show.html.erb' do
     school = create(:school, name: 'Best School')
 
     category = create(:sqm_category, name: 'Some Category', description: 'Some description of the category')
-    category_presenter = CategoryPresenter.new(category: category, academic_year: academic_year, school: school)
+    category_presenter = CategoryPresenter.new(category: category)
 
     subcategory1 = create(:subcategory, sqm_category: category, name: 'A subcategory', description: 'Some description of the subcategory')
     subcategory2 = create(:subcategory_with_measures, sqm_category: category, name: 'Another subcategory', description: 'Another description of the subcategory')

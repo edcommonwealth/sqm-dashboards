@@ -16,7 +16,7 @@
     <div>
       <div class="subcategory-card border-radius-8">
         <div class="subcategory-card__benchmark-list">
-          <% category_presenter.subcategories.each do |subcategory| %>
+          <% category_presenter.subcategories(academic_year: @academic_year, school: @school).each do |subcategory| %>
             <%= render partial: 'subcategory_card', locals: { presenter: subcategory.subcategory_card_presenter, subcategory: subcategory } %>
           <% end %>
         </div>

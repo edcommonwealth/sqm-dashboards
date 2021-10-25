@@ -13,7 +13,7 @@
 <h1 class="sub-header font-bitter color-red"><%= @category.name %></h1>
 <p class="col-8 body-large"><%= @category.description %></p>
 
-<% @category.subcategories.each do |subcategory| %>
+<% @category.subcategories(academic_year: @academic_year, school: @school).each do |subcategory| %>
   <section class="subcategory-section">
     <div class="p-7">
 

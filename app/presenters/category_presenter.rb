@@ -1,10 +1,8 @@
 class CategoryPresenter
   attr_reader :category
 
-  def initialize(category:, academic_year:, school:)
+  def initialize(category:)
     @category = category
-    @academic_year = academic_year
-    @school = school
   end
 
   def name
@@ -13,6 +11,10 @@ class CategoryPresenter
 
   def description
     @category.description
+  end
+
+  def slug
+    @category.slug
   end
 
   def icon
@@ -30,12 +32,12 @@ class CategoryPresenter
     end
   end
 
-  def subcategories
+  def subcategories(academic_year:, school:)
     @category.subcategories.map do |subcategory|
       SubcategoryPresenter.new(
         subcategory: subcategory,
-        academic_year: @academic_year,
-        school: @school
+        academic_year: academic_year,
+        school: school
       )
     end
   end
