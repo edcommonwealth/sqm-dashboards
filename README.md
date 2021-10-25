@@ -167,13 +167,8 @@ Start esbuild for dynamic compilation of javascript assets.
 yarn build --watch
 ```
 
-Start cssbundling for dynamic compilation of css assets.
+Start cssbundling AND esbuild for dynamic compilation of javascript and css assets.
 
-```bash
-yarn build:css --watch
-```
-
-OR to run both css and javascript bundling in one go:
 ```bash
 scripts/bundling.sh
 ```
