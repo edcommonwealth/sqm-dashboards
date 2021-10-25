@@ -9,6 +9,7 @@
 @import "buttons";
 @import "scss/fontawesome.scss";
 @import "scss/solid.scss";
+@import "footer";
 
 .height-56 {
   height: 56px;
@@ -80,13 +81,4 @@
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.footer-item {
-  margin: 40px 12px;
-  color: $gray-1;
-}
-.footer-link {
-  @extend .font-cabin;
-  color: #01788E;
 }
