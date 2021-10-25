@@ -37,7 +37,7 @@ RSpec.describe RecipientSchedule, type: :model do
     )
   end
 
-  describe 'ready' do
+  xdescribe 'ready' do
     before :each do
       now = DateTime.now
       date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT16:00:00%z"))
