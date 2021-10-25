@@ -75,20 +75,6 @@ feature 'School dashboard', type: feature do
 
     district_admin_sees_dashboard_content
 
-    go_to_different_school_in_same_district(school_in_same_district)
-    district_admin_sees_schools_change
-
-    go_to_different_district(different_district)
-    district_admin_sees_district_change
-  end
-
-  scenario 'District Admin views a school dashboard' do
-    page.driver.browser.basic_authorize(username, password)
-
-    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
-
-    district_admin_sees_dashboard_content
-
     click_on 'Teachers & Leadership'
     district_admin_sees_browse_content
 
@@ -100,74 +86,16 @@ feature 'School dashboard', type: feature do
 
     click_on 'School Culture'
     expect(page).to have_text('This category measures the degree to which the school environment is safe, caring, and academically-oriented.')
-  end
 
-  scenario 'user sees schools in the same district' do
-    page.driver.browser.basic_authorize(username, password)
-    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
+    go_to_different_school_in_same_district(school_in_same_district)
+    district_admin_sees_schools_change
 
-    expected_num_of_schools = district.schools.count
-    expect(page.all('.school-options').count).to eq expected_num_of_schools
-    expect(page.all('.school-options[selected]').count).to eq 1
-    expect(page.all('.school-options[selected]')[0].text).to eq 'Winchester High School'
-    expect(page.all('.school-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
-
-    school_options = page.all('.school-options')
-    school_options.each_with_index do |school, index|
-      break if index == school_options.length - 1
-
-      expect(school.text).to be < school_options[index + 1].text
-    end
-
-    visit "/districts/#{district.slug}/schools/#{school.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
-
-    expected_num_of_schools = district.schools.count
-    expect(page.all('.school-options').count).to eq expected_num_of_schools
-    expect(page.all('.school-options[selected]').count).to eq 1
-    expect(page.all('.school-options[selected]')[0].text).to eq 'Winchester High School'
-    expect(page.all('.school-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{school.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
-
-    school_options = page.all('.school-options')
-    school_options.each_with_index do |school, index|
-      break if index == school_options.length - 1
-
-      expect(school.text).to be < school_options[index + 1].text
-    end
-  end
-
-  scenario 'user sees all districts in dropdown menu' do
-    page.driver.browser.basic_authorize(username, password)
-    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=#{ay_2020_21.range}"
-
-    expected_num_of_districts = District.count
-    expect(page.all('.district-options').count).to eq expected_num_of_districts
-    expect(page.all('.district-options[selected]').count).to eq 1
-    expect(page.all('.district-options[selected]')[0].text).to eq 'Winchester'
-    expect(page.all('.district-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{district.schools.alphabetic.first.slug}/dashboard?year=#{ay_2020_21.range}"
-
-    district_options = page.all('.district-options')
-    district_options.each_with_index do |district, index|
-      break if index == district_options.length - 1
-
-      expect(district.text).to be < district_options[index + 1].text
-    end
-
-    visit "/districts/#{district.slug}/schools/#{school.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
-
-    expected_num_of_districts = District.count
-    expect(page.all('.district-options').count).to eq expected_num_of_districts
-    expect(page.all('.district-options[selected]').count).to eq 1
-    expect(page.all('.district-options[selected]')[0].text).to eq 'Winchester'
-    expect(page.all('.district-options[selected]')[0].value).to eq "/districts/#{district.slug}/schools/#{district.schools.alphabetic.first.slug}/browse/teachers-and-leadership?year=#{ay_2020_21.range}"
-
-    district_options = page.all('.district-options')
-    district_options.each_with_index do |district, index|
-      break if index == district_options.length - 1
-
-      expect(district.text).to be < district_options[index + 1].text
-    end
+    go_to_different_district(different_district)
+    district_admin_sees_district_change
   end
 end
+
+private
 
 def district_admin_sees_professional_qualifications
   expect(page).to have_text('Professional Qualifications')
