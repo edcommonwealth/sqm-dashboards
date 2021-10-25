@@ -1,5 +1,5 @@
 <% unless measures_with_insufficient_data(presenters: presenters).empty? %>
-<p>Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= measures_with_insufficient_data(presenters: presenters).map(&:measure_name).join('; ') %>.</p>
+<p class="caption mb-5">Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= measures_with_insufficient_data(presenters: presenters).map(&:measure_name).join('; ') %>.</p>
 <% end %>
 
 <% displayed_presenters = measures_with_sufficient_data(presenters: presenters) %>
