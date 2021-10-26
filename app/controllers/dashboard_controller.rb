@@ -7,7 +7,7 @@ class DashboardController < SqmApplicationController
                                       .sort
                                       .reverse
 
-    @category_presenters = SqmCategory.all.map { |sqm_category| CategoryPresenter.new(category: sqm_category) }
+    @category_presenters = SqmCategory.sorted.map { |sqm_category| CategoryPresenter.new(category: sqm_category) }
   end
 
   private
