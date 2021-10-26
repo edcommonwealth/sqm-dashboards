@@ -62,15 +62,14 @@
   max-width: 550px;
 }
 
-footer {
-  color: $white;
+.about-mciea {
+  margin: auto;
+  max-width: 792px;
+  @extend .color-white;
+
   .btn {
     @extend .font-bitter;
     @extend .font-size-14;
     @extend .weight-700;
   }
-}
-.footer-content {
-  margin: auto;
-  max-width: 792px;
 }
