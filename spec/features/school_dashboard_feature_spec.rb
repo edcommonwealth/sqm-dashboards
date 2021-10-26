@@ -29,6 +29,8 @@ feature 'School dashboard', type: feature do
   let(:password) { 'winchester!' }
 
   before :each do
+    Rails.application.load_seed
+
     survey_item_responses = []
 
     survey_items_for_measure_1A_i.each do |survey_item|
@@ -56,6 +58,10 @@ feature 'School dashboard', type: feature do
     end
 
     SurveyItemResponse.import survey_item_responses
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   scenario 'User authentication fails' do

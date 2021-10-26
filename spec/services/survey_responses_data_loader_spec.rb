@@ -14,6 +14,14 @@ describe SurveyResponsesDataLoader do
   let(:s_phys_q1) { SurveyItem.find_by_survey_item_id 's-phys-q1' }
   let(:s_phys_q2) { SurveyItem.find_by_survey_item_id 's-phys-q2' }
 
+  before :each do
+    Rails.application.load_seed
+  end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
+
   describe 'self.load_data' do
     context 'loading teacher survey responses' do
       before :each do

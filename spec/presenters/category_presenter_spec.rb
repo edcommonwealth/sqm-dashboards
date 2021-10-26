@@ -10,28 +10,32 @@ describe CategoryPresenter do
   end
 
   let(:teachers_and_leadership_presenter) do
-    category = SqmCategory.find_by_name("Teachers & Leadership")
+    category = create(:sqm_category, name: 'Teachers & Leadership')
     return CategoryPresenter.new(category: category)
   end
 
   let(:school_culture_presenter) do
-    category = SqmCategory.find_by_name("School Culture")
+    category = create(:sqm_category, name: "School Culture")
     return CategoryPresenter.new(category: category)
   end
 
   let(:resources_presenter) do
-    category = SqmCategory.find_by_name("Resources")
+    category = create(:sqm_category, name: "Resources")
     return CategoryPresenter.new(category: category)
   end
 
   let(:academic_learning_presenter) do
-    category = SqmCategory.find_by_name("Academic Learning")
+    category = create(:sqm_category, name: "Academic Learning")
     return CategoryPresenter.new(category: category)
   end
 
   let(:community_and_wellbeing_presenter) do
-    category = SqmCategory.find_by_name("Community & Wellbeing")
+    category = create(:sqm_category, name: "Community & Wellbeing")
     return CategoryPresenter.new(category: category)
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   it 'returns the name and description of the category' do

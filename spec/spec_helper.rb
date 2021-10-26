@@ -54,10 +54,6 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 
-  config.before(:suite) do
-    Rails.application.load_seed # loading seeds
-  end
-
   config.before(:each, js: true) do
     Capybara.default_max_wait_time = 10
     Capybara.page.driver.resize(3000, 3000)
