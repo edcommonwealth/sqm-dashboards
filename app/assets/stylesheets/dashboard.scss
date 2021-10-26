@@ -13,7 +13,7 @@
   font-family: 'Cabin', sans-serif;
 }
 
-.harvey-ball__legend {
+.harvey-ball-legend {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -23,12 +23,11 @@
 }
 
 .subcategory-card {
-  border: 1px solid #CECECE;
+  border: 1px solid $gray-2;
   background-color: $gray-3;
   min-width: 95%;
   margin: auto;
   padding: 8px;
-  border: 1px solid #CECECE;
   font-size: 14px;
 }
 
@@ -69,4 +68,33 @@
 
 .zone-header {
   @extend .sub-header-4;
+}
+
+.harvey-ball {
+  stroke: $black;
+}
+
+.harvey-ball__ideal {
+  fill: $purple;
+}
+
+.harvey-ball__approval {
+  fill: $purple;
+}
+
+.harvey-ball__growth {
+  fill: $gold;
+}
+
+.harvey-ball__watch {
+  fill: $gold;
+}
+
+.harvey-ball__warning {
+  fill: $white;
+}
+
+.harvey-ball__no_zone {
+  stroke: $gray-2;
+  fill: $gray-3;
 }

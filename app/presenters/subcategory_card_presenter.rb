@@ -5,18 +5,14 @@ class SubcategoryCardPresenter
     @score = score
   end
 
-  def display_icon?
-    zone.type != :no_zone
-  end
-
   def harvey_ball_icon
     icons_by_zone_type = {
       ideal: "full-circle",
       approval: "three-quarter-circle",
       growth: "half-circle",
       watch: "one-quarter-circle",
-      warning: "empty-circle",
-      no_zone: "empty-circle"
+      warning: "full-circle",
+      no_zone: "full-circle"
     }
     icons_by_zone_type[zone.type]
   end
