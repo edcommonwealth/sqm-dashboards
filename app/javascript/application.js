@@ -14,4 +14,3 @@ document.addEventListener("turbolinks:load", () => {
   initializeListenersForNavDropdowns()
   initializeListenersForHomeDropdowns()
 })
-import * as bootstrap from "bootstrap"

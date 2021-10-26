@@ -167,12 +167,6 @@ Start esbuild for dynamic compilation of javascript assets.
 yarn build --watch
 ```
 
-Start cssbundling AND esbuild for dynamic compilation of javascript and css assets.
-
-```bash
-scripts/bundling.sh
-```
-
 Start the puma web server
 
 ```bash
