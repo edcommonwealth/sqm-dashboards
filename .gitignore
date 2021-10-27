@@ -34,7 +34,6 @@ config/local_env.yml
 
 /config/credentials/development.key
 
-/app/assets/builds/*
-!/app/assets/builds/.keep
+/app/assets/builds
 
 /node_modules
