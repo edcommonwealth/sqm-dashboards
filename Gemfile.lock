@@ -154,6 +154,8 @@ GEM
     nested_scaffold (1.1.0)
     newrelic_rpm (8.0.0)
     nio4r (2.5.8)
+    nokogiri (1.12.5-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     omniauth (2.0.4)
