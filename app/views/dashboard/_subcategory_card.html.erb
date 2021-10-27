@@ -1,7 +1,7 @@
 <div class="subcategory-card__benchmark-item">
-  <svg class="subcategory-card__circle" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-    <use class="harvey-ball harvey-ball--<%= presenter.color %>" xlink:href="#<%= presenter.harvey_ball_icon %>"></use>
+  <svg class="subcategory-card__circle" width="24" height="24" xmlns="http://www.w3.org/2000/svg" <%= "data-bs-toggle=popover" if subcategory_card.insufficient_data? %> data-bs-content="This subcategory is not displayed due to low survey response rates.">
+    <use class="harvey-ball harvey-ball--<%= subcategory_card.color %>" xlink:href="#<%= subcategory_card.harvey_ball_icon %>"></use>
   </svg>
 
-  <div class="subcategory-card__name"><%= subcategory.name %></div>
+  <div class="subcategory-card__name"><%= subcategory_card.name %></div>
 </div>

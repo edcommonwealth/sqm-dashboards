@@ -1,6 +1,8 @@
 class SubcategoryCardPresenter
+  attr_reader :name
 
-  def initialize(scale:, score:)
+  def initialize(name:, scale:, score:)
+    @name = name
     @scale = scale
     @score = score
   end
@@ -19,6 +21,10 @@ class SubcategoryCardPresenter
 
   def color
     zone.type.to_s
+  end
+
+  def insufficient_data?
+    zone.type == :no_zone
   end
 
   private

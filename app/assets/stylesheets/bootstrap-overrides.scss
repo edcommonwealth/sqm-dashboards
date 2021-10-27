@@ -33,3 +33,8 @@ $input-btn-focus-color-opacity: 0.35;
 
 $accordion-border-radius: 8px;
 $accordion-button-active-bg: $gray-3;
+
+$popover-border-color: transparent;
+$popover-border-radius: 4px;
+$popover-body-padding-x: map-get($spacers, 4);
+$popover-body-padding-y: map-get($spacers, 4);

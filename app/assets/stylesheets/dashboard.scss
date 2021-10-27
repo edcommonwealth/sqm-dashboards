@@ -31,10 +31,6 @@
   font-size: 14px;
 }
 
-.subcategory-card__benchmark-icon {
-  fill: Red;
-}
-
 .subcategory-card__benchmark-item {
   display: flex;
   align-items: center;
@@ -45,12 +41,12 @@
 .subcategory-card__circle {
   min-width: 24px;
   min-height: 24px;
-  margin-right: 4px;
-  height: 26px;
-  width: 26px;
+  height: 24px;
+  width: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
+  @extend .me-3;
 }
 
 .subcategory-card__benchmark-label {
@@ -68,6 +64,12 @@
 
 .zone-header {
   @extend .sub-header-4;
+}
+
+.subcategory-card__circle:focus {
+  outline: none;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba($blue, 0.35);
 }
 
 .harvey-ball {

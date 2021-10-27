@@ -5,7 +5,7 @@
     </div>
     <div class="text-center">
       <h3 class="sub-header-3">
-        <%= link_to [@district, @school, category_presenter.category, { year: @academic_year.range }] do %>
+        <%= link_to [@district, @school, category_presenter, { year: @academic_year.range }] do %>
           <%= category_presenter.name %>
         <% end %>
       </h3>
@@ -14,12 +14,8 @@
     <p class="body-small text-center"><%= category_presenter.description %></p>
 
     <div>
-      <div class="subcategory-card border-radius-8">
-        <div class="subcategory-card__benchmark-list">
-          <% category_presenter.subcategories(academic_year: @academic_year, school: @school).each do |subcategory| %>
-            <%= render partial: 'subcategory_card', locals: { presenter: subcategory.subcategory_card_presenter, subcategory: subcategory } %>
-          <% end %>
-        </div>
+      <div class="subcategory-card__benchmark-list">
+        <%= render partial: 'subcategory_card', collection: category_presenter.subcategories(academic_year: @academic_year, school: @school).map(&:subcategory_card_presenter) %>
       </div>
     </div>
   <% end %>

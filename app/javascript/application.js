@@ -7,10 +7,11 @@ import * as ActiveStorage from "@rails/activestorage"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-import { initializeListenersForNavDropdowns } from "./dashboard.js"
-import { initializeListenersForHomeDropdowns } from "./home.js"
+import { initializeListenersForNavDropdowns, initializePopovers } from "./dashboard"
+import { initializeListenersForHomeDropdowns } from "./home"
 
 document.addEventListener("turbolinks:load", () => {
   initializeListenersForNavDropdowns()
   initializeListenersForHomeDropdowns()
+  initializePopovers()
 })

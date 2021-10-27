@@ -10,7 +10,7 @@ describe SubcategoryCardPresenter do
     )
   end
 
-  let(:subcategory_card_presenter) { SubcategoryCardPresenter.new(scale: scale, score: score)}
+  let(:subcategory_card_presenter) { SubcategoryCardPresenter.new(name: 'Card name', scale: scale, score: score) }
 
   context 'when the given score is in the Warning zone for the given scale' do
     let(:score) { 1 }
@@ -77,6 +77,10 @@ describe SubcategoryCardPresenter do
 
     it 'returns the icon that represents the zone' do
       expect(subcategory_card_presenter.harvey_ball_icon).to eq "full-circle"
+    end
+
+    it 'reports that there is insufficient data' do
+      expect(subcategory_card_presenter.insufficient_data?).to be true
     end
   end
 end

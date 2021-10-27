@@ -18,7 +18,7 @@ class SubcategoryPresenter
   end
 
   def subcategory_card_presenter
-    SubcategoryCardPresenter.new(scale: scale, score: average_score)
+    SubcategoryCardPresenter.new(name: @subcategory.name, scale: scale, score: average_score)
   end
 
   def average_score
