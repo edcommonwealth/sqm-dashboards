@@ -11,9 +11,9 @@
       </h3>
     </div>
 
-    <p class="body-small text-center"><%= category_presenter.description %></p>
+    <p class="body-small text-center m-0"><%= category_presenter.description %></p>
 
-    <div>
+    <div class="subcategory-card">
       <div class="subcategory-card__benchmark-list">
         <%= render partial: 'subcategory_card', collection: category_presenter.subcategories(academic_year: @academic_year, school: @school).map(&:subcategory_card_presenter) %>
       </div>

@@ -18,18 +18,22 @@ $spacers: (
   12: ($spacer * 10),
 );
 
-$nav-link-color: $white;
-$nav-link-font-weight: 600;
-$nav-tabs-border-color: transparent;
-$nav-tabs-border-radius: 15px;
 $font-family-base: 'Cabin', sans-serif;
+$body-color: $black;
+
 $headings-font-family: 'Bitter', serif;
 $headings-font-weight: 700;
-$body-color: $black;
-$nav-tabs-link-active-bg: $light-blue;
 
 $btn-border-radius: 0;
 $input-btn-focus-color-opacity: 0.35;
+
+$nav-link-color: $white;
+$nav-link-font-weight: 600;
+$nav-link-hover-color: $nav-link-color;
+$nav-tabs-link-active-bg: $light-blue;
+$nav-tabs-link-hover-border-color: rgba($white, 0.5);
+$nav-tabs-border-color: transparent;
+$nav-tabs-border-radius: 15px;
 
 $accordion-border-radius: 8px;
 $accordion-button-active-bg: $gray-3;

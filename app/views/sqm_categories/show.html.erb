@@ -3,7 +3,8 @@
     <% @categories.each do |category| %>
       <div class="nav-item">
         <%= link_to [@district, @school, category, { year: @academic_year.range }], class: ["nav-link", current_page?([@district, @school, category, { year: @academic_year.range }]) ? "active" : ""] do %>
-          <i class="<%= category.icon_class %> me-2"></i> <%= category.name %>
+          <i class="<%= category.icon_class %> <%= category.icon_color_class if current_page?([@district, @school, category, { year: @academic_year.range }]) %> me-2" ></i>
+          <%= category.name %>
         <% end %>
       </div>
     <% end %>

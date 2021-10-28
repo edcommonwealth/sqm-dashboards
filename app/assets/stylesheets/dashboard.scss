@@ -23,12 +23,8 @@
 }
 
 .subcategory-card {
-  border: 1px solid $gray-2;
-  background-color: $gray-3;
-  min-width: 95%;
-  margin: auto;
-  padding: 8px;
-  font-size: 14px;
+  @extend .p-3;
+  @extend .body-small;
 }
 
 .subcategory-card__benchmark-item {
