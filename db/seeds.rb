@@ -31,8 +31,6 @@ end
 
 measure_key_2021 = File.read(Rails.root.join('data', '2021-measure-key.csv'))
 CSV.parse(measure_key_2021, headers: true).each do |row|
-  next if row['Source'] == 'Admin Data'
-
   category_name = row['Category']
 
   category = SqmCategory.find_or_create_by(name: category_name)
@@ -53,28 +51,27 @@ CSV.parse(measure_key_2021, headers: true).each do |row|
   subcategory_name = row['Subcategory']
 
   subcategory = Subcategory.find_or_create_by(name: subcategory_name, sqm_category: category)
-  if subcategory.description.nil?
-    subcategory.update(description: row['Subcategory Description'])
-  end
+  subcategory.description = row['Subcategory Description']
+  subcategory.save
 
   measure_id = row['Measure Id']
-
-  measure_name = row['Measures']
   watch_low = row['Watch Low']
   growth_low = row['Growth Low']
   approval_low = row['Approval Low']
   ideal_low = row['Ideal Low']
-  measure = Measure.find_or_create_by(measure_id: measure_id, subcategory: Subcategory.find_by_name(subcategory_name), name: measure_name, watch_low_benchmark: watch_low, growth_low_benchmark: growth_low, approval_low_benchmark: approval_low, ideal_low_benchmark: ideal_low)
-  if measure.description.nil?
-    measure.update description: row['Measure Description']
-  end
+  measure = Measure.find_or_create_by(measure_id: measure_id, subcategory: subcategory, watch_low_benchmark: watch_low, growth_low_benchmark: growth_low, approval_low_benchmark: approval_low, ideal_low_benchmark: ideal_low)
+  measure.name = row['Measures']
+  measure.description = row['Measure Description']
+  measure.save
 
-  survey_item_id = row['Survey Item ID']
+  unless row['Source'] == 'Admin Data'
+    survey_item_id = row['Survey Item ID']
 
-  next if survey_item_id.nil?
+    next if survey_item_id.nil?
 
-  if SurveyItem.find_by_survey_item_id(survey_item_id).nil?
+    survey_item = SurveyItem.find_or_create_by(survey_item_id: survey_item_id, measure: measure)
     item_prompt = row['Revised Question'].nil? ? row['Question/Item'] : row['Revised Question']
-    SurveyItem.create measure: Measure.find_by_measure_id(measure_id), prompt: item_prompt, survey_item_id: survey_item_id
+    survey_item.prompt = item_prompt
+    survey_item.save
   end
 end
