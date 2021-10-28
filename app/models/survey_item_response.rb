@@ -6,8 +6,6 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :school
   belongs_to :survey_item
 
-  scope :for_measure, ->(measure) { joins(:survey_item).where('survey_items.measure_id': measure.id) }
-
   def self.score_for_subcategory(subcategory:, school:, academic_year:)
     measures = subcategory.measures.select { |measure| sufficient_data?(measure: measure, school: school, academic_year: academic_year) }
 
@@ -26,6 +24,7 @@ class SurveyItemResponse < ActiveRecord::Base
 
   private
 
+  scope :for_measure, ->(measure) { joins(:survey_item).where('survey_items.measure_id': measure.id) }
   scope :for_measures, ->(measures) { joins(:survey_item).where('survey_items.measure_id': measures.map(&:id)) }
   scope :teacher_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 't-%'") }
   scope :student_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 's-%'") }

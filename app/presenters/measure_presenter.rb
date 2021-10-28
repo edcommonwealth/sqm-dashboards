@@ -14,10 +14,7 @@ class MeasurePresenter
   end
 
   def gauge_presenter
-    average_score = SurveyItemResponse.for_measure(@measure)
-      .where(academic_year: @academic_year, school: @school)
-      .average(:likert_score)
-
+    average_score = SurveyItemResponse.score_for_measure(measure: @measure, academic_year: @academic_year, school: @school)
     GaugePresenter.new(scale: scale, score: average_score)
   end
 
