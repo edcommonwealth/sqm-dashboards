@@ -37,6 +37,9 @@ $nav-tabs-border-radius: 15px;
 
 $accordion-border-radius: 8px;
 $accordion-button-active-bg: $gray-3;
+$accordion-button-icon: url("data:image/svg+xml,<svg width='13' height='8' viewBox='0 0 13 8' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M5.77734 7.66016C6.09375 7.97656 6.62109 7.97656 6.9375 7.66016L11.7188 2.87891C12.0703 2.52734 12.0703 2 11.7188 1.68359L10.9453 0.875C10.5938 0.558594 10.0664 0.558594 9.75 0.875L6.33984 4.28516L2.96484 0.875C2.64844 0.558594 2.12109 0.558594 1.76953 0.875L0.996094 1.68359C0.644531 2 0.644531 2.52734 0.996094 2.87891L5.77734 7.66016Z' fill='#01788E'/> </svg>");
+$accordion-button-active-icon: url("data:image/svg+xml,<svg width='13' height='8' viewBox='0 0 13 8' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M6.97266 0.875C6.62109 0.558594 6.09375 0.558594 5.77734 0.875L0.996094 5.65625C0.644531 6.00781 0.644531 6.53516 0.996094 6.85156L1.76953 7.66016C2.12109 7.97656 2.64844 7.97656 2.96484 7.66016L6.375 4.25L9.75 7.66016C10.0664 7.97656 10.6289 7.97656 10.9453 7.66016L11.7539 6.85156C12.0703 6.53516 12.0703 6.00781 11.7539 5.65625L6.97266 0.875Z' fill='#01788E'/> </svg>");
+$accordion-icon-width: 12px;
 
 $popover-border-color: transparent;
 $popover-border-radius: 4px;

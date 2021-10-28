@@ -91,7 +91,7 @@ feature 'School dashboard', type: feature do
     district_admin_sees_browse_content
 
     click_on 'School Culture'
-    expect(page).to have_text('This category measures the degree to which the school environment is safe, caring, and academically-oriented.')
+    expect(page).to have_text('Measures the degree to which the school environment is safe, caring, and academically-oriented. It considers factors like bullying, student-teacher relationships, and student valuing of learning.')
 
     go_to_different_school_in_same_district(school_in_same_district)
     district_admin_sees_schools_change

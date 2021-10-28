@@ -13,12 +13,16 @@ describe 'sqm_categories/show.html.erb' do
 
     measure1 = create(:measure, subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
     survey_item1 = create(:survey_item, measure: measure1)
-    create(:survey_item_response, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 1)
+    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 1)
 
-    measure2 = create(:measure, name: 'The second measure', description: 'The second measure description', subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
-    survey_item2 = create(:survey_item, measure: measure2)
-    create(:survey_item_response, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 5)
+    measure2 = create(:measure, name: 'The second measure name', description: 'The second measure description', subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
+    student_survey_item = create(:survey_item, measure: measure2, survey_item_id: "s-abc", prompt: "Some prompt for student data")
+    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, academic_year: academic_year, school: school, likert_score: 5)
 
+    teacher_survey_item = create(:survey_item, measure: measure2, survey_item_id: "t-abc", prompt: "Some prompt for teacher data")
+    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: teacher_survey_item, academic_year: academic_year, school: school, likert_score: 3)
+
+    admin_data_item = create(:admin_data_item, measure: measure2, description: "Some admin data item description")
     assign :category, category_presenter
 
     assign :categories, [category_presenter]
@@ -53,7 +57,7 @@ describe 'sqm_categories/show.html.erb' do
 
   context 'for each measure' do
     it 'renders the measure name' do
-      expect(rendered).to match /The second measure/
+      expect(rendered).to match /The second measure name/
     end
 
     it 'renders the measure description' do
@@ -63,6 +67,12 @@ describe 'sqm_categories/show.html.erb' do
     it 'renders a gauge graph and the zone title color' do
       expect(rendered).to match /Ideal/
       expect(rendered).to match /fill-ideal/
+    end
+
+    it 'renders the prompts for survey items and admin data that make up the measure' do
+      expect(rendered).to match /Some prompt for student data/
+      expect(rendered).to match /Some prompt for teacher data/
+      expect(rendered).to match /Some admin data item description/
     end
   end
 end

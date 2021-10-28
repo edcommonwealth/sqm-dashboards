@@ -16,6 +16,9 @@ describe SubcategoryPresenter do
     create(:survey_item_response, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 1)
     create(:survey_item_response, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 5)
 
+    measure_of_only_admin_data = create(:measure, watch_low_benchmark: 0, growth_low_benchmark: 0, approval_low_benchmark: 0, ideal_low_benchmark: 0, subcategory: subcategory)
+    create(:admin_data_item, measure: measure_of_only_admin_data)
+
     create_survey_item_responses_for_different_years_and_schools(survey_item1)
 
     return SubcategoryPresenter.new(subcategory: subcategory, academic_year: academic_year, school: school)
@@ -31,6 +34,14 @@ describe SubcategoryPresenter do
 
   it 'returns a gauge presenter responsible for the aggregate survey item response likert scores' do
     expect(subcategory_presenter.gauge_presenter.title).to eq 'Growth'
+  end
+
+  context 'When there are no measures populated with student or teacher surveys' do
+    let(:empty_subcategory) { create :subcategory }
+    let(:empty_subcategory_presenter) { SubcategoryPresenter.new(subcategory: empty_subcategory, academic_year: academic_year, school: school )}
+    it 'should make a subcategory presenter return insufficient data' do
+      expect(empty_subcategory_presenter.subcategory_card_presenter.insufficient_data?).to eq true
+    end
   end
 
   def create_survey_item_responses_for_different_years_and_schools(survey_item)

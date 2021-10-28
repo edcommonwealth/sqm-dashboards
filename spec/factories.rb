@@ -13,6 +13,7 @@ FactoryBot.define do
 
   factory :academic_year do
     range { '2050-51' }
+    initialize_with { AcademicYear.find_or_initialize_by(range: range) }
   end
 
   factory :sqm_category do
@@ -32,7 +33,10 @@ FactoryBot.define do
         measures_count { 2 }
       end
       after(:create) do |subcategory, evaluator|
-        create_list(:measure, evaluator.measures_count, subcategory: subcategory)
+        create_list(:measure, evaluator.measures_count, subcategory: subcategory). each do |measure|
+          survey_item = create(:survey_item, measure: measure)
+          create(:survey_item_response, survey_item: survey_item)
+        end
       end
     end
   end
@@ -49,6 +53,7 @@ FactoryBot.define do
 
   factory :survey_item do
     survey_item_id { rand.to_s }
+    prompt { 'What do YOU think?' }
     measure
   end
 
@@ -58,5 +63,11 @@ FactoryBot.define do
     academic_year
     school
     survey_item
+  end
+
+  factory :admin_data_item do
+    admin_data_item_id { rand.to_s }
+    description { rand.to_s }
+    measure
   end
 end

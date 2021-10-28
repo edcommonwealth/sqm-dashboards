@@ -43,8 +43,12 @@
   margin-bottom: 0;
 }
 
-.measure-presenter {
+.measure-section {
   flex-basis: 33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .measure-description {
@@ -80,4 +84,22 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.measure-accordion {
+  width: 100%;
+}
+
+.measure-accordion-button {
+  background-color: $gray-3;
+  border-color: $gray-2;
+}
+
+.measure-accordion-button:not(.collapsed) {
+  color: $black;
+  box-shadow: none;
+}
+
+.measure-accordion-body {
+  background-color: $gray-3;
 }

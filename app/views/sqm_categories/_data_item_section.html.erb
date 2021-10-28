@@ -1,0 +1,28 @@
+<div class="accordion-item">
+  <h3 class="accordion-header measure-accordion-header" id="<%= data_item_section.id %>-header">
+    <button
+      class="accordion-button measure-accordion-button font-cabin font-size-14 collapsed"
+      data-bs-toggle="collapse"
+      data-bs-target="#<%= data_item_section.id %>"
+      aria-expanded="false"
+      aria-controls="<%= data_item_section.id %>"
+    >
+      <%= data_item_section.title %>
+    </button>
+  </h3>
+
+  <div
+    id="<%= data_item_section.id %>"
+    class="accordion-collapse collapse"
+    aria-labelledby="<%= data_item_section.id %>-header"
+    data-bs-parent="#<%= data_item_section.data_item_accordion_id %>"
+  >
+    <div class="accordion-body measure-accordion-body font-cabin font-size-14 weight-400">
+      <ul>
+        <% data_item_section.item_descriptions.each do |description| %>
+          <li><%= description %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

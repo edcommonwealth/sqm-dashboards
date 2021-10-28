@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_14_202830) do
+ActiveRecord::Schema.define(version: 2021_10_29_195454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(version: 2021_10_14_202830) do
   create_table "academic_years", id: :serial, force: :cascade do |t|
     t.string "range", null: false
     t.index ["range"], name: "index_academic_years_on_range", unique: true
+  end
+
+  create_table "admin_data_items", force: :cascade do |t|
+    t.integer "measure_id", null: false
+    t.string "admin_data_item_id", null: false
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "attempts", id: :serial, force: :cascade do |t|
@@ -66,10 +74,10 @@ ActiveRecord::Schema.define(version: 2021_10_14_202830) do
   create_table "measures", id: :serial, force: :cascade do |t|
     t.string "measure_id", null: false
     t.string "name"
-    t.float "watch_low_benchmark", null: false
-    t.float "growth_low_benchmark", null: false
-    t.float "approval_low_benchmark", null: false
-    t.float "ideal_low_benchmark", null: false
+    t.float "watch_low_benchmark"
+    t.float "growth_low_benchmark"
+    t.float "approval_low_benchmark"
+    t.float "ideal_low_benchmark"
     t.integer "subcategory_id", null: false
     t.text "description"
     t.index ["measure_id"], name: "index_measures_on_measure_id"
@@ -275,6 +283,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_202830) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "admin_data_items", "measures"
   add_foreign_key "measures", "subcategories"
   add_foreign_key "recipient_lists", "schools"
   add_foreign_key "schedules", "schools"

@@ -4,7 +4,7 @@ describe MeasurePresenter do
   let(:academic_year) { create(:academic_year, range: '1989-90') }
   let(:school) { create(:school, name: 'Best School') }
   let(:measure) do
-    create(:measure).tap do |measure|
+    create(:measure, measure_id: 'measure-id').tap do |measure|
       survey_item = create(:survey_item, measure: measure)
       create(:survey_item_response, survey_item: survey_item, academic_year: academic_year, school: school, likert_score: 1)
       create(:survey_item_response, survey_item: survey_item, academic_year: academic_year, school: school, likert_score: 5)
@@ -15,4 +15,50 @@ describe MeasurePresenter do
   it 'creates a gauge presenter that presents the average likert score' do
     expect(measure_presenter.gauge_presenter.title).to eq 'Growth'
   end
+
+  it 'has an id for use in the data item accordions' do
+    expect(measure_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
+  end
+
+  context 'when the measure contains only teacher data' do
+    before :each do
+      create(:survey_item, measure: measure, survey_item_id: 't-something', prompt: 'A teacher survey item prompt')
+      create(:survey_item, measure: measure, survey_item_id: 't-something-else', prompt: 'Another teacher survey item prompt')
+    end
+
+    it 'returns a list of data item presenters that has only one element, and that element has a title of "Teacher survey"' do
+      expect(measure_presenter.data_item_presenters.count).to eq 1
+      expect(measure_presenter.data_item_presenters.first.id).to eq 'teacher-survey-items-measure-id'
+      expect(measure_presenter.data_item_presenters.first.title).to eq 'Teacher survey'
+      expect(measure_presenter.data_item_presenters.first.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
+      expect(measure_presenter.data_item_presenters.first.item_descriptions).to eq ["A teacher survey item prompt", "Another teacher survey item prompt"]
+    end
+  end
+
+  context 'when the measure contains both teacher data and admin data' do
+    before :each do
+      create(:survey_item, measure: measure, survey_item_id: 't-something', prompt: 'A teacher survey item prompt')
+      create(:survey_item, measure: measure, survey_item_id: 't-something', prompt: 'Another teacher survey item prompt')
+      create(:admin_data_item, measure: measure, description: 'An admin data item description')
+      create(:admin_data_item, measure: measure, description: 'Another admin data item description')
+    end
+
+    it 'returns a list of data item presenters with two elements' do
+      expect(measure_presenter.data_item_presenters.count).to eq 2
+
+      first_data_item_presenter = measure_presenter.data_item_presenters[0]
+      expect(first_data_item_presenter.id).to eq 'teacher-survey-items-measure-id'
+      expect(first_data_item_presenter.title).to eq 'Teacher survey'
+      expect(first_data_item_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
+      expect(first_data_item_presenter.item_descriptions).to eq ["A teacher survey item prompt", "Another teacher survey item prompt"]
+
+      second_data_item_presenter = measure_presenter.data_item_presenters[1]
+      expect(second_data_item_presenter.id).to eq 'admin-data-items-measure-id'
+      expect(second_data_item_presenter.title).to eq 'School admin data'
+      expect(second_data_item_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
+      expect(second_data_item_presenter.item_descriptions).to eq ["An admin data item description", "Another admin data item description"]
+    end
+  end
+
 end
+

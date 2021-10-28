@@ -1,0 +1,24 @@
+<section class="subcategory-section">
+  <div class="p-7">
+
+    <h2 class="sub-header-2 font-bitter mb-7"><%= subcategory.name %></h2>
+
+    <div class="d-flex justify-content-between align-items-end">
+      <div>
+        <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter, gauge_class: 'gauge-graph-lg', font_class: 'sub-header-3' } %>
+      </div>
+      <p class="body-large mx-7"><%= subcategory.description %></p>
+    </div>
+  </div>
+
+  <div class="arrow-container mt-7">
+    <div class="arrow-shadow"></div>
+    <div class="arrow"></div>
+  </div>
+
+  <div class="measure-card d-flex justify-space-between p-7">
+    <% subcategory.measure_presenters.each do |measure_presenter| %>
+      <%= render partial: "measures_section", locals: { measure_presenter: measure_presenter } %>
+    <% end %>
+  </div>
+</section>
