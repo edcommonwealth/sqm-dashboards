@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 describe SurveyItemResponse, type: :model do
+  let(:school) { create(:school) }
+  let(:ay) { create(:academic_year) }
+
   describe '.score_for_measure' do
     let(:measure) { create(:measure) }
-    let(:school) { create(:school) }
-    let(:ay) { create(:academic_year) }
 
     context 'when the measure includes only teacher data' do
       let(:teacher_survey_item_1) { create(:survey_item, survey_item_id: 't-question-1', measure: measure) }
@@ -227,6 +228,34 @@ describe SurveyItemResponse, type: :model do
           expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
         end
       end
+    end
+  end
+
+  describe '.score_for_subcategory' do
+    let(:subcategory) { create(:subcategory) }
+    let(:sufficient_measure_1) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_measure_2) { create(:measure, subcategory: subcategory) }
+    let(:insufficient_measure) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_teacher_survey_item) { create(:survey_item, survey_item_id: 't-question-1', measure: sufficient_measure_1) }
+    let(:insufficient_teacher_survey_item) { create(:survey_item, survey_item_id: 't-question-2', measure: insufficient_measure) }
+    let(:sufficient_student_survey_item) { create(:survey_item, survey_item_id: 's-question-1', measure: sufficient_measure_2) }
+    let(:insufficient_student_survey_item) { create(:survey_item, survey_item_id: 's-question-2', measure: insufficient_measure) }
+
+    before :each do
+      [SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD].max.times do
+        create(:survey_item_response, survey_item: sufficient_teacher_survey_item, academic_year: ay, school: school, likert_score: 1)
+        create(:survey_item_response, survey_item: sufficient_student_survey_item, academic_year: ay, school: school, likert_score: 4)
+      end
+      (SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1).times do
+        create(:survey_item_response, survey_item: insufficient_teacher_survey_item, academic_year: ay, school: school, likert_score: 1)
+      end
+      (SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1).times do
+        create(:survey_item_response, survey_item: insufficient_student_survey_item, academic_year: ay, school: school, likert_score: 1)
+      end
+    end
+
+    it 'returns the average score of all survey item responses for measures meeting their respective thresholds' do
+      expect(SurveyItemResponse.score_for_subcategory(subcategory: subcategory, school: school, academic_year: ay)).to eq 2.5
     end
   end
 end

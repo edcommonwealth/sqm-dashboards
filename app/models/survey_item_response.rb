@@ -9,13 +9,15 @@ class SurveyItemResponse < ActiveRecord::Base
   scope :for_measure, ->(measure) { joins(:survey_item).where('survey_items.measure_id': measure.id) }
 
   def self.score_for_subcategory(subcategory:, school:, academic_year:)
-    SurveyItemResponse.for_measures(subcategory.measures)
+    measures = subcategory.measures.select { |measure| sufficient_data?(measure: measure, school: school, academic_year: academic_year) }
+
+    SurveyItemResponse.for_measures(measures)
                       .where(academic_year: academic_year, school: school)
                       .average(:likert_score)
   end
 
   def self.score_for_measure(measure:, school:, academic_year:)
-    return nil unless SurveyItemResponse.sufficient_data?(measure: measure, school: school, academic_year: academic_year)
+    return nil unless sufficient_data?(measure: measure, school: school, academic_year: academic_year)
 
     SurveyItemResponse.for_measure(measure)
                       .where(academic_year: academic_year, school: school)
