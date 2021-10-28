@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MeasureGraphRowPresenter do
+describe VarianceChartRowPresenter do
 
   let(:watch_low_benchmark) { 2.9 }
   let(:growth_low_benchmark) { 3.1 }
@@ -18,7 +18,7 @@ RSpec.describe MeasureGraphRowPresenter do
   }
 
   let(:presenter) {
-    MeasureGraphRowPresenter.new measure: measure, score: score
+    VarianceChartRowPresenter.new measure: measure, score: score
   }
 
   shared_examples_for 'measure_name' do
@@ -124,22 +124,18 @@ RSpec.describe MeasureGraphRowPresenter do
   end
 
   context 'sorting scores' do
-    it 'selects a shorter bar width before a longer bar' do
-      this_presenter = MeasureGraphRowPresenter.new measure: measure, score: 3.7
-      other_presenter = MeasureGraphRowPresenter.new measure: measure, score: 4.4
-      expect(this_presenter <=> other_presenter).to be < 0
+    it 'selects a longer bar before a shorter bar for measures in the approval/ideal zones' do
+      approval_presenter = VarianceChartRowPresenter.new measure: measure, score: 3.7
+      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: 4.4
+      expect(ideal_presenter <=> approval_presenter).to be < 0
+      expect([approval_presenter, ideal_presenter].sort).to eq [ideal_presenter, approval_presenter]
     end
 
-    it 'selects a warning bar before a ideal bar' do
-      this_presenter = MeasureGraphRowPresenter.new measure: measure, score: 1.0
-      other_presenter = MeasureGraphRowPresenter.new measure: measure, score: 5.0
-      expect(this_presenter <=> other_presenter).to be < 0
-    end
-
-    it 'selects an ideal bar after a warning bar' do
-      this_presenter = MeasureGraphRowPresenter.new measure: measure, score: 4.4
-      other_presenter = MeasureGraphRowPresenter.new measure: measure, score: 1.0
-      expect(this_presenter <=> other_presenter).to be > 0
+    it 'selects a warning bar below a ideal bar' do
+      warning_presenter = VarianceChartRowPresenter.new measure: measure, score: 1.0
+      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: 5.0
+      expect(warning_presenter <=> ideal_presenter).to be > 0
+      expect([warning_presenter, ideal_presenter].sort).to eq [ideal_presenter, warning_presenter]
     end
   end
 end

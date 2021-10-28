@@ -1,8 +1,10 @@
-<% unless measures_with_insufficient_data(presenters: presenters).empty? %>
-<p class="caption mb-5">Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= measures_with_insufficient_data(presenters: presenters).map(&:measure_name).join('; ') %>.</p>
+<% displayed_presenters = presenters.filter { |p| p.sufficient_data? }.sort %>
+<% not_displayed_presenters = presenters - displayed_presenters %>
+
+<% if not_displayed_presenters.present? %>
+  <p class="caption mb-5">Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= not_displayed_presenters.map(&:measure_name).join('; ') %>.</p>
 <% end %>
 
-<% displayed_presenters = measures_with_sufficient_data(presenters: presenters) %>
 <svg width="100%" height=<%= graph_height(displayed_presenters.size) %> xmlns="http://www.w3.org/2000/svg">
 
   <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -25,7 +27,7 @@
     x="<%= label_width_percentage %>%"
     y="0"
     width="<%= graph_width_percentage %>%"
-    height=<%= graph_background_height(number_of_rows: displayed_presenters.size) %>
+    height="<%= graph_background_height(number_of_rows: displayed_presenters.size) %>"
     filter="url(#inset-shadow)"
   >
     <g id="zone-headings">
@@ -87,7 +89,7 @@
           x="<%= presenter.x_offset %>"
           y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>"
           width="<%= presenter.bar_width %>"
-          height=<%= measure_row_bar_height %>
+          height="<%= measure_row_bar_height %>"
           data-for-measure-id="<%= presenter.measure_id %>"
           stroke="none"
           />

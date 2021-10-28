@@ -142,16 +142,6 @@ def district_admin_sees_district_change
   expect(page).to have_current_path(expected_path)
 end
 
-def district_admin_sees_measures_in_correct_order
-  def index_of_row_for(measure_id:)
-    expect(page).to have_css("[data-for-measure-id='#{measure_id}']")
-    page.all('rect.measure-row-bar').find_index { |item| item['data-for-measure-id'] == "#{measure_id}" }
-  end
-
-  expect(index_of_row_for(measure_id: '2A-i')).to be < index_of_row_for(measure_id: '1A-i')
-  expect(index_of_row_for(measure_id: '1A-i')).to be < index_of_row_for(measure_id: '4C-i')
-end
-
 def district_admin_sees_dashboard_content
   expect(page).to have_select('academic-year', selected: '2020 – 2021')
   expect(page).to have_select('district', selected: 'Winchester')
@@ -163,8 +153,6 @@ def district_admin_sees_dashboard_content
   district_admin_sees_problem_solving_emphasis
 
   page.assert_selector('.measure-row-bar', count: 5)
-
-  district_admin_sees_measures_in_correct_order
 end
 
 def district_admin_sees_browse_content

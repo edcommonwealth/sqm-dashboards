@@ -9,18 +9,18 @@ describe 'dashboard/index.html.erb' do
 
   before :each do
     assign :category_presenters, []
-    assign :measure_graph_row_presenters, measure_graph_row_presenters
+    assign :variance_chart_row_presenters, variance_chart_row_presenters
 
     render
   end
 
   context 'when some presenters have a nil score' do
-    let(:measure_graph_row_presenters) {
+    let(:variance_chart_row_presenters) {
       [
-        MeasureGraphRowPresenter.new(measure: support_for_teaching, score: nil),
-        MeasureGraphRowPresenter.new(measure: create(:measure, name: 'Should Be Displayed', measure_id: 'should-be-displayed'), score: rand),
-        MeasureGraphRowPresenter.new(measure: effective_leadership, score: nil),
-        MeasureGraphRowPresenter.new(measure: professional_qualifications, score: nil)
+        VarianceChartRowPresenter.new(measure: support_for_teaching, score: nil),
+        VarianceChartRowPresenter.new(measure: create(:measure, name: 'Should Be Displayed', measure_id: 'should-be-displayed'), score: rand),
+        VarianceChartRowPresenter.new(measure: effective_leadership, score: nil),
+        VarianceChartRowPresenter.new(measure: professional_qualifications, score: nil)
       ]
     }
 
@@ -40,9 +40,9 @@ describe 'dashboard/index.html.erb' do
   end
 
   context 'when all the presenters have a non-nil score' do
-    let(:measure_graph_row_presenters) {
+    let(:variance_chart_row_presenters) {
       [
-        MeasureGraphRowPresenter.new(measure: create(:measure, name: 'Display Me', measure_id: 'display-me'), score: rand)
+        VarianceChartRowPresenter.new(measure: create(:measure, name: 'Display Me', measure_id: 'display-me'), score: rand)
       ]
     }
 

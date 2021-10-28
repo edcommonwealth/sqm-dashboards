@@ -1,4 +1,4 @@
-class MeasureGraphRowPresenter
+class VarianceChartRowPresenter
   include Comparable
 
   attr_reader :score
@@ -49,7 +49,7 @@ class MeasureGraphRowPresenter
   end
 
   def <=>(other_presenter)
-    order <=> other_presenter.order
+    other_presenter.order <=> order
   end
 
   private
