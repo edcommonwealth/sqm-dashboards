@@ -29,8 +29,8 @@ class Scale
     Zone.new(@ideal_low_benchmark, 5.0, :ideal)
   end
 
-  def no_zone
-    Zone.new(0,@warning_low_benchmark,:no_zone)
+  def insufficient_data
+    Zone.new(0,@warning_low_benchmark,:insufficient_data)
   end
 
   def zone_for_score(score)
@@ -46,7 +46,7 @@ class Scale
     when 1..warning_zone.high_benchmark
       warning_zone
     else
-      no_zone
+      insufficient_data
     end
   end
 end

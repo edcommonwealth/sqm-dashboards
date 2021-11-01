@@ -5,7 +5,7 @@ class GaugePresenter
   end
 
   def title
-    zone.type.to_s.capitalize
+    zone.type.to_s.titleize
   end
 
   def color_class

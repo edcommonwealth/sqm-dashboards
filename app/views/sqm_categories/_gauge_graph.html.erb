@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-center">
+<div class="d-flex flex-column align-items-center position-relative">
 <svg
   viewBox="<%= viewbox.x %> <%= viewbox.y %> <%= viewbox.width %> <%= viewbox.height %>"
   class="<%= gauge_class %>"
@@ -46,5 +46,5 @@
   />
 </svg>
 
-<p class="gauge-title <%= font_class %> fill-black"><%= gauge.title %></p>
+<span class="gauge-title <%= font_class %> fill-black"><%= gauge.title %></span>
 </div>

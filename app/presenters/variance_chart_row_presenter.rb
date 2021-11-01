@@ -43,7 +43,7 @@ class VarianceChartRowPresenter
       bar_width_percentage
     when :warning, :watch, :growth
       -bar_width_percentage
-    when :no_zone
+    when :insufficient_data
       -100
     end
   end

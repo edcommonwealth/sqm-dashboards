@@ -39,8 +39,11 @@
 }
 
 .gauge-title {
-  margin-top: -1.5em;
-  margin-bottom: 0;
+  line-height: 1.2;
+  max-width: 10ch;
+  text-align: center;
+  bottom: 0;
+  position: absolute;
 }
 
 .measure-section {

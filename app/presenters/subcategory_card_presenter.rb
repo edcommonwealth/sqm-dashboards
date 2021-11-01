@@ -14,7 +14,7 @@ class SubcategoryCardPresenter
       growth: "half-circle",
       watch: "one-quarter-circle",
       warning: "full-circle",
-      no_zone: "full-circle"
+      insufficient_data: "full-circle"
     }
     icons_by_zone_type[zone.type]
   end
@@ -24,7 +24,7 @@ class SubcategoryCardPresenter
   end
 
   def insufficient_data?
-    zone.type == :no_zone
+    zone.type == :insufficient_data
   end
 
   private
