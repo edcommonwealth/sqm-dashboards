@@ -3,9 +3,8 @@ require 'rails_helper'
 describe SubcategoryPresenter do
   let(:academic_year) { create(:academic_year, range: '1989-90') }
   let(:school) { create(:school, name: 'Best School') }
+  let(:subcategory) { create(:subcategory, name: 'A great subcategory', description: 'A great description')  }
   let(:subcategory_presenter) do
-    subcategory = create(:subcategory, name: 'A great subcategory', description: 'A great description')
-
     measure1 = create(:measure, watch_low_benchmark: 4, growth_low_benchmark: 4.25, approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75, subcategory: subcategory)
     survey_item1 = create(:survey_item, measure: measure1)
     create(:survey_item_response, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 1)
@@ -34,6 +33,10 @@ describe SubcategoryPresenter do
 
   it 'returns a gauge presenter responsible for the aggregate survey item response likert scores' do
     expect(subcategory_presenter.gauge_presenter.title).to eq 'Growth'
+  end
+
+  it 'creates a measure presenter for each measure in a subcategory' do
+    expect(subcategory_presenter.measure_presenters.count).to eq subcategory.measures.count
   end
 
   context 'When there are no measures populated with student or teacher surveys' do
