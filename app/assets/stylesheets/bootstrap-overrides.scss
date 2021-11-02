@@ -41,7 +41,7 @@ $accordion-button-icon: url("data:image/svg+xml,<svg width='13' height='8' viewB
 $accordion-button-active-icon: url("data:image/svg+xml,<svg width='13' height='8' viewBox='0 0 13 8' fill='none' xmlns='http://www.w3.org/2000/svg'> <path d='M6.97266 0.875C6.62109 0.558594 6.09375 0.558594 5.77734 0.875L0.996094 5.65625C0.644531 6.00781 0.644531 6.53516 0.996094 6.85156L1.76953 7.66016C2.12109 7.97656 2.64844 7.97656 2.96484 7.66016L6.375 4.25L9.75 7.66016C10.0664 7.97656 10.6289 7.97656 10.9453 7.66016L11.7539 6.85156C12.0703 6.53516 12.0703 6.00781 11.7539 5.65625L6.97266 0.875Z' fill='#01788E'/> </svg>");
 $accordion-icon-width: 12px;
 
-$popover-border-color: transparent;
+$popover-border-color: $gray-2;
 $popover-border-radius: 4px;
 $popover-body-padding-x: map-get($spacers, 4);
 $popover-body-padding-y: map-get($spacers, 4);

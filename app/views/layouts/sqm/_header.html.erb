@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row py-4 justify-content-between align-items-center">
       <div class="col d-flex justify-content-start align-items-center">
-        <%= link_to image_tag('sqm_logo.png', alt: 'MCIEA School Quality Measures Dashboard', class: 'height-56 me-7'), welcome_path %>
+        <%= link_to image_tag('sqm_logo.png', alt: 'MCIEA School Quality Measures Dashboard', class: 'height-56'), welcome_path, class: 'me-7' %>
         <a class="sub-header-3 link me-4 <%= link_weight(path: 'dashboard') %>" href="<%= link_to_dashboard(district: @district, school: @school, academic_year: @academic_year) %>">Dashboard</a>
         <a class="sub-header-3 link <%= link_weight(path: 'browse') %>" href="<%= link_to_browse(district: @district, school: @school, academic_year: @academic_year) %>">Browse</a>
       </div>

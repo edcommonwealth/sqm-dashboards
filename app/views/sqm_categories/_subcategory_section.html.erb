@@ -16,7 +16,7 @@
     <div class="arrow"></div>
   </div>
 
-  <div class="measure-card d-flex justify-space-between p-7">
+  <div class="measure-card d-flex p-7">
     <% subcategory.measure_presenters.each do |measure_presenter| %>
       <%= render partial: "measures_section", locals: { measure_presenter: measure_presenter } %>
     <% end %>
