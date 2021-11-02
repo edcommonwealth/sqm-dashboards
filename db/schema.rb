@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_195454) do
+ActiveRecord::Schema.define(version: 2021_11_02_130307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 2021_10_29_195454) do
     t.float "ideal_low_benchmark"
     t.integer "subcategory_id", null: false
     t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["measure_id"], name: "index_measures_on_measure_id"
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
@@ -217,6 +219,8 @@ ActiveRecord::Schema.define(version: 2021_10_29_195454) do
     t.text "description"
     t.string "slug"
     t.integer "sort_index"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["slug"], name: "index_sqm_categories_on_slug", unique: true
   end
 
@@ -236,6 +240,8 @@ ActiveRecord::Schema.define(version: 2021_10_29_195454) do
     t.string "name"
     t.integer "sqm_category_id"
     t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "survey_item_responses", id: :serial, force: :cascade do |t|
@@ -244,6 +250,8 @@ ActiveRecord::Schema.define(version: 2021_10_29_195454) do
     t.integer "survey_item_id", null: false
     t.string "response_id", null: false
     t.integer "academic_year_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
@@ -254,6 +262,8 @@ ActiveRecord::Schema.define(version: 2021_10_29_195454) do
     t.integer "measure_id", null: false
     t.string "survey_item_id", null: false
     t.string "prompt"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["measure_id"], name: "index_survey_items_on_measure_id"
     t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id"
   end
