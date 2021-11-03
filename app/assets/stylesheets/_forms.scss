@@ -1,0 +1,14 @@
+@import "variables";
+@import "sqm_bootstrap";
+
+header .form-select {
+  width: auto;
+  max-width: 290px;
+}
+
+.bg-color-blue .form-select {
+  &:focus {
+    box-shadow: 0 0 0 $input-btn-focus-width rgba($white, $input-btn-focus-color-opacity);
+  }
+}
+
