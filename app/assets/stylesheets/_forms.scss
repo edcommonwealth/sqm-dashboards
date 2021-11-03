@@ -1,5 +1,4 @@
-@import "variables";
-@import "sqm_bootstrap";
+@import "colors";
 
 header .form-select {
   width: auto;
@@ -8,7 +7,7 @@ header .form-select {
 
 .bg-color-blue .form-select {
   &:focus {
-    box-shadow: 0 0 0 $input-btn-focus-width rgba($white, $input-btn-focus-color-opacity);
+    box-shadow: 0 0 0 0.25rem rgba($white, 0.35);
   }
 }
 
