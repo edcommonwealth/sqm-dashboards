@@ -24,21 +24,20 @@ class Seeder
 
   def seed_sqm_framework csv_file
     CSV.parse(File.read(csv_file), headers: true) do |row|
-      category_name = row['Category'].strip
-
-      category = SqmCategory.find_or_create_by!(name: category_name)
+      category_id = row['Category ID'].strip
+      category = SqmCategory.find_or_create_by!(category_id: category_id)
       category_slugs = {
-        'Teachers & Leadership' => 'teachers-and-leadership',
-        'School Culture' => 'school-culture',
-        'Resources' => 'resources',
-        'Academic Learning' => 'academic-learning',
-        'Community & Wellbeing' => 'community-and-wellbeing',
+        '1' => 'teachers-and-leadership',
+        '2' => 'school-culture',
+        '3' => 'resources',
+        '4' => 'academic-learning',
+        '5' => 'community-and-wellbeing',
       }
-      category.update! description: row['Category Description'].strip, slug: category_slugs[category_name], sort_index: category_slugs.keys.index(category_name)
+      category.update! name: row['Category'].strip, description: row['Category Description'].strip, slug: category_slugs[category_id], sort_index: category_slugs.keys.index(category_id)
 
-      subcategory_name = row['Subcategory'].strip
-      subcategory = Subcategory.find_or_create_by! name: subcategory_name, sqm_category: category
-      subcategory.update! description: row['Subcategory Description'].strip
+      subcategory_id = row['Subcategory ID'].strip
+      subcategory = Subcategory.find_or_create_by! subcategory_id: subcategory_id, sqm_category: category
+      subcategory.update! name: row['Subcategory'].strip, description: row['Subcategory Description'].strip
 
       measure_id = row['Measure ID'].strip
       measure_name = row['Measures'].try(:strip)

@@ -87,11 +87,11 @@ describe Seeder do
 
   context 'the sqm framework' do
     before do
-      category = create(:sqm_category, name: 'School Culture', sort_index: -1)
-      subcategory = create(:subcategory, name: 'Safety', description: 'old description', sqm_category: category)
-      measure = create(:measure, name: 'Student Physical Safety?', measure_id: '2A-i', subcategory: subcategory)
-      create(:survey_item, survey_item_id: 's-phys-q1', measure: measure)
-      create(:admin_data_item, admin_data_item_id: 'a-phys-i1', measure: measure)
+      school_culture_category = create(:sqm_category, category_id: '2', sort_index: -1)
+      safety_subcategory = create(:subcategory, subcategory_id: '2A', sqm_category: school_culture_category)
+      student_physical_safety_measure = create(:measure, measure_id: '2A-i', subcategory: safety_subcategory)
+      create(:survey_item, survey_item_id: 's-phys-q1', measure: student_physical_safety_measure)
+      create(:admin_data_item, admin_data_item_id: 'a-phys-i1', measure: student_physical_safety_measure)
     end
 
     it 'creates new objects as necessary' do
