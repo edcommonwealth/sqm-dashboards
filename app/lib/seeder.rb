@@ -32,7 +32,7 @@ class Seeder
         'School Culture' => 'school-culture',
         'Resources' => 'resources',
         'Academic Learning' => 'academic-learning',
-        'Citizenship & Wellbeing' => 'citizenship-and-wellbeing',
+        'Community & Wellbeing' => 'community-and-wellbeing',
       }
       category.update! description: row['Category Description'].strip, slug: category_slugs[category_name], sort_index: category_slugs.keys.index(category_name)
 
