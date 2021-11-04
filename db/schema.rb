@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_130307) do
+ActiveRecord::Schema.define(version: 2021_11_04_181819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_130307) do
     t.integer "sort_index"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "category_id", null: false
     t.index ["slug"], name: "index_sqm_categories_on_slug", unique: true
   end
 
@@ -242,6 +243,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_130307) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "subcategory_id", null: false
   end
 
   create_table "survey_item_responses", id: :serial, force: :cascade do |t|
