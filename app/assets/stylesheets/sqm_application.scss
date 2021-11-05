@@ -96,11 +96,9 @@
 .measure-accordion-button {
   background-color: $gray-3;
   border-color: $gray-2;
-}
-
-.measure-accordion-button:not(.collapsed) {
-  color: $black;
-  box-shadow: none;
+  @extend .font-cabin;
+  @extend .font-size-14;
+  @extend .weight-700;
 }
 
 .measure-accordion-body {
