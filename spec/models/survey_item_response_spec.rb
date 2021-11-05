@@ -186,31 +186,23 @@ describe SurveyItemResponse, type: :model do
 
       context 'and there is sufficient teacher data and insufficient student data' do
         before :each do
-          SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
-            create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school)
-          end
-          (SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1).times do
-            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school)
-          end
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: teacher_survey_item_1, academic_year: ay, school: school, likert_score: 5)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: 1)
         end
 
-        it 'returns nil' do
-          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
+        it 'returns the average of the likert scores of the teacher survey items' do
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to eq 5
         end
       end
 
       context 'and there is insufficient teacher data and sufficient student data' do
         before :each do
-          (SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1).times do
-            create(:survey_item_response, survey_item: teacher_survey_item_1, academic_year: ay, school: school)
-          end
-          SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
-            create(:survey_item_response, survey_item: student_survey_item_1, academic_year: ay, school: school)
-          end
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1, survey_item: teacher_survey_item_1, academic_year: ay, school: school, likert_score: 1)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item_1, academic_year: ay, school: school, likert_score: 5)
         end
 
-        it 'returns nil' do
-          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to be_nil
+        it 'returns the average of the likert scores of the student survey items' do
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school, academic_year: ay)).to eq 5
         end
       end
 

@@ -12,14 +12,14 @@ describe 'sqm_categories/show.html.erb' do
     subcategory2 = create(:subcategory_with_measures, sqm_category: category, name: 'Another subcategory', description: 'Another description of the subcategory')
 
     measure1 = create(:measure, subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
-    survey_item1 = create(:survey_item, measure: measure1)
+    survey_item1 = create(:student_survey_item, measure: measure1)
     create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 1)
 
     measure2 = create(:measure, name: 'The second measure name', description: 'The second measure description', subcategory: subcategory1, watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5)
-    student_survey_item = create(:survey_item, measure: measure2, survey_item_id: "s-abc", prompt: "Some prompt for student data")
+    student_survey_item = create(:student_survey_item, measure: measure2, prompt: "Some prompt for student data")
     create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, academic_year: academic_year, school: school, likert_score: 5)
 
-    teacher_survey_item = create(:survey_item, measure: measure2, survey_item_id: "t-abc", prompt: "Some prompt for teacher data")
+    teacher_survey_item = create(:teacher_survey_item, measure: measure2, prompt: "Some prompt for teacher data")
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: teacher_survey_item, academic_year: academic_year, school: school, likert_score: 3)
 
     admin_data_item = create(:admin_data_item, measure: measure2, description: "Some admin data item description")

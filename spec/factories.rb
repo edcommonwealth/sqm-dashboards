@@ -36,8 +36,8 @@ FactoryBot.define do
       end
       after(:create) do |subcategory, evaluator|
         create_list(:measure, evaluator.measures_count, subcategory: subcategory). each do |measure|
-          survey_item = create(:survey_item, measure: measure)
-          create(:survey_item_response, survey_item: survey_item)
+          survey_item = create(:teacher_survey_item, measure: measure)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item)
         end
       end
     end
@@ -54,10 +54,16 @@ FactoryBot.define do
   end
 
   factory :survey_item do
-    survey_item_id { rand.to_s }
     prompt { 'What do YOU think?' }
     measure
+    factory :teacher_survey_item do
+      survey_item_id { "t-#{rand.to_s}" }
+    end
+    factory :student_survey_item do
+      survey_item_id { "s-#{rand.to_s}" }
+    end
   end
+
 
   factory :survey_item_response do
     likert_score { 3 }

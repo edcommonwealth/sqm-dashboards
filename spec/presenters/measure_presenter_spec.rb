@@ -3,18 +3,8 @@ require 'rails_helper'
 describe MeasurePresenter do
   let(:academic_year) { create(:academic_year, range: '1989-90') }
   let(:school) { create(:school, name: 'Best School') }
-  let(:measure) do
-    create(:measure, measure_id: 'measure-id').tap do |measure|
-      survey_item = create(:survey_item, measure: measure)
-      create(:survey_item_response, survey_item: survey_item, academic_year: academic_year, school: school, likert_score: 1)
-      create(:survey_item_response, survey_item: survey_item, academic_year: academic_year, school: school, likert_score: 5)
-    end
-  end
+  let(:measure) { create(:measure, measure_id: 'measure-id') }
   let(:measure_presenter) { MeasurePresenter.new(measure: measure, academic_year: academic_year, school: school) }
-
-  it 'creates a gauge presenter that presents the average likert score' do
-    expect(measure_presenter.gauge_presenter.title).to eq 'Growth'
-  end
 
   it 'has an id for use in the data item accordions' do
     expect(measure_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
@@ -22,8 +12,15 @@ describe MeasurePresenter do
 
   context 'when the measure contains only teacher data' do
     before :each do
-      create(:survey_item, measure: measure, survey_item_id: 't-something', prompt: 'A teacher survey item prompt')
-      create(:survey_item, measure: measure, survey_item_id: 't-something-else', prompt: 'Another teacher survey item prompt')
+      survey_item1 = create(:teacher_survey_item, measure: measure, prompt: 'A teacher survey item prompt')
+      survey_item2 = create(:teacher_survey_item, measure: measure, prompt: 'Another teacher survey item prompt')
+
+      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 1)
+      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 5)
+    end
+
+    it 'creates a gauge presenter that presents the average likert score' do
+      expect(measure_presenter.gauge_presenter.title).to eq 'Growth'
     end
 
     it 'returns a list of data item presenters that has only one element, and that element has a title of "Teacher survey"' do

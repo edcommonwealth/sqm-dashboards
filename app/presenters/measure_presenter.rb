@@ -23,11 +23,11 @@ class MeasurePresenter
   end
 
   def data_item_presenters
-    output = Array.new
-    output << StudentSurveyPresenter.new(measure_id: @measure.measure_id, survey_items: @measure.student_survey_items) if @measure.student_survey_items.any?
-    output << TeacherSurveyPresenter.new(measure_id: @measure.measure_id, survey_items: @measure.teacher_survey_items) if @measure.teacher_survey_items.any?
-    output << AdminDataPresenter.new(measure_id: @measure.measure_id, admin_data_items: @measure.admin_data_items) if @measure.admin_data_items.any?
-    output
+    Array.new.tap do |array|
+      array << StudentSurveyPresenter.new(measure_id: @measure.measure_id, survey_items: @measure.student_survey_items) if @measure.student_survey_items.any?
+      array << TeacherSurveyPresenter.new(measure_id: @measure.measure_id, survey_items: @measure.teacher_survey_items) if @measure.teacher_survey_items.any?
+      array << AdminDataPresenter.new(measure_id: @measure.measure_id, admin_data_items: @measure.admin_data_items) if @measure.admin_data_items.any?
+    end
   end
 
   private
