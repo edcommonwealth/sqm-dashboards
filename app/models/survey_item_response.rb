@@ -17,7 +17,8 @@ class SurveyItemResponse < ActiveRecord::Base
   def self.score_for_measure(measure:, school:, academic_year:)
     survey_item_responses = for_measure_meeting_threshold(measure: measure, school: school, academic_year: academic_year)
 
-    if survey_item_responses.present?
+
+    unless survey_item_responses.nil?
       survey_item_responses
         .where(academic_year: academic_year, school: school)
         .average(:likert_score)
