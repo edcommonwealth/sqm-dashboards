@@ -30,6 +30,9 @@ $input-border-radius: 0;
 $input-btn-focus-color-opacity: 0.35;
 $btn-border-radius: 0;
 
+$btn-close-width: 1.5em;
+$btn-close-opacity: 1;
+
 $nav-link-color: $white;
 $nav-link-font-weight: 600;
 $nav-link-hover-color: $nav-link-color;
@@ -48,3 +51,6 @@ $popover-border-color: $gray-2;
 $popover-border-radius: 4px;
 $popover-body-padding-x: map-get($spacers, 4);
 $popover-body-padding-y: map-get($spacers, 4);
+
+$modal-header-border-color: transparent;
+$modal-content-border-radius: 0;

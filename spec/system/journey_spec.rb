@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'School dashboard', type: feature do
+describe 'District Admin', js: true do
   let(:district) { District.find_by_slug 'winchester' }
   let(:different_district) { District.find_by_slug 'boston' }
   let(:school) { School.find_by_slug 'winchester-high-school' }
@@ -60,19 +60,7 @@ feature 'School dashboard', type: feature do
     SurveyItemResponse.import survey_item_responses
   end
 
-  after :each do
-    DatabaseCleaner.clean
-  end
-
-  scenario 'User authentication fails' do
-    page.driver.browser.basic_authorize('wrong username', 'wrong password')
-
-    visit "/districts/#{district.slug}/schools/#{school.slug}/dashboard?year=2020-21"
-
-    expect(page).not_to have_text(school.name)
-  end
-
-  scenario 'District Admin navigates the site', js: true do
+  it 'navigates through the site' do
     page.driver.basic_authorize(username, password)
 
     visit '/welcome'
@@ -130,6 +118,16 @@ end
 
 def go_to_different_district(district)
   select district.name, from: 'select-district'
+end
+
+def go_to_browse_page_for_school_without_data(school)
+  click_on 'Browse'
+  select school.name, from: 'select-school'
+end
+
+def go_to_dashboard_page_for_school_without_data(school)
+  click_on 'Dashboard'
+  select school.name, from: 'select-school'
 end
 
 def district_admin_sees_schools_change

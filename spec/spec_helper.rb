@@ -54,7 +54,12 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
   config.before(:each, js: true) do
+    driven_by :apparition
     Capybara.default_max_wait_time = 10
     Capybara.page.driver.resize(3000, 3000)
   end

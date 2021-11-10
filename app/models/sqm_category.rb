@@ -5,4 +5,5 @@ class SqmCategory < ActiveRecord::Base
   scope :sorted, ->() { order(:sort_index) }
 
   has_many :subcategories
+  has_many :measures, through: :subcategories
 end

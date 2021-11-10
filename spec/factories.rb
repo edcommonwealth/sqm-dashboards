@@ -20,7 +20,7 @@ FactoryBot.define do
     name { "A #{rand} category" }
     category_id { rand.to_s }
     description { "A description of a category" }
-    slug { "a-#{rand}-category" }
+    slug { name.parameterize }
     sort_index { 1 }
   end
 

@@ -7,6 +7,10 @@ class Measure < ActiveRecord::Base
 
   scope :source_includes_survey_items, ->() { joins(:survey_items).uniq }
 
+  def self.none_meet_threshold?(school:, academic_year:)
+    none? { |measure| SurveyItemResponse.sufficient_data?(measure: measure, school: school, academic_year: academic_year) }
+  end
+
   def teacher_survey_items
     @teacher_survey_items ||= survey_items.where("survey_item_id LIKE 't-%'")
   end

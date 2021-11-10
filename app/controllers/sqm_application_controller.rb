@@ -16,6 +16,7 @@ class SqmApplicationController < ActionController::Base
     @school = School.find_by_slug school_slug
     @schools = School.where(district: @district).sort_by(&:name)
     @academic_year = AcademicYear.find_by_range params[:year]
+    @has_empty_dataset = Measure.none_meet_threshold? school: @school, academic_year: @academic_year
   end
 
   def district_slug

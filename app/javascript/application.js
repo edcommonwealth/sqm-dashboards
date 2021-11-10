@@ -9,9 +9,11 @@ Turbolinks.start()
 ActiveStorage.start()
 import { initializeListenersForNavDropdowns, initializePopovers } from "./dashboard"
 import { initializeListenersForHomeDropdowns } from "./home"
+import { showEmptyDatasetModal } from "./modal"
 
 document.addEventListener("turbolinks:load", () => {
   initializeListenersForNavDropdowns()
   initializeListenersForHomeDropdowns()
   initializePopovers()
+  showEmptyDatasetModal()
 })

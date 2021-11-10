@@ -25,6 +25,12 @@ class SurveyItemResponse < ActiveRecord::Base
     end
   end
 
+  def self.sufficient_data?(measure:, school:, academic_year:)
+    meets_teacher_threshold = teacher_sufficient_data?(measure: measure, school: school, academic_year: academic_year)
+    meets_student_threshold = student_sufficient_data?(measure: measure, school: school, academic_year: academic_year)
+    meets_teacher_threshold || meets_student_threshold
+  end
+
   private
 
   def self.for_measure_meeting_threshold(measure:, school:, academic_year:)
@@ -46,11 +52,6 @@ class SurveyItemResponse < ActiveRecord::Base
   scope :teacher_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 't-%'") }
   scope :student_responses_for_measure, ->(measure) { for_measure(measure).where("survey_items.survey_item_id LIKE 's-%'") }
 
-  def self.sufficient_data?(measure:, school:, academic_year:)
-    meets_teacher_threshold = teacher_sufficient_data?(measure: measure, school: school, academic_year: academic_year)
-    meets_student_threshold = student_sufficient_data?(measure: measure, school: school, academic_year: academic_year)
-    meets_teacher_threshold || meets_student_threshold
-  end
 
   def self.student_sufficient_data?(measure:, school:, academic_year:)
     if measure.includes_student_survey_items?
