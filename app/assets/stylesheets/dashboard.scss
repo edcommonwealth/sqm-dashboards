@@ -72,24 +72,12 @@
   stroke: $black;
 }
 
-.harvey-ball--ideal {
+.harvey-ball--approval, .harvey-ball--ideal {
   fill: $purple;
 }
 
-.harvey-ball--approval {
-  fill: $purple;
-}
-
-.harvey-ball--growth {
+.harvey-ball--warning, .harvey-ball--watch, .harvey-ball--growth {
   fill: $gold;
-}
-
-.harvey-ball--watch {
-  fill: $gold;
-}
-
-.harvey-ball--warning {
-  fill: $white;
 }
 
 .harvey-ball--insufficient_data {

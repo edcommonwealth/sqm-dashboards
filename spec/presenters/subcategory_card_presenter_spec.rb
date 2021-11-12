@@ -16,7 +16,7 @@ describe SubcategoryCardPresenter do
     let(:score) { 1 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "full-circle"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "warning-harvey-ball"
     end
 
     it 'returns the color class of the zone' do
@@ -28,7 +28,7 @@ describe SubcategoryCardPresenter do
     let(:score) { 2 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "one-quarter-circle"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "watch-harvey-ball"
     end
 
     it 'returns the color class of the zone' do
@@ -40,7 +40,7 @@ describe SubcategoryCardPresenter do
     let(:score) { 3 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "half-circle"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "growth-harvey-ball"
     end
 
     it 'returns the color class of the zone' do
@@ -52,7 +52,7 @@ describe SubcategoryCardPresenter do
     let(:score) { 4 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "three-quarter-circle"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "approval-harvey-ball"
     end
 
     it 'returns the color class of the zone' do
@@ -64,7 +64,7 @@ describe SubcategoryCardPresenter do
     let(:score) { 5 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "full-circle"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "ideal-harvey-ball"
     end
 
     it 'returns the color class of the zone' do
@@ -76,7 +76,7 @@ describe SubcategoryCardPresenter do
     let(:score) { 0 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "full-circle"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq "insufficient_data-harvey-ball"
     end
 
     it 'reports that there is insufficient data' do

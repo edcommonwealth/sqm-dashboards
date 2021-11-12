@@ -1,7 +1,7 @@
 <div class="mt-5 school-quality-frameworks">
   <% category_presenters.each do |category_presenter| %>
     <div class="text-center">
-      <i class="<%= category_presenter.icon_class %> fa-2x color-gray-2"></i>
+      <i class="<%= category_presenter.icon_class %> <%= category_presenter.icon_color_class %> fa-2x"></i>
     </div>
     <div class="text-center">
       <h3 class="sub-header-3">

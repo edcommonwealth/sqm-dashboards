@@ -8,15 +8,7 @@ class SubcategoryCardPresenter
   end
 
   def harvey_ball_icon
-    icons_by_zone_type = {
-      ideal: "full-circle",
-      approval: "three-quarter-circle",
-      growth: "half-circle",
-      watch: "one-quarter-circle",
-      warning: "full-circle",
-      insufficient_data: "full-circle"
-    }
-    icons_by_zone_type[zone.type]
+    "#{zone.type}-harvey-ball"
   end
 
   def color
