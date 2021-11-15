@@ -1,0 +1,129 @@
+.row
+  .col
+    %p
+      %strong Name:
+      = @school.name
+    %p
+      %strong District:
+      = @school.district_id
+
+    %p= link_to "Add Recipient", new_legacy_school_legacy_recipient_path(@school)
+
+    %p= link_to "Bulk Add Recipients", import_legacy_school_legacy_recipients_path(@school)
+
+    %p= link_to "Create Recipient List", new_legacy_school_legacy_recipient_list_path(@school)
+
+    %p= link_to "Create A Question List", new_legacy_question_list_path()
+
+    %p= link_to "Create A Schedule", new_legacy_school_legacy_schedule_path(@school)
+
+    = link_to 'Edit', edit_legacy_school_path(@school)
+    |
+    = link_to 'Back', root_path
+
+
+    %br
+    %br
+    %br
+    %h4
+      School Schedules
+      %small
+        = link_to('show/hide', '#school_schedules', data: {toggle: 'collapse'}, 'aria-expanded': 'false', 'aria-controls': 'collapseExample')
+    #school_schedules.collapse.show
+      - if @school.schedules.blank?
+        %p
+          %strong None Yet
+      - else
+        %table{style: 'width: 100%;'}
+          %tbody
+            %thead{style: 'font-weight: bold;'}
+              %th Name
+              %th Start
+              %th End
+              %th{colspan: 2} Actions
+            - @school.schedules.each do |schedule|
+              %tr.recipient
+                %td= link_to schedule.name, [@school, schedule]
+                %td= schedule.start_date
+                %td= schedule.end_date
+                %td= link_to('Edit', edit_legacy_school_legacy_schedule_path(@school, schedule))
+                %td= link_to('Delete', legacy_school_legacy_schedule_path(@school, schedule), method: :delete, data: {confirm: 'Are you sure you want to delete this schedule?'})
+
+    %br
+    %br
+    %br
+    %h4
+      School Recipients Lists
+      %small
+        = link_to('show/hide', '#school_recipient_lists', data: {toggle: 'collapse'}, 'aria-expanded': 'false', 'aria-controls': 'collapseExample')
+    #school_recipient_lists.collapse
+      - if @school.recipient_lists.blank?
+        %p
+          %strong None Yet
+      - else
+        %table{style: 'width: 100%;'}
+          %tbody
+            %thead{style: 'font-weight: bold;'}
+              %th Name
+              %th Description
+              %th{colspan: 2} Actions
+            - @school.recipient_lists.each do |recipient_list|
+              %tr.recipient
+                %td= link_to recipient_list.name, [@school, recipient_list]
+                %td= recipient_list.description
+                %td= link_to('Edit', edit_legacy_school_legacy_recipient_list_path(@school, recipient_list))
+                %td= link_to('Delete', legacy_school_legacy_recipient_list_path(@school, recipient_list), method: :delete, data: {confirm: 'Are you sure you want to delete this list?'})
+
+    %br
+    %br
+    %br
+    %h4
+      School Recipients
+      %small
+        = link_to('show/hide', '#school_recipients', data: {toggle: 'collapse'}, 'aria-expanded': 'false', 'aria-controls': 'collapseExample')
+    #school_recipients.collapse
+      - if @school.recipients.blank?
+        %p
+          %strong None Yet
+      - else
+        %table{style: 'width: 100%;'}
+          %tbody
+            %thead{style: 'font-weight: bold;'}
+              %th Name
+              %th Phone
+              %th Attempts
+              %th Responses
+              %th{colspan: 2} Actions
+            - @school.recipients.each do |recipient|
+              %tr.recipient
+                %td= link_to recipient.name, [@school, recipient]
+                %td= recipient.phone
+                %td= recipient.attempts_count
+                %td= recipient.responses_count
+                %td= link_to('Edit', edit_legacy_school_legacy_recipient_path(@school, recipient))
+                %td= link_to('Delete', legacy_school_legacy_recipient_path(@school, recipient), method: :delete, data: {confirm: 'Are you sure you want to delete this recipient?'})
+
+    %br
+    %br
+    %br
+    %h4
+      Question Lists
+      %small
+        = link_to('show/hide', '#question_lists', data: {toggle: 'collapse'}, 'aria-expanded': 'false', 'aria-controls': 'collapseExample')
+    #question_lists.collapse
+      - if Legacy::QuestionList.count == 0
+        %p
+          %strong None Yet
+      - else
+        %table{style: 'width: 100%;'}
+          %tbody
+            %thead{style: 'font-weight: bold;'}
+              %th Name
+              %th Description
+              %th{colspan: 2} Actions
+            - Legacy::QuestionList.all.each do |question_list|
+              %tr.question_list
+                %td= link_to question_list.name, question_list
+                %td= question_list.description
+                %td= link_to('Edit', edit_legacy_question_list_path(question_list))
+                %td= link_to('Delete', legacy_question_list_path(question_list), method: :delete, data: {confirm: 'Are you sure you want to delete this question list?'})

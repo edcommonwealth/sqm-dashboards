@@ -1,0 +1,24 @@
+.col-12.col-sm-6.py-3
+  .school_category.short.p-2
+    %h4.title.text-center.pt-3
+      = link_to(school_category.category.name, legacy_school_legacy_category_path(school_category.school, school_category.category, year: school_category.year))
+
+    - if !school_category.new_record? && (school_category.school.district.name != "Boston" || (school_category.valid_child_count || 1) > 0)
+      .indicator-container.short
+        = render 'legacy/school_categories/indicator', info: school_category
+
+      .description.px-2.pt-3.pb-2.mt-2
+        - if false #(measurements = school_category.questions.measurements.for_school(school_measure.school)).present?
+          = render 'measurements/nonlikert', measurement: measurements.first, description: school_measure.measure.description
+        - else
+          = school_category.category.blurb || truncate(school_category.category.description, length: 108)
+
+    - else
+      .row.py-1
+        .col-12.centered
+          .px-2
+            %h5 Insufficient Responses
+            %p No data is displayed for this measure because of insufficient responses.
+            %br
+            %br
+            %br

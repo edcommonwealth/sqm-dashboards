@@ -16,7 +16,7 @@ FactoryBot.define do
     initialize_with { AcademicYear.find_or_initialize_by(range: range) }
   end
 
-  factory :sqm_category do
+  factory :category, class: 'Category' do
     name { "A #{rand} category" }
     category_id { rand.to_s }
     description { "A description of a category" }
@@ -28,7 +28,7 @@ FactoryBot.define do
     name { "A subcategory" }
     subcategory_id { rand.to_s }
     description { "A description of a subcategory" }
-    sqm_category
+    category
 
     factory :subcategory_with_measures do
       transient do

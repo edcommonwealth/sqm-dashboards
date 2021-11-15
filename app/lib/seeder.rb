@@ -25,7 +25,7 @@ class Seeder
   def seed_sqm_framework csv_file
     CSV.parse(File.read(csv_file), headers: true) do |row|
       category_id = row['Category ID'].strip
-      category = SqmCategory.find_or_create_by!(category_id: category_id)
+      category = Category.find_or_create_by!(category_id: category_id)
       category_slugs = {
         '1' => 'teachers-and-leadership',
         '2' => 'school-culture',
@@ -36,7 +36,7 @@ class Seeder
       category.update! name: row['Category'].strip, description: row['Category Description'].strip, slug: category_slugs[category_id], sort_index: category_slugs.keys.index(category_id)
 
       subcategory_id = row['Subcategory ID'].strip
-      subcategory = Subcategory.find_or_create_by! subcategory_id: subcategory_id, sqm_category: category
+      subcategory = Subcategory.find_or_create_by! subcategory_id: subcategory_id, category: category
       subcategory.update! name: row['Subcategory'].strip, description: row['Subcategory Description'].strip
 
       measure_id = row['Measure ID'].strip

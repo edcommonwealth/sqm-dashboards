@@ -4,7 +4,7 @@ describe 'SQM Application' do
   let(:district) { create(:district) }
   let(:school) { create(:school, district: district) }
   let(:academic_year) { create(:academic_year) }
-  let(:category) { create(:sqm_category) }
+  let(:category) { create(:category) }
   let(:measure) { create(:measure) }
 
   before :each do
@@ -51,6 +51,6 @@ describe 'SQM Application' do
   end
 
   def browse_path
-    district_school_sqm_category_path(district, school, category, year: academic_year.range)
+    district_school_category_path(district, school, category, year: academic_year.range)
   end
 end

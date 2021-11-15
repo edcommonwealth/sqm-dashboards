@@ -1,0 +1,2 @@
+%p
+  = school_category.category.path.map { |c| link_to(c.name, legacy_school_legacy_category_path(school_category.school, c, year: school_category.year)) }.join(' > ').html_safe

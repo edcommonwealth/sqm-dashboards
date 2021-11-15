@@ -169,7 +169,7 @@ end
 def create_questions(count, category=nil)
   questions = []
   count.times do |i|
-    questions << Question.create(
+    questions << Legacy::Question.create(
       text: "Question #{i}:#{count}",
       option1: "Option #{i}:#{count} A",
       option2: "Option #{i}:#{count} B",

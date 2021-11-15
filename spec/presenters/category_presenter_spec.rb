@@ -5,32 +5,32 @@ describe CategoryPresenter do
     subcategory1 = Subcategory.new(name: 'A subcategory')
     subcategory2 = Subcategory.new(name: 'Another subcategory')
 
-    category = SqmCategory.new(name: 'Some Category', subcategories: [subcategory1, subcategory2], description: 'A description for some Category')
+    category = Category.new(name: 'Some Category', subcategories: [subcategory1, subcategory2], description: 'A description for some Category')
     return CategoryPresenter.new(category: category)
   end
 
   let(:teachers_and_leadership_presenter) do
-    category = create(:sqm_category, name: 'Teachers & Leadership')
+    category = create(:category, name: 'Teachers & Leadership')
     return CategoryPresenter.new(category: category)
   end
 
   let(:school_culture_presenter) do
-    category = create(:sqm_category, name: "School Culture")
+    category = create(:category, name: "School Culture")
     return CategoryPresenter.new(category: category)
   end
 
   let(:resources_presenter) do
-    category = create(:sqm_category, name: "Resources")
+    category = create(:category, name: "Resources")
     return CategoryPresenter.new(category: category)
   end
 
   let(:academic_learning_presenter) do
-    category = create(:sqm_category, name: "Academic Learning")
+    category = create(:category, name: "Academic Learning")
     return CategoryPresenter.new(category: category)
   end
 
   let(:community_and_wellbeing_presenter) do
-    category = create(:sqm_category, name: "Community & Wellbeing")
+    category = create(:category, name: "Community & Wellbeing")
     return CategoryPresenter.new(category: category)
   end
 

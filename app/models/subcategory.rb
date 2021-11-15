@@ -1,5 +1,5 @@
 class Subcategory < ActiveRecord::Base
-  belongs_to :sqm_category
+  belongs_to :category
 
   has_many :measures
 end

@@ -12,5 +12,4 @@ class District < ApplicationRecord
   before_save do
     self.slug ||= name.parameterize
   end
-
 end

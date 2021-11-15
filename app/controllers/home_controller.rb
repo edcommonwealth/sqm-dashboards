@@ -3,6 +3,6 @@ class HomeController < ActionController::Base
     @districts = District.all.order(:name)
     @schools = School.all
 
-    @categories = SqmCategory.sorted.map { |category| CategoryPresenter.new(category: category) }
+    @categories = Category.sorted.map { |category| CategoryPresenter.new(category: category) }
   end
 end

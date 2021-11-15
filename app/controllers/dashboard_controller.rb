@@ -2,7 +2,7 @@ class DashboardController < SqmApplicationController
 
   def index
     @variance_chart_row_presenters = Measure.all.map(&method(:presenter_for_measure))
-    @category_presenters = SqmCategory.sorted.map { |sqm_category| CategoryPresenter.new(category: sqm_category) }
+    @category_presenters = Category.sorted.map { |category| CategoryPresenter.new(category: category) }
   end
 
   private

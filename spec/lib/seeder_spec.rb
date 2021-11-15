@@ -87,8 +87,8 @@ describe Seeder do
 
   context 'the sqm framework' do
     before do
-      school_culture_category = create(:sqm_category, category_id: '2', sort_index: -1)
-      safety_subcategory = create(:subcategory, subcategory_id: '2A', sqm_category: school_culture_category)
+      school_culture_category = create(:category, category_id: '2', sort_index: -1)
+      safety_subcategory = create(:subcategory, subcategory_id: '2A', category: school_culture_category)
       student_physical_safety_measure = create(:measure, measure_id: '2A-i', subcategory: safety_subcategory)
       create(:survey_item, survey_item_id: 's-phys-q1', measure: student_physical_safety_measure)
       create(:admin_data_item, admin_data_item_id: 'a-phys-i1', measure: student_physical_safety_measure)
@@ -97,7 +97,7 @@ describe Seeder do
     it 'creates new objects as necessary' do
       expect {
         seeder.seed_sqm_framework sample_sqm_framework_csv
-      }.to change { SqmCategory.count }.by(4)
+      }.to change { Category.count }.by(4)
        .and change { Subcategory.count }.by(15)
        .and change { Measure.count }.by(31)
        .and change { SurveyItem.count }.by(136)
@@ -111,15 +111,15 @@ describe Seeder do
 
       it 'updates category data' do
         seeder.seed_sqm_framework sample_sqm_framework_csv
-        teachers_leadership = SqmCategory.find_by_name 'Teachers & Leadership'
+        teachers_leadership = Category.find_by_name 'Teachers & Leadership'
 
         expect(teachers_leadership.slug).to eq 'teachers-and-leadership'
         expect(teachers_leadership.description).to eq "This is a category description."
       end
 
       it 'updates category sort index to match a predefined order' do
-        teachers_leadership = SqmCategory.find_by_name 'Teachers & Leadership'
-        school_culture = SqmCategory.find_by_name 'School Culture'
+        teachers_leadership = Category.find_by_name 'Teachers & Leadership'
+        school_culture = Category.find_by_name 'School Culture'
 
         expect(teachers_leadership.sort_index).to eq 0
         expect(school_culture.sort_index).to eq 1

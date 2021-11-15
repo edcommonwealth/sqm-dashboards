@@ -5,7 +5,7 @@ describe DashboardController, type: :controller do
   let(:school) { create(:school) }
   let(:district) { create(:district) }
   let!(:categories) {
-    [create(:sqm_category, name: 'Second', sort_index: 2), create(:sqm_category, name: 'First', sort_index: 1)]
+    [create(:category, name: 'Second', sort_index: 2), create(:category, name: 'First', sort_index: 1)]
   }
 
   it 'fetches categories sorted by sort_index' do

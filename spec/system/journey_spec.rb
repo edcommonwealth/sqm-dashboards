@@ -6,7 +6,7 @@ describe 'District Admin', js: true do
   let(:school) { School.find_by_slug 'winchester-high-school' }
   let(:school_in_same_district) { School.find_by_slug 'muraco-elementary-school' }
 
-  let(:category) { SqmCategory.find_by_name('Teachers & Leadership') }
+  let(:category) { Category.find_by_name('Teachers & Leadership') }
   let(:subcategory) { Subcategory.find_by_name('Teachers & The Teaching Environment') }
   let(:measures_for_subcategory) { Measure.where(subcategory: subcategory) }
   let(:survey_items_for_subcategory) { SurveyItem.where(measure: measures_for_subcategory) }

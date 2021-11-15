@@ -1,0 +1,51 @@
+= form_for([@schedule.school, @schedule], as: 'schedule') do |f|
+  - if @schedule.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@schedule.errors.count, "error")
+        prohibited this schedule from being saved:
+      %ul
+        - @schedule.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :name
+    %br/
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :description
+    %br/
+    = f.text_area :description, class: 'form-control'
+  .form-group
+    = f.label :frequency_hours, 'How often should be people be surveyed?'
+    %br/
+    = f.select :frequency_hours, options_for_frequency_hours, class: 'form-control'
+  .form-group
+    = f.label :start_date
+    %br/
+    = f.date_select :start_date, class: 'form-control'
+  .form-group
+    = f.label :end_date
+    %br/
+    = f.date_select :end_date, class: 'form-control'
+  .form-group
+    = f.label :time, 'Time of Day (what time should people receive the text)'
+    %br/
+    = f.select :time, options_for_time, class: 'form-control'
+  .form-group
+    = f.label :active
+    %br/
+    = f.check_box :active, class: 'form-control'
+  .form-group
+    = f.label :random
+    %br/
+    = f.check_box :random, class: 'form-control'
+  .form-group
+    = f.label :recipient_list_id
+    %br/
+    = f.collection_select :recipient_list_id, @school.recipient_lists.all, :id, :name, class: 'form-control'
+  .form-group
+    = f.label :question_list_id
+    %br/
+    = f.collection_select :question_list_id, Legacy::QuestionList.all, :id, :name, class: 'form-control'
+  .form-group
+    = f.submit 'Save Schedule', class: 'btn btn-primary'

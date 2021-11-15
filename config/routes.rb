@@ -1,39 +1,40 @@
 Rails.application.routes.draw do
-  resources :question_lists
-  resources :questions
-  resources :categories
+  scope module: 'legacy', as: 'legacy' do
+    resources :question_lists
+    resources :questions
+    resources :categories
+    resources :districts
+    resources :schools do
+      resources :recipient_lists, as: 'legacy_recipient_lists'
+      resources :recipients, as: 'legacy_recipients' do
+        collection do
+          get :import
+          post :import
+        end
+      end
+      resources :schedules, as: 'legacy_schedules'
+      resources :categories, only: [:show], as: 'legacy_categories'
+      resources :questions, only: [:show], as: 'legacy_questions'
+      get :admin
+    end
+
+    get '/admin', to: 'admin#index', as: 'admin'
+    post '/twilio', to: 'attempts#twilio'
+  end
+
   resources :districts do
     resources :schools, only: [:index, :show] do
       resources :dashboard, only: [:index]
-      resources :sqm_categories, only: [:show], path: 'browse'
+      resources :categories, only: [:show], path: 'browse'
     end
   end
 
-  resources :schools do
-    resources :recipient_lists
-    resources :recipients do
-      collection do
-        get :import
-        post :import
-      end
-    end
-    resources :schedules
-    resources :categories, only: [:show]
-    resources :questions, only: [:show]
-    get :admin
-  end
-
-  # resources :attempts, only: [:get, :update]
-
-  devise_for :users
+  devise_for :users, class_name: 'Legacy::User'
   as :user do
-    get 'users', :to => 'users#show', :as => :user_root # Rails 3
+    get 'users', :to => 'legacy/users#show', :as => :user_root # Rails 3
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/admin', to: 'admin#index', as: 'admin'
-  post '/twilio', to: 'attempts#twilio'
-
   get '/welcome', to: 'home#index'
-  root to: "welcome#index"
+  root to: "legacy/welcome#index"
 end
