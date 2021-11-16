@@ -1,5 +1,5 @@
 @import "bootstrap-overrides";
-@import "bootstrap";
+@import "bootstrap/scss/bootstrap";
 @import "clear-margin-padding";
 @import "colors";
 @import "fonts";
@@ -7,7 +7,7 @@
 @import "footer";
 
 .hero-image {
-  background-image: url(image-path("hero.png"));
+  background-image: url("hero.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
