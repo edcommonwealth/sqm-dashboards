@@ -14,10 +14,10 @@ module Legacy
       @year = (params[:year] || @years.last).to_i
 
       if @district.name == "Boston"
-        @categories = Category.joins(:questions)
+        @categories = Legacy::Category.joins(:questions)
         @school_categories = SchoolCategory.where(school: @school).where(category: @categories).in(@year).to_a
       else
-        @categories = Category.root
+        @categories = Legacy::Category.root
         @school_categories = @school.school_categories.for_parent_category(@school, nil).valid.in(@year).sort
       end
 
@@ -34,7 +34,7 @@ module Legacy
 
     # GET /schools/new
     def new
-      @school = School.new
+      @school = Legacy::School.new
     end
 
     # GET /schools/1/edit
@@ -44,7 +44,7 @@ module Legacy
     # POST /schools
     # POST /schools.json
     def create
-      @school = School.new(school_params)
+      @school = Legacy::School.new(school_params)
 
       respond_to do |format|
         if @school.save
@@ -85,7 +85,7 @@ module Legacy
 
     # Use callbacks to share common setup or constraints between actions.
     def set_school
-      @school = School.friendly.find(params[:id] || params[:school_id])
+      @school = Legacy::School.friendly.find(params[:id] || params[:school_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

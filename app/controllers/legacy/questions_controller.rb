@@ -69,7 +69,7 @@ module Legacy
 
     def set_school
       redirect_to root_path and return false unless params.include?(:school_id)
-      @school = School.friendly.find(params[:school_id])
+      @school = Legacy::School.friendly.find(params[:school_id])
       redirect_to root_path and return false if @school.nil?
     end
 

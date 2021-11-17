@@ -5,7 +5,7 @@ module Legacy
     # GET /districts
     # GET /districts.json
     def index
-      @districts = District.all.alphabetic
+      @districts = Legacy::District.all.alphabetic
     end
 
     # GET /districts/1
@@ -17,7 +17,7 @@ module Legacy
 
     # GET /districts/new
     def new
-      @district = District.new
+      @district = Legacy::District.new
     end
 
     # GET /districts/1/edit
@@ -27,7 +27,7 @@ module Legacy
     # POST /districts
     # POST /districts.json
     def create
-      @district = District.new(district_params)
+      @district = Legacy::District.new(district_params)
 
       respond_to do |format|
         if @district.save
@@ -68,7 +68,7 @@ module Legacy
 
     # Use callbacks to share common setup or constraints between actions.
     def set_district
-      @district = District.find_by_slug(params[:id])
+      @district = Legacy::District.find_by_slug(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

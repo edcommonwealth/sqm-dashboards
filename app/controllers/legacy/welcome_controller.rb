@@ -2,8 +2,8 @@ module Legacy
   class WelcomeController < ApplicationController
 
     def index
-      @districts = District.all.alphabetic
-      @schools = School.all.alphabetic
+      @districts = Legacy::District.all.alphabetic
+      @schools = Legacy::School.all.alphabetic
     end
 
   end

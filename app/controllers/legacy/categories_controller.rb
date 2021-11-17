@@ -6,7 +6,7 @@ module Legacy
     # GET /categories
     # GET /categories.json
     def index
-      @categories = Category.all
+      @categories = Legacy::Category.all
     end
 
     # GET /categories/1
@@ -25,7 +25,7 @@ module Legacy
 
       @school_category = school_categories.select { |sc| sc.year.to_s == @year.to_s }.first
       @child_school_categories = SchoolCategory.for_parent_category(@school, @category).in(@year).valid.to_a
-      missing_categories = Category.for_parent(@category) - @child_school_categories.map(&:category)
+      missing_categories = Legacy::Category.for_parent(@category) - @child_school_categories.map(&:category)
       missing_categories.each do |category|
         next if category.benchmark.present?
         @child_school_categories << category.school_categories.new(school: @school)
@@ -40,7 +40,7 @@ module Legacy
 
     # GET /categories/new
     def new
-      @category = Category.new
+      @category = Legacy::Category.new
     end
 
     # GET /categories/1/edit
@@ -50,7 +50,7 @@ module Legacy
     # POST /categories
     # POST /categories.json
     def create
-      @category = Category.new(category_params)
+      @category = Legacy::Category.new(category_params)
 
       respond_to do |format|
         if @category.save
@@ -91,12 +91,12 @@ module Legacy
 
     def set_school
       redirect_to root_path and return false unless params.include?(:school_id)
-      @school = School.friendly.find(params[:school_id])
+      @school = Legacy::School.friendly.find(params[:school_id])
       redirect_to root_path and return false if @school.nil?
     end
 
     def set_category
-      @category = Category.friendly.find(params[:id])
+      @category = Legacy::Category.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

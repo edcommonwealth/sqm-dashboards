@@ -54,7 +54,7 @@ module Legacy
 
     # Use callbacks to share common setup or constraints between actions.
     def set_school
-      @school = School.friendly.find(params[:school_id])
+      @school = Legacy::School.friendly.find(params[:school_id])
     end
 
     def set_recipient_list

@@ -1,9 +1,9 @@
 - if user_signed_in? && current_user.super_admin?
   .row.super-admin
     .col-12
-      %p= link_to "Create A New District", new_district_path
+      %p= link_to "Create A New District", new_legacy_district_path
 
-      %p= link_to "Create A New School", new_school_path
+      %p= link_to "Create A New School", new_legacy_school_path
 
 
 - if true || user_signed_in?
