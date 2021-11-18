@@ -11,14 +11,17 @@ class Seeder
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
       district_code = row['District Code'].strip
+      dese_id = row['DESE School ID'].strip
       school_name = row['School Name'].strip
       school_code = row['School Code'].strip
 
       district = District.find_or_create_by! name: district_name
       district.update! slug: district_name.parameterize, qualtrics_code: district_code
 
-      school = School.find_or_create_by! name: school_name, district: district
-      school.update! qualtrics_code: school_code
+      school = School.find_or_initialize_by dese_id: dese_id, district: district
+      school.name = school_name
+      school.qualtrics_code = school_code
+      school.save!
     end
   end
 

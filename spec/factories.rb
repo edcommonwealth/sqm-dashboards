@@ -8,6 +8,7 @@ FactoryBot.define do
   factory :school do
     name { "#{rand} School" }
     slug { name.parameterize }
+    dese_id { rand(1000) }
     district
   end
 

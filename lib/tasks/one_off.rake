@@ -22,10 +22,45 @@ namespace :one_off do
     puts "number of outstanding categories: #{SqmCategory.where(category_id: 'default-category-id').count}"
     puts "number of outstanding subcategories: #{Subcategory.where(subcategory_id: 'default-subcategory-id').count}"
 
-    facilities_and_personnel = Subcategory.find_by name: 'Facilities and Personnel', subcategory_id: 'default-subcategory-id'
+    facilities_and_personnel = Subcategory.find_by name: 'Facilities and Personnel',
+                                                   subcategory_id: 'default-subcategory-id'
     if facilities_and_personnel.present?
       facilities_and_personnel.destroy
       puts "number of outstanding subcategories now: #{Subcategory.where(subcategory_id: 'default-subcategory-id').count}"
     end
+  end
+
+  task add_dese_ids: :environment do
+    all_schools = School.all.includes(:district)
+
+    qualtrics_schools = {}
+
+    csv_file = Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    CSV.parse(File.read(csv_file), headers: true) do |row|
+      district_id = row['District Code'].to_i
+      school_id = row['School Code'].to_i
+
+      if qualtrics_schools[[district_id, school_id]].present?
+        puts "Duplicate entry row #{row}"
+        next
+      end
+
+      qualtrics_schools[[district_id, school_id]] = row
+    end
+
+    qualtrics_schools.each do |(district_id, school_id), csv_row|
+      school = all_schools.find do |school|
+        school.qualtrics_code == school_id && school.district.qualtrics_code == district_id
+      end
+
+      if school.nil?
+        puts "Could not find school with district id: #{district_id}, school id: #{school_id}"
+        next
+      end
+
+      school.update!(dese_id: csv_row['DESE School ID'])
+    end
+
+    School.where(dese_id: -1).each {|school| puts "School with nil dese id: #{school.name}, id: #{school.id}"}
   end
 end
