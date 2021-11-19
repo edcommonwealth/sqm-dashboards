@@ -10,10 +10,10 @@ class Seeder
   def seed_districts_and_schools csv_file
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
-      district_code = row['District Code'].strip
+      district_code = row['District Code'].try(:strip)
       dese_id = row['DESE School ID'].strip
       school_name = row['School Name'].strip
-      school_code = row['School Code'].strip
+      school_code = row['School Code'].try(:strip)
 
       district = District.find_or_create_by! name: district_name
       district.update! slug: district_name.parameterize, qualtrics_code: district_code

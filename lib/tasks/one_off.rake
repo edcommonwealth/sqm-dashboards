@@ -32,6 +32,7 @@ namespace :one_off do
 
   task add_dese_ids: :environment do
     all_schools = School.all.includes(:district)
+    updated_schools = []
 
     qualtrics_schools = {}
 
@@ -54,13 +55,17 @@ namespace :one_off do
       end
 
       if school.nil?
-        puts "Could not find school with district id: #{district_id}, school id: #{school_id}"
+        school_name = csv_row['School Name'].strip
+        puts "Could not find school '#{school_name}' with district id: #{district_id}, school id: #{school_id}"
+        potential_school_ids = School.where('name like ?', "%#{school_name}%").map(&:id)
+        puts "Potential ID matches: #{potential_school_ids}" if potential_school_ids.present?
         next
       end
 
       school.update!(dese_id: csv_row['DESE School ID'])
+      updated_schools << school.id
     end
 
-    School.where(dese_id: -1).each {|school| puts "School with nil dese id: #{school.name}, id: #{school.id}"}
+    School.where.not(id: updated_schools).each {|school| puts "School with unchanged DESE id: #{school.name}, id: #{school.id}"}
   end
 end

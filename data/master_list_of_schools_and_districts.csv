@@ -1,206 +1,198 @@
 District,School Name,District Code,School Code,DESE School ID,School Closed In ,Total Students for Response Rate,Total Teachers for Response Rate
-Attleboro,Attleboro High School,1,1,00160505,,1792,114.70
-Attleboro,Cyril K. Brennan Middle School,1,2,00160315,,620,41.30
-Attleboro,Robert J. Coelho Middle School,1,3,00160305,,633,38.80
-Attleboro,Wamsutta Middle School,1,4,00160320,,578,37.00
-Attleboro,Hill-Roberts Elementary School,1,5,00160045,,97,28.10
-Attleboro,Hyman Fine Elementary School,1,6,00160040,,86,31.50
 Attleboro,A. Irvin Studley Elementary School,1,7,00160001,,75,26.90
-Attleboro,Peter Thacher Elementary School,1,8,00160050,,94,34.60
 Attleboro,Thomas Willett Elementary School,1,9,00160035,,70,26.40
-Boston,Samuel Adams Elementary School,2,1,00350302,,79,28.40
-Boston,Dante Alghieri Montessori School,2,2,00350066,,28,10.30
-Boston,Another Course to College,2,3,00350541,,236,25.00
-Boston,Phineas Bates Elementary School,2,4,00350278,,69,23.40
-Boston,Ludwig van Beethoven Elementary School,2,5,00350021,,0,24.50
-Boston,Blackstone Innovation School,2,6,00350390,,156,55.70
-Boston,Boston Arts Academy,2,7,00350546,,482,53.00
-Boston,Boston Community Leadership Academy,2,8,00350558,,478,44.60
-Boston,Boston Day and Evening Academy,2,9,00441006,,#N/A,#N/A
-Boston,Boston Green Academy,2,10,04110305,,509,57.50
-Boston,Boston International Newcomers Academy,2,11,00350507,,398,54.10
-Boston,Boston Latin Academy,2,12,00350545,,1787,94.00
-Boston,Boston Latin School,2,13,00350560,,2483,126.00
-Boston,Boston Teachers Union K-8 School,2,14,00350012,,157,20.20
-Boston,Manassah E. Bradley Elementary School,2,15,00350215,,105,21.70
-Boston,Brighton High School,2,16,00350505,,402,49.80
-Boston,Jeremiah E. Burke High School,2,17,00350525,,390,34.90
-Boston,William E. Channing Elementary School,2,18,00350360,,69,23.70
-Boston,Charlestown High School,2,19,00350515,,785,95.10
-Boston,James J. Chittick Elementary School,2,20,00350154,,71,34.20
-Boston,Clap Elementary School,2,21,00350298,,47,13.40
-Boston,Community Academy,2,22,00350518,,51,12.70
-Boston,Community Academy of Science and Health,2,23,00350581,,334,41.20
-Boston,James F. Condon K-8 School,2,24,00350146,,419,64.20
-Boston,George H. Conley Elementary School,2,25,00350122,,96,22.80
-Boston,Curley K-8 School,2,26,00350020,,474,100.30
-Boston,Henry Dearborn STEM Academy,2,27,00350074,,578,52.50
-Boston,Paul A. Dever Elementary School,2,28,00350268,,121,39.40
-Boston,Boston Collaborative High School,2,29,00350755,,160,15.30
-Boston,Dudley Street Neighborhood Charter School,2,30,04070405,,77,10.30
-Boston,East Boston High School,2,31,00350530,,1055,89.60
-Boston,Thomas Edison K-8 School,2,32,00350375,,278,57.30
-Boston,Clarence R. Edwards Middle School,2,33,00350430,,206,25.80
-Boston,John Eliot K-8 School,2,34,00350096,,386,57.40
-Boston,David A. Ellis Elementary School,2,35,00350072,,113,37.60
-Boston,English High School,2,36,00350535,,518,58.10
-Boston,Edward Everett Elementary School,2,37,00350088,,123,23.00
-Boston,Excel High School,2,38,00350522,,471,49.90
-Boston,Fenway High School,2,39,00350540,,388,37.30
-Boston,Lilla G. Frederick Middle School,2,40,00350383,,381,40.30
-Boston,Gardner Pilot Academy,2,41,00350326,,199,31.60
-Boston,Greater Egleston High School,2,42,00350543,,114,10.70
-Boston,Sarah Greenwood K-8 School,2,43,00350308,,183,35.60
-Boston,Henry Grew Elementary School,2,44,00350135,,67,17.80
-Boston,Curtis Guild Elementary School,2,45,00350062,,101,29.30
-Boston,Nathan Hale Elementary School,2,46,00350243,,68,19.00
-Boston,Dennis Haley K-8 School,2,47,00350077,,199,45.70
-Boston,Harvard/Kent Elementary School,2,48,00350200,,156,45.20
-Boston,Dr. William W. Henderson K-12 Inclusion School,2,49,00350266,,0,21.80
-Boston,James W. Hennigan K-8 School,2,50,00350153,,366,49.80
-Boston,Rafael Hernandez K-8 School,2,51,00350691,,177,28.30
-Boston,Higginson-Lewis School,2,52,00350377,,190,27.40
-Boston,Oliver Wendell Holmes Elementary School,2,53,00350138,,81,31.90
-Boston,Horace Mann School for the Deaf and Hard of Hearing,2,54,00350750,,50,35.50
-Boston,Joseph Hurley K-8 School,2,55,00350182,,152,22.50
-Boston,Washington Irving Middle School,2,56,00350445,,184,27.80
-Boston,Jackson/Mann K-8 School,2,57,00350013,,235,53.30
-Boston,Edward M. Kennedy Academy for Health Careers,2,58,00350122,,96,22.80
-Boston,John F. Kennedy Elementary School,2,59,00350166,,115,27.10
-Boston,Patrick Kennedy Elementary School,2,60,00350264,,108,26.20
-Boston,Thomas J. Kenny Elementary School,2,61,00350328,,153,33.40
-Boston,Joyce Kilmer K-8 School,2,62,00350190,,210,43.00
-Boston,"Martin Luther King, Jr. K-8 School",2,63,00350376,,231,55.70
-Boston,Joseph Lee K-8 School,2,64,00350183,,320,65.90
-Boston,Patrick Lyndon K-8 School,2,65,00350262,,304,52.50
+Attleboro,Hyman Fine Elementary School,1,6,00160040,,86,31.50
+Attleboro,Hill-Roberts Elementary School,1,5,00160045,,97,28.10
+Attleboro,Peter Thacher Elementary School,1,8,00160050,,94,34.60
+Attleboro,Robert J. Coelho Middle School,1,3,00160305,,633,38.80
+Attleboro,Cyril K. Brennan Middle School,1,2,00160315,,620,41.30
+Attleboro,Wamsutta Middle School,1,4,00160320,,578,37.00
+Attleboro,Attleboro High School,1,1,00160505,,1792,114.70
+Boston,Lee Academy,2,,00350001,,0,19.20
+Boston,Baldwin Early Learning Pilot Academy ,2,117,00350003,,0,15.00
 Boston,Mary Lyon K-8 School,2,66,00350004,,76,17.40
-Boston,Mary Lyon High School,2,67,00350655,,137,16.60
-Boston,Madison Park Technical Vocational High School,2,68,00350537,,1043,128.10
-Boston,Joseph P. Manning Elementary School,2,69,00350184,,69,16.20
-Boston,Samuel Mason Elementary School,2,70,00350304,,64,28.30
-Boston,Mather Elementary School,2,71,00350227,,152,45.40
-Boston,John W. McCormack Middle School,2,72,00350179,,250,26.50
-Boston,Donald McKay K-8 School,2,73,00350080,,452,70.10
-Boston,William McKinley Elementary School,2,74,00350363,,252,58.50
-Boston,William McKinley Middle School,2,75,00350363,,252,58.50
-Boston,William McKinley South End Academy,2,76,00350363,,252,58.50
-Boston,William McKinley Preparatory High School,2,77,00350363,,252,58.50
-Boston,William McKinley School,2,78,00350363,,252,58.50
-Boston,Ellis Mendell School,2,79,00350100,,82,26.50
-Boston,Mildred Avenue K-8 School,2,80,00350378,,464,55.90
-Boston,Mission Hill K-8 School,2,81,00350382,,107,24.50
-Boston,Wolfgang A. Mozart Elementary School,2,82,00350237,,46,18.30
-Boston,Margarita Muniz Academy,2,83,00350549,,315,27.70
-Boston,Richard J. Murphy K-8 School,2,84,00350240,,556,70.10
-Boston,New Mission High School,2,85,00350542,,481,44.90
-Boston,John D. O'Bryant School of Mathematics and Science,2,86,00350575,,1624,110.20
-Boston,Hugh R. O'Donnell Elementary School,2,87,00350141,,99,24.50
-Boston,William Ohrenberger School,2,88,00350258,,452,44.80
-Boston,Orchard Gardens K-8 School,2,89,00350257,,452,74.10
-Boston,James Otis Elementary School,2,90,00350156,,136,36.60
-Boston,Michael J. Perkins Elementary School,2,91,00350231,,78,18.40
-Boston,Oliver Hazard Perry K-8 School,2,92,00350255,,81,23.70
-Boston,John D. Philbrick Elementary School,2,93,00350172,,33,14.90
-Boston,Josiah Quincy Elementary School,2,94,00350286,,245,65.70
-Boston,Josiah Quincy Upper School,2,95,00350286,,245,65.70
-Boston,Franklin D. Roosevelt K-8 School,2,96,00350116,,222,36.80
-Boston,William E. Russell Elementary School,2,97,00350366,,87,34.40
+Boston,West Zone Early Learning Center ,2,123,00350006,,0,12.00
+Boston,Ellison/Parks Early Education School,2,120,00350008,,0,21.00
+Boston,East Boston Early Education Center ,2,119,00350009,,0,19.30
+Boston,Haynes Early Education Center ,2,121,00350010,,0,16.50
+Boston,Boston Teachers Union K-8 School,2,14,00350012,,157,20.20
+Boston,Jackson/Mann K-8 School,2,57,00350013,,235,53.30
 Boston,Pauline A. Shaw Elementary School,2,98,00350014,,0,15.50
-Boston,Snowden International School at Copley,2,99,00350690,,483,44.00
+Boston,Curley K-8 School,2,26,00350020,,474,100.30
+Boston,Ludwig van Beethoven Elementary School,2,5,00350021,,0,24.50
+Boston,William E. Carter School,2,124,00350036,,27,2.00
 Boston,Charles Sumner Elementary School,2,100,00350052,,145,42.30
 Boston,Charles H. Taylor Elementary School,2,101,00350054,,111,37.00
-Boston,TechBoston Academy,2,102,00350657,,901,95.00
-Boston,James P. Timilty Middle School,2,103,00350485,,233,31.70
-Boston,Maurice Tobin K-8 School,2,104,00350229,,229,35.80
-Boston,William Monroe Trotter K-8 School,2,105,00350370,,165,31.80
-Boston,Joseph P. Tynan Elementary School,2,106,00350181,,77,28.10
-Boston,Mario Umana Academy,2,107,00350656,,500,64.00
-Boston,UP Academy Boston,2,108,04800405,,349,35.30
-Boston,UP Academy Dorchester,2,109,35050405,,354,45.70
+Boston,Curtis Guild Elementary School,2,45,00350062,,101,29.30
+Boston,Dante Alghieri Montessori School,2,2,00350066,,28,10.30
+Boston,David A. Ellis Elementary School,2,35,00350072,,113,37.60
+Boston,Henry Dearborn STEM Academy,2,27,00350074,,578,52.50
+Boston,Dennis Haley K-8 School,2,47,00350077,,199,45.70
+Boston,Donald McKay K-8 School,2,73,00350080,,452,70.10
+Boston,Edward Everett Elementary School,2,37,00350088,,123,23.00
+Boston,John Eliot K-8 School,2,34,00350096,,386,57.40
+Boston,Ellis Mendell School,2,79,00350100,,82,26.50
+Boston,Franklin D. Roosevelt K-8 School,2,96,00350116,,222,36.80
+Boston,George H. Conley Elementary School,2,25,00350122,,96,22.80
+Boston,Edward M. Kennedy Academy for Health Careers,2,58,04520505,,385,36.30
+Boston,Henry Grew Elementary School,2,44,00350135,,67,17.80
+Boston,Oliver Wendell Holmes Elementary School,2,53,00350138,,81,31.90
+Boston,Hugh R. O'Donnell Elementary School,2,87,00350141,,99,24.50
+Boston,James F. Condon K-8 School,2,24,00350146,,419,64.20
+Boston,James W. Hennigan K-8 School,2,50,00350153,,366,49.80
+Boston,James J. Chittick Elementary School,2,20,00350154,,71,34.20
+Boston,James Otis Elementary School,2,90,00350156,,136,36.60
+Boston,John F. Kennedy Elementary School,2,59,00350166,,115,27.10
+Somerville,John F. Kennedy Elementary School,5,6,02740083,,251,36.60
 Boston,UP Academy Holland,2,110,00350167,,216,48.50
-Boston,Urban Science Academy,2,111,00350579,,#N/A,#N/A
-Boston,Warren/Prescott K-8 School,2,112,00350346,,236,48.10
-Boston,West Roxbury Academy,2,113,00350658,,#N/A,#N/A
-Boston,F. Lyman Winship Elementary School,2,114,00350374,,32,23.00
+Boston,John D. Philbrick Elementary School,2,93,00350172,,33,14.90
+Boston,John W. McCormack Middle School,2,72,00350179,,250,26.50
 Boston,John Winthrop Elementary School,2,115,00350180,,56,27.00
-Boston,Young Achievers Science and Math K-8 School,2,116,00350380,,314,54.50
-Boston,Baldwin Early Learning Pilot Academy ,2,117,00350003,,0,15.00
-Boston,Boston Adult Technical Academy ,2,118,00351002,,#N/A,#N/A
-Boston,Dorchester Academy ,2,125,00350651,,#N/A,#N/A
-Boston,EDCO Youth ,2,126,05230001,,#N/A,#N/A
-Boston,East Boston Early Education Center ,2,119,00350009,,0,19.30
-Boston,Ellison/Parks Early Education School,2,120,00350008,,0,21.00
-Boston,Haynes Early Education Center ,2,121,00350010,,0,16.50
-Boston,Lee Academy,2,64,00350001,,0,19.20
+Boston,Joseph P. Tynan Elementary School,2,106,00350181,,77,28.10
+Boston,Joseph Hurley K-8 School,2,55,00350182,,152,22.50
+Boston,Joseph Lee K-8 School,2,64,00350183,,320,65.90
+Boston,Joseph P. Manning Elementary School,2,69,00350184,,69,16.20
+Boston,Joyce Kilmer K-8 School,2,62,00350190,,210,43.00
+Boston,Harvard/Kent Elementary School,2,48,00350200,,156,45.20
+Boston,Manassah E. Bradley Elementary School,2,15,00350215,,105,21.70
 Boston,Mattahunt,2,122,00350226,,#N/A,#N/A
+Boston,Mather Elementary School,2,71,00350227,,152,45.40
+Boston,Maurice Tobin K-8 School,2,104,00350229,,229,35.80
+Boston,Michael J. Perkins Elementary School,2,91,00350231,,78,18.40
+Boston,Wolfgang A. Mozart Elementary School,2,82,00350237,,46,18.30
+Boston,Richard J. Murphy K-8 School,2,84,00350240,,556,70.10
+Boston,Nathan Hale Elementary School,2,46,00350243,,68,19.00
+Boston,Oliver Hazard Perry K-8 School,2,92,00350255,,81,23.70
+Boston,Orchard Gardens K-8 School,2,89,00350257,,452,74.10
+Boston,William Ohrenberger School,2,88,00350258,,452,44.80
 Boston,Patrick Lyndon K-8 School,2,65,00350262,,304,52.50
-Boston,West Zone Early Learning Center ,2,123,00350006,,0,12.00
-Boston,William E. Carter School,2,124,00350036,,27,2.00
-Lowell,Bailey Elementary School,3,1,01600002,,90,35.00
-Lowell,Butler Middle School,3,2,01600310,,550,42.40
+Boston,Patrick Kennedy Elementary School,2,60,00350264,,108,26.20
+Boston,Dr. William W. Henderson K-12 Inclusion School,2,49,00350266,,0,21.80
+Boston,Paul A. Dever Elementary School,2,28,00350268,,121,39.40
+Boston,Phineas Bates Elementary School,2,4,00350278,,69,23.40
+Boston,Josiah Quincy Elementary School,2,94,00350286,,245,65.70
+Boston,Josiah Quincy Upper School,2,95,00350565,,535,48.70
+Boston,Clap Elementary School,2,21,00350298,,47,13.40
+Boston,Samuel Adams Elementary School,2,1,00350302,,79,28.40
+Boston,Samuel Mason Elementary School,2,70,00350304,,64,28.30
+Boston,Sarah Greenwood K-8 School,2,43,00350308,,183,35.60
+Boston,Gardner Pilot Academy,2,41,00350326,,199,31.60
+Boston,Thomas J. Kenny Elementary School,2,61,00350328,,153,33.40
+Boston,Warren/Prescott K-8 School,2,112,00350346,,236,48.10
+Boston,William E. Channing Elementary School,2,18,00350360,,69,23.70
+Boston,William McKinley School,2,78,00350363,,252,58.50
+Boston,William E. Russell Elementary School,2,97,00350366,,87,34.40
+Boston,William Monroe Trotter K-8 School,2,105,00350370,,165,31.80
+Boston,F. Lyman Winship Elementary School,2,114,00350374,,32,23.00
+Boston,Thomas Edison K-8 School,2,32,00350375,,278,57.30
+Boston,"Martin Luther King, Jr. K-8 School",2,63,00350376,,231,55.70
+Boston,Higginson-Lewis School,2,52,00350377,,190,27.40
+Boston,Mildred Avenue K-8 School,2,80,00350378,,464,55.90
+Boston,Young Achievers Science and Math K-8 School,2,116,00350380,,314,54.50
+Boston,Mission Hill K-8 School,2,81,00350382,,107,24.50
+Boston,Lilla G. Frederick Middle School,2,40,00350383,,381,40.30
+Boston,Blackstone Innovation School,2,6,00350390,,156,55.70
+Boston,Clarence R. Edwards Middle School,2,33,00350430,,206,25.80
+Boston,Washington Irving Middle School,2,56,00350445,,184,27.80
+Boston,James P. Timilty Middle School,2,103,00350485,,233,31.70
+Boston,Brighton High School,2,16,00350505,,402,49.80
+Boston,Boston International Newcomers Academy,2,11,00350507,,398,54.10
+Boston,Charlestown High School,2,19,00350515,,785,95.10
+Boston,Community Academy,2,22,00350518,,51,12.70
+Boston,Excel High School,2,38,00350522,,471,49.90
+Boston,Jeremiah E. Burke High School,2,17,00350525,,390,34.90
+Boston,East Boston High School,2,31,00350530,,1055,89.60
+Boston,English High School,2,36,00350535,,518,58.10
+Boston,Madison Park Technical Vocational High School,2,68,00350537,,1043,128.10
+Boston,Fenway High School,2,39,00350540,,388,37.30
+Boston,Another Course to College,2,3,00350541,,236,25.00
+Boston,New Mission High School,2,85,00350542,,481,44.90
+Boston,Greater Egleston High School,2,42,00350543,,114,10.70
+Boston,Boston Latin Academy,2,12,00350545,,1787,94.00
+Boston,Boston Arts Academy,2,7,00350546,,482,53.00
+Boston,Margarita Muniz Academy,2,83,00350549,,315,27.70
+Boston,Boston Community Leadership Academy,2,8,00350558,,478,44.60
+Boston,Boston Latin School,2,13,00350560,,2483,126.00
+Boston,John D. O'Bryant School of Mathematics and Science,2,86,00350575,,1624,110.20
+Boston,Urban Science Academy,2,111,00350579,,#N/A,#N/A
+Boston,Community Academy of Science and Health,2,23,00350581,,334,41.20
+Boston,Mary Lyon High School,2,67,00350655,,137,16.60
+Boston,Mario Umana Academy,2,107,00350656,,500,64.00
+Boston,TechBoston Academy,2,102,00350657,,901,95.00
+Boston,West Roxbury Academy,2,113,00350658,,#N/A,#N/A
+Boston,Snowden International School at Copley,2,99,00350690,,483,44.00
+Boston,Rafael Hernandez K-8 School,2,51,00350691,,177,28.30
+Boston,Horace Mann School for the Deaf and Hard of Hearing,2,54,00350750,,50,35.50
+Boston,Boston Collaborative High School,2,29,00350755,,160,15.30
+Boston,Boston Adult Technical Academy ,2,118,00351002,,#N/A,#N/A
+Boston,Boston Day and Evening Academy,2,9,00441006,,#N/A,#N/A
 Lowell,Cardinal O'Connell Alternative School,3,3,01600001,,0,9.00
-Lowell,Daley Middle School,3,4,01600315,,691,50.20
-Lowell,Greenhalge Elementary School,3,5,01600015,,88,37.00
-Lowell,Laura Lee Therapeutic Day School,3,6,01600085,,23,6.80
-Lowell,LeBlanc Therapeutic Day School,3,7,01600320,,36,7.30
-Lowell,Lowell High School,3,8,01600505,,3048,212.90
-Lowell,McAuliffe Elementary School,3,9,01600075,,91,37.00
+Lowell,Bailey Elementary School,3,1,01600002,,90,35.00
+Lowell,STEM Academy at the Rogers School,3,20,01600005,,510,59.00
 Lowell,McAvinnue Elementary School,3,10,01600010,,86,39.00
+Lowell,Greenhalge Elementary School,3,5,01600015,,88,37.00
+Lowell,Pyne Arts School,3,15,01600018,,264,38.20
+Lowell,Abraham Lincoln Elementary School,3,52,01600020,,90,39.00
+Revere,Lincoln Elementary School,4,5,02480025,,175,39.10
+Winchester,Lincoln Elementary School,6,2,03440005,,157,30.20
 Lowell,Moody Elementary School,3,11,01600027,,43,17.80
 Lowell,Morey Elementary School,3,12,01600030,,88,37.00
-Lowell,Murkland Elementary School,3,13,01600080,,87,35.00
 Lowell,Pawtucketville Memorial Elementary School,3,14,01600036,,91,34.00
-Lowell,Pyne Arts School,3,15,01600018,,264,38.20
 Lowell,Reilly Elementary School,3,16,01600040,,89,32.20
-Lowell,Riverside School,3,17,01600920,,#N/A,#N/A
-Lowell,Robinson Middle School,3,18,01600330,,658,45.40
 Lowell,Shaughnessy Elementary School,3,19,01600050,,92,38.00
-Lowell,STEM Academy at the Rogers School,3,20,01600005,,510,59.00
-Lowell,Stoklosa Middle School,3,21,01600360,,656,53.60
-Lowell,Sullivan Middle School,3,22,01600340,,641,47.00
-Lowell,The Career Academy,3,23,01600515,,94,9.90
-Lowell,Wang Middle School,3,24,01600345,,668,46.00
 Lowell,Washington Elementary School,3,25,01600055,,46,23.00
+Lowell,McAuliffe Elementary School,3,9,01600075,,91,37.00
+Lowell,Murkland Elementary School,3,13,01600080,,87,35.00
+Lowell,Laura Lee Therapeutic Day School,3,6,01600085,,23,6.80
 Lowell,Bartlett Community Partnership School,3,26,01600090,,256,40.80
+Lowell,Butler Middle School,3,2,01600310,,550,42.40
+Lowell,Daley Middle School,3,4,01600315,,691,50.20
+Lowell,LeBlanc Therapeutic Day School,3,7,01600320,,36,7.30
+Lowell,Robinson Middle School,3,18,01600330,,658,45.40
+Lowell,Sullivan Middle School,3,22,01600340,,641,47.00
+Lowell,Wang Middle School,3,24,01600345,,668,46.00
+Lowell,Stoklosa Middle School,3,21,01600360,,656,53.60
+Lowell,Lowell High School,3,8,01600505,,3048,212.90
+Lowell,The Career Academy,3,23,01600515,,94,9.90
 Lowell,Adie Day School,3,51,01600605,,32,11.00
-Lowell,Abraham Lincoln Elementary School,3,52,01600020,,90,39.00
+Lowell,Riverside School,3,17,01600920,,#N/A,#N/A
+Milford,Memorial Elementary School,7,4,01850010,,0,38.40
+Milford,Brookside Elementary School,7,3,01850065,,0,39.40
+Milford,Shining Star Early Childhood Center,7,5,01850075,,0,7.60
+Milford,Woodland Elementary School,7,1,01850090,,656,81.20
+Milford,Stacy Middle School,7,26,01850305,,1032,76.40
+Milford,Milford High School,7,2,01850505,,1257,95.20
+Revere,Whelan Elementary School,4,7,02480003,,256,53.50
 Revere,Beachmont Elementary School,4,1,02480013,,97,29.00
+Revere,Rumney Marsh Academy,4,9,02480014,,600,50.50
+Revere,Hill Elementary School,4,4,02480035,,237,47.50
+Revere,Paul Revere Elementary School,4,6,02480050,,159,41.50
 Revere,Garfield Elementary School,4,2,02480056,,201,57.80
 Revere,Garfield Middle School,4,3,02480057,,568,44.90
-Revere,Hill Elementary School,4,4,02480035,,237,47.50
-Revere,Lincoln Elementary School,4,5,01600020,,90,39.00
-Revere,Paul Revere Elementary School,4,6,02480050,,159,41.50
-Revere,Whelan Elementary School,4,7,02480003,,256,53.50
 Revere,Susan B. Anthony Middle School,4,8,02480305,,575,49.00
-Revere,Rumney Marsh Academy,4,9,02480014,,600,50.50
 Revere,Revere High School,4,10,02480505,,1978,135.60
 Revere,Seacoast High School,4,11,02480520,,81,12.80
-Somerville,Arthur D. Healey School,5,1,02740075,,235,42.80
+Somerville,Michael E. Capuano Early Childhood Center,5,12,02740005,,0,23.30
 Somerville,Benjamin G. Brown School,5,2,02740015,,78,15.80
+Somerville,Arthur D. Healey School,5,1,02740075,,235,42.80
 Somerville,Dr. Albert F. Argenziano School at Lincoln Park,5,3,02740087,,290,45.70
 Somerville,East Somerville Community School,5,4,02740111,,392,54.20
-Somerville,Full Circle High School,5,5,02740510,,56,10.70
-Somerville,John F. Kennedy Elementary School,5,6,00350166,,115,27.10
-Somerville,Next Wave Junior High School,5,5,02740410,,15,5.90
-Somerville,Somerville High School,5,8,02740505,,1215,113.20
 Somerville,West Somerville Neighborhood School,5,9,02740115,,193,29.30
 Somerville,Winter Hill Community Innovation School,5,10,02740120,,230,46.70
-Somerville,Michael E Capuano Early Childhood Center,5,12,02740005,,0,23.30
-Winchester,Ambrose Elementary School,6,1,03440045,,130,30.20
-Winchester,Lincoln Elementary School,6,2,01600020,,90,39.00
-Winchester,Lynch Elementary School,6,3,03440020,,158,43.20
-Winchester,Muraco Elementary School,6,4,03440040,,136,25.30
-Winchester,Vinson-Owen Elementary School,6,5,03440025,,136,36.30
-Winchester,McCall Middle School,6,6,03440305,,1084,85.30
-Winchester,Winchester High School,6,7,03440505,,1403,98.20
-Milford,Woodland Elementary School,7,1,01850090,,656,81.20
-Milford,Milford High School,7,2,01850505,,1257,95.20
-Milford,Stacy Middle School,7,26,01850305,,1032,76.40
-Milford,Brookside Elementary School,7,3,01850065,,0,39.40
-Milford,Memorial Elementary School,7,4,01850010,,0,38.40
-Milford,Shining Star Early Childhood Center,7,5,01850075,,0,7.60
+Somerville,Somerville High School,5,8,02740505,,1215,113.20
+Somerville,Next Wave/Full Circle,5,5,02740510,,56,10.70
+Wareham,John William Decas Elementary School,8,1,03100003,,0,48.50
 Wareham,Minot Forest Elementary School,8,2,03100017,,134,25.70
 Wareham,Wareham Middle School,8,3,03100305,,533,36.00
-Wareham,Wareham High School,8,4,03100505,,585,59.20
 Wareham,Wareham Cooperative Alternative School,8,8,03100315,,33,2.60
-Wareham,John William Decas Elementary School,8,1,03100003,,0,48.50
+Wareham,Wareham High School,8,4,03100505,,585,59.20
+Winchester,Lynch Elementary School,6,3,03440020,,158,43.20
+Winchester,Vinson-Owen Elementary School,6,5,03440025,,136,36.30
+Winchester,Muraco Elementary School,6,4,03440040,,136,25.30
+Winchester,Ambrose Elementary School,6,1,03440045,,130,30.20
+Winchester,McCall Middle School,6,6,03440305,,1084,85.30
+Winchester,Winchester High School,6,7,03440505,,1403,98.20
+Boston,Dudley Street Neighborhood Charter School,2,30,04070405,,77,10.30
+Boston,Boston Green Academy,2,10,04110305,,509,57.50
+Boston,UP Academy Boston,2,108,04800405,,349,35.30
+Boston,UP Academy Dorchester,2,109,35050405,,354,45.70
