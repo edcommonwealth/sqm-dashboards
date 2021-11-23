@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception, prepend: true
+  before_action :set_google_analytics_id
 
 
   def verify_admin
@@ -14,6 +15,11 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic do |u, p|
       u == username && p == password
     end
+  end
+
+  private
+  def set_google_analytics_id
+    @google_analytics_id = ENV['GOOGLE_ANALYTICS_ID']
   end
 
 end
