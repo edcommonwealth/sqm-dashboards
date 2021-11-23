@@ -6,6 +6,18 @@
   <%= stylesheet_link_tag 'sqm_application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script src="https://www.googletagmanager.com/gtag/js?id=<%= @google_analytics_id %>" type="javascript"></script>
+  <script type="javascript">
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', <%= @google_analytics_id.to_json.html_safe %>);
+  </script>
 </head>
 <body>
 

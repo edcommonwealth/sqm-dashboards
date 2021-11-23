@@ -3,6 +3,7 @@ class SqmApplicationController < ActionController::Base
   layout "sqm/application"
   before_action :set_schools_and_districts
   before_action :authenticate_district
+  before_action :set_google_analytics_id
 
   private
 
@@ -32,6 +33,10 @@ class SqmApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic do |u, p|
       u == username && p == password
     end
+  end
+
+  def set_google_analytics_id
+    @google_analytics_id = ENV['GOOGLE_ANALYTICS_ID']
   end
 
 end

@@ -11,7 +11,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script src="https://www.googletagmanager.com/gtag/js?id=UA-132936999-1" type="javascript"></script>
+  <script src="https://www.googletagmanager.com/gtag/js?id=<%= @google_analytics_id %>" type="javascript"></script>
   <script type="javascript">
     window.dataLayer = window.dataLayer || [];
 
@@ -20,7 +20,7 @@
     }
 
     gtag('js', new Date());
-    gtag('config', 'UA-132936999-1');
+    gtag('config', <%= @google_analytics_id.to_json.html_safe %>);
   </script>
 </head>
 
