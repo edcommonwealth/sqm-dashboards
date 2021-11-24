@@ -36,7 +36,7 @@ Once postgres is installed and running, install the required gems and then migra
 
 ```bash
 bundle install
-bundle exec rake db:create db:migrate db:seed
+bundle exec rake db:create db:schema:load db:seed
 ```
 
 Install the javascript dependencies
@@ -86,7 +86,7 @@ None yet.  Hoping to integrate with Powerschool and Aspen for school administrat
 
 ### Javascript libraries
 
-Esbuild is used as the javascript bundler.  The javascript testing library is jest.  
+Esbuild is used as the javascript bundler.  The javascript testing library is jest.
 
 ### css
 
