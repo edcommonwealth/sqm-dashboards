@@ -31,44 +31,27 @@ describe Seeder do
       School.delete_all
     end
 
-    it 'seeds new districts' do
+    it 'seeds new districts and schools' do
       expect {
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
-      }.to change { District.count }.by(2)
-    end
-
-    it 'seeds new schools' do
-      expect {
-        seeder.seed_districts_and_schools sample_districts_and_schools_csv
-      }.to change { School.count }.by(2)
+      }.to  change { District.count }.by(2)
+       .and change { School.count   }.by(2)
     end
 
     context 'when partial data already exists' do
       let!(:existing_district) { create(:district, name: 'Boston') }
+      let!(:removed_school) { create(:school, name: 'John Oldes Academy', dese_id: 12345, district: existing_district) }
       let!(:existing_school) { create(:school, name: 'Sam Adams Elementary School', dese_id: 350302, slug: 'some-slug-for-sam-adams', district: existing_district) }
 
-      it 'only creates new districts' do
+      it 'only creates new districts and schools' do
         expect {
           seeder.seed_districts_and_schools sample_districts_and_schools_csv
-        }.to change { District.count }.by(1)
+        }.to  change { District.count }.by(1)
+         .and change { School.count   }.by(0) # +1 for new school, -1 for old school
 
         new_district = District.find_by_name 'Attleboro'
         expect(new_district.qualtrics_code).to eq 1
         expect(new_district.slug).to eq 'attleboro'
-      end
-
-      it 'updates existing districts with the correct data' do
-        seeder.seed_districts_and_schools sample_districts_and_schools_csv
-
-        existing_district.reload
-        expect(existing_district.qualtrics_code).to eq 2
-        expect(existing_district.slug).to eq 'boston'
-      end
-
-      it 'only creates new schools' do
-        expect {
-          seeder.seed_districts_and_schools sample_districts_and_schools_csv
-        }.to change { School.count }.by(1)
 
         new_school = School.find_by_name 'Attleboro High School'
         expect(new_school.dese_id).to eq 160505
@@ -76,13 +59,23 @@ describe Seeder do
         expect(new_school.slug).to eq 'attleboro-high-school'
       end
 
-      it 'updates existing schools with the qualtrics code' do
+      it 'updates existing districts and schools with the correct data' do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
+
+        existing_district.reload
+        expect(existing_district.qualtrics_code).to eq 2
+        expect(existing_district.slug).to eq 'boston'
 
         existing_school.reload
         expect(existing_school.qualtrics_code).to eq 1
         expect(existing_school.name).to eq 'Samuel Adams Elementary School'
         expect(existing_school.slug).to eq 'some-slug-for-sam-adams'
+      end
+
+      it 'removes any schools not contained within the CSV' do
+        seeder.seed_districts_and_schools sample_districts_and_schools_csv
+
+        expect(School.where(id: removed_school)).not_to exist
       end
     end
   end
@@ -99,7 +92,7 @@ describe Seeder do
     it 'creates new objects as necessary' do
       expect {
         seeder.seed_sqm_framework sample_sqm_framework_csv
-      }.to change { Category.count }.by(4)
+      }.to  change { Category.count }.by(4)
        .and change { Subcategory.count }.by(15)
        .and change { Measure.count }.by(31)
        .and change { SurveyItem.count }.by(136)
@@ -112,7 +105,6 @@ describe Seeder do
       end
 
       it 'updates category data' do
-        seeder.seed_sqm_framework sample_sqm_framework_csv
         teachers_leadership = Category.find_by_name 'Teachers & Leadership'
 
         expect(teachers_leadership.slug).to eq 'teachers-and-leadership'
@@ -167,5 +159,4 @@ describe Seeder do
   def sample_sqm_framework_csv
     Rails.root.join('spec', 'fixtures', 'sample_sqm_framework.csv')
   end
-
 end

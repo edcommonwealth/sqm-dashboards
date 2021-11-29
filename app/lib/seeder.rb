@@ -8,10 +8,12 @@ class Seeder
   end
 
   def seed_districts_and_schools csv_file
+    dese_ids = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
       district_code = row['District Code'].try(:strip)
       dese_id = row['DESE School ID'].strip
+      dese_ids << dese_id
       school_name = row['School Name'].strip
       school_code = row['School Code'].try(:strip)
 
@@ -23,6 +25,8 @@ class Seeder
       school.qualtrics_code = school_code
       school.save!
     end
+
+    School.where.not(dese_id: dese_ids).destroy_all
   end
 
   def seed_sqm_framework csv_file
