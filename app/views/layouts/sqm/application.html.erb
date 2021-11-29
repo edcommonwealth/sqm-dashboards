@@ -10,7 +10,7 @@
   <%= stylesheet_link_tag 'sqm_application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= render partial: 'layouts/google_analytics', locals: { google_analytics_id: @google_analytics_id } %>
-  <%= render 'layouts/hotjar' %>
+  <%= render partial: 'layouts/hotjar', locals: { hotjar_id: @hotjar_id } %>
 </head>
 
 <body>

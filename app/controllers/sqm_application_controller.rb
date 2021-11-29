@@ -4,6 +4,7 @@ class SqmApplicationController < ActionController::Base
   before_action :set_schools_and_districts
   before_action :authenticate_district
   before_action :set_google_analytics_id
+  before_action :set_hotjar_id
 
   private
 
@@ -39,4 +40,7 @@ class SqmApplicationController < ActionController::Base
     @google_analytics_id = ENV['GOOGLE_ANALYTICS_ID']
   end
 
+  def set_hotjar_id
+    @hotjar_id = ENV['HOTJAR_ID']
+  end
 end
