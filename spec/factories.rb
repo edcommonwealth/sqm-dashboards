@@ -71,7 +71,7 @@ FactoryBot.define do
     response_id { rand.to_s }
     academic_year
     school
-    survey_item
+    survey_item factory: :teacher_survey_item
   end
 
   factory :admin_data_item do

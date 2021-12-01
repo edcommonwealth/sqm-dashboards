@@ -1,6 +1,8 @@
 class School < ApplicationRecord
   belongs_to :district
 
+  has_many :survey_item_responses, dependent: :delete_all
+
   validates :name, presence: true
 
   scope :alphabetic, -> { order(name: :asc) }

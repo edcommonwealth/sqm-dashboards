@@ -41,6 +41,7 @@ describe Seeder do
     context 'when partial data already exists' do
       let!(:existing_district) { create(:district, name: 'Boston') }
       let!(:removed_school) { create(:school, name: 'John Oldes Academy', dese_id: 12345, district: existing_district) }
+      let!(:removed_survey_item_response) { create(:survey_item_response, school: removed_school) }
       let!(:existing_school) { create(:school, name: 'Sam Adams Elementary School', dese_id: 350302, slug: 'some-slug-for-sam-adams', district: existing_district) }
 
       it 'only creates new districts and schools' do
@@ -72,10 +73,11 @@ describe Seeder do
         expect(existing_school.slug).to eq 'some-slug-for-sam-adams'
       end
 
-      it 'removes any schools not contained within the CSV' do
+      it 'removes any schools and associated child objects not contained within the CSV' do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
 
         expect(School.where(id: removed_school)).not_to exist
+        expect(SurveyItemResponse.where(id: removed_survey_item_response)).not_to exist
       end
     end
   end
