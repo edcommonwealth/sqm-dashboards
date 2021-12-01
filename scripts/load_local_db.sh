@@ -4,7 +4,7 @@ set -eux
 
 git rev-parse --show-toplevel
 
-APP=$1
+APP="${1:-beta}"
 TIMESTAMP=$(date +%s)
 DUMP_FILENAME=$APP.$TIMESTAMP.dump
 
