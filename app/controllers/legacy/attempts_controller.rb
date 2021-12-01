@@ -1,5 +1,5 @@
 module Legacy
-  class AttemptsController < ApplicationController
+  class AttemptsController < Legacy::ApplicationController
     # before_action :set_attempt, only: [:edit, :update]
     protect_from_forgery :except => [:twilio]
 

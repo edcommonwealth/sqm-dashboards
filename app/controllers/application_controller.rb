@@ -1,25 +1,12 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception, prepend: true
   before_action :set_google_analytics_id
+  before_action :set_hotjar_id
 
-
-  def verify_admin
-    return true #if current_user.admin?(@school)
-
-    redirect_to root_path, notice: 'You must be logged in as an admin of that school to access that page.'
-    return false
-  end
-
-  def authenticate(username, password)
-    return true if username == "boston"
-    authenticate_or_request_with_http_basic do |u, p|
-      u == username && p == password
-    end
-  end
-
-  private
   def set_google_analytics_id
     @google_analytics_id = ENV['GOOGLE_ANALYTICS_ID']
   end
 
+  def set_hotjar_id
+    @hotjar_id = ENV['HOTJAR_ID']
+  end
 end

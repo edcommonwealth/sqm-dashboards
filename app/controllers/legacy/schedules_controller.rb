@@ -1,5 +1,5 @@
 module Legacy
-  class SchedulesController < ApplicationController
+  class SchedulesController < Legacy::ApplicationController
     before_action :authenticate_user!, except: [:show]
     before_action :set_school
     before_action :verify_admin

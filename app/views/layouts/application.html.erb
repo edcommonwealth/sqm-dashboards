@@ -16,7 +16,7 @@
 <body>
 
 <div>
-  <%= render partial: 'layouts/sqm/header' %>
+  <%= render partial: 'layouts/header' %>
 </div>
 
 <div class="bg-color-light-blue">
@@ -30,10 +30,10 @@
 </div>
 
 <div>
-  <%= render partial: 'layouts/sqm/footer' %>
+  <%= render partial: 'layouts/footer' %>
 </div>
 
-<%= render partial: 'layouts/sqm/empty_dataset_modal' if @has_empty_dataset %>
+<%= render partial: 'layouts/empty_dataset_modal' if @has_empty_dataset %>
 
 </body>
 </html>

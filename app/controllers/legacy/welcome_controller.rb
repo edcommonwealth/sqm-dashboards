@@ -1,5 +1,5 @@
 module Legacy
-  class WelcomeController < ApplicationController
+  class WelcomeController < Legacy::ApplicationController
 
     def index
       @districts = Legacy::District.all.alphabetic

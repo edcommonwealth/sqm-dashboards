@@ -1,5 +1,5 @@
 module Legacy
-  class SchoolsController < ApplicationController
+  class SchoolsController < Legacy::ApplicationController
     before_action :authenticate_user!, except: [:show]
     before_action :set_school, only: [:admin, :show, :edit, :update, :destroy]
     before_action :verify_admin, except: [:show, :create, :new]

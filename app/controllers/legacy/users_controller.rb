@@ -1,5 +1,5 @@
 module Legacy
-  class UsersController < ApplicationController
+  class UsersController < Legacy::ApplicationController
     def show; end
 
     # private

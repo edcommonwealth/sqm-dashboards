@@ -1,5 +1,5 @@
 module Legacy
-  class QuestionListsController < ApplicationController
+  class QuestionListsController < Legacy::ApplicationController
     before_action :set_question_list, only: [:show, :edit, :update, :destroy]
 
     # GET /question_lists

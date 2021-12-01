@@ -1,5 +1,5 @@
 module Legacy
-  class CategoriesController < ApplicationController
+  class CategoriesController < Legacy::ApplicationController
     before_action :set_school, only: [:show]
     before_action :set_category, only: [:show, :edit, :update, :destroy]
 

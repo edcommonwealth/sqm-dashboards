@@ -1,5 +1,5 @@
 module Legacy
-  class DistrictsController < ApplicationController
+  class DistrictsController < Legacy::ApplicationController
     before_action :set_district, only: [:show, :edit, :update, :destroy]
 
     # GET /districts

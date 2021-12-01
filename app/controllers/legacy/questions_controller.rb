@@ -1,5 +1,5 @@
 module Legacy
-  class QuestionsController < ApplicationController
+  class QuestionsController < Legacy::ApplicationController
     before_action :authenticate_user!, except: [:show]
     before_action :verify_super_admin, except: [:show]
     before_action :set_school, only: [:show]

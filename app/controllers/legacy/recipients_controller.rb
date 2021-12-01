@@ -1,5 +1,5 @@
 module Legacy
-  class RecipientsController < ApplicationController
+  class RecipientsController < Legacy::ApplicationController
     before_action :authenticate_user!
     before_action :set_school
     before_action :verify_admin

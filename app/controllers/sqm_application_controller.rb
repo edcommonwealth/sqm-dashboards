@@ -1,10 +1,7 @@
-class SqmApplicationController < ActionController::Base
+class SqmApplicationController < ApplicationController
   protect_from_forgery with: :exception, prepend: true
-  layout "sqm/application"
   before_action :set_schools_and_districts
   before_action :authenticate_district
-  before_action :set_google_analytics_id
-  before_action :set_hotjar_id
 
   private
 
@@ -34,13 +31,5 @@ class SqmApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic do |u, p|
       u == username && p == password
     end
-  end
-
-  def set_google_analytics_id
-    @google_analytics_id = ENV['GOOGLE_ANALYTICS_ID']
-  end
-
-  def set_hotjar_id
-    @hotjar_id = ENV['HOTJAR_ID']
   end
 end
