@@ -12,5 +12,6 @@ heroku pg:backups:download
 * Select branch to deploy(main)
 * Verify in the activity log that Heroku builds the deployment
 * Verify that the site contains the new features
+* Run any one_off scripts that have been introduced for this release, as necessary
 * Run the db:seed script
 * Verify that the data represented on the different tabs matches what is expected.  The items listed in the measure key should be represented on the site.
