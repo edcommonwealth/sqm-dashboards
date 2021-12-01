@@ -14,38 +14,35 @@ class SurveyItemResponse < ActiveRecord::Base
                       .average(:likert_score)
   end
 
+  Score = Struct.new(:average, :meets_teacher_threshold?, :meets_student_threshold?)
+
   def self.score_for_measure(measure:, school:, academic_year:)
-    survey_item_responses = for_measure_meeting_threshold(measure: measure, school: school, academic_year: academic_year)
-
-
-    unless survey_item_responses.nil?
-      survey_item_responses
-        .where(academic_year: academic_year, school: school)
-        .average(:likert_score)
-    end
-  end
-
-  def self.sufficient_data?(measure:, school:, academic_year:)
-    meets_teacher_threshold = teacher_sufficient_data?(measure: measure, school: school, academic_year: academic_year)
-    meets_student_threshold = student_sufficient_data?(measure: measure, school: school, academic_year: academic_year)
-    meets_teacher_threshold || meets_student_threshold
-  end
-
-  private
-
-  def self.for_measure_meeting_threshold(measure:, school:, academic_year:)
     meets_teacher_threshold = teacher_sufficient_data? measure: measure, school: school, academic_year: academic_year
     meets_student_threshold = student_sufficient_data? measure: measure, school: school, academic_year: academic_year
     meets_all_thresholds = meets_teacher_threshold && meets_student_threshold
 
-    if meets_all_thresholds
+    survey_item_responses = if meets_all_thresholds
                               SurveyItemResponse.for_measure(measure)
                             elsif meets_teacher_threshold
                               SurveyItemResponse.teacher_responses_for_measure(measure)
                             elsif meets_student_threshold
                               SurveyItemResponse.student_responses_for_measure(measure)
                             end
+
+    unless survey_item_responses.nil?
+      score_for_measure = survey_item_responses.average(:likert_score)
+    end
+
+    Score.new(score_for_measure, meets_teacher_threshold, meets_student_threshold)
   end
+
+  def self.sufficient_data?(measure:, school:, academic_year:)
+    meets_teacher_threshold = teacher_sufficient_data? measure: measure, school: school, academic_year: academic_year
+    meets_student_threshold = student_sufficient_data? measure: measure, school: school, academic_year: academic_year
+    meets_teacher_threshold || meets_student_threshold
+  end
+
+  private
 
   scope :for_measure, ->(measure) { joins(:survey_item).where('survey_items.measure_id': measure.id) }
   scope :for_measures, ->(measures) { joins(:survey_item).where('survey_items.measure_id': measures.map(&:id)) }
@@ -60,7 +57,7 @@ class SurveyItemResponse < ActiveRecord::Base
 
       meets_student_threshold = average_number_of_survey_item_responses >= STUDENT_RESPONSE_THRESHOLD
     end
-    meets_student_threshold
+    !!meets_student_threshold
   end
 
   def self.teacher_sufficient_data?(measure:, school:, academic_year:)
@@ -70,6 +67,6 @@ class SurveyItemResponse < ActiveRecord::Base
 
       meets_teacher_threshold = average_number_of_survey_item_responses >= TEACHER_RESPONSE_THRESHOLD
     end
-    meets_teacher_threshold
+    !!meets_teacher_threshold
   end
 end

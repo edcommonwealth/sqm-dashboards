@@ -34,8 +34,8 @@ describe MeasurePresenter do
 
   context 'when the measure contains both teacher data and admin data' do
     before :each do
-      create(:survey_item, measure: measure, survey_item_id: 't-something', prompt: 'A teacher survey item prompt')
-      create(:survey_item, measure: measure, survey_item_id: 't-something', prompt: 'Another teacher survey item prompt')
+      create(:teacher_survey_item, measure: measure, prompt: 'A teacher survey item prompt')
+      create(:teacher_survey_item, measure: measure, prompt: 'Another teacher survey item prompt')
       create(:admin_data_item, measure: measure, description: 'An admin data item description')
       create(:admin_data_item, measure: measure, description: 'Another admin data item description')
     end
@@ -54,6 +54,24 @@ describe MeasurePresenter do
       expect(second_data_item_presenter.title).to eq 'School admin data'
       expect(second_data_item_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
       expect(second_data_item_presenter.item_descriptions).to eq ["An admin data item description", "Another admin data item description"]
+      expect(second_data_item_presenter.sufficient_data?).to be true
+    end
+  end
+
+  context 'when the measure has partial data for teachers and students' do
+    before :each do
+      teacher_survey_item = create(:teacher_survey_item, measure: measure)
+      student_survey_item = create(:student_survey_item, measure: measure)
+
+      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: teacher_survey_item, academic_year: academic_year, school: school)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item, academic_year: academic_year, school: school)
+    end
+
+    it 'tracks which parts of the data are sufficient' do
+      teacher_data_item_presenter = measure_presenter.data_item_presenters.find { |presenter| presenter.title == 'Teacher survey' }
+      student_data_item_presenter = measure_presenter.data_item_presenters.find { |presenter| presenter.title == 'Student survey' }
+      expect(teacher_data_item_presenter.sufficient_data?).to be true
+      expect(student_data_item_presenter.sufficient_data?).to be false
     end
   end
 
