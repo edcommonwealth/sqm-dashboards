@@ -38,7 +38,7 @@ class SurveyResponsesDataLoader
     return if school.nil?
 
     survey_items.map do |survey_item|
-      next unless SurveyItemResponse.find_by(response_id: response_id, survey_item: survey_item).nil?
+      next if SurveyItemResponse.where(response_id: response_id, survey_item: survey_item).exists?
 
       likert_score = row[survey_item.survey_item_id]
       next if likert_score.nil?
