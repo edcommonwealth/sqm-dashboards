@@ -23,7 +23,7 @@
     <div class="accordion-body measure-accordion-body font-cabin font-size-14 weight-400">
       <% unless data_item_section.sufficient_data? %>
         <div class="alert alert-secondary" role="alert">
-          Data not included due to low response rate
+          Data not included due to <%= data_item_section.reason_for_insufficiency %>
         </div>
       <% end %>
       <ul>

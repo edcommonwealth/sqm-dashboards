@@ -15,4 +15,8 @@ class StudentSurveyPresenter < DataItemPresenter
   def item_descriptions
     @survey_items.map(&:prompt)
   end
+
+  def reason_for_insufficiency
+    "low response rate"
+  end
 end

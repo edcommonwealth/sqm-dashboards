@@ -54,7 +54,6 @@ describe MeasurePresenter do
       expect(second_data_item_presenter.title).to eq 'School admin data'
       expect(second_data_item_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
       expect(second_data_item_presenter.item_descriptions).to eq ["An admin data item description", "Another admin data item description"]
-      expect(second_data_item_presenter.sufficient_data?).to be true
     end
   end
 
@@ -72,6 +71,23 @@ describe MeasurePresenter do
       student_data_item_presenter = measure_presenter.data_item_presenters.find { |presenter| presenter.title == 'Student survey' }
       expect(teacher_data_item_presenter.sufficient_data?).to be true
       expect(student_data_item_presenter.sufficient_data?).to be false
+    end
+  end
+
+  context 'when the measure has insufficient admin data and insufficient teacher/student data' do
+    before :each do
+      create(:admin_data_item, measure: measure)
+      create(:teacher_survey_item, measure: measure)
+      create(:student_survey_item, measure: measure)
+    end
+
+    it 'tracks the reason for their insufficiency' do
+      teacher_data_item_presenter = measure_presenter.data_item_presenters.find { |presenter| presenter.title == 'Teacher survey' }
+      student_data_item_presenter = measure_presenter.data_item_presenters.find { |presenter| presenter.title == 'Student survey' }
+      admin_data_item_presenter = measure_presenter.data_item_presenters.find { |presenter| presenter.title == 'School admin data' }
+      expect(teacher_data_item_presenter.reason_for_insufficiency).to eq 'low response rate'
+      expect(student_data_item_presenter.reason_for_insufficiency).to eq 'low response rate'
+      expect(admin_data_item_presenter.reason_for_insufficiency).to eq 'limited availability'
     end
   end
 
