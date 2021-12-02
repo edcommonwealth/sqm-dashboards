@@ -6,11 +6,10 @@ class SurveyResponsesDataLoader
     File.open(filepath) do |file|
       headers = file.first
 
-      survey_items = CSV.parse(headers, headers: true).headers
-                       .filter { |header| !header.nil? }
+      survey_item_ids = CSV.parse(headers, headers: true).headers
+                       .filter { |header| header.present? }
                        .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
-                       .map { |survey_item_id| SurveyItem.find_by_survey_item_id survey_item_id }
-
+      survey_items = SurveyItem.where(survey_item_id: survey_item_ids)
 
       file.lazy.each_slice(1000) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers: headers).map do |row|
