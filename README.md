@@ -32,6 +32,15 @@ Install postgres.  Known working version is version 13
 https://www.postgresql.org/download/
 ```
 
+On linux, if you run into problems creating the postgres database, edit /etc/postgresql/13/main/pg_hba.conf.  Change the connection method of IPv4 and IPv6 connections from `md5` to trust.
+
+```
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            trust
+# IPv6 local connections:
+host    all             all             ::1/128                 trust
+```
+
 Once postgres is installed and running, install the required gems and then migrate the database.
 
 ```bash
