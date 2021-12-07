@@ -17,10 +17,10 @@ describe 'dashboard/index.html.erb' do
   context 'when some presenters have a nil score' do
     let(:variance_chart_row_presenters) {
       [
-        VarianceChartRowPresenter.new(measure: support_for_teaching, score: nil),
-        VarianceChartRowPresenter.new(measure: create(:measure, name: 'Should Be Displayed', measure_id: 'should-be-displayed'), score: rand),
-        VarianceChartRowPresenter.new(measure: effective_leadership, score: nil),
-        VarianceChartRowPresenter.new(measure: professional_qualifications, score: nil)
+        VarianceChartRowPresenter.new(measure: support_for_teaching, score: Score.new),
+        VarianceChartRowPresenter.new(measure: create(:measure, name: 'Should Be Displayed', measure_id: 'should-be-displayed'), score: Score.new(rand)),
+        VarianceChartRowPresenter.new(measure: effective_leadership, score: Score.new),
+        VarianceChartRowPresenter.new(measure: professional_qualifications, score: Score.new)
       ]
     }
 
@@ -42,7 +42,7 @@ describe 'dashboard/index.html.erb' do
   context 'when all the presenters have a non-nil score' do
     let(:variance_chart_row_presenters) {
       [
-        VarianceChartRowPresenter.new(measure: create(:measure, name: 'Display Me', measure_id: 'display-me'), score: rand)
+        VarianceChartRowPresenter.new(measure: create(:measure, name: 'Display Me', measure_id: 'display-me'), score: Score.new(rand))
       ]
     }
 

@@ -8,7 +8,7 @@ class DashboardController < SqmApplicationController
   private
 
   def presenter_for_measure(measure)
-    score = SurveyItemResponse.score_for_measure(measure: measure, school: @school, academic_year: @academic_year).average
+    score = SurveyItemResponse.score_for_measure(measure: measure, school: @school, academic_year: @academic_year)
 
     VarianceChartRowPresenter.new(measure: measure, score: score)
   end

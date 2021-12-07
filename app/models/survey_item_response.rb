@@ -14,8 +14,6 @@ class SurveyItemResponse < ActiveRecord::Base
                       .average(:likert_score)
   end
 
-  Score = Struct.new(:average, :meets_teacher_threshold?, :meets_student_threshold?)
-
   def self.score_for_measure(measure:, school:, academic_year:)
     meets_teacher_threshold = teacher_sufficient_data? measure: measure, school: school, academic_year: academic_year
     meets_student_threshold = student_sufficient_data? measure: measure, school: school, academic_year: academic_year

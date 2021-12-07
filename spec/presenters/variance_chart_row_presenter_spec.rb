@@ -8,7 +8,8 @@ describe VarianceChartRowPresenter do
   let(:ideal_low_benchmark) { 3.8 }
 
   let(:measure) {
-    Measure.new(
+    create(
+      :measure,
       name: 'Some Title',
       watch_low_benchmark: watch_low_benchmark,
       growth_low_benchmark: growth_low_benchmark,
@@ -27,8 +28,8 @@ describe VarianceChartRowPresenter do
     end
   end
 
-  context('when the score is in the Ideal zone') do
-    let(:score) { 4.4 }
+  context 'when the score is in the Ideal zone' do
+    let(:score) { Score.new(4.4, true, true) }
 
     it_behaves_like 'measure_name'
 
@@ -45,8 +46,8 @@ describe VarianceChartRowPresenter do
     end
   end
 
-  context('when the score is in the Approval zone') do
-    let(:score) { 3.7 }
+  context 'when the score is in the Approval zone' do
+    let(:score) { Score.new(3.7, true, true) }
 
     it_behaves_like 'measure_name'
 
@@ -63,8 +64,8 @@ describe VarianceChartRowPresenter do
     end
   end
 
-  context('when the score is in the Growth zone') do
-    let(:score) { 3.2 }
+  context 'when the score is in the Growth zone' do
+    let(:score) { Score.new(3.2, true, true) }
 
     it_behaves_like 'measure_name'
 
@@ -83,8 +84,8 @@ describe VarianceChartRowPresenter do
     end
   end
 
-  context('when the score is in the Watch zone') do
-    let(:score) { 2.9 }
+  context 'when the score is in the Watch zone' do
+    let(:score) { Score.new(2.9, true, true) }
 
     it_behaves_like 'measure_name'
 
@@ -103,8 +104,8 @@ describe VarianceChartRowPresenter do
     end
   end
 
-  context('when the score is in the Warning zone') do
-    let(:score) { 1.0 }
+  context 'when the score is in the Warning zone' do
+    let(:score) { Score.new(1.0, true, true) }
 
     it_behaves_like 'measure_name'
 
@@ -123,17 +124,88 @@ describe VarianceChartRowPresenter do
     end
   end
 
+  context 'when a measure does not contain admin data items' do
+    let(:score) { Score.new(nil, false, false) }
+    it 'it does not show a partial data indicator' do
+      expect(presenter.show_partial_data_indicator?).to be false
+    end
+  end
+
+  context 'when a measure contains admin data items' do
+    before :each do
+      create :admin_data_item, measure: measure
+    end
+    let(:score) { Score.new(nil, false, false) }
+
+    it 'shows a partial data indicator' do
+      expect(presenter.show_partial_data_indicator?).to be true
+      expect(presenter.partial_data_sources).to eq ['administrative data']
+    end
+  end
+
+  context 'when a measure contains teacher survey items' do
+    before :each do
+      create :teacher_survey_item, measure: measure
+    end
+
+    context 'when there are insufficient teacher survey item responses' do
+      let(:score) { Score.new(nil, false, true) }
+      it 'shows a partial data indicator' do
+        expect(presenter.show_partial_data_indicator?).to be true
+        expect(presenter.partial_data_sources).to eq ['teacher survey results']
+      end
+    end
+
+    context 'when there are sufficient teacher survey item responses' do
+      let(:score) { Score.new(nil, true, true) }
+      it 'does not show a partial data indicator' do
+        expect(presenter.show_partial_data_indicator?).to be false
+      end
+    end
+  end
+
+  context 'when a measure contains student survey items' do
+    before :each do
+      create :student_survey_item, measure: measure
+    end
+
+    context 'when there are insufficient student survey item responses' do
+      let(:score) { Score.new(nil, true, false) }
+      it 'shows a partial data indicator' do
+        expect(presenter.show_partial_data_indicator?).to be true
+        expect(presenter.partial_data_sources).to eq ['student survey results']
+      end
+
+      context 'where there are also admin data items' do
+        before :each do
+          create :admin_data_item, measure: measure
+        end
+
+        it 'returns the sources for partial results of administrative data and student survey results' do
+          expect(presenter.partial_data_sources).to eq ['student survey results', 'administrative data']
+        end
+      end
+    end
+
+    context 'When there are sufficient student survey item responses' do
+      let(:score) { Score.new(nil, true, true) }
+      it 'does not show a partial data indicator' do
+        expect(presenter.show_partial_data_indicator?).to be false
+      end
+    end
+  end
+
   context 'sorting scores' do
     it 'selects a longer bar before a shorter bar for measures in the approval/ideal zones' do
-      approval_presenter = VarianceChartRowPresenter.new measure: measure, score: 3.7
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: 4.4
+      approval_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(3.7, true, true)
+      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(4.4, true, true)
       expect(ideal_presenter <=> approval_presenter).to be < 0
       expect([approval_presenter, ideal_presenter].sort).to eq [ideal_presenter, approval_presenter]
     end
 
     it 'selects a warning bar below a ideal bar' do
-      warning_presenter = VarianceChartRowPresenter.new measure: measure, score: 1.0
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: 5.0
+      warning_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(1.0, true, true)
+      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(5.0, true, true)
       expect(warning_presenter <=> ideal_presenter).to be > 0
       expect([warning_presenter, ideal_presenter].sort).to eq [ideal_presenter, warning_presenter]
     end

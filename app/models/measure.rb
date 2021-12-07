@@ -5,10 +5,12 @@ class Measure < ActiveRecord::Base
 
   has_many :survey_item_responses, through: :survey_items
 
-  scope :source_includes_survey_items, ->() { joins(:survey_items).uniq }
+  scope :source_includes_survey_items, -> { joins(:survey_items).uniq }
 
   def self.none_meet_threshold?(school:, academic_year:)
-    none? { |measure| SurveyItemResponse.sufficient_data?(measure: measure, school: school, academic_year: academic_year) }
+    none? do |measure|
+      SurveyItemResponse.sufficient_data?(measure: measure, school: school, academic_year: academic_year)
+    end
   end
 
   def teacher_survey_items
@@ -27,4 +29,15 @@ class Measure < ActiveRecord::Base
     student_survey_items.any?
   end
 
+  def includes_admin_data_items?
+    admin_data_items.any?
+  end
+
+  def sources
+    sources = []
+    sources << :admin_data if includes_admin_data_items?
+    sources << :student_surveys if includes_student_survey_items?
+    sources << :teacher_surveys if includes_teacher_survey_items?
+    sources
+  end
 end

@@ -8,8 +8,8 @@ describe 'dashboard/_variance_chart.html.erb' do
 
   before :each do
     presenters = [
-      VarianceChartRowPresenter.new(measure: lower_scoring_measure, score: 1),
-      VarianceChartRowPresenter.new(measure: higher_scoring_measure, score: 5)
+      VarianceChartRowPresenter.new(measure: lower_scoring_measure, score: Score.new(1)),
+      VarianceChartRowPresenter.new(measure: higher_scoring_measure, score: Score.new(5))
     ]
 
     render partial: 'variance_chart', locals: { presenters: presenters }

@@ -31,7 +31,7 @@
     filter="url(#inset-shadow)"
   >
     <g id="zone-headings">
-      <%= zones.each_with_index do |zone, index| %>
+      <% zones.each_with_index do |zone, index| %>
         <text
           class="zone-header"
           x="<%= index * zone_width_percentage + zone_width_percentage / 2.0 %>%"
@@ -45,7 +45,7 @@
     </g>
 
     <g id="zone-background" transform="translate(0, <%= heading_gutter %>)">
-      <%= zones.each_with_index do |zone, index| %>
+      <% zones.each_with_index do |zone, index| %>
         <rect
           id="<%= zone %>-zone"
           class="zone-background bg-fill-<%= zone %>"
@@ -61,14 +61,26 @@
   </svg>
 
   <g id="measure-rows">
+    <svg id=measure-row-limited-availability-indicator x="0" y="<%= heading_gutter %>">
+      <% displayed_presenters.each_with_index do |presenter, index| %>
+        <% if presenter.show_partial_data_indicator? %>
+          <use xlink:href="/fontawesome-free/sprites/solid.svg#circle-exclamation" width="<%= partial_data_indicator_size %>"
+            height="<%= partial_data_indicator_size %>"
+            data-bs-toggle="popover" data-bs-placement="right"
+            data-bs-content="The following sources are not included in this measure due to insufficient data: <%= presenter.partial_data_sources.join(' and ') %>."
+            x="<%= partial_data_indicator_size / 2 %>"
+            y="<%= index * measure_row_height + measure_row_height / 2  - partial_data_indicator_size / 2 %>">
+          </use>
+        <% end %>
+      <% end %>
+    </svg>
+
     <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
-      <%= displayed_presenters.each_with_index do |presenter, index| %>
+      <% displayed_presenters.each_with_index do |presenter, index| %>
         <text
           class="font-cabin"
-          x="<%= label_width_percentage %>%"
-          dx="<%= -1 * label_padding_right %>"
+          x="<%= availability_indicator_percentage %>%"
           y="<%= index * measure_row_height + measure_row_height / 2 %>"
-          text-anchor="end"
           dominant-baseline="middle"
           data-variance-row-label
         >
@@ -83,7 +95,7 @@
       y="<%= heading_gutter %>"
       width="<%= graph_width_percentage %>%"
     >
-      <%= displayed_presenters.each_with_index do |presenter, index| %>
+      <% displayed_presenters.each_with_index do |presenter, index| %>
         <rect
           class="measure-row-bar <%= presenter.bar_color %>"
           x="<%= presenter.x_offset %>"

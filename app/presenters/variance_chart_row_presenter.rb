@@ -5,7 +5,9 @@ class VarianceChartRowPresenter
 
   def initialize(measure:, score:)
     @measure = measure
-    @score = score
+    @score = score.average
+    @meets_teacher_threshold = score.meets_teacher_threshold?
+    @meets_student_threshold = score.meets_student_threshold?
   end
 
   def sufficient_data?
@@ -31,7 +33,7 @@ class VarianceChartRowPresenter
   def x_offset
     case zone.type
     when :ideal, :approval
-      "60%"
+      '60%'
     else
       "#{((0.6 - bar_width_percentage) * 100).abs.round(2)}%"
     end
@@ -48,8 +50,20 @@ class VarianceChartRowPresenter
     end
   end
 
-  def <=>(other_presenter)
-    other_presenter.order <=> order
+  def <=>(other)
+    other.order <=> order
+  end
+
+  def show_partial_data_indicator?
+    partial_data_sources.present?
+  end
+
+  def partial_data_sources
+    Array.new.tap do |sources|
+      sources << 'teacher survey results' if @measure.includes_teacher_survey_items? && !@meets_teacher_threshold
+      sources << 'student survey results' if @measure.includes_student_survey_items? && !@meets_student_threshold
+      sources << 'administrative data' if @measure.includes_admin_data_items?
+    end
   end
 
   private
@@ -86,7 +100,7 @@ class VarianceChartRowPresenter
       watch_low_benchmark: @measure.watch_low_benchmark,
       growth_low_benchmark: @measure.growth_low_benchmark,
       approval_low_benchmark: @measure.approval_low_benchmark,
-      ideal_low_benchmark: @measure.ideal_low_benchmark,
+      ideal_low_benchmark: @measure.ideal_low_benchmark
     )
     scale.zone_for_score(@score)
   end

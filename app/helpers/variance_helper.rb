@@ -42,4 +42,13 @@ module VarianceHelper
   def zone_width_percentage
     100.0/zones.size
   end
+
+  def availability_indicator_percentage
+    3
+  end
+
+  def partial_data_indicator_size
+    16
+  end
+
 end

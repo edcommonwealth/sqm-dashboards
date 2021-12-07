@@ -84,3 +84,11 @@
   stroke: $gray-2;
   fill: $gray-3;
 }
+
+.limited-availability-indicator {
+  color: white;
+  background-color: black;
+  line-height: 30px;
+  border-radius: 50%;
+  width: 20px;
+}
