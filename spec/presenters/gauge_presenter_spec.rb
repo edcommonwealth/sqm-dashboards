@@ -1,25 +1,6 @@
 require 'rails_helper'
 
 describe GaugePresenter do
-  # let(:academic_year) { create(:academic_year, range: '1989-90') }
-  # let(:school) { create(:school, name: 'Best School') }
-  # let(:subcategory_presenter) do
-  #   subcategory = create(:subcategory, name: 'A great subcategory')
-
-  #   measure1 = create(:measure, watch_low_benchmark: 4, growth_low_benchmark: 4.25, approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75, subcategory: subcategory)
-  #   survey_item1 = create(:survey_item, measure: measure1)
-  #   create(:survey_item_response, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 1)
-  #   create(:survey_item_response, survey_item: survey_item1, academic_year: academic_year, school: school, likert_score: 5)
-
-  #   measure2 = create(:measure, watch_low_benchmark: 1.25, growth_low_benchmark: 1.5, approval_low_benchmark: 1.75, ideal_low_benchmark: 2.0, subcategory: subcategory)
-  #   survey_item2 = create(:survey_item, measure: measure2)
-  #   create(:survey_item_response, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 1)
-  #   create(:survey_item_response, survey_item: survey_item2, academic_year: academic_year, school: school, likert_score: 5)
-
-  #   create_survey_item_responses_for_different_years_and_schools(survey_item1)
-
-  #   return SubcategoryPresenter.new(subcategory: subcategory, academic_year: academic_year, school: school)
-  # end
   let(:scale) do
     Scale.new(
       watch_low_benchmark: 1.5,
@@ -29,7 +10,6 @@ describe GaugePresenter do
     )
   end
   let(:score) { 3 }
-
 
   let(:gauge_presenter) { GaugePresenter.new(scale: scale, score: score) }
 
@@ -114,6 +94,30 @@ describe GaugePresenter do
 
     it 'returns the score percentage for the gauge' do
       expect(gauge_presenter.score_percentage).to eq 1.0
+    end
+  end
+
+  context 'when there are no benchmarks or score for the gauge' do
+    let(:scale) do
+      Scale.new(
+        watch_low_benchmark: nil,
+        growth_low_benchmark: nil,
+        approval_low_benchmark: nil,
+        ideal_low_benchmark: nil,
+      )
+    end
+    let(:score) { nil }
+
+    it 'returns the title of the zone' do
+      expect(gauge_presenter.title).to eq 'Insufficient Data'
+    end
+
+    it 'returns the color class for the gauge' do
+      expect(gauge_presenter.color_class).to eq 'fill-insufficient_data'
+    end
+
+    it 'returns the score percentage for the gauge' do
+      expect(gauge_presenter.score_percentage).to be_nil
     end
   end
 

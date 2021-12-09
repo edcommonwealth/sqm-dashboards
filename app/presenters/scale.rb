@@ -35,6 +35,8 @@ class Scale
 
   def zone_for_score(score)
     case score
+    when nil
+      insufficient_data
     when ideal_zone.low_benchmark..ideal_zone.high_benchmark
       ideal_zone
     when approval_zone.low_benchmark..approval_zone.high_benchmark
