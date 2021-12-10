@@ -111,6 +111,7 @@ describe Seeder do
 
         expect(teachers_leadership.slug).to eq 'teachers-and-leadership'
         expect(teachers_leadership.description).to eq "This is a category description."
+        expect(teachers_leadership.short_description).to eq "This is a category short description."
       end
 
       it 'updates category sort index to match a predefined order' do
@@ -129,6 +130,7 @@ describe Seeder do
       it 'updates measure data' do
         measure = Measure.find_by_measure_id '2A-i'
         expect(measure.name).to eq 'Student Physical Safety'
+        expect(measure.description).to eq 'This is a measure description.'
         expect(measure.watch_low_benchmark).to eq 2.79
         expect(measure.growth_low_benchmark).to eq 3.3
         expect(measure.approval_low_benchmark).to eq 3.8

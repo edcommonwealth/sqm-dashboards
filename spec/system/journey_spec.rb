@@ -131,12 +131,12 @@ def go_to_dashboard_page_for_school_without_data(school)
 end
 
 def district_admin_sees_schools_change
-  expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/dashboard?year=2020-21"
+  expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=2020-21"
   expect(page).to have_current_path(expected_path)
 end
 
 def district_admin_sees_district_change
-  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/dashboard?year=2020-21"
+  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/browse/teachers-and-leadership?year=2020-21"
   expect(page).to have_current_path(expected_path)
 end
 

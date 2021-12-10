@@ -5,7 +5,7 @@ describe CategoryPresenter do
     subcategory1 = Subcategory.new(name: 'A subcategory')
     subcategory2 = Subcategory.new(name: 'Another subcategory')
 
-    category = Category.new(name: 'Some Category', subcategories: [subcategory1, subcategory2], description: 'A description for some Category')
+    category = Category.new(name: 'Some Category', subcategories: [subcategory1, subcategory2], description: 'A description for some Category', short_description: 'A short description for some Category')
     return CategoryPresenter.new(category: category)
   end
 
@@ -41,6 +41,7 @@ describe CategoryPresenter do
   it 'returns the name and description of the category' do
     expect(category_presenter.name).to eq 'Some Category'
     expect(category_presenter.description).to eq 'A description for some Category'
+    expect(category_presenter.short_description).to eq 'A short description for some Category'
   end
 
   it 'maps subcategories to subcategory presenters' do

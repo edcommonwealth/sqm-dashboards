@@ -40,7 +40,7 @@ class Seeder
         '4' => 'academic-learning',
         '5' => 'community-and-wellbeing',
       }
-      category.update! name: row['Category'].strip, description: row['Category Description'].strip, slug: category_slugs[category_id], sort_index: category_slugs.keys.index(category_id)
+      category.update! name: row['Category'].strip, description: row['Category Description'].strip, short_description: row['Category Short Description'], slug: category_slugs[category_id], sort_index: category_slugs.keys.index(category_id)
 
       subcategory_id = row['Subcategory ID'].strip
       subcategory = Subcategory.find_or_create_by! subcategory_id: subcategory_id, category: category
@@ -48,14 +48,16 @@ class Seeder
 
       measure_id = row['Measure ID'].strip
       measure_name = row['Measures'].try(:strip)
-      watch_low = row['Watch Low'].try(:strip)
-      growth_low = row['Growth Low'].try(:strip)
-      approval_low = row['Approval Low'].try(:strip)
-      ideal_low = row['Ideal Low'].try(:strip)
+      watch_low = row['Item Watch Low'].try(:strip)
+      growth_low = row['Item Growth Low'].try(:strip)
+      approval_low = row['Item Approval Low'].try(:strip)
+      ideal_low = row['Item Ideal Low'].try(:strip)
+      measure_description = row['Measure Description'].try(:strip)
 
       next if row['Source'] == 'No source'
       measure = Measure.find_or_create_by! measure_id: measure_id, subcategory: subcategory
       measure.name = measure_name
+      measure.description = measure_description
 
       if ['Teachers', 'Students'].include? row['Source']
         measure.watch_low_benchmark = watch_low if watch_low

@@ -11,6 +11,10 @@ class CategoryPresenter
     @category.description
   end
 
+  def short_description
+    @category.short_description
+  end
+
   def slug
     @category.slug
   end
