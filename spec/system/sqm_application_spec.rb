@@ -13,11 +13,14 @@ describe 'SQM Application' do
   end
 
   context 'when no measures meet their threshold' do
-    it 'shows a modal on all pages' do
-      [dashboard_path, browse_path].each do |path|
-        visit path
-        expect(page).to have_css '.modal'
-      end
+    it 'shows a modal on dashboard page' do
+      visit dashboard_path
+      expect(page).to have_css '.modal'
+    end
+
+    it 'does not show a modal on the browse page' do
+      visit browse_path
+      expect(page).not_to have_css '.modal'
     end
   end
 

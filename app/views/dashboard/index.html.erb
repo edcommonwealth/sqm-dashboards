@@ -90,3 +90,5 @@
 
   <%= render partial: "variance_chart", locals: { presenters: @variance_chart_row_presenters} %>
 </div>
+
+<%= render partial: 'layouts/empty_dataset_modal' if @has_empty_dataset %>
