@@ -16,6 +16,7 @@ module VarianceHelper
   end
 
   def graph_background_height(number_of_rows:)
+    number_of_rows += 1 if @has_empty_dataset
     graph_height(number_of_rows) - footer_gutter
   end
 
