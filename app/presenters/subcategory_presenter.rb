@@ -5,6 +5,10 @@ class SubcategoryPresenter
     @school = school
   end
 
+  def id
+    @subcategory.subcategory_id
+  end
+
   def name
     @subcategory.name
   end

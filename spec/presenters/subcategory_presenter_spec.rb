@@ -3,7 +3,7 @@ require 'rails_helper'
 describe SubcategoryPresenter do
   let(:academic_year) { create(:academic_year, range: '1989-90') }
   let(:school) { create(:school, name: 'Best School') }
-  let(:subcategory) { create(:subcategory, name: 'A great subcategory', description: 'A great description')  }
+  let(:subcategory) { create(:subcategory, name: 'A great subcategory', subcategory_id: 'A', description: 'A great description')  }
   let(:subcategory_presenter) do
     measure1 = create(:measure, watch_low_benchmark: 4, growth_low_benchmark: 4.25, approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75, subcategory: subcategory)
     survey_item1 = create(:teacher_survey_item, measure: measure1)
@@ -29,6 +29,10 @@ describe SubcategoryPresenter do
 
   it 'returns the description of the subcategory' do
     expect(subcategory_presenter.description).to eq 'A great description'
+  end
+
+  it 'returns the id of the subcategory' do
+    expect(subcategory_presenter.id).to eq 'A'
   end
 
   it 'returns a gauge presenter responsible for the aggregate survey item response likert scores' do

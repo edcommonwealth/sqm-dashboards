@@ -5,6 +5,10 @@ class MeasurePresenter
     @school = school
   end
 
+  def id
+    @measure.measure_id
+  end
+
   def name
     @measure.name
   end

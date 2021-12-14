@@ -23,6 +23,17 @@
   box-shadow: 0 0 6px rgba($black, 0.25);
 }
 
+.construct-id {
+  @extend .font-cabin;
+  @extend .weight-700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  color: $gray-1;
+  line-height: 18px;
+}
+
 .subcategory-section {
   @extend .mt-5;
   @extend .bg-color-white;

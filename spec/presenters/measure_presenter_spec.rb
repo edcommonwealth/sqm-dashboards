@@ -6,6 +6,10 @@ describe MeasurePresenter do
   let(:measure) { create(:measure, measure_id: 'measure-id') }
   let(:measure_presenter) { MeasurePresenter.new(measure: measure, academic_year: academic_year, school: school) }
 
+  it 'returns the id of the measure' do
+    expect(measure_presenter.id).to eq 'measure-id'
+  end
+
   it 'has an id for use in the data item accordions' do
     expect(measure_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
   end

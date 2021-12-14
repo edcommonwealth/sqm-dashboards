@@ -3,6 +3,10 @@ class CategoryPresenter
     @category = category
   end
 
+  def id
+    @category.category_id
+  end
+
   def name
     @category.name
   end
