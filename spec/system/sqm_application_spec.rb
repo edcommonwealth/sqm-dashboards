@@ -13,8 +13,8 @@ describe 'SQM Application' do
   end
 
   context 'when no measures meet their threshold' do
-    it 'shows a modal on dashboard page' do
-      visit dashboard_path
+    it 'shows a modal on overview page' do
+      visit overview_path
       expect(page).to have_css '.modal'
     end
 
@@ -32,7 +32,7 @@ describe 'SQM Application' do
     end
 
     it 'does not show a modal on any page' do
-      [dashboard_path, browse_path].each do |path|
+      [overview_path, browse_path].each do |path|
         visit path
         expect(page).not_to have_css '.modal'
       end
@@ -49,8 +49,8 @@ describe 'SQM Application' do
     "#{username}!"
   end
 
-  def dashboard_path
-    district_school_dashboard_index_path(district, school, year: academic_year.range)
+  def overview_path
+    district_school_overview_index_path(district, school, year: academic_year.range)
   end
 
   def browse_path

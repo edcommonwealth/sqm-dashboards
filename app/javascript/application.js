@@ -7,7 +7,7 @@ import * as ActiveStorage from "@rails/activestorage"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-import { initializeListenersForNavDropdowns, initializePopovers } from "./dashboard"
+import { initializeListenersForNavDropdowns, initializePopovers } from "./overview"
 import { initializeListenersForHomeDropdowns } from "./home"
 import { showEmptyDatasetModal } from "./modal"
 

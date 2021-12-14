@@ -10,7 +10,7 @@ describe 'authentication' do
       page.driver.browser.basic_authorize('wrong username', 'wrong password')
     end
     it 'does not show any information' do
-      visit dashboard_path
+      visit overview_path
 
       expect(page).not_to have_text(school.name)
     end
@@ -21,7 +21,7 @@ describe 'authentication' do
       page.driver.browser.basic_authorize(username, password)
     end
     it 'does show information' do
-      visit dashboard_path
+      visit overview_path
 
       expect(page).to have_text(school.name)
     end
@@ -37,7 +37,7 @@ describe 'authentication' do
     "#{username}!"
   end
 
-  def dashboard_path
-    district_school_dashboard_index_path(district, school, year: academic_year.range)
+  def overview_path
+    district_school_overview_index_path(district, school, year: academic_year.range)
   end
 end

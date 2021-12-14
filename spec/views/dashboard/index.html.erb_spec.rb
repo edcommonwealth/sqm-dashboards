@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'dashboard/index.html.erb' do
+describe 'overview/index.html.erb' do
   subject { Nokogiri::HTML(rendered) }
 
   let(:support_for_teaching) { create(:measure, name: 'Support For Teaching Development & Growth') }

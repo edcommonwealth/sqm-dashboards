@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DashboardController, type: :controller do
+describe OverviewController, type: :controller do
   include BasicAuthHelper
   let(:school) { create(:school) }
   let(:district) { create(:district) }

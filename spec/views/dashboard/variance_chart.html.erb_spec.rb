@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'dashboard/_variance_chart.html.erb' do
+describe 'overview/_variance_chart.html.erb' do
   subject { Nokogiri::HTML(rendered) }
 
   let(:higher_scoring_measure) { create(:measure) }

@@ -65,15 +65,15 @@ describe 'District Admin', js: true do
 
     visit '/welcome'
     expect(page).to have_text("Teachers & Leadership")
-    go_to_school_dashboard_from_welcome_page(district, school)
+    go_to_school_overview_from_welcome_page(district, school)
 
-    district_admin_sees_dashboard_content
+    district_admin_sees_overview_content
 
     click_on 'Teachers & Leadership'
     district_admin_sees_browse_content
 
-    click_on 'Dashboard'
-    district_admin_sees_dashboard_content
+    click_on 'Overview'
+    district_admin_sees_overview_content
 
     click_on 'Browse'
     district_admin_sees_browse_content
@@ -106,7 +106,7 @@ def district_admin_sees_problem_solving_emphasis
   expect(page).to have_css("[data-for-measure-id='4C-i'][width='60.0%'][x='0.0%']")
 end
 
-def go_to_school_dashboard_from_welcome_page(district, school)
+def go_to_school_overview_from_welcome_page(district, school)
   select district.name, from: 'district-dropdown'
   select school.name, from: 'school-dropdown'
   click_on 'Go'
@@ -125,8 +125,8 @@ def go_to_browse_page_for_school_without_data(school)
   select school.name, from: 'select-school'
 end
 
-def go_to_dashboard_page_for_school_without_data(school)
-  click_on 'Dashboard'
+def go_to_overview_page_for_school_without_data(school)
+  click_on 'Overview'
   select school.name, from: 'select-school'
 end
 
@@ -140,7 +140,7 @@ def district_admin_sees_district_change
   expect(page).to have_current_path(expected_path)
 end
 
-def district_admin_sees_dashboard_content
+def district_admin_sees_overview_content
   expect(page).to have_select('academic-year', selected: '2020 – 2021')
   expect(page).to have_select('district', selected: 'Winchester')
   expect(page).to have_select('school', selected: 'Winchester High School')

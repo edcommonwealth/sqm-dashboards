@@ -1,4 +1,4 @@
-class DashboardController < SqmApplicationController
+class OverviewController < SqmApplicationController
 
   def index
     @variance_chart_row_presenters = Measure.all.map(&method(:presenter_for_measure))
