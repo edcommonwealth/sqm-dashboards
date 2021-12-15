@@ -1,6 +1,5 @@
 module Legacy
   class RecipientSchedule < ApplicationRecord
-
     belongs_to :recipient
     belongs_to :schedule
     has_many :attempts
@@ -10,25 +9,29 @@ module Legacy
     validates :next_attempt_at, presence: true
 
     scope :ready, -> { where('next_attempt_at <= ?', Time.new) }
-    scope :for_recipient, -> (recipient_or_recipient_id) {
-      id = recipient_or_recipient_id.is_a?(Recipient) ?
-             recipient_or_recipient_id.id :
+    scope :for_recipient, lambda { |recipient_or_recipient_id|
+      id = if recipient_or_recipient_id.is_a?(Recipient)
+             recipient_or_recipient_id.id
+           else
              recipient_or_recipient_id
+           end
       where(recipient_id: id)
     }
-    scope :for_schedule, -> (schedule_or_schedule_id) {
-      id = schedule_or_schedule_id.is_a?(Schedule) ?
-             schedule_or_schedule_id.id :
+    scope :for_schedule, lambda { |schedule_or_schedule_id|
+      id = if schedule_or_schedule_id.is_a?(Schedule)
+             schedule_or_schedule_id.id
+           else
              schedule_or_schedule_id
+           end
       where(schedule_id: id)
     }
 
     def next_question
-      if queued_question_ids.present?
-        next_question_id = queued_question_ids.split(/,/).first
-      else
-        next_question_id = upcoming_question_ids.split(/,/).first
-      end
+      next_question_id = if queued_question_ids.present?
+                           queued_question_ids.split(/,/).first
+                         else
+                           upcoming_question_ids.split(/,/).first
+                         end
       Question.where(id: next_question_id).first
     end
 
@@ -48,16 +51,12 @@ module Legacy
       return if recipient.opted_out?
       return if question.nil?
 
-      if !question.for_recipient_students?
-        return attempt_question(question: question)
-      end
+      return attempt_question(question: question) unless question.for_recipient_students?
 
       missing_students = []
       recipient_attempts = attempts.for_recipient(recipient).for_question(question)
       recipient.students.each do |student|
-        if recipient_attempts.for_student(student).empty?
-          missing_students << student
-        end
+        missing_students << student if recipient_attempts.for_student(student).empty?
       end
 
       attempt = recipient.attempts.create(
@@ -74,7 +73,7 @@ module Legacy
 
         if question.present?
           question_id = [question.id.to_s]
-          upcoming = upcoming - question_id
+          upcoming -= question_id
           if missing_students.length > 1
             queued += question_id
           else
@@ -91,19 +90,18 @@ module Legacy
           next_attempt_at: next_valid_attempt_time
         )
       end
-      return attempt
+      attempt
     end
 
     def attempt_question(send_message: true, question: next_question)
       return if recipient.opted_out?
+
       unanswered_attempt = recipient.attempts.not_yet_responded.last
 
       return if question.nil? && unanswered_attempt.nil?
 
       if unanswered_attempt.nil?
-        if question.for_recipient_students?
-          return attempt_question_for_recipient_students(question: question)
-        end
+        return attempt_question_for_recipient_students(question: question) if question.for_recipient_students?
 
         attempt = recipient.attempts.create(
           schedule: schedule,
@@ -119,7 +117,7 @@ module Legacy
 
         if question.present?
           question_id = [question.id.to_s]
-          upcoming = upcoming - question_id
+          upcoming -= question_id
           if unanswered_attempt.nil?
             attempted += question_id
             queued -= question_id
@@ -136,13 +134,13 @@ module Legacy
           next_attempt_at: next_valid_attempt_time
         )
       end
-      return (unanswered_attempt || attempt)
+      (unanswered_attempt || attempt)
     end
 
     def next_valid_attempt_time
       local_time = (next_attempt_at + (60 * 60 * schedule.frequency_hours)).in_time_zone('Eastern Time (US & Canada)')
       local_time += 1.day while local_time.on_weekend?
-      return local_time
+      local_time
     end
 
     def self.create_for_recipient(recipient_or_recipient_id, schedule, next_attempt_at = nil)
@@ -154,9 +152,11 @@ module Legacy
       question_ids = schedule.question_list.question_ids.split(/,/)
       question_ids = question_ids.shuffle if schedule.random?
 
-      recipient_id = recipient_or_recipient_id.is_a?(Recipient) ?
-                       recipient_or_recipient_id.id :
+      recipient_id = if recipient_or_recipient_id.is_a?(Recipient)
+                       recipient_or_recipient_id.id
+                     else
                        recipient_or_recipient_id
+                     end
 
       schedule.recipient_schedules.create(
         recipient_id: recipient_id,
@@ -164,6 +164,5 @@ module Legacy
         next_attempt_at: next_attempt_at
       )
     end
-
   end
 end

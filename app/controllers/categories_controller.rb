@@ -1,9 +1,7 @@
 class CategoriesController < SqmApplicationController
-
   def show
     @categories = Category.sorted.map { |category| CategoryPresenter.new(category: category) }
 
     @category = CategoryPresenter.new(category: Category.find_by_slug(params[:id]))
   end
-
 end

@@ -3,7 +3,7 @@ module Legacy
     before_action :authenticate_user!
     before_action :set_school
     before_action :verify_admin
-    before_action :set_recipient, only: [:show, :edit, :update, :destroy]
+    before_action :set_recipient, only: %i[show edit update destroy]
 
     # GET /recipients
     # GET /recipients.json
@@ -13,8 +13,7 @@ module Legacy
 
     # GET /recipients/1
     # GET /recipients/1.json
-    def show
-    end
+    def show; end
 
     # GET /recipients/new
     def new
@@ -22,8 +21,7 @@ module Legacy
     end
 
     # GET /recipients/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /recipients
     # POST /recipients.json
@@ -32,7 +30,10 @@ module Legacy
 
       respond_to do |format|
         if @recipient.save
-          format.html { redirect_to legacy_school_legacy_recipient_path(@school, @recipient), notice: 'Recipient was successfully created.' }
+          format.html do
+            redirect_to legacy_school_legacy_recipient_path(@school, @recipient),
+                        notice: 'Recipient was successfully created.'
+          end
           format.json { render :show, status: :created, location: @recipient }
         else
           format.html { render :new }
@@ -45,7 +46,7 @@ module Legacy
       render and return if request.get?
 
       Recipient.import(@school, params[:file])
-      redirect_to @school, notice: "Recipients imported."
+      redirect_to @school, notice: 'Recipients imported.'
     end
 
     # PATCH/PUT /recipients/1
@@ -53,7 +54,10 @@ module Legacy
     def update
       respond_to do |format|
         if @recipient.update(recipient_params)
-          format.html { redirect_to legacy_school_legacy_recipient_path(@school, @recipient), notice: 'Recipient was successfully updated.' }
+          format.html do
+            redirect_to legacy_school_legacy_recipient_path(@school, @recipient),
+                        notice: 'Recipient was successfully updated.'
+          end
           format.json { render :show, status: :ok, location: @recipient }
         else
           format.html { render :edit }
@@ -86,7 +90,8 @@ module Legacy
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipient_params
-      params.require(:recipient).permit(:name, :phone, :birth_date, :gender, :race, :ethnicity, :home_language_id, :income, :opted_out, :school_id)
+      params.require(:recipient).permit(:name, :phone, :birth_date, :gender, :race, :ethnicity, :home_language_id,
+                                        :income, :opted_out, :school_id)
     end
   end
 end

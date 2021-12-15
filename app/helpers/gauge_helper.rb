@@ -21,8 +21,8 @@ module GaugeHelper
   def viewbox
     x = arc_center.x - (outer_radius + stroke_width)
     y = arc_center.y - (outer_radius + stroke_width) - key_benchmark_indicator_gutter
-    width = 2*(outer_radius + stroke_width)
-    height = outer_radius + 2*stroke_width + key_benchmark_indicator_gutter
+    width = 2 * (outer_radius + stroke_width)
+    height = outer_radius + 2 * stroke_width + key_benchmark_indicator_gutter
     Rect.new(x, y, width, height)
   end
 
@@ -35,11 +35,13 @@ module GaugeHelper
   end
 
   def indicator_right_corner
-    Point.new(key_benchmark_indicator_gutter/Math.sqrt(3), arc_center.y - outer_radius - key_benchmark_indicator_gutter)
+    Point.new(key_benchmark_indicator_gutter / Math.sqrt(3),
+              arc_center.y - outer_radius - key_benchmark_indicator_gutter)
   end
 
   def indicator_left_corner
-    Point.new(-key_benchmark_indicator_gutter/Math.sqrt(3), arc_center.y - outer_radius - key_benchmark_indicator_gutter)
+    Point.new(-key_benchmark_indicator_gutter / Math.sqrt(3),
+              arc_center.y - outer_radius - key_benchmark_indicator_gutter)
   end
 
   def arc_radius(radius)
@@ -74,7 +76,8 @@ module GaugeHelper
 
   def draw_arc(radius:, percentage:, clockwise:)
     sweep_flag = clockwise ? 1 : 0
-    "A #{arc_radius(radius)} 0 0 #{sweep_flag} #{coordinates_for(arc_end_point_for(radius: radius, percentage: percentage))}"
+    "A #{arc_radius(radius)} 0 0 #{sweep_flag} #{coordinates_for(arc_end_point_for(radius: radius,
+                                                                                   percentage: percentage))}"
   end
 
   def draw_line_to(point:)
@@ -82,8 +85,8 @@ module GaugeHelper
   end
 
   def benchmark_line_point(radius, angle)
-    x = "#{radius * Math.cos(angle)}"
-    y = "#{radius * Math.sin(angle) + arc_center.y}"
+    x = (radius * Math.cos(angle)).to_s
+    y = (radius * Math.sin(angle) + arc_center.y).to_s
     Point.new(x, y)
   end
 

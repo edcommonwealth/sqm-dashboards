@@ -4,8 +4,10 @@ describe 'overview/_variance_chart.html.erb' do
   context 'When there are scores to show' do
     subject { Nokogiri::HTML(rendered) }
 
-    let(:higher_scoring_measure) { create(:measure) }
-    let(:lower_scoring_measure) { create(:measure) }
+    let(:survey_items1) { [create(:student_survey_item)] }
+    let(:survey_items2) { [create(:student_survey_item)] }
+    let(:higher_scoring_measure) { create(:measure, survey_items: survey_items1) }
+    let(:lower_scoring_measure) { create(:measure, survey_items: survey_items2)  }
 
     before :each do
       presenters = [
@@ -13,7 +15,7 @@ describe 'overview/_variance_chart.html.erb' do
         VarianceChartRowPresenter.new(measure: higher_scoring_measure, score: Score.new(5))
       ]
 
-      render partial: 'variance_chart', locals: { presenters: presenters}
+      render partial: 'variance_chart', locals: { presenters: presenters }
     end
 
     it 'displays higher scoring measures above lower scoring measures' do
@@ -39,7 +41,7 @@ describe 'overview/_variance_chart.html.erb' do
         VarianceChartRowPresenter.new(measure: another_measure_lacking_score, score: Score.new(nil))
       ]
 
-      render partial: 'variance_chart', locals: { presenters: presenters}
+      render partial: 'variance_chart', locals: { presenters: presenters }
     end
 
     it "displays the text 'insufficient data' for an empty dataset" do

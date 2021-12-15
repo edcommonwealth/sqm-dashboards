@@ -30,7 +30,7 @@ class Scale
   end
 
   def insufficient_data
-    Zone.new(0,@warning_low_benchmark,:insufficient_data)
+    Zone.new(0, @warning_low_benchmark, :insufficient_data)
   end
 
   def zone_for_score(score)

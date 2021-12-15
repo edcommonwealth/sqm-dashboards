@@ -2,21 +2,22 @@ require 'rails_helper'
 
 module Legacy
   describe Attempt, type: :model do
-
     let!(:school) { School.create!(name: 'School') }
 
-    let!(:recipient) { school.recipients.create(name: 'name', phone: "#{1}" * 9) }
+    let!(:recipient) { school.recipients.create(name: 'name', phone: '1' * 9) }
     let!(:recipient_list) do
-      school.recipient_lists.create!(name: 'Parents', recipient_ids: "#{recipient.id}")
+      school.recipient_lists.create!(name: 'Parents', recipient_ids: recipient.id.to_s)
     end
 
     let!(:category) { Category.create(name: 'Category') }
     let!(:question) { create_questions(1, category).first }
     let!(:question_list) do
-      QuestionList.create!(name: 'Parent Questions', question_ids: "#{question.id}")
+      QuestionList.create!(name: 'Parent Questions', question_ids: question.id.to_s)
     end
 
-    let(:schedule) { Schedule.create!(name: 'Parent Schedule', recipient_list_id: recipient_list.id, question_list: question_list) }
+    let(:schedule) do
+      Schedule.create!(name: 'Parent Schedule', recipient_list_id: recipient_list.id, question_list: question_list)
+    end
 
     let(:recipient_schedule) do
       RecipientSchedule.create!(
@@ -96,7 +97,7 @@ module Legacy
         expect(FakeSMS.messages.length).to eq(2)
 
         expect(FakeSMS.messages.first.to).to eq('111111111')
-        expect(FakeSMS.messages.first.body).to eq("Question 0:1")
+        expect(FakeSMS.messages.first.body).to eq('Question 0:1')
 
         expect(FakeSMS.messages.last.to).to eq('111111111')
         expect(FakeSMS.messages.last.body).to eq("Option 0:1 A: Reply 1\nOption 0:1 B: 2\nOption 0:1 C: 3\nOption 0:1 D: 4\nOption 0:1 E: 5")

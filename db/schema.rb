@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_10_142652) do
+ActiveRecord::Schema.define(version: 2021_12_17_164449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 2021_12_10_142652) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "watch_low_benchmark"
+    t.float "growth_low_benchmark"
+    t.float "approval_low_benchmark"
+    t.float "ideal_low_benchmark"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
@@ -260,10 +264,6 @@ ActiveRecord::Schema.define(version: 2021_12_10_142652) do
   create_table "measures", id: :serial, force: :cascade do |t|
     t.string "measure_id", null: false
     t.string "name"
-    t.float "watch_low_benchmark"
-    t.float "growth_low_benchmark"
-    t.float "approval_low_benchmark"
-    t.float "ideal_low_benchmark"
     t.integer "subcategory_id", null: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
@@ -313,6 +313,10 @@ ActiveRecord::Schema.define(version: 2021_12_10_142652) do
     t.string "prompt"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "watch_low_benchmark"
+    t.float "growth_low_benchmark"
+    t.float "approval_low_benchmark"
+    t.float "ideal_low_benchmark"
     t.index ["measure_id"], name: "index_survey_items_on_measure_id"
     t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id"
   end

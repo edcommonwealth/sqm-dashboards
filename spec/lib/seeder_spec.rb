@@ -8,19 +8,19 @@ describe Seeder do
     before { AcademicYear.delete_all }
 
     it 'seeds new academic years' do
-      expect {
+      expect do
         seeder.seed_academic_years '2020-21', '2021-22', '2022-23'
-      }.to change { AcademicYear.count }.by(3)
-      expect(AcademicYear.all.map(&:range)).to eq ['2020-21', '2021-22', '2022-23']
+      end.to change { AcademicYear.count }.by(3)
+      expect(AcademicYear.all.map(&:range)).to eq %w[2020-21 2021-22 2022-23]
     end
 
     context 'when partial data already exists' do
       before { create(:academic_year, range: '2020-21') }
 
       it 'only creates new data' do
-        expect {
+        expect do
           seeder.seed_academic_years '2020-21', '2021-22'
-        }.to change { AcademicYear.count }.by(1)
+        end.to change { AcademicYear.count }.by(1)
       end
     end
   end
@@ -32,30 +32,35 @@ describe Seeder do
     end
 
     it 'seeds new districts and schools' do
-      expect {
+      expect do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
-      }.to  change { District.count }.by(2)
-       .and change { School.count   }.by(2)
+      end.to change { District.count }.by(2)
+                                      .and change { School.count }.by(2)
     end
 
     context 'when partial data already exists' do
       let!(:existing_district) { create(:district, name: 'Boston') }
-      let!(:removed_school) { create(:school, name: 'John Oldes Academy', dese_id: 12345, district: existing_district) }
+      let!(:removed_school) do
+        create(:school, name: 'John Oldes Academy', dese_id: 12_345, district: existing_district)
+      end
       let!(:removed_survey_item_response) { create(:survey_item_response, school: removed_school) }
-      let!(:existing_school) { create(:school, name: 'Sam Adams Elementary School', dese_id: 350302, slug: 'some-slug-for-sam-adams', district: existing_district) }
+      let!(:existing_school) do
+        create(:school, name: 'Sam Adams Elementary School', dese_id: 350_302, slug: 'some-slug-for-sam-adams',
+                        district: existing_district)
+      end
 
       it 'only creates new districts and schools' do
-        expect {
+        expect do
           seeder.seed_districts_and_schools sample_districts_and_schools_csv
-        }.to  change { District.count }.by(1)
-         .and change { School.count   }.by(0) # +1 for new school, -1 for old school
+        end.to change { District.count }.by(1)
+                                        .and change { School.count }.by(0) # +1 for new school, -1 for old school
 
         new_district = District.find_by_name 'Attleboro'
         expect(new_district.qualtrics_code).to eq 1
         expect(new_district.slug).to eq 'attleboro'
 
         new_school = School.find_by_name 'Attleboro High School'
-        expect(new_school.dese_id).to eq 160505
+        expect(new_school.dese_id).to eq 160_505
         expect(new_school.qualtrics_code).to eq 1
         expect(new_school.slug).to eq 'attleboro-high-school'
       end
@@ -92,13 +97,17 @@ describe Seeder do
     end
 
     it 'creates new objects as necessary' do
-      expect {
+      expect do
         seeder.seed_sqm_framework sample_sqm_framework_csv
-      }.to  change { Category.count }.by(4)
-       .and change { Subcategory.count }.by(15)
-       .and change { Measure.count }.by(31)
-       .and change { SurveyItem.count }.by(136)
-       .and change { AdminDataItem.count }.by(32)
+      end.to change { Category.count }.by(4)
+                                      .and change { Subcategory.count }.by(15)
+                                                                       .and change { Measure.count }.by(31)
+                                                                                                    .and change {
+                                                                                                           SurveyItem.count
+                                                                                                         }.by(136)
+        .and change {
+               AdminDataItem.count
+             }.by(32)
     end
 
     context 'updates records to match given data' do
@@ -110,8 +119,8 @@ describe Seeder do
         teachers_leadership = Category.find_by_name 'Teachers & Leadership'
 
         expect(teachers_leadership.slug).to eq 'teachers-and-leadership'
-        expect(teachers_leadership.description).to eq "This is a category description."
-        expect(teachers_leadership.short_description).to eq "This is a category short description."
+        expect(teachers_leadership.description).to eq 'This is a category description.'
+        expect(teachers_leadership.short_description).to eq 'This is a category short description.'
       end
 
       it 'updates category sort index to match a predefined order' do
@@ -124,31 +133,35 @@ describe Seeder do
 
       it 'updates subcategory data' do
         subcategory = Subcategory.find_by_name 'Safety'
-        expect(subcategory.description).to eq "This is a subcategory description."
+        expect(subcategory.description).to eq 'This is a subcategory description.'
       end
 
       it 'updates measure data' do
         measure = Measure.find_by_measure_id '2A-i'
         expect(measure.name).to eq 'Student Physical Safety'
         expect(measure.description).to eq 'This is a measure description.'
-        expect(measure.watch_low_benchmark).to eq 2.79
-        expect(measure.growth_low_benchmark).to eq 3.3
-        expect(measure.approval_low_benchmark).to eq 3.8
-        expect(measure.ideal_low_benchmark).to eq 4.51
       end
 
-      it 'does not overwrite the measure benchmarks with admin data benchmarks' do
-        measure = Measure.find_by_measure_id '1A-i'
-        expect(measure.approval_low_benchmark).to eq 3.5
+      it 'does not overwrite the survey item benchmarks with admin data benchmarks' do
+        survey_item = SurveyItem.find_by_survey_item_id 't-prep-q1'
+        expect(survey_item.approval_low_benchmark).to eq 3.5
       end
 
       it 'updates survey item data' do
         survey_item = SurveyItem.find_by_survey_item_id 's-phys-q1'
         expect(survey_item.prompt).to eq 'How often do you worry about violence at your school?'
+        expect(survey_item.watch_low_benchmark).to eq 2.79
+        expect(survey_item.growth_low_benchmark).to eq 3.3
+        expect(survey_item.approval_low_benchmark).to eq 3.8
+        expect(survey_item.ideal_low_benchmark).to eq 4.51
       end
 
       it 'updates admin data item data' do
         admin_data_item = AdminDataItem.find_by_admin_data_item_id 'a-phys-i1'
+        expect(admin_data_item.watch_low_benchmark).to eq 2.99
+        expect(admin_data_item.growth_low_benchmark).to eq 3.5
+        expect(admin_data_item.approval_low_benchmark).to eq 4
+        expect(admin_data_item.ideal_low_benchmark).to eq 4.71
         expect(admin_data_item.description).to eq 'Student to suspensions ratio'
       end
     end

@@ -1,26 +1,36 @@
 require 'rails_helper'
 
 describe VarianceChartRowPresenter do
-
   let(:watch_low_benchmark) { 2.9 }
   let(:growth_low_benchmark) { 3.1 }
   let(:approval_low_benchmark) { 3.6 }
   let(:ideal_low_benchmark) { 3.8 }
 
-  let(:measure) {
+  let(:measure) do
+    measure = create(
+      :measure,
+      name: 'Some Title'
+    )
+
+    create(:student_survey_item, measure: measure,
+                                 watch_low_benchmark: watch_low_benchmark,
+                                 growth_low_benchmark: growth_low_benchmark,
+                                 approval_low_benchmark: approval_low_benchmark,
+                                 ideal_low_benchmark: ideal_low_benchmark)
+
+    measure
+  end
+
+  let(:measure_without_admin_data_items) do
     create(
       :measure,
-      name: 'Some Title',
-      watch_low_benchmark: watch_low_benchmark,
-      growth_low_benchmark: growth_low_benchmark,
-      approval_low_benchmark: approval_low_benchmark,
-      ideal_low_benchmark: ideal_low_benchmark
+      name: 'Some Title'
     )
-  }
+  end
 
-  let(:presenter) {
+  let(:presenter) do
     VarianceChartRowPresenter.new measure: measure, score: score
-  }
+  end
 
   shared_examples_for 'measure_name' do
     it 'returns the measure name' do
@@ -34,15 +44,15 @@ describe VarianceChartRowPresenter do
     it_behaves_like 'measure_name'
 
     it 'returns the correct color' do
-      expect(presenter.bar_color).to eq "fill-ideal"
+      expect(presenter.bar_color).to eq 'fill-ideal'
     end
 
     it 'returns a bar width equal to the approval zone width plus the proportionate ideal zone width' do
-      expect(presenter.bar_width).to eq "30.0%"
+      expect(presenter.bar_width).to eq '30.0%'
     end
 
     it 'returns an x-offset of 60%' do
-      expect(presenter.x_offset).to eq "60%"
+      expect(presenter.x_offset).to eq '60%'
     end
   end
 
@@ -51,16 +61,16 @@ describe VarianceChartRowPresenter do
 
     it_behaves_like 'measure_name'
 
-    it "returns the correct color" do
-      expect(presenter.bar_color).to eq "fill-approval"
+    it 'returns the correct color' do
+      expect(presenter.bar_color).to eq 'fill-approval'
     end
 
     it 'returns a bar width equal to the proportionate approval zone width' do
-      expect(presenter.bar_width).to eq "10.0%"
+      expect(presenter.bar_width).to eq '10.0%'
     end
 
     it 'returns an x-offset of 60%' do
-      expect(presenter.x_offset).to eq "60%"
+      expect(presenter.x_offset).to eq '60%'
     end
   end
 
@@ -69,17 +79,17 @@ describe VarianceChartRowPresenter do
 
     it_behaves_like 'measure_name'
 
-    it "returns the correct color" do
-      expect(presenter.bar_color).to eq "fill-growth"
+    it 'returns the correct color' do
+      expect(presenter.bar_color).to eq 'fill-growth'
     end
 
     it 'returns a bar width equal to the proportionate growth zone width' do
-      expect(presenter.bar_width).to eq "16.0%"
+      expect(presenter.bar_width).to eq '16.0%'
     end
 
     context 'in order to achieve the visual effect' do
       it 'returns an x-offset equal to 60% minus the bar width' do
-        expect(presenter.x_offset).to eq "44.0%"
+        expect(presenter.x_offset).to eq '44.0%'
       end
     end
   end
@@ -89,17 +99,17 @@ describe VarianceChartRowPresenter do
 
     it_behaves_like 'measure_name'
 
-    it "returns the correct color" do
-      expect(presenter.bar_color).to eq "fill-watch"
+    it 'returns the correct color' do
+      expect(presenter.bar_color).to eq 'fill-watch'
     end
 
     it 'returns a bar width equal to the proportionate watch zone width plus the growth zone width' do
-      expect(presenter.bar_width).to eq "40.0%"
+      expect(presenter.bar_width).to eq '40.0%'
     end
 
     context 'in order to achieve the visual effect' do
       it 'returns an x-offset equal to 60% minus the bar width' do
-        expect(presenter.x_offset).to eq "20.0%"
+        expect(presenter.x_offset).to eq '20.0%'
       end
     end
   end
@@ -109,37 +119,54 @@ describe VarianceChartRowPresenter do
 
     it_behaves_like 'measure_name'
 
-    it "returns the correct color" do
-      expect(presenter.bar_color).to eq "fill-warning"
+    it 'returns the correct color' do
+      expect(presenter.bar_color).to eq 'fill-warning'
     end
 
     it 'returns a bar width equal to the proportionate warning zone width plus the watch & growth zone widths' do
-      expect(presenter.bar_width).to eq "60.0%"
+      expect(presenter.bar_width).to eq '60.0%'
     end
 
     context 'in order to achieve the visual effect' do
       it 'returns an x-offset equal to 60% minus the bar width' do
-        expect(presenter.x_offset).to eq "0.0%"
+        expect(presenter.x_offset).to eq '0.0%'
       end
     end
   end
 
   context 'when a measure does not contain admin data items' do
     let(:score) { Score.new(nil, false, false) }
+
     it 'it does not show a partial data indicator' do
-      expect(presenter.show_partial_data_indicator?).to be false
+      presenter_without_admin_data = VarianceChartRowPresenter.new measure: measure_without_admin_data_items,
+                                                                   score: score
+      expect(presenter_without_admin_data.show_partial_data_indicator?).to be false
     end
   end
 
   context 'when a measure contains admin data items' do
     before :each do
-      create :admin_data_item, measure: measure
     end
+
     let(:score) { Score.new(nil, false, false) }
 
     it 'shows a partial data indicator' do
-      expect(presenter.show_partial_data_indicator?).to be true
-      expect(presenter.partial_data_sources).to eq ['administrative data']
+      measure_with_admin_data = create(
+        :measure,
+        name: 'Some Title'
+      )
+      create :admin_data_item,
+             measure: measure_with_admin_data,
+             watch_low_benchmark: watch_low_benchmark,
+             growth_low_benchmark: growth_low_benchmark,
+             approval_low_benchmark: approval_low_benchmark,
+             ideal_low_benchmark: ideal_low_benchmark
+      admin_data_presenter = VarianceChartRowPresenter.new measure: measure_with_admin_data,
+                                                           score: Score.new(
+                                                             3.7, true, true
+                                                           )
+      expect(admin_data_presenter.show_partial_data_indicator?).to be true
+      expect(admin_data_presenter.partial_data_sources).to eq ['administrative data']
     end
   end
 
@@ -197,6 +224,12 @@ describe VarianceChartRowPresenter do
 
   context 'sorting scores' do
     it 'selects a longer bar before a shorter bar for measures in the approval/ideal zones' do
+      create(:student_survey_item,
+             measure: measure,
+             watch_low_benchmark: watch_low_benchmark,
+             growth_low_benchmark: growth_low_benchmark,
+             approval_low_benchmark: approval_low_benchmark,
+             ideal_low_benchmark: ideal_low_benchmark)
       approval_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(3.7, true, true)
       ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(4.4, true, true)
       expect(ideal_presenter <=> approval_presenter).to be < 0

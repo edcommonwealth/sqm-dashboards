@@ -1,26 +1,26 @@
 require 'rails_helper'
 
 module Legacy
-  describe "survey:attempt_questions" do
-    include_context "rake"
+  describe 'survey:attempt_questions' do
+    include_context 'rake'
 
     it 'should have environment as a prerequisite' do
-      expect(subject.prerequisites).to include("environment")
+      expect(subject.prerequisites).to include('environment')
     end
 
-    describe "basic flow" do
-      let(:now) {
+    describe 'basic flow' do
+      let(:now) do
         n = DateTime.now
         n += 1.day until n.on_weekday?
         return n
-      }
+      end
 
       let(:ready_recipient_schedule) { double('ready recipient schedule', attempt_question: nil) }
-      let(:recipient_schedules) { double("recipient schedules", ready: [ready_recipient_schedule]) }
-      let(:active_schedule) { double("active schedule", recipient_schedules: recipient_schedules) }
+      let(:recipient_schedules) { double('recipient schedules', ready: [ready_recipient_schedule]) }
+      let(:active_schedule) { double('active schedule', recipient_schedules: recipient_schedules) }
 
-      it "finds all active schedules" do
-        date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+      it 'finds all active schedules' do
+        date = ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT20:00:00%z'))
         Timecop.freeze(date)
 
         expect(ready_recipient_schedule).to receive(:attempt_question)
@@ -29,10 +29,10 @@ module Legacy
         subject.invoke
       end
 
-      it "works only on weekdays" do
+      it 'works only on weekdays' do
         now = DateTime.now
         now += 1.day until now.on_weekend?
-        date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+        date = ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT20:00:00%z'))
         Timecop.freeze(date)
 
         expect(ready_recipient_schedule).to_not receive(:attempt_question)
@@ -40,12 +40,12 @@ module Legacy
       end
     end
 
-    xdescribe "complex flow" do
-      let(:now) {
+    xdescribe 'complex flow' do
+      let(:now) do
         n = DateTime.now
         n += 1.day until n.on_weekday?
         return n
-      }
+      end
 
       let!(:school) { School.create!(name: 'School') }
 
@@ -76,7 +76,7 @@ module Legacy
         before :each do
           now = DateTime.new
           now += 1.day until now.on_weekend?
-          date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT19:00:00%z"))
+          date = ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT19:00:00%z'))
           Timecop.freeze(date) { subject.invoke }
         end
 
@@ -87,7 +87,7 @@ module Legacy
 
       describe 'First attempt at specified time' do
         before :each do
-          date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+          date = ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT20:00:00%z'))
           Timecop.freeze(date) { subject.invoke }
         end
 
@@ -193,7 +193,6 @@ module Legacy
       end
 
       describe 'Multiple Students In A Family' do
-
         before :each do
           3.times do |i|
             recipients[1].students.create(name: "Student#{i}")
@@ -201,12 +200,12 @@ module Legacy
         end
 
         let(:students_recipient) { recipients[1] }
-        let(:students_recipient_schedule) {
+        let(:students_recipient_schedule) do
           students_recipient.recipient_schedules.for_schedule(schedule).first
-        }
+        end
 
         describe 'With A FOR_CHILD Question Is Asked' do
-          let!(:date) { ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z")) }
+          let!(:date) { ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT20:00:00%z')) }
 
           before :each do
             questions.first.update(for_recipient_students: true)
@@ -224,7 +223,7 @@ module Legacy
             expect(students_recipient_schedule.queued_question_ids).to be_present
             queued_question_ids = students_recipient_schedule.queued_question_ids.split(/,/)
             expect(queued_question_ids.length).to eq(1)
-            expect(queued_question_ids.first).to eq("#{questions[0].id}")
+            expect(queued_question_ids.first).to eq(questions[0].id.to_s)
           end
 
           it 'should set the next_attempt_at to now when attempt is made on first student' do
@@ -234,7 +233,9 @@ module Legacy
 
           it 'should set the next_attempt_at in the future when an attempts are made on each student' do
             students_recipient.attempts.last.save_response(answer_index: 3)
-            expect { students_recipient_schedule.attempt_question }.to change { students_recipient.attempts.count }.by(1)
+            expect { students_recipient_schedule.attempt_question }.to change {
+                                                                         students_recipient.attempts.count
+                                                                       }.by(1)
             expect(students_recipient_schedule.reload.queued_question_ids).to be_present
 
             attempt = students_recipient.attempts.last
@@ -244,7 +245,9 @@ module Legacy
             attempt.save_response(answer_index: 4)
             expect(students_recipient_schedule.reload.next_attempt_at).to eq(date + 1.day)
 
-            expect { students_recipient_schedule.attempt_question }.to change { students_recipient.attempts.count }.by(1)
+            expect { students_recipient_schedule.attempt_question }.to change {
+                                                                         students_recipient.attempts.count
+                                                                       }.by(1)
             expect(students_recipient_schedule.reload.queued_question_ids).to be_nil
             expect(students_recipient_schedule.reload.next_attempt_at).to_not eq(date + (60 * 60 * schedule.frequency_hours))
 
@@ -266,7 +269,9 @@ module Legacy
 
           it 'resends the question about the same student if not responded to' do
             message_count = FakeSMS.messages.length
-            expect { students_recipient_schedule.attempt_question }.to change { students_recipient.attempts.count }.by(0)
+            expect { students_recipient_schedule.attempt_question }.to change {
+                                                                         students_recipient.attempts.count
+                                                                       }.by(0)
             expect(FakeSMS.messages.length).to eq(message_count + 2)
             expect(FakeSMS.messages[message_count].body).to match(questions.first.text)
             expect(FakeSMS.messages[message_count].body).to match(/\(for Student0\)/)
@@ -276,7 +281,6 @@ module Legacy
             recipient_schedule = recipients[0].recipient_schedules.for_schedule(schedule).first
             expect(recipient_schedule.queued_question_ids).to be_nil
           end
-
         end
 
         describe 'With A General Question Is Asked' do
@@ -293,23 +297,21 @@ module Legacy
               expect(message.body).to_not match(/\(for .*\)/)
             end
           end
-
         end
       end
 
       describe 'One Student In A Family' do
-
         before :each do
-          recipients[1].students.create(name: "Only Student")
+          recipients[1].students.create(name: 'Only Student')
         end
 
         let(:students_recipient) { recipients[1] }
-        let(:students_recipient_schedule) {
+        let(:students_recipient_schedule) do
           students_recipient.recipient_schedules.for_schedule(schedule).first
-        }
+        end
 
         describe 'With A FOR_CHILD Question Is Asked' do
-          let!(:date) { ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z")) }
+          let!(:date) { ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT20:00:00%z')) }
 
           before :each do
             questions.first.update(for_recipient_students: true)
@@ -330,11 +332,10 @@ module Legacy
       end
 
       describe 'Opted Out Recipient' do
-
         before :each do
           recipients[1].update(opted_out: true)
 
-          date = ActiveSupport::TimeZone["UTC"].parse(now.strftime("%Y-%m-%dT20:00:00%z"))
+          date = ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT20:00:00%z'))
           Timecop.freeze(date) { subject.invoke }
         end
 
@@ -353,7 +354,6 @@ module Legacy
           end
         end
       end
-
     end
   end
 end

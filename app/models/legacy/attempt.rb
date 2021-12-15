@@ -2,7 +2,6 @@ require 'twilio-ruby'
 
 module Legacy
   class Attempt < ApplicationRecord
-
     belongs_to :schedule
     belongs_to :recipient
     belongs_to :recipient_schedule
@@ -12,16 +11,16 @@ module Legacy
     after_save :update_school_categories
     after_commit :update_counts
 
-    scope :for_question, -> (question) { where(question_id: question.id) }
-    scope :for_recipient, -> (recipient) { where(recipient_id: recipient.id) }
-    scope :for_student, -> (student) { where(student_id: student.id) }
-    scope :for_category, -> (category) { joins(:question).merge(Question.for_category(category)) }
-    scope :for_school, -> (school) { joins(:recipient).merge(Legacy::Recipient.for_school(school)) }
+    scope :for_question, ->(question) { where(question_id: question.id) }
+    scope :for_recipient, ->(recipient) { where(recipient_id: recipient.id) }
+    scope :for_student, ->(student) { where(student_id: student.id) }
+    scope :for_category, ->(category) { joins(:question).merge(Question.for_category(category)) }
+    scope :for_school, ->(school) { joins(:recipient).merge(Legacy::Recipient.for_school(school)) }
     scope :with_answer, -> { where('answer_index is not null or open_response_id is not null') }
     scope :with_no_answer, -> { where('answer_index is null and open_response_id is null') }
     scope :not_yet_responded, -> { where(responded_at: nil) }
     scope :last_sent, -> { order(sent_at: :desc) }
-    scope :created_in, -> (year) { where('extract(year from legacy_attempts.created_at) = ?', year) }
+    scope :created_in, ->(year) { where('extract(year from legacy_attempts.created_at) = ?', year) }
 
     def messages
       child_specific = student.present? ? " (for #{student.name})" : ''
@@ -53,6 +52,7 @@ module Legacy
 
     def response
       return 'No Answer Yet' if answer_index.blank?
+
       question.options[answer_index_with_reverse - 1]
     end
 
@@ -63,20 +63,20 @@ module Legacy
         responded_at: responded_at
       )
 
-      if recipient_schedule.queued_question_ids.present?
-        recipient_schedule.update(next_attempt_at: Time.new)
-      end
+      recipient_schedule.update(next_attempt_at: Time.new) if recipient_schedule.queued_question_ids.present?
     end
 
     def answer_index_with_reverse
       return 6 - answer_index if question.reverse?
-      return answer_index
+
+      answer_index
     end
 
     private
 
     def update_school_categories
       return if ENV['BULK_PROCESS']
+
       school_category = SchoolCategory.for(recipient.school, question.category).first
       if school_category.nil?
         school_category = SchoolCategory.create(school: recipient.school, category: question.category)
@@ -86,8 +86,8 @@ module Legacy
 
     def update_counts
       return if ENV['BULK_PROCESS']
+
       recipient.update_counts
     end
-
   end
 end

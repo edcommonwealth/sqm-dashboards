@@ -20,20 +20,19 @@ require 'rails_helper'
 
 module Legacy
   RSpec.describe RecipientsController, type: :controller do
-
     let!(:user) { User.create(email: 'test@test.com', password: '123456') }
     let(:school) { School.create!(name: 'School') }
 
     # This should return the minimal set of attributes required to create a valid
     # Recipient. As you add validations to Recipient, be sure to
     # adjust the attributes here as well.
-    let(:valid_attributes) {
+    let(:valid_attributes) do
       {
         name: 'Recipient Name',
         phone: '111-222-3333',
         school_id: school.id
       }
-    }
+    end
 
     let(:invalid_attributes) { { name: '', phone: '111-222-3333' } }
 
@@ -47,126 +46,130 @@ module Legacy
       sign_in user
     end
 
-    describe "GET #index" do
-      it "assigns all recipients as @recipients" do
+    describe 'GET #index' do
+      it 'assigns all recipients as @recipients' do
         recipient = Recipient.create! valid_attributes
         get :index, params: { school_id: school.to_param }, session: valid_session
         expect(assigns(:recipients)).to eq([recipient])
       end
     end
 
-    describe "GET #show" do
-      it "assigns the requested recipient as @recipient" do
+    describe 'GET #show' do
+      it 'assigns the requested recipient as @recipient' do
         recipient = Recipient.create! valid_attributes
         get :show, params: { school_id: school.to_param, id: recipient.to_param }, session: valid_session
         expect(assigns(:recipient)).to eq(recipient)
       end
     end
 
-    describe "GET #new" do
-      it "assigns a new recipient as @recipient" do
+    describe 'GET #new' do
+      it 'assigns a new recipient as @recipient' do
         get :new, params: { school_id: school.id }, session: valid_session
         expect(assigns(:recipient)).to be_a_new(Recipient)
       end
     end
 
-    describe "GET #edit" do
-      it "assigns the requested recipient as @recipient" do
+    describe 'GET #edit' do
+      it 'assigns the requested recipient as @recipient' do
         recipient = Recipient.create! valid_attributes
         get :edit, params: { school_id: school.to_param, id: recipient.to_param }, session: valid_session
         expect(assigns(:recipient)).to eq(recipient)
       end
     end
 
-    describe "POST #create" do
-      context "with valid params" do
-        it "creates a new Recipient" do
-          expect {
+    describe 'POST #create' do
+      context 'with valid params' do
+        it 'creates a new Recipient' do
+          expect do
             post :create, params: { school_id: school.to_param, recipient: valid_attributes }, session: valid_session
-          }.to change(Recipient, :count).by(1)
+          end.to change(Recipient, :count).by(1)
         end
 
-        it "assigns a newly created recipient as @recipient" do
+        it 'assigns a newly created recipient as @recipient' do
           post :create, params: { school_id: school.to_param, recipient: valid_attributes }, session: valid_session
           expect(assigns(:recipient)).to be_a(Recipient)
           expect(assigns(:recipient)).to be_persisted
         end
 
-        it "redirects to the created recipient" do
+        it 'redirects to the created recipient' do
           post :create, params: { school_id: school.to_param, recipient: valid_attributes }, session: valid_session
           expect(response).to redirect_to(legacy_school_legacy_recipient_path(school, Recipient.last))
         end
       end
 
-      context "with invalid params" do
-        it "assigns a newly created but unsaved recipient as @recipient" do
+      context 'with invalid params' do
+        it 'assigns a newly created but unsaved recipient as @recipient' do
           post :create, params: { school_id: school.to_param, recipient: invalid_attributes }, session: valid_session
           expect(assigns(:recipient)).to be_a_new(Recipient)
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { school_id: school.to_param, recipient: invalid_attributes }, session: valid_session
-          expect(response).to render_template("new")
+          expect(response).to render_template('new')
         end
       end
     end
 
-    describe "PUT #update" do
-      context "with valid params" do
-        let(:new_attributes) {
+    describe 'PUT #update' do
+      context 'with valid params' do
+        let(:new_attributes) do
           { name: 'New Name' }
-        }
+        end
 
-        it "updates the requested recipient" do
+        it 'updates the requested recipient' do
           recipient = Recipient.create! valid_attributes
-          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: new_attributes }, session: valid_session
+          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: new_attributes },
+                       session: valid_session
           recipient.reload
           expect(recipient.name).to eq('New Name')
           expect(recipient.phone).to eq('111-222-3333')
         end
 
-        it "assigns the requested recipient as @recipient" do
+        it 'assigns the requested recipient as @recipient' do
           recipient = Recipient.create! valid_attributes
-          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: valid_attributes }, session: valid_session
+          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: valid_attributes },
+                       session: valid_session
           expect(assigns(:recipient)).to eq(recipient)
         end
 
-        it "redirects to the recipient" do
+        it 'redirects to the recipient' do
           recipient = Recipient.create! valid_attributes
-          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: valid_attributes }, session: valid_session
+          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: valid_attributes },
+                       session: valid_session
           expect(response).to redirect_to(legacy_school_legacy_recipient_url(school, recipient))
         end
       end
 
-      context "with invalid params" do
-        it "assigns the recipient as @recipient" do
+      context 'with invalid params' do
+        it 'assigns the recipient as @recipient' do
           recipient = Recipient.create! valid_attributes
-          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: invalid_attributes }, session: valid_session
+          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: invalid_attributes },
+                       session: valid_session
           expect(assigns(:recipient)).to eq(recipient)
         end
 
         it "re-renders the 'edit' template" do
           recipient = Recipient.create! valid_attributes
-          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: invalid_attributes }, session: valid_session
-          expect(response).to render_template("edit")
+          put :update, params: { school_id: school.to_param, id: recipient.to_param, recipient: invalid_attributes },
+                       session: valid_session
+          expect(response).to render_template('edit')
         end
       end
     end
 
-    describe "DELETE #destroy" do
-      it "destroys the requested recipient" do
+    describe 'DELETE #destroy' do
+      it 'destroys the requested recipient' do
         recipient = Recipient.create! valid_attributes
-        expect {
+        expect do
           delete :destroy, params: { school_id: school.to_param, id: recipient.to_param }, session: valid_session
-        }.to change(Recipient, :count).by(-1)
+        end.to change(Recipient, :count).by(-1)
       end
 
-      it "redirects to the recipients list" do
+      it 'redirects to the recipients list' do
         recipient = Recipient.create! valid_attributes
         delete :destroy, params: { school_id: school.to_param, id: recipient.to_param }, session: valid_session
         expect(response).to redirect_to(school)
       end
     end
-
   end
 end

@@ -27,12 +27,12 @@ describe 'authentication' do
     end
   end
 
-
   private
 
   def username
     district.name.downcase
   end
+
   def password
     "#{username}!"
   end

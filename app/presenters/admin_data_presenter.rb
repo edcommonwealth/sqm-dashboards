@@ -5,7 +5,7 @@ class AdminDataPresenter < DataItemPresenter
   end
 
   def title
-    "School admin data"
+    'School admin data'
   end
 
   def id
@@ -17,6 +17,6 @@ class AdminDataPresenter < DataItemPresenter
   end
 
   def reason_for_insufficiency
-    "limited availability"
+    'limited availability'
   end
 end

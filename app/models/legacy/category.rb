@@ -1,6 +1,5 @@
 module Legacy
   class Category < ApplicationRecord
-
     has_many :questions
     belongs_to :parent_category, class_name: 'Legacy::Category', foreign_key: :parent_category_id
     has_many :child_categories, class_name: 'Legacy::Category', foreign_key: :parent_category_id
@@ -8,11 +7,11 @@ module Legacy
 
     validates :name, presence: true
 
-    scope :for_parent, -> (category = nil) { where(parent_category_id: category.try(:id)) }
-    scope :likert, -> { where("benchmark is null") }
+    scope :for_parent, ->(category = nil) { where(parent_category_id: category.try(:id)) }
+    scope :likert, -> { where('benchmark is null') }
 
     include FriendlyId
-    friendly_id :name, :use => [:slugged]
+    friendly_id :name, use: [:slugged]
 
     def path
       p = self
@@ -30,23 +29,24 @@ module Legacy
     end
 
     def self.root_identifiers
-      [
-        "teachers-and-the-teaching-environment",
-        "school-culture",
-        "resources",
-        "academic-learning",
-        "community-and-wellbeing",
-        "pilot-family-questions"
+      %w[
+        teachers-and-the-teaching-environment
+        school-culture
+        resources
+        academic-learning
+        community-and-wellbeing
+        pilot-family-questions
       ]
     end
 
     def self.root
-      Category.where(parent_category: nil).select { |c| self.root_identifiers.index(c.slug) }
+      Category.where(parent_category: nil).select { |c| root_identifiers.index(c.slug) }
     end
 
     def custom_zones
       return [] if zones.nil?
-      zones.split(",").map(&:to_f)
+
+      zones.split(',').map(&:to_f)
     end
 
     def zone_widths
@@ -57,18 +57,17 @@ module Legacy
       end
 
       widths[4] = widths[4] + (5 - widths.sum)
-      return widths
+      widths
     end
 
     def sync_child_zones
       likert_child_categories = child_categories.likert
       return unless likert_child_categories.present?
+
       total_zones = [0, 0, 0, 0, 0]
       valid_child_categories = 0
       likert_child_categories.each do |cc|
-        if cc.zones.nil?
-          cc.sync_child_zones
-        end
+        cc.sync_child_zones if cc.zones.nil?
 
         if cc.zones.nil?
           puts "NO ZONES: #{name} -> #{cc.name}"
@@ -87,9 +86,8 @@ module Legacy
       if valid_child_categories > 0
         average_zones = total_zones.map { |zone| zone / valid_child_categories }
         puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones} | #{zone_widths}"
-        update(zones: average_zones.join(","))
+        update(zones: average_zones.join(','))
       end
     end
-
   end
 end

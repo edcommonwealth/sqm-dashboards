@@ -1,8 +1,5 @@
 module Legacy
   class AdminController < Legacy::ApplicationController
-
-    def index
-    end
-
+    def index; end
   end
 end

@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
-ruby "3.0.2"
+ruby '3.0.2'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
-
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.4.1'
@@ -13,7 +12,7 @@ gem 'rails', '~> 6.1.4.1'
 gem 'pg'
 
 # Use Puma as the app server
-gem "puma", ">= 5.5.2"
+gem 'puma', '>= 5.5.2'
 # Use SCSS for stylesheets
 gem 'sassc-rails', require: false
 # Use Uglifier as compressor for JavaScript assets
@@ -33,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "nokogiri", ">= 1.12.5"
+gem 'nokogiri', '>= 1.12.5'
 
 gem 'bootsnap', require: false
 
@@ -64,24 +63,24 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
   gem 'listen', '~> 3.0.5'
+  gem 'web-console'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'nested_scaffold'
+  gem 'seed_dump'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'seed_dump'
-  gem 'nested_scaffold'
 end
 
 group 'test' do
-  gem 'rspec-rails', '~> 4.1.2'
-  gem 'rails-controller-testing'
-  gem 'capybara'
   gem 'apparition', github: 'twalpole/apparition', ref: 'ca86be4d54af835d531dbcd2b86e7b2c77f85f34'
-  gem 'launchy'
+  gem 'capybara'
   gem 'database_cleaner'
+  gem 'launchy'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', '~> 4.1.2'
   gem 'timecop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

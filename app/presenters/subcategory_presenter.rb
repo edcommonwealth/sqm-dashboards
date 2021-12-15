@@ -31,7 +31,9 @@ class SubcategoryPresenter
   end
 
   def measure_presenters
-    @subcategory.measures.sort_by(&:measure_id).map { |measure| MeasurePresenter.new(measure: measure, academic_year: @academic_year, school: @school) }
+    @subcategory.measures.sort_by(&:measure_id).map do |measure|
+      MeasurePresenter.new(measure: measure, academic_year: @academic_year, school: @school)
+    end
   end
 
   private

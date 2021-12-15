@@ -1,6 +1,6 @@
 module ArrayMonkeyPatches
   def average
-    self.sum.to_f / self.size
+    sum.to_f / size
   end
 end
 

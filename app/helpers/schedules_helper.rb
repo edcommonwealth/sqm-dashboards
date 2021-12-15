@@ -1,5 +1,4 @@
 module SchedulesHelper
-
   def options_for_frequency_hours
     [
       ['Once A Day', 24],
@@ -10,9 +9,9 @@ module SchedulesHelper
   end
 
   def options_for_time
-    words = ['AM', 'PM'].map do |time|
+    words = %w[AM PM].map do |time|
       [12, *(1..11)].map do |hour|
-        ['00', '30'].map do |minute|
+        %w[00 30].map do |minute|
           "#{hour}:#{minute} #{time}"
         end
       end

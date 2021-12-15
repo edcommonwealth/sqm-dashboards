@@ -2,7 +2,6 @@ require 'rails_helper'
 
 module Legacy
   RSpec.describe Question, type: :model do
-
     let!(:school1) { School.create!(name: 'School 1') }
     let!(:school2) { School.create!(name: 'School 2') }
 
@@ -16,18 +15,33 @@ module Legacy
     let!(:category2questions) { create_questions(3, category2) }
     let(:question) { category1questions.first }
 
-    let!(:attempt1) { Legacy::Attempt.create!(question: category1questions[0], recipient: school1recipients[0], answer_index: 3) }
-    let!(:attempt2) { Legacy::Attempt.create!(question: category1questions[0], recipient: school1recipients[1], answer_index: 2) }
+    let!(:attempt1) do
+      Legacy::Attempt.create!(question: category1questions[0], recipient: school1recipients[0], answer_index: 3)
+    end
+    let!(:attempt2) do
+      Legacy::Attempt.create!(question: category1questions[0], recipient: school1recipients[1], answer_index: 2)
+    end
     let!(:attempt3) { Legacy::Attempt.create!(question: category1questions[0], recipient: school1recipients[2]) }
-    let!(:attempt4) { Legacy::Attempt.create!(question: category1questions[0], recipient: school1recipients[3], answer_index: 3) }
-    let!(:attempt5) { Legacy::Attempt.create!(question: category1questions[0], recipient: school2recipients[0], answer_index: 4) }
-    let!(:attempt6) { Legacy::Attempt.create!(question: category1questions[1], recipient: school1recipients[0], answer_index: 5) }
-    let!(:attempt7) { Legacy::Attempt.create!(question: category1questions[2], recipient: school1recipients[0], answer_index: 5) }
-    let!(:attempt8) { Legacy::Attempt.create!(question: category2questions[0], recipient: school1recipients[0], answer_index: 3) }
-    let!(:attempt9) { Legacy::Attempt.create!(question: category2questions[1], recipient: school1recipients[1], answer_index: 1) }
+    let!(:attempt4) do
+      Legacy::Attempt.create!(question: category1questions[0], recipient: school1recipients[3], answer_index: 3)
+    end
+    let!(:attempt5) do
+      Legacy::Attempt.create!(question: category1questions[0], recipient: school2recipients[0], answer_index: 4)
+    end
+    let!(:attempt6) do
+      Legacy::Attempt.create!(question: category1questions[1], recipient: school1recipients[0], answer_index: 5)
+    end
+    let!(:attempt7) do
+      Legacy::Attempt.create!(question: category1questions[2], recipient: school1recipients[0], answer_index: 5)
+    end
+    let!(:attempt8) do
+      Legacy::Attempt.create!(question: category2questions[0], recipient: school1recipients[0], answer_index: 3)
+    end
+    let!(:attempt9) do
+      Legacy::Attempt.create!(question: category2questions[1], recipient: school1recipients[1], answer_index: 1)
+    end
 
     describe 'aggregated_responses_for_school' do
-
       let(:aggregated_responses) { question.aggregated_responses_for_school(school1) }
 
       it 'aggregates all attempts with responses for the question for a given school' do
@@ -48,8 +62,6 @@ module Legacy
         expect(aggregated_responses.question).to eq(question)
         expect(aggregated_responses.category).to eq(question.category)
       end
-
     end
-
   end
 end

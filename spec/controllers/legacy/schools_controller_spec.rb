@@ -20,7 +20,6 @@ require 'rails_helper'
 
 module Legacy
   RSpec.describe SchoolsController, type: :controller do
-
     let(:district) { District.create! name: 'District' }
     let!(:school) { School.create! name: 'school', district: district }
     let!(:user) { User.create(email: 'test@example.com', password: '123456') }
@@ -29,157 +28,156 @@ module Legacy
     # This should return the minimal set of attributes required to create a valid
     # School. As you add validations to School, be sure to
     # adjust the attributes here as well.
-  let(:valid_attributes) {
-    {name: 'School', district: district}
-  }
-
-  let(:invalid_attributes) {
-    {name: ''}
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # SchoolsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
-  describe "GET #show" do
-    it "assigns the requested school as @school" do
-      get :show, params: {id: school.to_param}, session: valid_session
-      expect(assigns(:school)).to eq(school)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new school as @school" do
-      sign_in user
-      get :new, params: {}
-      expect(assigns(:school)).to be_a_new(School)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested school as @school" do
-      sign_in user
-      school = School.create! valid_attributes
-      get :edit, params: {id: school.to_param}
-      expect(assigns(:school)).to eq(school)
-    end
-  end
-
-  describe "GET #admin" do
-    it "assigns the requested school as @school" do
-      sign_in user
-      get :admin, params: {school_id: school.to_param}
-      expect(assigns(:school)).to eq(school)
+    let(:valid_attributes) do
+      { name: 'School', district: district }
     end
 
-    it "redirects if not logged in" do
-      get :admin, params: {school_id: school.to_param}
-      expect(response).to redirect_to(new_user_session_path)
+    let(:invalid_attributes) do
+      { name: '' }
     end
 
-    xit "redirects if user is not associated with school" do
-      another_user = User.create(email: 'test2@test.com', password: '123456')
-      sign_in another_user
+    # This should return the minimal set of values that should be in the session
+    # in order to pass any filters (e.g. authentication) defined in
+    # SchoolsController. Be sure to keep this updated too.
+    let(:valid_session) { {} }
 
-      get :admin, params: {school_id: school.to_param}
-      expect(response).to redirect_to(root_path)
-    end
-  end
-
-  describe "POST #create" do
-    before :each do
-      sign_in user
-    end
-
-    context "with valid params" do
-      it "creates a new School" do
-        expect {
-          post :create, params: {school: valid_attributes}
-        }.to change(School, :count).by(1)
-      end
-
-      it "assigns a newly created school as @school" do
-        post :create, params: {school: valid_attributes}
-        expect(assigns(:school)).to be_a(School)
-        expect(assigns(:school)).to be_persisted
-      end
-
-      it "redirects to the created school" do
-        post :create, params: {school: valid_attributes}
-        expect(response).to redirect_to(School.last)
+    describe 'GET #show' do
+      it 'assigns the requested school as @school' do
+        get :show, params: { id: school.to_param }, session: valid_session
+        expect(assigns(:school)).to eq(school)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved school as @school" do
-        post :create, params: {school: invalid_attributes}
+    describe 'GET #new' do
+      it 'assigns a new school as @school' do
+        sign_in user
+        get :new, params: {}
         expect(assigns(:school)).to be_a_new(School)
       end
-
-      it "re-renders the 'new' template" do
-        post :create, params: {school: invalid_attributes}
-        expect(response).to render_template("new")
-      end
-    end
-  end
-
-  describe "PUT #update" do
-    before :each do
-      sign_in user
     end
 
-    context "with valid params" do
-      let(:new_attributes) {
-        {name: 'New School'}
-      }
-
-      it "updates the requested school" do
-        put :update, params: {id: school.to_param, school: new_attributes}
-        school.reload
-        expect(school.name).to eq('New School')
+    describe 'GET #edit' do
+      it 'assigns the requested school as @school' do
+        sign_in user
+        school = School.create! valid_attributes
+        get :edit, params: { id: school.to_param }
+        expect(assigns(:school)).to eq(school)
       end
+    end
 
-      it "assigns the requested school as @school" do
-        put :update, params: {id: school.to_param, school: valid_attributes}
+    describe 'GET #admin' do
+      it 'assigns the requested school as @school' do
+        sign_in user
+        get :admin, params: { school_id: school.to_param }
         expect(assigns(:school)).to eq(school)
       end
 
-      it "redirects to the school" do
-        put :update, params: {id: school.to_param, school: valid_attributes}
-        expect(response).to redirect_to(school)
+      it 'redirects if not logged in' do
+        get :admin, params: { school_id: school.to_param }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      xit 'redirects if user is not associated with school' do
+        another_user = User.create(email: 'test2@test.com', password: '123456')
+        sign_in another_user
+
+        get :admin, params: { school_id: school.to_param }
+        expect(response).to redirect_to(root_path)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the school as @school" do
-        put :update, params: {id: school.to_param, school: invalid_attributes}
-        expect(assigns(:school)).to eq(school)
+    describe 'POST #create' do
+      before :each do
+        sign_in user
       end
 
-      it "re-renders the 'edit' template" do
-        put :update, params: {id: school.to_param, school: invalid_attributes}
-        expect(response).to render_template("edit")
+      context 'with valid params' do
+        it 'creates a new School' do
+          expect do
+            post :create, params: { school: valid_attributes }
+          end.to change(School, :count).by(1)
+        end
+
+        it 'assigns a newly created school as @school' do
+          post :create, params: { school: valid_attributes }
+          expect(assigns(:school)).to be_a(School)
+          expect(assigns(:school)).to be_persisted
+        end
+
+        it 'redirects to the created school' do
+          post :create, params: { school: valid_attributes }
+          expect(response).to redirect_to(School.last)
+        end
+      end
+
+      context 'with invalid params' do
+        it 'assigns a newly created but unsaved school as @school' do
+          post :create, params: { school: invalid_attributes }
+          expect(assigns(:school)).to be_a_new(School)
+        end
+
+        it "re-renders the 'new' template" do
+          post :create, params: { school: invalid_attributes }
+          expect(response).to render_template('new')
+        end
       end
     end
-  end
 
-  describe "DELETE #destroy" do
-    before :each do
-      sign_in user
+    describe 'PUT #update' do
+      before :each do
+        sign_in user
+      end
+
+      context 'with valid params' do
+        let(:new_attributes) do
+          { name: 'New School' }
+        end
+
+        it 'updates the requested school' do
+          put :update, params: { id: school.to_param, school: new_attributes }
+          school.reload
+          expect(school.name).to eq('New School')
+        end
+
+        it 'assigns the requested school as @school' do
+          put :update, params: { id: school.to_param, school: valid_attributes }
+          expect(assigns(:school)).to eq(school)
+        end
+
+        it 'redirects to the school' do
+          put :update, params: { id: school.to_param, school: valid_attributes }
+          expect(response).to redirect_to(school)
+        end
+      end
+
+      context 'with invalid params' do
+        it 'assigns the school as @school' do
+          put :update, params: { id: school.to_param, school: invalid_attributes }
+          expect(assigns(:school)).to eq(school)
+        end
+
+        it "re-renders the 'edit' template" do
+          put :update, params: { id: school.to_param, school: invalid_attributes }
+          expect(response).to render_template('edit')
+        end
+      end
     end
 
-    it "destroys the requested school" do
-      expect {
-        delete :destroy, params: {id: school.to_param}
-      }.to change(School, :count).by(-1)
-    end
+    describe 'DELETE #destroy' do
+      before :each do
+        sign_in user
+      end
 
-    it "redirects to the schools list" do
-      delete :destroy, params: {id: school.to_param}
-      expect(response).to redirect_to(legacy_schools_url)
-    end
-  end
+      it 'destroys the requested school' do
+        expect do
+          delete :destroy, params: { id: school.to_param }
+        end.to change(School, :count).by(-1)
+      end
 
+      it 'redirects to the schools list' do
+        delete :destroy, params: { id: school.to_param }
+        expect(response).to redirect_to(legacy_schools_url)
+      end
+    end
   end
 end

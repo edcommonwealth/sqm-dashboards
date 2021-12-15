@@ -7,6 +7,7 @@ module Legacy
     validates :name, presence: true
 
     attr_accessor :recipient_id_array
+
     before_validation :convert_recipient_id_array
     after_initialize :set_recipient_id_array
 
@@ -20,16 +21,19 @@ module Legacy
 
     def convert_recipient_id_array
       return if recipient_id_array.blank? || (recipient_ids_was != recipient_ids)
+
       self.recipient_ids = recipient_id_array.reject { |id| id.to_s.empty? }.join(',')
     end
 
     def set_recipient_id_array
       return if recipient_id_array.present?
+
       self.recipient_id_array = (recipient_ids || '').split(',').map(&:to_i)
     end
 
     def sync_recipient_schedules
       return unless recipient_ids_before_last_save.present? && recipient_ids_before_last_save != recipient_ids
+
       old_ids = recipient_ids_before_last_save.split(/,/)
       new_ids = recipient_ids.split(/,/)
       (old_ids - new_ids).each do |deleted_recipient|
@@ -44,6 +48,5 @@ module Legacy
         end
       end
     end
-
   end
 end

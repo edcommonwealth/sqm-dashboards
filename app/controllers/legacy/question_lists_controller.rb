@@ -1,6 +1,6 @@
 module Legacy
   class QuestionListsController < Legacy::ApplicationController
-    before_action :set_question_list, only: [:show, :edit, :update, :destroy]
+    before_action :set_question_list, only: %i[show edit update destroy]
 
     # GET /question_lists
     # GET /question_lists.json
@@ -10,8 +10,7 @@ module Legacy
 
     # GET /question_lists/1
     # GET /question_lists/1.json
-    def show
-    end
+    def show; end
 
     # GET /question_lists/new
     def new
@@ -19,8 +18,7 @@ module Legacy
     end
 
     # GET /question_lists/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /question_lists
     # POST /question_lists.json

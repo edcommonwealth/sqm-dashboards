@@ -1,7 +1,7 @@
 module Legacy
   class CategoriesController < Legacy::ApplicationController
     before_action :set_school, only: [:show]
-    before_action :set_category, only: [:show, :edit, :update, :destroy]
+    before_action :set_category, only: %i[show edit update destroy]
 
     # GET /categories
     # GET /categories.json
@@ -17,7 +17,7 @@ module Legacy
 
       school_categories = SchoolCategory.for(@school, @category)
       @years = school_categories.map(&:year).map(&:to_i).sort
-      @year = (params[:year] || @years.last || "2019").to_i
+      @year = (params[:year] || @years.last || '2019').to_i
 
       if school_categories.empty?
         school_categories = [SchoolCategory.new(school: @school, category: @category, year: @year)]
@@ -28,12 +28,11 @@ module Legacy
       missing_categories = Legacy::Category.for_parent(@category) - @child_school_categories.map(&:category)
       missing_categories.each do |category|
         next if category.benchmark.present?
+
         @child_school_categories << category.school_categories.new(school: @school)
       end
 
-      if district.name == "Boston"
-        @child_school_categories = @child_school_categories.reject { |csc| csc.admin? }
-      end
+      @child_school_categories = @child_school_categories.reject { |csc| csc.admin? } if district.name == 'Boston'
 
       @questions = @category.questions.created_in(@year)
     end
@@ -44,8 +43,7 @@ module Legacy
     end
 
     # GET /categories/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /categories
     # POST /categories.json
@@ -91,6 +89,7 @@ module Legacy
 
     def set_school
       redirect_to root_path and return false unless params.include?(:school_id)
+
       @school = Legacy::School.friendly.find(params[:school_id])
       redirect_to root_path and return false if @school.nil?
     end

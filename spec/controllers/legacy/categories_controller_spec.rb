@@ -20,37 +20,36 @@ require 'rails_helper'
 
 module Legacy
   RSpec.describe Legacy::CategoriesController, type: :controller do
-
     # This should return the minimal set of attributes required to create a valid
     # Category. As you add validations to Category, be sure to
     # adjust the attributes here as well.
-    let(:valid_attributes) {
+    let(:valid_attributes) do
       { name: 'Category', external_id: 'A' }
-    }
+    end
 
-    let(:invalid_attributes) {
+    let(:invalid_attributes) do
       { name: '' }
-    }
+    end
 
-    let(:district) {
+    let(:district) do
       Legacy::District.create! name: 'District'
-    }
+    end
 
     # This should return the minimal set of values that should be in the session
     # in order to pass any filters (e.g. authentication) defined in
     # CategoriesController. Be sure to keep this updated too.
     let(:valid_session) { {} }
 
-    describe "GET #index" do
-      it "assigns all categories as @categories" do
+    describe 'GET #index' do
+      it 'assigns all categories as @categories' do
         category = Legacy::Category.create! valid_attributes
         get :index, params: {}, session: valid_session
         expect(assigns(:categories)).to eq([category])
       end
     end
 
-    describe "GET #show" do
-      it "assigns the requested school and category as @school and @category" do
+    describe 'GET #show' do
+      it 'assigns the requested school and category as @school and @category' do
         school = Legacy::School.create! name: 'School', district: district
         category = Legacy::Category.create! valid_attributes
         get :show, params: { school_id: school.id, id: category.to_param }, session: valid_session
@@ -58,89 +57,89 @@ module Legacy
         expect(assigns(:school)).to eq(school)
       end
 
-      it "redirects to root_path if school is not provided" do
+      it 'redirects to root_path if school is not provided' do
         category = Legacy::Category.create! valid_attributes
         get :show, params: { id: category.to_param }, session: valid_session
         expect(response).to redirect_to(root_path)
       end
     end
 
-    describe "GET #new" do
-      it "assigns a new category as @category" do
+    describe 'GET #new' do
+      it 'assigns a new category as @category' do
         get :new, params: {}, session: valid_session
         expect(assigns(:category)).to be_a_new(Legacy::Category)
       end
     end
 
-    describe "GET #edit" do
-      it "assigns the requested category as @category" do
+    describe 'GET #edit' do
+      it 'assigns the requested category as @category' do
         category = Legacy::Category.create! valid_attributes
         get :edit, params: { id: category.to_param }, session: valid_session
         expect(assigns(:category)).to eq(category)
       end
     end
 
-    describe "POST #create" do
-      context "with valid params" do
-        it "creates a new Category" do
-          expect {
+    describe 'POST #create' do
+      context 'with valid params' do
+        it 'creates a new Category' do
+          expect do
             post :create, params: { category: valid_attributes }, session: valid_session
-          }.to change(Legacy::Category, :count).by(1)
+          end.to change(Legacy::Category, :count).by(1)
         end
 
-        it "assigns a newly created category as @category" do
+        it 'assigns a newly created category as @category' do
           post :create, params: { category: valid_attributes }, session: valid_session
           expect(assigns(:category)).to be_a(Legacy::Category)
           expect(assigns(:category)).to be_persisted
         end
 
-        it "redirects to the created category" do
+        it 'redirects to the created category' do
           post :create, params: { category: valid_attributes }, session: valid_session
           expect(response).to redirect_to(Legacy::Category.last)
         end
       end
 
-      context "with invalid params" do
-        it "assigns a newly created but unsaved category as @category" do
+      context 'with invalid params' do
+        it 'assigns a newly created but unsaved category as @category' do
           post :create, params: { category: invalid_attributes }, session: valid_session
           expect(assigns(:category)).to be_a_new(Legacy::Category)
         end
 
         it "re-renders the 'new' template" do
           post :create, params: { category: invalid_attributes }, session: valid_session
-          expect(response).to render_template("new")
+          expect(response).to render_template('new')
         end
       end
     end
 
-    describe "PUT #update" do
-      context "with valid params" do
-        let(:new_attributes) {
+    describe 'PUT #update' do
+      context 'with valid params' do
+        let(:new_attributes) do
           { name: 'Category 2' }
-        }
+        end
 
-        it "updates the requested category" do
+        it 'updates the requested category' do
           category = Legacy::Category.create! valid_attributes
           put :update, params: { id: category.to_param, category: new_attributes }, session: valid_session
           category.reload
           expect(category.name).to eq('Category 2')
         end
 
-        it "assigns the requested category as @category" do
+        it 'assigns the requested category as @category' do
           category = Legacy::Category.create! valid_attributes
           put :update, params: { id: category.to_param, category: valid_attributes }, session: valid_session
           expect(assigns(:category)).to eq(category)
         end
 
-        it "redirects to the category" do
+        it 'redirects to the category' do
           category = Legacy::Category.create! valid_attributes
           put :update, params: { id: category.to_param, category: valid_attributes }, session: valid_session
           expect(response).to redirect_to(category)
         end
       end
 
-      context "with invalid params" do
-        it "assigns the category as @category" do
+      context 'with invalid params' do
+        it 'assigns the category as @category' do
           category = Legacy::Category.create! valid_attributes
           put :update, params: { id: category.to_param, category: invalid_attributes }, session: valid_session
           expect(assigns(:category)).to eq(category)
@@ -149,25 +148,24 @@ module Legacy
         it "re-renders the 'edit' template" do
           category = Legacy::Category.create! valid_attributes
           put :update, params: { id: category.to_param, category: invalid_attributes }, session: valid_session
-          expect(response).to render_template("edit")
+          expect(response).to render_template('edit')
         end
       end
     end
 
-    describe "DELETE #destroy" do
-      it "destroys the requested category" do
+    describe 'DELETE #destroy' do
+      it 'destroys the requested category' do
         category = Legacy::Category.create! valid_attributes
-        expect {
+        expect do
           delete :destroy, params: { id: category.to_param }, session: valid_session
-        }.to change(Legacy::Category, :count).by(-1)
+        end.to change(Legacy::Category, :count).by(-1)
       end
 
-      it "redirects to the categories list" do
+      it 'redirects to the categories list' do
         category = Legacy::Category.create! valid_attributes
         delete :destroy, params: { id: category.to_param }, session: valid_session
         expect(response).to redirect_to(legacy_categories_url)
       end
     end
-
   end
 end

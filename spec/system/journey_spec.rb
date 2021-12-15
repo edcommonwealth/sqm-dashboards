@@ -35,25 +35,29 @@ describe 'District Admin', js: true do
 
     survey_items_for_measure_1A_i.each do |survey_item|
       SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4)
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+                                                        school: school, survey_item: survey_item, likert_score: 4)
       end
     end
 
     survey_items_for_measure_2A_i.each do |survey_item|
       SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 5)
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+                                                        school: school, survey_item: survey_item, likert_score: 5)
       end
     end
 
     survey_items_for_measure_4C_i.each do |survey_item|
       SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 1)
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+                                                        school: school, survey_item: survey_item, likert_score: 1)
       end
     end
 
     survey_items_for_subcategory.each do |survey_item|
       200.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21, school: school, survey_item: survey_item, likert_score: 4)
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+                                                        school: school, survey_item: survey_item, likert_score: 4)
       end
     end
 
@@ -64,7 +68,7 @@ describe 'District Admin', js: true do
     page.driver.basic_authorize(username, password)
 
     visit '/welcome'
-    expect(page).to have_text("Teachers & Leadership")
+    expect(page).to have_text('Teachers & Leadership')
     go_to_school_overview_from_welcome_page(district, school)
 
     district_admin_sees_overview_content
@@ -93,7 +97,7 @@ private
 
 def district_admin_sees_professional_qualifications
   expect(page).to have_text('Professional Qualifications')
-  expect(page).to have_css("[data-for-measure-id='1A-i'][width='8.26%'][x='60%']")
+  expect(page).to have_css("[data-for-measure-id='1A-i'][width='2.99%'][x='60%']")
 end
 
 def district_admin_sees_student_physical_safety

@@ -37,11 +37,11 @@ module VarianceHelper
   end
 
   def zones
-    %w(warning watch growth approval ideal)
+    %w[warning watch growth approval ideal]
   end
 
   def zone_width_percentage
-    100.0/zones.size
+    100.0 / zones.size
   end
 
   def availability_indicator_percentage
@@ -51,5 +51,4 @@ module VarianceHelper
   def partial_data_indicator_size
     16
   end
-
 end

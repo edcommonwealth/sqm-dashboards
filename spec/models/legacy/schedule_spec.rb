@@ -2,7 +2,6 @@ require 'rails_helper'
 
 module Legacy
   describe Schedule do
-
     let!(:school) { School.create!(name: 'School') }
 
     let!(:recipients) { create_recipients(school, 3) }
@@ -20,7 +19,7 @@ module Legacy
       QuestionList.create!(name: 'Questions', question_ids: questions.map(&:id).join(','))
     end
 
-    let(:default_schedule_params) {
+    let(:default_schedule_params) do
       {
         school: school,
         recipient_list: recipient_list,
@@ -31,7 +30,7 @@ module Legacy
         end_date: 11.months.from_now,
         active: true
       }
-    }
+    end
 
     let!(:active_schedule) do
       Schedule.create!(default_schedule_params)
@@ -41,15 +40,15 @@ module Legacy
       Schedule.create!(default_schedule_params.merge!(name: 'Kids Schedule', recipient_list: kids_recipient_list))
     end
 
-    let!(:old_schedule) {
+    let!(:old_schedule) do
       Schedule.create!(default_schedule_params.merge!(start_date: 13.month.ago, end_date: 1.months.ago))
-    }
+    end
 
-    let!(:paused_schedule) {
+    let!(:paused_schedule) do
       Schedule.create!(default_schedule_params.merge!(active: false))
-    }
+    end
 
-    describe "active" do
+    describe 'active' do
       it 'finds active schedules' do
         active = Schedule.active
         expect(active.length).to eq(2)
@@ -59,6 +58,5 @@ module Legacy
     it 'creates a recipient_schedule for every recipient when created' do
       expect(active_schedule.recipient_schedules.length).to eq(3)
     end
-
   end
 end

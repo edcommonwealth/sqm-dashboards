@@ -1,6 +1,6 @@
 module Legacy
   class DistrictsController < Legacy::ApplicationController
-    before_action :set_district, only: [:show, :edit, :update, :destroy]
+    before_action :set_district, only: %i[show edit update destroy]
 
     # GET /districts
     # GET /districts.json
@@ -21,8 +21,7 @@ module Legacy
     end
 
     # GET /districts/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /districts
     # POST /districts.json

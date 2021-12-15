@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   resources :districts do
-    resources :schools, only: [:index, :show] do
+    resources :schools, only: %i[index show] do
       resources :overview, only: [:index]
       resources :categories, only: [:show], path: 'browse'
     end
@@ -31,10 +31,10 @@ Rails.application.routes.draw do
 
   devise_for :users, class_name: 'Legacy::User'
   as :user do
-    get 'users', :to => 'legacy/users#show', :as => :user_root # Rails 3
+    get 'users', to: 'legacy/users#show', as: :user_root # Rails 3
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/welcome', to: 'home#index'
-  root to: "legacy/welcome#index"
+  root to: 'legacy/welcome#index'
 end

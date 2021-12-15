@@ -1,14 +1,13 @@
 require 'csv'
 
 class SurveyResponsesDataLoader
-
   def self.load_data(filepath:)
     File.open(filepath) do |file|
       headers = file.first
 
       survey_item_ids = CSV.parse(headers, headers: true).headers
-                       .filter { |header| header.present? }
-                       .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
+                           .filter { |header| header.present? }
+                           .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
       survey_items = SurveyItem.where(survey_item_id: survey_item_ids)
 
       file.lazy.each_slice(1000) do |lines|
@@ -58,11 +57,11 @@ end
 
 module StringMonkeyPatches
   def integer?
-    self.to_i.to_s == self
+    to_i.to_s == self
   end
 
   def valid_likert_score?
-    self.integer? and self.to_i.between? 1, 5
+    integer? and to_i.between? 1, 5
   end
 end
 

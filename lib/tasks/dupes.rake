@@ -7,7 +7,7 @@ namespace :dupes do
   # | Dist1         | Jefferson High | lincoln-high | created_at | updated_at |
   task record_csv: :environment do
     csv_string = CSV.generate do |csv|
-      csv << [ 'District Name', 'School Name', 'School Slug', 'Creation Time', 'Updated Time' ]
+      csv << ['District Name', 'School Name', 'School Slug', 'Creation Time', 'Updated Time']
 
       School.all.order(:district_id, :name, :created_at).each do |school|
         schools = School.where name: school.name, district: school.district
@@ -23,21 +23,21 @@ namespace :dupes do
   task dedup_schools: :environment do
     School.all.each do |school|
       schools = School.where(name: school.name, district: school.district).order(:created_at)
-      if schools.length > 1
-        school_to_keep = schools.first
-        schools.each do |school_to_destroy|
-          next if school_to_destroy == school_to_keep
+      next unless schools.length > 1
 
-          school_to_keep.update(qualtrics_code: school_to_destroy.qualtrics_code)
+      school_to_keep = schools.first
+      schools.each do |school_to_destroy|
+        next if school_to_destroy == school_to_keep
 
-          SurveyItemResponse.where(school: school_to_destroy).each do |response|
-            success = response.update(school: school_to_keep)
-            puts "Attempted to update survey item response with id #{response.id} to point to school with id #{school_to_keep.id}. Successful? #{success}"
-            puts response.reload.school_id
-          end
+        school_to_keep.update(qualtrics_code: school_to_destroy.qualtrics_code)
 
-          school_to_destroy.destroy
+        SurveyItemResponse.where(school: school_to_destroy).each do |response|
+          success = response.update(school: school_to_keep)
+          puts "Attempted to update survey item response with id #{response.id} to point to school with id #{school_to_keep.id}. Successful? #{success}"
+          puts response.reload.school_id
         end
+
+        school_to_destroy.destroy
       end
     end
   end

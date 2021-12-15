@@ -3,7 +3,7 @@ module Legacy
     before_action :authenticate_user!, except: [:show]
     before_action :verify_super_admin, except: [:show]
     before_action :set_school, only: [:show]
-    before_action :set_question, only: [:show, :edit, :update, :destroy]
+    before_action :set_question, only: %i[show edit update destroy]
 
     # GET /questions
     # GET /questions.json
@@ -13,8 +13,7 @@ module Legacy
 
     # GET /questions/1
     # GET /questions/1.json
-    def show
-    end
+    def show; end
 
     # GET /questions/new
     def new
@@ -22,8 +21,7 @@ module Legacy
     end
 
     # GET /questions/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /questions
     # POST /questions.json
@@ -69,6 +67,7 @@ module Legacy
 
     def set_school
       redirect_to root_path and return false unless params.include?(:school_id)
+
       @school = Legacy::School.friendly.find(params[:school_id])
       redirect_to root_path and return false if @school.nil?
     end

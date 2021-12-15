@@ -2,8 +2,8 @@ require 'rails_helper'
 
 module Legacy
   describe RecipientList do
-    describe "Save" do
-      it "should convert the recipient_id_array into the recipient_ids attribute" do
+    describe 'Save' do
+      it 'should convert the recipient_id_array into the recipient_ids attribute' do
         recipient_list = RecipientList.create(name: 'Name', recipient_id_array: ['', '1', '2', '3'])
         expect(recipient_list).to be_a(RecipientList)
         expect(recipient_list).to be_persisted
@@ -14,7 +14,7 @@ module Legacy
       end
     end
 
-    describe "when edited" do
+    describe 'when edited' do
       let!(:school) { School.create!(name: 'School') }
 
       let!(:recipients) { create_recipients(school, 3) }

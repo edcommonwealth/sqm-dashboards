@@ -8,7 +8,6 @@ class RemoveNullConstraintsFromMeasureBenchmarks < ActiveRecord::Migration[6.1]
     end
   end
 
-
   def down
     change_table :measures do |t|
       t.change :watch_low_benchmark, :float, null: false

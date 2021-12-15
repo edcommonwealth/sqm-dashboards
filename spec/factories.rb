@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :district do
     name { "#{rand} District" }
     slug { name.parameterize }
@@ -20,15 +19,15 @@ FactoryBot.define do
   factory :category, class: 'Category' do
     name { "A #{rand} category" }
     category_id { rand.to_s }
-    description { "A description of a category" }
+    description { 'A description of a category' }
     slug { name.parameterize }
     sort_index { 1 }
   end
 
   factory :subcategory do
-    name { "A subcategory" }
+    name { 'A subcategory' }
     subcategory_id { rand.to_s }
-    description { "A description of a subcategory" }
+    description { 'A description of a subcategory' }
     category
 
     factory :subcategory_with_measures do
@@ -36,7 +35,7 @@ FactoryBot.define do
         measures_count { 2 }
       end
       after(:create) do |subcategory, evaluator|
-        create_list(:measure, evaluator.measures_count, subcategory: subcategory). each do |measure|
+        create_list(:measure, evaluator.measures_count, subcategory: subcategory).each do |measure|
           survey_item = create(:teacher_survey_item, measure: measure)
           create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item)
         end
@@ -47,24 +46,32 @@ FactoryBot.define do
   factory :measure do
     measure_id { rand.to_s }
     name { 'A Measure' }
-    watch_low_benchmark { 2.0 }
-    growth_low_benchmark { 3.0 }
-    approval_low_benchmark { 4.0 }
-    ideal_low_benchmark { 4.5 }
     subcategory
+    # trait :with_student_survey_items do
+    #   after(:create) do |measure|
+    #     measure.survey_items << build_list(:student_survey_item, 2)
+    #   end
+    # end
   end
 
   factory :survey_item do
     prompt { 'What do YOU think?' }
     measure
     factory :teacher_survey_item do
-      survey_item_id { "t-#{rand.to_s}" }
+      survey_item_id { "t-#{rand}" }
+      watch_low_benchmark { 2.0 }
+      growth_low_benchmark { 3.0 }
+      approval_low_benchmark { 4.0 }
+      ideal_low_benchmark { 4.5 }
     end
     factory :student_survey_item do
-      survey_item_id { "s-#{rand.to_s}" }
+      survey_item_id { "s-#{rand}" }
+      watch_low_benchmark { 2.0 }
+      growth_low_benchmark { 3.0 }
+      approval_low_benchmark { 4.0 }
+      ideal_low_benchmark { 4.5 }
     end
   end
-
 
   factory :survey_item_response do
     likert_score { 3 }

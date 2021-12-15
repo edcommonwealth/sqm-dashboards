@@ -6,7 +6,7 @@ describe SubcategoryCardPresenter do
       watch_low_benchmark: 1.5,
       growth_low_benchmark: 2.5,
       approval_low_benchmark: 3.5,
-      ideal_low_benchmark: 4.5,
+      ideal_low_benchmark: 4.5
     )
   end
 
@@ -16,11 +16,11 @@ describe SubcategoryCardPresenter do
     let(:score) { 1 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "warning-harvey-ball"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq 'warning-harvey-ball'
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "warning"
+      expect(subcategory_card_presenter.color).to eq 'warning'
     end
   end
 
@@ -28,11 +28,11 @@ describe SubcategoryCardPresenter do
     let(:score) { 2 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "watch-harvey-ball"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq 'watch-harvey-ball'
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "watch"
+      expect(subcategory_card_presenter.color).to eq 'watch'
     end
   end
 
@@ -40,11 +40,11 @@ describe SubcategoryCardPresenter do
     let(:score) { 3 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "growth-harvey-ball"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq 'growth-harvey-ball'
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "growth"
+      expect(subcategory_card_presenter.color).to eq 'growth'
     end
   end
 
@@ -52,11 +52,11 @@ describe SubcategoryCardPresenter do
     let(:score) { 4 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "approval-harvey-ball"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq 'approval-harvey-ball'
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "approval"
+      expect(subcategory_card_presenter.color).to eq 'approval'
     end
   end
 
@@ -64,11 +64,11 @@ describe SubcategoryCardPresenter do
     let(:score) { 5 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "ideal-harvey-ball"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq 'ideal-harvey-ball'
     end
 
     it 'returns the color class of the zone' do
-      expect(subcategory_card_presenter.color).to eq "ideal"
+      expect(subcategory_card_presenter.color).to eq 'ideal'
     end
   end
 
@@ -76,7 +76,7 @@ describe SubcategoryCardPresenter do
     let(:score) { 0 }
 
     it 'returns the icon that represents the zone' do
-      expect(subcategory_card_presenter.harvey_ball_icon).to eq "insufficient_data-harvey-ball"
+      expect(subcategory_card_presenter.harvey_ball_icon).to eq 'insufficient_data-harvey-ball'
     end
 
     it 'reports that there is insufficient data' do

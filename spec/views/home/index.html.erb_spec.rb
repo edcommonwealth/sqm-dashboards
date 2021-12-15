@@ -12,5 +12,4 @@ describe 'home/index.html.erb' do
   it 'renders a dropdown with districts and a select a district prompt' do
     expect(subject.css('#district-dropdown option').count).to eq 3
   end
-
 end

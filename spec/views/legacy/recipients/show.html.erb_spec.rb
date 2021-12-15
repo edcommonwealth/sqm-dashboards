@@ -1,25 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe "legacy/recipients/show", type: :view do
+RSpec.describe 'legacy/recipients/show', type: :view do
   before(:each) do
     @school = assign(:school, Legacy::School.create!(
-      name: 'School'
-    ))
+                                name: 'School'
+                              ))
 
     @recipient = assign(:recipient, Legacy::Recipient.create!(
-      :name => "Name",
-      :phone => "Phone",
-      :gender => "Gender",
-      :race => "Race",
-      :ethnicity => "Ethnicity",
-      :home_language_id => 2,
-      :income => "Income",
-      :opted_out => false,
-      :school_id => @school.to_param
-    ))
+                                      name: 'Name',
+                                      phone: 'Phone',
+                                      gender: 'Gender',
+                                      race: 'Race',
+                                      ethnicity: 'Ethnicity',
+                                      home_language_id: 2,
+                                      income: 'Income',
+                                      opted_out: false,
+                                      school_id: @school.to_param
+                                    ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/Name/)
     expect(rendered).to match(/Phone/)

@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe Scale do
   describe '#zone_for_score' do
-    let(:scale) {
-      Scale.new watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5, ideal_low_benchmark: 4.5
-    }
+    let(:scale) do
+      Scale.new watch_low_benchmark: 1.5, growth_low_benchmark: 2.5, approval_low_benchmark: 3.5,
+                ideal_low_benchmark: 4.5
+    end
 
     context 'when the score is 1.0' do
       it 'returns the warning zone' do

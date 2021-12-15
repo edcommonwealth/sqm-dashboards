@@ -5,7 +5,7 @@ module Legacy
     let(:district1) { District.create(name: 'District one', state_id: 32) }
     let(:district2) { District.new(name: 'District two', state_id: 32) }
 
-    context "when saving or creating" do
+    context 'when saving or creating' do
       it 'should return a slug' do
         expect(district1.slug).to eq 'district-one'
 
@@ -17,5 +17,4 @@ module Legacy
       end
     end
   end
-
 end

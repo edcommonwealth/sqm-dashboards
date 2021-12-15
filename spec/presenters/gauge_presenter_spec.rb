@@ -6,7 +6,7 @@ describe GaugePresenter do
       watch_low_benchmark: 1.5,
       growth_low_benchmark: 2.5,
       approval_low_benchmark: 3.5,
-      ideal_low_benchmark: 4.5,
+      ideal_low_benchmark: 4.5
     )
   end
   let(:score) { 3 }
@@ -103,7 +103,7 @@ describe GaugePresenter do
         watch_low_benchmark: nil,
         growth_low_benchmark: nil,
         approval_low_benchmark: nil,
-        ideal_low_benchmark: nil,
+        ideal_low_benchmark: nil
       )
     end
     let(:score) { nil }
@@ -120,5 +120,4 @@ describe GaugePresenter do
       expect(gauge_presenter.score_percentage).to be_nil
     end
   end
-
 end

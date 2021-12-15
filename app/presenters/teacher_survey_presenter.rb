@@ -5,7 +5,7 @@ class TeacherSurveyPresenter < DataItemPresenter
   end
 
   def title
-    "Teacher survey"
+    'Teacher survey'
   end
 
   def id
@@ -17,6 +17,6 @@ class TeacherSurveyPresenter < DataItemPresenter
   end
 
   def reason_for_insufficiency
-    "low response rate"
+    'low response rate'
   end
 end

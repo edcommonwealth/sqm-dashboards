@@ -3,7 +3,7 @@ module Legacy
     before_action :authenticate_user!
     before_action :set_school
     before_action :verify_admin
-    before_action :set_recipient_list, only: [:show, :edit, :update, :destroy]
+    before_action :set_recipient_list, only: %i[show edit update destroy]
 
     # GET schools/1/recipient_lists
     def index
@@ -11,8 +11,7 @@ module Legacy
     end
 
     # GET schools/1/recipient_lists/1
-    def show
-    end
+    def show; end
 
     # GET schools/1/recipient_lists/new
     def new
@@ -20,8 +19,7 @@ module Legacy
     end
 
     # GET schools/1/recipient_lists/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST schools/1/recipient_lists
     def create

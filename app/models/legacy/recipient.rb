@@ -12,8 +12,8 @@ module Legacy
 
     validates :name, presence: true
 
-    scope :for_school, -> (school) { where(school: school) }
-    scope :created_in, -> (year) { where('extract(year from recipients.created_at) = ?', year) }
+    scope :for_school, ->(school) { where(school: school) }
+    scope :created_in, ->(year) { where('extract(year from recipients.created_at) = ?', year) }
 
     before_destroy :sync_lists
 
@@ -43,10 +43,10 @@ module Legacy
     def sync_lists
       school.recipient_lists.each do |recipient_list|
         next if recipient_list.recipient_id_array.index(id).nil?
+
         updated_ids = recipient_list.recipient_id_array - [id]
         recipient_list.update(recipient_id_array: updated_ids)
       end
     end
-
   end
 end

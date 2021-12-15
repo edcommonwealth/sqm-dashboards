@@ -7,7 +7,7 @@ class Seeder
     end
   end
 
-  def seed_districts_and_schools csv_file
+  def seed_districts_and_schools(csv_file)
     dese_ids = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
@@ -29,7 +29,7 @@ class Seeder
     School.where.not(dese_id: dese_ids).destroy_all
   end
 
-  def seed_sqm_framework csv_file
+  def seed_sqm_framework(csv_file)
     CSV.parse(File.read(csv_file), headers: true) do |row|
       category_id = row['Category ID'].strip
       category = Category.find_or_create_by!(category_id: category_id)
@@ -38,9 +38,10 @@ class Seeder
         '2' => 'school-culture',
         '3' => 'resources',
         '4' => 'academic-learning',
-        '5' => 'community-and-wellbeing',
+        '5' => 'community-and-wellbeing'
       }
-      category.update! name: row['Category'].strip, description: row['Category Description'].strip, short_description: row['Category Short Description'], slug: category_slugs[category_id], sort_index: category_slugs.keys.index(category_id)
+      category.update! name: row['Category'].strip, description: row['Category Description'].strip,
+                       short_description: row['Category Short Description'], slug: category_slugs[category_id], sort_index: category_slugs.keys.index(category_id)
 
       subcategory_id = row['Subcategory ID'].strip
       subcategory = Subcategory.find_or_create_by! subcategory_id: subcategory_id, category: category
@@ -55,26 +56,28 @@ class Seeder
       measure_description = row['Measure Description'].try(:strip)
 
       next if row['Source'] == 'No source'
+
       measure = Measure.find_or_create_by! measure_id: measure_id, subcategory: subcategory
       measure.name = measure_name
       measure.description = measure_description
-
-      if ['Teachers', 'Students'].include? row['Source']
-        measure.watch_low_benchmark = watch_low if watch_low
-        measure.growth_low_benchmark = growth_low if growth_low
-        measure.approval_low_benchmark = approval_low if approval_low
-        measure.ideal_low_benchmark = ideal_low if ideal_low
-      end
       measure.save!
 
       data_item_id = row['Survey Item ID'].strip
-      if ['Teachers', 'Students'].include? row['Source']
+      if %w[Teachers Students].include? row['Source']
         survey_item = SurveyItem.find_or_create_by! survey_item_id: data_item_id, measure: measure
+        survey_item.watch_low_benchmark = watch_low if watch_low
+        survey_item.growth_low_benchmark = growth_low if growth_low
+        survey_item.approval_low_benchmark = approval_low if approval_low
+        survey_item.ideal_low_benchmark = ideal_low if ideal_low
         survey_item.update! prompt: row['Question/item (20-21)'].strip
       end
 
       if row['Source'] == 'Admin Data'
         admin_data_item = AdminDataItem.find_or_create_by! admin_data_item_id: data_item_id, measure: measure
+        admin_data_item.watch_low_benchmark = watch_low if watch_low
+        admin_data_item.growth_low_benchmark = growth_low if growth_low
+        admin_data_item.approval_low_benchmark = approval_low if approval_low
+        admin_data_item.ideal_low_benchmark = ideal_low if ideal_low
         admin_data_item.update! description: row['Question/item (20-21)'].strip
       end
     end

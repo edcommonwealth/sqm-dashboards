@@ -1,8 +1,8 @@
 module Legacy
   class SchoolsController < Legacy::ApplicationController
     before_action :authenticate_user!, except: [:show]
-    before_action :set_school, only: [:admin, :show, :edit, :update, :destroy]
-    before_action :verify_admin, except: [:show, :create, :new]
+    before_action :set_school, only: %i[admin show edit update destroy]
+    before_action :verify_admin, except: %i[show create new]
 
     # GET /schools/1
     # GET /schools/1.json
@@ -13,7 +13,7 @@ module Legacy
       @years = [2017, 2018, 2019]
       @year = (params[:year] || @years.last).to_i
 
-      if @district.name == "Boston"
+      if @district.name == 'Boston'
         @categories = Legacy::Category.joins(:questions)
         @school_categories = SchoolCategory.where(school: @school).where(category: @categories).in(@year).to_a
       else
@@ -29,8 +29,7 @@ module Legacy
       @school_categories = @school_categories.select { |sc| sc.year.to_i == @year }
     end
 
-    def admin
-    end
+    def admin; end
 
     # GET /schools/new
     def new
@@ -38,8 +37,7 @@ module Legacy
     end
 
     # GET /schools/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /schools
     # POST /schools.json
@@ -92,6 +90,5 @@ module Legacy
     def school_params
       params.require(:school).permit(:name, :district_id)
     end
-
   end
 end
