@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe CategoryPresenter do
   let(:category_presenter) do
-    subcategory1 = Subcategory.new(name: 'A subcategory')
-    subcategory2 = Subcategory.new(name: 'Another subcategory')
+    subcategory1 = Subcategory.new(name: 'A subcategory', subcategory_id: '1')
+    subcategory2 = Subcategory.new(name: 'Another subcategory', subcategory_id: '2')
 
     category = Category.new(name: 'Some Category', subcategories: [subcategory1, subcategory2], description: 'A description for some Category', short_description: 'A short description for some Category', category_id: '1')
     return CategoryPresenter.new(category: category)

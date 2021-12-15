@@ -35,6 +35,13 @@ namespace :one_off do
       updated_schools << school.id
     end
 
-    School.where.not(id: updated_schools).each {|school| puts "School with unchanged DESE id: #{school.name}, id: #{school.id}"}
+    School.where.not(id: updated_schools).each do |school|
+      puts "School with unchanged DESE id: #{school.name}, id: #{school.id}"
+    end
+  end
+
+  task change_overall_performance_measure_id: :environment do
+    measure_4aii = Measure.where(name: 'Overall Performance')[0]
+    measure_4aii.update! measure_id: '4A-i'
   end
 end
