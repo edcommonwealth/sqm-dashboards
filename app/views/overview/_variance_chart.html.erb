@@ -66,28 +66,32 @@
     <svg id=measure-row-limited-availability-indicator x="0" y="<%= heading_gutter %>">
       <% displayed_presenters.each_with_index do |presenter, index| %>
         <% if presenter.show_partial_data_indicator? %>
-          <use xlink:href="/fontawesome-free/sprites/solid.svg#circle-exclamation" width="<%= partial_data_indicator_size %>"
+          <foreignObject
+            width="<%= partial_data_indicator_size %>"
             height="<%= partial_data_indicator_size %>"
-            data-bs-toggle="popover" data-bs-placement="right"
-            data-bs-content="The following sources are not included in this measure due to insufficient data: <%= presenter.partial_data_sources.join(' and ') %>."
             x="<%= partial_data_indicator_size / 2 %>"
             y="<%= index * measure_row_height + measure_row_height / 2  - partial_data_indicator_size / 2 %>">
-          </use>
+            <i class="fas fa-exclamation-circle"
+              data-bs-toggle="popover" data-bs-placement="right"
+              data-bs-content="The following sources are not included in this measure due to insufficient data: <%= presenter.partial_data_sources.join(' and ') %>." ></i>
+          </foreignObject>
         <% end %>
       <% end %>
     </svg>
 
     <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
       <% displayed_presenters.each_with_index do |presenter, index| %>
-        <text
-          class="font-cabin"
+        <foreignObject
           x="<%= availability_indicator_percentage %>%"
-          y="<%= index * measure_row_height + measure_row_height / 2 %>"
+          y="<%= index * measure_row_height + measure_row_height / 4 %>"
           dominant-baseline="middle"
           data-variance-row-label
-        >
-          <%= presenter.measure_name %>
-        </text>
+          width="550"
+          height="200">
+          <p class="measure-row-label" xmlns="http://www.w3.org/1999/xhtml">
+            <%= presenter.measure_name %>
+          </p>
+        </foreignObject>
       <% end %>
 
       <% if displayed_presenters.none? %>

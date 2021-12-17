@@ -92,3 +92,27 @@
   border-radius: 50%;
   width: 20px;
 }
+
+@media only screen and (min-width: 768px){
+.measure-row-label {
+  width: 170px;
+}
+  }
+@media only screen and (min-width: 1000px){
+.measure-row-label {
+  width: 200px;
+}
+
+}
+@media only screen and (min-width: 1200px){
+.measure-row-label {
+  width: 250px;
+}
+
+}
+@media only screen and (min-width: 1400px){
+.measure-row-label {
+  width: 500px;
+}
+
+}
