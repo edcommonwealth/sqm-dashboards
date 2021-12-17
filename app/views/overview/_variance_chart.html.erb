@@ -70,7 +70,8 @@
             width="<%= partial_data_indicator_size %>"
             height="<%= partial_data_indicator_size %>"
             x="<%= partial_data_indicator_size / 2 %>"
-            y="<%= index * measure_row_height + measure_row_height / 2  - partial_data_indicator_size / 2 %>">
+            y="<%= index * measure_row_height + measure_row_height / 2  - partial_data_indicator_size / 2 %>"
+            dominant-baseline="middle" >
             <i class="fas fa-exclamation-circle"
               data-bs-toggle="popover" data-bs-placement="right"
               data-bs-content="The following sources are not included in this measure due to insufficient data: <%= presenter.partial_data_sources.join(' and ') %>." ></i>
