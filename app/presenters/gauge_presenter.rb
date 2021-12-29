@@ -20,6 +20,22 @@ class GaugePresenter
     percentage_for @scale.approval_zone.low_benchmark
   end
 
+  def watch_low_legend
+    percentage_for @scale.watch_zone.low_benchmark
+  end
+
+  def growth_low_legend
+    percentage_for @scale.growth_zone.low_benchmark
+  end
+
+  def approval_low_legend
+    percentage_for @scale.approval_zone.low_benchmark
+  end
+
+  def ideal_low_legend
+    percentage_for @scale.ideal_zone.low_benchmark
+  end
+
   private
 
   def zone

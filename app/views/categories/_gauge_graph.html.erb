@@ -28,27 +28,41 @@
     stroke-width="<%= stroke_width %>"
   />
 
-  <% if gauge.key_benchmark_percentage.present? %>
     <line
-      class="zone-benchmark stroke-black"
-      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.key_benchmark_percentage)).x %>"
-      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.key_benchmark_percentage)).y %>"
-      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.key_benchmark_percentage)).x %>"
-      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.key_benchmark_percentage)).y %>"
+      class="zone-benchmark stroke-gray-2"
+      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.watch_low_legend)).x %>"
+      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.watch_low_legend)).y %>"
+      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.watch_low_legend)).x %>"
+      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.watch_low_legend)).y %>"
       stroke-width="<%= stroke_width %>"
     />
 
-    <path
-      class="key-benchmark-indicator fill-black"
-      d="<%= move_to(point: indicator_tip) %>
-         <%= draw_line_to(point: indicator_right_corner) %>
-         <%= draw_line_to(point: indicator_left_corner) %>
-    <%= draw_line_to(point: indicator_tip) %>"
-      transform="rotate(<%= rotation_angle_for(percentage: gauge.key_benchmark_percentage) %> <%= arc_center.x %> <%= arc_center.y %>)"
-      stroke="none"
+    <line
+      class="zone-benchmark stroke-gray-2"
+      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.growth_low_legend)).x %>"
+      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.growth_low_legend)).y %>"
+      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.growth_low_legend)).x %>"
+      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.growth_low_legend)).y %>"
+      stroke-width="<%= stroke_width %>"
+    />
+    <line
+      class="zone-benchmark stroke-gray-2"
+      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.ideal_low_legend)).x %>"
+      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.ideal_low_legend)).y %>"
+      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.ideal_low_legend)).x %>"
+      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.ideal_low_legend)).y %>"
+      stroke-width="<%= stroke_width %>"
+    />
+  <% if gauge.key_benchmark_percentage.present? %>
+    <line
+      class="zone-benchmark stroke-black"
+      x1="<%= benchmark_line_point(outer_radius + 5, angle_for(percentage: gauge.key_benchmark_percentage)).x %>"
+      y1="<%= benchmark_line_point(outer_radius + 5, angle_for(percentage: gauge.key_benchmark_percentage)).y %>"
+      x2="<%= benchmark_line_point(inner_radius - 5 , angle_for(percentage: gauge.key_benchmark_percentage)).x %>"
+      y2="<%= benchmark_line_point(inner_radius - 5, angle_for(percentage: gauge.key_benchmark_percentage)).y %>"
+      stroke-width="<%= stroke_width + 2 %>"
     />
   <% end %>
 </svg>
-
 <span class="gauge-title <%= font_class %> fill-black"><%= gauge.title %></span>
 </div>
