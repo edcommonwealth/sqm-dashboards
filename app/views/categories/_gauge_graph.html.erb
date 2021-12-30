@@ -28,31 +28,18 @@
     stroke-width="<%= stroke_width %>"
   />
 
+  <% benchmark_boundaries = [:watch_low, :growth_low, :ideal_low]%>
+  <% benchmark_boundaries.each do |zone| %>
     <line
       class="zone-benchmark stroke-gray-2"
-      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.watch_low_legend)).x %>"
-      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.watch_low_legend)).y %>"
-      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.watch_low_legend)).x %>"
-      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.watch_low_legend)).y %>"
+      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.boundary_percentage_for(zone))).x %>"
+      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.boundary_percentage_for(zone))).y %>"
+      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.boundary_percentage_for(zone))).x %>"
+      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.boundary_percentage_for(zone))).y %>"
       stroke-width="<%= stroke_width %>"
     />
+  <% end %>
 
-    <line
-      class="zone-benchmark stroke-gray-2"
-      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.growth_low_legend)).x %>"
-      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.growth_low_legend)).y %>"
-      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.growth_low_legend)).x %>"
-      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.growth_low_legend)).y %>"
-      stroke-width="<%= stroke_width %>"
-    />
-    <line
-      class="zone-benchmark stroke-gray-2"
-      x1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.ideal_low_legend)).x %>"
-      y1="<%= benchmark_line_point(outer_radius, angle_for(percentage: gauge.ideal_low_legend)).y %>"
-      x2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.ideal_low_legend)).x %>"
-      y2="<%= benchmark_line_point(inner_radius, angle_for(percentage: gauge.ideal_low_legend)).y %>"
-      stroke-width="<%= stroke_width %>"
-    />
   <% if gauge.key_benchmark_percentage.present? %>
     <line
       class="zone-benchmark stroke-black"

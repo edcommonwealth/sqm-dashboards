@@ -20,23 +20,34 @@ class GaugePresenter
     percentage_for @scale.approval_zone.low_benchmark
   end
 
-  def watch_low_legend
-    percentage_for @scale.watch_zone.low_benchmark
-  end
-
-  def growth_low_legend
-    percentage_for @scale.growth_zone.low_benchmark
-  end
-
-  def approval_low_legend
-    percentage_for @scale.approval_zone.low_benchmark
-  end
-
-  def ideal_low_legend
-    percentage_for @scale.ideal_zone.low_benchmark
+  def boundary_percentage_for(zone)
+    case zone
+    when :watch_low
+      watch_low_boundary
+    when :growth_low
+      growth_low_boundary
+    when :ideal_low
+      ideal_low_boundary
+    end
   end
 
   private
+
+  def watch_low_boundary
+    percentage_for @scale.watch_zone.low_benchmark
+  end
+
+  def growth_low_boundary
+    percentage_for @scale.growth_zone.low_benchmark
+  end
+
+  def approval_low_boundary
+    percentage_for @scale.approval_zone.low_benchmark
+  end
+
+  def ideal_low_boundary
+    percentage_for @scale.ideal_zone.low_benchmark
+  end
 
   def zone
     @scale.zone_for_score(@score)
