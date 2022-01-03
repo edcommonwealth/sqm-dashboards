@@ -24,8 +24,8 @@ describe SubcategoryPresenter do
                                                                                        academic_year: academic_year, school: school, likert_score: 5)
 
     measure_of_only_admin_data = create(:measure, subcategory: subcategory)
-    create(:admin_data_item, measure: measure_of_only_admin_data, watch_low_benchmark: 0, growth_low_benchmark: 0,
-                             approval_low_benchmark: 0, ideal_low_benchmark: 0)
+    create(:admin_data_item, measure: measure_of_only_admin_data, watch_low_benchmark: 2, growth_low_benchmark: 3,
+      approval_low_benchmark: 3.5, ideal_low_benchmark: 4)
 
     create_survey_item_responses_for_different_years_and_schools(survey_item1)
 
@@ -44,7 +44,8 @@ describe SubcategoryPresenter do
     expect(subcategory_presenter.id).to eq 'A'
   end
 
-  it 'returns a gauge presenter responsible for the aggregate survey item response likert scores' do
+  it 'returns a gauge presenter responsible for the aggregate admin data and survey item response likert scores' do
+    # average scores will be 3 and growth low benchmark is 2.916 : (4.25 + 1.5 + 3)/3
     expect(subcategory_presenter.gauge_presenter.title).to eq 'Growth'
   end
 

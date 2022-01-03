@@ -39,20 +39,15 @@ class SubcategoryPresenter
   private
 
   def scale
-    if measures.count.zero?
-      Scale.new(watch_low_benchmark: -1, growth_low_benchmark: -1, approval_low_benchmark: -1,
-                ideal_low_benchmark: -1)
-    else
       Scale.new(
         watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
         growth_low_benchmark: measures.map(&:growth_low_benchmark).average,
         approval_low_benchmark: measures.map(&:approval_low_benchmark).average,
         ideal_low_benchmark: measures.map(&:ideal_low_benchmark).average
       )
-    end
   end
 
   def measures
-    @measures ||= @subcategory.measures.order(:measure_id).source_includes_survey_items
+    @measures ||= @subcategory.measures.order(:measure_id)
   end
 end
