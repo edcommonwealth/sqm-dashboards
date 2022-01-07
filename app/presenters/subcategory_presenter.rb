@@ -31,7 +31,7 @@ class SubcategoryPresenter
   end
 
   def measure_presenters
-    @subcategory.measures.sort_by(&:measure_id).map do |measure|
+    @subcategory.measures.includes([:admin_data_items]).sort_by(&:measure_id).map do |measure|
       MeasurePresenter.new(measure: measure, academic_year: @academic_year, school: @school)
     end
   end
@@ -39,15 +39,15 @@ class SubcategoryPresenter
   private
 
   def scale
-      Scale.new(
-        watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
-        growth_low_benchmark: measures.map(&:growth_low_benchmark).average,
-        approval_low_benchmark: measures.map(&:approval_low_benchmark).average,
-        ideal_low_benchmark: measures.map(&:ideal_low_benchmark).average
-      )
+    Scale.new(
+      watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
+      growth_low_benchmark: measures.map(&:growth_low_benchmark).average,
+      approval_low_benchmark: measures.map(&:approval_low_benchmark).average,
+      ideal_low_benchmark: measures.map(&:ideal_low_benchmark).average
+    )
   end
 
   def measures
-    @measures ||= @subcategory.measures.order(:measure_id)
+    @measures ||= @subcategory.measures.includes([:admin_data_items]).order(:measure_id)
   end
 end

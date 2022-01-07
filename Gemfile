@@ -70,6 +70,7 @@ group :development do
   gem 'seed_dump'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'bullet'
 end
 
 group 'test' do
