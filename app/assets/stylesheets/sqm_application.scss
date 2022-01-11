@@ -1,15 +1,16 @@
-@import "sqm_bootstrap";
-@import "clear-margin-padding";
-@import "colors";
-@import "fonts";
-@import "borders";
+@import "partials/colors";
+@import "partials/sqm_bootstrap";
+@import "partials/bootstrap-overrides";
+@import "partials/clear-margin-padding";
+@import "partials/fonts";
+@import "partials/borders";
 @import "overview";
-@import "navigation";
-@import "buttons";
+@import "partials/navigation";
+@import "partials/buttons";
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
 @import "@fortawesome/fontawesome-free/scss/solid";
-@import "footer";
-@import "forms";
+@import "partials/footer";
+@import "partials/forms";
 
 .height-56 {
   height: 56px;

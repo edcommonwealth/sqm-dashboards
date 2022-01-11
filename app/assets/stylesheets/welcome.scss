@@ -1,10 +1,10 @@
-@import "bootstrap-overrides";
+@import "partials/colors";
 @import "bootstrap/scss/bootstrap";
-@import "clear-margin-padding";
-@import "colors";
-@import "fonts";
-@import "borders";
-@import "footer";
+@import "partials/bootstrap-overrides";
+@import "partials/clear-margin-padding";
+@import "partials/fonts";
+@import "partials/borders";
+@import "partials/footer";
 
 .hero-image {
   background-image: url("hero.png");
