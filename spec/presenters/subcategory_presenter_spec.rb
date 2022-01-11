@@ -27,6 +27,7 @@ describe SubcategoryPresenter do
     create(:admin_data_item, measure: measure_of_only_admin_data, watch_low_benchmark: 2, growth_low_benchmark: 3,
       approval_low_benchmark: 3.5, ideal_low_benchmark: 4)
 
+    # Adding responses corresponding to different years and schools should not pollute the score calculations
     create_survey_item_responses_for_different_years_and_schools(survey_item1)
 
     return SubcategoryPresenter.new(subcategory: subcategory, academic_year: academic_year, school: school)
@@ -45,7 +46,6 @@ describe SubcategoryPresenter do
   end
 
   it 'returns a gauge presenter responsible for the aggregate admin data and survey item response likert scores' do
-    # average scores will be 3 and growth low benchmark is 2.916 : (4.25 + 1.5 + 3)/3
     expect(subcategory_presenter.gauge_presenter.title).to eq 'Growth'
   end
 
@@ -65,8 +65,8 @@ describe SubcategoryPresenter do
 
   def create_survey_item_responses_for_different_years_and_schools(survey_item)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item,
-                                                                                       school: school, likert_score: 1)
+      school: School.new(name: 'Worst School' , dese_id: 2), likert_score: 1)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item,
-                                                                                       academic_year: academic_year, likert_score: 1)
+      academic_year: AcademicYear.create(range: '2000-01'), likert_score: 1)
   end
 end
