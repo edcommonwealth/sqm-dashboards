@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "jest": "^27.2.5",
-    "markdownlint": "^0.24.0"
+    "markdownlint": "^0.25.1"
   },
   "jest": {
     "roots": [
