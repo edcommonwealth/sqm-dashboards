@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'home/index.html.erb' do
+describe 'home/index' do
   subject { Nokogiri::HTML(rendered) }
 
   before :each do

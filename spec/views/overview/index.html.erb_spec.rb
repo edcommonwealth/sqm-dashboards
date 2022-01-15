@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'overview/index.html.erb' do
+describe 'overview/index' do
   subject { Nokogiri::HTML(rendered) }
 
   let(:support_for_teaching) do

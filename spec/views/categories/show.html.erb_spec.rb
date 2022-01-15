@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'categories/show.html.erb' do
+describe 'categories/show' do
   before :each do
     academic_year = create(:academic_year, range: '1989-90')
     school = create(:school, name: 'Best School')

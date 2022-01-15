@@ -7,13 +7,15 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.4.4'
+gem 'rails', '~> 7.0.1'
+gem 'sprockets-rails'
+
 gem 'pg'
 
 # Use Puma as the app server
 gem 'puma', '>= 5.5.2'
 # Use SCSS for stylesheets
-gem 'sassc-rails', require: false
+# gem 'sassc-rails', require: false
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -70,7 +72,6 @@ group :development do
   gem 'rubocop', require: false
   gem 'seed_dump'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group 'test' do

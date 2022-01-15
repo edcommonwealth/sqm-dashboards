@@ -18,8 +18,8 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
     "test": "jest",
-    "build:css": "sass ./app/assets/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules & sass ./app/assets/stylesheets/sqm_application.scss ./app/assets/builds/sqm_application.css --no-source-map --load-path=node_modules & sass ./app/assets/stylesheets/welcome.scss ./app/assets/builds/welcome.css --no-source-map --load-path=node_modules",
-    "watch:css": "sass ./app/assets/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --watch & sass ./app/assets/stylesheets/sqm_application.scss ./app/assets/builds/sqm_application.css --no-source-map --load-path=node_modules --watch & sass ./app/assets/stylesheets/welcome.scss ./app/assets/builds/welcome.css --no-source-map --load-path=node_modules --watch",
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules ; sass ./app/assets/stylesheets/sqm.sass.scss ./app/assets/builds/sqm.css --no-source-map --load-path=node_modules ; sass ./app/assets/stylesheets/welcome.sass.scss ./app/assets/builds/welcome.css --no-source-map --load-path=node_modules",
+    "watch:css": "sass ./app/assets/stylesheets/application.sass.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --watch & sass ./app/assets/stylesheets/sqm.sass.scss ./app/assets/builds/sqm.css --no-source-map --load-path=node_modules --watch & sass ./app/assets/stylesheets/welcome.sass.scss ./app/assets/builds/welcome.css --no-source-map --load-path=node_modules --watch",
     "watch:all": "yarn watch:css & yarn build --watch"
   },
   "devDependencies": {
