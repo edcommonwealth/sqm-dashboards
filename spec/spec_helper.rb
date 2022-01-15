@@ -60,7 +60,7 @@ RSpec.configure do |config|
 
   config.before(:each, js: true) do
     driven_by :apparition
-    Capybara.default_max_wait_time = 10
+    Capybara.default_max_wait_time = 20
     Capybara.page.driver.resize(3000, 3000)
   end
 
