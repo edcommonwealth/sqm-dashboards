@@ -7,15 +7,34 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :survey_item
 
   def self.score_for_subcategory(subcategory:, school:, academic_year:)
-    measures = subcategory.measures.select do |measure|
-      sufficient_data?(measure: measure, school: school, academic_year: academic_year)
-    end
+    measures = measures_with_sufficient_data(subcategory: subcategory, school: school, academic_year: academic_year)
 
     return nil unless measures.size.positive?
 
     measures.map do |measure|
       responses_for_measure(measure: measure, school: school, academic_year: academic_year).average(:likert_score)
     end.average
+  end
+
+  def self.average_number_of_student_respondents(subcategory:, school:, academic_year:)
+    response_count = subcategory.measures.map do |measure|
+      next 0 unless measure.includes_student_survey_items?
+
+      SurveyItemResponse.student_responses_for_measure(measure, school, academic_year).count
+    end.sum
+
+    survey_item_count = subcategory.measures.map do |measure|
+      measure.student_survey_items.count
+    end.sum
+    return 0 unless survey_item_count.positive?
+
+    response_count / survey_item_count
+  end
+
+  def self.measures_with_sufficient_data(subcategory:, school:, academic_year:)
+    subcategory.measures.select do |measure|
+      sufficient_data?(measure: measure, school: school, academic_year: academic_year)
+    end
   end
 
   def self.responses_for_measure(measure:, school:, academic_year:)
@@ -88,4 +107,5 @@ class SurveyItemResponse < ActiveRecord::Base
     end
     !!meets_teacher_threshold
   end
+  private_class_method :measures_with_sufficient_data
 end

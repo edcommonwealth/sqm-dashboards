@@ -86,4 +86,9 @@ FactoryBot.define do
     description { rand.to_s }
     measure
   end
+
+  factory :respondent do
+    school
+    academic_year
+  end
 end

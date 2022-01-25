@@ -117,3 +117,16 @@
   background-color: $gray-3;
 }
 
+.response-rate {
+  background-color: $gray-3;
+  border: 1px solid;
+  border-color: $gray-2;
+  width: 150px;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.response-rate-percentage {
+  font-size: 20px;
+  @extend .sub-header-4;
+}

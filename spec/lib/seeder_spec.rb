@@ -41,7 +41,7 @@ describe Seeder do
     context 'when partial data already exists' do
       let!(:existing_district) { create(:district, name: 'Boston') }
       let!(:removed_school) do
-        create(:school, name: 'John Oldes Academy', dese_id: 12_345, district: existing_district)
+        create(:school, name: 'John Oldest Academy', dese_id: 12_345, district: existing_district)
       end
       let!(:removed_survey_item_response) { create(:survey_item_response, school: removed_school) }
       let!(:existing_school) do
@@ -84,6 +84,31 @@ describe Seeder do
         expect(School.where(id: removed_school)).not_to exist
         expect(SurveyItemResponse.where(id: removed_survey_item_response)).not_to exist
       end
+    end
+  end
+
+  context 'respondents' do
+    before :each do
+      create(:academic_year, range: '2020-21')
+      seeder.seed_districts_and_schools sample_districts_and_schools_csv
+    end
+
+    it 'seeds the total number of respondents for a school' do
+      expect do
+        seeder.seed_respondents sample_districts_and_schools_csv
+      end.to change { Respondent.count }.by(2)
+    end
+
+    it 'seeds idempotently' do
+      expect do
+        seeder.seed_respondents sample_districts_and_schools_csv
+      end.to change { Respondent.count }.by(2)
+
+      expect(Respondent.all.count).to eq 2
+
+      expect do
+        seeder.seed_respondents sample_districts_and_schools_csv
+      end.to change { Respondent.count }.by(0)
     end
   end
 

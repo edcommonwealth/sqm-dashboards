@@ -6,22 +6,38 @@ describe SubcategoryPresenter do
   let(:subcategory) do
     create(:subcategory, name: 'A great subcategory', subcategory_id: 'A', description: 'A great description')
   end
+  let(:survey_respondents) do
+    create(:respondent, school: school, total_students: SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, total_teachers: 10.0, academic_year: academic_year)
+  end
   let(:subcategory_presenter) do
+    survey_respondents
     measure1 = create(:measure, subcategory: subcategory)
     survey_item1 = create(:teacher_survey_item, measure: measure1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
+                                                approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75)
+    survey_item2 = create(:student_survey_item, measure: measure1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
                                                 approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1,
                                                                                        academic_year: academic_year, school: school, likert_score: 1)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1,
                                                                                        academic_year: academic_year, school: school, likert_score: 5)
+    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item2,
+                                                                                       academic_year: academic_year, school: school, likert_score: 3)
+    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item2,
+                                                                                       academic_year: academic_year, school: school, likert_score: 3)
 
     measure2 = create(:measure, subcategory: subcategory)
-    survey_item2 = create(:teacher_survey_item, measure: measure2, watch_low_benchmark: 1.25,
+    survey_item3 = create(:teacher_survey_item, measure: measure2, watch_low_benchmark: 1.25,
                                                 growth_low_benchmark: 1.5, approval_low_benchmark: 1.75, ideal_low_benchmark: 2.0)
-    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item2,
+    survey_item4 = create(:student_survey_item, measure: measure2, watch_low_benchmark: 1.25,
+                                                growth_low_benchmark: 1.5, approval_low_benchmark: 1.75, ideal_low_benchmark: 2.0)
+    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item3,
                                                                                        academic_year: academic_year, school: school, likert_score: 1)
-    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item2,
+    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item3,
                                                                                        academic_year: academic_year, school: school, likert_score: 5)
+    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item4,
+                                                                                       academic_year: academic_year, school: school, likert_score: 3)
+    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item4,
+                                                                                       academic_year: academic_year, school: school, likert_score: 3)
 
     measure_of_only_admin_data = create(:measure, subcategory: subcategory)
     create(:admin_data_item, measure: measure_of_only_admin_data, watch_low_benchmark: 2, growth_low_benchmark: 3,
@@ -48,6 +64,14 @@ describe SubcategoryPresenter do
   it 'returns a gauge presenter responsible for the aggregate admin data and survey item response likert scores' do
     expect(subcategory_presenter.gauge_presenter.title).to eq 'Growth'
   end
+
+  it 'returns the student response rate' do
+    expect(subcategory_presenter.student_response_rate).to eq 100.0
+  end
+
+  # it 'returns the teacher response rate' do
+  #   expect(subcategory_presenter.teacher_response_rate).to eq 20.0
+  # end
 
   it 'creates a measure presenter for each measure in a subcategory' do
     expect(subcategory_presenter.measure_presenters.count).to eq subcategory.measures.count

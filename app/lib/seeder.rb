@@ -29,6 +29,30 @@ class Seeder
     School.where.not(dese_id: dese_ids).destroy_all
   end
 
+  def seed_respondents(csv_file)
+    schools = []
+    year = '2020-21'
+    academic_year = AcademicYear.find_by_range year
+    CSV.parse(File.read(csv_file), headers: true) do |row|
+      dese_id = row['DESE School ID'].strip.to_i
+      total_students = row["Total Students for Response Rate (#{year})"]
+      total_teachers = row["Total Teachers for Response Rate (#{year})"]
+
+      district_name = row['District'].strip
+      district = District.find_or_create_by! name: district_name
+
+      school = School.find_by dese_id: dese_id, district: district
+      schools << school
+      respondent = Respondent.find_or_initialize_by school: school
+      respondent.total_students = total_students
+      respondent.total_teachers = total_teachers
+      respondent.academic_year = academic_year
+      respondent.save
+    end
+
+    Respondent.where.not(school: schools).destroy_all
+  end
+
   def seed_sqm_framework(csv_file)
     CSV.parse(File.read(csv_file), headers: true) do |row|
       category_id = row['Category ID'].strip

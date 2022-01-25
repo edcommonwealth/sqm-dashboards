@@ -27,9 +27,14 @@ describe SurveyItemResponse, type: :model do
                                                       academic_year: ay).average).to eq 4
         end
 
-        it 'affirms that the result meets the threshold' do
+        it 'affirms that the result meets the teacher threshold' do
           expect(SurveyItemResponse.score_for_measure(measure: measure, school: school,
                                                       academic_year: ay).meets_teacher_threshold?).to be true
+        end
+
+        it 'reports the result does not meeet student threshold' do
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school,
+                                                      academic_year: ay).meets_student_threshold?).to be false
         end
       end
 
@@ -113,9 +118,13 @@ describe SurveyItemResponse, type: :model do
                                                       academic_year: ay).average).to eq 4
         end
 
-        it 'affirms that the result meets the threshold' do
+        it 'affirms that the result meets the student threshold' do
           expect(SurveyItemResponse.score_for_measure(measure: measure, school: school,
                                                       academic_year: ay).meets_student_threshold?).to be true
+        end
+        it 'notes that the result does not meet the teacher threshold' do
+          expect(SurveyItemResponse.score_for_measure(measure: measure, school: school,
+                                                      academic_year: ay).meets_teacher_threshold?).to be false
         end
       end
 
@@ -295,6 +304,63 @@ describe SurveyItemResponse, type: :model do
     it 'returns the average score of all survey item responses for measures meeting their respective thresholds' do
       expect(SurveyItemResponse.score_for_subcategory(subcategory: subcategory, school: school,
                                                       academic_year: ay)).to eq 2.5
+    end
+  end
+
+  describe '.responses_for_measure' do
+    let(:subcategory) { create(:subcategory) }
+    let(:sufficient_measure_1) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_measure_2) { create(:measure, subcategory: subcategory) }
+    let(:insufficient_measure) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_teacher_survey_item) { create(:teacher_survey_item, measure: sufficient_measure_1) }
+    let(:insufficient_teacher_survey_item) { create(:teacher_survey_item, measure: insufficient_measure) }
+    let(:sufficient_student_survey_item) { create(:student_survey_item, measure: sufficient_measure_2) }
+    let(:insufficient_student_survey_item) { create(:student_survey_item, measure: insufficient_measure) }
+
+    before :each do
+      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
+                                                            academic_year: ay, school: school, likert_score: 1)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item,
+                                                            academic_year: ay, school: school, likert_score: 4)
+      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1,
+                  survey_item: insufficient_teacher_survey_item, academic_year: ay, school: school, likert_score: 1)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                  survey_item: insufficient_student_survey_item, academic_year: ay, school: school, likert_score: 1)
+    end
+
+    it 'returns only responses in a measure that meets the low threshold' do
+      expect(SurveyItemResponse.responses_for_measure(measure: sufficient_measure_1, school: school, academic_year: ay).count).to eq SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD
+      expect(SurveyItemResponse.responses_for_measure(measure: sufficient_measure_2, school: school, academic_year: ay).count).to eq SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD
+      expect(SurveyItemResponse.responses_for_measure(measure: insufficient_measure, school: school, academic_year: ay)).to be nil
+    end
+  end
+
+  describe '.average_number_of_student_respondents' do
+    let(:subcategory) { create(:subcategory) }
+    let(:sufficient_measure_1) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_measure_2) { create(:measure, subcategory: subcategory) }
+    let(:insufficient_measure) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_teacher_survey_item) { create(:teacher_survey_item, measure: sufficient_measure_1) }
+    let(:sufficient_student_survey_item_1) { create(:student_survey_item, measure: sufficient_measure_1) }
+    let(:insufficient_teacher_survey_item) { create(:teacher_survey_item, measure: insufficient_measure) }
+    let(:sufficient_student_survey_item_2) { create(:student_survey_item, measure: sufficient_measure_2) }
+    let(:insufficient_student_survey_item) { create(:student_survey_item, measure: insufficient_measure) }
+
+    before :each do
+      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
+                                                            academic_year: ay, school: school, likert_score: 1)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
+                                                            academic_year: ay, school: school, likert_score: 4)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD + 1, survey_item: sufficient_student_survey_item_2,
+                                                            academic_year: ay, school: school, likert_score: 4)
+      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1,
+                  survey_item: insufficient_teacher_survey_item, academic_year: ay, school: school, likert_score: 1)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                  survey_item: insufficient_student_survey_item, academic_year: ay, school: school, likert_score: 1)
+    end
+
+    it 'returns only responses in a measure that meets the low threshold' do
+      expect(SurveyItemResponse.average_number_of_student_respondents(subcategory: subcategory, school: school, academic_year: ay)).to eq SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_17_164449) do
+ActiveRecord::Schema.define(version: 2022_01_24_144902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -272,6 +272,17 @@ ActiveRecord::Schema.define(version: 2021_12_17_164449) do
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
 
+  create_table "respondents", force: :cascade do |t|
+    t.bigint "school_id", null: false
+    t.bigint "academic_year_id", null: false
+    t.float "total_students"
+    t.float "total_teachers"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["academic_year_id"], name: "index_respondents_on_academic_year_id"
+    t.index ["school_id"], name: "index_respondents_on_school_id"
+  end
+
   create_table "schools", force: :cascade do |t|
     t.string "name"
     t.integer "district_id"
@@ -327,6 +338,8 @@ ActiveRecord::Schema.define(version: 2021_12_17_164449) do
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"
   add_foreign_key "legacy_school_categories", "legacy_schools", column: "school_id"
   add_foreign_key "measures", "subcategories"
+  add_foreign_key "respondents", "academic_years"
+  add_foreign_key "respondents", "schools"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
   add_foreign_key "survey_item_responses", "schools"

@@ -7,7 +7,23 @@
       <div>
         <%= render partial: "gauge_graph", locals: { gauge: subcategory.gauge_presenter, gauge_class: 'gauge-graph-lg', font_class: 'sub-header-3' } %>
       </div>
-      <p class="body-large mx-7"><%= subcategory.description %></p>
+      <div class="d-flex flex-column mx-7">
+        <p class="body-large "><%= subcategory.description %></p>
+
+        <div class="d-flex justify-content-start">
+          <div class="body-large text-center response-rate">
+            <p class="response-rate-percentage"><%= subcategory.student_response_rate %>%</p>
+            <p>of students responded</p>
+          </div>
+          <%# <div class="body-large mx-3 text-center response-rate"> %>
+          <%#   <p class="response-rate-percentage"><%= subcategory.teacher_response_rate %1>%</p> %>
+          <%#   <p>of teachers responded</p> %>
+          <%# <p> %>
+          <%# <%= subcategory.total_teachers %1> %>
+          <%# </p> %>
+          </%#>
+        </div>
+      </div>
     </div>
   </div>
 
