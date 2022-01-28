@@ -3,6 +3,7 @@ class SubcategoryPresenter
     @subcategory = subcategory
     @academic_year = academic_year
     @school = school
+    @response_rate = ResponseRate.new(subcategory: @subcategory, school: @school, academic_year: @academic_year)
   end
 
   def id
@@ -31,10 +32,11 @@ class SubcategoryPresenter
   end
 
   def student_response_rate
-    @student_response_rate ||= response_rate(type: :total_students) do
-      SurveyItemResponse.average_number_of_student_respondents(subcategory: @subcategory, school: @school,
-                                                               academic_year: @academic_year)
-    end
+    @response_rate.student
+  end
+
+  def teacher_response_rate
+    @response_rate.teacher
   end
 
   def measure_presenters
@@ -56,17 +58,5 @@ class SubcategoryPresenter
 
   def measures
     @measures ||= @subcategory.measures.includes([:admin_data_items]).order(:measure_id)
-  end
-
-  def response_rate(type:)
-    number_of_responses = yield
-    total_responses = Respondent.where(school: @school, academic_year: @academic_year).first
-    return 0 unless total_responses.present?
-
-    total_possible_responses = total_responses.send(type)
-
-    return 0 if number_of_responses.nil? || total_possible_responses == 0
-
-    (number_of_responses / total_possible_responses * 100).round
   end
 end
