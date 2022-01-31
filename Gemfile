@@ -60,16 +60,17 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'factory_bot_rails'
+  gem 'parallel_tests'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '~> 3.0.5'
-  gem 'web-console'
   gem 'bullet'
+  gem 'listen', '~> 3.0.5'
   gem 'nested_scaffold'
   gem 'rubocop', require: false
   gem 'seed_dump'
+  gem 'web-console'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end

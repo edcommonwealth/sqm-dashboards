@@ -26,13 +26,13 @@ brew services start postgresql
 
 Linux:
 
-Install postgres.  Known working version is version 13
+Install postgres. Known working version is version 13
 
 ```bash
 https://www.postgresql.org/download/
 ```
 
-On linux, if you run into problems creating the postgres database, edit /etc/postgresql/13/main/pg_hba.conf.  Change the connection method of IPv4 and IPv6 connections from `md5` to trust.
+On linux, if you run into problems creating the postgres database, edit /etc/postgresql/13/main/pg_hba.conf. Change the connection method of IPv4 and IPv6 connections from `md5` to trust.
 
 ```
 # IPv4 local connections:
@@ -54,17 +54,17 @@ Install the javascript dependencies
 yarn install
 ```
 
-At this point you can run the app and login.  There won't be any data yet though; keep reading!
+At this point you can run the app and login. There won't be any data yet though; keep reading!
 
 The seed file populates the following tables
 
-| Name         | Description                        |
-| ------------ | ---------------------------------- |
-| School | School ids are only unique to their district.  More than one school has an id of 1 |
-| District | Districts and schools have attached slugs.  We find search for these models by their slugs |
-| SqmCategory | The legacy name here is Category.  It still exits in the database.  We wanted the freedom to make changes and still preserve the legacy site until the end of the engagement. |
-| Measure | In the bar graph measures represent a single bar |
-| SurveyItem | This table has an attribute `prompt` that is the question asked |
+| Name        | Description                                                                                                                                                                 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| School      | School ids are only unique to their district. More than one school has an id of 1                                                                                           |
+| District    | Districts and schools have attached slugs. We find search for these models by their slugs                                                                                   |
+| SqmCategory | The legacy name here is Category. It still exits in the database. We wanted the freedom to make changes and still preserve the legacy site until the end of the engagement. |
+| Measure     | In the bar graph measures represent a single bar                                                                                                                            |
+| SurveyItem  | This table has an attribute `prompt` that is the question asked                                                                                                             |
 
 SurveyItemResponses does not get populated at this stage.
 
@@ -74,28 +74,28 @@ Postgres
 
 ### Gems
 
-| Name         | Description                        |
-| ------------ | ---------------------------------- |
-| puma         | webserver                          |
-| pg           | postgres                           |
-| sassc-rails  | sass compiler                      |
-| jquery-rails | legacy, allows use of jquery       |
-| jbuilder     | legacy, build json objects         |
-| haml         | legacy, write views in haml syntax |
-| bootstrap    | css framework                      |
-| newrelic_rpm             | legacy?, application monitoring                                    |
-| devise | authentication  |
-| omniauth | authentication |
-| twilio-ruby | legacy, text messaging  |
-| activerecord-import | faster database imports |
+| Name                | Description                        |
+| ------------------- | ---------------------------------- |
+| puma                | webserver                          |
+| pg                  | postgres                           |
+| sassc-rails         | sass compiler                      |
+| jquery-rails        | legacy, allows use of jquery       |
+| jbuilder            | legacy, build json objects         |
+| haml                | legacy, write views in haml syntax |
+| bootstrap           | css framework                      |
+| newrelic_rpm        | legacy?, application monitoring    |
+| devise              | authentication                     |
+| omniauth            | authentication                     |
+| twilio-ruby         | legacy, text messaging             |
+| activerecord-import | faster database imports            |
 
 ### External APIs
 
-None yet.  Hoping to integrate with Powerschool and Aspen for school administrative data.
+None yet. Hoping to integrate with Powerschool and Aspen for school administrative data.
 
 ### Javascript libraries
 
-Esbuild is used as the javascript bundler.  The javascript testing library is jest.
+Esbuild is used as the javascript bundler. The javascript testing library is jest.
 
 ### css
 
@@ -103,7 +103,7 @@ Bootstrap 5
 
 ## Loading Data
 
-SurveyItemResponses is the most important table to understand. SurveyItemResponses is the data that will change year to year and makes up the majority of the database records.  Roughly 500,000 SurveyItemResponses per year.
+SurveyItemResponses is the most important table to understand. SurveyItemResponses is the data that will change year to year and makes up the majority of the database records. Roughly 500,000 SurveyItemResponses per year.
 
 Some notes:
 
@@ -135,6 +135,8 @@ $ ./scripts/load_survey_responses_on_heroku dashboard
 
 ## Running tests
 
+### Concurrent test execution
+
 Prepare the test database.
 
 ```bash
@@ -147,11 +149,49 @@ If you need to look at the rails console for the test environment
 RAILS_ENV=test rails c
 ```
 
+Run the tests
+
 ```bash
 bundle exec rake
 ```
 
-Run javascript tests
+### Parallel test execution
+
+The [parallel tests](https://github.com/grosser/parallel_tests) gem is installed. It's optional to use.
+
+Set the `TEST_ENV_NUMBER` environment variable. For example, add this line to your `.bashrc`
+
+```bash
+export TEST_ENV_NUMBER="20"
+```
+
+Create the additional databases
+
+```bash
+bundle exec rake parallel:create
+```
+
+Run the tests in parallel
+
+```bash
+bundle exec rake parallel:spec
+```
+
+Run the tests with a specific number of processes
+
+```bash
+bundle exec rake parallel:spec[5]
+```
+
+### Viewing test coverage
+
+```
+xdg-open coverage/index.html
+```
+
+### Javascript tests
+
+Run the javascript tests
 
 ```bash
 yarn test

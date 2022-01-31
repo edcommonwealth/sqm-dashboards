@@ -57,14 +57,14 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.integer "recipient_id"
     t.integer "schedule_id"
     t.integer "recipient_schedule_id"
-    t.datetime "sent_at"
-    t.datetime "responded_at"
+    t.datetime "sent_at", precision: 6
+    t.datetime "responded_at", precision: 6
     t.integer "question_id"
     t.integer "translation_id"
     t.integer "answer_index"
     t.integer "open_response_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.text "twilio_details"
     t.string "twilio_sid"
     t.integer "student_id"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.text "description"
     t.string "external_id"
     t.integer "parent_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.float "benchmark"
     t.string "benchmark_description"
@@ -89,8 +89,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
   create_table "legacy_districts", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "state_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.integer "qualtrics_code"
     t.index ["slug"], name: "index_legacy_districts_on_slug", unique: true
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.string "name"
     t.text "description"
     t.text "question_ids"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "legacy_questions", id: :serial, force: :cascade do |t|
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.string "option4"
     t.string "option5"
     t.integer "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "target_group", default: 0
     t.boolean "for_recipient_students", default: false
     t.boolean "reverse", default: false
@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.string "name"
     t.text "description"
     t.text "recipient_ids"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["school_id"], name: "index_legacy_recipient_lists_on_school_id"
   end
 
@@ -135,10 +135,10 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.integer "schedule_id"
     t.text "upcoming_question_ids"
     t.text "attempted_question_ids"
-    t.datetime "last_attempt_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "next_attempt_at"
+    t.datetime "last_attempt_at", precision: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "next_attempt_at", precision: 6
     t.string "queued_question_ids"
   end
 
@@ -153,8 +153,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.string "income"
     t.boolean "opted_out", default: false
     t.integer "school_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.string "slug"
     t.integer "attempts_count", default: 0
@@ -175,8 +175,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.boolean "random", default: false
     t.integer "recipient_list_id"
     t.integer "question_list_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "time", default: 960
     t.index ["school_id"], name: "index_legacy_schedules_on_school_id"
   end
@@ -187,8 +187,8 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.integer "attempt_count", default: 0
     t.integer "response_count", default: 0
     t.integer "answer_index_total", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.float "nonlikert"
     t.float "zscore"
     t.string "year"
@@ -206,16 +206,16 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.integer "response_count"
     t.float "response_rate"
     t.string "year"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "response_total"
   end
 
   create_table "legacy_schools", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "district_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.text "description"
     t.string "slug"
     t.integer "student_count"
@@ -232,31 +232,31 @@ ActiveRecord::Schema.define(version: 2022_01_24_144902) do
     t.string "age"
     t.string "ethnicity"
     t.integer "recipient_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "legacy_user_schools", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "school_id"
     t.integer "district_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "legacy_users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: 6
+    t.datetime "remember_created_at", precision: 6
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: 6
+    t.datetime "last_sign_in_at", precision: 6
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_legacy_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_legacy_users_on_reset_password_token", unique: true
   end
