@@ -66,11 +66,11 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
   gem 'web-console'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'bullet'
   gem 'nested_scaffold'
   gem 'rubocop', require: false
   gem 'seed_dump'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
 
@@ -81,6 +81,7 @@ group 'test' do
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.1.2'
+  gem 'simplecov', require: false
   gem 'timecop'
 end
 
