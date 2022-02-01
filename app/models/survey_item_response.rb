@@ -68,11 +68,19 @@ class SurveyItemResponse < ActiveRecord::Base
                                           for_measure(measure, school, academic_year)
                                             .where("survey_items.survey_item_id LIKE 't-%'")
                                         }
+  scope :teacher_responses_for_measures, lambda { |measures, school, academic_year|
+                                           for_measures(measures, school, academic_year)
+                                             .where("survey_items.survey_item_id LIKE 't-%'")
+                                         }
   scope :student_responses_for_measure, lambda { |measure, school, academic_year|
                                           for_measure(measure, school, academic_year)
                                             .where("survey_items.survey_item_id LIKE 's-%'")
                                         }
 
+  scope :student_responses_for_measures, lambda { |measures, school, academic_year|
+                                           for_measures(measures, school, academic_year)
+                                             .where("survey_items.survey_item_id LIKE 's-%'")
+                                         }
   def self.student_sufficient_data?(measure:, school:, academic_year:)
     if measure.includes_student_survey_items?
       student_survey_item_responses = SurveyItemResponse.student_responses_for_measure(measure, school, academic_year)

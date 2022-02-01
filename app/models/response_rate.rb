@@ -6,27 +6,23 @@ class ResponseRate
   end
 
   def student
-    @student_response_rate ||= begin
-      return 0 unless student_survey_item_count.positive?
+    return 0 unless student_survey_item_count.positive?
 
-      average_responses_per_survey_item = student_response_count / student_survey_item_count
+    average_responses_per_survey_item = student_response_count / student_survey_item_count
 
-      return 0 unless total_possible_student_responses.positive?
+    return 0 unless total_possible_student_responses.positive?
 
-      (average_responses_per_survey_item / total_possible_student_responses * 100).round
-    end
+    (average_responses_per_survey_item / total_possible_student_responses * 100).round
   end
 
   def teacher
-    @teacher_response_rate ||= begin
-      return 0 unless teacher_survey_item_count.positive?
+    return 0 unless teacher_survey_item_count.positive?
 
-      average_responses_per_survey_item = teacher_response_count / teacher_survey_item_count
+    average_responses_per_survey_item = teacher_response_count / teacher_survey_item_count
 
-      return 0 unless total_possible_teacher_responses.positive?
+    return 0 unless total_possible_teacher_responses.positive?
 
-      (average_responses_per_survey_item / total_possible_teacher_responses * 100).round
-    end
+    (average_responses_per_survey_item / total_possible_teacher_responses * 100).round
   end
 
   private
@@ -51,38 +47,24 @@ class ResponseRate
   end
 
   def student_response_count
-    @student_response_count ||= response_count do |measure|
-      next 0 unless measure.includes_student_survey_items?
-
-      SurveyItemResponse.student_responses_for_measure(measure, @school, @academic_year).count
-    end
+    @student_response_count ||= SurveyItemResponse.student_responses_for_measures(@subcategory.measures, @school,
+                                                                                 @academic_year).count.to_f
   end
 
   def teacher_response_count
-    @teacher_response_count ||= response_count do |measure|
-      next 0 unless measure.includes_teacher_survey_items?
-
-      SurveyItemResponse.teacher_responses_for_measure(measure, @school, @academic_year).count
-    end
-  end
-
-  def response_count(&block)
-    @subcategory.measures.map(&block).sum
+    @teacher_response_count ||= SurveyItemResponse.teacher_responses_for_measures(@subcategory.measures, @school,
+                                                                                 @academic_year).count.to_f
   end
 
   def student_survey_item_count
-    @student_survey_item_count ||= survey_item_count do |measure|
+    @student_survey_item_count ||= @subcategory.measures.map do |measure|
       measure.student_survey_items.count
-    end
+    end.sum.to_f
   end
 
   def teacher_survey_item_count
-    @teacher_survey_item_count ||= survey_item_count do |measure|
+    @teacher_survey_item_count ||= @subcategory.measures.map do |measure|
       measure.teacher_survey_items.count
-    end
-  end
-
-  def survey_item_count(&block)
-    @subcategory.measures.map(&block).sum
+    end.sum.to_f
   end
 end
