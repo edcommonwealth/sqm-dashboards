@@ -67,20 +67,32 @@ describe ResponseRate, type: :model do
                   survey_item: insufficient_student_survey_item, academic_year: ay, school: school, likert_score: 1)
     end
 
-    context 'when the average number of teacher responses per question in a subcategory is equal to the teacher response threshold' do
+    context 'when the average number of teacher responses per question in a subcategory is equal to the total possible responses' do
       it 'returns 100 percent' do
         expect(ResponseRate.new(subcategory: subcategory, school: school,
                                 academic_year: ay).teacher).to eq 100
       end
     end
+
     context 'when the average number of teacher responses is 77.9, the response rate averages up to 78 percent' do
       before do
         create_list(:survey_item_response, 2, survey_item: sufficient_teacher_survey_item_3,
-                                                                                                academic_year: ay, school: school, likert_score: 1)
+                                              academic_year: ay, school: school, likert_score: 1)
       end
       it 'returns 10 percent' do
         expect(ResponseRate.new(subcategory: subcategory, school: school,
                                 academic_year: ay).teacher).to eq 78
+      end
+    end
+
+    context 'when the average number of teacher responses is greater than the total possible responses' do
+      before do
+        create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD + 1, survey_item: sufficient_teacher_survey_item_3,
+                                                                                               academic_year: ay, school: school, likert_score: 1)
+      end
+      it 'returns 100 percent' do
+        expect(ResponseRate.new(subcategory: subcategory, school: school,
+                                academic_year: ay).teacher).to eq 100
       end
     end
   end
