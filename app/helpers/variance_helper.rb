@@ -24,10 +24,6 @@ module VarianceHelper
     20
   end
 
-  def label_padding_right
-    24
-  end
-
   def label_width_percentage
     30
   end
