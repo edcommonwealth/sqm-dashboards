@@ -30,20 +30,6 @@ module GaugeHelper
     Point.new(0, 0)
   end
 
-  def indicator_tip
-    Point.new(arc_center.x, arc_center.y - outer_radius - 2)
-  end
-
-  def indicator_right_corner
-    Point.new(key_benchmark_indicator_gutter / Math.sqrt(3),
-              arc_center.y - outer_radius - key_benchmark_indicator_gutter)
-  end
-
-  def indicator_left_corner
-    Point.new(-key_benchmark_indicator_gutter / Math.sqrt(3),
-              arc_center.y - outer_radius - key_benchmark_indicator_gutter)
-  end
-
   def arc_radius(radius)
     "#{radius} #{radius}"
   end
@@ -88,10 +74,6 @@ module GaugeHelper
     x = (radius * Math.cos(angle)).to_s
     y = (radius * Math.sin(angle) + arc_center.y).to_s
     Point.new(x, y)
-  end
-
-  def rotation_angle_for(percentage:)
-    180.0 * percentage - 90
   end
 
   def coordinates_for(point)

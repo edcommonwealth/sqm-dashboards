@@ -40,9 +40,7 @@ class Measure < ActiveRecord::Base
   end
 
   def warning_low_benchmark
-    return @warning_low_benchmark unless @warning_low_benchmark.nil?
-
-    @warning_low_benchmark = benchmark(:warning_low_benchmark)
+    1
   end
 
   def watch_low_benchmark

@@ -124,16 +124,6 @@ def go_to_different_district(district)
   select district.name, from: 'select-district'
 end
 
-def go_to_browse_page_for_school_without_data(school)
-  click_on 'Browse'
-  select school.name, from: 'select-school'
-end
-
-def go_to_overview_page_for_school_without_data(school)
-  click_on 'Overview'
-  select school.name, from: 'select-school'
-end
-
 def district_admin_sees_schools_change
   expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=2020-21"
   expect(page).to have_current_path(expected_path)

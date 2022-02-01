@@ -6,6 +6,8 @@ SimpleCov.start do
   add_filter "/spec/models/legacy"
   add_filter "/spec/views/legacy"
   add_filter "/spec/controllers/legacy"
+  add_filter "/app/helpers/schedules_helper.rb"
+  add_filter "/lib/tasks/survey.rake"
 end
 
 require 'capybara/rspec'

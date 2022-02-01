@@ -28,6 +28,10 @@ RSpec.describe Measure, type: :model do
     it 'returns a watch low benchmark equal to the admin data item watch low benchmark' do
       expect(measure.watch_low_benchmark).to be 2.0
     end
+
+    it 'returns the source as an admin_data_item' do
+      expect(measure.sources).to eq [:admin_data]
+    end
   end
 
   context 'when a measure includes only student survey items' do
@@ -41,6 +45,12 @@ RSpec.describe Measure, type: :model do
     it 'returns a watch low benchmark equal to the student survey item watch low benchmark ' do
       expect(measure.watch_low_benchmark).to be 1.5
     end
+    it 'returns a warning low benchmark equal to the student survey item warning low benchmark ' do
+      expect(measure.warning_low_benchmark).to eq 1
+    end
+    it 'returns the source as student_surveys' do
+      expect(measure.sources).to eq [:student_surveys]
+    end
   end
 
   context 'when a measure includes only teacher survey items' do
@@ -53,6 +63,12 @@ RSpec.describe Measure, type: :model do
     end
     it 'returns a watch low benchmark equal to the teacher survey item watch low benchmark ' do
       expect(measure.watch_low_benchmark).to be 1.2
+    end
+    it 'returns a warning low benchmark equal to the teacher survey item warning low benchmark ' do
+      expect(measure.warning_low_benchmark).to eq 1
+    end
+    it 'returns the source as teacher_surveys' do
+      expect(measure.sources).to eq [:teacher_surveys]
     end
   end
 
@@ -75,6 +91,9 @@ RSpec.describe Measure, type: :model do
       # (2*3 + 1.5)/4
       expect(measure.watch_low_benchmark).to be 1.875
     end
+    it 'returns the source as admin and student survey items' do
+      expect(measure.sources).to eq [:admin_data, :student_surveys]
+    end
   end
 
   context 'when a measure includes admin data and teacher survey items' do
@@ -96,6 +115,9 @@ RSpec.describe Measure, type: :model do
       # (2*3 + 1.2)/4
       expect(measure.watch_low_benchmark).to be 1.8
     end
+    it 'returns the source as admin and teacher survey items' do
+      expect(measure.sources).to eq [:admin_data, :teacher_surveys]
+    end
   end
 
   context 'when a measure includes student and teacher survey items' do
@@ -116,6 +138,9 @@ RSpec.describe Measure, type: :model do
     it 'returns the average of student and teacher benchmarks where teacher survey items all together have a weight of 1 and all student survey items have a weight of 1' do
       # (1.2+ 1.5)/2
       expect(measure.watch_low_benchmark).to be 1.35
+    end
+    it 'returns the source as student and teacher survey items' do
+      expect(measure.sources).to eq [:student_surveys, :teacher_surveys]
     end
   end
 
@@ -148,6 +173,10 @@ RSpec.describe Measure, type: :model do
       expect(measure.approval_low_benchmark).to be_within(0.001).of 3.74
       # (5 * 3 + 4.2 + 4.5)/ 5
       expect(measure.ideal_low_benchmark).to be_within(0.001).of 4.74
+    end
+
+    it 'returns the source as admin student and teacher survey items' do
+      expect(measure.sources).to eq [:admin_data, :student_surveys, :teacher_surveys]
     end
   end
 end
