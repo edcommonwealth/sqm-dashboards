@@ -8,7 +8,7 @@ describe ResponseRate, type: :model do
                         total_teachers: SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, academic_year: ay)
   end
 
-  describe '.student' do
+  describe StudentResponseRate do
     let(:subcategory) { create(:subcategory) }
     let(:sufficient_measure_1) { create(:measure, subcategory: subcategory) }
     let(:sufficient_measure_2) { create(:measure, subcategory: subcategory) }
@@ -35,13 +35,13 @@ describe ResponseRate, type: :model do
 
     context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
       it 'returns 100 percent' do
-        expect(ResponseRate.new(subcategory: subcategory, school: school,
-                                academic_year: ay).student).to eq 100
+        expect(StudentResponseRate.new(subcategory: subcategory, school: school,
+                                academic_year: ay).rate).to eq 100
       end
     end
   end
 
-  describe '.teacher' do
+  describe TeacherResponseRate do
     let(:subcategory) { create(:subcategory) }
     let(:sufficient_measure_1) { create(:measure, subcategory: subcategory) }
     let(:sufficient_measure_2) { create(:measure, subcategory: subcategory) }
@@ -69,8 +69,8 @@ describe ResponseRate, type: :model do
 
     context 'when the average number of teacher responses per question in a subcategory is equal to the total possible responses' do
       it 'returns 100 percent' do
-        expect(ResponseRate.new(subcategory: subcategory, school: school,
-                                academic_year: ay).teacher).to eq 100
+        expect(TeacherResponseRate.new(subcategory: subcategory, school: school,
+                                academic_year: ay).rate).to eq 100
       end
     end
 
@@ -80,8 +80,8 @@ describe ResponseRate, type: :model do
                                               academic_year: ay, school: school, likert_score: 1)
       end
       it 'returns 10 percent' do
-        expect(ResponseRate.new(subcategory: subcategory, school: school,
-                                academic_year: ay).teacher).to eq 78
+        expect(TeacherResponseRate.new(subcategory: subcategory, school: school,
+                                academic_year: ay).rate).to eq 78
       end
     end
 
@@ -91,8 +91,8 @@ describe ResponseRate, type: :model do
                                                                                                academic_year: ay, school: school, likert_score: 1)
       end
       it 'returns 100 percent' do
-        expect(ResponseRate.new(subcategory: subcategory, school: school,
-                                academic_year: ay).teacher).to eq 100
+        expect(TeacherResponseRate.new(subcategory: subcategory, school: school,
+                                academic_year: ay).rate).to eq 100
       end
     end
   end
