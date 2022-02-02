@@ -3,8 +3,10 @@ class SubcategoryPresenter
     @subcategory = subcategory
     @academic_year = academic_year
     @school = school
-    @student_response_rate = StudentResponseRate.new(subcategory: @subcategory, school: @school, academic_year: @academic_year)
-    @teacher_response_rate = TeacherResponseRate.new(subcategory: @subcategory, school: @school, academic_year: @academic_year)
+    @student_response_rate = StudentResponseRate.new(subcategory: @subcategory, school: @school,
+                                                     academic_year: @academic_year)
+    @teacher_response_rate = TeacherResponseRate.new(subcategory: @subcategory, school: @school,
+                                                     academic_year: @academic_year)
   end
 
   def id
@@ -38,6 +40,10 @@ class SubcategoryPresenter
 
   def teacher_response_rate
     @teacher_response_rate.rate
+  end
+
+  def admin_collection_rate
+    [0, @subcategory.measures.map { |measure| measure.admin_data_items.count }.sum]
   end
 
   def measure_presenters

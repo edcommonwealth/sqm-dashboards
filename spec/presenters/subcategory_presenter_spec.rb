@@ -69,9 +69,13 @@ describe SubcategoryPresenter do
     expect(subcategory_presenter.student_response_rate).to eq 100.0
   end
 
-  # it 'returns the teacher response rate' do
-  #   expect(subcategory_presenter.teacher_response_rate).to eq 20.0
-  # end
+  it 'returns the teacher response rate' do
+    expect(subcategory_presenter.teacher_response_rate).to eq 100
+  end
+
+  it 'returns the admin collection rate' do
+    expect(subcategory_presenter.admin_collection_rate).to eq [0,1]
+  end
 
   it 'creates a measure presenter for each measure in a subcategory' do
     expect(subcategory_presenter.measure_presenters.count).to eq subcategory.measures.count

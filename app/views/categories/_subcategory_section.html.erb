@@ -12,10 +12,14 @@
 
         <div class="d-flex justify-content-start">
           <div class="body-large text-center response-rate">
+          <p class="response-rate-percentage"><%= subcategory.admin_collection_rate.first %> / <%= subcategory.admin_collection_rate.last %></p>
+            <p>school admin data sources</p>
+          </div>
+          <div class="body-large mx-3 text-center response-rate">
             <p class="response-rate-percentage"><%= subcategory.student_response_rate %>%</p>
             <p>of students responded</p>
           </div>
-          <div class="body-large mx-3 text-center response-rate">
+          <div class="body-large text-center response-rate">
             <p class="response-rate-percentage"><%= subcategory.teacher_response_rate %>%</p>
             <p>of teachers responded</p>
           </div>
