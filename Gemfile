@@ -61,6 +61,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'factory_bot_rails'
   gem 'parallel_tests'
+  gem 'rspec-rails', '~> 5.1.0'
 end
 
 group :development do
@@ -81,7 +82,6 @@ group 'test' do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 4.1.2'
   gem 'simplecov', require: false
   gem 'timecop'
 end
