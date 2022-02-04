@@ -1,5 +1,11 @@
 <% content_for :navigation do %>
   <h2 class="sub-header-2 color-white m-0">Areas Of Interest</h2>
+
+  <select id="select-academic-year" class="form-select" name="academic-year">
+    <%  @academic_years.each do |year| %>
+      <option value="<%= district_school_overview_index_path(@district, @school,  {year: year.range}) %>" <%= @academic_year == year ? "selected" : nil %>><%= year.formatted_range %></option>
+    <% end %>
+  </select>
 <% end %>
 
 <svg class="d-none">

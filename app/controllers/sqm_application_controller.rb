@@ -15,6 +15,7 @@ class SqmApplicationController < ApplicationController
     @school = School.find_by_slug(school_slug)
     @schools = School.includes([:district]).where(district: @district).order(:name)
     @academic_year = AcademicYear.find_by_range params[:year]
+    @academic_years = AcademicYear.all.order(range: :desc)
     @has_empty_dataset = Measure.none_meet_threshold? school: @school, academic_year: @academic_year
   end
 

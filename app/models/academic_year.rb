@@ -9,4 +9,10 @@ class AcademicYear < ActiveRecord::Base
     end
     AcademicYear.find_by_range("#{ay_range_start}-#{ay_range_end.to_s[2, 3]}")
   end
+
+  def formatted_range
+    years = range.split('-')
+    "#{years.first} – 20#{years.second}"
+  end
+
 end

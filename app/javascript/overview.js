@@ -15,12 +15,18 @@ export function initializeListenersForNavDropdowns() {
         window.location = event.target.value;
       });
   }
+  const academicYearDropdown = document.querySelector("#select-academic-year");
+  if (academicYearDropdown) {
+    academicYearDropdown.addEventListener("change", (event) => {
+      window.location = event.target.value;
+    });
+  }
 }
 
 export function initializePopovers() {
   document
     .querySelectorAll('[data-bs-toggle="popover"]')
-    .forEach(popoverElement => {
-      new Popover(popoverElement, { trigger: 'hover focus' })
-    })
+    .forEach((popoverElement) => {
+      new Popover(popoverElement, { trigger: "hover focus" });
+    });
 }

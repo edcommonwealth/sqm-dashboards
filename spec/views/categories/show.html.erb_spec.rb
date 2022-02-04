@@ -38,6 +38,7 @@ describe 'categories/show' do
     assign :school, school
     assign :district, create(:district)
     assign :academic_year, academic_year
+    assign :academic_years, [academic_year]
 
     render
   end

@@ -8,7 +8,7 @@ describe 'District Admin', js: true do
 
   let(:category) { Category.find_by_name('Teachers & Leadership') }
   let(:subcategory) { Subcategory.find_by_name('Teachers & The Teaching Environment') }
-  let(:measures_for_subcategory) { Measure.where(subcategory: subcategory) }
+  let(:measures_for_subcategory) { Measure.where(subcategory:) }
   let(:survey_items_for_subcategory) { SurveyItem.where(measure: measures_for_subcategory) }
 
   let(:measure_1A_i) { Measure.find_by_measure_id('1A-i') }
@@ -24,6 +24,7 @@ describe 'District Admin', js: true do
   let(:survey_items_for_measure_4C_i) { SurveyItem.where(measure: measure_4C_i) }
 
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
+  let(:ay_2019_20) { AcademicYear.find_by_range '2019-20' }
 
   let(:username) { 'winchester' }
   let(:password) { 'winchester!' }
@@ -36,28 +37,28 @@ describe 'District Admin', js: true do
     survey_items_for_measure_1A_i.each do |survey_item|
       SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
-                                                        school: school, survey_item: survey_item, likert_score: 4)
+                                                        school:, survey_item:, likert_score: 4)
       end
     end
 
     survey_items_for_measure_2A_i.each do |survey_item|
       SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
-                                                        school: school, survey_item: survey_item, likert_score: 5)
+                                                        school:, survey_item:, likert_score: 5)
       end
     end
 
     survey_items_for_measure_4C_i.each do |survey_item|
       SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
-                                                        school: school, survey_item: survey_item, likert_score: 1)
+                                                        school:, survey_item:, likert_score: 1)
       end
     end
 
     survey_items_for_subcategory.each do |survey_item|
       200.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
-                                                        school: school, survey_item: survey_item, likert_score: 4)
+                                                        school:, survey_item:, likert_score: 4)
       end
     end
 
@@ -90,6 +91,10 @@ describe 'District Admin', js: true do
 
     go_to_different_district(different_district)
     district_admin_sees_district_change
+
+    # TODO: figure out why this test doesn't work
+    # go_to_different_year(ay_2019_20)
+    # district_admin_sees_year_change
   end
 end
 
@@ -124,6 +129,10 @@ def go_to_different_district(district)
   select district.name, from: 'select-district'
 end
 
+def go_to_different_year(year)
+  select year.formatted_range, from: 'select-academic-year'
+end
+
 def district_admin_sees_schools_change
   expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=2020-21"
   expect(page).to have_current_path(expected_path)
@@ -131,6 +140,11 @@ end
 
 def district_admin_sees_district_change
   expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/browse/teachers-and-leadership?year=2020-21"
+  expect(page).to have_current_path(expected_path)
+end
+
+def district_admin_sees_year_change
+  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/browse/teachers-and-leadership?year=2019-20"
   expect(page).to have_current_path(expected_path)
 end
 

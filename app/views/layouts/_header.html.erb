@@ -11,7 +11,7 @@
         <select id="select-district" class="form-select" name="district">
           <% @districts.each do |district| %>
             <option class="district-options" value="<%= district_url_for(district: district, academic_year: @academic_year) %>" <%= @district.slug == district.slug ? "selected" : nil %>>
-              <%= district.name %>
+            <%= district.name %>
             </option>
           <% end %>
         </select>
@@ -19,7 +19,7 @@
         <select id="select-school" class="ms-3 form-select" name="school">
           <% @schools.each do |school| %>
             <option class="school-options" value="<%= school_url_for(school: school, academic_year: @academic_year) %>" <%= @school.slug == school.slug ? "selected" : nil %> >
-              <%= school.name %>
+            <%= school.name %>
             </option>
           <% end %>
         </select>
@@ -32,10 +32,6 @@
       <% if content_for?(:navigation) %>
         <%= yield(:navigation) %>
       <% end %>
-
-      <select class="form-select" name="academic-year">
-        <option value="<%= @academic_year %>" selected><%= format_academic_year(@academic_year) %></option>
-      </select>
     </div>
   </div>
 </header>

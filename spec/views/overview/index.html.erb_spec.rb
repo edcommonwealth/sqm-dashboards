@@ -39,6 +39,7 @@ describe 'overview/index' do
   before :each do
     assign :category_presenters, []
     assign :variance_chart_row_presenters, variance_chart_row_presenters
+    assign :academic_years, []
 
     render
   end
