@@ -31,6 +31,10 @@ class GaugePresenter
     end
   end
 
+  def score
+    @score
+  end
+
   private
 
   def watch_low_boundary
