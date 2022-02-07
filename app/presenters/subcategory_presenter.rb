@@ -43,7 +43,8 @@ class SubcategoryPresenter
   end
 
   def admin_collection_rate
-    [0, @subcategory.measures.map { |measure| measure.admin_data_items.count }.sum]
+    rate = [0, @subcategory.measures.map { |measure| measure.admin_data_items.count }.sum]
+    rate == [0,0] ? ["N", "A"] : rate
   end
 
   def measure_presenters

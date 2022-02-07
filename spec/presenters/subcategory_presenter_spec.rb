@@ -7,46 +7,43 @@ describe SubcategoryPresenter do
     create(:subcategory, name: 'A great subcategory', subcategory_id: 'A', description: 'A great description')
   end
   let(:survey_respondents) do
-    create(:respondent, school: school, total_students: SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, total_teachers: 10.0, academic_year: academic_year)
+    create(:respondent, school:, total_students: SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                        total_teachers: 10.0, academic_year:)
   end
   let(:subcategory_presenter) do
     survey_respondents
-    measure1 = create(:measure, subcategory: subcategory)
+    measure1 = create(:measure, subcategory:)
     survey_item1 = create(:teacher_survey_item, measure: measure1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
                                                 approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75)
     survey_item2 = create(:student_survey_item, measure: measure1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
                                                 approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1,
-                                                                                       academic_year: academic_year, school: school, likert_score: 1)
+                                                                                       academic_year:, school:, likert_score: 1)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1,
-                                                                                       academic_year: academic_year, school: school, likert_score: 5)
+                                                                                       academic_year:, school:, likert_score: 5)
     create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item2,
-                                                                                       academic_year: academic_year, school: school, likert_score: 3)
+                                                                                           academic_year:, school:, likert_score: 3)
     create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item2,
-                                                                                       academic_year: academic_year, school: school, likert_score: 3)
+                                                                                           academic_year:, school:, likert_score: 3)
 
-    measure2 = create(:measure, subcategory: subcategory)
+    measure2 = create(:measure, subcategory:)
     survey_item3 = create(:teacher_survey_item, measure: measure2, watch_low_benchmark: 1.25,
                                                 growth_low_benchmark: 1.5, approval_low_benchmark: 1.75, ideal_low_benchmark: 2.0)
     survey_item4 = create(:student_survey_item, measure: measure2, watch_low_benchmark: 1.25,
                                                 growth_low_benchmark: 1.5, approval_low_benchmark: 1.75, ideal_low_benchmark: 2.0)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item3,
-                                                                                       academic_year: academic_year, school: school, likert_score: 1)
+                                                                                       academic_year:, school:, likert_score: 1)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item3,
-                                                                                       academic_year: academic_year, school: school, likert_score: 5)
+                                                                                       academic_year:, school:, likert_score: 5)
     create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item4,
-                                                                                       academic_year: academic_year, school: school, likert_score: 3)
+                                                                                           academic_year:, school:, likert_score: 3)
     create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item4,
-                                                                                       academic_year: academic_year, school: school, likert_score: 3)
-
-    measure_of_only_admin_data = create(:measure, subcategory: subcategory)
-    create(:admin_data_item, measure: measure_of_only_admin_data, watch_low_benchmark: 2, growth_low_benchmark: 3,
-      approval_low_benchmark: 3.5, ideal_low_benchmark: 4)
+                                                                                           academic_year:, school:, likert_score: 3)
 
     # Adding responses corresponding to different years and schools should not pollute the score calculations
     create_survey_item_responses_for_different_years_and_schools(survey_item1)
 
-    return SubcategoryPresenter.new(subcategory: subcategory, academic_year: academic_year, school: school)
+    return SubcategoryPresenter.new(subcategory:, academic_year:, school:)
   end
 
   it 'returns the name of the subcategory' do
@@ -74,7 +71,7 @@ describe SubcategoryPresenter do
   end
 
   it 'returns the admin collection rate' do
-    expect(subcategory_presenter.admin_collection_rate).to eq [0,1]
+    expect(subcategory_presenter.admin_collection_rate).to eq %w[N A]
   end
 
   it 'creates a measure presenter for each measure in a subcategory' do
@@ -84,7 +81,7 @@ describe SubcategoryPresenter do
   context 'When there are no measures populated with student or teacher surveys' do
     let(:empty_subcategory) { create :subcategory }
     let(:empty_subcategory_presenter) do
-      SubcategoryPresenter.new(subcategory: empty_subcategory, academic_year: academic_year, school: school)
+      SubcategoryPresenter.new(subcategory: empty_subcategory, academic_year:, school:)
     end
     it 'should make a subcategory presenter return insufficient data' do
       expect(empty_subcategory_presenter.subcategory_card_presenter.insufficient_data?).to eq true
@@ -92,9 +89,20 @@ describe SubcategoryPresenter do
   end
 
   def create_survey_item_responses_for_different_years_and_schools(survey_item)
-    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item,
-      school: School.new(name: 'Worst School' , dese_id: 2), likert_score: 1)
-    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item,
-      academic_year: AcademicYear.create(range: '2000-01'), likert_score: 1)
+    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item:,
+                                                                                       school: School.new(name: 'Worst School', dese_id: 2), likert_score: 1)
+    create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item:,
+                                                                                       academic_year: AcademicYear.create(range: '2000-01'), likert_score: 1)
+  end
+
+  context 'When there are admin data items' do
+    before do
+      measure_of_only_admin_data = create(:measure, subcategory:)
+      create(:admin_data_item, measure: measure_of_only_admin_data, watch_low_benchmark: 2, growth_low_benchmark: 3,
+                               approval_low_benchmark: 3.5, ideal_low_benchmark: 4)
+    end
+    it 'returns the admin collection rate' do
+      expect(subcategory_presenter.admin_collection_rate).to eq [0, 1]
+    end
   end
 end
