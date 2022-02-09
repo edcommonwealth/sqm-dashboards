@@ -14,24 +14,17 @@ gem 'pg'
 
 # Use Puma as the app server
 gem 'puma', '>= 5.5.2'
-# Use SCSS for stylesheets
-# gem 'sassc-rails', require: false
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 gem 'nokogiri', '>= 1.12.5'
 
@@ -39,13 +32,12 @@ gem 'bootsnap', require: false
 
 gem 'haml'
 
-# gem 'bootstrap'
-
 gem 'friendly_id', '~> 5.1.0'
 
 gem 'newrelic_rpm'
 
 gem 'devise'
+
 gem 'omniauth'
 
 gem 'twilio-ruby', '~> 4.11.1'
@@ -55,6 +47,10 @@ gem 'activerecord-import'
 gem 'jsbundling-rails'
 
 gem 'cssbundling-rails'
+
+gem 'turbo-rails'
+
+gem 'stimulus-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,19 +1,22 @@
 // Entry point for the build script in your package.json
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
-// import "channels"
+import Rails from "@rails/ujs";
+import * as ActiveStorage from "@rails/activestorage";
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
-import { initializeListenersForNavDropdowns, initializePopovers } from "./overview"
-import { initializeListenersForHomeDropdowns } from "./home"
-import { showEmptyDatasetModal } from "./modal"
+Rails.start();
+ActiveStorage.start();
 
-document.addEventListener("turbolinks:load", () => {
-  initializeListenersForNavDropdowns()
-  initializeListenersForHomeDropdowns()
-  initializePopovers()
-  showEmptyDatasetModal()
-})
+import {
+  initializeListenersForNavDropdowns,
+  initializePopovers,
+} from "./overview";
+import { initializeListenersForHomeDropdowns } from "./home";
+import { showEmptyDatasetModal } from "./modal";
+
+document.addEventListener("turbo:load", () => {
+  initializeListenersForNavDropdowns();
+  initializeListenersForHomeDropdowns();
+  initializePopovers();
+  showEmptyDatasetModal();
+});
+import "@hotwired/turbo-rails";
+import "./controllers";

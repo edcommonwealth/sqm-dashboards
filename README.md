@@ -74,28 +74,35 @@ Postgres
 
 ### Gems
 
-| Name                | Description                        |
-| ------------------- | ---------------------------------- |
-| puma                | webserver                          |
-| pg                  | postgres                           |
-| sassc-rails         | sass compiler                      |
-| jquery-rails        | legacy, allows use of jquery       |
-| jbuilder            | legacy, build json objects         |
-| haml                | legacy, write views in haml syntax |
-| bootstrap           | css framework                      |
-| newrelic_rpm        | legacy?, application monitoring    |
-| devise              | authentication                     |
-| omniauth            | authentication                     |
-| twilio-ruby         | legacy, text messaging             |
-| activerecord-import | faster database imports            |
+| Name                | Description                                         |
+| ------------------- | --------------------------------------------------- |
+| puma                | webserver                                           |
+| pg                  | postgres                                            |
+| jquery-rails        | legacy, allows use of jquery                        |
+| jbuilder            | legacy, build json objects                          |
+| haml                | legacy, write views in haml syntax                  |
+| bootstrap           | css framework                                       |
+| newrelic_rpm        | legacy?, application monitoring                     |
+| devise              | authentication                                      |
+| omniauth            | authentication                                      |
+| twilio-ruby         | legacy, text messaging                              |
+| activerecord-import | faster database imports                             |
+| stimulus            | Create javascript controllers                       |
+| turbo-rails         | Manages what gets rendered on the frontend and when |
+| redis               | Caching system                                      |
+| jsbundling-rails    | Bundle javascript asssets                           |
+| cssbundling-rails   | Bundle css assets                                   |
 
 ### External APIs
 
 None yet. Hoping to integrate with Powerschool and Aspen for school administrative data.
 
-### Javascript libraries
+### Javascript
 
-Esbuild is used as the javascript bundler. The javascript testing library is jest.
+Esbuild is used as the javascript bundler. Scripts for esbuild are defined in package.json e.g. `yarn build`. This script will run if in development with `bin/dev`.
+The javascript testing library is jest. Manually run test with `yarn test`. Javascript tests will also run with `bundle exec rake`.
+
+Stimulus is installed. Create a stimulus controller with `./bin/rails generate stimulus [controller]`. If you create a stimulus controller manually, you can add it to `index.js` with the command `stimulus:manifest:update`.
 
 ### css
 
