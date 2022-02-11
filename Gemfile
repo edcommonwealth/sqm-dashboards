@@ -57,6 +57,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'factory_bot_rails'
   gem 'parallel_tests'
+  gem 'rack-mini-profiler'
   gem 'rspec-rails', '~> 5.1.0'
 end
 
