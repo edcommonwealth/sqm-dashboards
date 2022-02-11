@@ -6,7 +6,7 @@ class StudentResponseRate < ResponseRate
   private
 
   def survey_item_count
-    @student_survey_item_count = SurveyItem.student_survey_items_for_measures(@subcategory.measures).count
+    @student_survey_item_count ||= SurveyItem.student_survey_items_for_measures(@subcategory.measures).count
   end
 
   def response_count
