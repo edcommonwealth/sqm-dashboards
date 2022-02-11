@@ -36,6 +36,13 @@ describe Seeder do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
       end.to change { District.count }.by(2)
                                       .and change { School.count }.by(2)
+      elementary_school = School.find_by_dese_id 350_302
+      expect(elementary_school.name).to eq 'Samuel Adams Elementary School'
+      expect(elementary_school.is_hs).to be false
+
+      high_school = School.find_by_dese_id 160_505
+      expect(high_school.name).to eq 'Attleboro High School'
+      expect(high_school.is_hs).to be true
     end
 
     context 'when partial data already exists' do
@@ -188,6 +195,10 @@ describe Seeder do
         expect(admin_data_item.approval_low_benchmark).to eq 4
         expect(admin_data_item.ideal_low_benchmark).to eq 4.71
         expect(admin_data_item.description).to eq 'Student to suspensions ratio'
+        expect(admin_data_item.hs_only_item).to be false
+
+        hs_admin_data_item = AdminDataItem.find_by_admin_data_item_id 'a-curv-i1'
+        expect(hs_admin_data_item.hs_only_item).to be true
       end
     end
   end

@@ -22,11 +22,11 @@ class SubcategoryPresenter
   end
 
   def gauge_presenter
-    GaugePresenter.new(scale: scale, score: average_score)
+    GaugePresenter.new(scale:, score: average_score)
   end
 
   def subcategory_card_presenter
-    SubcategoryCardPresenter.new(name: @subcategory.name, scale: scale, score: average_score)
+    SubcategoryCardPresenter.new(name: @subcategory.name, scale:, score: average_score)
   end
 
   def average_score
@@ -43,17 +43,29 @@ class SubcategoryPresenter
   end
 
   def admin_collection_rate
-    rate = [0, @subcategory.measures.map { |measure| measure.admin_data_items.count }.sum]
-    rate == [0,0] ? ["N", "A"] : rate
+    rate = [0, admin_data_item_count]
+    format_a_non_applicable_rate rate
   end
 
   def measure_presenters
     @subcategory.measures.includes([:admin_data_items]).sort_by(&:measure_id).map do |measure|
-      MeasurePresenter.new(measure: measure, academic_year: @academic_year, school: @school)
+      MeasurePresenter.new(measure:, academic_year: @academic_year, school: @school)
     end
   end
 
   private
+
+  def admin_data_item_count
+    if @school.is_hs
+      AdminDataItem.for_measures(@subcategory.measures).count
+    else
+      AdminDataItem.non_hs_items_for_measures(@subcategory.measures).count
+    end
+  end
+
+  def format_a_non_applicable_rate(rate)
+    rate == [0, 0] ? %w[N A] : rate
+  end
 
   def scale
     Scale.new(

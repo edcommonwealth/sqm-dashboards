@@ -96,13 +96,56 @@ describe SubcategoryPresenter do
   end
 
   context 'When there are admin data items' do
-    before do
-      measure_of_only_admin_data = create(:measure, subcategory:)
-      create(:admin_data_item, measure: measure_of_only_admin_data, watch_low_benchmark: 2, growth_low_benchmark: 3,
-                               approval_low_benchmark: 3.5, ideal_low_benchmark: 4)
+    context 'and the school is not a high school' do
+      context 'and the measure does not include high-school-only admin data items' do
+        before do
+          measure_of_only_admin_data = create(:measure, subcategory:)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
+        end
+        it 'returns the admin collection rate' do
+          expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]
+        end
+      end
+
+      context 'and the measure includes high-school-only items' do
+        before do
+          measure_of_only_admin_data = create(:measure, subcategory:)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
+        end
+        it 'returns the admin collection rate' do
+          expect(subcategory_presenter.admin_collection_rate).to eq %w[N A]
+        end
+      end
     end
-    it 'returns the admin collection rate' do
-      expect(subcategory_presenter.admin_collection_rate).to eq [0, 1]
+
+    context 'and the school is a high school' do
+      context 'and the measure does not include high-school-only admin data items' do
+        before do
+          school.is_hs = true
+          school.save
+          measure_of_only_admin_data = create(:measure, subcategory:)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
+        end
+        it 'returns the admin collection rate' do
+          expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]
+        end
+      end
+
+      context 'and the measure includes high-school-only items' do
+        before do
+          school.is_hs = true
+          school.save
+          measure_of_only_admin_data = create(:measure, subcategory:)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
+          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
+        end
+        it 'returns the admin collection rate' do
+          expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]
+        end
+      end
     end
   end
 end

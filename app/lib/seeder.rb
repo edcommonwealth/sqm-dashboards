@@ -16,6 +16,7 @@ class Seeder
       dese_ids << dese_id
       school_name = row['School Name'].strip
       school_code = row['School Code'].try(:strip)
+      hs = row['HS?']
 
       district = District.find_or_create_by! name: district_name
       district.update! slug: district_name.parameterize, qualtrics_code: district_code
@@ -23,6 +24,7 @@ class Seeder
       school = School.find_or_initialize_by dese_id: dese_id, district: district
       school.name = school_name
       school.qualtrics_code = school_code
+      school.is_hs = is_hs? hs
       school.save!
     end
 
@@ -56,7 +58,7 @@ class Seeder
   def seed_sqm_framework(csv_file)
     CSV.parse(File.read(csv_file), headers: true) do |row|
       category_id = row['Category ID'].strip
-      category = Category.find_or_create_by!(category_id: category_id)
+      category = Category.find_or_create_by!(category_id:)
       category_slugs = {
         '1' => 'teachers-and-leadership',
         '2' => 'school-culture',
@@ -102,8 +104,16 @@ class Seeder
         admin_data_item.growth_low_benchmark = growth_low if growth_low
         admin_data_item.approval_low_benchmark = approval_low if approval_low
         admin_data_item.ideal_low_benchmark = ideal_low if ideal_low
-        admin_data_item.update! description: row['Question/item (20-21)'].strip
+        admin_data_item.description = row['Question/item (20-21)'].strip
+        admin_data_item.hs_only_item = is_hs? row['HS only admin item?']
+        admin_data_item.save!
       end
     end
+  end
+
+  private
+
+  def is_hs?(is_hs)
+    is_hs.present? ? is_hs.strip == 'X' : false
   end
 end
