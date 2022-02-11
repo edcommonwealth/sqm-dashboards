@@ -10,9 +10,7 @@ class TeacherResponseRate < ResponseRate
   end
 
   def survey_item_count
-    @teacher_survey_item_count ||= @subcategory.measures.map do |measure|
-      measure.teacher_survey_items.count
-    end.sum
+    @teacher_survey_item_count ||= SurveyItem.teacher_survey_items_for_measures(@subcategory.measures).count
   end
 
   def response_count
