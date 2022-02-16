@@ -13,9 +13,11 @@ describe SubcategoryPresenter do
   let(:subcategory_presenter) do
     survey_respondents
     measure1 = create(:measure, subcategory:)
-    survey_item1 = create(:teacher_survey_item, measure: measure1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
+    teacher_scale_1 = create(:teacher_scale, measure: measure1)
+    student_scale_1 = create(:student_scale, measure: measure1)
+    survey_item1 = create(:teacher_survey_item, scale: teacher_scale_1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
                                                 approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75)
-    survey_item2 = create(:student_survey_item, measure: measure1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
+    survey_item2 = create(:student_survey_item, scale: student_scale_1, watch_low_benchmark: 4, growth_low_benchmark: 4.25,
                                                 approval_low_benchmark: 4.5, ideal_low_benchmark: 4.75)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1,
                                                                                        academic_year:, school:, likert_score: 1)
@@ -27,9 +29,12 @@ describe SubcategoryPresenter do
                                                                                            academic_year:, school:, likert_score: 3)
 
     measure2 = create(:measure, subcategory:)
-    survey_item3 = create(:teacher_survey_item, measure: measure2, watch_low_benchmark: 1.25,
+    teacher_scale_2 = create(:teacher_scale, measure: measure2)
+    student_scale_2 = create(:student_scale, measure: measure2)
+
+    survey_item3 = create(:teacher_survey_item, scale: teacher_scale_2, watch_low_benchmark: 1.25,
                                                 growth_low_benchmark: 1.5, approval_low_benchmark: 1.75, ideal_low_benchmark: 2.0)
-    survey_item4 = create(:student_survey_item, measure: measure2, watch_low_benchmark: 1.25,
+    survey_item4 = create(:student_survey_item, scale: student_scale_2, watch_low_benchmark: 1.25,
                                                 growth_low_benchmark: 1.5, approval_low_benchmark: 1.75, ideal_low_benchmark: 2.0)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item3,
                                                                                        academic_year:, school:, likert_score: 1)
@@ -100,8 +105,9 @@ describe SubcategoryPresenter do
       context 'and the measure does not include high-school-only admin data items' do
         before do
           measure_of_only_admin_data = create(:measure, subcategory:)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
+          scale_of_only_admin_data = create(:scale, measure: measure_of_only_admin_data)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false)
         end
         it 'returns the admin collection rate' do
           expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]
@@ -111,8 +117,9 @@ describe SubcategoryPresenter do
       context 'and the measure includes high-school-only items' do
         before do
           measure_of_only_admin_data = create(:measure, subcategory:)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
+          scale_of_only_admin_data = create(:scale, measure: measure_of_only_admin_data)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: true)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: true)
         end
         it 'returns the admin collection rate' do
           expect(subcategory_presenter.admin_collection_rate).to eq %w[N A]
@@ -126,8 +133,9 @@ describe SubcategoryPresenter do
           school.is_hs = true
           school.save
           measure_of_only_admin_data = create(:measure, subcategory:)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: false)
+          scale_of_only_admin_data = create(:scale, measure: measure_of_only_admin_data)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false)
         end
         it 'returns the admin collection rate' do
           expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]
@@ -139,8 +147,9 @@ describe SubcategoryPresenter do
           school.is_hs = true
           school.save
           measure_of_only_admin_data = create(:measure, subcategory:)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
-          create(:admin_data_item, measure: measure_of_only_admin_data, hs_only_item: true)
+          scale_of_only_admin_data = create(:scale, measure: measure_of_only_admin_data)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: true)
+          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: true)
         end
         it 'returns the admin collection rate' do
           expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]

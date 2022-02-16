@@ -18,7 +18,7 @@ class MeasurePresenter
   end
 
   def gauge_presenter
-    GaugePresenter.new(scale: scale, score: score_for_measure.average)
+    GaugePresenter.new(zones:, score: score_for_measure.average)
   end
 
   def data_item_accordion_id
@@ -45,11 +45,11 @@ class MeasurePresenter
   private
 
   def score_for_measure
-    @score ||= SurveyItemResponse.score_for_measure(measure: @measure, academic_year: @academic_year, school: @school)
+    @score ||= @measure.score(school: @school, academic_year: @academic_year)
   end
 
-  def scale
-    Scale.new(
+  def zones
+    Zones.new(
       watch_low_benchmark: @measure.watch_low_benchmark,
       growth_low_benchmark: @measure.growth_low_benchmark,
       approval_low_benchmark: @measure.approval_low_benchmark,

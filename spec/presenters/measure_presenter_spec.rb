@@ -4,7 +4,10 @@ describe MeasurePresenter do
   let(:academic_year) { create(:academic_year, range: '1989-90') }
   let(:school) { create(:school, name: 'Best School') }
   let(:measure) { create(:measure, measure_id: 'measure-id') }
-  let(:measure_presenter) { MeasurePresenter.new(measure: measure, academic_year: academic_year, school: school) }
+  let(:teacher_scale) { create(:teacher_scale, measure:) }
+  let(:student_scale) { create(:student_scale, measure:) }
+  let(:admin_scale) { create(:scale, measure:) }
+  let(:measure_presenter) { MeasurePresenter.new(measure:, academic_year:, school:) }
 
   it 'returns the id of the measure' do
     expect(measure_presenter.id).to eq 'measure-id'
@@ -16,13 +19,13 @@ describe MeasurePresenter do
 
   context 'when the measure contains only teacher data' do
     before :each do
-      survey_item1 = create(:teacher_survey_item, measure: measure, prompt: 'A teacher survey item prompt')
-      survey_item2 = create(:teacher_survey_item, measure: measure, prompt: 'Another teacher survey item prompt')
+      survey_item1 = create(:teacher_survey_item, scale: teacher_scale, prompt: 'A teacher survey item prompt')
+      survey_item2 = create(:teacher_survey_item, scale: teacher_scale, prompt: 'Another teacher survey item prompt')
 
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1,
-                                                                                         academic_year: academic_year, school: school, likert_score: 1)
+                                                                                         academic_year:, school:, likert_score: 1)
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item2,
-                                                                                         academic_year: academic_year, school: school, likert_score: 5)
+                                                                                         academic_year:, school:, likert_score: 5)
     end
 
     it 'creates a gauge presenter that presents the average likert score' do
@@ -41,10 +44,10 @@ describe MeasurePresenter do
 
   context 'when the measure contains both teacher data and admin data' do
     before :each do
-      create(:teacher_survey_item, measure: measure, prompt: 'A teacher survey item prompt')
-      create(:teacher_survey_item, measure: measure, prompt: 'Another teacher survey item prompt')
-      create(:admin_data_item, measure: measure, description: 'An admin data item description')
-      create(:admin_data_item, measure: measure, description: 'Another admin data item description')
+      create(:teacher_survey_item, scale: teacher_scale, prompt: 'A teacher survey item prompt')
+      create(:teacher_survey_item, scale: teacher_scale, prompt: 'Another teacher survey item prompt')
+      create(:admin_data_item, scale: admin_scale, description: 'An admin data item description')
+      create(:admin_data_item, scale: admin_scale, description: 'Another admin data item description')
     end
 
     it 'returns a list of data item presenters with two elements' do
@@ -68,13 +71,13 @@ describe MeasurePresenter do
 
   context 'when the measure has partial data for teachers and students' do
     before :each do
-      teacher_survey_item = create(:teacher_survey_item, measure: measure)
-      student_survey_item = create(:student_survey_item, measure: measure)
+      teacher_survey_item = create(:teacher_survey_item, scale: teacher_scale)
+      student_survey_item = create(:student_survey_item, scale: student_scale)
 
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
-                  survey_item: teacher_survey_item, academic_year: academic_year, school: school)
+                  survey_item: teacher_survey_item, academic_year:, school:)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
-                  survey_item: student_survey_item, academic_year: academic_year, school: school)
+                  survey_item: student_survey_item, academic_year:, school:)
     end
 
     it 'tracks which parts of the data are sufficient' do
@@ -91,9 +94,9 @@ describe MeasurePresenter do
 
   context 'when the measure has insufficient admin data and insufficient teacher/student data' do
     before :each do
-      create(:admin_data_item, measure: measure)
-      create(:teacher_survey_item, measure: measure)
-      create(:student_survey_item, measure: measure)
+      create(:admin_data_item, scale: admin_scale)
+      create(:teacher_survey_item, scale: teacher_scale)
+      create(:student_survey_item, scale: student_scale)
     end
 
     it 'tracks the reason for their insufficiency' do

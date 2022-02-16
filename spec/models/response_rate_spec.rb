@@ -11,13 +11,16 @@ describe ResponseRate, type: :model do
   describe StudentResponseRate do
     let(:subcategory) { create(:subcategory) }
     let(:sufficient_measure_1) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_scale_1) { create(:scale, measure: sufficient_measure_1) }
     let(:sufficient_measure_2) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_scale_2) { create(:scale, measure: sufficient_measure_2) }
     let(:insufficient_measure) { create(:measure, subcategory: subcategory) }
-    let(:sufficient_teacher_survey_item) { create(:teacher_survey_item, measure: sufficient_measure_1) }
-    let(:sufficient_student_survey_item_1) { create(:student_survey_item, measure: sufficient_measure_1) }
-    let(:insufficient_teacher_survey_item) { create(:teacher_survey_item, measure: insufficient_measure) }
-    let(:sufficient_student_survey_item_2) { create(:student_survey_item, measure: sufficient_measure_2) }
-    let(:insufficient_student_survey_item) { create(:student_survey_item, measure: insufficient_measure) }
+    let(:insufficient_scale) { create(:scale, measure: insufficient_measure) }
+    let(:sufficient_teacher_survey_item) { create(:teacher_survey_item, scale: sufficient_scale_1) }
+    let(:sufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
+    let(:insufficient_teacher_survey_item) { create(:teacher_survey_item, scale: insufficient_scale) }
+    let(:sufficient_student_survey_item_2) { create(:student_survey_item, scale: sufficient_scale_2) }
+    let(:insufficient_student_survey_item) { create(:student_survey_item, scale: insufficient_scale) }
 
     before :each do
       survey_respondents
@@ -44,14 +47,17 @@ describe ResponseRate, type: :model do
   describe TeacherResponseRate do
     let(:subcategory) { create(:subcategory) }
     let(:sufficient_measure_1) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_scale_1) { create(:scale, measure: sufficient_measure_1) }
     let(:sufficient_measure_2) { create(:measure, subcategory: subcategory) }
+    let(:sufficient_scale_2) { create(:scale, measure: sufficient_measure_2) }
     let(:insufficient_measure) { create(:measure, subcategory: subcategory) }
-    let(:sufficient_teacher_survey_item_1) { create(:teacher_survey_item, measure: sufficient_measure_1) }
-    let(:sufficient_teacher_survey_item_2) { create(:teacher_survey_item, measure: sufficient_measure_1) }
-    let(:sufficient_teacher_survey_item_3) { create(:teacher_survey_item, measure: sufficient_measure_1) }
-    let(:sufficient_student_survey_item_1) { create(:student_survey_item, measure: sufficient_measure_1) }
-    let(:insufficient_teacher_survey_item) { create(:teacher_survey_item, measure: insufficient_measure) }
-    let(:insufficient_student_survey_item) { create(:student_survey_item, measure: insufficient_measure) }
+    let(:insufficient_scale) { create(:scale, measure: insufficient_measure) }
+    let(:sufficient_teacher_survey_item_1) { create(:teacher_survey_item, scale: sufficient_scale_1) }
+    let(:sufficient_teacher_survey_item_2) { create(:teacher_survey_item, scale: sufficient_scale_1) }
+    let(:sufficient_teacher_survey_item_3) { create(:teacher_survey_item, scale: sufficient_scale_1) }
+    let(:sufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
+    let(:insufficient_teacher_survey_item) { create(:teacher_survey_item, scale: insufficient_scale) }
+    let(:insufficient_student_survey_item) { create(:student_survey_item, scale: insufficient_scale) }
 
     before :each do
       survey_respondents

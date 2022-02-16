@@ -3,7 +3,7 @@ require 'csv'
 class Seeder
   def seed_academic_years(*academic_year_ranges)
     academic_year_ranges.each do |range|
-      AcademicYear.find_or_create_by! range: range
+      AcademicYear.find_or_create_by! range:
     end
   end
 
@@ -89,8 +89,11 @@ class Seeder
       measure.save!
 
       data_item_id = row['Survey Item ID'].strip
+      scale_id = data_item_id.split('-')[0..1].join('-')
+      scale = Scale.find_or_create_by! scale_id: scale_id, measure: measure
+
       if %w[Teachers Students].include? row['Source']
-        survey_item = SurveyItem.find_or_create_by! survey_item_id: data_item_id, measure: measure
+        survey_item = SurveyItem.where(survey_item_id: data_item_id, scale:).first_or_create
         survey_item.watch_low_benchmark = watch_low if watch_low
         survey_item.growth_low_benchmark = growth_low if growth_low
         survey_item.approval_low_benchmark = approval_low if approval_low
@@ -99,7 +102,7 @@ class Seeder
       end
 
       if row['Source'] == 'Admin Data'
-        admin_data_item = AdminDataItem.find_or_create_by! admin_data_item_id: data_item_id, measure: measure
+        admin_data_item = AdminDataItem.where(admin_data_item_id: data_item_id, scale:).first_or_create
         admin_data_item.watch_low_benchmark = watch_low if watch_low
         admin_data_item.growth_low_benchmark = growth_low if growth_low
         admin_data_item.approval_low_benchmark = approval_low if approval_low

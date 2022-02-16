@@ -6,6 +6,7 @@ describe 'SQM Application' do
   let(:academic_year) { create(:academic_year) }
   let(:category) { create(:category) }
   let(:measure) { create(:measure) }
+  let(:scale) {create(:scale, measure:)}
 
   before :each do
     driven_by :rack_test
@@ -26,7 +27,7 @@ describe 'SQM Application' do
 
   context 'at least one measure meets its threshold' do
     before :each do
-      teacher_survey_item = create(:teacher_survey_item, measure: measure)
+      teacher_survey_item = create(:teacher_survey_item, scale:)
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
                   survey_item: teacher_survey_item, academic_year: academic_year, school: school)
     end

@@ -11,12 +11,13 @@ describe VarianceChartRowPresenter do
       :measure,
       name: 'Some Title'
     )
+    scale = create(:scale, measure:)
 
-    create(:student_survey_item, measure: measure,
-                                 watch_low_benchmark: watch_low_benchmark,
-                                 growth_low_benchmark: growth_low_benchmark,
-                                 approval_low_benchmark: approval_low_benchmark,
-                                 ideal_low_benchmark: ideal_low_benchmark)
+    create(:student_survey_item, scale:,
+                                 watch_low_benchmark:,
+                                 growth_low_benchmark:,
+                                 approval_low_benchmark:,
+                                 ideal_low_benchmark:)
 
     measure
   end
@@ -29,7 +30,7 @@ describe VarianceChartRowPresenter do
   end
 
   let(:presenter) do
-    VarianceChartRowPresenter.new measure: measure, score: score
+    VarianceChartRowPresenter.new measure:, score:
   end
 
   shared_examples_for 'measure_name' do
@@ -155,8 +156,9 @@ describe VarianceChartRowPresenter do
         :measure,
         name: 'Some Title'
       )
+      scale_with_admin_data = create(:scale, measure: measure_with_admin_data)
       create :admin_data_item,
-             measure: measure_with_admin_data,
+             scale: scale_with_admin_data,
              watch_low_benchmark: watch_low_benchmark,
              growth_low_benchmark: growth_low_benchmark,
              approval_low_benchmark: approval_low_benchmark,
@@ -172,7 +174,8 @@ describe VarianceChartRowPresenter do
 
   context 'when a measure contains teacher survey items' do
     before :each do
-      create :teacher_survey_item, measure: measure
+      scale = create(:scale, measure:)
+      create :teacher_survey_item, scale:
     end
 
     context 'when there are insufficient teacher survey item responses' do
@@ -193,7 +196,8 @@ describe VarianceChartRowPresenter do
 
   context 'when a measure contains student survey items' do
     before :each do
-      create :student_survey_item, measure: measure
+      scale = create(:scale, measure:)
+      create :student_survey_item, scale:
     end
 
     context 'when there are insufficient student survey item responses' do
@@ -205,7 +209,8 @@ describe VarianceChartRowPresenter do
 
       context 'where there are also admin data items' do
         before :each do
-          create :admin_data_item, measure: measure
+          scale = create(:scale, measure:)
+          create :admin_data_item, scale:
         end
 
         it 'returns the sources for partial results of administrative data and student survey results' do
@@ -224,12 +229,13 @@ describe VarianceChartRowPresenter do
 
   context 'sorting scores' do
     it 'selects a longer bar before a shorter bar for measures in the approval/ideal zones' do
+      scale_with_student_survey_items = create(:scale, measure:)
       create(:student_survey_item,
-             measure: measure,
-             watch_low_benchmark: watch_low_benchmark,
-             growth_low_benchmark: growth_low_benchmark,
-             approval_low_benchmark: approval_low_benchmark,
-             ideal_low_benchmark: ideal_low_benchmark)
+             scale: scale_with_student_survey_items,
+             watch_low_benchmark:,
+             growth_low_benchmark:,
+             approval_low_benchmark:,
+             ideal_low_benchmark:)
       approval_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(3.7, true, true)
       ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(4.4, true, true)
       expect(ideal_presenter <=> approval_presenter).to be < 0

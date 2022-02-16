@@ -96,12 +96,12 @@ class VarianceChartRowPresenter
   end
 
   def zone
-    scale = Scale.new(
+    zones = Zones.new(
       watch_low_benchmark: @measure.watch_low_benchmark,
       growth_low_benchmark: @measure.growth_low_benchmark,
       approval_low_benchmark: @measure.approval_low_benchmark,
       ideal_low_benchmark: @measure.ideal_low_benchmark
     )
-    scale.zone_for_score(@score)
+    zones.zone_for_score(@score)
   end
 end

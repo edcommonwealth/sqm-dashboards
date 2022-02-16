@@ -22,16 +22,15 @@ class SubcategoryPresenter
   end
 
   def gauge_presenter
-    GaugePresenter.new(scale:, score: average_score)
+    GaugePresenter.new(zones:, score: average_score)
   end
 
   def subcategory_card_presenter
-    SubcategoryCardPresenter.new(name: @subcategory.name, scale:, score: average_score)
+    SubcategoryCardPresenter.new(name: @subcategory.name, zones:, score: average_score)
   end
 
   def average_score
-    @average_score ||= SurveyItemResponse.score_for_subcategory(subcategory: @subcategory, school: @school,
-                                                                academic_year: @academic_year)
+    @average_score ||= @subcategory.score(school: @school, academic_year: @academic_year)
   end
 
   def student_response_rate
@@ -48,7 +47,7 @@ class SubcategoryPresenter
   end
 
   def measure_presenters
-    @subcategory.measures.includes([:admin_data_items]).sort_by(&:measure_id).map do |measure|
+    @subcategory.measures.sort_by(&:measure_id).map do |measure|
       MeasurePresenter.new(measure:, academic_year: @academic_year, school: @school)
     end
   end
@@ -56,19 +55,17 @@ class SubcategoryPresenter
   private
 
   def admin_data_item_count
-    if @school.is_hs
-      AdminDataItem.for_measures(@subcategory.measures).count
-    else
-      AdminDataItem.non_hs_items_for_measures(@subcategory.measures).count
-    end
+    return AdminDataItem.for_measures(@subcategory.measures).count if @school.is_hs
+
+    AdminDataItem.non_hs_items_for_measures(@subcategory.measures).count
   end
 
   def format_a_non_applicable_rate(rate)
     rate == [0, 0] ? %w[N A] : rate
   end
 
-  def scale
-    Scale.new(
+  def zones
+    Zones.new(
       watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
       growth_low_benchmark: measures.map(&:growth_low_benchmark).average,
       approval_low_benchmark: measures.map(&:approval_low_benchmark).average,

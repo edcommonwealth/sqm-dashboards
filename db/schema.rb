@@ -10,10 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_11_122234) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_17_170442) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "academic_years", id: :serial, force: :cascade do |t|
@@ -22,16 +20,18 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
   end
 
   create_table "admin_data_items", force: :cascade do |t|
-    t.integer "measure_id", null: false
     t.string "admin_data_item_id", null: false
     t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "watch_low_benchmark"
     t.float "growth_low_benchmark"
     t.float "approval_low_benchmark"
     t.float "ideal_low_benchmark"
     t.boolean "hs_only_item", default: false
+    t.bigint "scale_id", null: false
+    t.index ["admin_data_item_id"], name: "index_admin_data_items_on_admin_data_item_id", unique: true
+    t.index ["scale_id"], name: "index_admin_data_items_on_scale_id"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.text "description"
     t.string "slug"
     t.integer "sort_index"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "category_id", null: false
     t.string "short_description"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
@@ -50,22 +50,22 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "name"
     t.string "slug"
     t.integer "qualtrics_code"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "legacy_attempts", id: :serial, force: :cascade do |t|
     t.integer "recipient_id"
     t.integer "schedule_id"
     t.integer "recipient_schedule_id"
-    t.datetime "sent_at"
-    t.datetime "responded_at"
+    t.datetime "sent_at", precision: nil
+    t.datetime "responded_at", precision: nil
     t.integer "question_id"
     t.integer "translation_id"
     t.integer "answer_index"
     t.integer "open_response_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "twilio_details"
     t.string "twilio_sid"
     t.integer "student_id"
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.text "description"
     t.string "external_id"
     t.integer "parent_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.float "benchmark"
     t.string "benchmark_description"
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
   create_table "legacy_districts", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "state_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.integer "qualtrics_code"
     t.index ["slug"], name: "index_legacy_districts_on_slug", unique: true
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "name"
     t.text "description"
     t.text "question_ids"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "legacy_questions", id: :serial, force: :cascade do |t|
@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "option4"
     t.string "option5"
     t.integer "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "target_group", default: 0
     t.boolean "for_recipient_students", default: false
     t.boolean "reverse", default: false
@@ -126,8 +126,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "name"
     t.text "description"
     t.text "recipient_ids"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["school_id"], name: "index_legacy_recipient_lists_on_school_id"
   end
 
@@ -136,10 +136,10 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.integer "schedule_id"
     t.text "upcoming_question_ids"
     t.text "attempted_question_ids"
-    t.datetime "last_attempt_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "next_attempt_at"
+    t.datetime "last_attempt_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "next_attempt_at", precision: nil
     t.string "queued_question_ids"
   end
 
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "income"
     t.boolean "opted_out", default: false
     t.integer "school_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "email"
     t.string "slug"
     t.integer "attempts_count", default: 0
@@ -176,8 +176,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.boolean "random", default: false
     t.integer "recipient_list_id"
     t.integer "question_list_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "time", default: 960
     t.index ["school_id"], name: "index_legacy_schedules_on_school_id"
   end
@@ -188,8 +188,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.integer "attempt_count", default: 0
     t.integer "response_count", default: 0
     t.integer "answer_index_total", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.float "nonlikert"
     t.float "zscore"
     t.string "year"
@@ -207,16 +207,16 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.integer "response_count"
     t.float "response_rate"
     t.string "year"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "response_total"
   end
 
   create_table "legacy_schools", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "district_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "description"
     t.string "slug"
     t.integer "student_count"
@@ -233,31 +233,31 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "age"
     t.string "ethnicity"
     t.integer "recipient_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "legacy_user_schools", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "school_id"
     t.integer "district_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "legacy_users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["email"], name: "index_legacy_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_legacy_users_on_reset_password_token", unique: true
   end
@@ -267,8 +267,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "name"
     t.integer "subcategory_id", null: false
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["measure_id"], name: "index_measures_on_measure_id"
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
@@ -278,10 +278,19 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.bigint "academic_year_id", null: false
     t.float "total_students"
     t.float "total_teachers"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_respondents_on_academic_year_id"
     t.index ["school_id"], name: "index_respondents_on_school_id"
+  end
+
+  create_table "scales", force: :cascade do |t|
+    t.string "scale_id", null: false
+    t.bigint "measure_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["measure_id"], name: "index_scales_on_measure_id"
+    t.index ["scale_id"], name: "index_scales_on_scale_id", unique: true
   end
 
   create_table "schools", force: :cascade do |t|
@@ -290,8 +299,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.text "description"
     t.string "slug"
     t.integer "qualtrics_code"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "dese_id", null: false
     t.boolean "is_hs", default: false
     t.index ["dese_id"], name: "index_schools_on_dese_id", unique: true
@@ -301,8 +310,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.string "name"
     t.integer "category_id"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "subcategory_id", null: false
   end
 
@@ -312,8 +321,8 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
     t.integer "survey_item_id", null: false
     t.string "response_id", null: false
     t.integer "academic_year_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
@@ -321,20 +330,20 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
   end
 
   create_table "survey_items", id: :serial, force: :cascade do |t|
-    t.integer "measure_id", null: false
     t.string "survey_item_id", null: false
     t.string "prompt"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "watch_low_benchmark"
     t.float "growth_low_benchmark"
     t.float "approval_low_benchmark"
     t.float "ideal_low_benchmark"
-    t.index ["measure_id"], name: "index_survey_items_on_measure_id"
+    t.bigint "scale_id", null: false
+    t.index ["scale_id"], name: "index_survey_items_on_scale_id"
     t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id"
   end
 
-  add_foreign_key "admin_data_items", "measures"
+  add_foreign_key "admin_data_items", "scales"
   add_foreign_key "legacy_recipient_lists", "legacy_schools", column: "school_id"
   add_foreign_key "legacy_schedules", "legacy_schools", column: "school_id"
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"
@@ -342,9 +351,10 @@ ActiveRecord::Schema.define(version: 2022_02_11_122234) do
   add_foreign_key "measures", "subcategories"
   add_foreign_key "respondents", "academic_years"
   add_foreign_key "respondents", "schools"
+  add_foreign_key "scales", "measures"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "survey_items"
-  add_foreign_key "survey_items", "measures"
+  add_foreign_key "survey_items", "scales"
 end

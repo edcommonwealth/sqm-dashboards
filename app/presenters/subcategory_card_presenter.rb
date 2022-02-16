@@ -1,9 +1,9 @@
 class SubcategoryCardPresenter
   attr_reader :name
 
-  def initialize(name:, scale:, score:)
+  def initialize(name:, zones:, score:)
     @name = name
-    @scale = scale
+    @zones = zones
     @score = score
   end
 
@@ -22,6 +22,6 @@ class SubcategoryCardPresenter
   private
 
   def zone
-    @scale.zone_for_score(@score)
+    @zones.zone_for_score(@score)
   end
 end

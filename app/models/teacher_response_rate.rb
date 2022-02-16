@@ -1,4 +1,6 @@
-class TeacherResponseRate < ResponseRate
+class TeacherResponseRate
+  include ResponseRate
+
   def rate
     cap_at_100(super)
   end
@@ -10,12 +12,15 @@ class TeacherResponseRate < ResponseRate
   end
 
   def survey_item_count
-    @teacher_survey_item_count ||= SurveyItem.teacher_survey_items_for_measures(@subcategory.measures).count
+    @teacher_survey_item_count ||= @subcategory.measures.map { |measure| measure.teacher_survey_items.count }.sum
   end
 
   def response_count
-    @teacher_response_count ||= SurveyItemResponse.teacher_responses_for_measures(@subcategory.measures, @school,
-                                                                                  @academic_year).count
+    @teacher_response_count ||= @subcategory.measures.map do |measure|
+      measure.teacher_survey_items.map do |survey_item|
+        survey_item.survey_item_responses.where(school: @school, academic_year: @academic_year).count
+      end.sum
+    end.sum
   end
 
   def total_possible_responses

@@ -1,34 +1,40 @@
 class Measure < ActiveRecord::Base
   belongs_to :subcategory
-  has_many :survey_items
-  has_many :admin_data_items
-
+  has_many :scales
+  has_many :admin_data_items, through: :scales
+  has_many :survey_items, through: :scales
   has_many :survey_item_responses, through: :survey_items
 
-  def self.none_meet_threshold?(school:, academic_year:)
-    none? do |measure|
-      SurveyItemResponse.sufficient_data?(measure: measure, school: school, academic_year: academic_year)
-    end
+  def none_meet_threshold?(school:, academic_year:)
+    !sufficient_data?(school:, academic_year:)
   end
 
   def teacher_survey_items
-    @teacher_survey_items ||= survey_items.where("survey_item_id LIKE 't-%'")
+    @teacher_survey_items ||= survey_items.teacher_survey_items
   end
 
   def student_survey_items
-    @student_survey_items ||= survey_items.where("survey_item_id LIKE 's-%'")
+    @student_survey_items ||= survey_items.student_survey_items
+  end
+
+  def teacher_scales
+    @teacher_scales ||= scales.teacher_scales
+  end
+
+  def student_scales
+    @student_scales ||= scales.student_scales
   end
 
   def includes_teacher_survey_items?
-    @includes_teacher_survey_items ||= teacher_survey_items.any?
+    teacher_survey_items.any?
   end
 
   def includes_student_survey_items?
-    @includes_student_survey_items ||= student_survey_items.any?
+    student_survey_items.any?
   end
 
   def includes_admin_data_items?
-    @includes_admin_data_items ||= admin_data_items.any?
+    admin_data_items.any?
   end
 
   def sources
@@ -39,32 +45,61 @@ class Measure < ActiveRecord::Base
     sources
   end
 
+  def score(school:, academic_year:)
+    @score ||= Hash.new do |memo|
+      meets_student_threshold = sufficient_student_data?(school:, academic_year:)
+      meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
+      next Score.new(nil, false, false) if !meets_student_threshold && !meets_teacher_threshold
+
+      scores = []
+      scores << teacher_scales.map { |scale| scale.score(school:, academic_year:) }.average if meets_teacher_threshold
+      scores << student_scales.map { |scale| scale.score(school:, academic_year:) }.average if meets_student_threshold
+      memo[[school, academic_year]] = Score.new(scores.average, meets_teacher_threshold, meets_student_threshold)
+    end
+
+    @score[[school, academic_year]]
+  end
+
   def warning_low_benchmark
     1
   end
 
   def watch_low_benchmark
-    return @watch_low_benchmark unless @watch_low_benchmark.nil?
-
-    @watch_low_benchmark = benchmark(:watch_low_benchmark)
+    @watch_low_benchmark ||= benchmark(:watch_low_benchmark)
   end
 
   def growth_low_benchmark
-    return @growth_low_benchmark unless @growth_low_benchmark.nil?
-
-    @growth_low_benchmark = benchmark(:growth_low_benchmark)
+    @growth_low_benchmark ||= benchmark(:growth_low_benchmark)
   end
 
   def approval_low_benchmark
-    return @approval_low_benchmark unless @approval_low_benchmark.nil?
-
-    @approval_low_benchmark = benchmark(:approval_low_benchmark)
+    @approval_low_benchmark ||= benchmark(:approval_low_benchmark)
   end
 
   def ideal_low_benchmark
-    return @ideal_low_benchmark unless @ideal_low_benchmark.nil?
+    @ideal_low_benchmark ||= benchmark(:ideal_low_benchmark)
+  end
 
-    @ideal_low_benchmark = benchmark(:ideal_low_benchmark)
+  def sufficient_student_data?(school:, academic_year:)
+    return false unless includes_student_survey_items?
+
+    average_response_count = student_survey_items.map do |survey_item|
+      survey_item.survey_item_responses.where(school:, academic_year:).count
+    end.average
+    average_response_count >= SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD
+  end
+
+  def sufficient_teacher_data?(school:, academic_year:)
+    return false unless includes_teacher_survey_items?
+
+    average_response_count = teacher_survey_items.map do |survey_item|
+      survey_item.survey_item_responses.where(school:, academic_year:).count
+    end.average
+    average_response_count >= SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD
+  end
+
+  def sufficient_data?(school:, academic_year:)
+    sufficient_student_data?(school:, academic_year:) || sufficient_teacher_data?(school:, academic_year:)
   end
 
   private

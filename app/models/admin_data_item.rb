@@ -1,11 +1,11 @@
 class AdminDataItem < ActiveRecord::Base
-  belongs_to :measure
+  belongs_to :scale
 
-  scope :for_measures, ->(measure) {
-    joins(:measure).where('admin_data_items.measure': measure)
+  scope :for_measures, lambda { |measures|
+    joins(:scale).where('scale.measure': measures)
   }
 
-  scope :non_hs_items_for_measures, ->(measure) {
+  scope :non_hs_items_for_measures, lambda { |measure|
     for_measures(measure).where(hs_only_item: false)
   }
 end

@@ -1,11 +1,21 @@
 class SurveyItem < ActiveRecord::Base
-  belongs_to :measure
+  belongs_to :scale
+  has_one :measure, through: :scale
+
   has_many :survey_item_responses
 
-  scope :student_survey_items_for_measures, lambda { |measures|
-    joins(:measure).where(measure: measures).where("survey_item_id LIKE 's-%'")
+  def score(school:, academic_year:)
+    @score ||= Hash.new do |memo|
+      memo[[school, academic_year]] = survey_item_responses.where(school:, academic_year:).average(:likert_score).to_f
+    end
+
+    @score[[school, academic_year]]
+  end
+
+  scope :student_survey_items, lambda {
+    where("survey_item_id LIKE 's-%'")
   }
-  scope :teacher_survey_items_for_measures, lambda { |measures|
-    joins(:measure).where(measure: measures).where("survey_item_id LIKE 't-%'")
+  scope :teacher_survey_items, lambda {
+    where("survey_item_id LIKE 't-%'")
   }
 end

@@ -1,6 +1,6 @@
 class GaugePresenter
-  def initialize(scale:, score:)
-    @scale = scale
+  def initialize(zones:, score:)
+    @zones = zones
     @score = score
   end
 
@@ -17,7 +17,7 @@ class GaugePresenter
   end
 
   def key_benchmark_percentage
-    percentage_for @scale.approval_zone.low_benchmark
+    percentage_for @zones.approval_zone.low_benchmark
   end
 
   def boundary_percentage_for(zone)
@@ -38,31 +38,31 @@ class GaugePresenter
   private
 
   def watch_low_boundary
-    percentage_for @scale.watch_zone.low_benchmark
+    percentage_for @zones.watch_zone.low_benchmark
   end
 
   def growth_low_boundary
-    percentage_for @scale.growth_zone.low_benchmark
+    percentage_for @zones.growth_zone.low_benchmark
   end
 
   def approval_low_boundary
-    percentage_for @scale.approval_zone.low_benchmark
+    percentage_for @zones.approval_zone.low_benchmark
   end
 
   def ideal_low_boundary
-    percentage_for @scale.ideal_zone.low_benchmark
+    percentage_for @zones.ideal_zone.low_benchmark
   end
 
   def zone
-    @scale.zone_for_score(@score)
+    @zones.zone_for_score(@score)
   end
 
   def percentage_for(number)
     return nil if number.nil?
 
-    scale_minimum = @scale.warning_zone.low_benchmark
-    scale_maximum = @scale.ideal_zone.high_benchmark
+    zones_minimum = @zones.warning_zone.low_benchmark
+    zones_maximum = @zones.ideal_zone.high_benchmark
 
-    (number - scale_minimum) / (scale_maximum - scale_minimum)
+    (number - zones_minimum) / (zones_maximum - zones_minimum)
   end
 end

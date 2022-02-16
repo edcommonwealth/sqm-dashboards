@@ -9,19 +9,20 @@ describe 'District Admin', js: true do
   let(:category) { Category.find_by_name('Teachers & Leadership') }
   let(:subcategory) { Subcategory.find_by_name('Teachers & The Teaching Environment') }
   let(:measures_for_subcategory) { Measure.where(subcategory:) }
-  let(:survey_items_for_subcategory) { SurveyItem.where(measure: measures_for_subcategory) }
+  let(:scales_for_subcategory) {Scale.where(measure: measures_for_subcategory)}
+  let(:survey_items_for_subcategory) { SurveyItem.where(scale: scales_for_subcategory) }
 
   let(:measure_1A_i) { Measure.find_by_measure_id('1A-i') }
   let(:measure_2A_i) { Measure.find_by_measure_id('2A-i') }
   let(:measure_4C_i) { Measure.find_by_measure_id('4C-i') }
   let(:measure_with_no_survey_responses) { Measure.find_by_measure_id('3A-i') }
 
-  let(:survey_item_1_for_measure_1A_i) { SurveyItem.create measure: measure_1A_i, survey_item_id: rand.to_s }
-  let(:survey_item_2_for_measure_1A_i) { SurveyItem.create measure: measure_1A_i, survey_item_id: rand.to_s }
+  let(:survey_item_1_for_measure_1A_i) { SurveyItem.create scale: measure_1A_i.scales.first, survey_item_id: rand.to_s }
+  let(:survey_item_2_for_measure_1A_i) { SurveyItem.create scale: measure_1A_i.scales.first, survey_item_id: rand.to_s }
 
-  let(:survey_items_for_measure_1A_i) { SurveyItem.where(measure: measure_1A_i) }
-  let(:survey_items_for_measure_2A_i) { SurveyItem.where(measure: measure_2A_i) }
-  let(:survey_items_for_measure_4C_i) { SurveyItem.where(measure: measure_4C_i) }
+  let(:survey_items_for_measure_1A_i) { measure_1A_i.survey_items }
+  let(:survey_items_for_measure_2A_i) { measure_2A_i.survey_items }
+  let(:survey_items_for_measure_4C_i) { measure_4C_i.survey_items }
 
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
   let(:ay_2019_20) { AcademicYear.find_by_range '2019-20' }

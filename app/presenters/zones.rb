@@ -1,4 +1,4 @@
-class Scale
+class Zones
   def initialize(watch_low_benchmark:, growth_low_benchmark:, approval_low_benchmark:, ideal_low_benchmark:)
     @watch_low_benchmark = watch_low_benchmark
     @growth_low_benchmark = growth_low_benchmark
@@ -34,9 +34,10 @@ class Scale
   end
 
   def zone_for_score(score)
+    return insufficient_data if score.nil?
+    return insufficient_data if score.is_a?(Float) && score.nan?
+
     case score
-    when nil
-      insufficient_data
     when ideal_zone.low_benchmark..ideal_zone.high_benchmark
       ideal_zone
     when approval_zone.low_benchmark..approval_zone.high_benchmark

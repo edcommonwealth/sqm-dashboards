@@ -26,10 +26,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump ruby version to 3.1.0
 - Add previous year data.
-  remove AcademicYear "2021-22"
-  `ay = AcademicYear.find_by_range("2021-22") `
-  `ay.destroy`
-  seed database with new AcademicYear
-  `bundle exec rake db:seed`
-  load previous year survey responses
-  `bundle exec rake data:load_survey_responses`
+- Add scale to framework. Calculations for scores bubble up through the framework.

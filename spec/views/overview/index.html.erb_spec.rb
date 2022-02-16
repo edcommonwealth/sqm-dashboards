@@ -5,8 +5,9 @@ describe 'overview/index' do
 
   let(:support_for_teaching) do
     measure = create(:measure, name: 'Support For Teaching Development & Growth', measure_id: '1')
+    scale = create(:scale, measure:)
     create(:student_survey_item,
-           measure: measure,
+           scale:,
            watch_low_benchmark: 1.5,
            growth_low_benchmark: 2.5,
            approval_low_benchmark: 3.5,
@@ -16,8 +17,9 @@ describe 'overview/index' do
 
   let(:effective_leadership) do
     measure = create(:measure, name: 'Effective Leadership', measure_id: '2')
+    scale = create(:scale, measure:)
     create(:teacher_survey_item,
-           measure: measure,
+           scale:,
            watch_low_benchmark: 1.5,
            growth_low_benchmark: 2.5,
            approval_low_benchmark: 3.5,
@@ -27,8 +29,9 @@ describe 'overview/index' do
 
   let(:professional_qualifications) do
     measure = create(:measure, name: 'Professional Qualifications', measure_id: '3')
+    scale = create(:scale, measure:)
     create(:admin_data_item,
-           measure: measure,
+           scale:,
            watch_low_benchmark: 1.5,
            growth_low_benchmark: 2.5,
            approval_low_benchmark: 3.5,
@@ -71,14 +74,15 @@ describe 'overview/index' do
   context 'when all the presenters have a non-nil score' do
     let(:variance_chart_row_presenters) do
       measure = create(:measure, name: 'Display Me', measure_id: 'display-me')
+      scale = create(:scale, measure:)
       create(:student_survey_item,
-             measure: measure,
+             scale:,
              watch_low_benchmark: 1.5,
              growth_low_benchmark: 2.5,
              approval_low_benchmark: 3.5,
              ideal_low_benchmark: 4.5)
       [
-        VarianceChartRowPresenter.new(measure: measure,
+        VarianceChartRowPresenter.new(measure:,
                                       score: Score.new(rand))
       ]
     end

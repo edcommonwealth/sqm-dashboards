@@ -123,9 +123,11 @@ describe Seeder do
     before do
       school_culture_category = create(:category, category_id: '2', sort_index: -1)
       safety_subcategory = create(:subcategory, subcategory_id: '2A', category: school_culture_category)
-      student_physical_safety_measure = create(:measure, measure_id: '2A-i', subcategory: safety_subcategory)
-      create(:survey_item, survey_item_id: 's-phys-q1', measure: student_physical_safety_measure)
-      create(:admin_data_item, admin_data_item_id: 'a-phys-i1', measure: student_physical_safety_measure)
+      physical_safety_measure = create(:measure, measure_id: '2A-i', subcategory: safety_subcategory)
+      student_physical_safety_scale = create(:scale, scale_id: 's-phys', measure: physical_safety_measure)
+      create(:survey_item, survey_item_id: 's-phys-q1', scale: student_physical_safety_scale)
+      admin_physical_safety_scale = create(:scale, scale_id: 'a-phys', measure: physical_safety_measure)
+      create(:admin_data_item, admin_data_item_id: 'a-phys-i1', scale: admin_physical_safety_scale)
     end
 
     it 'creates new objects as necessary' do
@@ -133,10 +135,12 @@ describe Seeder do
         seeder.seed_sqm_framework sample_sqm_framework_csv
       end.to change { Category.count }.by(4)
                                       .and change { Subcategory.count }.by(15)
-                                                                       .and change { Measure.count }.by(31)
-                                                                                                    .and change {
-                                                                                                           SurveyItem.count
-                                                                                                         }.by(136)
+                                                                       .and change { Measure.count }.by(31).and change {
+                                                                                                                  Scale.count
+                                                                                                                }.by(51)
+        .and change {
+               SurveyItem.count
+             }.by(136)
         .and change {
                AdminDataItem.count
              }.by(32)
@@ -172,6 +176,14 @@ describe Seeder do
         measure = Measure.find_by_measure_id '2A-i'
         expect(measure.name).to eq 'Student Physical Safety'
         expect(measure.description).to eq 'This is a measure description.'
+      end
+
+      it 'updates scale references' do
+        scale = Scale.find_by_scale_id 't-pcom'
+        measure = Measure.find_by_measure_id '1A-iii'
+        survey_item = SurveyItem.find_by_survey_item_id 't-pcom-q1'
+        expect(scale.measure).to eq measure
+        expect(scale.survey_items).to include survey_item
       end
 
       it 'does not overwrite the survey item benchmarks with admin data benchmarks' do

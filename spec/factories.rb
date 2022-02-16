@@ -13,7 +13,7 @@ FactoryBot.define do
 
   factory :academic_year do
     range { '2050-51' }
-    initialize_with { AcademicYear.find_or_initialize_by(range: range) }
+    initialize_with { AcademicYear.find_or_initialize_by(range:) }
   end
 
   factory :category, class: 'Category' do
@@ -35,9 +35,10 @@ FactoryBot.define do
         measures_count { 2 }
       end
       after(:create) do |subcategory, evaluator|
-        create_list(:measure, evaluator.measures_count, subcategory: subcategory).each do |measure|
-          survey_item = create(:teacher_survey_item, measure: measure)
-          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item)
+        create_list(:measure, evaluator.measures_count, subcategory:).each do |measure|
+          scale = create(:scale, measure: measure)
+          survey_item = create(:teacher_survey_item, scale:)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item:)
         end
       end
     end
@@ -54,9 +55,20 @@ FactoryBot.define do
     # end
   end
 
-  factory :survey_item do
-    prompt { 'What do YOU think?' }
+  factory :scale do
     measure
+    scale_id { "A Scale #{rand}" }
+    factory :teacher_scale do
+      scale_id {"t-#{rand}"}
+    end
+    factory :student_scale do
+      scale_id {"s-#{rand}"}
+    end
+  end
+
+  factory :survey_item do
+    scale
+    prompt { 'What do YOU think?' }
     factory :teacher_survey_item do
       survey_item_id { "t-#{rand}" }
       watch_low_benchmark { 2.0 }
@@ -84,7 +96,7 @@ FactoryBot.define do
   factory :admin_data_item do
     admin_data_item_id { rand.to_s }
     description { rand.to_s }
-    measure
+    scale
   end
 
   factory :respondent do

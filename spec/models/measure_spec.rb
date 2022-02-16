@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Measure, type: :model do
   let(:measure) { create(:measure) }
+  let(:scale) { create(:scale, measure:) }
+  let(:teacher_scale) { create(:teacher_scale, measure:) }
+  let(:student_scale) { create(:student_scale, measure:) }
+  let(:school) { create(:school) }
+  let(:academic_year) { create(:academic_year) }
+
   let(:admin_watch_low_benchmark) { 2.0 }
   let(:admin_growth_low_benchmark) { 3.0 }
   let(:admin_approval_low_benchmark) { 4.0 }
@@ -17,166 +23,450 @@ RSpec.describe Measure, type: :model do
   let(:teacher_approval_low_benchmark) { 3.2 }
   let(:teacher_ideal_low_benchmark) { 4.2 }
 
-  context 'when a measure includes only one admin data item' do
-    before do
-      create(:admin_data_item, measure: measure,
-                               watch_low_benchmark: admin_watch_low_benchmark,
-                               growth_low_benchmark: admin_growth_low_benchmark,
-                               approval_low_benchmark: admin_approval_low_benchmark,
-                               ideal_low_benchmark: admin_ideal_low_benchmark)
-    end
-    it 'returns a watch low benchmark equal to the admin data item watch low benchmark' do
-      expect(measure.watch_low_benchmark).to be 2.0
+  describe 'benchmarks' do
+    context 'when a measure includes only one admin data item' do
+      before do
+        create(:admin_data_item, scale:,
+                                 watch_low_benchmark: admin_watch_low_benchmark,
+                                 growth_low_benchmark: admin_growth_low_benchmark,
+                                 approval_low_benchmark: admin_approval_low_benchmark,
+                                 ideal_low_benchmark: admin_ideal_low_benchmark)
+      end
+      it 'returns a watch low benchmark equal to the admin data item watch low benchmark' do
+        expect(measure.watch_low_benchmark).to be 2.0
+      end
+
+      it 'returns the source as an admin_data_item' do
+        expect(measure.sources).to eq [:admin_data]
+      end
     end
 
-    it 'returns the source as an admin_data_item' do
-      expect(measure.sources).to eq [:admin_data]
+    context 'when a measure includes only student survey items' do
+      before do
+        create(:student_survey_item, scale:,
+                                     watch_low_benchmark: student_watch_low_benchmark,
+                                     growth_low_benchmark: student_growth_low_benchmark,
+                                     approval_low_benchmark: student_approval_low_benchmark,
+                                     ideal_low_benchmark: student_ideal_low_benchmark)
+      end
+      it 'returns a watch low benchmark equal to the student survey item watch low benchmark ' do
+        expect(measure.watch_low_benchmark).to be 1.5
+      end
+      it 'returns a warning low benchmark equal to the student survey item warning low benchmark ' do
+        expect(measure.warning_low_benchmark).to eq 1
+      end
+      it 'returns the source as student_surveys' do
+        expect(measure.sources).to eq [:student_surveys]
+      end
+    end
+
+    context 'when a measure includes only teacher survey items' do
+      before do
+        create(:teacher_survey_item, scale:,
+                                     watch_low_benchmark: teacher_watch_low_benchmark,
+                                     growth_low_benchmark: teacher_growth_low_benchmark,
+                                     approval_low_benchmark: teacher_approval_low_benchmark,
+                                     ideal_low_benchmark: teacher_ideal_low_benchmark)
+      end
+      it 'returns a watch low benchmark equal to the teacher survey item watch low benchmark ' do
+        expect(measure.watch_low_benchmark).to be 1.2
+      end
+      it 'returns a warning low benchmark equal to the teacher survey item warning low benchmark ' do
+        expect(measure.warning_low_benchmark).to eq 1
+      end
+      it 'returns the source as teacher_surveys' do
+        expect(measure.sources).to eq [:teacher_surveys]
+      end
+    end
+
+    context 'when a measure includes admin data and student survey items' do
+      before do
+        create_list(:admin_data_item, 3, scale:,
+                                         watch_low_benchmark: admin_watch_low_benchmark,
+                                         growth_low_benchmark: admin_growth_low_benchmark,
+                                         approval_low_benchmark: admin_approval_low_benchmark,
+                                         ideal_low_benchmark: admin_ideal_low_benchmark)
+
+        create(:student_survey_item, scale:,
+                                     watch_low_benchmark: student_watch_low_benchmark,
+                                     growth_low_benchmark: student_growth_low_benchmark,
+                                     approval_low_benchmark: student_approval_low_benchmark,
+                                     ideal_low_benchmark: student_ideal_low_benchmark)
+      end
+
+      it 'returns the average of admin and student benchmarks where each admin data item has a weight of 1 and student survey items all together have a weight of 1' do
+        # (2*3 + 1.5)/4
+        expect(measure.watch_low_benchmark).to be 1.875
+      end
+      it 'returns the source as admin and student survey items' do
+        expect(measure.sources).to eq %i[admin_data student_surveys]
+      end
+    end
+
+    context 'when a measure includes admin data and teacher survey items' do
+      before do
+        create_list(:admin_data_item, 3, scale:,
+                                         watch_low_benchmark: admin_watch_low_benchmark,
+                                         growth_low_benchmark: admin_growth_low_benchmark,
+                                         approval_low_benchmark: admin_approval_low_benchmark,
+                                         ideal_low_benchmark: admin_ideal_low_benchmark)
+
+        create(:teacher_survey_item, scale:,
+                                     watch_low_benchmark: teacher_watch_low_benchmark,
+                                     growth_low_benchmark: teacher_growth_low_benchmark,
+                                     approval_low_benchmark: teacher_approval_low_benchmark,
+                                     ideal_low_benchmark: teacher_ideal_low_benchmark)
+      end
+
+      it 'returns the average of admin and teacher benchmarks where each admin data item has a weight of 1 and teacher survey items all together have a weight of 1' do
+        # (2*3 + 1.2)/4
+        expect(measure.watch_low_benchmark).to be 1.8
+      end
+      it 'returns the source as admin and teacher survey items' do
+        expect(measure.sources).to eq %i[admin_data teacher_surveys]
+      end
+    end
+
+    context 'when a measure includes student and teacher survey items' do
+      before do
+        create_list(:student_survey_item, 3, scale:,
+                                             watch_low_benchmark: student_watch_low_benchmark,
+                                             growth_low_benchmark: student_growth_low_benchmark,
+                                             approval_low_benchmark: student_approval_low_benchmark,
+                                             ideal_low_benchmark: student_ideal_low_benchmark)
+
+        create_list(:teacher_survey_item, 3, scale:,
+                                             watch_low_benchmark: teacher_watch_low_benchmark,
+                                             growth_low_benchmark: teacher_growth_low_benchmark,
+                                             approval_low_benchmark: teacher_approval_low_benchmark,
+                                             ideal_low_benchmark: teacher_ideal_low_benchmark)
+      end
+
+      it 'returns the average of student and teacher benchmarks where teacher survey items all together have a weight of 1 and all student survey items have a weight of 1' do
+        # (1.2+ 1.5)/2
+        expect(measure.watch_low_benchmark).to be 1.35
+      end
+      it 'returns the source as student and teacher survey items' do
+        expect(measure.sources).to eq %i[student_surveys teacher_surveys]
+      end
+    end
+
+    context 'when a measure includes admin data and student and teacher survey items' do
+      before do
+        create_list(:admin_data_item, 3, scale:,
+                                         watch_low_benchmark: admin_watch_low_benchmark,
+                                         growth_low_benchmark: admin_growth_low_benchmark,
+                                         approval_low_benchmark: admin_approval_low_benchmark,
+                                         ideal_low_benchmark: admin_ideal_low_benchmark)
+        create_list(:student_survey_item, 3, scale:,
+                                             watch_low_benchmark: student_watch_low_benchmark,
+                                             growth_low_benchmark: student_growth_low_benchmark,
+                                             approval_low_benchmark: student_approval_low_benchmark,
+                                             ideal_low_benchmark: student_ideal_low_benchmark)
+
+        create_list(:teacher_survey_item, 3, scale:,
+                                             watch_low_benchmark: teacher_watch_low_benchmark,
+                                             growth_low_benchmark: teacher_growth_low_benchmark,
+                                             approval_low_benchmark: teacher_approval_low_benchmark,
+                                             ideal_low_benchmark: teacher_ideal_low_benchmark)
+      end
+
+      it 'returns the average of admin and teacher benchmarks where each admin data item has a weight of 1 and teacher survey items all together have a weight of 1, and student surveys have a weight of 1' do
+        # (2 * 3 + 1.2 + 1.5)/ 5
+        expect(measure.watch_low_benchmark).to be_within(0.001).of 1.74
+        # (3 * 3 + 2.2 + 2.5)/ 5
+        expect(measure.growth_low_benchmark).to be_within(0.001).of 2.74
+        # (4 * 3 + 3.2 + 3.5)/ 5
+        expect(measure.approval_low_benchmark).to be_within(0.001).of 3.74
+        # (5 * 3 + 4.2 + 4.5)/ 5
+        expect(measure.ideal_low_benchmark).to be_within(0.001).of 4.74
+      end
+
+      it 'returns the source as admin student and teacher survey items' do
+        expect(measure.sources).to eq %i[admin_data student_surveys teacher_surveys]
+      end
     end
   end
 
-  context 'when a measure includes only student survey items' do
-    before do
-      create(:student_survey_item, measure: measure,
-                                   watch_low_benchmark: student_watch_low_benchmark,
-                                   growth_low_benchmark: student_growth_low_benchmark,
-                                   approval_low_benchmark: student_approval_low_benchmark,
-                                   ideal_low_benchmark: student_ideal_low_benchmark)
-    end
-    it 'returns a watch low benchmark equal to the student survey item watch low benchmark ' do
-      expect(measure.watch_low_benchmark).to be 1.5
-    end
-    it 'returns a warning low benchmark equal to the student survey item warning low benchmark ' do
-      expect(measure.warning_low_benchmark).to eq 1
-    end
-    it 'returns the source as student_surveys' do
-      expect(measure.sources).to eq [:student_surveys]
-    end
-  end
+  describe '.score' do
+    context 'when the measure includes only teacher data' do
+      let(:teacher_survey_item_1) { create(:teacher_survey_item, scale: teacher_scale) }
+      let(:teacher_survey_item_2) { create(:teacher_survey_item, scale: teacher_scale) }
+      let(:teacher_survey_item_3) { create(:teacher_survey_item, scale: teacher_scale) }
 
-  context 'when a measure includes only teacher survey items' do
-    before do
-      create(:teacher_survey_item, measure: measure,
-                                   watch_low_benchmark: teacher_watch_low_benchmark,
-                                   growth_low_benchmark: teacher_growth_low_benchmark,
-                                   approval_low_benchmark: teacher_approval_low_benchmark,
-                                   ideal_low_benchmark: teacher_ideal_low_benchmark)
-    end
-    it 'returns a watch low benchmark equal to the teacher survey item watch low benchmark ' do
-      expect(measure.watch_low_benchmark).to be 1.2
-    end
-    it 'returns a warning low benchmark equal to the teacher survey item warning low benchmark ' do
-      expect(measure.warning_low_benchmark).to eq 1
-    end
-    it 'returns the source as teacher_surveys' do
-      expect(measure.sources).to eq [:teacher_surveys]
-    end
-  end
+      context "and the number of responses for each of the measure's survey items meets the teacher threshold of 17" do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                      survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                      survey_item: teacher_survey_item_2, academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                      survey_item: teacher_survey_item_3, academic_year:, school:, likert_score: 5)
+        end
 
-  context 'when a measure includes admin data and student survey items' do
-    before do
-      create_list(:admin_data_item, 3, measure: measure,
-                                       watch_low_benchmark: admin_watch_low_benchmark,
-                                       growth_low_benchmark: admin_growth_low_benchmark,
-                                       approval_low_benchmark: admin_approval_low_benchmark,
-                                       ideal_low_benchmark: admin_ideal_low_benchmark)
+        it 'returns the average of the likert scores of the survey items' do
+          expect(measure.score(school:, academic_year:).average).to eq 4
+        end
 
-      create(:student_survey_item, measure: measure,
-                                   watch_low_benchmark: student_watch_low_benchmark,
-                                   growth_low_benchmark: student_growth_low_benchmark,
-                                   approval_low_benchmark: student_approval_low_benchmark,
-                                   ideal_low_benchmark: student_ideal_low_benchmark)
-    end
+        it 'affirms that the result meets the teacher threshold' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be true
+        end
 
-    it 'returns the average of admin and student benchmarks where each admin data item has a weight of 1 and student survey items all together have a weight of 1' do
-      # (2*3 + 1.5)/4
-      expect(measure.watch_low_benchmark).to be 1.875
-    end
-    it 'returns the source as admin and student survey items' do
-      expect(measure.sources).to eq [:admin_data, :student_surveys]
-    end
-  end
+        it 'reports the result does not meeet student threshold' do
+          expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
+        end
+      end
 
-  context 'when a measure includes admin data and teacher survey items' do
-    before do
-      create_list(:admin_data_item, 3, measure: measure,
-                                       watch_low_benchmark: admin_watch_low_benchmark,
-                                       growth_low_benchmark: admin_growth_low_benchmark,
-                                       approval_low_benchmark: admin_approval_low_benchmark,
-                                       ideal_low_benchmark: admin_ideal_low_benchmark)
+      context "and the average number of responses across the measure's survey items meets the teacher threshold of 17" do
+        before :each do
+          create_list(:survey_item_response, 19, survey_item: teacher_survey_item_1, academic_year:, school:,
+                                                 likert_score: 3)
+          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_2, academic_year:, school:,
+                                                 likert_score: 4)
+          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_3, academic_year:, school:,
+                                                 likert_score: 5)
+        end
 
-      create(:teacher_survey_item, measure: measure,
-                                   watch_low_benchmark: teacher_watch_low_benchmark,
-                                   growth_low_benchmark: teacher_growth_low_benchmark,
-                                   approval_low_benchmark: teacher_approval_low_benchmark,
-                                   ideal_low_benchmark: teacher_ideal_low_benchmark)
-    end
+        it 'returns the average of the likert scores of the survey items' do
+          average_score = 4
+          expect(measure.score(school:, academic_year:).average).to be_within(0.001).of(average_score)
+        end
+      end
 
-    it 'returns the average of admin and teacher benchmarks where each admin data item has a weight of 1 and teacher survey items all together have a weight of 1' do
-      # (2*3 + 1.2)/4
-      expect(measure.watch_low_benchmark).to be 1.8
-    end
-    it 'returns the source as admin and teacher survey items' do
-      expect(measure.sources).to eq [:admin_data, :teacher_surveys]
-    end
-  end
+      context "and none of the measure's survey items meets the teacher threshold of 17" do
+        before :each do
+          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_1, academic_year:, school:,
+                                                 likert_score: rand)
+          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_2, academic_year:, school:,
+                                                 likert_score: rand)
+          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_3, academic_year:, school:,
+                                                 likert_score: rand)
+        end
 
-  context 'when a measure includes student and teacher survey items' do
-    before do
-      create_list(:student_survey_item, 3, measure: measure,
-                                           watch_low_benchmark: student_watch_low_benchmark,
-                                           growth_low_benchmark: student_growth_low_benchmark,
-                                           approval_low_benchmark: student_approval_low_benchmark,
-                                           ideal_low_benchmark: student_ideal_low_benchmark)
+        it 'returns nil' do
+          expect(measure.score(school:, academic_year:).average).to be_nil
+        end
 
-      create_list(:teacher_survey_item, 3, measure: measure,
-                                           watch_low_benchmark: teacher_watch_low_benchmark,
-                                           growth_low_benchmark: teacher_growth_low_benchmark,
-                                           approval_low_benchmark: teacher_approval_low_benchmark,
-                                           ideal_low_benchmark: teacher_ideal_low_benchmark)
+        it 'affirms that the result does not meet the threshold' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be false
+        end
+      end
+
+      context "and the average number of responses across the measure's survey items does not meet the teacher threshold of 17" do
+        before :each do
+          create_list(:survey_item_response, 18, survey_item: teacher_survey_item_1, academic_year:, school:,
+                                                 likert_score: rand)
+          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_2, academic_year:, school:,
+                                                 likert_score: rand)
+          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_3, academic_year:, school:,
+                                                 likert_score: rand)
+        end
+
+        it 'returns nil' do
+          expect(measure.score(school:, academic_year:).average).to be_nil
+        end
+
+        it 'affirms that the result does not meet the threshold' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be false
+        end
+      end
     end
 
-    it 'returns the average of student and teacher benchmarks where teacher survey items all together have a weight of 1 and all student survey items have a weight of 1' do
-      # (1.2+ 1.5)/2
-      expect(measure.watch_low_benchmark).to be 1.35
-    end
-    it 'returns the source as student and teacher survey items' do
-      expect(measure.sources).to eq [:student_surveys, :teacher_surveys]
-    end
-  end
+    context 'when the measure includes only student data' do
+      let(:student_survey_item_1) { create(:student_survey_item, scale: student_scale) }
+      let(:student_survey_item_2) { create(:student_survey_item, scale: student_scale) }
+      let(:student_survey_item_3) { create(:student_survey_item, scale: student_scale) }
 
-  context 'when a measure includes admin data and student and teacher survey items' do
-    before do
-      create_list(:admin_data_item, 3, measure: measure,
-                                       watch_low_benchmark: admin_watch_low_benchmark,
-                                       growth_low_benchmark: admin_growth_low_benchmark,
-                                       approval_low_benchmark: admin_approval_low_benchmark,
-                                       ideal_low_benchmark: admin_ideal_low_benchmark)
-      create_list(:student_survey_item, 3, measure: measure,
-                                           watch_low_benchmark: student_watch_low_benchmark,
-                                           growth_low_benchmark: student_growth_low_benchmark,
-                                           approval_low_benchmark: student_approval_low_benchmark,
-                                           ideal_low_benchmark: student_ideal_low_benchmark)
+      context "and the number of responses for each of the measure's survey items meets the student threshold of 196" do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_2, academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_3, academic_year:, school:, likert_score: 5)
+        end
 
-      create_list(:teacher_survey_item, 3, measure: measure,
-                                           watch_low_benchmark: teacher_watch_low_benchmark,
-                                           growth_low_benchmark: teacher_growth_low_benchmark,
-                                           approval_low_benchmark: teacher_approval_low_benchmark,
-                                           ideal_low_benchmark: teacher_ideal_low_benchmark)
+        it 'returns the average of the likert scores of the survey items' do
+          expect(measure.score(school:, academic_year:).average).to eq 4
+        end
+
+        it 'affirms that the result meets the student threshold' do
+          expect(measure.score(school:, academic_year:).meets_student_threshold?).to be true
+        end
+        it 'notes that the result does not meet the teacher threshold' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be false
+        end
+      end
+
+      context "and the average number of responses across the measure's survey items meets the student threshold of 196" do
+        before :each do
+          create_list(:survey_item_response, 200, survey_item: student_survey_item_1, academic_year:,
+                                                  school:, likert_score: 3)
+          create_list(:survey_item_response, 195, survey_item: student_survey_item_2, academic_year:,
+                                                  school:, likert_score: 4)
+          create_list(:survey_item_response, 193, survey_item: student_survey_item_3, academic_year:,
+                                                  school:, likert_score: 5)
+        end
+
+        it 'returns the average of the likert scores of the survey items' do
+          average_score = 4
+          expect(measure.score(school:, academic_year:).average).to be_within(0.001).of(average_score)
+        end
+      end
+
+      context "and none of the measure's survey items meets the student threshold of 196" do
+        before :each do
+          create_list(:survey_item_response, 195, survey_item: student_survey_item_1, academic_year:,
+                                                  school:, likert_score: rand)
+          create_list(:survey_item_response, 195, survey_item: student_survey_item_2, academic_year:,
+                                                  school:, likert_score: rand)
+          create_list(:survey_item_response, 195, survey_item: student_survey_item_3, academic_year:,
+                                                  school:, likert_score: rand)
+        end
+
+        it 'returns nil' do
+          expect(measure.score(school:, academic_year:).average).to be_nil
+        end
+
+        it 'affirms that the result does not meet the threshold' do
+          expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
+        end
+      end
+
+      context "and the average number of responses across the measure's survey items does not meet the student threshold of 196" do
+        before :each do
+          create_list(:survey_item_response, 200, survey_item: student_survey_item_1, academic_year:,
+                                                  school:, likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_2, academic_year:, school:, likert_score: rand)
+          create_list(:survey_item_response, 191, survey_item: student_survey_item_3, academic_year:,
+                                                  school:, likert_score: rand)
+        end
+
+        it 'returns nil' do
+          expect(measure.score(school:, academic_year:).average).to be_nil
+        end
+
+        it 'affirms that the result does not meet the threshold' do
+          expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
+        end
+      end
     end
 
-    it 'returns the average of admin and teacher benchmarks where each admin data item has a weight of 1 and teacher survey items all together have a weight of 1, and student surveys have a weight of 1' do
-      # (2 * 3 + 1.2 + 1.5)/ 5
-      expect(measure.watch_low_benchmark).to be_within(0.001).of 1.74
-      # (3 * 3 + 2.2 + 2.5)/ 5
-      expect(measure.growth_low_benchmark).to be_within(0.001).of 2.74
-      # (4 * 3 + 3.2 + 3.5)/ 5
-      expect(measure.approval_low_benchmark).to be_within(0.001).of 3.74
-      # (5 * 3 + 4.2 + 4.5)/ 5
-      expect(measure.ideal_low_benchmark).to be_within(0.001).of 4.74
-    end
+    context 'when the measure includes both teacher and student data' do
+      let(:teacher_survey_item_1) { create(:teacher_survey_item, scale: teacher_scale) }
+      let(:student_survey_item_1) { create(:student_survey_item, scale: student_scale) }
 
-    it 'returns the source as admin student and teacher survey items' do
-      expect(measure.sources).to eq [:admin_data, :student_surveys, :teacher_surveys]
+      context 'and there is sufficient teacher data and sufficient student data' do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                      survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 5)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 5)
+        end
+
+        it 'returns the average of the likert scores of the survey items' do
+          expect(measure.score(school:, academic_year:).average).to eq 5
+        end
+
+        it 'affirms that the result does meet the thresholds' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be true
+        end
+
+        context 'and a different measure in the same year exists' do
+          before :each do
+            different_measure = create(:measure)
+            different_scale = create(:teacher_scale, measure: different_measure)
+            different_teacher_survey_item = create(:teacher_survey_item, scale: different_scale)
+            create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                        survey_item: different_teacher_survey_item, academic_year:, school:, likert_score: 1)
+          end
+
+          it 'affirms the additional measures do not change the scores for the original measure' do
+            expect(measure.score(school:, academic_year:).average).to eq 5
+          end
+        end
+
+        context 'and data exists for the same measure but a different school' do
+          before do
+            different_school = create(:school)
+            create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                        survey_item: teacher_survey_item_1, academic_year:, school: different_school, likert_score: 1)
+          end
+
+          it 'affirms the data for the different school does not affect the average for the original school' do
+            expect(measure.score(school:, academic_year:).average).to eq 5
+          end
+        end
+
+        context 'and data exists for the same measure but a different year' do
+          before do
+            different_year = create(:academic_year, range: '1111-12')
+
+            create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                        survey_item: teacher_survey_item_1, academic_year: different_year, school:, likert_score: 1)
+          end
+
+          it 'affirms the data for the different year does not affect the average for the original year' do
+            expect(measure.score(school:, academic_year:).average).to eq 5
+          end
+        end
+      end
+
+      context 'and there is sufficient teacher data and insufficient student data' do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                      survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 5)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 1)
+        end
+
+        it 'returns the average of the likert scores of the teacher survey items' do
+          expect(measure.score(school:, academic_year:).average).to eq 5
+        end
+
+        it 'affirms that the result meets the teacher threshold but not the student threshold' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be true
+          expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
+        end
+      end
+
+      context 'and there is insufficient teacher data and sufficient student data' do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1,
+                      survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 1)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 5)
+        end
+
+        it 'returns the average of the likert scores of the student survey items' do
+          expect(measure.score(school:, academic_year:).average).to eq 5
+        end
+
+        it 'affirms that the result meets the student threshold but not the teacher threshold' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be false
+          expect(measure.score(school:, academic_year:).meets_student_threshold?).to be true
+        end
+      end
+
+      context 'and there is insufficient teacher data and insufficient student data' do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1,
+                      survey_item: teacher_survey_item_1, academic_year:, school:)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_1, academic_year:, school:)
+        end
+
+        it 'returns nil' do
+          expect(measure.score(school:, academic_year:).average).to be_nil
+        end
+
+        it 'affirms that the result does not meet either threshold' do
+          expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be false
+          expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
+        end
+      end
     end
   end
 end

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe SubcategoryCardPresenter do
-  let(:scale) do
-    Scale.new(
+  let(:zones) do
+    Zones.new(
       watch_low_benchmark: 1.5,
       growth_low_benchmark: 2.5,
       approval_low_benchmark: 3.5,
@@ -10,7 +10,7 @@ describe SubcategoryCardPresenter do
     )
   end
 
-  let(:subcategory_card_presenter) { SubcategoryCardPresenter.new(name: 'Card name', scale: scale, score: score) }
+  let(:subcategory_card_presenter) { SubcategoryCardPresenter.new(name: 'Card name', zones: zones, score: score) }
 
   context 'when the given score is in the Warning zone for the given scale' do
     let(:score) { 1 }

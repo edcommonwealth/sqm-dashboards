@@ -1,4 +1,4 @@
-class ResponseRate
+module ResponseRate
   def initialize(subcategory:, school:, academic_year:)
     @subcategory = subcategory
     @school = school

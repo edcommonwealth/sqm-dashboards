@@ -1,17 +1,18 @@
-class StudentResponseRate < ResponseRate
-  def rate
-    super
-  end
+class StudentResponseRate
+  include ResponseRate
 
   private
 
   def survey_item_count
-    @student_survey_item_count ||= SurveyItem.student_survey_items_for_measures(@subcategory.measures).count
+    @student_survey_item_count ||= @subcategory.measures.map { |measure| measure.student_survey_items.count }.sum
   end
 
   def response_count
-    @student_response_count ||= SurveyItemResponse.student_responses_for_measures(@subcategory.measures, @school,
-                                                                                  @academic_year).count
+    @student_response_count ||= @subcategory.measures.map do |measure|
+      measure.student_survey_items.map do |survey_item|
+        survey_item.survey_item_responses.where(school: @school, academic_year: @academic_year).count
+      end.sum
+    end.sum
   end
 
   def total_possible_responses

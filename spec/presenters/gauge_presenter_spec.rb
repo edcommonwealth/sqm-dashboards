@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe GaugePresenter do
-  let(:scale) do
-    Scale.new(
+  let(:zones) do
+    Zones.new(
       watch_low_benchmark: 1.5,
       growth_low_benchmark: 2.5,
       approval_low_benchmark: 3.5,
@@ -11,7 +11,7 @@ describe GaugePresenter do
   end
   let(:score) { 3 }
 
-  let(:gauge_presenter) { GaugePresenter.new(scale: scale, score: score) }
+  let(:gauge_presenter) { GaugePresenter.new(zones: zones, score: score) }
 
   it 'returns the key benchmark percentage for the gauge' do
     expect(gauge_presenter.key_benchmark_percentage).to eq 0.625
@@ -98,8 +98,8 @@ describe GaugePresenter do
   end
 
   context 'when there are no benchmarks or score for the gauge' do
-    let(:scale) do
-      Scale.new(
+    let(:zones) do
+      Zones.new(
         watch_low_benchmark: nil,
         growth_low_benchmark: nil,
         approval_low_benchmark: nil,
