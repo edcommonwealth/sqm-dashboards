@@ -7,8 +7,7 @@ describe SubcategoryPresenter do
     create(:subcategory, name: 'A great subcategory', subcategory_id: 'A', description: 'A great description')
   end
   let(:survey_respondents) do
-    create(:respondent, school:, total_students: SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                        total_teachers: 10.0, academic_year:)
+    create(:respondent, school:, academic_year:)
   end
   let(:subcategory_presenter) do
     survey_respondents
@@ -68,11 +67,11 @@ describe SubcategoryPresenter do
   end
 
   it 'returns the student response rate' do
-    expect(subcategory_presenter.student_response_rate).to eq 100.0
+    expect(subcategory_presenter.student_response_rate).to eq 25
   end
 
   it 'returns the teacher response rate' do
-    expect(subcategory_presenter.teacher_response_rate).to eq 100
+    expect(subcategory_presenter.teacher_response_rate).to eq 50
   end
 
   it 'returns the admin collection rate' do

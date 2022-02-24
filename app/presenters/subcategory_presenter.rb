@@ -3,10 +3,6 @@ class SubcategoryPresenter
     @subcategory = subcategory
     @academic_year = academic_year
     @school = school
-    @student_response_rate = StudentResponseRate.new(subcategory: @subcategory, school: @school,
-                                                     academic_year: @academic_year)
-    @teacher_response_rate = TeacherResponseRate.new(subcategory: @subcategory, school: @school,
-                                                     academic_year: @academic_year)
   end
 
   def id
@@ -34,11 +30,11 @@ class SubcategoryPresenter
   end
 
   def student_response_rate
-    @student_response_rate.rate
+    @subcategory.student_response_rate(school: @school, academic_year: @academic_year).rate
   end
 
   def teacher_response_rate
-    @teacher_response_rate.rate
+    @subcategory.teacher_response_rate(school: @school, academic_year: @academic_year).rate
   end
 
   def admin_collection_rate

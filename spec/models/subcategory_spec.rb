@@ -4,10 +4,13 @@ RSpec.describe Subcategory, type: :model do
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
   let(:subcategory) { create(:subcategory) }
-  let(:measure_1) { create(:measure, subcategory: subcategory) }
+  let(:measure_1) { create(:measure, subcategory:) }
   let(:teacher_scale) { create(:teacher_scale, measure: measure_1) }
-  let(:measure_2) { create(:measure, subcategory: subcategory) }
+  let(:measure_2) { create(:measure, subcategory:) }
   let(:student_scale) { create(:student_scale, measure: measure_2) }
+  before do
+    create(:respondent, school:, academic_year:)
+  end
 
   describe '.score' do
     let(:teacher_survey_item_1) { create(:teacher_survey_item, scale: teacher_scale) }

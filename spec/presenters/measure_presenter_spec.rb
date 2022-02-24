@@ -8,6 +8,9 @@ describe MeasurePresenter do
   let(:student_scale) { create(:student_scale, measure:) }
   let(:admin_scale) { create(:scale, measure:) }
   let(:measure_presenter) { MeasurePresenter.new(measure:, academic_year:, school:) }
+  before do
+    create(:respondent, school:, academic_year:)
+  end
 
   it 'returns the id of the measure' do
     expect(measure_presenter.id).to eq 'measure-id'

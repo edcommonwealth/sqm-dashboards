@@ -11,6 +11,7 @@ describe 'SQM Application' do
   before :each do
     driven_by :rack_test
     page.driver.browser.basic_authorize(username, password)
+    create(:respondent, school:, academic_year:)
   end
 
   context 'when no measures meet their threshold' do

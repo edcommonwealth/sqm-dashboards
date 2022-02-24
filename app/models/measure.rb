@@ -83,19 +83,13 @@ class Measure < ActiveRecord::Base
   def sufficient_student_data?(school:, academic_year:)
     return false unless includes_student_survey_items?
 
-    average_response_count = student_survey_items.map do |survey_item|
-      survey_item.survey_item_responses.where(school:, academic_year:).count
-    end.average
-    average_response_count >= SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD
+    subcategory.student_response_rate(school:, academic_year:).meets_student_threshold?
   end
 
   def sufficient_teacher_data?(school:, academic_year:)
     return false unless includes_teacher_survey_items?
 
-    average_response_count = teacher_survey_items.map do |survey_item|
-      survey_item.survey_item_responses.where(school:, academic_year:).count
-    end.average
-    average_response_count >= SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD
+    subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
   end
 
   def sufficient_data?(school:, academic_year:)

@@ -23,6 +23,10 @@ RSpec.describe Measure, type: :model do
   let(:teacher_approval_low_benchmark) { 3.2 }
   let(:teacher_ideal_low_benchmark) { 4.2 }
 
+  before do
+    create(:respondent, school:, academic_year:)
+    create(:respondent, school:, academic_year:)
+  end
   describe 'benchmarks' do
     context 'when a measure includes only one admin data item' do
       before do
@@ -194,7 +198,7 @@ RSpec.describe Measure, type: :model do
       let(:teacher_survey_item_2) { create(:teacher_survey_item, scale: teacher_scale) }
       let(:teacher_survey_item_3) { create(:teacher_survey_item, scale: teacher_scale) }
 
-      context "and the number of responses for each of the measure's survey items meets the teacher threshold of 17" do
+      context "and the number of responses for each of the measure's survey items meets the teacher threshold " do
         before :each do
           create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
                       survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 3)
@@ -217,14 +221,14 @@ RSpec.describe Measure, type: :model do
         end
       end
 
-      context "and the average number of responses across the measure's survey items meets the teacher threshold of 17" do
+      context "and the average number of responses across the measure's survey items meets the teacher threshold " do
         before :each do
-          create_list(:survey_item_response, 19, survey_item: teacher_survey_item_1, academic_year:, school:,
-                                                 likert_score: 3)
-          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_2, academic_year:, school:,
-                                                 likert_score: 4)
-          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_3, academic_year:, school:,
-                                                 likert_score: 5)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD + 1, survey_item: teacher_survey_item_1, academic_year:, school:,
+                                                                                                 likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: teacher_survey_item_2, academic_year:, school:,
+                                                                                             likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1, survey_item: teacher_survey_item_3, academic_year:, school:,
+                                                                                                 likert_score: 5)
         end
 
         it 'returns the average of the likert scores of the survey items' do
@@ -233,14 +237,14 @@ RSpec.describe Measure, type: :model do
         end
       end
 
-      context "and none of the measure's survey items meets the teacher threshold of 17" do
+      context "and none of the measure's survey items meets the teacher threshold " do
         before :each do
-          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_1, academic_year:, school:,
-                                                 likert_score: rand)
-          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_2, academic_year:, school:,
-                                                 likert_score: rand)
-          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_3, academic_year:, school:,
-                                                 likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1, survey_item: teacher_survey_item_1, academic_year:, school:,
+                                                                                                 likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1, survey_item: teacher_survey_item_2, academic_year:, school:,
+                                                                                                 likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1, survey_item: teacher_survey_item_3, academic_year:, school:,
+                                                                                                 likert_score: rand)
         end
 
         it 'returns nil' do
@@ -252,14 +256,14 @@ RSpec.describe Measure, type: :model do
         end
       end
 
-      context "and the average number of responses across the measure's survey items does not meet the teacher threshold of 17" do
+      context "and the average number of responses across the measure's survey items does not meet the teacher threshold " do
         before :each do
-          create_list(:survey_item_response, 18, survey_item: teacher_survey_item_1, academic_year:, school:,
-                                                 likert_score: rand)
-          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_2, academic_year:, school:,
-                                                 likert_score: rand)
-          create_list(:survey_item_response, 16, survey_item: teacher_survey_item_3, academic_year:, school:,
-                                                 likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: teacher_survey_item_1, academic_year:, school:,
+                                                                                             likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1, survey_item: teacher_survey_item_2, academic_year:, school:,
+                                                                                                 likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1, survey_item: teacher_survey_item_3, academic_year:, school:,
+                                                                                                 likert_score: rand)
         end
 
         it 'returns nil' do
@@ -277,7 +281,7 @@ RSpec.describe Measure, type: :model do
       let(:student_survey_item_2) { create(:student_survey_item, scale: student_scale) }
       let(:student_survey_item_3) { create(:student_survey_item, scale: student_scale) }
 
-      context "and the number of responses for each of the measure's survey items meets the student threshold of 196" do
+      context "and the number of responses for each of the measure's survey items meets the student threshold " do
         before :each do
           create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
                       survey_item: student_survey_item_1, academic_year:, school:, likert_score: 3)
@@ -299,14 +303,14 @@ RSpec.describe Measure, type: :model do
         end
       end
 
-      context "and the average number of responses across the measure's survey items meets the student threshold of 196" do
+      context "and the average number of responses across the measure's survey items meets the student threshold " do
         before :each do
-          create_list(:survey_item_response, 200, survey_item: student_survey_item_1, academic_year:,
-                                                  school:, likert_score: 3)
-          create_list(:survey_item_response, 195, survey_item: student_survey_item_2, academic_year:,
-                                                  school:, likert_score: 4)
-          create_list(:survey_item_response, 193, survey_item: student_survey_item_3, academic_year:,
-                                                  school:, likert_score: 5)
+          create_list(:survey_item_response,  SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD + 1, survey_item: student_survey_item_1, academic_year:,
+                                                                                                  school:, likert_score: 3)
+          create_list(:survey_item_response,  SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item_2, academic_year:,
+                                                                                              school:, likert_score: 4)
+          create_list(:survey_item_response,  SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item_3, academic_year:,
+                                                                                                  school:, likert_score: 5)
         end
 
         it 'returns the average of the likert scores of the survey items' do
@@ -315,14 +319,14 @@ RSpec.describe Measure, type: :model do
         end
       end
 
-      context "and none of the measure's survey items meets the student threshold of 196" do
+      context "and none of the measure's survey items meets the student threshold " do
         before :each do
-          create_list(:survey_item_response, 195, survey_item: student_survey_item_1, academic_year:,
-                                                  school:, likert_score: rand)
-          create_list(:survey_item_response, 195, survey_item: student_survey_item_2, academic_year:,
-                                                  school:, likert_score: rand)
-          create_list(:survey_item_response, 195, survey_item: student_survey_item_3, academic_year:,
-                                                  school:, likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item_1, academic_year:,
+                                                                                                 school:, likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item_2, academic_year:,
+                                                                                                 school:, likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item_3, academic_year:,
+                                                                                                 school:, likert_score: rand)
         end
 
         it 'returns nil' do
@@ -334,14 +338,14 @@ RSpec.describe Measure, type: :model do
         end
       end
 
-      context "and the average number of responses across the measure's survey items does not meet the student threshold of 196" do
+      context "and the average number of responses across the measure's survey items does not meet the student threshold " do
         before :each do
-          create_list(:survey_item_response, 200, survey_item: student_survey_item_1, academic_year:,
-                                                  school:, likert_score: rand)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item_1, academic_year:,
+                                                                                                 school:, likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
                       survey_item: student_survey_item_2, academic_year:, school:, likert_score: rand)
-          create_list(:survey_item_response, 191, survey_item: student_survey_item_3, academic_year:,
-                                                  school:, likert_score: rand)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item_3, academic_year:,
+                                                                                             school:, likert_score: rand)
         end
 
         it 'returns nil' do

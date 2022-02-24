@@ -10,8 +10,8 @@ describe 'categories/show' do
 
     subcategory1 = create(:subcategory, category:, name: 'A subcategory',
                                         description: 'Some description of the subcategory')
-    subcategory2 = create(:subcategory_with_measures, category:, name: 'Another subcategory',
-                                                      description: 'Another description of the subcategory')
+    subcategory2 = create(:subcategory, category:, name: 'Another subcategory',
+                                        description: 'Another description of the subcategory')
 
     measure1 = create(:measure, subcategory: subcategory1)
     scale1 = create(:student_scale, measure: measure1)
@@ -44,6 +44,7 @@ describe 'categories/show' do
     assign :academic_year, academic_year
     assign :academic_years, [academic_year]
 
+    create(:respondent, school:, academic_year:)
     render
   end
 

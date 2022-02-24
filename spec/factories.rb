@@ -36,7 +36,7 @@ FactoryBot.define do
       end
       after(:create) do |subcategory, evaluator|
         create_list(:measure, evaluator.measures_count, subcategory:).each do |measure|
-          scale = create(:scale, measure: measure)
+          scale = create(:scale, measure:)
           survey_item = create(:teacher_survey_item, scale:)
           create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item:)
         end
@@ -59,10 +59,10 @@ FactoryBot.define do
     measure
     scale_id { "A Scale #{rand}" }
     factory :teacher_scale do
-      scale_id {"t-#{rand}"}
+      scale_id { "t-#{rand}" }
     end
     factory :student_scale do
-      scale_id {"s-#{rand}"}
+      scale_id { "s-#{rand}" }
     end
   end
 
@@ -102,5 +102,7 @@ FactoryBot.define do
   factory :respondent do
     school
     academic_year
+    total_students { SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD * 4 }
+    total_teachers { SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD * 4 }
   end
 end
