@@ -6,11 +6,7 @@ describe SubcategoryPresenter do
   let(:subcategory) do
     create(:subcategory, name: 'A great subcategory', subcategory_id: 'A', description: 'A great description')
   end
-  let(:survey_respondents) do
-    create(:respondent, school:, academic_year:)
-  end
   let(:subcategory_presenter) do
-    survey_respondents
     measure1 = create(:measure, subcategory:)
     teacher_scale_1 = create(:teacher_scale, measure: measure1)
     student_scale_1 = create(:student_scale, measure: measure1)
@@ -48,6 +44,11 @@ describe SubcategoryPresenter do
     create_survey_item_responses_for_different_years_and_schools(survey_item1)
 
     return SubcategoryPresenter.new(subcategory:, academic_year:, school:)
+  end
+
+  before do
+    create(:respondent, school:, academic_year:)
+    create(:survey, school:, academic_year:)
   end
 
   it 'returns the name of the subcategory' do

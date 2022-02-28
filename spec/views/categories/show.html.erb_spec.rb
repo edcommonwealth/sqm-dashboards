@@ -45,6 +45,7 @@ describe 'categories/show' do
     assign :academic_years, [academic_year]
 
     create(:respondent, school:, academic_year:)
+    create(:survey, school:, academic_year:)
     render
   end
 

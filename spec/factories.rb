@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :survey do
+    form { 0 }
+    academic_year
+    school
+  end
+
   factory :district do
     name { "#{rand} District" }
     slug { name.parameterize }

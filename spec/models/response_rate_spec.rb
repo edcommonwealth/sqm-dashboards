@@ -26,11 +26,45 @@ describe ResponseRate, type: :model do
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
                                                                                          academic_year:, school:, likert_score: 4)
     end
+    context 'when a students take a regular survey' do
+      before :each do
+        create(:survey, school:, academic_year:)
+      end
 
-    context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
-      it 'returns 100 percent' do
-        expect(StudentResponseRate.new(subcategory:, school:,
-                                       academic_year:).rate).to eq 25
+      context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
+        it 'returns 100 percent' do
+          expect(StudentResponseRate.new(subcategory:, school:,
+                                         academic_year:).rate).to eq 25
+        end
+      end
+    end
+
+    context 'when students take the short form survey' do
+      before :each do
+        create(:survey, form: :short, school:, academic_year:)
+      end
+
+      context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
+        before :each do
+          sufficient_student_survey_item_1.update! on_short_form: true
+          sufficient_student_survey_item_2.update! on_short_form: true
+        end
+
+        it 'returns 100 percent' do
+          expect(StudentResponseRate.new(subcategory:, school:,
+                                         academic_year:).rate).to eq 25
+        end
+
+        context 'for the same number of responses, if only one of the questions is a short form question, the response rate will be half' do
+          before do
+            sufficient_student_survey_item_2.update! on_short_form: false
+          end
+
+          it 'returns 100 percent' do
+            expect(StudentResponseRate.new(subcategory:, school:,
+                                           academic_year:).rate).to eq 50
+          end
+        end
       end
     end
   end

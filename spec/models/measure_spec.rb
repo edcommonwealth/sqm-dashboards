@@ -25,8 +25,9 @@ RSpec.describe Measure, type: :model do
 
   before do
     create(:respondent, school:, academic_year:)
-    create(:respondent, school:, academic_year:)
+    create(:survey, school:, academic_year:)
   end
+
   describe 'benchmarks' do
     context 'when a measure includes only one admin data item' do
       before do

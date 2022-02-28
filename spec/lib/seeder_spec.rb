@@ -35,14 +35,15 @@ describe Seeder do
       expect do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
       end.to change { District.count }.by(2)
-                                      .and change { School.count }.by(2)
-      elementary_school = School.find_by_dese_id 350_302
-      expect(elementary_school.name).to eq 'Samuel Adams Elementary School'
-      expect(elementary_school.is_hs).to be false
+                                      .and change { School.count }.by(3)
 
       high_school = School.find_by_dese_id 160_505
       expect(high_school.name).to eq 'Attleboro High School'
       expect(high_school.is_hs).to be true
+
+      elementary_school = School.find_by_dese_id 350_302
+      expect(elementary_school.name).to eq 'Samuel Adams Elementary School'
+      expect(elementary_school.is_hs).to be false
     end
 
     context 'when partial data already exists' do
@@ -60,7 +61,9 @@ describe Seeder do
         expect do
           seeder.seed_districts_and_schools sample_districts_and_schools_csv
         end.to change { District.count }.by(1)
-                                        .and change { School.count }.by(0) # +1 for new school, -1 for old school
+                                        .and change {
+                                               School.count
+                                             }.by(1) # +2 for schools added from example csv, -1 for old school
 
         new_district = District.find_by_name 'Attleboro'
         expect(new_district.qualtrics_code).to eq 1
@@ -103,19 +106,55 @@ describe Seeder do
     it 'seeds the total number of respondents for a school' do
       expect do
         seeder.seed_respondents sample_districts_and_schools_csv
-      end.to change { Respondent.count }.by(2)
+      end.to change { Respondent.count }.by(School.count)
     end
 
     it 'seeds idempotently' do
       expect do
         seeder.seed_respondents sample_districts_and_schools_csv
-      end.to change { Respondent.count }.by(2)
+      end.to change { Respondent.count }.by(School.count)
 
-      expect(Respondent.all.count).to eq 2
+      expect(Respondent.all.count).to eq School.count
 
       expect do
         seeder.seed_respondents sample_districts_and_schools_csv
       end.to change { Respondent.count }.by(0)
+    end
+  end
+
+  context 'surveys' do
+    before :each do
+      create(:academic_year, range: '2020-21')
+      seeder.seed_districts_and_schools sample_districts_and_schools_csv
+      seeder.seed_surveys sample_districts_and_schools_csv
+    end
+    it 'for one academic year, it seeds a count of surveys equal to the count of schools' do
+      expect(Survey.count).to eq School.count
+    end
+
+    it 'marks short form schools as short form schools' do
+      elementary_school = School.find_by_dese_id 160_001
+      academic_year = AcademicYear.find_by_range '2020-21'
+      survey = Survey.where(school: elementary_school, academic_year:).first
+      expect(survey.form).to eq 'short'
+    end
+
+    it 'does not mark long form schools as short form schools' do
+      elementary_school = School.find_by_dese_id 350_302
+      academic_year = AcademicYear.find_by_range '2020-21'
+      survey = Survey.where(school: elementary_school, academic_year:).first
+      expect(survey.form).to eq 'normal'
+    end
+    it 'seed idempotently' do
+      expect do
+        seeder.seed_surveys sample_districts_and_schools_csv
+      end.to change { Survey.count }.by 0
+    end
+    it 'seeds new surveys for every year in the database' do
+      expect do
+        create(:academic_year, range: '2019-20')
+        seeder.seed_surveys sample_districts_and_schools_csv
+      end.to change { Survey.count }.by School.count
     end
   end
 
@@ -198,6 +237,10 @@ describe Seeder do
         expect(survey_item.growth_low_benchmark).to eq 3.3
         expect(survey_item.approval_low_benchmark).to eq 3.8
         expect(survey_item.ideal_low_benchmark).to eq 4.51
+        expect(survey_item.on_short_form).to eq false
+
+        short_form_item = SurveyItem.find_by_survey_item_id 's-peff-q6'
+        expect(short_form_item.on_short_form).to eq true
       end
 
       it 'updates admin data item data' do

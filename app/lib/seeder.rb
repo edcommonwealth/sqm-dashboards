@@ -24,11 +24,28 @@ class Seeder
       school = School.find_or_initialize_by dese_id: dese_id, district: district
       school.name = school_name
       school.qualtrics_code = school_code
-      school.is_hs = is_hs? hs
+      school.is_hs = marked? hs
       school.save!
     end
 
     School.where.not(dese_id: dese_ids).destroy_all
+  end
+
+  def seed_surveys(csv_file)
+    CSV.parse(File.read(csv_file), headers: true) do |row|
+      district_name = row['District'].strip
+      district = District.find_or_create_by! name: district_name
+      dese_id = row['DESE School ID'].strip
+      school = School.find_or_initialize_by dese_id: dese_id, district: district
+      academic_years = AcademicYear.all
+      academic_years.each do |academic_year|
+        short_form = row["Short Form Only (#{academic_year.range})"]
+        survey = Survey.find_or_initialize_by(school:, academic_year:)
+        is_short_form_school = marked?(short_form)
+        survey.form = is_short_form_school ? Survey.forms[:short] : Survey.forms[:normal]
+        survey.save!
+      end
+    end
   end
 
   def seed_respondents(csv_file)
@@ -79,6 +96,7 @@ class Seeder
       growth_low = row['Item Growth Low'].try(:strip)
       approval_low = row['Item Approval Low'].try(:strip)
       ideal_low = row['Item Ideal Low'].try(:strip)
+      on_short_form = row['On Short Form?'].try(:strip)
       measure_description = row['Measure Description'].try(:strip)
 
       next if row['Source'] == 'No source'
@@ -98,6 +116,7 @@ class Seeder
         survey_item.growth_low_benchmark = growth_low if growth_low
         survey_item.approval_low_benchmark = approval_low if approval_low
         survey_item.ideal_low_benchmark = ideal_low if ideal_low
+        survey_item.on_short_form = marked? on_short_form
         survey_item.update! prompt: row['Question/item (20-21)'].strip
       end
 
@@ -108,7 +127,7 @@ class Seeder
         admin_data_item.approval_low_benchmark = approval_low if approval_low
         admin_data_item.ideal_low_benchmark = ideal_low if ideal_low
         admin_data_item.description = row['Question/item (20-21)'].strip
-        admin_data_item.hs_only_item = is_hs? row['HS only admin item?']
+        admin_data_item.hs_only_item = marked? row['HS only admin item?']
         admin_data_item.save!
       end
     end
@@ -116,7 +135,7 @@ class Seeder
 
   private
 
-  def is_hs?(is_hs)
-    is_hs.present? ? is_hs.strip == 'X' : false
+  def marked?(mark)
+    mark.present? ? mark.upcase.strip == 'X' : false
   end
 end

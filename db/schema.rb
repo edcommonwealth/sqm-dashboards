@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_17_170442) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_01_083725) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "academic_years", id: :serial, force: :cascade do |t|
@@ -339,8 +340,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_17_170442) do
     t.float "approval_low_benchmark"
     t.float "ideal_low_benchmark"
     t.bigint "scale_id", null: false
+    t.boolean "on_short_form", default: false
     t.index ["scale_id"], name: "index_survey_items_on_scale_id"
     t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id"
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.integer "form"
+    t.bigint "academic_year_id", null: false
+    t.bigint "school_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_year_id"], name: "index_surveys_on_academic_year_id"
+    t.index ["school_id"], name: "index_surveys_on_school_id"
   end
 
   add_foreign_key "admin_data_items", "scales"
@@ -357,4 +369,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_17_170442) do
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "survey_items"
   add_foreign_key "survey_items", "scales"
+  add_foreign_key "surveys", "academic_years"
+  add_foreign_key "surveys", "schools"
 end

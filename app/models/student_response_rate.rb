@@ -4,7 +4,16 @@ class StudentResponseRate
   private
 
   def survey_item_count
-    @survey_item_count ||= @subcategory.measures.map { |measure| measure.student_survey_items.count }.sum
+    # @survey_item_count ||= @subcategory.measures.map { |measure| measure.student_survey_items.count }.sum
+    @survey_item_count ||= begin
+      survey = Survey.where(school: @school, academic_year: @academic_year).first
+      if survey.form == 'normal'
+        SurveyItem.includes(%i[scale measure]).student_survey_items.where("scale.measure": @subcategory.measures).count
+      else
+        SurveyItem.includes(%i[scale
+                               measure]).student_survey_items.where("scale.measure": @subcategory.measures).where(on_short_form: true).count
+      end
+    end
   end
 
   def response_count

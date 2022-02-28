@@ -10,6 +10,7 @@ RSpec.describe Subcategory, type: :model do
   let(:student_scale) { create(:student_scale, measure: measure_2) }
   before do
     create(:respondent, school:, academic_year:)
+    create(:survey, school:, academic_year:)
   end
 
   describe '.score' do

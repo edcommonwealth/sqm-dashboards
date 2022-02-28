@@ -4,6 +4,9 @@ RSpec.describe Scale, type: :model do
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
   let(:scale) { create(:scale) }
+  before do
+    create(:survey, school:, academic_year:)
+  end
 
   describe '.score' do
     let(:teacher_survey_item_1) { create(:teacher_survey_item, scale:) }
