@@ -30,11 +30,14 @@ class SubcategoryPresenter
   end
 
   def student_response_rate
-    @subcategory.student_response_rate(school: @school, academic_year: @academic_year).rate
+    return 'N / A' if Respondent.where(school: @school, academic_year: @academic_year).count.zero?
+
+    "#{@subcategory.student_response_rate(school: @school, academic_year: @academic_year).rate}%"
   end
 
   def teacher_response_rate
-    @subcategory.teacher_response_rate(school: @school, academic_year: @academic_year).rate
+    return 'N / A' if Respondent.where(school: @school, academic_year: @academic_year).count.zero?
+    "#{@subcategory.teacher_response_rate(school: @school, academic_year: @academic_year).rate}%"
   end
 
   def admin_collection_rate

@@ -3,9 +3,6 @@ require 'rails_helper'
 describe ResponseRate, type: :model do
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
-  let(:survey_respondents) do
-    create(:respondent, school:, academic_year:)
-  end
 
   describe StudentResponseRate do
     let(:subcategory) { create(:subcategory) }
@@ -18,7 +15,6 @@ describe ResponseRate, type: :model do
     let(:sufficient_student_survey_item_2) { create(:student_survey_item, scale: sufficient_scale_2) }
 
     before :each do
-      survey_respondents
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
                                                                                          academic_year:, school:, likert_score: 1)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
@@ -28,6 +24,7 @@ describe ResponseRate, type: :model do
     end
     context 'when a students take a regular survey' do
       before :each do
+        create(:respondent, school:, academic_year:)
         create(:survey, school:, academic_year:)
       end
 
@@ -41,6 +38,7 @@ describe ResponseRate, type: :model do
 
     context 'when students take the short form survey' do
       before :each do
+        create(:respondent, school:, academic_year:)
         create(:survey, form: :short, school:, academic_year:)
       end
 
@@ -67,6 +65,25 @@ describe ResponseRate, type: :model do
         end
       end
     end
+
+    context 'when the average number of teacher responses is greater than the total possible responses' do
+      before do
+        create(:respondent, school:, academic_year:)
+        create(:survey, school:, academic_year:)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD * 11, survey_item: sufficient_student_survey_item_2,
+                                                                                                academic_year:, school:, likert_score: 1)
+      end
+      it 'returns 100 percent' do
+        expect(StudentResponseRate.new(subcategory:, school:,
+                                       academic_year:).rate).to eq 100
+      end
+    end
+
+    context 'when no survey information exists for that school or year' do
+      it 'returns 100 percent' do
+        expect(StudentResponseRate.new(subcategory:, school:, academic_year:).rate).to eq 100
+      end
+    end
   end
 
   describe TeacherResponseRate do
@@ -81,7 +98,6 @@ describe ResponseRate, type: :model do
     let(:sufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
 
     before :each do
-      survey_respondents
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item_1,
                                                                                          academic_year:, school:, likert_score: 1)
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item_2,
@@ -91,6 +107,10 @@ describe ResponseRate, type: :model do
     end
 
     context 'when the average number of teacher responses per question in a subcategory is at the threshold' do
+      before :each do
+        create(:respondent, school:, academic_year:)
+        create(:survey, school:, academic_year:)
+      end
       it 'returns 25 percent' do
         expect(TeacherResponseRate.new(subcategory:, school:,
                                        academic_year:).rate).to eq 25
@@ -99,6 +119,8 @@ describe ResponseRate, type: :model do
 
     context 'when the teacher response rate is not a whole number. eg 29.166%' do
       before do
+        create(:respondent, school:, academic_year:)
+        create(:survey, school:, academic_year:)
         create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD + 1, survey_item: sufficient_teacher_survey_item_3,
                                                                                                academic_year:, school:, likert_score: 1)
       end
@@ -110,9 +132,18 @@ describe ResponseRate, type: :model do
 
     context 'when the average number of teacher responses is greater than the total possible responses' do
       before do
+        create(:respondent, school:, academic_year:)
+        create(:survey, school:, academic_year:)
         create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD * 11, survey_item: sufficient_teacher_survey_item_3,
                                                                                                 academic_year:, school:, likert_score: 1)
       end
+      it 'returns 100 percent' do
+        expect(TeacherResponseRate.new(subcategory:, school:,
+                                       academic_year:).rate).to eq 100
+      end
+    end
+
+    context 'when no survey information exists for that school and academic_year' do
       it 'returns 100 percent' do
         expect(TeacherResponseRate.new(subcategory:, school:,
                                        academic_year:).rate).to eq 100

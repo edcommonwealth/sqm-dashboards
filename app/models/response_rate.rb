@@ -9,6 +9,8 @@ module ResponseRate
   end
 
   def rate
+    return 100 if Respondent.where(school: @school, academic_year: @academic_year).count.zero?
+
     return 0 unless survey_item_count.positive?
 
     average_responses_per_survey_item = response_count / survey_item_count.to_f
