@@ -1,6 +1,6 @@
 class StudentSurveyPresenter < DataItemPresenter
   def initialize(measure_id:, survey_items:, has_sufficient_data:)
-    super(measure_id: measure_id, has_sufficient_data: has_sufficient_data)
+    super(measure_id:, has_sufficient_data:)
     @survey_items = survey_items
   end
 

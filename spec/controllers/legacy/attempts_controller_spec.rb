@@ -16,38 +16,38 @@ module Legacy
     end
 
     let(:schedule) do
-      Schedule.create(name: 'Test Schedule', question_list: question_list, recipient_list: recipient_list)
+      Schedule.create(name: 'Test Schedule', question_list:, recipient_list:)
     end
     let(:school) { Legacy::School.create!(name: 'School') }
 
     let(:recipient_schedule) do
-      RecipientSchedule.create(recipient: recipients.first, schedule: schedule, next_attempt_at: Time.now)
+      RecipientSchedule.create(recipient: recipients.first, schedule:, next_attempt_at: Time.now)
     end
     let(:recipient_schedule2) do
-      RecipientSchedule.create(recipient: recipients.last, schedule: schedule, next_attempt_at: Time.now)
+      RecipientSchedule.create(recipient: recipients.last, schedule:, next_attempt_at: Time.now)
     end
 
     let!(:first_attempt) do
       Attempt.create(
-        schedule: schedule,
+        schedule:,
         recipient: recipients.first,
-        recipient_schedule: recipient_schedule,
+        recipient_schedule:,
         question: questions.first,
         sent_at: Time.new
       )
     end
     let!(:attempt) do
       Attempt.create(
-        schedule: schedule,
+        schedule:,
         recipient: recipients.first,
-        recipient_schedule: recipient_schedule,
+        recipient_schedule:,
         question: questions.first,
         sent_at: Time.new
       )
     end
     let!(:attempt2) do
       Attempt.create(
-        schedule: schedule,
+        schedule:,
         recipient: recipients.last,
         recipient_schedule: recipient_schedule2,
         question: questions.first,

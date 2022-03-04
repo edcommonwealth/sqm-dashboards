@@ -17,7 +17,7 @@ module Legacy
 
       let(:ready_recipient_schedule) { double('ready recipient schedule', attempt_question: nil) }
       let(:recipient_schedules) { double('recipient schedules', ready: [ready_recipient_schedule]) }
-      let(:active_schedule) { double('active schedule', recipient_schedules: recipient_schedules) }
+      let(:active_schedule) { double('active schedule', recipient_schedules:) }
 
       it 'finds all active schedules' do
         date = ActiveSupport::TimeZone['UTC'].parse(now.strftime('%Y-%m-%dT20:00:00%z'))
@@ -64,7 +64,7 @@ module Legacy
         Schedule.create!(
           name: 'Parent Schedule',
           recipient_list_id: recipient_list.id,
-          question_list: question_list,
+          question_list:,
           frequency_hours: 24 * 7,
           start_date: Time.new,
           end_date: 1.year.from_now,

@@ -39,7 +39,7 @@ namespace :data do
   task load_survey_responses: :environment do
     Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath: filepath
+      SurveyResponsesDataLoader.load_data filepath:
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
   end
@@ -192,13 +192,13 @@ namespace :data do
       category = nil
       question['category'].split('-').each do |external_id|
         categories = category.present? ? category.child_categories : Category
-        category = categories.where(external_id: external_id).first
+        category = categories.where(external_id:).first
         next unless category.nil?
 
         puts 'NOTHING'
         puts external_id
         puts categories.inspect
-        category = categories.create(name: question['Category Name'], external_id: external_id)
+        category = categories.create(name: question['Category Name'], external_id:)
       end
       question_text = question['text'].gsub(/[[:space:]]/, ' ').strip
       if question_text.index('.* teacher').nil?
@@ -245,7 +245,7 @@ namespace :data do
       question['Category19'].split('-').each do |external_id_raw|
         external_id = external_id_raw.gsub(/[[:space:]]/, ' ').strip
         categories = category.present? ? category.child_categories : Category
-        category = categories.where(external_id: external_id).first
+        category = categories.where(external_id:).first
         next unless category.nil?
 
         puts 'NOTHING'
@@ -253,7 +253,7 @@ namespace :data do
         puts categories.map { |c|
                "#{c.name} - |#{c.external_id}| == |#{external_id}|: - #{external_id == c.external_id}"
              }.join(' ---- ')
-        category = categories.create(name: question['Category Name'], external_id: external_id)
+        category = categories.create(name: question['Category Name'], external_id:)
       end
       question_text = question['Question Text'].gsub(/[[:space:]]/, ' ').strip
       if question_text.index('.* teacher').nil?
@@ -402,7 +402,7 @@ namespace :data do
             missing_questions[key] = true
             next
           elsif question.unknown?
-            question.update_attributes(target_group: target_group)
+            question.update_attributes(target_group:)
           end
 
           if value.to_i.blank?
@@ -435,7 +435,7 @@ namespace :data do
             Date.today
           end
           begin
-            recipient.attempts.create(question: question, answer_index: answer_index, responded_at: responded_at)
+            recipient.attempts.create(question:, answer_index:, responded_at:)
           rescue Exception => e
             puts "DATAERROR: INDEX: #{index}  Attempt failed for #{recipient.inspect} -> QUESTION: #{question.inspect}, ANSWER_INDEX: #{answer_index}, RESPONDED_AT: #{responded_at}, ERROR: #{e}"
             next
@@ -481,7 +481,7 @@ namespace :data do
         errors << row
         next
       elsif (benchmark = row['Benchmark']).present?
-        nonlikert_category.update(benchmark: benchmark)
+        nonlikert_category.update(benchmark:)
       end
 
       district = District.where(name: row['District'], state_id: 1).first
@@ -614,9 +614,9 @@ namespace :data do
               available_responders = school.available_responders_for(question)
 
               school_question = school_category.school_questions.new(
-                school: school,
-                question: question,
-                school_category: school_category,
+                school:,
+                question:,
+                school_category:,
                 year: school_category.year,
                 attempt_count: available_responders,
                 response_count: attempt_data.response_count,
@@ -638,7 +638,7 @@ namespace :data do
     School.all.each do |school|
       Category.all.each do |category|
         school_category = SchoolCategory.for(school, category).in(@year).first
-        school_category = school.school_categories.create(category: category, year: @year) if school_category.nil?
+        school_category = school.school_categories.create(category:, year: @year) if school_category.nil?
         school_category.sync_aggregated_responses
       end
     end

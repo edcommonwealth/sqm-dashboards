@@ -68,11 +68,11 @@ describe SubcategoryPresenter do
   end
 
   it 'returns the student response rate' do
-    expect(subcategory_presenter.student_response_rate).to eq "25%"
+    expect(subcategory_presenter.student_response_rate).to eq '25%'
   end
 
   it 'returns the teacher response rate' do
-    expect(subcategory_presenter.teacher_response_rate).to eq "50%"
+    expect(subcategory_presenter.teacher_response_rate).to eq '50%'
   end
 
   it 'returns the admin collection rate' do

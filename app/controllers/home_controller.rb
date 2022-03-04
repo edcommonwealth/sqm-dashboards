@@ -3,6 +3,6 @@ class HomeController < ApplicationController
     @districts = District.all.order(:name)
     @schools = School.all.includes([:district]).order(:name)
 
-    @categories = Category.sorted.map { |category| CategoryPresenter.new(category: category) }
+    @categories = Category.sorted.map { |category| CategoryPresenter.new(category:) }
   end
 end

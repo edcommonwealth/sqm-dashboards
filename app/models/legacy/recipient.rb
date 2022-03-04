@@ -12,7 +12,7 @@ module Legacy
 
     validates :name, presence: true
 
-    scope :for_school, ->(school) { where(school: school) }
+    scope :for_school, ->(school) { where(school:) }
     scope :created_in, ->(year) { where('extract(year from recipients.created_at) = ?', year) }
 
     before_destroy :sync_lists

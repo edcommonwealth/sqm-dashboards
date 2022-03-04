@@ -21,9 +21,9 @@ module Legacy
 
     let(:default_schedule_params) do
       {
-        school: school,
-        recipient_list: recipient_list,
-        question_list: question_list,
+        school:,
+        recipient_list:,
+        question_list:,
         name: 'Parents Schedule',
         description: 'Schedule for parent questions',
         start_date: 1.month.ago,

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'authentication' do
   let(:district) { create(:district) }
-  let(:school) { create(:school, district: district) }
+  let(:school) { create(:school, district:) }
   let(:academic_year) { create(:academic_year) }
 
   context 'when using the wrong credentials' do

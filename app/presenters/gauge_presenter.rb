@@ -31,9 +31,7 @@ class GaugePresenter
     end
   end
 
-  def score
-    @score
-  end
+  attr_reader :score
 
   private
 

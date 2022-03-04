@@ -31,7 +31,7 @@ module Legacy
         Schedule.create!(
           name: 'Parent Schedule',
           recipient_list_id: recipient_list.id,
-          question_list: question_list,
+          question_list:,
           random: false,
           frequency_hours: 24 * 7
         )

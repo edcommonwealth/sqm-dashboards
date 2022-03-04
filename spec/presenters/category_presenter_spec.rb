@@ -6,33 +6,33 @@ describe CategoryPresenter do
     subcategory2 = Subcategory.create(name: 'Another subcategory', subcategory_id: '2')
 
     category = Category.create(name: 'Some Category', subcategories: [subcategory1, subcategory2],
-                            description: 'A description for some Category', short_description: 'A short description for some Category', category_id: '1')
-    return CategoryPresenter.new(category: category)
+                               description: 'A description for some Category', short_description: 'A short description for some Category', category_id: '1')
+    return CategoryPresenter.new(category:)
   end
 
   let(:teachers_and_leadership_presenter) do
     category = create(:category, name: 'Teachers & Leadership')
-    return CategoryPresenter.new(category: category)
+    return CategoryPresenter.new(category:)
   end
 
   let(:school_culture_presenter) do
     category = create(:category, name: 'School Culture')
-    return CategoryPresenter.new(category: category)
+    return CategoryPresenter.new(category:)
   end
 
   let(:resources_presenter) do
     category = create(:category, name: 'Resources')
-    return CategoryPresenter.new(category: category)
+    return CategoryPresenter.new(category:)
   end
 
   let(:academic_learning_presenter) do
     category = create(:category, name: 'Academic Learning')
-    return CategoryPresenter.new(category: category)
+    return CategoryPresenter.new(category:)
   end
 
   let(:community_and_wellbeing_presenter) do
     category = create(:category, name: 'Community & Wellbeing')
-    return CategoryPresenter.new(category: category)
+    return CategoryPresenter.new(category:)
   end
 
   after :each do

@@ -51,7 +51,7 @@ module Legacy
       return if recipient.opted_out?
       return if question.nil?
 
-      return attempt_question(question: question) unless question.for_recipient_students?
+      return attempt_question(question:) unless question.for_recipient_students?
 
       missing_students = []
       recipient_attempts = attempts.for_recipient(recipient).for_question(question)
@@ -60,9 +60,9 @@ module Legacy
       end
 
       attempt = recipient.attempts.create(
-        schedule: schedule,
+        schedule:,
         recipient_schedule: self,
-        question: question,
+        question:,
         student: missing_students.first
       )
 
@@ -101,12 +101,12 @@ module Legacy
       return if question.nil? && unanswered_attempt.nil?
 
       if unanswered_attempt.nil?
-        return attempt_question_for_recipient_students(question: question) if question.for_recipient_students?
+        return attempt_question_for_recipient_students(question:) if question.for_recipient_students?
 
         attempt = recipient.attempts.create(
-          schedule: schedule,
+          schedule:,
           recipient_schedule: self,
-          question: question
+          question:
         )
       end
 
@@ -159,9 +159,9 @@ module Legacy
                      end
 
       schedule.recipient_schedules.create(
-        recipient_id: recipient_id,
+        recipient_id:,
         upcoming_question_ids: question_ids.join(','),
-        next_attempt_at: next_attempt_at
+        next_attempt_at:
       )
     end
   end

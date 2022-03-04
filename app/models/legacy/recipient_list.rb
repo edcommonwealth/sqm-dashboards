@@ -14,7 +14,7 @@ module Legacy
     after_save :sync_recipient_schedules
 
     def recipients
-      recipient_id_array.collect { |id| school.recipients.where(id: id).first }
+      recipient_id_array.collect { |id| school.recipients.where(id:).first }
     end
 
     private

@@ -11,7 +11,7 @@ class SurveyResponsesDataLoader
       survey_items = SurveyItem.where(survey_item_id: survey_item_ids)
 
       file.lazy.each_slice(1000) do |lines|
-        survey_item_responses = CSV.parse(lines.join, headers: headers).map do |row|
+        survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
           process_row row: row, survey_items: survey_items
         end
 
@@ -36,18 +36,18 @@ class SurveyResponsesDataLoader
     return if school.nil?
 
     survey_items.map do |survey_item|
-      next if SurveyItemResponse.where(response_id: response_id, survey_item: survey_item).exists?
+      next if SurveyItemResponse.where(response_id:, survey_item:).exists?
 
       likert_score = row[survey_item.survey_item_id]
       next if likert_score.nil?
       next unless likert_score.valid_likert_score?
 
       SurveyItemResponse.new(
-        response_id: response_id,
-        academic_year: academic_year,
-        school: school,
-        survey_item: survey_item,
-        likert_score: likert_score
+        response_id:,
+        academic_year:,
+        school:,
+        survey_item:,
+        likert_score:
       )
     end.compact
   end

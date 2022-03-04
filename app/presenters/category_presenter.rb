@@ -58,9 +58,9 @@ class CategoryPresenter
   def subcategories(academic_year:, school:)
     @category.subcategories.includes([:measures]).sort_by(&:subcategory_id).map do |subcategory|
       SubcategoryPresenter.new(
-        subcategory: subcategory,
-        academic_year: academic_year,
-        school: school
+        subcategory:,
+        academic_year:,
+        school:
       )
     end
   end

@@ -57,7 +57,7 @@ module Legacy
     let(:valid_session) { {} }
 
     before :each do
-      user.user_schools.create(school: school)
+      user.user_schools.create(school:)
       sign_in user
     end
 

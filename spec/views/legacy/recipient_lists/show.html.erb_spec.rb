@@ -6,7 +6,7 @@ module Legacy
       @school = assign(:school, School.create!(name: 'School'))
 
       recipients = ['Jared Cosulich', 'Lauren Cosulich'].collect do |name|
-        @school.recipients.create!(name: name)
+        @school.recipients.create!(name:)
       end
 
       @recipient_list = assign(:recipient_list, RecipientList.create!(

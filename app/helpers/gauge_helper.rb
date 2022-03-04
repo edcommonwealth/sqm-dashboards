@@ -39,7 +39,7 @@ module GaugeHelper
   end
 
   def arc_end_point_for(radius:, percentage:)
-    angle = angle_for(percentage: percentage)
+    angle = angle_for(percentage:)
 
     x = arc_center.x + radius * Math.cos(angle)
     y = arc_center.y + radius * Math.sin(angle)
@@ -47,8 +47,8 @@ module GaugeHelper
   end
 
   def arc_end_line_destination(radius:, percentage:)
-    x = arc_center.x + radius * Math.cos(angle_for(percentage: percentage))
-    y = arc_center.y + radius * Math.sin(angle_for(percentage: percentage))
+    x = arc_center.x + radius * Math.cos(angle_for(percentage:))
+    y = arc_center.y + radius * Math.sin(angle_for(percentage:))
     Point.new(x, y)
   end
 
@@ -62,8 +62,8 @@ module GaugeHelper
 
   def draw_arc(radius:, percentage:, clockwise:)
     sweep_flag = clockwise ? 1 : 0
-    "A #{arc_radius(radius)} 0 0 #{sweep_flag} #{coordinates_for(arc_end_point_for(radius: radius,
-                                                                                   percentage: percentage))}"
+    "A #{arc_radius(radius)} 0 0 #{sweep_flag} #{coordinates_for(arc_end_point_for(radius:,
+                                                                                   percentage:))}"
   end
 
   def draw_line_to(point:)

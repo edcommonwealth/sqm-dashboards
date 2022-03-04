@@ -22,7 +22,7 @@ module Legacy
     validates :option4, presence: true
     validates :option5, presence: true
 
-    scope :for_category, ->(category) { where(category: category) }
+    scope :for_category, ->(category) { where(category:) }
     scope :created_in, ->(year) { where("extract(year from #{table_name}.created_at) = ?", year) }
 
     enum target_group: %i[unknown for_students for_teachers for_parents]

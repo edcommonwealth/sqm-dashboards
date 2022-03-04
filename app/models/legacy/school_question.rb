@@ -9,7 +9,7 @@ module Legacy
     validates_associated :school_category
 
     scope :for, ->(school, question) { where(school_id: school.id, question_id: question.id) }
-    scope :in, ->(year) { where(year: year) }
+    scope :in, ->(year) { where(year:) }
 
     def sync_attempts
       attempt_data = Attempt

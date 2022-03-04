@@ -16,13 +16,13 @@ module Legacy
     end
 
     let(:schedule) do
-      Schedule.create!(name: 'Parent Schedule', recipient_list_id: recipient_list.id, question_list: question_list)
+      Schedule.create!(name: 'Parent Schedule', recipient_list_id: recipient_list.id, question_list:)
     end
 
     let(:recipient_schedule) do
       RecipientSchedule.create!(
-        recipient: recipient,
-        schedule: schedule,
+        recipient:,
+        schedule:,
         upcoming_question_ids: "#{question.id},3",
         attempted_question_ids: '2',
         last_attempt_at: 2.weeks.ago,
@@ -32,9 +32,9 @@ module Legacy
 
     let!(:attempt) do
       recipient.attempts.create(
-        schedule: schedule,
-        recipient_schedule: recipient_schedule,
-        question: question
+        schedule:,
+        recipient_schedule:,
+        question:
       )
     end
 

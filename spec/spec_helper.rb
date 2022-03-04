@@ -1,14 +1,14 @@
 require 'simplecov'
 SimpleCov.start do
-  add_filter "/app/models/legacy"
-  add_filter "/app/views/legacy"
-  add_filter "/app/controllers/legacy"
-  add_filter "/spec/models/legacy"
-  add_filter "/spec/views/legacy"
-  add_filter "/spec/controllers/legacy"
-  add_filter "/app/helpers/schedules_helper.rb"
-  add_filter "/lib/tasks/survey.rake"
-  add_filter "/spec/lib/tasks/survey_rake_spec.rb"
+  add_filter '/app/models/legacy'
+  add_filter '/app/views/legacy'
+  add_filter '/app/controllers/legacy'
+  add_filter '/spec/models/legacy'
+  add_filter '/spec/views/legacy'
+  add_filter '/spec/controllers/legacy'
+  add_filter '/app/helpers/schedules_helper.rb'
+  add_filter '/lib/tasks/survey.rake'
+  add_filter '/spec/lib/tasks/survey_rake_spec.rb'
 end
 
 require 'capybara/rspec'
@@ -184,7 +184,7 @@ def create_questions(count, category = nil)
       option3: "Option #{i}:#{count} C",
       option4: "Option #{i}:#{count} D",
       option5: "Option #{i}:#{count} E",
-      category: category
+      category:
     )
   end
   questions

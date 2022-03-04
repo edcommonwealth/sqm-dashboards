@@ -37,6 +37,7 @@ class SubcategoryPresenter
 
   def teacher_response_rate
     return 'N / A' if Respondent.where(school: @school, academic_year: @academic_year).count.zero?
+
     "#{@subcategory.teacher_response_rate(school: @school, academic_year: @academic_year).rate}%"
   end
 

@@ -14,5 +14,4 @@ class AcademicYear < ActiveRecord::Base
     years = range.split('-')
     "#{years.first} – 20#{years.second}"
   end
-
 end

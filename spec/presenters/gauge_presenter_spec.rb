@@ -11,7 +11,7 @@ describe GaugePresenter do
   end
   let(:score) { 3 }
 
-  let(:gauge_presenter) { GaugePresenter.new(zones: zones, score: score) }
+  let(:gauge_presenter) { GaugePresenter.new(zones:, score:) }
 
   it 'returns the key benchmark percentage for the gauge' do
     expect(gauge_presenter.key_benchmark_percentage).to eq 0.625

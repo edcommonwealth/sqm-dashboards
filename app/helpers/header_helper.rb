@@ -26,7 +26,7 @@ module HeaderHelper
   end
 
   def link_weight(path:)
-    active?(path: path) ? 'weight-700' : 'weight-400'
+    active?(path:) ? 'weight-700' : 'weight-400'
   end
 
   private

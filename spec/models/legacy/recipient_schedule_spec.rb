@@ -19,7 +19,7 @@ module Legacy
       Schedule.create!(
         name: 'Parent Schedule',
         recipient_list_id: recipient_list.id,
-        question_list: question_list,
+        question_list:,
         random: false,
         frequency_hours: 24
       )
@@ -28,8 +28,8 @@ module Legacy
 
     let!(:not_ready_recipient_schedule) do
       RecipientSchedule.create!(
-        recipient: recipient,
-        schedule: schedule,
+        recipient:,
+        schedule:,
         upcoming_question_ids: '1,3',
         attempted_question_ids: '2',
         last_attempt_at: Date.today + (60 * 60 * schedule.frequency_hours),

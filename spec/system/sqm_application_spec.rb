@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'SQM Application' do
   let(:district) { create(:district) }
-  let(:school) { create(:school, district: district) }
+  let(:school) { create(:school, district:) }
   let(:academic_year) { create(:academic_year) }
   let(:category) { create(:category) }
   let(:measure) { create(:measure) }
-  let(:scale) {create(:scale, measure:)}
+  let(:scale) { create(:scale, measure:) }
 
   before :each do
     driven_by :rack_test
@@ -30,7 +30,7 @@ describe 'SQM Application' do
     before :each do
       teacher_survey_item = create(:teacher_survey_item, scale:)
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
-                  survey_item: teacher_survey_item, academic_year: academic_year, school: school)
+                  survey_item: teacher_survey_item, academic_year:, school:)
     end
 
     it 'does not show a modal on any page' do

@@ -21,15 +21,15 @@ require 'rails_helper'
 module Legacy
   RSpec.describe SchoolsController, type: :controller do
     let(:district) { District.create! name: 'District' }
-    let!(:school) { School.create! name: 'school', district: district }
+    let!(:school) { School.create! name: 'school', district: }
     let!(:user) { User.create(email: 'test@example.com', password: '123456') }
-    let!(:user_school) { user.user_schools.create(school: school) }
+    let!(:user_school) { user.user_schools.create(school:) }
 
     # This should return the minimal set of attributes required to create a valid
     # School. As you add validations to School, be sure to
     # adjust the attributes here as well.
     let(:valid_attributes) do
-      { name: 'School', district: district }
+      { name: 'School', district: }
     end
 
     let(:invalid_attributes) do

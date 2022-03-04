@@ -58,9 +58,9 @@ module Legacy
 
     def save_response(answer_index: nil, twilio_details: nil, responded_at: Time.new)
       update(
-        answer_index: answer_index,
-        twilio_details: twilio_details,
-        responded_at: responded_at
+        answer_index:,
+        twilio_details:,
+        responded_at:
       )
 
       recipient_schedule.update(next_attempt_at: Time.new) if recipient_schedule.queued_question_ids.present?
