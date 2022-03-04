@@ -1,15 +1,7 @@
 class TeacherResponseRate
   include ResponseRate
 
-  def rate
-    cap_at_100(super)
-  end
-
   private
-
-  def cap_at_100(response_rate)
-    response_rate > 100 ? 100 : response_rate
-  end
 
   def survey_item_count
     @survey_item_count ||= @subcategory.measures.map { |measure| measure.teacher_survey_items.count }.sum
