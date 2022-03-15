@@ -120,6 +120,17 @@ describe Seeder do
         seeder.seed_respondents sample_districts_and_schools_csv
       end.to change { Respondent.count }.by(0)
     end
+
+    it 'seeds new respondents for every year in the database' do
+      expect do
+        seeder.seed_respondents sample_districts_and_schools_csv
+      end.to change { Respondent.count }.by School.count
+
+      expect do
+        create(:academic_year, range: '2019-20')
+        seeder.seed_respondents sample_districts_and_schools_csv
+      end.to change { Respondent.count }.by School.count
+    end
   end
 
   context 'surveys' do

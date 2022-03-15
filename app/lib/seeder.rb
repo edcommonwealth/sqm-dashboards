@@ -50,23 +50,25 @@ class Seeder
 
   def seed_respondents(csv_file)
     schools = []
-    year = '2020-21'
-    academic_year = AcademicYear.find_by_range year
     CSV.parse(File.read(csv_file), headers: true) do |row|
       dese_id = row['DESE School ID'].strip.to_i
-      total_students = row["Total Students for Response Rate (#{year})"]
-      total_teachers = row["Total Teachers for Response Rate (#{year})"]
 
       district_name = row['District'].strip
       district = District.find_or_create_by! name: district_name
 
       school = School.find_by dese_id: dese_id, district: district
       schools << school
-      respondent = Respondent.find_or_initialize_by school: school
-      respondent.total_students = total_students
-      respondent.total_teachers = total_teachers
-      respondent.academic_year = academic_year
-      respondent.save
+
+      academic_years = AcademicYear.all
+      academic_years.each do |academic_year|
+        total_students = row["Total Students for Response Rate (#{academic_year.range})"]
+        total_teachers = row["Total Teachers for Response Rate (#{academic_year.range})"]
+        respondent = Respondent.find_or_initialize_by school: school, academic_year: academic_year
+        respondent.total_students = total_students
+        respondent.total_teachers = total_teachers
+        respondent.academic_year = academic_year
+        respondent.save
+      end
     end
 
     Respondent.where.not(school: schools).destroy_all
