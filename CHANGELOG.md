@@ -32,3 +32,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Correct scores for short-form schools
 - Show historical data even if a response rate cannot be calculated for a year of information.
 - Cap student response rate at 100
+- Add metadata for 2019-20 school year.
