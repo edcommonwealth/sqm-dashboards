@@ -125,6 +125,16 @@ describe SurveyResponsesDataLoader do
 
         expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
       end
+
+      context 'when updating student survey responses from another csv file' do
+        it 'updates the likert score to the score on the new csv file' do
+          SurveyResponsesDataLoader.load_data filepath: Rails.root.join('spec', 'fixtures',
+                                                                        'secondary_test_2020-21_student_survey_responses.csv')
+          expect(SurveyItemResponse.joins(:survey_item).where(response_id: 'student_survey_response_3').where("survey_item.survey_item_id": 's-emsa-q1').first.likert_score).to eq 1
+          expect(SurveyItemResponse.joins(:survey_item).where(response_id: 'student_survey_response_4').where("survey_item.survey_item_id": 's-emsa-q1').first.likert_score).to eq 1
+          expect(SurveyItemResponse.joins(:survey_item).where(response_id: 'student_survey_response_5').where("survey_item.survey_item_id": 's-emsa-q1').first.likert_score).to eq 1
+        end
+      end
     end
   end
 end

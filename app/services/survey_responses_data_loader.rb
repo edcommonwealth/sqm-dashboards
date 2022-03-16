@@ -36,19 +36,23 @@ class SurveyResponsesDataLoader
     return if school.nil?
 
     survey_items.map do |survey_item|
-      next if SurveyItemResponse.where(response_id:, survey_item:).exists?
-
       likert_score = row[survey_item.survey_item_id]
       next if likert_score.nil?
       next unless likert_score.valid_likert_score?
 
-      SurveyItemResponse.new(
-        response_id:,
-        academic_year:,
-        school:,
-        survey_item:,
-        likert_score:
-      )
+      survey_item_response = SurveyItemResponse.where(response_id:, survey_item:).first
+      if survey_item_response.present?
+        survey_item_response.update!(likert_score:) if survey_item_response.likert_score != likert_score
+        next
+      else
+        SurveyItemResponse.new(
+          response_id:,
+          academic_year:,
+          school:,
+          survey_item:,
+          likert_score:
+        )
+      end
     end.compact
   end
 
