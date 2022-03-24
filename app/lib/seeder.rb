@@ -63,6 +63,8 @@ class Seeder
       academic_years.each do |academic_year|
         total_students = row["Total Students for Response Rate (#{academic_year.range})"]
         total_teachers = row["Total Teachers for Response Rate (#{academic_year.range})"]
+        total_students = remove_commas(total_students)
+        total_teachers = remove_commas(total_teachers)
         respondent = Respondent.find_or_initialize_by school: school, academic_year: academic_year
         respondent.total_students = total_students
         respondent.total_teachers = total_teachers
@@ -139,5 +141,9 @@ class Seeder
 
   def marked?(mark)
     mark.present? ? mark.upcase.strip == 'X' : false
+  end
+
+  def remove_commas(target)
+    target.gsub(',', '') if target.present?
   end
 end

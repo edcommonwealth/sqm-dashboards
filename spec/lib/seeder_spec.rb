@@ -131,6 +131,13 @@ describe Seeder do
         seeder.seed_respondents sample_districts_and_schools_csv
       end.to change { Respondent.count }.by School.count
     end
+    it 'seeds the total number of students and teachers even if the original number includes commas' do
+      seeder.seed_respondents sample_districts_and_schools_csv
+      school = School.find_by_name('Attleboro High School')
+      academic_year = AcademicYear.find_by_range('2020-21')
+      school_with_over_one_thousand_student_respondents = Respondent.where(school:, academic_year:).first
+      expect(school_with_over_one_thousand_student_respondents.total_students).to eq 1792
+    end
   end
 
   context 'surveys' do

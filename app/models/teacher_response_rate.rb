@@ -1,8 +1,6 @@
 class TeacherResponseRate
   include ResponseRate
 
-  private
-
   def survey_item_count
     @survey_item_count ||= @subcategory.measures.map { |measure| measure.teacher_survey_items.count }.sum
   end
