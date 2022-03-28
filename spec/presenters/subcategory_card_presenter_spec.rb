@@ -10,7 +10,7 @@ describe SubcategoryCardPresenter do
     )
   end
 
-  let(:subcategory_card_presenter) { SubcategoryCardPresenter.new(name: 'Card name', zones:, score:) }
+  let(:subcategory_card_presenter) { SubcategoryCardPresenter.new(subcategory: Subcategory.new(name: 'A subcategory'), zones:, score:) }
 
   context 'when the given score is in the Warning zone for the given scale' do
     let(:score) { 1 }

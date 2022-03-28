@@ -1,8 +1,11 @@
 class SubcategoryCardPresenter
-  attr_reader :name
+  attr_reader :name, :subcategory, :category, :subcategory_id
 
-  def initialize(name:, zones:, score:)
-    @name = name
+  def initialize(subcategory:, zones:, score:)
+    @name = subcategory.name
+    @subcategory = subcategory
+    @category = subcategory.category
+    @subcategory_id = subcategory.subcategory_id
     @zones = zones
     @score = score
   end
@@ -17,6 +20,10 @@ class SubcategoryCardPresenter
 
   def insufficient_data?
     zone.type == :insufficient_data
+  end
+
+  def to_model
+    subcategory
   end
 
   private

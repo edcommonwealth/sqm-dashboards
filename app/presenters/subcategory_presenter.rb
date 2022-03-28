@@ -22,7 +22,7 @@ class SubcategoryPresenter
   end
 
   def subcategory_card_presenter
-    SubcategoryCardPresenter.new(name: @subcategory.name, zones:, score: average_score)
+    SubcategoryCardPresenter.new(subcategory: @subcategory, zones:, score: average_score)
   end
 
   def average_score
