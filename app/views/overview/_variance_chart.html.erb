@@ -2,165 +2,164 @@
 <% not_displayed_presenters = presenters - displayed_presenters %>
 
 <% if displayed_presenters.none? %>
-  <p class="caption mb-5">Note: No measures can be displayed due to limited availability of school admin data and/or low survey response rates.</p>
+<p class="caption mb-5">Note: No measures can be displayed due to limited availability of school admin data and/or low survey response rates.</p>
 <% elsif not_displayed_presenters.present? %>
-  <p class="caption mb-5">Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= not_displayed_presenters.map(&:measure_name).join('; ') %>.</p>
+<p class="caption mb-5">Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= not_displayed_presenters.map(&:measure_name).join('; ') %>.</p>
 <% end %>
 
 <svg width="100%" height=<%= graph_height(displayed_presenters.size) %> xmlns="http://www.w3.org/2000/svg">
 
-  <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
-    <feComponentTransfer in=SourceAlpha>
-      <feFuncA type="table" tableValues="1 0"/>
-    </feComponentTransfer>
-    <feGaussianBlur stdDeviation="4"/>
-    <feOffset dx="0" dy="0" result="offsetblur"/>
-    <feFlood flood-color="rgb(62, 58, 56, 0.25)" result="color"/>
-    <feComposite in2="offsetblur" operator="in"/>
-    <feComposite in2="SourceAlpha" operator="in"/>
-    <feMerge>
-      <feMergeNode in="SourceGraphic"/>
-      <feMergeNode/>
-    </feMerge>
-  </filter>
+<filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+  <feComponentTransfer in=SourceAlpha>
+    <feFuncA type="table" tableValues="1 0"/>
+  </feComponentTransfer>
+  <feGaussianBlur stdDeviation="4"/>
+  <feOffset dx="0" dy="0" result="offsetblur"/>
+  <feFlood flood-color="rgb(62, 58, 56, 0.25)" result="color"/>
+  <feComposite in2="offsetblur" operator="in"/>
+  <feComposite in2="SourceAlpha" operator="in"/>
+  <feMerge>
+    <feMergeNode in="SourceGraphic"/>
+    <feMergeNode/>
+  </feMerge>
+</filter>
 
-  <svg
-    id="graph-background"
-    x="<%= label_width_percentage %>%"
-    y="0"
-    width="<%= graph_width_percentage %>%"
-    height="<%= graph_background_height(number_of_rows: displayed_presenters.size) %>"
-    filter="url(#inset-shadow)"
-  >
-    <g id="zone-headings">
-      <% zones.each_with_index do |zone, index| %>
-        <text
-          class="zone-header"
-          x="<%= index * zone_width_percentage + zone_width_percentage / 2.0 %>%"
-          y="<%= heading_gutter / 2 %>"
-          text-anchor="middle"
-          dominant-baseline="middle"
-        >
-          <%= zone.capitalize %>
-        </text>
-      <% end %>
-    </g>
-
-    <g id="zone-background" transform="translate(0, <%= heading_gutter %>)">
-      <% zones.each_with_index do |zone, index| %>
-        <rect
-          id="<%= zone %>-zone"
-          class="zone-background bg-fill-<%= zone %>"
-          x="<%= index * zone_width_percentage %>%"
-          y="0"
-          width="<%= zone_width_percentage %>%"
-          height="100%"
-          stroke="#CECECE"
-          stroke-width="1"
-          />
-      <% end %>
-    </g>
-  </svg>
-
-  <g id="measure-rows">
-    <svg id=measure-row-limited-availability-indicator x="0" y="<%= heading_gutter %>">
-      <% displayed_presenters.each_with_index do |presenter, index| %>
-        <% if presenter.show_partial_data_indicator? %>
-          <foreignObject
-            width="<%= partial_data_indicator_size %>"
-            height="<%= partial_data_indicator_size %>"
-            x="<%= partial_data_indicator_size / 2 %>"
-            y="<%= index * measure_row_height + measure_row_height / 2  - partial_data_indicator_size / 2 %>"
-            dominant-baseline="middle" >
-            <i class="fas fa-exclamation-circle"
-              data-bs-toggle="popover" data-bs-placement="right"
-              data-bs-content="The following sources are not included in this measure due to insufficient data: <%= presenter.partial_data_sources.join(' and ') %>." ></i>
-          </foreignObject>
-        <% end %>
-      <% end %>
-    </svg>
-
-    <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
-      <% displayed_presenters.each_with_index do |presenter, index| %>
-        <foreignObject
-          x="<%= availability_indicator_percentage %>%"
-          y="<%= index * measure_row_height + measure_row_height / 4 %>"
-          dominant-baseline="middle"
-          data-variance-row-label
-          width="550"
-          height="200">
-          <p class="measure-row-label" xmlns="http://www.w3.org/1999/xhtml">
-            <%= presenter.measure_name %>
-          </p>
-        </foreignObject>
-      <% end %>
-
-      <% if displayed_presenters.none? %>
-        <text
-          class="font-cabin"
-          x="0"
-          y="<%= 0 * measure_row_height + measure_row_height / 2 %>"
-          dominant-baseline="middle"
-          data-variance-row-label
-        >
-        Insufficient data
-        </text>
-      <% end %>
-    </svg>
-
-    <svg
-      id="measure-row-bars"
-      x="<%= label_width_percentage %>%"
-      y="<%= heading_gutter %>"
-      width="<%= graph_width_percentage %>%"
+<svg
+  id="graph-background"
+  x="<%= label_width_percentage %>%"
+  y="0"
+  width="<%= graph_width_percentage %>%"
+  height="<%= graph_background_height(number_of_rows: displayed_presenters.size) %>"
+  filter="url(#inset-shadow)"
+>
+  <g id="zone-headings">
+    <% zones.each_with_index do |zone, index| %>
+    <text
+      class="zone-header"
+      x="<%= index * zone_width_percentage + zone_width_percentage / 2.0 %>%"
+      y="<%= heading_gutter / 2 %>"
+      text-anchor="middle"
+      dominant-baseline="middle"
     >
-      <% displayed_presenters.each_with_index do |presenter, index| %>
-        <rect
-          class="measure-row-bar <%= presenter.bar_color %>"
-          x="<%= presenter.x_offset %>"
-          y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>"
-          width="<%= presenter.bar_width %>"
-          height="<%= measure_row_bar_height %>"
-          data-for-measure-id="<%= presenter.measure_id %>"
-          stroke="none"
-          />
-      <% end %>
-    </svg>
+      <%= zone.capitalize %>
+    </text>
+    <% end %>
   </g>
 
-  <svg
-    id="key-benchmark"
-    x="<%= label_width_percentage %>%"
-    y="0"
-    width="<%= graph_width_percentage %>%"
-    height="<%= graph_background_height(number_of_rows: displayed_presenters.size) %>"
-  >
-    <g transform="translate(0, <%= heading_gutter %>)">
-      <rect
-        id="key-benchmark"
-        x="60%"
-        transform="translate(-1, 0)"
-        y="0"
-        width="4"
-        height="100%"
-        fill="black"
-        />
-    </g>
+  <g id="zone-background" transform="translate(0, <%= heading_gutter %>)">
+    <% zones.each_with_index do |zone, index| %>
+    <rect
+      id="<%= zone %>-zone"
+      class="zone-background bg-fill-<%= zone %>"
+      x="<%= index * zone_width_percentage %>%"
+      y="0"
+      width="<%= zone_width_percentage %>%"
+      height="100%"
+      stroke="#CECECE"
+      stroke-width="1"
+    />
+    <% end %>
+  </g>
+</svg>
+
+<g id="measure-rows">
+  <svg id=measure-row-limited-availability-indicator x="0" y="<%= heading_gutter %>">
+    <% displayed_presenters.each_with_index do |presenter, index| %>
+    <% if presenter.show_partial_data_indicator? %>
+    <foreignObject
+      width="<%= partial_data_indicator_size %>"
+      height="<%= partial_data_indicator_size %>"
+      x="<%= partial_data_indicator_size / 2 %>"
+      y="<%= index * measure_row_height + measure_row_height / 2  - partial_data_indicator_size / 2 %>"
+      dominant-baseline="middle" >
+      <i class="fas fa-exclamation-circle"
+        data-bs-toggle="popover" data-bs-placement="right"
+        data-bs-content="The following sources are not included in this measure due to insufficient data: <%= presenter.partial_data_sources.join(' and ') %>." ></i>
+    </foreignObject>
+    <% end %>
+    <% end %>
+  </svg>
+
+  <svg id="measure-row-labels" x="0" y=<%= heading_gutter %>>
+    <% displayed_presenters.each_with_index do |presenter, index| %>
+    <foreignObject
+      x="<%= availability_indicator_percentage %>%"
+      y="<%= index * measure_row_height + measure_row_height / 4 %>"
+      dominant-baseline="middle"
+      data-variance-row-label
+      width="550"
+      height="200">
+
+      <%= link_to(presenter.measure_name, district_school_category_path( @district, @school, presenter.category, {year: @academic_year.range, anchor: "#{presenter.measure_id}"}), class: "measure-row-label") %>
+    </foreignObject>
+    <% end %>
+
+    <% if displayed_presenters.none? %>
+    <text
+      class="font-cabin"
+      x="0"
+      y="<%= 0 * measure_row_height + measure_row_height / 2 %>"
+      dominant-baseline="middle"
+      data-variance-row-label
+    >
+      Insufficient data
+    </text>
+    <% end %>
   </svg>
 
   <svg
-    id="legend"
+    id="measure-row-bars"
     x="<%= label_width_percentage %>%"
-    y="0"
+    y="<%= heading_gutter %>"
     width="<%= graph_width_percentage %>%"
   >
-    <text
-      class="graph-footer"
-      x="60%"
-      y="<%= graph_background_height(number_of_rows: displayed_presenters.size) + (footer_gutter / 2) %>"
-      text-anchor="middle"
-    >
-      Benchmark
-    </text>
+    <% displayed_presenters.each_with_index do |presenter, index| %>
+    <rect
+      class="measure-row-bar <%= presenter.bar_color %>"
+      x="<%= presenter.x_offset %>"
+      y="<%= index * measure_row_height + (measure_row_height - measure_row_bar_height) / 2 %>"
+      width="<%= presenter.bar_width %>"
+      height="<%= measure_row_bar_height %>"
+      data-for-measure-id="<%= presenter.measure_id %>"
+      stroke="none"
+    />
+    <% end %>
   </svg>
+</g>
+
+<svg
+  id="key-benchmark"
+  x="<%= label_width_percentage %>%"
+  y="0"
+  width="<%= graph_width_percentage %>%"
+  height="<%= graph_background_height(number_of_rows: displayed_presenters.size) %>"
+>
+  <g transform="translate(0, <%= heading_gutter %>)">
+    <rect
+      id="key-benchmark"
+      x="60%"
+      transform="translate(-1, 0)"
+      y="0"
+      width="4"
+      height="100%"
+      fill="black"
+    />
+  </g>
+</svg>
+
+<svg
+  id="legend"
+  x="<%= label_width_percentage %>%"
+  y="0"
+  width="<%= graph_width_percentage %>%"
+>
+  <text
+    class="graph-footer"
+    x="60%"
+    y="<%= graph_background_height(number_of_rows: displayed_presenters.size) + (footer_gutter / 2) %>"
+    text-anchor="middle"
+  >
+    Benchmark
+  </text>
+</svg>
 </svg>

@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe 'overview/_variance_chart.html.erb' do
+  before do
+    @academic_year = create(:academic_year)
+    @district = create(:district)
+    @school = create(:school)
+  end
+
   context 'When there are scores to show' do
     subject { Nokogiri::HTML(rendered) }
 

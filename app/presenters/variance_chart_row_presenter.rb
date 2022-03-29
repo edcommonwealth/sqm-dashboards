@@ -1,25 +1,20 @@
 class VarianceChartRowPresenter
   include Comparable
 
-  attr_reader :score
+  attr_reader :score, :measure_name, :measure_id, :category
 
   def initialize(measure:, score:)
     @measure = measure
     @score = score.average
     @meets_teacher_threshold = score.meets_teacher_threshold?
     @meets_student_threshold = score.meets_student_threshold?
+    @measure_name = @measure.name
+    @measure_id = @measure.measure_id
+    @category = @measure.subcategory.category
   end
 
   def sufficient_data?
     @score != nil
-  end
-
-  def measure_name
-    @measure.name
-  end
-
-  def measure_id
-    @measure.measure_id
   end
 
   def bar_color

@@ -42,7 +42,10 @@ describe 'overview/index' do
   before :each do
     assign :category_presenters, []
     assign :variance_chart_row_presenters, variance_chart_row_presenters
-    assign :academic_years, []
+    @academic_year = create(:academic_year)
+    assign :academic_years, [@academic_year]
+    @district = create(:district)
+    @school = create(:school)
 
     render
   end
