@@ -33,3 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Show historical data even if a response rate cannot be calculated for a year of information.
 - Cap student response rate at 100
 - Add metadata for 2019-20 school year.
+- Add historical data
+  heroku run bundle exec rake db:seed -a mciea-beta
+- Add student and teacher metadata

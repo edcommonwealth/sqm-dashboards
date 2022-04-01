@@ -28,6 +28,8 @@ class Seeder
       school.save!
     end
 
+    Respondent.joins(:school).where.not("school.dese_id": dese_ids).destroy_all
+    Survey.joins(:school).where.not("school.dese_id": dese_ids).destroy_all
     School.where.not(dese_id: dese_ids).destroy_all
   end
 

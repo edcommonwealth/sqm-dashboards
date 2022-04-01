@@ -52,6 +52,8 @@ describe Seeder do
         create(:school, name: 'John Oldest Academy', dese_id: 12_345, district: existing_district)
       end
       let!(:removed_survey_item_response) { create(:survey_item_response, school: removed_school) }
+      let!(:removed_respondent) { create(:respondent, school: removed_school) }
+      let!(:removed_survey) { create(:survey, school: removed_school) }
       let!(:existing_school) do
         create(:school, name: 'Sam Adams Elementary School', dese_id: 350_302, slug: 'some-slug-for-sam-adams',
                         district: existing_district)
@@ -93,6 +95,8 @@ describe Seeder do
 
         expect(School.where(id: removed_school)).not_to exist
         expect(SurveyItemResponse.where(id: removed_survey_item_response)).not_to exist
+        expect(Respondent.where(id: removed_respondent)).not_to exist
+        expect(Survey.where(id: removed_survey)).not_to exist
       end
     end
   end
