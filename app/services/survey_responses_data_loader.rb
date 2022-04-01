@@ -26,7 +26,7 @@ class SurveyResponsesDataLoader
     response_date = Date.parse(row['Recorded Date'] || row['RecordedDate'])
     academic_year = AcademicYear.find_by_date response_date
 
-    response_id = row['Response ID'] || row['ResponseId']
+    response_id = row['Response ID'] || row['ResponseId'] || row['ResponseID']
 
     dese_id = row['DESE ID']
     return if dese_id.nil?
