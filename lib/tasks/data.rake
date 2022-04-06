@@ -44,6 +44,14 @@ namespace :data do
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
   end
 
+  desc 'load admin_data'
+  task load_admin_data: :environment do
+    Dir.glob(Rails.root.join('data', 'admin_data', '*.csv')).each do |filepath|
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      AdminDataLoader.load_data filepath:
+    end
+    puts "=====================> Completed loading #{AdminDataValue.count} survey responses"
+  end
   desc 'Load in all data'
   task load: :environment do
     # return if School.count > 0

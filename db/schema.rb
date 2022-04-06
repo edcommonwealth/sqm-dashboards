@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_01_083725) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_05_174019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -33,6 +33,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_01_083725) do
     t.bigint "scale_id", null: false
     t.index ["admin_data_item_id"], name: "index_admin_data_items_on_admin_data_item_id", unique: true
     t.index ["scale_id"], name: "index_admin_data_items_on_scale_id"
+  end
+
+  create_table "admin_data_values", force: :cascade do |t|
+    t.float "likert_score"
+    t.bigint "school_id", null: false
+    t.bigint "admin_data_item_id", null: false
+    t.bigint "academic_year_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_year_id"], name: "index_admin_data_values_on_academic_year_id"
+    t.index ["admin_data_item_id"], name: "index_admin_data_values_on_admin_data_item_id"
+    t.index ["school_id"], name: "index_admin_data_values_on_school_id"
   end
 
   create_table "categories", id: :serial, force: :cascade do |t|
@@ -356,6 +368,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_01_083725) do
   end
 
   add_foreign_key "admin_data_items", "scales"
+  add_foreign_key "admin_data_values", "academic_years"
+  add_foreign_key "admin_data_values", "admin_data_items"
+  add_foreign_key "admin_data_values", "schools"
   add_foreign_key "legacy_recipient_lists", "legacy_schools", column: "school_id"
   add_foreign_key "legacy_schedules", "legacy_schools", column: "school_id"
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"

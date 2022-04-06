@@ -49,12 +49,25 @@ class Measure < ActiveRecord::Base
     @score ||= Hash.new do |memo|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      next Score.new(nil, false, false) if !meets_student_threshold && !meets_teacher_threshold
+      lacks_sufficient_data = !meets_student_threshold && !meets_teacher_threshold && !includes_admin_data_items?
+
+      next Score.new(nil, false, false) if lacks_sufficient_data
 
       scores = []
       scores << teacher_scales.map { |scale| scale.score(school:, academic_year:) }.average if meets_teacher_threshold
       scores << student_scales.map { |scale| scale.score(school:, academic_year:) }.average if meets_student_threshold
-      memo[[school, academic_year]] = Score.new(scores.average, meets_teacher_threshold, meets_student_threshold)
+      if includes_admin_data_items?
+        scores << admin_data_items.map do |admin_data_item|
+          admin_value = admin_data_item.admin_data_values.where(school:, academic_year:).first
+          admin_value.likert_score if admin_value.present?
+        end
+      end
+      average = scores.flatten.compact.average
+
+      next Score.new(nil, false, false) if average.nan?
+
+      memo[[school, academic_year]] =
+        Score.new(average, meets_teacher_threshold, meets_student_threshold)
     end
 
     @score[[school, academic_year]]

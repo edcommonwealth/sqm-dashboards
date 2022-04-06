@@ -1,0 +1,13 @@
+District,School,DESE ID,Category,Item ID,NonLikert Title,NL_Value,LikertScore,Benchmark,Data Type,Academic Year
+Attleboro,Attleboro High School,160505,2-C-i,a-vale-i1,Chronic absence rate,19.7,3.03,10,%,2018-19
+Milford,Woodland Elementary School,1850090,2-C-i,a-vale-i1,Chronic absence rate,6.8,4.32,10,%,2018-19
+Revere,Beachmont Elementary School,2480013,2-C-i,a-vale-i1,Chronic absence rate,4.2,4.58,10,%,2018-19
+Winchester,Winchester High School,3440505,2-C-i,a-vale-i1,Chronic absence rate,7.2,4.28,10,%,2018-19
+Attleboro,Attleboro High School,160505,3-A-i,a-reso-i1,Average class size,20.6,0,20,,2018-19
+Milford,Woodland Elementary School,1850090,3-A-i,a-reso-i1,Average class size,22.5,3.75,20,,2018-19
+Revere,Beachmont Elementary School,2480013,3-A-i,a-reso-i1,Average class size,17,4.3,20,,2018-19
+Winchester,Winchester High School,3440505,3-A-i,a-reso-i1,Average class size,17,4.3,20,,2018-19
+Attleboro,Attleboro High School,160505,3-A-ii,a-sust-i3,Student to instructional support staff ratio,15.28896673,0.4,43.4,,2018-19
+Milford,Woodland Elementary School,1850090,3-A-ii,a-sust-i3,Student to instructional support staff ratio,22.85714286,2.106649112,43.4,,2018-19
+Revere,Beachmont Elementary School,2480013,3-A-ii,a-sust-i3,Student to instructional support staff ratio,38,3.502304147,43.4,,2018-19
+Winchester,Winchester High School,3440505,3-A-ii,a-sust-i3,Student to instructional support staff ratio,135.9,5,43.4,,2018-19

@@ -1,4 +1,11 @@
 FactoryBot.define do
+  factory :admin_data_value do
+    likert_score { 1.5 }
+    school
+    admin_data_item
+    academic_year
+  end
+
   factory :survey do
     form { 0 }
     academic_year
