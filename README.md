@@ -110,6 +110,7 @@ Bootstrap 5
 
 ## Loading Data
 
+### Loading Survey Item Responses
 SurveyItemResponses is the most important table to understand. SurveyItemResponses is the data that will change year to year and makes up the majority of the database records. Roughly 500,000 SurveyItemResponses per year.
 
 Some notes:
@@ -138,6 +139,20 @@ $ ./scripts/load_survey_responses_on_heroku beta
 
 # on heroku production environment
 $ ./scripts/load_survey_responses_on_heroku dashboard
+```
+
+### Loading Admin Data Values
+Loading admin data is similar to loading survey item responses.  Run the one of the following scripts to load admin data to a selected environment.
+
+```bash
+# locally
+$ bundle exec rake data:load_admin_data
+
+# on heroku staging environment
+$ heroku run:detached -a mciea-beta bundle exec rake data:load_admin_data
+
+# on heroku production environment
+$ heroku run:detached -a mciea-dashboard bundle rake data:load_admin_data
 ```
 
 ## Running tests
