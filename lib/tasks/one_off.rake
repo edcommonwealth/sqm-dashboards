@@ -44,4 +44,12 @@ namespace :one_off do
     measure_4aii = Measure.where(name: 'Overall Performance')[0]
     measure_4aii.update! measure_id: '4A-i'
   end
+
+  desc 'load boston 2018-19 responses'
+  task load_boston_2018_19_responses: :environment do
+    filepath = Rails.root.join('data', 'survey_responses', '2018-19_boston_student_survey_responses.csv')
+    puts "=====================> Loading data from csv at path: #{filepath}"
+    SurveyResponsesDataLoader.load_data filepath: filepath
+    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+  end
 end
