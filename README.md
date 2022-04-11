@@ -141,6 +141,11 @@ $ ./scripts/load_survey_responses_on_heroku beta
 $ ./scripts/load_survey_responses_on_heroku dashboard
 ```
 
+There is also an example one-off task to load a single csv at a time.
+```bash
+bundle exec rake one_off:load_2018_19_student_responses
+```
+
 ### Loading Admin Data Values
 Loading admin data is similar to loading survey item responses.  Run the one of the following scripts to load admin data to a selected environment.
 
