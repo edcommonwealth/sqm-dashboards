@@ -6,7 +6,7 @@ class Measure < ActiveRecord::Base
   has_many :survey_item_responses, through: :survey_items
 
   def none_meet_threshold?(school:, academic_year:)
-    !sufficient_data?(school:, academic_year:)
+    !sufficient_survey_responses?(school:, academic_year:)
   end
 
   def teacher_survey_items
@@ -49,9 +49,10 @@ class Measure < ActiveRecord::Base
     @score ||= Hash.new do |memo|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
+      meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
       lacks_sufficient_data = !meets_student_threshold && !meets_teacher_threshold && !includes_admin_data_items?
 
-      next Score.new(nil, false, false) if lacks_sufficient_data
+      next Score.new(nil, false, false, false) if lacks_sufficient_data
 
       scores = []
       scores << teacher_scales.map { |scale| scale.score(school:, academic_year:) }.average if meets_teacher_threshold
@@ -64,10 +65,10 @@ class Measure < ActiveRecord::Base
       end
       average = scores.flatten.compact.average
 
-      next Score.new(nil, false, false) if average.nan?
+      next Score.new(nil, false, false, false) if average.nan?
 
       memo[[school, academic_year]] =
-        Score.new(average, meets_teacher_threshold, meets_student_threshold)
+        Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
     end
 
     @score[[school, academic_year]]
@@ -105,7 +106,17 @@ class Measure < ActiveRecord::Base
     subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
   end
 
-  def sufficient_data?(school:, academic_year:)
+  def all_admin_data_collected?(school:, academic_year:)
+    total_possible_admin_data_items = scales.map { |scale| scale.admin_data_items.count }.sum
+    total_collected_admin_data_items = scales.map do |scale|
+      scale.admin_data_items.map do |admin_data_item|
+        admin_data_item.admin_data_values.where(school:, academic_year:).count
+      end
+    end.flatten.sum
+    total_possible_admin_data_items == total_collected_admin_data_items
+  end
+
+  def sufficient_survey_responses?(school:, academic_year:)
     sufficient_student_data?(school:, academic_year:) || sufficient_teacher_data?(school:, academic_year:)
   end
 

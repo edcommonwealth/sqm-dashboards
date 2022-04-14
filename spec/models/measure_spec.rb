@@ -5,6 +5,7 @@ RSpec.describe Measure, type: :model do
   let(:scale) { create(:scale, measure:) }
   let(:teacher_scale) { create(:teacher_scale, measure:) }
   let(:student_scale) { create(:student_scale, measure:) }
+  let(:admin_scale) { create(:admin_scale, measure:) }
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
 
@@ -470,6 +471,26 @@ RSpec.describe Measure, type: :model do
         it 'affirms that the result does not meet either threshold' do
           expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be false
           expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
+        end
+      end
+    end
+
+    context 'when the measure includes admin data' do
+      let(:admin_data_item) { create(:admin_data_item, scale: admin_scale) }
+      let(:admin_data_item_2) { create(:admin_data_item, scale: admin_scale) }
+      context 'and the admin data does not meet the sufficiency threshold' do
+        it 'affirms the returned score does not meet the admin data threshold' do
+          expect(measure.score(school:, academic_year:).meets_admin_data_threshold?).to be false
+        end
+      end
+      context 'and the admin data does meet the sufficiency threshold' do
+        before :each do
+          create(:admin_data_value, admin_data_item:, school:, academic_year:)
+          create(:admin_data_value, admin_data_item: admin_data_item_2, school:, academic_year:)
+        end
+
+        it 'affirms the returned score does meet the admin data threshold' do
+          expect(measure.score(school:, academic_year:).meets_admin_data_threshold?).to be true
         end
       end
     end

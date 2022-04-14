@@ -42,7 +42,7 @@ class SubcategoryPresenter
   end
 
   def admin_collection_rate
-    rate = [0, admin_data_item_count]
+    rate = [admin_data_values_count, admin_data_item_count]
     format_a_non_applicable_rate rate
   end
 
@@ -53,6 +53,16 @@ class SubcategoryPresenter
   end
 
   private
+
+  def admin_data_values_count
+    @subcategory.measures.map do |measure|
+      measure.scales.map do |scale|
+        scale.admin_data_items.map do |admin_data_item|
+          admin_data_item.admin_data_values.where(school: @school, academic_year: @academic_year).count
+        end
+      end
+    end.flatten.sum
+  end
 
   def admin_data_item_count
     return AdminDataItem.for_measures(@subcategory.measures).count if @school.is_hs

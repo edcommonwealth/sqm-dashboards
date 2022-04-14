@@ -77,6 +77,9 @@ FactoryBot.define do
     factory :student_scale do
       scale_id { "s-#{rand}" }
     end
+    factory :admin_scale do
+      scale_id { 'a-{rand' }
+    end
   end
 
   factory :survey_item do

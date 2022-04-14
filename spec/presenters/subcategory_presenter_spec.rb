@@ -6,6 +6,10 @@ describe SubcategoryPresenter do
   let(:subcategory) do
     create(:subcategory, name: 'A great subcategory', subcategory_id: 'A', description: 'A great description')
   end
+  let(:measure_of_only_admin_data) { create(:measure, subcategory:) }
+  let(:scale_of_only_admin_data) { create(:scale, measure: measure_of_only_admin_data) }
+  let(:admin_data_item_1) { create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false) }
+  let(:admin_data_item_2) { create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false) }
   let(:subcategory_presenter) do
     measure1 = create(:measure, subcategory:)
     teacher_scale_1 = create(:teacher_scale, measure: measure1)
@@ -104,13 +108,24 @@ describe SubcategoryPresenter do
     context 'and the school is not a high school' do
       context 'and the measure does not include high-school-only admin data items' do
         before do
-          measure_of_only_admin_data = create(:measure, subcategory:)
-          scale_of_only_admin_data = create(:scale, measure: measure_of_only_admin_data)
-          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false)
-          create(:admin_data_item, scale: scale_of_only_admin_data, hs_only_item: false)
+          measure_of_only_admin_data
+          scale_of_only_admin_data
+          admin_data_item_1
+          admin_data_item_2
         end
-        it 'returns the admin collection rate' do
-          expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]
+        context 'and there are no admin data values in the database' do
+          it 'returns the admin collection rate' do
+            expect(subcategory_presenter.admin_collection_rate).to eq [0, 2]
+          end
+        end
+        context 'and there are admin data values present in the database ' do
+          before do
+            create(:admin_data_value, admin_data_item: admin_data_item_1, school:, academic_year:)
+            create(:admin_data_value, admin_data_item: admin_data_item_2, school:, academic_year:)
+          end
+          it 'returns the admin collection rate' do
+            expect(subcategory_presenter.admin_collection_rate).to eq [2, 2]
+          end
         end
       end
 

@@ -37,7 +37,7 @@ class MeasurePresenter
       end
       if @measure.admin_data_items.any?
         array << AdminDataPresenter.new(measure_id: @measure.measure_id,
-                                        admin_data_items: @measure.admin_data_items)
+                                        admin_data_items: @measure.admin_data_items, has_sufficient_data: score_for_measure.meets_admin_data_threshold?)
       end
     end
   end

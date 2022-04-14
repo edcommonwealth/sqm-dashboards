@@ -1,6 +1,6 @@
 class AdminDataPresenter < DataItemPresenter
-  def initialize(measure_id:, admin_data_items:)
-    super(measure_id:, has_sufficient_data: false)
+  def initialize(measure_id:, admin_data_items:, has_sufficient_data:)
+    super(measure_id:, has_sufficient_data:)
     @admin_data_items = admin_data_items
   end
 
