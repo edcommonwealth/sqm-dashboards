@@ -1,6 +1,7 @@
 class Scale < ApplicationRecord
   belongs_to :measure
   has_many :survey_items
+  has_many :survey_item_responses, through: :survey_items
   has_many :admin_data_items
 
   def score(school:, academic_year:)

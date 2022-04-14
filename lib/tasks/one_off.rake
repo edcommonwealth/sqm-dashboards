@@ -52,4 +52,16 @@ namespace :one_off do
     SurveyResponsesDataLoader.load_data filepath: filepath
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
   end
+
+  desc 'list scales that have no survey responses'
+  task list_scales_that_lack_survey_responses: :environment do
+    output = AcademicYear.all.map do |academic_year|
+      Scale.all.map do |scale|
+        [academic_year.range, scale.scale_id, scale.survey_item_responses.where(academic_year:).count]
+      end
+    end
+
+    output = output.map { |year| year.reject { |scale| scale[2] > 0 || scale[1].starts_with?('a-') } }
+    pp output
+  end
 end
