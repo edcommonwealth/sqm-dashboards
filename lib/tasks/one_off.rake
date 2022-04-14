@@ -64,4 +64,25 @@ namespace :one_off do
     output = output.map { |year| year.reject { |scale| scale[2] > 0 || scale[1].starts_with?('a-') } }
     pp output
   end
+
+  desc 'list survey_items that have no survey responses by district'
+  task list_survey_items_that_lack_responses: :environment do
+    output = AcademicYear.all.map do |academic_year|
+      District.all.map do |district|
+        SurveyItem.all.map do |survey_item|
+          [academic_year.range, survey_item.survey_item_id,
+           survey_item.survey_item_responses.joins(:school).where("school.district": district, academic_year:).count, district.name]
+        end
+      end
+    end
+
+    output = output.map do |year|
+      year.map do |district|
+        district.reject do |survey_item|
+          survey_item[2] > 0 || survey_item[1].starts_with?('a-')
+        end
+      end
+    end
+    pp output
+  end
 end
