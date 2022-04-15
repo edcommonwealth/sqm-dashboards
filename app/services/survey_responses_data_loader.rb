@@ -37,7 +37,11 @@ class SurveyResponsesDataLoader
     survey_items.map do |survey_item|
       likert_score = row[survey_item.survey_item_id]
       next if likert_score.nil?
-      next unless likert_score.valid_likert_score?
+
+      unless likert_score.valid_likert_score?
+        puts "Response ID: #{response_id}, Likert score: #{likert_score} rejected" unless likert_score == 'NA'
+        next
+      end
 
       survey_item_response = SurveyItemResponse.where(response_id:, survey_item:).first
       if survey_item_response.present?
