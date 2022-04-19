@@ -8,12 +8,10 @@ class Scale < ApplicationRecord
     @score ||= Hash.new do |memo|
       memo[[school, academic_year]] = begin
         items = []
-        items << student_survey_items(school:, academic_year:)
-        items << teacher_survey_items
+        items << collect_survey_item_average(student_survey_items(school:, academic_year:), school, academic_year)
+        items << collect_survey_item_average(teacher_survey_items, school, academic_year)
 
-        items.flatten.map do |survey_item|
-          survey_item.score(school:, academic_year:)
-        end.average
+        items.remove_zeros.average
       end
     end
     @score[[school, academic_year]]
@@ -27,6 +25,12 @@ class Scale < ApplicationRecord
   }
 
   private
+
+  def collect_survey_item_average(survey_items, school, academic_year)
+    survey_items.map do |survey_item|
+      survey_item.score(school:, academic_year:)
+    end.remove_zeros.average
+  end
 
   def teacher_survey_items
     survey_items.teacher_survey_items

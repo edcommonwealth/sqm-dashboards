@@ -50,20 +50,17 @@ class Measure < ActiveRecord::Base
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
-      lacks_sufficient_data = !meets_student_threshold && !meets_teacher_threshold && !includes_admin_data_items?
+      lacks_sufficient_survey_data = !meets_student_threshold && !meets_teacher_threshold
+      incalculable_score = lacks_sufficient_survey_data && !includes_admin_data_items?
 
-      next Score.new(nil, false, false, false) if lacks_sufficient_data
+      next Score.new(nil, false, false, false) if incalculable_score
 
       scores = []
-      scores << teacher_scales.map { |scale| scale.score(school:, academic_year:) }.average if meets_teacher_threshold
-      scores << student_scales.map { |scale| scale.score(school:, academic_year:) }.average if meets_student_threshold
-      if includes_admin_data_items?
-        scores << admin_data_items.map do |admin_data_item|
-          admin_value = admin_data_item.admin_data_values.where(school:, academic_year:).first
-          admin_value.likert_score if admin_value.present?
-        end
-      end
-      average = scores.flatten.compact.average
+      scores << collect_survey_scale_average(teacher_scales, school, academic_year) if meets_teacher_threshold
+      scores << collect_survey_scale_average(student_scales, school, academic_year) if meets_student_threshold
+      scores << collect_admin_scale_average(admin_data_items, school, academic_year) if includes_admin_data_items?
+
+      average = scores.flatten.compact.remove_zeros.average
 
       next Score.new(nil, false, false, false) if average.nan?
 
@@ -121,6 +118,17 @@ class Measure < ActiveRecord::Base
   end
 
   private
+
+  def collect_survey_scale_average(scales, school, academic_year)
+    scales.map { |scale| scale.score(school:, academic_year:) }.average
+  end
+
+  def collect_admin_scale_average(scales, school, academic_year)
+    scales.map do |admin_data_item|
+      admin_value = admin_data_item.admin_data_values.where(school:, academic_year:).first
+      admin_value.likert_score if admin_value.present?
+    end
+  end
 
   def benchmark(name)
     averages = []
