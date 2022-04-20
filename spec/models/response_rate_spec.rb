@@ -12,6 +12,7 @@ describe ResponseRate, type: :model do
     let(:sufficient_scale_2) { create(:scale, measure: sufficient_measure_2) }
     let(:sufficient_teacher_survey_item) { create(:teacher_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
+    let(:insufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_student_survey_item_2) { create(:student_survey_item, scale: sufficient_scale_2) }
 
     before :each do
@@ -29,7 +30,7 @@ describe ResponseRate, type: :model do
       end
 
       context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
-        it 'returns 100 percent' do
+        it 'returns a response rate equal to the response threshold' do
           expect(StudentResponseRate.new(subcategory:, school:,
                                          academic_year:).rate).to eq 25
         end
@@ -84,6 +85,20 @@ describe ResponseRate, type: :model do
         expect(StudentResponseRate.new(subcategory:, school:, academic_year:).rate).to eq 100
       end
     end
+
+    context 'when there is an imbalance in the response rate of the student items' do
+      context 'and one of the student items has no associated survey item responses' do
+        before do
+          create(:respondent, school:, academic_year:)
+          create(:survey, school:, academic_year:)
+          insufficient_student_survey_item_1
+        end
+        it 'ignores the empty survey item and returns only the average response rate of student survey items with responses' do
+          expect(StudentResponseRate.new(subcategory:, school:,
+                                         academic_year:).rate).to eq 25
+        end
+      end
+    end
   end
 
   describe TeacherResponseRate do
@@ -95,6 +110,7 @@ describe ResponseRate, type: :model do
     let(:sufficient_teacher_survey_item_1) { create(:teacher_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_teacher_survey_item_2) { create(:teacher_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_teacher_survey_item_3) { create(:teacher_survey_item, scale: sufficient_scale_1) }
+    let(:insufficient_teacher_survey_item_4) { create(:teacher_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
 
     before :each do
@@ -147,6 +163,20 @@ describe ResponseRate, type: :model do
       it 'returns 100 percent' do
         expect(TeacherResponseRate.new(subcategory:, school:,
                                        academic_year:).rate).to eq 100
+      end
+    end
+
+    context 'when there is an imbalance in the response rate of the teacher items' do
+      context 'and one of the teacher items has no associated survey item responses' do
+        before do
+          create(:respondent, school:, academic_year:)
+          create(:survey, school:, academic_year:)
+          insufficient_teacher_survey_item_4
+        end
+        it 'ignores the empty survey item and returns only the average response rate of teacher survey items with responses' do
+          expect(TeacherResponseRate.new(subcategory:, school:,
+                                         academic_year:).rate).to eq 25
+        end
       end
     end
   end
