@@ -1,7 +1,6 @@
 class SqmApplicationController < ApplicationController
   protect_from_forgery with: :exception, prepend: true
   before_action :set_schools_and_districts
-  before_action :authenticate_district
 
   private
 
@@ -27,13 +26,5 @@ class SqmApplicationController < ApplicationController
 
   def school_slug
     params[:school_id]
-  end
-
-  def authenticate(username, password)
-    return true if username == 'boston'
-
-    authenticate_or_request_with_http_basic do |u, p|
-      u == username && p == password
-    end
   end
 end
