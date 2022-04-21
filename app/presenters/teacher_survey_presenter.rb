@@ -13,6 +13,8 @@ class TeacherSurveyPresenter < DataItemPresenter
   end
 
   def item_descriptions
+    return ['Items available upon request to MCIEA.'] if @measure_id == '1B-i'
+
     @survey_items.map(&:prompt)
   end
 
