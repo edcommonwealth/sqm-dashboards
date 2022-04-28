@@ -85,4 +85,11 @@ namespace :one_off do
     end
     pp output
   end
+
+  desc 'delete invalid scale'
+  task delete_s_grmi_scale_from_2016_17: :environment do
+    academic_year = AcademicYear.find_by_range '2016-17'
+    survey_items = SurveyItem.where('survey_item_id LIKE ?', 's-grmi%')
+    SurveyItemResponse.joins(:survey_item).where(academic_year:, survey_item: survey_items).delete_all
+  end
 end

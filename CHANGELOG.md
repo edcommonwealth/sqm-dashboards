@@ -36,3 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add historical data
   heroku run bundle exec rake db:seed -a mciea-beta
 - Add student and teacher metadata
+- Change wording of leadership scale
+  bundle exec rake db:seed
+- Delete s-grmi scale
+  bundle exec rake one_off:delete_s_grmi_scale_from_2016_17
