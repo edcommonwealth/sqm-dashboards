@@ -9,7 +9,9 @@ class StudentResponseRate
       survey_items = SurveyItem.includes(%i[scale
                                             measure]).student_survey_items.where("scale.measure": @subcategory.measures)
       survey_items = survey_items.where(on_short_form: true) if survey.form == 'short'
-      survey_items = survey_items.reject { |survey_item| survey_item.survey_item_responses.count == 0 }
+      survey_items = survey_items.reject do |survey_item|
+        survey_item.survey_item_responses.where(school: @school, academic_year: @academic_year).count == 0
+      end
       survey_items.count
     end
   end
