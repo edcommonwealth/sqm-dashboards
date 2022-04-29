@@ -224,6 +224,15 @@ Run the javascript tests
 yarn test
 ```
 
+### Connecting to Heroku git
+
+To add the heroku remote repository for beta run
+`git remote add beta	https://git.heroku.com/mciea-beta.git`
+
+To add the heroku remote repository for production run
+`git remote add dashboard	https://git.heroku.com/mciea-dashboard.git `
+
+
 ## Continuous Integration
 
 Pushing commits to the main branch triggers auto-deployment to the staging environment.
