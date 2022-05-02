@@ -128,7 +128,7 @@ $ bundle exec rake data:load_survey_responses
 $ heroku run:detached -a mciea-beta bundle exec rake data:load_survey_responses
 
 # on heroku production environment
-$ heroku run:detached -a mciea-dashboard bundle rake data:load_survey_responses
+$ heroku run:detached -a mciea-dashboard bundle exec rake data:load_survey_responses
 ```
 
 For convenience, you can use the following script for loading data on Heroku:
@@ -157,7 +157,7 @@ $ bundle exec rake data:load_admin_data
 $ heroku run:detached -a mciea-beta bundle exec rake data:load_admin_data
 
 # on heroku production environment
-$ heroku run:detached -a mciea-dashboard bundle rake data:load_admin_data
+$ heroku run:detached -a mciea-dashboard bundle exec rake data:load_admin_data
 ```
 
 ## Running tests
