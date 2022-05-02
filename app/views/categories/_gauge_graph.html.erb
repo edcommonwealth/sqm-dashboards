@@ -1,5 +1,7 @@
 <div class="d-flex flex-column align-items-center position-relative">
-  <p>Score is : <%=gauge.score  %> </p>
+  <% if ENV["SCORES"].present?  && ENV["SCORES"].upcase == "SHOW" %>
+    <p>Score is : <%=gauge.score  %> </p>
+  <% end %>
 
 <svg
   viewBox="<%= viewbox.x %> <%= viewbox.y %> <%= viewbox.width %> <%= viewbox.height %>"
