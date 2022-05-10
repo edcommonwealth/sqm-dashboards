@@ -47,7 +47,7 @@ namespace :one_off do
 
   desc 'load a single file'
   task load_single_file: :environment do
-    filepath = Rails.root.join('data', 'survey_responses', '2018-19_boston_mattahunt_teacher_survey_responses.csv')
+    filepath = Rails.root.join('data', 'survey_responses', '2016-17_student_survey_responses.csv')
     puts "=====================> Loading data from csv at path: #{filepath}"
     SurveyResponsesDataLoader.load_data filepath: filepath
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
