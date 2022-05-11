@@ -1,0 +1,417 @@
+District,School,DESE ID,Category,Item ID,NonLikert Title,NL_Value,LikertScore,Benchmark,Data Type,Academic Year
+Revere,Seacoast High School,02480520,4-B-ii,a-degr-i1,4-year on-time graduation rate (HS only),22.2,1.11,80,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,4-B-ii,a-degr-i1,4-year on-time graduation rate (HS only),33,1.65,80,%,2017-18
+Somerville,Somerville High School,02740505,4-B-ii,a-degr-i1,4-year on-time graduation rate (HS only),87.9,4.395,80,%,2017-18
+Attleboro,Attleboro High School,00160505,4-B-ii,a-degr-i1,4-year on-time graduation rate (HS only),93.3,4.665,80,%,2017-18
+Revere,Revere High School,02480505,4-B-ii,a-degr-i1,4-year on-time graduation rate (HS only),96.9,4.845,80,%,2017-18
+Winchester,Winchester High School,03440505,4-B-ii,a-degr-i1,4-year on-time graduation rate (HS only),99.3,4.965,80,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,4-B-ii,a-degr-i3,5-year graduation rate (HS only),33,1.552941176,85,%,2017-18
+Revere,Seacoast High School,02480520,4-B-ii,a-degr-i3,5-year graduation rate (HS only),35.1,1.651764706,85,%,2017-18
+Somerville,Somerville High School,02740505,4-B-ii,a-degr-i3,5-year graduation rate (HS only),88.9,4.183529412,85,%,2017-18
+Attleboro,Attleboro High School,00160505,4-B-ii,a-degr-i3,5-year graduation rate (HS only),92,4.329411765,85,%,2017-18
+Revere,Revere High School,02480505,4-B-ii,a-degr-i3,5-year graduation rate (HS only),95.1,4.475294118,85,%,2017-18
+Winchester,Winchester High School,03440505,4-B-ii,a-degr-i3,5-year graduation rate (HS only),98,4.611764706,85,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,3-A-i,a-reso-i1,Average class size,5,5,20,,2017-18
+Revere,Seacoast High School,02480520,3-A-i,a-reso-i1,Average class size,6.7,4.66,20,,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,3-A-i,a-reso-i1,Average class size,13.6,3.28,20,,2017-18
+Somerville,Somerville High School,02740505,3-A-i,a-reso-i1,Average class size,14.5,3.1,20,,2017-18
+Somerville,Arthur D. Healey School,02740075,3-A-i,a-reso-i1,Average class size,15.1,2.98,20,,2017-18
+Winchester,Winchester High School,03440505,3-A-i,a-reso-i1,Average class size,16.2,2.76,20,,2017-18
+Revere,Revere High School,02480505,3-A-i,a-reso-i1,Average class size,16.5,2.7,20,,2017-18
+Revere,Beachmont Elementary School,02480013,3-A-i,a-reso-i1,Average class size,16.7,2.66,20,,2017-18
+Revere,Garfield Middle School,02480057,3-A-i,a-reso-i1,Average class size,18.4,2.32,20,,2017-18
+Revere,Lincoln Elementary School,02480025,3-A-i,a-reso-i1,Average class size,18.4,2.32,20,,2017-18
+Somerville,John F. Kennedy Elementary School,02740083,3-A-i,a-reso-i1,Average class size,18.4,2.32,20,,2017-18
+Winchester,Lynch Elementary School,03440020,3-A-i,a-reso-i1,Average class size,18.6,2.28,20,,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,3-A-i,a-reso-i1,Average class size,18.8,2.24,20,,2017-18
+Winchester,Lincoln Elementary School,02480025,3-A-i,a-reso-i1,Average class size,18.8,2.24,20,,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,3-A-i,a-reso-i1,Average class size,19.2,2.16,20,,2017-18
+Somerville,Benjamin G. Brown School,02740015,3-A-i,a-reso-i1,Average class size,19.3,2.14,20,,2017-18
+Revere,Garfield Elementary School,02480056,3-A-i,a-reso-i1,Average class size,19.4,2.12,20,,2017-18
+Winchester,Muraco Elementary School,03440040,3-A-i,a-reso-i1,Average class size,19.4,2.12,20,,2017-18
+Winchester,Ambrose Elementary School,03440045,3-A-i,a-reso-i1,Average class size,19.5,2.1,20,,2017-18
+Somerville,East Somerville Community School,02740111,3-A-i,a-reso-i1,Average class size,19.8,2.04,20,,2017-18
+Revere,Rumney Marsh Academy,02480014,3-A-i,a-reso-i1,Average class size,19.9,2.02,20,,2017-18
+Somerville,West Somerville Neighborhood School,02740115,3-A-i,a-reso-i1,Average class size,20.2,1.96,20,,2017-18
+Winchester,Vinson-Owen Elementary School,03440025,3-A-i,a-reso-i1,Average class size,20.5,1.9,20,,2017-18
+Revere,Hill Elementary School,02480035,3-A-i,a-reso-i1,Average class size,21.3,1.74,20,,2017-18
+Attleboro,Attleboro High School,00160505,3-A-i,a-reso-i1,Average class size,21.5,1.7,20,,2017-18
+Revere,Susan B. Anthony Middle School,02480305,3-A-i,a-reso-i1,Average class size,22.3,1.54,20,,2017-18
+Revere,Whelan Elementary School,02480003,3-A-i,a-reso-i1,Average class size,22.3,1.54,20,,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,3-A-i,a-reso-i1,Average class size,22.8,1.44,20,,2017-18
+Revere,Paul Revere Elementary School,02480050,3-A-i,a-reso-i1,Average class size,22.8,1.44,20,,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,3-A-i,a-reso-i1,Average class size,23,1.4,20,,2017-18
+Winchester,McCall Middle School,03440305,3-A-i,a-reso-i1,Average class size,23,1.4,20,,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,3-A-i,a-reso-i1,Average class size,23.3,1.34,20,,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,3-A-i,a-reso-i1,Average class size,24.3,1.14,20,,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,3-A-i,a-reso-i1,Average class size,25,1,20,,2017-18
+Attleboro,Wamsutta Middle School,00160320,3-A-i,a-reso-i1,Average class size,25.2,0.96,20,,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,3-A-i,a-reso-i1,Average class size,26,0.8,20,,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,3-A-i,a-reso-i1,Average class size,27.4,0.52,20,,2017-18
+Somerville,Next Wave/Full Circle,02740510,2-C-i,a-vale-i2,Average daily attendance,71,3.155555556,90,%,2017-18
+Revere,Seacoast High School,02480520,2-C-i,a-vale-i2,Average daily attendance,73.7,3.275555556,90,%,2017-18
+Revere,Garfield Elementary School,02480056,2-C-i,a-vale-i2,Average daily attendance,90,4,90,%,2017-18
+Revere,Lincoln Elementary School,02480025,2-C-i,a-vale-i2,Average daily attendance,90,4,90,%,2017-18
+Somerville,Somerville High School,02740505,2-C-i,a-vale-i2,Average daily attendance,92.3,4.102222222,90,%,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,2-C-i,a-vale-i2,Average daily attendance,92.3,4.102222222,90,%,2017-18
+Attleboro,Attleboro High School,00160505,2-C-i,a-vale-i2,Average daily attendance,93.5,4.155555556,90,%,2017-18
+Revere,Rumney Marsh Academy,02480014,2-C-i,a-vale-i2,Average daily attendance,94.1,4.182222222,90,%,2017-18
+Revere,Revere High School,02480505,2-C-i,a-vale-i2,Average daily attendance,94.3,4.191111111,90,%,2017-18
+Somerville,West Somerville Neighborhood School,02740115,2-C-i,a-vale-i2,Average daily attendance,94.6,4.204444444,90,%,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,2-C-i,a-vale-i2,Average daily attendance,95,4.222222222,90,%,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,2-C-i,a-vale-i2,Average daily attendance,95,4.222222222,90,%,2017-18
+Somerville,Arthur D. Healey School,02740075,2-C-i,a-vale-i2,Average daily attendance,95,4.222222222,90,%,2017-18
+Somerville,John F. Kennedy Elementary School,02740083,2-C-i,a-vale-i2,Average daily attendance,95,4.222222222,90,%,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,2-C-i,a-vale-i2,Average daily attendance,95.1,4.226666667,90,%,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,2-C-i,a-vale-i2,Average daily attendance,95.2,4.231111111,90,%,2017-18
+Revere,Whelan Elementary School,02480003,2-C-i,a-vale-i2,Average daily attendance,95.3,4.235555556,90,%,2017-18
+Revere,Garfield Middle School,02480057,2-C-i,a-vale-i2,Average daily attendance,95.4,4.24,90,%,2017-18
+Winchester,Winchester High School,03440505,2-C-i,a-vale-i2,Average daily attendance,95.4,4.24,90,%,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,2-C-i,a-vale-i2,Average daily attendance,95.5,4.244444444,90,%,2017-18
+Somerville,Benjamin G. Brown School,02740015,2-C-i,a-vale-i2,Average daily attendance,95.5,4.244444444,90,%,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,2-C-i,a-vale-i2,Average daily attendance,95.6,4.248888889,90,%,2017-18
+Attleboro,Wamsutta Middle School,00160320,2-C-i,a-vale-i2,Average daily attendance,95.6,4.248888889,90,%,2017-18
+Revere,Susan B. Anthony Middle School,02480305,2-C-i,a-vale-i2,Average daily attendance,95.6,4.248888889,90,%,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,2-C-i,a-vale-i2,Average daily attendance,95.7,4.253333333,90,%,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,2-C-i,a-vale-i2,Average daily attendance,96,4.266666667,90,%,2017-18
+Winchester,Muraco Elementary School,03440040,2-C-i,a-vale-i2,Average daily attendance,96,4.266666667,90,%,2017-18
+Somerville,East Somerville Community School,02740111,2-C-i,a-vale-i2,Average daily attendance,96.1,4.271111111,90,%,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,2-C-i,a-vale-i2,Average daily attendance,96.3,4.28,90,%,2017-18
+Winchester,Lincoln Elementary School,02480025,2-C-i,a-vale-i2,Average daily attendance,96.3,4.28,90,%,2017-18
+Winchester,Lynch Elementary School,03440020,2-C-i,a-vale-i2,Average daily attendance,96.4,4.284444444,90,%,2017-18
+Winchester,Vinson-Owen Elementary School,03440025,2-C-i,a-vale-i2,Average daily attendance,96.4,4.284444444,90,%,2017-18
+Winchester,Ambrose Elementary School,03440045,2-C-i,a-vale-i2,Average daily attendance,96.5,4.288888889,90,%,2017-18
+Winchester,McCall Middle School,03440305,2-C-i,a-vale-i2,Average daily attendance,96.7,4.297777778,90,%,2017-18
+Revere,Hill Elementary School,02480035,2-C-i,a-vale-i2,Average daily attendance,100,4.444444444,90,%,2017-18
+Revere,Paul Revere Elementary School,02480050,2-C-i,a-vale-i1,Chronic absence rate,1.06,5.576,10,%,2017-18
+Revere,Beachmont Elementary School,02480013,2-C-i,a-vale-i1,Chronic absence rate,1.1,5.56,10,%,2017-18
+Winchester,Ambrose Elementary School,03440045,2-C-i,a-vale-i1,Chronic absence rate,1.6,5.36,10,%,2017-18
+Revere,Hill Elementary School,02480035,2-C-i,a-vale-i1,Chronic absence rate,1.69,5.324,10,%,2017-18
+Revere,Susan B. Anthony Middle School,02480305,2-C-i,a-vale-i1,Chronic absence rate,2.1,5.16,10,%,2017-18
+Revere,Whelan Elementary School,02480003,2-C-i,a-vale-i1,Chronic absence rate,2.12,5.152,10,%,2017-18
+Revere,Lincoln Elementary School,02480025,2-C-i,a-vale-i1,Chronic absence rate,2.73,4.908,10,%,2017-18
+Winchester,Lincoln Elementary School,02480025,2-C-i,a-vale-i1,Chronic absence rate,2.9,4.84,10,%,2017-18
+Revere,Garfield Elementary School,02480056,2-C-i,a-vale-i1,Chronic absence rate,3,4.8,10,%,2017-18
+Winchester,Vinson-Owen Elementary School,03440025,2-C-i,a-vale-i1,Chronic absence rate,3.3,4.68,10,%,2017-18
+Revere,Garfield Middle School,02480057,2-C-i,a-vale-i1,Chronic absence rate,3.4,4.64,10,%,2017-18
+Winchester,McCall Middle School,03440305,2-C-i,a-vale-i1,Chronic absence rate,3.4,4.64,10,%,2017-18
+Winchester,Lynch Elementary School,03440020,2-C-i,a-vale-i1,Chronic absence rate,4.4,4.24,10,%,2017-18
+Winchester,Muraco Elementary School,03440040,2-C-i,a-vale-i1,Chronic absence rate,5.1,3.96,10,%,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,2-C-i,a-vale-i1,Chronic absence rate,5.6,3.76,10,%,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,2-C-i,a-vale-i1,Chronic absence rate,5.7,3.72,10,%,2017-18
+Revere,Revere High School,02480505,2-C-i,a-vale-i1,Chronic absence rate,6.1,3.56,10,%,2017-18
+Somerville,Benjamin G. Brown School,02740015,2-C-i,a-vale-i1,Chronic absence rate,6.7,3.32,10,%,2017-18
+Attleboro,Wamsutta Middle School,00160320,2-C-i,a-vale-i1,Chronic absence rate,7.8,2.88,10,%,2017-18
+Somerville,East Somerville Community School,02740111,2-C-i,a-vale-i1,Chronic absence rate,8,2.8,10,%,2017-18
+Somerville,John F. Kennedy Elementary School,02740083,2-C-i,a-vale-i1,Chronic absence rate,8.2,2.72,10,%,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,2-C-i,a-vale-i1,Chronic absence rate,9.4,2.24,10,%,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,2-C-i,a-vale-i1,Chronic absence rate,9.6,2.16,10,%,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,2-C-i,a-vale-i1,Chronic absence rate,9.6,2.16,10,%,2017-18
+Winchester,Winchester High School,03440505,2-C-i,a-vale-i1,Chronic absence rate,9.7,2.12,10,%,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,2-C-i,a-vale-i1,Chronic absence rate,11.5,1.4,10,%,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,2-C-i,a-vale-i1,Chronic absence rate,11.8,1.28,10,%,2017-18
+Somerville,Arthur D. Healey School,02740075,2-C-i,a-vale-i1,Chronic absence rate,12.3,1.08,10,%,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,2-C-i,a-vale-i1,Chronic absence rate,12.5,1,10,%,2017-18
+Somerville,West Somerville Neighborhood School,02740115,2-C-i,a-vale-i1,Chronic absence rate,13.8,0.48,10,%,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,2-C-i,a-vale-i1,Chronic absence rate,15.5,-0.2,10,%,2017-18
+Attleboro,Attleboro High School,00160505,2-C-i,a-vale-i1,Chronic absence rate,17.1,-0.84,10,%,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,2-C-i,a-vale-i1,Chronic absence rate,24.7,-3.88,10,%,2017-18
+Somerville,Somerville High School,02740505,2-C-i,a-vale-i1,Chronic absence rate,25.3,-4.12,10,%,2017-18
+Revere,Seacoast High School,02480520,2-C-i,a-vale-i1,Chronic absence rate,52.4,-14.96,10,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,2-C-i,a-vale-i1,Chronic absence rate,78,-25.2,10,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,4-D-i,a-cgpr-i1,College enrollment rate (HS only),13,0.7926829268,65.6,%,2017-18
+Somerville,Somerville High School,02740505,4-D-i,a-cgpr-i1,College enrollment rate (HS only),57,3.475609756,65.6,%,2017-18
+Revere,Revere High School,02480505,4-D-i,a-cgpr-i1,College enrollment rate (HS only),74,4.512195122,65.6,%,2017-18
+Winchester,Winchester High School,03440505,4-D-i,a-cgpr-i1,College enrollment rate (HS only),89.1,5.432926829,65.6,%,2017-18
+Attleboro,Attleboro High School,00160505,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.2,0.4,2,hours,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.8,1.6,2,hours,2017-18
+Somerville,Arthur D. Healey School,02740075,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.8,1.6,2,hours,2017-18
+Somerville,West Somerville Neighborhood School,02740115,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.8,1.6,2,hours,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.8,1.6,2,hours,2017-18
+Somerville,East Somerville Community School,02740111,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.8,1.6,2,hours,2017-18
+Somerville,Benjamin G. Brown School,02740015,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.8,1.6,2,hours,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.8,1.6,2,hours,2017-18
+Winchester,Ambrose Elementary School,03440045,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.9,1.8,2,hours,2017-18
+Winchester,Lincoln Elementary School,02480025,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.9,1.8,2,hours,2017-18
+Winchester,Lynch Elementary School,03440020,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.9,1.8,2,hours,2017-18
+Winchester,Muraco Elementary School,03440040,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.9,1.8,2,hours,2017-18
+Winchester,Vinson-Owen Elementary School,03440025,5-C-i,a-picp-i1,Hours of arts instruction per student per week,0.9,1.8,2,hours,2017-18
+Somerville,Next Wave/Full Circle,02740510,5-C-i,a-picp-i1,Hours of arts instruction per student per week,1,2,2,hours,2017-18
+Revere,Garfield Elementary School,02480056,5-C-i,a-picp-i1,Hours of arts instruction per student per week,1.2,2.4,2,hours,2017-18
+Revere,Beachmont Elementary School,02480013,5-C-i,a-picp-i1,Hours of arts instruction per student per week,1.3,2.6,2,hours,2017-18
+Revere,Whelan Elementary School,02480003,5-C-i,a-picp-i1,Hours of arts instruction per student per week,1.5,3,2,hours,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2,4,2,hours,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2,4,2,hours,2017-18
+Revere,Garfield Middle School,02480057,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2,4,2,hours,2017-18
+Revere,Rumney Marsh Academy,02480014,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2,4,2,hours,2017-18
+Revere,Hill Elementary School,02480035,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2,4,2,hours,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2.3,4.6,2,hours,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2.5,5,2,hours,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2.5,5,2,hours,2017-18
+Attleboro,Wamsutta Middle School,00160320,5-D-ii,a-picp-i1,Hours of arts instruction per student per week,2.5,5,2,hours,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2.5,5,2,hours,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,5-C-i,a-picp-i1,Hours of arts instruction per student per week,2.5,5,2,hours,2017-18
+Revere,Susan B. Anthony Middle School,02480305,5-C-i,a-picp-i1,Hours of arts instruction per student per week,3,6,2,hours,2017-18
+Revere,Paul Revere Elementary School,02480050,5-C-i,a-picp-i1,Hours of arts instruction per student per week,3.3,6.6,2,hours,2017-18
+Revere,Seacoast High School,02480520,5-C-i,a-picp-i1,Hours of arts instruction per student per week,5,10,2,hours,2017-18
+Revere,Lincoln Elementary School,02480025,5-C-i,a-picp-i1,Hours of arts instruction per student per week,5,10,2,hours,2017-18
+Revere,Revere High School,02480505,5-C-i,a-picp-i1,Hours of arts instruction per student per week,6.66,13.32,2,hours,2017-18
+Somerville,Next Wave/Full Circle,02740510,5-D-ii,a-phya-i1,Medical staff to student ratio,67,5.642666667,750,,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,5-D-ii,a-phya-i1,Medical staff to student ratio,216,4.848,750,,2017-18
+Somerville,John F. Kennedy Elementary School,02740083,5-D-ii,a-phya-i1,Medical staff to student ratio,228,4.784,750,,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,5-D-ii,a-phya-i1,Medical staff to student ratio,229.5,4.776,750,,2017-18
+Somerville,Benjamin G. Brown School,02740015,5-D-ii,a-phya-i1,Medical staff to student ratio,231,4.768,750,,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,5-D-ii,a-phya-i1,Medical staff to student ratio,292,4.442666667,750,,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,5-D-ii,a-phya-i1,Medical staff to student ratio,297,4.416,750,,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,5-D-ii,a-phya-i1,Medical staff to student ratio,314,4.325333333,750,,2017-18
+Somerville,West Somerville Neighborhood School,02740115,5-D-ii,a-phya-i1,Medical staff to student ratio,371,4.021333333,750,,2017-18
+Winchester,Muraco Elementary School,03440040,5-D-ii,a-phya-i1,Medical staff to student ratio,381,3.968,750,,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,5-D-ii,a-phya-i1,Medical staff to student ratio,384,3.952,750,,2017-18
+Winchester,Lincoln Elementary School,02480025,5-D-ii,a-phya-i1,Medical staff to student ratio,403,3.850666667,750,,2017-18
+Revere,Seacoast High School,02480520,5-D-ii,a-phya-i1,Medical staff to student ratio,410,3.813333333,750,,2017-18
+Winchester,Ambrose Elementary School,03440045,5-D-ii,a-phya-i1,Medical staff to student ratio,421,3.754666667,750,,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,5-D-ii,a-phya-i1,Medical staff to student ratio,429,3.712,750,,2017-18
+Somerville,Arthur D. Healey School,02740075,5-D-ii,a-phya-i1,Medical staff to student ratio,451,3.594666667,750,,2017-18
+Winchester,Vinson-Owen Elementary School,03440025,5-D-ii,a-phya-i1,Medical staff to student ratio,455,3.573333333,750,,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,5-D-ii,a-phya-i1,Medical staff to student ratio,461,3.541333333,750,,2017-18
+Revere,Beachmont Elementary School,02480013,5-D-ii,a-phya-i1,Medical staff to student ratio,467.5,3.506666667,750,,2017-18
+Revere,Paul Revere Elementary School,02480050,5-D-ii,a-phya-i1,Medical staff to student ratio,472,3.482666667,750,,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,5-D-ii,a-phya-i1,Medical staff to student ratio,477,3.456,750,,2017-18
+Winchester,Lynch Elementary School,03440020,5-D-ii,a-phya-i1,Medical staff to student ratio,480,3.44,750,,2017-18
+Revere,Garfield Middle School,02480057,5-D-ii,a-phya-i1,Medical staff to student ratio,538,3.130666667,750,,2017-18
+Winchester,McCall Middle School,03440305,5-D-ii,a-phya-i1,Medical staff to student ratio,555,3.04,750,,2017-18
+Attleboro,Wamsutta Middle School,00160320,5-D-ii,a-phya-i1,Medical staff to student ratio,569,2.965333333,750,,2017-18
+Revere,Susan B. Anthony Middle School,02480305,5-D-ii,a-phya-i1,Medical staff to student ratio,570,2.96,750,,2017-18
+Revere,Rumney Marsh Academy,02480014,5-D-ii,a-phya-i1,Medical staff to student ratio,597,2.816,750,,2017-18
+Somerville,Somerville High School,02740505,5-D-ii,a-phya-i1,Medical staff to student ratio,607.5,2.76,750,,2017-18
+Attleboro,Attleboro High School,00160505,5-D-ii,a-phya-i1,Medical staff to student ratio,646.9,2.549866667,750,,2017-18
+Revere,Revere High School,02480505,5-D-ii,a-phya-i1,Medical staff to student ratio,663.7,2.460266667,750,,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,5-D-ii,a-phya-i1,Medical staff to student ratio,678,2.384,750,,2017-18
+Winchester,Winchester High School,03440505,5-D-ii,a-phya-i1,Medical staff to student ratio,688,2.330666667,750,,2017-18
+Revere,Lincoln Elementary School,02480025,5-D-ii,a-phya-i1,Medical staff to student ratio,695,2.293333333,750,,2017-18
+Revere,Hill Elementary School,02480035,5-D-ii,a-phya-i1,Medical staff to student ratio,712,2.202666667,750,,2017-18
+Somerville,East Somerville Community School,02740111,5-D-ii,a-phya-i1,Medical staff to student ratio,720,2.16,750,,2017-18
+Revere,Whelan Elementary School,02480003,5-D-ii,a-phya-i1,Medical staff to student ratio,753,1.984,750,,2017-18
+Revere,Garfield Elementary School,02480056,5-D-ii,a-phya-i1,Medical staff to student ratio,768,1.904,750,,2017-18
+Revere,Revere High School,02480505,3-B-i,a-curv-i3,Percent AP test takers scoring 3 or higher (HS only),48,9.6,20,%,2017-18
+Somerville,Somerville High School,02740505,3-B-i,a-curv-i3,Percent AP test takers scoring 3 or higher (HS only),60,12,20,%,2017-18
+Somerville,Somerville High School,02740505,3-B-i,a-curv-i1,Percent graduates completing MassCORE (HS only),56.7,2.52,90,%,2017-18
+Winchester,Winchester High School,03440505,3-B-i,a-curv-i1,Percent graduates completing MassCORE (HS only),89,3.955555556,90,%,2017-18
+Revere,Revere High School,02480505,3-B-i,a-curv-i1,Percent graduates completing MassCORE (HS only),100,4.444444444,90,%,2017-18
+Revere,Seacoast High School,02480520,3-B-i,a-curv-i1,Percent graduates completing MassCORE (HS only),100,4.444444444,90,%,2017-18
+Revere,Revere High School,02480505,3-B-i,a-curv-i2,Percent juniors and seniors enrolled in one AP (HS only),16.3,2.173333333,30,%,2017-18
+Somerville,Somerville High School,02740505,3-B-i,a-curv-i2,Percent juniors and seniors enrolled in one AP (HS only),44,5.866666667,30,%,2017-18
+Winchester,Winchester High School,03440505,4-D-ii,a-cppm-i1,Percent positive work placement (HS only),10,0.4705882353,85,%,2017-18
+Somerville,Somerville High School,02740505,4-D-ii,a-cppm-i1,Percent positive work placement (HS only),98,4.611764706,85,%,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),70,3.294117647,85,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),72,3.388235294,85,%,2017-18
+Somerville,East Somerville Community School,02740111,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),73,3.435294118,85,%,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),80,3.764705882,85,%,2017-18
+Somerville,John F. Kennedy Elementary School,02740083,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),80.5,3.788235294,85,%,2017-18
+Somerville,Somerville High School,02740505,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),81.7,3.844705882,85,%,2017-18
+Somerville,Arthur D. Healey School,02740075,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),83.3,3.92,85,%,2017-18
+Somerville,West Somerville Neighborhood School,02740115,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),83.3,3.92,85,%,2017-18
+Somerville,Benjamin G. Brown School,02740015,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),85,4,85,%,2017-18
+Revere,Rumney Marsh Academy,02480014,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),90,4.235294118,85,%,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),90.7,4.268235294,85,%,2017-18
+Winchester,McCall Middle School,03440305,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),92.6,4.357647059,85,%,2017-18
+Revere,Seacoast High School,02480520,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),93,4.376470588,85,%,2017-18
+Revere,Revere High School,02480505,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),95,4.470588235,85,%,2017-18
+Revere,Lincoln Elementary School,02480025,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),95,4.470588235,85,%,2017-18
+Revere,Garfield Middle School,02480057,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),96,4.517647059,85,%,2017-18
+Winchester,Ambrose Elementary School,03440045,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),97,4.564705882,85,%,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),97.2,4.574117647,85,%,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),97.6,4.592941176,85,%,2017-18
+Revere,Susan B. Anthony Middle School,02480305,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),98,4.611764706,85,%,2017-18
+Revere,Beachmont Elementary School,02480013,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),98,4.611764706,85,%,2017-18
+Revere,Paul Revere Elementary School,02480050,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),98,4.611764706,85,%,2017-18
+Attleboro,Attleboro High School,00160505,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Attleboro,Wamsutta Middle School,00160320,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Revere,Garfield Elementary School,02480056,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Revere,Hill Elementary School,02480035,1-B-i,a-pcom-i1,Percent teacher returning (excluding retirement),100,4.705882353,85,%,2017-18
+Revere,Whelan Elementary School,02480003,1-A-i,a-exp-i2,Percentage teachers National Board certified,1.6,0.64,10,%,2017-18
+Revere,Rumney Marsh Academy,02480014,1-A-i,a-exp-i2,Percentage teachers National Board certified,1.7,0.68,10,%,2017-18
+Revere,Garfield Middle School,02480057,1-A-i,a-exp-i2,Percentage teachers National Board certified,2,0.8,10,%,2017-18
+Revere,Susan B. Anthony Middle School,02480305,1-A-i,a-exp-i2,Percentage teachers National Board certified,2,0.8,10,%,2017-18
+Revere,Paul Revere Elementary School,02480050,1-A-i,a-exp-i2,Percentage teachers National Board certified,2.2,0.88,10,%,2017-18
+Revere,Revere High School,02480505,1-A-i,a-exp-i2,Percentage teachers National Board certified,2.7,1.08,10,%,2017-18
+Revere,Hill Elementary School,02480035,1-A-i,a-exp-i2,Percentage teachers National Board certified,4,1.6,10,%,2017-18
+Revere,Seacoast High School,02480520,1-A-i,a-exp-i2,Percentage teachers National Board certified,12,4.8,10,%,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,95,4,95,%,2017-18
+Somerville,Arthur D. Healey School,02740075,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,97,4.084210526,95,%,2017-18
+Revere,Revere High School,02480505,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,97.7,4.113684211,95,%,2017-18
+Attleboro,Attleboro High School,00160505,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,97.8,4.117894737,95,%,2017-18
+Somerville,Somerville High School,02740505,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,98,4.126315789,95,%,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,98,4.126315789,95,%,2017-18
+Somerville,East Somerville Community School,02740111,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,98,4.126315789,95,%,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Attleboro,Wamsutta Middle School,00160320,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Seacoast High School,02480520,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Garfield Middle School,02480057,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Rumney Marsh Academy,02480014,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Susan B. Anthony Middle School,02480305,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Whelan Elementary School,02480003,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Beachmont Elementary School,02480013,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Garfield Elementary School,02480056,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Hill Elementary School,02480035,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Lincoln Elementary School,02480025,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Paul Revere Elementary School,02480050,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Somerville,John F. Kennedy Elementary School,02740083,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Somerville,West Somerville Neighborhood School,02740115,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Somerville,Benjamin G. Brown School,02740015,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Winchester,Winchester High School,03440505,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Winchester,McCall Middle School,03440305,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Winchester,Ambrose Elementary School,03440045,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Winchester,Lincoln Elementary School,02480025,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Winchester,Lynch Elementary School,03440020,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Winchester,Muraco Elementary School,03440040,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Winchester,Vinson-Owen Elementary School,03440025,1-A-i,a-exp-i3,Percentage teachers teaching in area of licensure,100,4.210526316,95,%,2017-18
+Revere,Seacoast High School,02480520,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,43,2.15,80,%,2017-18
+Revere,Garfield Middle School,02480057,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,45,2.25,80,%,2017-18
+Somerville,Arthur D. Healey School,02740075,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,45.9,2.295,80,%,2017-18
+Revere,Rumney Marsh Academy,02480014,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,46,2.3,80,%,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,48.3,2.415,80,%,2017-18
+Somerville,East Somerville Community School,02740111,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,51,2.55,80,%,2017-18
+Revere,Paul Revere Elementary School,02480050,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,57,2.85,80,%,2017-18
+Somerville,John F. Kennedy Elementary School,02740083,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,59.4,2.97,80,%,2017-18
+Revere,Beachmont Elementary School,02480013,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,62.5,3.125,80,%,2017-18
+Revere,Susan B. Anthony Middle School,02480305,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,63,3.15,80,%,2017-18
+Attleboro,Attleboro High School,00160505,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,63.3,3.165,80,%,2017-18
+Somerville,Somerville High School,02740505,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,63.9,3.195,80,%,2017-18
+Revere,Lincoln Elementary School,02480025,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,64,3.2,80,%,2017-18
+Revere,Revere High School,02480505,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,66,3.3,80,%,2017-18
+Somerville,West Somerville Neighborhood School,02740115,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,69.6,3.48,80,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,70,3.5,80,%,2017-18
+Revere,Whelan Elementary School,02480003,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,71,3.55,80,%,2017-18
+Revere,Garfield Elementary School,02480056,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,71,3.55,80,%,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,71.4,3.57,80,%,2017-18
+Somerville,Benjamin G. Brown School,02740015,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,72,3.6,80,%,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,72.5,3.625,80,%,2017-18
+Revere,Hill Elementary School,02480035,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,73,3.65,80,%,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,75,3.75,80,%,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,75.6,3.78,80,%,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,76.3,3.815,80,%,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,77.8,3.89,80,%,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,80,4,80,%,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,82.6,4.13,80,%,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,86.2,4.31,80,%,2017-18
+Attleboro,Wamsutta Middle School,00160320,1-A-i,a-exp-i1,Percentage teachers with 5+ years of experience,91.2,4.56,80,%,2017-18
+Somerville,Next Wave/Full Circle,02740510,3-A-ii,a-sust-i4,Student to art teacher ratio,134,4.928,500,,2017-18
+Attleboro,Attleboro High School,00160505,3-A-ii,a-sust-i4,Student to art teacher ratio,164.9,4.6808,500,,2017-18
+Revere,Susan B. Anthony Middle School,02480305,3-A-ii,a-sust-i4,Student to art teacher ratio,175.4,4.5968,500,,2017-18
+Revere,Beachmont Elementary School,02480013,3-A-ii,a-sust-i4,Student to art teacher ratio,187,4.504,500,,2017-18
+Attleboro,Wamsutta Middle School,00160320,3-A-ii,a-sust-i4,Student to art teacher ratio,189.7,4.4824,500,,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,3-A-ii,a-sust-i4,Student to art teacher ratio,192,4.464,500,,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,3-A-ii,a-sust-i4,Student to art teacher ratio,198,4.416,500,,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,3-A-ii,a-sust-i4,Student to art teacher ratio,214.5,4.284,500,,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,3-A-ii,a-sust-i4,Student to art teacher ratio,226,4.192,500,,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,3-A-ii,a-sust-i4,Student to art teacher ratio,230.5,4.156,500,,2017-18
+Revere,Paul Revere Elementary School,02480050,3-A-ii,a-sust-i4,Student to art teacher ratio,236,4.112,500,,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,3-A-ii,a-sust-i4,Student to art teacher ratio,238.5,4.092,500,,2017-18
+Revere,Garfield Middle School,02480057,3-A-ii,a-sust-i4,Student to art teacher ratio,269,3.848,500,,2017-18
+Revere,Rumney Marsh Academy,02480014,3-A-ii,a-sust-i4,Student to art teacher ratio,298.5,3.612,500,,2017-18
+Somerville,Somerville High School,02740505,3-A-ii,a-sust-i4,Student to art teacher ratio,303.8,3.5696,500,,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,3-A-ii,a-sust-i4,Student to art teacher ratio,324,3.408,500,,2017-18
+Winchester,Winchester High School,03440505,3-A-ii,a-sust-i4,Student to art teacher ratio,344,3.248,500,,2017-18
+Revere,Lincoln Elementary School,02480025,3-A-ii,a-sust-i4,Student to art teacher ratio,347.5,3.22,500,,2017-18
+Revere,Hill Elementary School,02480035,3-A-ii,a-sust-i4,Student to art teacher ratio,356,3.152,500,,2017-18
+Winchester,McCall Middle School,03440305,3-A-ii,a-sust-i4,Student to art teacher ratio,370,3.04,500,,2017-18
+Revere,Whelan Elementary School,02480003,3-A-ii,a-sust-i4,Student to art teacher ratio,376.5,2.988,500,,2017-18
+Winchester,Muraco Elementary School,03440040,3-A-ii,a-sust-i4,Student to art teacher ratio,381,2.952,500,,2017-18
+Revere,Garfield Elementary School,02480056,3-A-ii,a-sust-i4,Student to art teacher ratio,384,2.928,500,,2017-18
+Winchester,Lincoln Elementary School,02480025,3-A-ii,a-sust-i4,Student to art teacher ratio,403,2.776,500,,2017-18
+Winchester,Ambrose Elementary School,03440045,3-A-ii,a-sust-i4,Student to art teacher ratio,421,2.632,500,,2017-18
+Somerville,Arthur D. Healey School,02740075,3-A-ii,a-sust-i4,Student to art teacher ratio,451,2.392,500,,2017-18
+Winchester,Vinson-Owen Elementary School,03440025,3-A-ii,a-sust-i4,Student to art teacher ratio,455,2.36,500,,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,3-A-ii,a-sust-i4,Student to art teacher ratio,459,2.328,500,,2017-18
+Revere,Revere High School,02480505,3-A-ii,a-sust-i4,Student to art teacher ratio,459.5,2.324,500,,2017-18
+Somerville,Benjamin G. Brown School,02740015,3-A-ii,a-sust-i4,Student to art teacher ratio,462,2.304,500,,2017-18
+Somerville,East Somerville Community School,02740111,3-A-ii,a-sust-i4,Student to art teacher ratio,480,2.16,500,,2017-18
+Winchester,Lynch Elementary School,03440020,3-A-ii,a-sust-i4,Student to art teacher ratio,480,2.16,500,,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,3-A-ii,a-sust-i4,Student to art teacher ratio,486.7,2.1064,500,,2017-18
+Somerville,West Somerville Neighborhood School,02740115,3-A-ii,a-sust-i4,Student to art teacher ratio,494.7,2.0424,500,,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,3-A-ii,a-sust-i4,Student to art teacher ratio,628,0.976,500,,2017-18
+Revere,Seacoast High School,02480520,3-A-ii,a-sust-i4,Student to art teacher ratio,820,-0.56,500,,2017-18
+Revere,Seacoast High School,02480520,3-B-iII,a-cocu-i1,Student to co-curricular activities ratio (HS only),5.5,5.614035088,57,,2017-18
+Somerville,Somerville High School,02740505,3-B-iII,a-cocu-i1,Student to co-curricular activities ratio (HS only),14.6,4.975438596,57,,2017-18
+Revere,Revere High School,02480505,3-B-iII,a-cocu-i1,Student to co-curricular activities ratio (HS only),36.9,3.410526316,57,,2017-18
+Attleboro,Attleboro High School,00160505,3-B-iII,a-cocu-i1,Student to co-curricular activities ratio (HS only),56.1,2.063157895,57,,2017-18
+Somerville,Next Wave/Full Circle,02740510,3-A-ii,a-sust-i1,Student to guidance counselor ratio,22.3,5.6432,250,,2017-18
+Revere,Seacoast High School,02480520,3-A-ii,a-sust-i1,Student to guidance counselor ratio,27.3,5.5632,250,,2017-18
+Somerville,Arthur D. Healey School,02740075,3-A-ii,a-sust-i1,Student to guidance counselor ratio,90.2,4.5568,250,,2017-18
+Somerville,West Somerville Neighborhood School,02740115,3-A-ii,a-sust-i1,Student to guidance counselor ratio,92.8,4.5152,250,,2017-18
+Somerville,Somerville High School,02740505,3-A-ii,a-sust-i1,Student to guidance counselor ratio,121.5,4.056,250,,2017-18
+Somerville,East Somerville Community School,02740111,3-A-ii,a-sust-i1,Student to guidance counselor ratio,130.9,3.9056,250,,2017-18
+Winchester,McCall Middle School,03440305,3-A-ii,a-sust-i1,Student to guidance counselor ratio,139,3.776,250,,2017-18
+Revere,Revere High School,02480505,3-A-ii,a-sust-i1,Student to guidance counselor ratio,142.2,3.7248,250,,2017-18
+Winchester,Winchester High School,03440505,3-A-ii,a-sust-i1,Student to guidance counselor ratio,153,3.552,250,,2017-18
+Revere,Garfield Middle School,02480057,3-A-ii,a-sust-i1,Student to guidance counselor ratio,153.7,3.5408,250,,2017-18
+Revere,Susan B. Anthony Middle School,02480305,3-A-ii,a-sust-i1,Student to guidance counselor ratio,190,2.96,250,,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,3-A-ii,a-sust-i1,Student to guidance counselor ratio,192,2.928,250,,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,3-A-ii,a-sust-i1,Student to guidance counselor ratio,196.3,2.8592,250,,2017-18
+Revere,Rumney Marsh Academy,02480014,3-A-ii,a-sust-i1,Student to guidance counselor ratio,199,2.816,250,,2017-18
+Winchester,Ambrose Elementary School,03440045,3-A-ii,a-sust-i1,Student to guidance counselor ratio,210,2.64,250,,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,3-A-ii,a-sust-i1,Student to guidance counselor ratio,226,2.384,250,,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,3-A-ii,a-sust-i1,Student to guidance counselor ratio,229.5,2.328,250,,2017-18
+Somerville,Benjamin G. Brown School,02740015,3-A-ii,a-sust-i1,Student to guidance counselor ratio,231,2.304,250,,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,3-A-ii,a-sust-i1,Student to guidance counselor ratio,292,1.328,250,,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,3-A-ii,a-sust-i1,Student to guidance counselor ratio,307.3,1.0832,250,,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,3-A-ii,a-sust-i1,Student to guidance counselor ratio,318,0.912,250,,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,3-A-ii,a-sust-i1,Student to guidance counselor ratio,324,0.816,250,,2017-18
+Attleboro,Attleboro High School,00160505,3-A-ii,a-sust-i1,Student to guidance counselor ratio,373.8,0.0192,250,,2017-18
+Revere,Beachmont Elementary School,02480013,3-A-ii,a-sust-i1,Student to guidance counselor ratio,374,0.016,250,,2017-18
+Revere,Whelan Elementary School,02480003,3-A-ii,a-sust-i1,Student to guidance counselor ratio,376.5,-0.024,250,,2017-18
+Attleboro,Wamsutta Middle School,00160320,3-A-ii,a-sust-i1,Student to guidance counselor ratio,379.3,-0.0688,250,,2017-18
+Revere,Garfield Elementary School,02480056,3-A-ii,a-sust-i1,Student to guidance counselor ratio,384,-0.144,250,,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,3-A-ii,a-sust-i1,Student to guidance counselor ratio,429,-0.864,250,,2017-18
+Revere,Paul Revere Elementary School,02480050,3-A-ii,a-sust-i1,Student to guidance counselor ratio,472,-1.552,250,,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,3-A-ii,a-sust-i1,Student to guidance counselor ratio,594,-3.504,250,,2017-18
+Revere,Lincoln Elementary School,02480025,3-A-ii,a-sust-i1,Student to guidance counselor ratio,695,-5.12,250,,2017-18
+Revere,Hill Elementary School,02480035,3-A-ii,a-sust-i1,Student to guidance counselor ratio,712,-5.392,250,,2017-18
+Somerville,Michael E. Capuano Early Childhood Center,02740005,3-A-ii,a-sust-i3,Student to instructional support staff ratio,8.3,5.235023041,43.4,,2017-18
+Somerville,Winter Hill Community Innovation School,02740120,3-A-ii,a-sust-i3,Student to instructional support staff ratio,21.9,3.98156682,43.4,,2017-18
+Revere,Seacoast High School,02480520,3-A-ii,a-sust-i3,Student to instructional support staff ratio,27.3,3.483870968,43.4,,2017-18
+Somerville,Dr. Albert F. Argenziano School at Lincoln Park,02740087,3-A-ii,a-sust-i3,Student to instructional support staff ratio,36.5,2.6359447,43.4,,2017-18
+Revere,Garfield Elementary School,02480056,3-A-ii,a-sust-i3,Student to instructional support staff ratio,40.4,2.276497696,43.4,,2017-18
+Revere,Beachmont Elementary School,02480013,3-A-ii,a-sust-i3,Student to instructional support staff ratio,41.6,2.165898618,43.4,,2017-18
+Revere,Paul Revere Elementary School,02480050,3-A-ii,a-sust-i3,Student to instructional support staff ratio,47.2,1.649769585,43.4,,2017-18
+Somerville,East Somerville Community School,02740111,3-A-ii,a-sust-i3,Student to instructional support staff ratio,48,1.576036866,43.4,,2017-18
+Revere,Whelan Elementary School,02480003,3-A-ii,a-sust-i3,Student to instructional support staff ratio,50.2,1.373271889,43.4,,2017-18
+Revere,Rumney Marsh Academy,02480014,3-A-ii,a-sust-i3,Student to instructional support staff ratio,54.3,0.9953917051,43.4,,2017-18
+Somerville,West Somerville Neighborhood School,02740115,3-A-ii,a-sust-i3,Student to instructional support staff ratio,61.8,0.3041474654,43.4,,2017-18
+Revere,Lincoln Elementary School,02480025,3-A-ii,a-sust-i3,Student to instructional support staff ratio,63.2,0.1751152074,43.4,,2017-18
+Revere,Hill Elementary School,02480035,3-A-ii,a-sust-i3,Student to instructional support staff ratio,64.7,0.03686635945,43.4,,2017-18
+Somerville,Next Wave/Full Circle,02740510,3-A-ii,a-sust-i3,Student to instructional support staff ratio,67,-0.1751152074,43.4,,2017-18
+Revere,Garfield Middle School,02480057,3-A-ii,a-sust-i3,Student to instructional support staff ratio,67.3,-0.202764977,43.4,,2017-18
+Revere,Susan B. Anthony Middle School,02480305,3-A-ii,a-sust-i3,Student to instructional support staff ratio,71.3,-0.5714285714,43.4,,2017-18
+Somerville,Arthur D. Healey School,02740075,3-A-ii,a-sust-i3,Student to instructional support staff ratio,90.2,-2.313364055,43.4,,2017-18
+Revere,Revere High School,02480505,3-A-ii,a-sust-i3,Student to instructional support staff ratio,99.6,-3.179723502,43.4,,2017-18
+Somerville,Benjamin G. Brown School,02740015,3-A-ii,a-sust-i3,Student to instructional support staff ratio,115.5,-4.64516129,43.4,,2017-18
+Attleboro,Attleboro High School,00160505,3-A-ii,a-sust-i3,Student to instructional support staff ratio,128.4,-5.834101382,43.4,,2017-18
+Somerville,Somerville High School,02740505,3-A-ii,a-sust-i3,Student to instructional support staff ratio,151.9,-8,43.4,,2017-18
+Attleboro,A. Irvin Studley Elementary School,00160001,3-A-ii,a-sust-i3,Student to instructional support staff ratio,174.5,-10.08294931,43.4,,2017-18
+Attleboro,Robert J. Coelho Middle School,00160305,3-A-ii,a-sust-i3,Student to instructional support staff ratio,216.6,-13.96313364,43.4,,2017-18
+Attleboro,Peter Thacher Elementary School,00160050,3-A-ii,a-sust-i3,Student to instructional support staff ratio,249.2,-16.96774194,43.4,,2017-18
+Attleboro,Hill-Roberts Elementary School,00160045,3-A-ii,a-sust-i3,Student to instructional support staff ratio,271.2,-18.99539171,43.4,,2017-18
+Attleboro,Hyman Fine Elementary School,00160040,3-A-ii,a-sust-i3,Student to instructional support staff ratio,280.6,-19.86175115,43.4,,2017-18
+Attleboro,Wamsutta Middle School,00160320,3-A-ii,a-sust-i3,Student to instructional support staff ratio,347,-25.98156682,43.4,,2017-18
+Attleboro,Thomas Willett Elementary School,00160035,3-A-ii,a-sust-i3,Student to instructional support staff ratio,357.5,-26.94930876,43.4,,2017-18
+Attleboro,Cyril K. Brennan Middle School,00160315,3-A-ii,a-sust-i3,Student to instructional support staff ratio,525.7,-42.4516129,43.4,,2017-18
+Somerville,Next Wave/Full Circle,02740510,3-B-i,a-curv-i6,Student to number of electives ratio (completely free choice) (HS only),1.2,3.6,2,,2017-18
+Revere,Seacoast High School,02480520,3-B-i,a-curv-i6,Student to number of electives ratio (completely free choice) (HS only),6.8,-7.6,2,,2017-18
+Attleboro,Attleboro High School,00160505,3-B-i,a-curv-i6,Student to number of electives ratio (completely free choice) (HS only),9.6,-13.2,2,,2017-18
+Revere,Revere High School,02480505,3-B-i,a-curv-i6,Student to number of electives ratio (completely free choice) (HS only),17.2,-28.4,2,,2017-18
+Somerville,Somerville High School,02740505,3-B-i,a-curv-i6,Student to number of electives ratio (completely free choice) (HS only),19.9,-33.8,2,,2017-18
