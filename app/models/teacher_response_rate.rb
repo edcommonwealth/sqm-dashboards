@@ -12,7 +12,8 @@ class TeacherResponseRate
   def response_count
     @response_count ||= @subcategory.measures.map do |measure|
       measure.teacher_survey_items.map do |survey_item|
-        survey_item.survey_item_responses.where(school: @school, academic_year: @academic_year).count
+        survey_item.survey_item_responses.where(school: @school,
+                                                academic_year: @academic_year).exclude_boston.count
       end.sum
     end.sum
   end

@@ -5,4 +5,9 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :academic_year
   belongs_to :school
   belongs_to :survey_item
+
+  scope :exclude_boston, lambda {
+                           boston = District.where(name: 'Boston').first
+                           where.not(school: boston.schools) if boston.present?
+                         }
 end

@@ -38,3 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Add deployment script for beta.  Runs tests before deployment to Heroku's git server
+- Add new set of student results for 2016-17
+`bundle exec rake one_off:load_single_file`
+- Exclude results from boston. Add foreign key from school to district
+`bundle exec rake db:migrate`
