@@ -33,14 +33,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change wording of leadership scale
   bundle exec rake db:seed
 - Delete s-grmi scale
+- Add deployment script for beta.  Runs tests before deployment to Heroku's git server
+- Add new set of student results for 2016-17
+- Exclude results from boston. Add foreign key from school to district
+- Add admin data from 2016-17 and 2017-18
 
 ## [Unreleased]
 
 ### Added
-- Add deployment script for beta.  Runs tests before deployment to Heroku's git server
-- Add new set of student results for 2016-17
-`bundle exec rake one_off:load_single_file`
-- Exclude results from boston. Add foreign key from school to district
-`bundle exec rake db:migrate`
-- Add admin data from 2016-17 and 2017-18
-`heroku run:detached -a mciea-beta bundle exec rake data:load_admin_data`
