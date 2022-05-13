@@ -92,4 +92,17 @@ namespace :one_off do
     survey_items = SurveyItem.where('survey_item_id LIKE ?', 's-grmi%')
     SurveyItemResponse.joins(:survey_item).where(academic_year:, survey_item: survey_items).delete_all
   end
+
+  desc 'reset admin data values'
+  task reset_admin_data_values: :environment do
+    puts "Initial count of admin data values #{AdminDataValue.all.count}"
+    AdminDataValue.delete_all
+    puts "Deleted all admin data values"
+
+    Dir.glob(Rails.root.join('data', 'admin_data', '*.csv')).each do |filepath|
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      AdminDataLoader.load_data filepath:
+    end
+    puts "=====================> Completed loading #{AdminDataValue.count} survey responses"
+  end
 end
