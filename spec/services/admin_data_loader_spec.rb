@@ -10,6 +10,8 @@ describe AdminDataLoader do
 
   before :each do
     Rails.application.load_seed
+
+    AdminDataLoader.load_data filepath: path_to_admin_data
   end
 
   after :each do
@@ -17,40 +19,39 @@ describe AdminDataLoader do
   end
 
   describe 'self.load_data' do
-    before :each do
-      AdminDataLoader.load_data filepath: path_to_admin_data
-    end
-    it 'assigns the academic year to admin data value' do
+    it 'loads the correct admin data values' do
+      # it 'assigns the academic year to admin data value' do
       expect(AdminDataValue.where(school: attleboro,
                                   admin_data_item: chronic_absense_rate).first.academic_year).to eq ay_2018_19
-    end
+      # end
 
-    it 'assigns the school to the admin data value' do
+      # it 'assigns the school to the admin data value' do
       expect(AdminDataValue.first.school).to eq attleboro
       expect(AdminDataValue.last.school).to eq winchester
-    end
+      # end
 
-    it 'links the admin data value to the correct admin data item' do
+      # it 'links the admin data value to the correct admin data item' do
       expect(AdminDataValue.first.admin_data_item).to eq chronic_absense_rate
       expect(AdminDataValue.last.admin_data_item).to eq student_to_instructor_ratio
-    end
+      # end
 
-    it 'loads all the admin data values in the target csv file' do
+      # it 'loads all the admin data values in the target csv file' do
       expect(AdminDataValue.count).to eq 11
-    end
+      # end
 
-    it 'captures the likert score ' do
+      # it 'captures the likert score ' do
       expect(AdminDataValue.first.likert_score).to eq 3.03
       expect(AdminDataValue.last.likert_score).to eq 5
-    end
+      # end
 
-    it 'rounds up any likert_scores between 0 and 1 (non-inclusive) to 1' do
+      # it 'rounds up any likert_scores between 0 and 1 (non-inclusive) to 1' do
       expect(AdminDataValue.where(school: attleboro, academic_year: ay_2018_19,
                                   admin_data_item: AdminDataItem.find_by_admin_data_item_id('a-sust-i3')).first.likert_score).to eq 1
-    end
-    it 'rejects importing rows with a value of 0' do
+      # end
+      # it 'rejects importing rows with a value of 0' do
       expect(AdminDataValue.where(school: attleboro, academic_year: ay_2018_19,
                                   admin_data_item: AdminDataItem.find_by_admin_data_item_id('a-reso-i1'))).not_to exist
+      # end
     end
   end
 end
