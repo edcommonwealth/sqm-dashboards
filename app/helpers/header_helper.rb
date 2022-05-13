@@ -7,6 +7,10 @@ module HeaderHelper
     "/districts/#{district.slug}/schools/#{school.slug}/browse/teachers-and-leadership?year=#{academic_year.range}"
   end
 
+  def link_to_analyze(district:, school:, academic_year:)
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}"
+  end
+
   def district_url_for(district:, academic_year:)
     overview_link(district_slug: district.slug, school_slug: district.schools.alphabetic.first.slug,
                   academic_year_range: academic_year.range, uri_path: request.fullpath)

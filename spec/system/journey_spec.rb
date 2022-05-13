@@ -106,6 +106,9 @@ describe 'District Admin', js: true do
     go_to_different_district(different_district)
     district_admin_sees_district_change
 
+    got_to_analyze_page
+    district_admin_sees_analyze_content
+
     # TODO: figure out why this test doesn't work
     # go_to_different_year(ay_2019_20)
     # district_admin_sees_year_change
@@ -148,6 +151,10 @@ def go_to_different_year(year)
   select year.formatted_range, from: 'select-academic-year'
 end
 
+def got_to_analyze_page
+  click_on 'Analyze'
+end
+
 def district_admin_sees_schools_change
   expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=2020-21"
   expect(page).to have_current_path(expected_path)
@@ -179,4 +186,8 @@ end
 def district_admin_sees_browse_content
   expect(page).to have_text('Teachers & Leadership')
   expect(page).to have_text('Approval')
+end
+
+def district_admin_sees_analyze_content
+  expect(page).to have_text('1:Teachers & Leadership > 1A:Teachers & The Teaching Environment')
 end

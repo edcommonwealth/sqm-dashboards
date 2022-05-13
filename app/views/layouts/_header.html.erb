@@ -4,7 +4,8 @@
       <div class="col d-flex justify-content-start align-items-center">
         <%= link_to image_tag('sqm_logo.png', alt: 'MCIEA School Quality Measures Dashboard', class: 'height-56'), welcome_path, class: 'me-7' %>
         <a class="sub-header-3 link me-4 <%= link_weight(path: 'overview') %>" href="<%= link_to_overview(district: @district, school: @school, academic_year: @academic_year) %>">Overview</a>
-        <a class="sub-header-3 link <%= link_weight(path: 'browse') %>" href="<%= link_to_browse(district: @district, school: @school, academic_year: @academic_year) %>">Browse</a>
+        <a class="sub-header-3 link me-4 <%= link_weight(path: 'browse') %>" href="<%= link_to_browse(district: @district, school: @school, academic_year: @academic_year) %>">Browse</a>
+        <a class="sub-header-3 link <%= link_weight(path: 'analyze') %>" href="<%= link_to_analyze(district: @district, school: @school, academic_year: @academic_year) %>">Analyze</a>
       </div>
 
       <div class="col d-flex justify-content-end">
@@ -31,6 +32,10 @@
     <div class="container d-flex justify-content-between align-items-center py-4">
       <% if content_for?(:navigation) %>
         <%= yield(:navigation) %>
+      <% end %>
+
+      <% if content_for?(:title) %>
+        <%= yield(:title) %>
       <% end %>
     </div>
   </div>

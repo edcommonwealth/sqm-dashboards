@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :schools, only: %i[index show] do
       resources :overview, only: [:index]
       resources :categories, only: [:show], path: 'browse'
+      resources :analyze, only: [:index]
     end
   end
 

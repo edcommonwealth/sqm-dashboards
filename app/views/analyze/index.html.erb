@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  <div class="sub-header-2 color-white m-0"> Analysis of <%= @school.name %> </div>
+<% end %>
+
+<div class="graph-content">
+  <div class="breadcrumbs">
+    <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id  %>:<%= @subcategory.name %>
+  </div>
+</div>
