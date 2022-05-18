@@ -43,5 +43,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add Analyze page
 - From analyze page, selecting a different school from the dropdown.  Changed behavior so user remains on analyze page
+- Updated 2016-17 student survey responses
+`bundle exec rake one_off:load_single_file`
 - Add one off script to reset admin data values
 `heroku run -a mciea-beta bundle exec rake one_off:reset_admin_data_values`
+- Add school: Attleboro Community Academy
+`bundle exec rake db:seed`
