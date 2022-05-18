@@ -53,6 +53,24 @@ namespace :one_off do
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
   end
 
+  desc 'load attleboro results for 2021-22'
+  task load_attleboro: :environment do
+    seeder = Seeder.new
+
+    seeder.seed_academic_years '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22'
+    seeder.seed_districts_and_schools Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_surveys Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_respondents Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_sqm_framework Rails.root.join('data', 'sqm_framework.csv')
+
+    ['2021-22_attleboro_student_survey_responses.csv',
+     '2021-22_attleboro_teacher_survey_responses.csv'].each do |filepath|
+      filepath = Rails.root.join('data', 'survey_responses', filepath)
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      SurveyResponsesDataLoader.load_data filepath:
+    end
+  end
+
   desc 'list scales that have no survey responses'
   task list_scales_that_lack_survey_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
@@ -97,7 +115,7 @@ namespace :one_off do
   task reset_admin_data_values: :environment do
     puts "Initial count of admin data values #{AdminDataValue.all.count}"
     AdminDataValue.delete_all
-    puts "Deleted all admin data values"
+    puts 'Deleted all admin data values'
 
     Dir.glob(Rails.root.join('data', 'admin_data', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"

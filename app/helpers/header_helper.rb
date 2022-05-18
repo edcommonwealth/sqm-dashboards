@@ -32,11 +32,21 @@ module HeaderHelper
   end
 
   def school_mapper(school)
+    academic_year = latest_year(school)
     {
       name: school.name,
       district_id: school.district_id,
-      url: district_school_overview_index_path(school.district, school, { year: AcademicYear.first.range })
+      url: district_school_overview_index_path(school.district, school,
+                                               { year: academic_year.range })
     }
+  end
+
+  def latest_year(school)
+    if school.district.name == 'Attleboro'
+      AcademicYear.find_by_range('2021-22')
+    else
+      AcademicYear.find_by_range('2020-21')
+    end
   end
 
   def link_weight(path:)

@@ -27,51 +27,18 @@ describe SurveyResponsesDataLoader do
       before :each do
         SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
       end
+      it 'ensures teacher responses load correctly' do
+        assigns_academic_year_to_survey_item_responses
 
-      it 'assigns the academic year to the survey item responses' do
-        expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').academic_year).to eq ay_2020_21
-      end
+        assigns_school_to_the_survey_item_responses
 
-      it 'assigns the school to the survey item responses' do
-        expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').school).to eq attleboro_high_school
-      end
+        loads_survey_item_responses_for_a_given_survey_response
 
-      it 'loads all the survey item responses for a given survey response' do
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_1').count).to eq 5
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_2').count).to eq 0
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').count).to eq 69
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').count).to eq 69
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').count).to eq 69
-      end
+        loads_all_survey_item_responses_for_a_given_survey_item
 
-      it 'loads all the survey item responses for a given survey item' do
-        expect(SurveyItemResponse.where(survey_item: t_pcom_q2).count).to eq 3
-        expect(SurveyItemResponse.where(survey_item: t_pcom_q3).count).to eq 4
-      end
+        captures_likert_scores_for_survey_item_responses
 
-      it 'captures the likert scores for the survey item responses' do
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_1').where(survey_item: t_pcom_q2)).to be_empty
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_1').where(survey_item: t_pcom_q3).first.likert_score).to eq 3
-
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_2').where(survey_item: t_pcom_q2)).to be_empty
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_2').where(survey_item: t_pcom_q3)).to be_empty
-
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').where(survey_item: t_pcom_q2).first.likert_score).to eq 5
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').where(survey_item: t_pcom_q3).first.likert_score).to eq 5
-
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').where(survey_item: t_pcom_q2).first.likert_score).to eq 4
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').where(survey_item: t_pcom_q3).first.likert_score).to eq 4
-
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').where(survey_item: t_pcom_q2).first.likert_score).to eq 2
-        expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').where(survey_item: t_pcom_q3).first.likert_score).to eq 4
-      end
-
-      it 'is idempotent, i.e. loading the data a second time does not duplicate survey item responses' do
-        number_of_survey_item_responses = SurveyItemResponse.count
-
-        SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
-
-        expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
+        is_idempotent
       end
     end
 
@@ -80,50 +47,13 @@ describe SurveyResponsesDataLoader do
         SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
       end
 
-      it 'assigns the academic year to the survey item responses' do
-        expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').academic_year).to eq ay_2020_21
-      end
-
-      it 'assigns the school to the survey item responses' do
-        expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').school).to eq butler_middle_school
-      end
-
-      it 'loads all the survey item responses for a given survey response' do
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 2
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 27
-      end
-
-      it 'loads all the survey item responses for a given survey item' do
-        expect(SurveyItemResponse.where(survey_item: s_phys_q1).count).to eq 3
-        expect(SurveyItemResponse.where(survey_item: s_phys_q2).count).to eq 3
-      end
-
-      it 'captures the likert scores for the survey item responses' do
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').where(survey_item: s_phys_q1)).to be_empty
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').where(survey_item: s_phys_q2)).to be_empty
-
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').where(survey_item: s_phys_q1)).to be_empty
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').where(survey_item: s_phys_q2)).to be_empty
-
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').where(survey_item: s_phys_q1).first.likert_score).to eq 1
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').where(survey_item: s_phys_q2).first.likert_score).to eq 3
-
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').where(survey_item: s_phys_q1).first.likert_score).to eq 1
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').where(survey_item: s_phys_q2).first.likert_score).to eq 1
-
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').where(survey_item: s_phys_q1).first.likert_score).to eq 1
-        expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').where(survey_item: s_phys_q2).first.likert_score).to eq 2
-      end
-
-      it 'is idempotent, i.e. loading the data a second time does not duplicate survey item responses' do
-        number_of_survey_item_responses = SurveyItemResponse.count
-
-        SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
-
-        expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
+      it 'ensures student responses load correctly' do
+        assigns_academic_year_to_student_survey_item_responses
+        assigns_school_to_student_survey_item_responses
+        loads_student_survey_item_response_values
+        student_survey_item_response_count_matches_expected
+        captures_likert_scores_for_student_survey_item_responses
+        is_idempotent_for_students
       end
 
       context 'when updating student survey responses from another csv file' do
@@ -137,4 +67,96 @@ describe SurveyResponsesDataLoader do
       end
     end
   end
+end
+
+def assigns_academic_year_to_survey_item_responses
+  expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').academic_year).to eq ay_2020_21
+end
+
+def assigns_school_to_the_survey_item_responses
+  expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').school).to eq attleboro_high_school
+end
+
+def loads_survey_item_responses_for_a_given_survey_response
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_1').count).to eq 5
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_2').count).to eq 0
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').count).to eq 69
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').count).to eq 69
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').count).to eq 69
+end
+
+def loads_all_survey_item_responses_for_a_given_survey_item
+  expect(SurveyItemResponse.where(survey_item: t_pcom_q2).count).to eq 3
+  expect(SurveyItemResponse.where(survey_item: t_pcom_q3).count).to eq 4
+end
+
+def captures_likert_scores_for_survey_item_responses
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_1').where(survey_item: t_pcom_q2)).to be_empty
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_1').where(survey_item: t_pcom_q3).first.likert_score).to eq 3
+
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_2').where(survey_item: t_pcom_q2)).to be_empty
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_2').where(survey_item: t_pcom_q3)).to be_empty
+
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').where(survey_item: t_pcom_q2).first.likert_score).to eq 5
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').where(survey_item: t_pcom_q3).first.likert_score).to eq 5
+
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').where(survey_item: t_pcom_q2).first.likert_score).to eq 4
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').where(survey_item: t_pcom_q3).first.likert_score).to eq 4
+
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').where(survey_item: t_pcom_q2).first.likert_score).to eq 2
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').where(survey_item: t_pcom_q3).first.likert_score).to eq 4
+end
+
+def is_idempotent
+  number_of_survey_item_responses = SurveyItemResponse.count
+
+  SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
+
+  expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
+end
+
+def assigns_academic_year_to_student_survey_item_responses
+  expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').academic_year).to eq ay_2020_21
+end
+
+def assigns_school_to_student_survey_item_responses
+  expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').school).to eq butler_middle_school
+end
+
+def loads_student_survey_item_response_values
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 2
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 27
+end
+
+def student_survey_item_response_count_matches_expected
+  expect(SurveyItemResponse.where(survey_item: s_phys_q1).count).to eq 3
+  expect(SurveyItemResponse.where(survey_item: s_phys_q2).count).to eq 3
+end
+
+def captures_likert_scores_for_student_survey_item_responses
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').where(survey_item: s_phys_q1)).to be_empty
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').where(survey_item: s_phys_q2)).to be_empty
+
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').where(survey_item: s_phys_q1)).to be_empty
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').where(survey_item: s_phys_q2)).to be_empty
+
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').where(survey_item: s_phys_q1).first.likert_score).to eq 1
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').where(survey_item: s_phys_q2).first.likert_score).to eq 3
+
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').where(survey_item: s_phys_q1).first.likert_score).to eq 1
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').where(survey_item: s_phys_q2).first.likert_score).to eq 1
+
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').where(survey_item: s_phys_q1).first.likert_score).to eq 1
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').where(survey_item: s_phys_q2).first.likert_score).to eq 2
+end
+
+def is_idempotent_for_students
+  number_of_survey_item_responses = SurveyItemResponse.count
+
+  SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
+
+  expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
 end

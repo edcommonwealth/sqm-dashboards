@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'District Admin', js: true do
   let(:district) { District.find_by_slug 'winchester' }
-  let(:different_district) { District.find_by_slug 'boston' }
+  let(:different_district) { District.find_by_slug 'wareham' }
   let(:school) { School.find_by_slug 'winchester-high-school' }
   let(:school_in_same_district) { School.find_by_slug 'muraco-elementary-school' }
 
@@ -24,12 +24,17 @@ describe 'District Admin', js: true do
   let(:survey_items_for_measure_4C_i) { measure_4C_i.survey_items }
 
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
-  # let(:ay_2019_20) { AcademicYear.find_by_range '2019-20' }
+  let(:ay_2019_20) { AcademicYear.find_by_range '2019-20' }
 
-  let(:username) { 'winchester' }
-  let(:password) { 'winchester!' }
+  # let(:username) { 'winchester' }
+  # let(:password) { 'winchester!' }
   let(:respondents) do
-    respondents = Respondent.where(school:).first
+    respondents = Respondent.where(school:, academic_year: ay_2020_21).first
+    respondents.total_students = 8
+    respondents.total_teachers = 8
+    respondents.save
+
+    respondents = Respondent.where(school:, academic_year: ay_2019_20).first
     respondents.total_students = 8
     respondents.total_teachers = 8
     respondents.save
@@ -80,7 +85,7 @@ describe 'District Admin', js: true do
   end
 
   it 'navigates through the site' do
-    page.driver.basic_authorize(username, password)
+    # page.driver.basic_authorize(username, password)
 
     visit '/welcome'
     expect(page).to have_text('Teachers & Leadership')
@@ -106,12 +111,11 @@ describe 'District Admin', js: true do
     go_to_different_district(different_district)
     district_admin_sees_district_change
 
+    go_to_different_year(ay_2019_20)
+    district_admin_sees_year_change
+
     got_to_analyze_page
     district_admin_sees_analyze_content
-
-    # TODO: figure out why this test doesn't work
-    # go_to_different_year(ay_2019_20)
-    # district_admin_sees_year_change
   end
 end
 
