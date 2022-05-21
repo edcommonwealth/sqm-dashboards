@@ -1,4 +1,5 @@
 class CategoriesController < SqmApplicationController
+  helper GaugeHelper
   def show
     @categories = Category.sorted.map { |category| CategoryPresenter.new(category:) }
 

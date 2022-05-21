@@ -7,7 +7,7 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :survey_item
 
   scope :exclude_boston, lambda {
-                           boston = District.where(name: 'Boston').first
+                           boston = District.find_by_name('Boston')
                            where.not(school: boston.schools) if boston.present?
                          }
 end

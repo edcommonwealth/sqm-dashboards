@@ -1,4 +1,5 @@
 require 'rails_helper'
+include SchedulesHelper
 
 module Legacy
   RSpec.describe 'legacy/schedules/new', type: :view do

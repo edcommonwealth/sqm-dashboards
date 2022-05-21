@@ -1,4 +1,5 @@
 require 'rails_helper'
+include VarianceHelper
 
 describe 'overview/index' do
   subject { Nokogiri::HTML(rendered) }

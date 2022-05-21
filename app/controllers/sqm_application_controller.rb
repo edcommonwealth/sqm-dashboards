@@ -1,6 +1,7 @@
 class SqmApplicationController < ApplicationController
   protect_from_forgery with: :exception, prepend: true
   before_action :set_schools_and_districts
+  helper HeaderHelper
 
   private
 

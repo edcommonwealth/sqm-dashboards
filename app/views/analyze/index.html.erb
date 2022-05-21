@@ -1,9 +1,74 @@
 <% content_for :title do %>
   <div class="sub-header-2 color-white m-0"> Analysis of <%= @school.name %> </div>
 <% end %>
-
+<% presenter = GroupedBarChartPresenter.new(measure: @measure, score: @measure.score(school: @school, academic_year: @academic_year)) %>
 <div class="graph-content">
-  <div class="breadcrumbs">
+  <div class="breadcrumbs sub-header-4">
     <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id  %>:<%= @subcategory.name %>
+  </div>
+  <hr/>
+
+  <div class="mt-6" >
+    <p class="construct-id">Measure <%= @measure.measure_id %></p>
+    <span class="sub-header-2">
+      <%= @measure.name %>
+    </span>
+  </div>
+
+  <div class="mt-6">
+  <svg width="100%" height="<%= svg_height %>" >
+    <g>
+      <rect x="0" y="0" width="100%" height="<%= zone_height * 2 %>%" fill="#edecf0"/>
+      <rect x="0" y="<%= zone_height * 2 %>%" width="100%" height="<%= zone_height * 3 %>%" fill="#fffaee"/>
+      <rect x="0" y="0" width="100%" height="<%=  graph_height %>%" fill="none" stroke="grey"/>
+      <line x1="<%= grouped_chart_divider_x(1) %>%" y1="0" x2="<%= grouped_chart_divider_x(1) %>%" y2="85%" stroke="grey" stroke-width="1" stroke-dasharray="5,2"/>
+      <line x1="<%= grouped_chart_divider_x(2) %>%" y1="0" x2="<%= grouped_chart_divider_x(2) %>%" y2="85%" stroke="grey" stroke-width="1" stroke-dasharray="5,2"/>
+      <rect x="0" y="<%= benchmark_y %>%" width="100%" height="<%= benchmark_height %>%" fill="black"/>
+    </g>
+
+    <g stroke-width="1" >
+      <line x1="0" y1="17%" x2="100%" y2="17%" stroke="white" />
+      <line x1="0" y1="51%" x2="100%" y2="51%" stroke="#edecf0" />
+      <line x1="0" y1="68%" x2="100%" y2="68%" stroke="#edecf0" />
+    </g>
+
+    <g >
+      <text class="zone-header" x="<%= zone_label_x %>%" y="<%= zone_label_y(1) %>%" text-anchor="start" dominant-baseline="middle">
+        Ideal
+      </text>
+      <text class="zone-header" x="<%= zone_label_x %>%" y="<%= zone_label_y(2) %>%" text-anchor="start" dominant-baseline="middle">
+        Approval
+      </text>
+      <text class="zone-header" x="<%= zone_label_x %>%" y="<%= zone_label_y(3)  %>%" text-anchor="start" dominant-baseline="middle">
+        Growth
+      </text>
+      <text class="zone-header" x="<%= zone_label_x %>%" y="<%= zone_label_y(4) %>%" text-anchor="start" dominant-baseline="middle">
+        Watch
+      </text>
+      <text class="zone-header" x="<%= zone_label_x %>%" y="<%= zone_label_y(5) %>%" text-anchor="start" dominant-baseline="middle">
+        Warning
+      </text>
+    </g>
+
+    <g>
+      <text class="graph-footer" x="<%= bar_label_x(1) %>%" y="<%= bar_label_height %>%" text-anchor="middle" dominant-baseline="middle">
+        All Students
+      </text>
+      <text class="graph-footer" x="<%= bar_label_x(2) %>%" y="<%= bar_label_height %>%" text-anchor="middle" dominant-baseline="middle">
+        All Teachers
+      </text>
+      <text class="graph-footer" x="<%= bar_label_x(3) %>%" y="<%= bar_label_height %>%" text-anchor="middle" dominant-baseline="middle">
+        All Survey Data
+      </text>
+    </g>
+
+
+    <g>
+    <rect x="<%= bar_label_x(3) - 2.5 %>%" y="<%= presenter.y_offset %>%" width="5%" height="<%= presenter.bar_height_percentage * 100 %>%" fill="#3E3A38"/>
+      <text x="<%= bar_label_x(3) %>%" y="<%= 5 %>%" text-anchor="middle" dominant-baseline="middle" >
+      <%= presenter.score %>
+      </text>
+    </g>
+  </svg>
   </div>
 </div>

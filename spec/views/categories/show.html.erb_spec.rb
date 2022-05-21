@@ -1,4 +1,5 @@
 require 'rails_helper'
+include GaugeHelper
 
 describe 'categories/show' do
   before :each do

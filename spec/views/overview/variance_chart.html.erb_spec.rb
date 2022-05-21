@@ -1,4 +1,5 @@
 require 'rails_helper'
+include VarianceHelper
 
 describe 'overview/_variance_chart.html.erb' do
   before do

@@ -1,5 +1,6 @@
 class OverviewController < SqmApplicationController
   before_action :check_empty_dataset, only: [:index]
+  helper VarianceHelper
 
   def index
     @variance_chart_row_presenters = Measure.all.map(&method(:presenter_for_measure))

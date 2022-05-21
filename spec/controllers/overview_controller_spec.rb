@@ -1,4 +1,5 @@
 require 'rails_helper'
+include VarianceHelper
 
 describe OverviewController, type: :controller do
   include BasicAuthHelper

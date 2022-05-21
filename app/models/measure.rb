@@ -135,7 +135,6 @@ class Measure < ActiveRecord::Base
     averages << student_survey_items.first.send(name) if includes_student_survey_items?
     averages << teacher_survey_items.first.send(name) if includes_teacher_survey_items?
     (averages << admin_data_items.map(&name)).flatten! if includes_admin_data_items?
-
     averages.average
   end
 end

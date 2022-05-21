@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  helper HeaderHelper
   def index
     @districts = District.all.order(:name)
     @schools = School.all.includes([:district]).order(:name)
