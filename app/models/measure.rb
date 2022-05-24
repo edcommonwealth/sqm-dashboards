@@ -1,5 +1,6 @@
 class Measure < ActiveRecord::Base
   belongs_to :subcategory
+  has_one :category, through: :subcategory
   has_many :scales
   has_many :admin_data_items, through: :scales
   has_many :survey_items, through: :scales
@@ -94,13 +95,14 @@ class Measure < ActiveRecord::Base
   def sufficient_student_data?(school:, academic_year:)
     return false unless includes_student_survey_items?
 
-    subcategory.student_response_rate(school:, academic_year:).meets_student_threshold?
+    @sufficient_student_data ||= subcategory.student_response_rate(school:,
+                                                                   academic_year:).meets_student_threshold?
   end
 
   def sufficient_teacher_data?(school:, academic_year:)
     return false unless includes_teacher_survey_items?
 
-    subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
+    @sufficient_teacher_data ||= subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
   end
 
   def all_admin_data_collected?(school:, academic_year:)

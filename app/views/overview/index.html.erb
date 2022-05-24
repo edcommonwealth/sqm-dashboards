@@ -63,6 +63,7 @@
   </symbol>
 </svg>
 
+<% cache [@school, @academic_year] do %>
 <div class="card">
   <div class="d-flex justify-content-between align-items-center">
     <h2 class="sub-header-2">School Quality Framework Indicators</h2>
@@ -88,14 +89,15 @@
     </div>
   </div>
 
-  <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
+  <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters }, cached: true %>
 </div>
 
 <div class="card">
   <h2 class="sub-header-2 mb-4">Distance From Benchmark</h2>
 
-  <%= render partial: "variance_chart", locals: { presenters: @variance_chart_row_presenters } %>
+  <%= render partial: "variance_chart", locals: { presenters: @variance_chart_row_presenters } , cached: true %>
 </div>
+<% end %>
 
 <% if @district == District.find_by_name("Boston")  %>
   <%= render partial: 'layouts/boston_modal' %>
