@@ -1,4 +1,5 @@
 require 'rails_helper'
+include AnalyzeHelper
 
 describe 'District Admin', js: true do
   let(:district) { District.find_by_slug 'winchester' }

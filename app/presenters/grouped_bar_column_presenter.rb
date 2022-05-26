@@ -1,7 +1,8 @@
-class GroupedBarChartPresenter
-  attr_reader :score
+class GroupedBarColumnPresenter
+  include AnalyzeHelper
+  attr_reader :score, :measure_name, :measure_id, :category, :position, :type
 
-  def initialize(measure:, score:)
+  def initialize(measure:, score:, position:, type:)
     @measure = measure
     @score = score.average
     @meets_teacher_threshold = score.meets_teacher_threshold?
@@ -9,35 +10,35 @@ class GroupedBarChartPresenter
     @measure_name = @measure.name
     @measure_id = @measure.measure_id
     @category = @measure.subcategory.category
+    @position = position
+    @type = type
   end
-
-  IDEAL_ZONE_WIDTH_PERCENTAGE = 0.17
-  APPROVAL_ZONE_WIDTH_PERCENTAGE = 0.17
-  GROWTH_ZONE_WIDTH_PERCENTAGE = 0.17
-  WATCH_ZONE_WIDTH_PERCENTAGE = 0.17
-  WARNING_ZONE_WIDTH_PERCENTAGE = 0.17
 
   def y_offset
     case zone.type
     when :ideal, :approval
-      34 - bar_height_percentage * 100
+      (analyze_zone_height * 2) - bar_height_percentage
     else
-      34
+      (analyze_zone_height * 2)
     end
+  end
+
+  def bar_color
+    "fill-#{zone.type}"
   end
 
   def bar_height_percentage
     case zone.type
     when :ideal
-      percentage * IDEAL_ZONE_WIDTH_PERCENTAGE + APPROVAL_ZONE_WIDTH_PERCENTAGE
+      (percentage * zone_height_percentage + zone_height_percentage) * 100
     when :approval
-      percentage * APPROVAL_ZONE_WIDTH_PERCENTAGE
+      (percentage * zone_height_percentage) * 100
     when :growth
-      (1 - percentage) * GROWTH_ZONE_WIDTH_PERCENTAGE
+      ((1 - percentage) * zone_height_percentage) * 100
     when :watch
-      (1 - percentage) * WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
+      ((1 - percentage) * zone_height_percentage + zone_height_percentage) * 100
     when :warning
-      (1 - percentage) * WARNING_ZONE_WIDTH_PERCENTAGE + WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
+      ((1 - percentage) * zone_height_percentage + zone_height_percentage + zone_height_percentage) * 100
     else
       0.0
     end
@@ -55,5 +56,16 @@ class GroupedBarChartPresenter
       ideal_low_benchmark: @measure.ideal_low_benchmark
     )
     zones.zone_for_score(@score)
+  end
+
+  def label
+    case type
+    when :all
+      'All Survey Data'
+    when :student
+      'All Students'
+    when :teacher
+      'All Teachers'
+    end
   end
 end

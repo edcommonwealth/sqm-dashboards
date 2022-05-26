@@ -7,7 +7,7 @@ module AnalyzeHelper
     2
   end
 
-  def graph_height
+  def analyze_graph_height
     85
   end
 
@@ -20,7 +20,7 @@ module AnalyzeHelper
   end
 
   def benchmark_y
-    (zone_height * 2) - (benchmark_height / 2.0)
+    (analyze_zone_height * 2) - (benchmark_height / 2.0)
   end
 
   def benchmark_height
@@ -36,15 +36,19 @@ module AnalyzeHelper
   end
 
   def bar_label_height
-    (100 - ((100 - graph_height) / 2))
+    (100 - ((100 - analyze_graph_height) / 2))
   end
 
   def bar_label_x(position)
     zone_label_width + (grouped_chart_width * position) - (grouped_chart_width / 2)
   end
 
-  def zone_height
-    graph_height / 5
+  def analyze_zone_height
+    analyze_graph_height / 5
+  end
+
+  def zone_height_percentage
+    analyze_zone_height / 100.0
   end
 
   def zone_label_y(position)

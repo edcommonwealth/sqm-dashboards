@@ -57,8 +57,8 @@ class Measure < ActiveRecord::Base
       next Score.new(nil, false, false, false) if incalculable_score
 
       scores = []
-      scores << collect_survey_scale_average(teacher_scales, school, academic_year) if meets_teacher_threshold
-      scores << collect_survey_scale_average(student_scales, school, academic_year) if meets_student_threshold
+      scores << teacher_score(school:, academic_year:).average if meets_teacher_threshold
+      scores << student_score(school:, academic_year:).average if meets_student_threshold
       scores << collect_admin_scale_average(admin_data_items, school, academic_year) if includes_admin_data_items?
 
       average = scores.flatten.compact.remove_zeros.average
@@ -70,6 +70,26 @@ class Measure < ActiveRecord::Base
     end
 
     @score[[school, academic_year]]
+  end
+
+  def student_score(school:, academic_year:)
+    @student_score ||= begin
+      meets_student_threshold = sufficient_student_data?(school:, academic_year:)
+      meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
+      meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
+      average = collect_survey_scale_average(student_scales, school, academic_year) if meets_student_threshold
+      Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+    end
+  end
+
+  def teacher_score(school:, academic_year:)
+    @teacher_score ||= begin
+      meets_student_threshold = sufficient_student_data?(school:, academic_year:)
+      meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
+      meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
+      average = collect_survey_scale_average(teacher_scales, school, academic_year) if meets_teacher_threshold
+      Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+    end
   end
 
   def warning_low_benchmark
