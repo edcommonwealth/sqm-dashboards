@@ -2,10 +2,27 @@
 <rect x="<%= bar_label_x(presenter.position) - 2.5 %>%" y="<%= presenter.y_offset %>%" width="5%" height="<%= presenter.bar_height_percentage %>%" fill="#3E3A38" data-for-measure-id="<%= presenter.measure_id %>"/>
 
   <text x="<%= bar_label_x(presenter.position) %>%" y="<%= 5 %>%" text-anchor="middle" dominant-baseline="middle" >
-    <%= presenter.score %>
+    <%= presenter.score.average %>
   </text>
 
   <text class="graph-footer" x="<%= bar_label_x(presenter.position) %>%" y="<%= bar_label_height %>%" text-anchor="middle" dominant-baseline="middle" data-grouped-bar-label="<%= presenter.label %>">
     <%= presenter.label %>
   </text>
+
+  <% if presenter.show_irrelevancy_message? %>
+    <rect x="<%= bar_label_x(presenter.position) - 10  %>%" y="<%= 17 %>%" rx="15" ry="15" width="20%" height="<%= 34 %>%" fill="white" stroke="gray"/>
+
+    <text x="<%= bar_label_x(presenter.position)   %>%" y="<%= 20 %>%" text-anchor="middle">
+      <tspan x="<%= bar_label_x(presenter.position)  %>%" y="29%">measure not</tspan>
+      <tspan x="<%= bar_label_x(presenter.position) %>%"  y="34%">based on </tspan>
+      <tspan x="<%= bar_label_x(presenter.position)  %>%"  y="39%"><%= presenter.type %>  surveys </tspan>
+    </text>
+  <% elsif presenter.show_insufficient_data_message? %>
+    <rect x="<%= bar_label_x(presenter.position) - 10  %>%" y="<%= 17 %>%" rx="15" ry="15" width="20%" height="<%= 34 %>%" fill="white" stroke="gray" />
+
+    <text x="<%= bar_label_x(presenter.position) %>%" y="<%= 20 %>%" text-anchor="middle" >
+      <tspan x="<%= bar_label_x(presenter.position) %>%" y="29%">survey response</tspan>
+      <tspan x="<%= bar_label_x(presenter.position) %>%"  y="34%">rate below 25%</tspan>
+    </text>
+  <% end %>
 </g>
