@@ -4,9 +4,10 @@ class AnalyzeController < SqmApplicationController
     @category ||= Category.find_by_category_id(1)
 
     @subcategory ||= Subcategory.find_by_subcategory_id(params[:subcategory_id])
-    @subcategory ||= Subcategory.find_by_subcategory_id('1A')
+    @subcategory ||= Subcategory.order(:subcategory_id).includes(%i[measures]).first
 
-    @measure = @subcategory.measures.order(:measure_id).includes(%i[admin_data_items category])[0]
+    @measures = @subcategory.measures.order(:measure_id).includes(%i[scales admin_data_items])
+
     @academic_year ||= AcademicYear.order('range DESC').first
   end
 end

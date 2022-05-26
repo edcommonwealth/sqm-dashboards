@@ -7,7 +7,7 @@ describe 'analyze/index' do
   let(:subcategory) { create(:subcategory, category:) }
 
   let(:support_for_teaching) do
-    measure = create(:measure, name: 'Support For Teaching Development & Growth', measure_id: '1', subcategory:)
+    measure = create(:measure, name: 'Support For Teaching Development & Growth', measure_id: '1A-I', subcategory:)
     scale = create(:scale, measure:)
     create(:student_survey_item,
            scale:,
@@ -19,7 +19,7 @@ describe 'analyze/index' do
   end
 
   let(:effective_leadership) do
-    measure = create(:measure, name: 'Effective Leadership', measure_id: '2', subcategory:)
+    measure = create(:measure, name: 'Effective Leadership', measure_id: '1A-II', subcategory:)
     scale = create(:scale, measure:)
     create(:teacher_survey_item,
            scale:,
@@ -31,7 +31,7 @@ describe 'analyze/index' do
   end
 
   let(:professional_qualifications) do
-    measure = create(:measure, name: 'Professional Qualifications', measure_id: '3', subcategory:)
+    measure = create(:measure, name: 'Professional Qualifications', measure_id: '1A-III', subcategory:)
     scale = create(:scale, measure:)
     create(:admin_data_item,
            scale:,
@@ -52,7 +52,7 @@ describe 'analyze/index' do
     assign :school, create(:school)
     assign :category, category
     assign :subcategory, subcategory
-    assign :measure, support_for_teaching
+    assign :measures, [support_for_teaching, effective_leadership, professional_qualifications]
 
     render
   end
@@ -75,13 +75,19 @@ describe 'analyze/index' do
 
     it 'displays a set of grouped bars for each presenter' do
       displayed_variance_rows = subject.css('[data-for-measure-id]')
-      expect(displayed_variance_rows.count).to eq 3
-      expect(displayed_variance_rows.first.attribute('data-for-measure-id').value).to eq '1'
+      expect(displayed_variance_rows.count).to eq 9
+      expect(displayed_variance_rows.first.attribute('data-for-measure-id').value).to eq '1A-I'
 
       displayed_variance_labels = subject.css('[data-grouped-bar-label]')
-      expect(displayed_variance_labels.count).to eq 3
+      expect(displayed_variance_labels.count).to eq 9
       expect(displayed_variance_labels.first.inner_text).to include 'All Students'
       expect(displayed_variance_labels.last.inner_text).to include 'All Survey Data'
+    end
+
+    it 'displays all measures for the first subcategory' do
+      expect(rendered).to have_text '1A-I'
+      expect(rendered).to have_text '1A-II'
+      expect(rendered).to have_text '1A-III'
     end
   end
 end

@@ -7,14 +7,15 @@
     <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id  %>:<%= @subcategory.name %>
   </div>
   <hr/>
-
+  <% @measures.each do  |measure|%>
   <section class="mt-6" >
-    <p class="construct-id">Measure <%= @measure.measure_id %></p>
-    <h2> <%= @measure.name %> </h2>
+    <p class="construct-id">Measure <%= measure.measure_id %></p>
+    <h2> <%= measure.name %> </h2>
 
   <div class="mt-6">
-    <%= render partial: "grouped_bar_chart" , locals: { measure: @measure} %>
+    <%= render partial: "grouped_bar_chart" , locals: { measure: measure} %>
   </div>
 
   </section>
+  <% end %>
 </div>
