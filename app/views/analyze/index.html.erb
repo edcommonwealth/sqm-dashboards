@@ -2,20 +2,36 @@
   <h1 class="sub-header-2 color-white m-0"> Analysis of <%= @school.name %> </h1>
 <% end %>
 
-<div class="graph-content">
-  <div class="breadcrumbs sub-header-4">
-    <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id  %>:<%= @subcategory.name %>
-  </div>
-  <hr/>
-  <% @measures.each do  |measure|%>
-  <section class="mt-6" >
-    <p class="construct-id">Measure <%= measure.measure_id %></p>
-    <h2> <%= measure.name %> </h2>
 
-  <div class="mt-6">
-    <%= render partial: "grouped_bar_chart" , locals: { measure: measure} %>
+  <div class="graph-content">
+    <div class="breadcrumbs sub-header-4">
+      <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id  %>:<%= @subcategory.name %>
+    </div>
+    <hr/>
   </div>
 
-  </section>
-  <% end %>
+<div class="d-flex flex-row pt-5 row">
+  <div class="d-flex flex-column flex-grow-6 bg-color-white col-3 px-5" data-controller="analyze">
+    <h3 class="sub-header-4">Focus Area</h3>
+    <p>Select a category & subcategory to analyze measure-level results</p>
+    <select id="select-category" class="mx-3 form-select" data-id="category-dropdown" data-action="click->analyze#change_category">
+      <% @categories.each do |category|  %>
+        <option value="<%= analyze_category_link(district: @district, school: @school, academic_year: @academic_year, category: category) %>"  <%= @category.id == category.id ? "selected": ""  %> ><%= "#{category.category_id}: #{category.name}" %></option>
+      <% end %>
+    </select>
+  </span>
+
+  </div>
+
+  <div class="bg-color-white flex-grow-1 col-9">
+    <% @measures.each do  |measure|%>
+    <section class="mb-6" >
+      <p class="construct-id">Measure <%= measure.measure_id %></p>
+      <h2> <%= measure.name %> </h2>
+
+      <%= render partial: "grouped_bar_chart" , locals: { measure: measure} %>
+
+    </section>
+    <% end %>
+  </div>
 </div>

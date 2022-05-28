@@ -51,13 +51,14 @@ describe 'analyze/index' do
     assign :district, create(:district)
     assign :school, create(:school)
     assign :category, category
+    assign :categories, [category]
     assign :subcategory, subcategory
     assign :measures, [support_for_teaching, effective_leadership, professional_qualifications]
 
     render
   end
 
-  context 'when all the presenters have a non-nil score' do
+  context 'when all the presenters have a nil score' do
     # let(:grouped_bar_column_presenters) do
     #   measure = create(:measure, name: 'Display Me', measure_id: 'display-me')
     #   scale = create(:scale, measure:)
@@ -88,6 +89,11 @@ describe 'analyze/index' do
       expect(rendered).to have_text '1A-I'
       expect(rendered).to have_text '1A-II'
       expect(rendered).to have_text '1A-III'
+    end
+
+    it 'displays user interface controls' do
+      expect(subject).to have_text 'Focus Area'
+      expect(subject).to have_css '#select-category'
     end
   end
 end

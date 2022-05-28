@@ -8,7 +8,7 @@ module HeaderHelper
   end
 
   def link_to_analyze(district:, school:, academic_year:)
-    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}"
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&category=1"
   end
 
   def district_url_for(district:, academic_year:)

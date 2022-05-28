@@ -8,6 +8,7 @@ describe 'District Admin', js: true do
   let(:school_in_same_district) { School.find_by_slug 'muraco-elementary-school' }
 
   let(:category) { Category.find_by_name('Teachers & Leadership') }
+  let(:different_category) { Category.find_by_name('School Culture') }
   let(:subcategory) { Subcategory.find_by_name('Teachers & The Teaching Environment') }
   let(:measures_for_subcategory) { Measure.where(subcategory:) }
   let(:scales_for_subcategory) { Scale.where(measure: measures_for_subcategory) }
@@ -100,6 +101,12 @@ describe 'District Admin', js: true do
     click_on 'Overview'
     district_admin_sees_overview_content
 
+    click_on 'Analyze'
+    district_admin_sees_analyze_content
+
+    go_to_different_category(different_category)
+    district_admin_sees_category_change
+
     click_on 'Browse'
     district_admin_sees_browse_content
 
@@ -114,9 +121,6 @@ describe 'District Admin', js: true do
 
     go_to_different_year(ay_2019_20)
     district_admin_sees_year_change
-
-    got_to_analyze_page
-    district_admin_sees_analyze_content
   end
 end
 
@@ -156,9 +160,7 @@ def go_to_different_year(year)
   select year.formatted_range, from: 'select-academic-year'
 end
 
-def got_to_analyze_page
-  click_on 'Analyze'
-end
+def got_to_analyze_page; end
 
 def district_admin_sees_schools_change
   expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=2020-21"
@@ -195,4 +197,12 @@ end
 
 def district_admin_sees_analyze_content
   expect(page).to have_text('1:Teachers & Leadership > 1A:Teachers & The Teaching Environment')
+end
+
+def go_to_different_category(_category)
+  select different_category.name, from: 'select-category'
+end
+
+def district_admin_sees_category_change
+  expect(page).to have_text '2A:Safety'
 end

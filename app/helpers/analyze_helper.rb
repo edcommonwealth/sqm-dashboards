@@ -58,4 +58,8 @@ module AnalyzeHelper
   def data_sources
     3
   end
+
+  def analyze_category_link(district:, school:, academic_year:, category:)
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&category=#{category.category_id}"
+  end
 end
