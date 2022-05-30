@@ -53,6 +53,7 @@ describe 'analyze/index' do
     assign :category, category
     assign :categories, [category]
     assign :subcategory, subcategory
+    assign :subcategories, category.subcategories
     assign :measures, [support_for_teaching, effective_leadership, professional_qualifications]
 
     render
@@ -94,6 +95,7 @@ describe 'analyze/index' do
     it 'displays user interface controls' do
       expect(subject).to have_text 'Focus Area'
       expect(subject).to have_css '#select-category'
+      expect(subject).to have_css '#select-subcategory'
     end
   end
 end

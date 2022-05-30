@@ -69,6 +69,12 @@ class GroupedBarColumnPresenter
     end
   end
 
+  def basis
+    return '' if type == :all
+
+    type
+  end
+
   def show_irrelevancy_message?
     return true if type == :student && !@measure.includes_student_survey_items?
 

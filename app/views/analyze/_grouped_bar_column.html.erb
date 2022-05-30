@@ -14,8 +14,8 @@
 
     <text x="<%= bar_label_x(presenter.position)   %>%" y="<%= 20 %>%" text-anchor="middle">
       <tspan x="<%= bar_label_x(presenter.position)  %>%" y="29%">measure not</tspan>
-      <tspan x="<%= bar_label_x(presenter.position) %>%"  y="34%">based on </tspan>
-      <tspan x="<%= bar_label_x(presenter.position)  %>%"  y="39%"><%= presenter.type %>  surveys </tspan>
+      <tspan x="<%= bar_label_x(presenter.position) %>%"  y="34%">based on</tspan>
+      <tspan x="<%= bar_label_x(presenter.position)  %>%"  y="39%"><%= presenter.basis %>  surveys </tspan>
     </text>
   <% elsif presenter.show_insufficient_data_message? %>
     <rect x="<%= bar_label_x(presenter.position) - 10  %>%" y="<%= 17 %>%" rx="15" ry="15" width="20%" height="<%= 34 %>%" fill="white" stroke="gray" />

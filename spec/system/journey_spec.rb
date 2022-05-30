@@ -10,6 +10,7 @@ describe 'District Admin', js: true do
   let(:category) { Category.find_by_name('Teachers & Leadership') }
   let(:different_category) { Category.find_by_name('School Culture') }
   let(:subcategory) { Subcategory.find_by_name('Teachers & The Teaching Environment') }
+  let(:different_subcategory) { Subcategory.find_by_name('Relationships') }
   let(:measures_for_subcategory) { Measure.where(subcategory:) }
   let(:scales_for_subcategory) { Scale.where(measure: measures_for_subcategory) }
   let(:survey_items_for_subcategory) { SurveyItem.where(scale: scales_for_subcategory) }
@@ -107,6 +108,9 @@ describe 'District Admin', js: true do
     go_to_different_category(different_category)
     district_admin_sees_category_change
 
+    go_to_different_subcategory(different_subcategory)
+    district_admin_sees_subcategory_change
+
     click_on 'Browse'
     district_admin_sees_browse_content
 
@@ -199,10 +203,18 @@ def district_admin_sees_analyze_content
   expect(page).to have_text('1:Teachers & Leadership > 1A:Teachers & The Teaching Environment')
 end
 
-def go_to_different_category(_category)
-  select different_category.name, from: 'select-category'
+def go_to_different_category(category)
+  select category.name, from: 'select-category'
 end
 
 def district_admin_sees_category_change
   expect(page).to have_text '2A:Safety'
+end
+
+def go_to_different_subcategory(subcategory)
+  select subcategory.name, from: 'select-subcategory'
+end
+
+def district_admin_sees_subcategory_change
+  expect(page).to have_text('Relationships')
 end
