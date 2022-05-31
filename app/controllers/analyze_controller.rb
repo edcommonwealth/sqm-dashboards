@@ -1,6 +1,7 @@
 class AnalyzeController < SqmApplicationController
   def index
     @category ||= Category.find_by_category_id(params[:category])
+    @category ||= Category.first
     @categories = Category.all.order(:category_id)
 
     @subcategories = @category.subcategories.order(:subcategory_id)
