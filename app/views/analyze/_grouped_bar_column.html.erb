@@ -1,9 +1,11 @@
 <g id="grouped-bar-column">
-<rect x="<%= bar_label_x(presenter.position) - 2.5 %>%" y="<%= presenter.y_offset %>%" width="5%" height="<%= presenter.bar_height_percentage %>%" fill="#3E3A38" data-for-measure-id="<%= presenter.measure_id %>"/>
+  <rect x="<%= bar_label_x(presenter.position) - 2.5 %>%" y="<%= presenter.y_offset %>%" width="5%" height="<%= presenter.bar_height_percentage %>%" fill="#3E3A38" data-for-measure-id="<%= presenter.measure_id %>"/>
 
-  <text x="<%= bar_label_x(presenter.position) %>%" y="<%= 5 %>%" text-anchor="middle" dominant-baseline="middle" >
-    <%= presenter.score.average %>
-  </text>
+  <% if ENV["SCORES"].present?  && ENV["SCORES"].upcase == "SHOW" %>
+    <text x="<%= bar_label_x(presenter.position) %>%" y="<%= 5 %>%" text-anchor="middle" dominant-baseline="middle" >
+      <%= presenter.score.average %>
+    </text>
+  <% end %>
 
   <text class="graph-footer" x="<%= bar_label_x(presenter.position) %>%" y="<%= bar_label_height %>%" text-anchor="middle" dominant-baseline="middle" data-grouped-bar-label="<%= presenter.label %>">
     <%= presenter.label %>
