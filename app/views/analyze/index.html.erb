@@ -2,7 +2,6 @@
   <h1 class="sub-header-2 color-white m-0"> Analysis of <%= @school.name %> </h1>
 <% end %>
 
-
   <div class="graph-content">
     <div class="breadcrumbs sub-header-4">
       <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id  %>:<%= @subcategory.name %>
@@ -24,8 +23,15 @@
         <option value="<%= analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: subcategory) %>"  <%= @subcategory.subcategory_id == subcategory.subcategory_id ? "selected": ""  %> ><%= "#{subcategory.subcategory_id}: #{subcategory.name}" %></option>
       <% end %>
     </select>
-  </span>
 
+    <h3 class="sub-header-4 mt-5">School Years</h3>
+    <%  @available_academic_years.each do | year | %>
+      <div class="d-flex justify-content-start align-items-center mt-1" data-controller="analyze">
+        <input type="checkbox" id="<%= year.range %>" name="year-checkbox" value="<%= analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: @subcategory) %>" <%= @selected_academic_years.include?(year)  ? "checked" : "" %> data-action="click->analyze#refresh">
+        <label class="px-3" for="<%= year.range %>" ><%= year.range %></label><br>
+        <div class="bg-color-blue" style="width:20px;height:20px;"></div>
+      </div>
+    <% end %>
   </div>
 
   <div class="bg-color-white flex-grow-1 col-9">

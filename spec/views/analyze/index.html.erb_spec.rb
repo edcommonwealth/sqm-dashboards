@@ -47,6 +47,8 @@ describe 'analyze/index' do
     # assign :category_presenters, []
     # assign :grouped_bar_column_presenters, grouped_bar_column_presenters
     assign :academic_year, academic_year
+    assign :available_academic_years, [academic_year]
+    assign :selected_academic_years, [academic_year]
     # assign :academic_years, [academic_year]
     assign :district, create(:district)
     assign :school, create(:school)
@@ -96,6 +98,7 @@ describe 'analyze/index' do
       expect(subject).to have_text 'Focus Area'
       expect(subject).to have_css '#select-category'
       expect(subject).to have_css '#select-subcategory'
+      expect(subject).to have_css "##{academic_year.range}"
     end
   end
 end

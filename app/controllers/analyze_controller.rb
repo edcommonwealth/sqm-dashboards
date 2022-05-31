@@ -8,6 +8,14 @@ class AnalyzeController < SqmApplicationController
     @subcategory ||= Subcategory.find_by_subcategory_id(params[:subcategory])
     @subcategory ||= @subcategories.first
 
-    @measures = @subcategory.measures.order(:measure_id).includes(%i[scales admin_data_items])
+    @measures = @subcategory.measures.order(:measure_id).includes(%i[scales admin_data_items subcategory])
+
+    @available_academic_years = AcademicYear.order(:range).all
+    @academic_year_params = params[:academic_years].split(',') if params[:academic_years]
+    @selected_academic_years = []
+    @academic_year_params.each do |year|
+      @selected_academic_years << AcademicYear.find_by_range(year)
+    end
+    @selected_academic_years = [@academic_year] if @selected_academic_years.empty?
   end
 end
