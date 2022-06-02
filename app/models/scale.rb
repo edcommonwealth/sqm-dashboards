@@ -38,7 +38,7 @@ class Scale < ApplicationRecord
 
   def student_survey_items(school:, academic_year:)
     survey = Survey.where(school:, academic_year:).first
-    return survey_items.student_survey_items.short_form_items if survey.form == 'short'
+    return survey_items.student_survey_items.short_form_items if survey.present? && survey.form == 'short'
 
     survey_items.student_survey_items
   end

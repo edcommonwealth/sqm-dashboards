@@ -15,7 +15,7 @@ class StudentGroupedBarColumnPresenter < GroupedBarColumnPresenter
     !score.meets_student_threshold?
   end
 
-  # def score
-  #   @measure.student_score(school: @school, academic_year: @academic_year)
-  # end
+  def score
+    measure.student_score(school:, academic_year:)
+  end
 end

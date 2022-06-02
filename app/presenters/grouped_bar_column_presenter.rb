@@ -1,16 +1,19 @@
 class GroupedBarColumnPresenter
   include AnalyzeHelper
-  attr_reader :score, :measure_name, :measure_id, :category, :position
+  attr_reader :score, :measure_name, :measure_id, :category, :position, :measure, :school, :academic_year
 
-  def initialize(measure:, score:, position:)
+  def initialize(measure:, school:, academic_year:, position:)
     @measure = measure
-    @score = score
-    @meets_teacher_threshold = score.meets_teacher_threshold?
-    @meets_student_threshold = score.meets_student_threshold?
     @measure_name = @measure.name
     @measure_id = @measure.measure_id
     @category = @measure.subcategory.category
+    @school = school
+    @academic_year = academic_year
     @position = position
+  end
+
+  def score
+    measure.score(school:, academic_year:)
   end
 
   def y_offset
@@ -44,7 +47,7 @@ class GroupedBarColumnPresenter
   end
 
   def percentage
-    (@score.average - zone.low_benchmark) / (zone.high_benchmark - zone.low_benchmark)
+    (score.average - zone.low_benchmark) / (zone.high_benchmark - zone.low_benchmark)
   end
 
   def zone
@@ -54,7 +57,7 @@ class GroupedBarColumnPresenter
       approval_low_benchmark: @measure.approval_low_benchmark,
       ideal_low_benchmark: @measure.ideal_low_benchmark
     )
-    zones.zone_for_score(@score.average)
+    zones.zone_for_score(score.average)
   end
 
   def label
