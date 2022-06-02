@@ -101,4 +101,7 @@ describe 'analyze/index' do
       expect(subject).to have_css "##{academic_year.range}"
     end
   end
+
+  context 'when presenters have a score' do
+  end
 end

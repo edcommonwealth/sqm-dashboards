@@ -1,8 +1,8 @@
 class GroupedBarColumnPresenter
   include AnalyzeHelper
-  attr_reader :score, :measure_name, :measure_id, :category, :position, :type
+  attr_reader :score, :measure_name, :measure_id, :category, :position
 
-  def initialize(measure:, score:, position:, type:)
+  def initialize(measure:, score:, position:)
     @measure = measure
     @score = score
     @meets_teacher_threshold = score.meets_teacher_threshold?
@@ -11,7 +11,6 @@ class GroupedBarColumnPresenter
     @measure_id = @measure.measure_id
     @category = @measure.subcategory.category
     @position = position
-    @type = type
   end
 
   def y_offset
@@ -59,41 +58,18 @@ class GroupedBarColumnPresenter
   end
 
   def label
-    case type
-    when :all
-      'All Survey Data'
-    when :student
-      'All Students'
-    when :teacher
-      'All Teachers'
-    end
+    'All Survey Data'
   end
 
   def basis
-    return '' if type == :all
-
-    type
+    ''
   end
 
   def show_irrelevancy_message?
-    return true if type == :student && !@measure.includes_student_survey_items?
-
-    return true if type == :teacher && !@measure.includes_teacher_survey_items?
-    return true if type == :all && !@measure.includes_teacher_survey_items? && !@measure.includes_student_survey_items?
-
-    false
+    !@measure.includes_teacher_survey_items? && !@measure.includes_student_survey_items?
   end
 
   def show_insufficient_data_message?
-    case type
-    when :all
-      !score.meets_teacher_threshold? && !score.meets_student_threshold?
-    when :student
-      !score.meets_student_threshold?
-    when :teacher
-      !score.meets_teacher_threshold?
-    else
-      false
-    end
+    !score.meets_teacher_threshold? && !score.meets_student_threshold?
   end
 end

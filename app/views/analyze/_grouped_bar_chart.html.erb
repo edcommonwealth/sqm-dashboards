@@ -31,11 +31,11 @@
     </g>
   </g>
 
-<% presenter = GroupedBarColumnPresenter.new(measure: measure, score: measure.student_score(school: @school, academic_year: @academic_year), position: 1, type: :student) %>
+<% presenter = StudentGroupedBarColumnPresenter.new(measure: measure, score: measure.student_score(school: @school, academic_year: @academic_year), position: 1) %>
   <%= render partial: "grouped_bar_column", locals: {presenter: presenter} %>
-<% presenter = GroupedBarColumnPresenter.new(measure: measure, score: measure.teacher_score(school: @school, academic_year: @academic_year), position: 2, type: :teacher) %>
+<% presenter = TeacherGroupedBarColumnPresenter.new(measure: measure, score: measure.teacher_score(school: @school, academic_year: @academic_year), position: 2) %>
   <%= render partial: "grouped_bar_column", locals: {presenter: presenter} %>
-<% presenter = GroupedBarColumnPresenter.new(measure: measure, score: measure.score(school: @school, academic_year: @academic_year), position: 3, type: :all) %>
+<% presenter = GroupedBarColumnPresenter.new(measure: measure, score: measure.score(school: @school, academic_year: @academic_year), position: 3) %>
   <%= render partial: "grouped_bar_column", locals: {presenter: presenter} %>
 
 </svg>
