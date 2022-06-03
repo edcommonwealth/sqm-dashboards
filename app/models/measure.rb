@@ -47,7 +47,7 @@ class Measure < ActiveRecord::Base
   end
 
   def score(school:, academic_year:)
-    @score ||= Hash.new do |memo|
+    @score ||= Hash.new do |memo, (school, academic_year)|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
@@ -73,23 +73,27 @@ class Measure < ActiveRecord::Base
   end
 
   def student_score(school:, academic_year:)
-    @student_score ||= begin
+    @student_score ||= Hash.new do |memo, (school, academic_year)|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
       average = collect_survey_scale_average(student_scales, school, academic_year) if meets_student_threshold
-      Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+      memo[[school, academic_year]] = Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
     end
+
+      @student_score[[school, academic_year]]
   end
 
   def teacher_score(school:, academic_year:)
-    @teacher_score ||= begin
+    @teacher_score ||= Hash.new do |memo, (school, academic_year)|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
       average = collect_survey_scale_average(teacher_scales, school, academic_year) if meets_teacher_threshold
-      Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+      memo[[school, academic_year]] = Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
     end
+
+      @teacher_score[[school, academic_year]]
   end
 
   def warning_low_benchmark

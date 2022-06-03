@@ -25,11 +25,11 @@
     </select>
 
     <h3 class="sub-header-4 mt-5">School Years</h3>
-    <%  @available_academic_years.each do | year | %>
+    <%  @available_academic_years.each_with_index do | year, index | %>
       <div class="d-flex justify-content-start align-items-center mt-1" data-controller="analyze">
         <input type="checkbox" id="<%= year.range %>" name="year-checkbox" value="<%= analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: @subcategory) %>" <%= @selected_academic_years.include?(year)  ? "checked" : "" %> data-action="click->analyze#refresh">
         <label class="px-3" for="<%= year.range %>" ><%= year.range %></label><br>
-        <div class="bg-color-blue" style="width:20px;height:20px;"></div>
+        <div class="bg-color-blue" style="width:20px;height:20px;background-color:<%= colors[index]  %>;"></div>
       </div>
     <% end %>
   </div>

@@ -5,7 +5,7 @@ class Scale < ApplicationRecord
   has_many :admin_data_items
 
   def score(school:, academic_year:)
-    @score ||= Hash.new do |memo|
+    @score ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = begin
         items = []
         items << collect_survey_item_average(student_survey_items(school:, academic_year:), school, academic_year)

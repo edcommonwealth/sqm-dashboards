@@ -8,14 +8,18 @@ class TeacherGroupedBarColumnPresenter < GroupedBarColumnPresenter
   end
 
   def show_irrelevancy_message?
-    !@measure.includes_teacher_survey_items?
+    !measure.includes_teacher_survey_items?
   end
 
   def show_insufficient_data_message?
-    !score.meets_teacher_threshold?
+    scores = academic_years.map do |year|
+      measure.score(school:, academic_year: year)
+    end
+
+    scores.all? { |score| !score.meets_teacher_threshold? }
   end
 
-  def score
-    measure.teacher_score(school:, academic_year:)
+  def score(year_index)
+    measure.teacher_score(school:, academic_year: academic_years[year_index])
   end
 end

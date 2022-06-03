@@ -78,9 +78,14 @@ describe 'analyze/index' do
     # end
 
     it 'displays a set of grouped bars for each presenter' do
+      displayed_variance_columns = subject.css('.grouped-bar-column')
+      expect(displayed_variance_columns.count).to eq 9
+
       displayed_variance_rows = subject.css('[data-for-measure-id]')
-      expect(displayed_variance_rows.count).to eq 9
       expect(displayed_variance_rows.first.attribute('data-for-measure-id').value).to eq '1A-I'
+
+      # displayed_variance_rows = subject.css('data-for-academic-year')
+      # expect(displayed_variance_rows.count).to eq 9
 
       displayed_variance_labels = subject.css('[data-grouped-bar-label]')
       expect(displayed_variance_labels.count).to eq 9

@@ -27,20 +27,20 @@ module AnalyzeHelper
     1
   end
 
-  def grouped_chart_width
+  def grouped_chart_column_width
     graph_width / data_sources
   end
 
-  def grouped_chart_divider_x(position)
-    zone_label_width + (grouped_chart_width * position)
+  def column_end_x(position)
+    zone_label_width + (grouped_chart_column_width * position)
+  end
+
+  def column_start_x(position)
+    column_end_x(position - 1)
   end
 
   def bar_label_height
     (100 - ((100 - analyze_graph_height) / 2))
-  end
-
-  def bar_label_x(position)
-    zone_label_width + (grouped_chart_width * position) - (grouped_chart_width / 2)
   end
 
   def analyze_zone_height
@@ -65,5 +65,9 @@ module AnalyzeHelper
 
   def analyze_subcategory_link(district:, school:, academic_year:, category:, subcategory:)
     "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&category=#{category.category_id}&subcategory=#{subcategory.subcategory_id}"
+  end
+
+  def colors
+    @colors ||= ['#49416D', '#FFC857', '#920020', '#00B0B3', '#B2D236', '#595959']
   end
 end

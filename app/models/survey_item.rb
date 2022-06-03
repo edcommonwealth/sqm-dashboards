@@ -6,11 +6,10 @@ class SurveyItem < ActiveRecord::Base
   has_many :survey_item_responses
 
   def score(school:, academic_year:)
-    @score ||= Hash.new do |memo|
-      memo[[school, academic_year]] = survey_item_responses.where(school:,
-                                                                  academic_year:).exclude_boston.average(:likert_score).to_f
+    @score ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] =
+        survey_item_responses.exclude_boston.where(school:, academic_year:).average(:likert_score).to_f
     end
-
     @score[[school, academic_year]]
   end
 
