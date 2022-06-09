@@ -26,13 +26,13 @@ describe 'District Admin', js: true do
   let(:survey_items_for_measure_2A_ii) { measure_2A_ii.survey_items }
   let(:survey_items_for_measure_4C_i) { measure_4C_i.survey_items }
 
-  let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
+  let(:ay_2021_22) { AcademicYear.find_by_range '2021-22' }
   let(:ay_2019_20) { AcademicYear.find_by_range '2019-20' }
 
   # let(:username) { 'winchester' }
   # let(:password) { 'winchester!' }
   let(:respondents) do
-    respondents = Respondent.where(school:, academic_year: ay_2020_21).first
+    respondents = Respondent.where(school:, academic_year: ay_2021_22).first
     respondents.total_students = 8
     respondents.total_teachers = 8
     respondents.save
@@ -51,35 +51,35 @@ describe 'District Admin', js: true do
 
     survey_items_for_measure_1A_i.each do |survey_item|
       SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
                                                         school:, survey_item:, likert_score: 4)
       end
     end
 
     survey_items_for_measure_2A_i.each do |survey_item|
       SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
                                                         school:, survey_item:, likert_score: 5)
       end
     end
 
     survey_items_for_measure_2A_ii.each do |survey_item|
       SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
                                                         school:, survey_item:, likert_score: 5)
       end
     end
 
     survey_items_for_measure_4C_i.each do |survey_item|
       SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
                                                         school:, survey_item:, likert_score: 1)
       end
     end
 
     survey_items_for_subcategory.each do |survey_item|
       2.times do
-        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2020_21,
+        survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
                                                         school:, survey_item:, likert_score: 4)
       end
     end
@@ -167,12 +167,12 @@ end
 def got_to_analyze_page; end
 
 def district_admin_sees_schools_change
-  expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=2020-21"
+  expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=#{ay_2021_22.range}"
   expect(page).to have_current_path(expected_path)
 end
 
 def district_admin_sees_district_change
-  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/browse/teachers-and-leadership?year=2020-21"
+  expected_path = "/districts/#{different_district.slug}/schools/#{different_district.schools.alphabetic.first.slug}/browse/teachers-and-leadership?year=#{ay_2021_22.range}"
   expect(page).to have_current_path(expected_path)
 end
 
@@ -182,7 +182,7 @@ def district_admin_sees_year_change
 end
 
 def district_admin_sees_overview_content
-  expect(page).to have_select('academic-year', selected: '2020 – 2021')
+  expect(page).to have_select('academic-year', selected: '2021 – 2022')
   expect(page).to have_select('district', selected: 'Winchester')
   expect(page).to have_select('school', selected: 'Winchester High School')
   expect(page).to have_text(school.name)
