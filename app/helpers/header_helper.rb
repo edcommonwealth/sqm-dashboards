@@ -8,7 +8,7 @@ module HeaderHelper
   end
 
   def link_to_analyze(district:, school:, academic_year:)
-    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&category=1"
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&category=1&academic_years=#{academic_year.range}"
   end
 
   def district_url_for(district:, academic_year:)
@@ -60,7 +60,7 @@ module HeaderHelper
   end
 
   def analyze_link(district_slug:, school_slug:, academic_year_range:)
-    "/districts/#{district_slug}/schools/#{school_slug}/analyze?year=#{academic_year_range}"
+    "/districts/#{district_slug}/schools/#{school_slug}/analyze?year=#{academic_year_range}&academic_years=#{academic_year_range}"
   end
 
   def browse_link(district_slug:, school_slug:, academic_year_range:)

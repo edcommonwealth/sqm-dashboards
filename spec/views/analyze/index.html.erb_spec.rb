@@ -84,8 +84,8 @@ describe 'analyze/index' do
       displayed_variance_rows = subject.css('[data-for-measure-id]')
       expect(displayed_variance_rows.first.attribute('data-for-measure-id').value).to eq '1A-I'
 
-      # displayed_variance_rows = subject.css('data-for-academic-year')
-      # expect(displayed_variance_rows.count).to eq 9
+      # displayed_academic_years = subject.css('[data-for-academic-year]')
+      # expect(displayed_academic_years.count).to eq 9
 
       displayed_variance_labels = subject.css('[data-grouped-bar-label]')
       expect(displayed_variance_labels.count).to eq 9
@@ -104,6 +104,11 @@ describe 'analyze/index' do
       expect(subject).to have_css '#select-category'
       expect(subject).to have_css '#select-subcategory'
       expect(subject).to have_css "##{academic_year.range}"
+    end
+
+    it 'displays disabled checkboxes for years that dont have data' do
+      year_checkbox = subject.css("##{academic_year.range}").first
+      expect(year_checkbox).to have_attribute 'disabled'
     end
   end
 

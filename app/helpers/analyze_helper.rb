@@ -60,7 +60,7 @@ module AnalyzeHelper
   end
 
   def analyze_category_link(district:, school:, academic_year:, category:)
-    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&category=#{category.category_id}"
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&academic_years=#{academic_year.range}&category=#{category.category_id}"
   end
 
   def analyze_subcategory_link(district:, school:, academic_year:, category:, subcategory:)
@@ -69,5 +69,15 @@ module AnalyzeHelper
 
   def colors
     @colors ||= ['#49416D', '#FFC857', '#920020', '#00B0B3', '#B2D236', '#595959']
+  end
+
+  def empty_dataset?(measures:, school:, academic_year:)
+    @empty_dataset ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = measures.all? do |measure|
+        measure.survey_item_responses.where(school:, academic_year:).none? || measure.none_meet_threshold?(school:, academic_year:)
+      end
+    end
+
+    @empty_dataset[[school, academic_year]]
   end
 end

@@ -13,12 +13,9 @@ class AnalyzeController < SqmApplicationController
     @available_academic_years = AcademicYear.order(:range).all
     @academic_year_params = params[:academic_years].split(',') if params[:academic_years]
     @selected_academic_years = []
-    if @academic_year_params.present?
-      @academic_year_params.each do |year|
-        @selected_academic_years << AcademicYear.find_by_range(year)
-      end
-    else
-      @selected_academic_years = [@academic_year]
+    @academic_year_params ||= []
+    @academic_year_params.each do |year|
+      @selected_academic_years << AcademicYear.find_by_range(year)
     end
   end
 end
