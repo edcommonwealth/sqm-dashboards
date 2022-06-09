@@ -42,7 +42,7 @@ module HeaderHelper
   end
 
   def latest_year(school)
-    if school.district.name == 'Attleboro'
+    if school.district.name == 'Attleboro' || school.district.name == 'Winchester'
       AcademicYear.find_by_range('2021-22')
     else
       AcademicYear.find_by_range('2020-21')
