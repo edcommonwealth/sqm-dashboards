@@ -172,7 +172,7 @@ describe GroupedBarColumnPresenter do
       it_behaves_like 'column_midpoint'
       it_behaves_like 'bar_color'
 
-      it 'returns a bar width equal to the approval zone width plus the proportionate ideal zone width' do
+      it 'returns a bar width equal to the approval zone width plus the proportionate ideal zone height' do
         expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(17)
       end
 
@@ -223,15 +223,15 @@ describe GroupedBarColumnPresenter do
       it_behaves_like 'measure_name'
       it_behaves_like 'column_midpoint'
       it_behaves_like 'bar_color'
-      it_behaves_like 'y_offset'
+      # it_behaves_like 'y_offset'
 
       context 'and the score is right at the approval low benchmark' do
-        it 'bar will have a height of 0' do
-          expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(0)
+        it "where bar would normally have a height of 0, we inflate the height to be at least the minimum bar height of #{AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT}" do
+          expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT)
         end
 
-        it 'bar will be based on the approval low benchmark boundary' do
-          expect(student_presenter.bars[year_index].y_offset).to be_within(0.01).of(34)
+        it "where the bar would normally start at the approval low benchmark, it shifts up to accomodate it being grown to the minimum bar height of #{AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT}" do
+          expect(student_presenter.bars[year_index].y_offset).to be_within(0.01).of(analyze_zone_height * 2 - AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT)
         end
       end
     end
@@ -248,6 +248,17 @@ describe GroupedBarColumnPresenter do
 
       it 'returns a bar width equal to the proportionate growth zone width' do
         expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(17)
+      end
+
+      context 'when the score is less than 5 percent away from the approval low benchmark line' do
+        before do
+          create_list(:survey_item_response, 40, survey_item: student_survey_item, school:,
+                                                 academic_year:, likert_score: 4)
+        end
+
+        it "it rounds to the the minimum bar height of #{AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT} " do
+          expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT)
+        end
       end
     end
 

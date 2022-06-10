@@ -2,6 +2,8 @@ class AnalyzeBarPresenter
   include AnalyzeHelper
   attr_reader :score, :x_position, :academic_year, :measure_id, :measure, :color
 
+  MINIMUM_BAR_HEIGHT = 2
+
   def initialize(measure:, academic_year:, score:, x_position:, color:)
     @score = score
     @x_position = x_position
@@ -25,20 +27,21 @@ class AnalyzeBarPresenter
   end
 
   def bar_height_percentage
-    case zone.type
-    when :ideal
-      (percentage * zone_height_percentage + zone_height_percentage) * 100
-    when :approval
-      (percentage * zone_height_percentage) * 100
-    when :growth
-      ((1 - percentage) * zone_height_percentage) * 100
-    when :watch
-      ((1 - percentage) * zone_height_percentage + zone_height_percentage) * 100
-    when :warning
-      ((1 - percentage) * zone_height_percentage + zone_height_percentage + zone_height_percentage) * 100
-    else
-      0.0
-    end
+    bar_height = case zone.type
+                 when :ideal
+                   (percentage * zone_height_percentage + zone_height_percentage) * 100
+                 when :approval
+                   (percentage * zone_height_percentage) * 100
+                 when :growth
+                   ((1 - percentage) * zone_height_percentage) * 100
+                 when :watch
+                   ((1 - percentage) * zone_height_percentage + zone_height_percentage) * 100
+                 when :warning
+                   ((1 - percentage) * zone_height_percentage + zone_height_percentage + zone_height_percentage) * 100
+                 else
+                   0.0
+                 end
+    bar_height < MINIMUM_BAR_HEIGHT ? MINIMUM_BAR_HEIGHT : bar_height
   end
 
   def percentage

@@ -68,7 +68,7 @@ module AnalyzeHelper
   end
 
   def colors
-    @colors ||= ['#49416D', '#FFC857', '#920020', '#00B0B3', '#B2D236', '#595959']
+    @colors ||= ['#49416D', '#FFC857', '#920020', '#00B0B3', '#B2D236', '#004D61']
   end
 
   def empty_dataset?(measures:, school:, academic_year:)
