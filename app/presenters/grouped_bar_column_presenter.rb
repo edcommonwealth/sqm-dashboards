@@ -28,7 +28,7 @@ class GroupedBarColumnPresenter
   end
 
   def label
-    'All data'
+    'All Data'
   end
 
   def basis

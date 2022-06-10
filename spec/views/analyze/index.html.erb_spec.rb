@@ -90,7 +90,7 @@ describe 'analyze/index' do
       displayed_variance_labels = subject.css('[data-grouped-bar-label]')
       expect(displayed_variance_labels.count).to eq 9
       expect(displayed_variance_labels.first.inner_text).to include 'All Students'
-      expect(displayed_variance_labels.last.inner_text).to include 'All Survey Data'
+      expect(displayed_variance_labels.last.inner_text).to include 'All Data'
     end
 
     it 'displays all measures for the first subcategory' do
