@@ -99,8 +99,10 @@
 </div>
 <% end %>
 
-<% if @district == District.find_by_name("Boston")  %>
-  <%= render partial: 'layouts/boston_modal' %>
-<% elsif @has_empty_dataset %>
-  <%= render partial: 'layouts/empty_dataset_modal' %>
-<% end %>
+<% cache [@district, @school, @academic_year] do %>
+  <% if @district == District.find_by_name("Boston")  %>
+    <%= render partial: 'layouts/boston_modal' %>
+  <% elsif @has_empty_dataset %>
+    <%= render partial: 'layouts/empty_dataset_modal' %>
+  <% end %>
+<% end  %>

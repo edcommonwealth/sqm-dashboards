@@ -6,7 +6,7 @@ describe 'SQM Application' do
   let(:academic_year) { create(:academic_year) }
   let(:category) { create(:category) }
   let(:measure) { create(:measure) }
-  let(:scale) { create(:scale, measure:) }
+  let(:scale) { create(:teacher_scale, measure:) }
 
   before :each do
     driven_by :rack_test

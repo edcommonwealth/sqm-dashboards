@@ -10,7 +10,7 @@ class StudentResponseRate
                                             measure]).student_survey_items.where("scale.measure": @subcategory.measures)
       survey_items = survey_items.where(on_short_form: true) if survey.form == 'short'
       survey_items = survey_items.reject do |survey_item|
-        survey_item.survey_item_responses.where(school: @school, academic_year: @academic_year).count == 0
+        survey_item.survey_item_responses.where(school: @school, academic_year: @academic_year).none?
       end
       survey_items.count
     end
@@ -34,3 +34,25 @@ class StudentResponseRate
     end
   end
 end
+
+# survey = Survey.where(school:, academic_year:).first
+# total_possible_student_responses = Respondent.where(school:, academic_year:).first
+
+# student_survey_items = Subcategory.all.map do |subcategory|
+#   subcategory.measures.map do |measure|
+#     measure.student_scales.map do |scale|
+#       scale.survey_items.count
+#     end.sum
+#   end.sum
+# end
+# student_response_counts = Subcategory.all.map do |subcategory|
+#   subcategory.measures.map do |measure|
+#     measure.student_survey_items.map do |survey_item|
+#       survey_item.survey_item_responses.where(school:, academic_year:).exclude_boston.count
+#     end.sum
+#   end.sum
+# end
+
+# student_response_counts.each_with_index.map do |value, index|
+#   value.to_f / student_survey_items[index] / total_possible_student_responses * 100
+# end

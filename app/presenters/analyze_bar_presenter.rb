@@ -61,6 +61,6 @@ class AnalyzeBarPresenter
   def average
     return 0 if score.average.nil?
 
-    score.average.round(2)
+    score.average.round(6)
   end
 end

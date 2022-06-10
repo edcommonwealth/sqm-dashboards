@@ -164,13 +164,13 @@ RSpec.describe Measure, type: :model do
                                          growth_low_benchmark: admin_growth_low_benchmark,
                                          approval_low_benchmark: admin_approval_low_benchmark,
                                          ideal_low_benchmark: admin_ideal_low_benchmark)
-        create_list(:student_survey_item, 3, scale:,
+        create_list(:student_survey_item, 3, scale: student_scale,
                                              watch_low_benchmark: student_watch_low_benchmark,
                                              growth_low_benchmark: student_growth_low_benchmark,
                                              approval_low_benchmark: student_approval_low_benchmark,
                                              ideal_low_benchmark: student_ideal_low_benchmark)
 
-        create_list(:teacher_survey_item, 3, scale:,
+        create_list(:teacher_survey_item, 3, scale: teacher_scale,
                                              watch_low_benchmark: teacher_watch_low_benchmark,
                                              growth_low_benchmark: teacher_growth_low_benchmark,
                                              approval_low_benchmark: teacher_approval_low_benchmark,

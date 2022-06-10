@@ -22,6 +22,13 @@ class Measure < ActiveRecord::Base
     @student_survey_items ||= survey_items.student_survey_items
   end
 
+  def student_survey_items_by_survey_type(school:, academic_year:)
+    survey = Survey.where(school:, academic_year:).first
+    return survey_items.student_survey_items.short_form_items if survey.form == 'short'
+
+    survey_items.student_survey_items
+  end
+
   def teacher_scales
     @teacher_scales ||= scales.teacher_scales
   end
@@ -31,11 +38,11 @@ class Measure < ActiveRecord::Base
   end
 
   def includes_teacher_survey_items?
-    @includes_teacher_survey_items ||= teacher_survey_items.any?
+    teacher_survey_items.any?
   end
 
   def includes_student_survey_items?
-    @includes_student_survey_items ||= student_survey_items.any?
+    student_survey_items.any?
   end
 
   def includes_admin_data_items?
@@ -61,8 +68,14 @@ class Measure < ActiveRecord::Base
       next Score.new(nil, false, false, false) if incalculable_score
 
       scores = []
-      scores << teacher_score(school:, academic_year:).average if meets_teacher_threshold
-      scores << student_score(school:, academic_year:).average if meets_student_threshold
+      if meets_teacher_threshold
+        scores << collect_survey_item_average(survey_items: teacher_survey_items, school:,
+                                              academic_year:)
+      end
+      if meets_student_threshold
+        scores << collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
+                                              academic_year:)
+      end
       scores << collect_admin_scale_average(admin_data_items, school, academic_year) if includes_admin_data_items?
 
       average = scores.flatten.compact.remove_zeros.average
@@ -81,7 +94,10 @@ class Measure < ActiveRecord::Base
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
-      average = collect_survey_scale_average(student_scales, school, academic_year) if meets_student_threshold
+      if meets_student_threshold
+        average = collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
+                                              academic_year:)
+      end
       memo[[school, academic_year]] =
         Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
     end
@@ -94,7 +110,10 @@ class Measure < ActiveRecord::Base
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
-      average = collect_survey_scale_average(teacher_scales, school, academic_year) if meets_teacher_threshold
+      if meets_teacher_threshold
+        average = collect_survey_item_average(survey_items: teacher_survey_items, school:,
+                                              academic_year:)
+      end
       memo[[school, academic_year]] =
         Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
     end
@@ -124,15 +143,16 @@ class Measure < ActiveRecord::Base
 
   def sufficient_student_data?(school:, academic_year:)
     return false unless includes_student_survey_items?
+    return false if student_scales.all? { |scale| scale.survey_item_responses.where(school:, academic_year:).none? }
 
-    @sufficient_student_data ||= subcategory.student_response_rate(school:,
-                                                                   academic_year:).meets_student_threshold?
+    @sufficient_student_data ||= subcategory.student_response_rate(school:, academic_year:).meets_student_threshold?
   end
 
   def sufficient_teacher_data?(school:, academic_year:)
     return false unless includes_teacher_survey_items?
+    return false if teacher_scales.all? { |scale| scale.survey_item_responses.where(school:, academic_year:).none? }
 
-    @sufficient_teacher_data ||= subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
+    @sufficient_teacher_data ||=  subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
   end
 
   def all_admin_data_collected?(school:, academic_year:)
@@ -146,16 +166,20 @@ class Measure < ActiveRecord::Base
   end
 
   def sufficient_survey_responses?(school:, academic_year:)
-    @sufficient_survey_responses ||= sufficient_student_data?(school:,
-                                                              academic_year:) || sufficient_teacher_data?(
-                                                                school:, academic_year:
-                                                              )
+    @sufficient_survey_responses = Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] =
+        sufficient_student_data?(school:, academic_year:) || sufficient_teacher_data?(school:, academic_year:)
+    end
+    @sufficient_survey_responses[[school, academic_year]]
   end
 
   private
 
-  def collect_survey_scale_average(scales, school, academic_year)
-    scales.map { |scale| scale.score(school:, academic_year:) }.average
+  def collect_survey_item_average(survey_items:, school:, academic_year:)
+    averages = survey_items.map do |survey_item|
+      grouped_responses(school:, academic_year:)[survey_item] || 0
+    end.remove_zeros
+    averages.any? ? averages.average : 0
   end
 
   def collect_admin_scale_average(scales, school, academic_year)
@@ -163,6 +187,14 @@ class Measure < ActiveRecord::Base
       admin_value = admin_data_item.admin_data_values.where(school:, academic_year:).first
       admin_value.likert_score if admin_value.present?
     end
+  end
+
+  def grouped_responses(school:, academic_year:)
+    @grouped_responses ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] =
+        SurveyItemResponse.where(school:, academic_year:).group(:survey_item).average(:likert_score)
+    end
+    @grouped_responses[[school, academic_year]]
   end
 
   def benchmark(name)
