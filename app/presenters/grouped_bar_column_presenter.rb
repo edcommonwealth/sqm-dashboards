@@ -28,7 +28,7 @@ class GroupedBarColumnPresenter
   end
 
   def label
-    'All Survey Data'
+    'All data'
   end
 
   def basis
