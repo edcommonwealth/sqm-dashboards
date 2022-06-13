@@ -7,7 +7,11 @@ class Measure < ActiveRecord::Base
   has_many :survey_item_responses, through: :survey_items
 
   def none_meet_threshold?(school:, academic_year:)
-    !sufficient_survey_responses?(school:, academic_year:)
+    @none_meet_threshold ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = !sufficient_survey_responses?(school:, academic_year:)
+    end
+
+    @none_meet_threshold[[school, academic_year]]
   end
 
   def teacher_survey_items
@@ -27,15 +31,15 @@ class Measure < ActiveRecord::Base
   end
 
   def includes_teacher_survey_items?
-    teacher_survey_items.any?
+    @includes_teacher_survey_items ||= teacher_survey_items.any?
   end
 
   def includes_student_survey_items?
-    student_survey_items.any?
+    @includes_student_survey_items ||= student_survey_items.any?
   end
 
   def includes_admin_data_items?
-    admin_data_items.any?
+    @includes_admin_data_items ||= admin_data_items.any?
   end
 
   def sources
@@ -78,10 +82,11 @@ class Measure < ActiveRecord::Base
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
       average = collect_survey_scale_average(student_scales, school, academic_year) if meets_student_threshold
-      memo[[school, academic_year]] = Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+      memo[[school, academic_year]] =
+        Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
     end
 
-      @student_score[[school, academic_year]]
+    @student_score[[school, academic_year]]
   end
 
   def teacher_score(school:, academic_year:)
@@ -90,10 +95,11 @@ class Measure < ActiveRecord::Base
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
       meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
       average = collect_survey_scale_average(teacher_scales, school, academic_year) if meets_teacher_threshold
-      memo[[school, academic_year]] = Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+      memo[[school, academic_year]] =
+        Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
     end
 
-      @teacher_score[[school, academic_year]]
+    @teacher_score[[school, academic_year]]
   end
 
   def warning_low_benchmark
@@ -140,7 +146,10 @@ class Measure < ActiveRecord::Base
   end
 
   def sufficient_survey_responses?(school:, academic_year:)
-    sufficient_student_data?(school:, academic_year:) || sufficient_teacher_data?(school:, academic_year:)
+    @sufficient_survey_responses ||= sufficient_student_data?(school:,
+                                                              academic_year:) || sufficient_teacher_data?(
+                                                                school:, academic_year:
+                                                              )
   end
 
   private
