@@ -1,4 +1,14 @@
 FactoryBot.define do
+  factory :response_rate do
+    subcategory { nil }
+    school { nil }
+    academic_year { nil }
+    student_response_rate { 1.5 }
+    teacher_response_rate { 1.5 }
+    meets_student_threshold { false }
+    meets_teacher_threshold { false }
+  end
+
   factory :admin_data_value do
     likert_score { 1.5 }
     school
