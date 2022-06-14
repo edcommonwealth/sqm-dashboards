@@ -42,7 +42,7 @@
         <% if empty_dataset?(measures: @measures, school: @school, academic_year: year)  %>
           <i class="fa-solid fa-circle-exclamation px-3"
             data-bs-toggle="popover" data-bs-placement="right"
-            data-bs-content="Teacher and student survey response rates below <%= ResponseRate::TEACHER_RATE_THRESHOLD  %>%" >
+            data-bs-content="Teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD  %>%" >
           </i>
         <% end %>
       </div>

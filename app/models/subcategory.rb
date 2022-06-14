@@ -13,7 +13,7 @@ class Subcategory < ActiveRecord::Base
 
   def student_response_rate(school:, academic_year:)
     @student_response_rate ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = StudentResponseRate.new(subcategory: self, school:, academic_year:)
+      memo[[school, academic_year]] = StudentResponseRateCalculator.new(subcategory: self, school:, academic_year:)
     end
 
     @student_response_rate[[school, academic_year]]
@@ -21,7 +21,7 @@ class Subcategory < ActiveRecord::Base
 
   def teacher_response_rate(school:, academic_year:)
     @teacher_response_rate ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = TeacherResponseRate.new(subcategory: self, school:, academic_year:)
+      memo[[school, academic_year]] = TeacherResponseRateCalculator.new(subcategory: self, school:, academic_year:)
     end
 
     @teacher_response_rate[[school, academic_year]]
