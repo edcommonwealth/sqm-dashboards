@@ -38,11 +38,11 @@ class Measure < ActiveRecord::Base
   end
 
   def includes_teacher_survey_items?
-    teacher_survey_items.any?
+    @includes_teacher_survey_items ||= teacher_survey_items.any?
   end
 
   def includes_student_survey_items?
-    student_survey_items.any?
+    @includes_student_survey_items ||= student_survey_items.any?
   end
 
   def includes_admin_data_items?
@@ -50,11 +50,13 @@ class Measure < ActiveRecord::Base
   end
 
   def sources
-    sources = []
-    sources << :admin_data if includes_admin_data_items?
-    sources << :student_surveys if includes_student_survey_items?
-    sources << :teacher_surveys if includes_teacher_survey_items?
-    sources
+    @sources ||= begin
+      sources = []
+      sources << :admin_data if includes_admin_data_items?
+      sources << :student_surveys if includes_student_survey_items?
+      sources << :teacher_surveys if includes_teacher_survey_items?
+      sources
+    end
   end
 
   def score(school:, academic_year:)
@@ -76,7 +78,7 @@ class Measure < ActiveRecord::Base
         scores << collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
                                               academic_year:)
       end
-      scores << collect_admin_scale_average(admin_data_items, school, academic_year) if includes_admin_data_items?
+      scores << collect_admin_scale_average(admin_data_items:, school:, academic_year:) if includes_admin_data_items?
 
       average = scores.flatten.compact.remove_zeros.average
 
@@ -141,32 +143,21 @@ class Measure < ActiveRecord::Base
     @ideal_low_benchmark ||= benchmark(:ideal_low_benchmark)
   end
 
-  def sufficient_student_data?(school:, academic_year:)
-    return false unless includes_student_survey_items?
-    return false if student_scales.all? { |scale| scale.survey_item_responses.where(school:, academic_year:).none? }
-
-    @sufficient_student_data ||= subcategory.student_response_rate(school:, academic_year:).meets_student_threshold?
-  end
-
-  def sufficient_teacher_data?(school:, academic_year:)
-    return false unless includes_teacher_survey_items?
-    return false if teacher_scales.all? { |scale| scale.survey_item_responses.where(school:, academic_year:).none? }
-
-    @sufficient_teacher_data ||=  subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
-  end
-
   def all_admin_data_collected?(school:, academic_year:)
-    total_possible_admin_data_items = scales.map { |scale| scale.admin_data_items.count }.sum
-    total_collected_admin_data_items = scales.map do |scale|
-      scale.admin_data_items.map do |admin_data_item|
-        admin_data_item.admin_data_values.where(school:, academic_year:).count
-      end
-    end.flatten.sum
-    total_possible_admin_data_items == total_collected_admin_data_items
+    @all_admin_data_collected ||= Hash.new do |memo, (school, academic_year)|
+      total_possible_admin_data_items = scales.map { |scale| scale.admin_data_items.count }.sum
+      total_collected_admin_data_items = scales.map do |scale|
+        scale.admin_data_items.map do |admin_data_item|
+          admin_data_item.admin_data_values.where(school:, academic_year:).count
+        end
+      end.flatten.sum
+      memo[[school, academic_year]] = total_possible_admin_data_items == total_collected_admin_data_items
+    end
+    @all_admin_data_collected[[school, academic_year]]
   end
 
   def sufficient_survey_responses?(school:, academic_year:)
-    @sufficient_survey_responses = Hash.new do |memo, (school, academic_year)|
+    @sufficient_survey_responses ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] =
         sufficient_student_data?(school:, academic_year:) || sufficient_teacher_data?(school:, academic_year:)
     end
@@ -176,17 +167,23 @@ class Measure < ActiveRecord::Base
   private
 
   def collect_survey_item_average(survey_items:, school:, academic_year:)
-    averages = survey_items.map do |survey_item|
-      grouped_responses(school:, academic_year:)[survey_item] || 0
-    end.remove_zeros
-    averages.any? ? averages.average : 0
+    @collect_survey_item_average ||= Hash.new do |memo, (survey_items, school, academic_year)|
+      averages = survey_items.map do |survey_item|
+        grouped_responses(school:, academic_year:)[survey_item] || 0
+      end.remove_zeros
+      memo[[survey_items, school, academic_year]] = averages.any? ? averages.average : 0
+    end
+    @collect_survey_item_average[[survey_items, school, academic_year]]
   end
 
-  def collect_admin_scale_average(scales, school, academic_year)
-    scales.map do |admin_data_item|
-      admin_value = admin_data_item.admin_data_values.where(school:, academic_year:).first
-      admin_value.likert_score if admin_value.present?
+  def collect_admin_scale_average(admin_data_items:, school:, academic_year:)
+    @collect_admin_scale_average ||= Hash.new do |memo, (admin_data_items, school, academic_year)|
+      memo[[admin_data_items, school, academic_year]] = admin_data_items.map do |admin_data_item|
+        admin_value = admin_data_item.admin_data_values.where(school:, academic_year:).first
+        admin_value.likert_score if admin_value.present?
+      end
     end
+    @collect_admin_scale_average[[admin_data_items, school, academic_year]]
   end
 
   def grouped_responses(school:, academic_year:)
@@ -203,5 +200,37 @@ class Measure < ActiveRecord::Base
     averages << teacher_survey_items.first.send(name) if includes_teacher_survey_items?
     (averages << admin_data_items.map(&name)).flatten! if includes_admin_data_items?
     averages.average
+  end
+
+  def student_survey_items_have_no_responses?(school:, academic_year:)
+    @student_survey_items_have_no_responses ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = student_scales.all? do |scale|
+        scale.survey_item_responses.where(school:, academic_year:).none?
+      end
+    end
+    @student_survey_items_have_no_responses[[school, academic_year]]
+  end
+
+  def teacher_survey_items_have_no_responses?(school:, academic_year:)
+    @teacher_survey_items_have_no_responses ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = teacher_scales.all? do |scale|
+        scale.survey_item_responses.where(school:, academic_year:).none?
+      end
+    end
+    @teacher_survey_items_have_no_responses[[school, academic_year]]
+  end
+
+  def sufficient_student_data?(school:, academic_year:)
+    return false unless includes_student_survey_items?
+    return false if student_survey_items_have_no_responses?(school:, academic_year:)
+
+    @sufficient_student_data ||= subcategory.student_response_rate(school:, academic_year:).meets_student_threshold?
+  end
+
+  def sufficient_teacher_data?(school:, academic_year:)
+    return false unless includes_teacher_survey_items?
+    return false if teacher_survey_items_have_no_responses?(school:, academic_year:)
+
+    @sufficient_teacher_data ||= subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
   end
 end
