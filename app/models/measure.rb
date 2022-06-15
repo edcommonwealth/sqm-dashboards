@@ -202,35 +202,15 @@ class Measure < ActiveRecord::Base
     averages.average
   end
 
-  def student_survey_items_have_no_responses?(school:, academic_year:)
-    @student_survey_items_have_no_responses ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = student_scales.all? do |scale|
-        scale.survey_item_responses.where(school:, academic_year:).none?
-      end
-    end
-    @student_survey_items_have_no_responses[[school, academic_year]]
-  end
-
-  def teacher_survey_items_have_no_responses?(school:, academic_year:)
-    @teacher_survey_items_have_no_responses ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = teacher_scales.all? do |scale|
-        scale.survey_item_responses.where(school:, academic_year:).none?
-      end
-    end
-    @teacher_survey_items_have_no_responses[[school, academic_year]]
-  end
-
   def sufficient_student_data?(school:, academic_year:)
     return false unless includes_student_survey_items?
-    return false if student_survey_items_have_no_responses?(school:, academic_year:)
 
-    @sufficient_student_data ||= subcategory.student_response_rate(school:, academic_year:).meets_student_threshold?
+    @sufficient_student_data ||= subcategory.response_rate(school:, academic_year:).meets_student_threshold
   end
 
   def sufficient_teacher_data?(school:, academic_year:)
     return false unless includes_teacher_survey_items?
-    return false if teacher_survey_items_have_no_responses?(school:, academic_year:)
 
-    @sufficient_teacher_data ||= subcategory.teacher_response_rate(school:, academic_year:).meets_teacher_threshold?
+    @sufficient_teacher_data ||= subcategory.response_rate(school:, academic_year:).meets_teacher_threshold
   end
 end

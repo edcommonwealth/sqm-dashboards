@@ -74,7 +74,8 @@ module AnalyzeHelper
   def empty_dataset?(measures:, school:, academic_year:)
     @empty_dataset ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = measures.all? do |measure|
-        measure.survey_item_responses.where(school:, academic_year:).none? || measure.none_meet_threshold?(school:, academic_year:)
+        response_rate = measure.subcategory.response_rate(school:, academic_year:)
+        !response_rate.meets_student_threshold && !response_rate.meets_teacher_threshold
       end
     end
 

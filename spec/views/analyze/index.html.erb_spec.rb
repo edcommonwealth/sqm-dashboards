@@ -5,6 +5,8 @@ describe 'analyze/index' do
   subject { Nokogiri::HTML(rendered) }
   let(:category) { create(:category) }
   let(:subcategory) { create(:subcategory, category:) }
+  let(:school) { create(:school) }
+  let(:academic_year) { create(:academic_year) }
 
   let(:support_for_teaching) do
     measure = create(:measure, name: 'Support For Teaching Development & Growth', measure_id: '1A-I', subcategory:)
@@ -41,22 +43,20 @@ describe 'analyze/index' do
            ideal_low_benchmark: 4.5)
     measure
   end
-  let(:academic_year) { create(:academic_year) }
 
   before :each do
-    # assign :category_presenters, []
-    # assign :grouped_bar_column_presenters, grouped_bar_column_presenters
     assign :academic_year, academic_year
     assign :available_academic_years, [academic_year]
     assign :selected_academic_years, [academic_year]
-    # assign :academic_years, [academic_year]
     assign :district, create(:district)
-    assign :school, create(:school)
+    assign :school, school
     assign :category, category
     assign :categories, [category]
     assign :subcategory, subcategory
     assign :subcategories, category.subcategories
     assign :measures, [support_for_teaching, effective_leadership, professional_qualifications]
+    create(:respondent, school:, academic_year:)
+    create(:survey, school:, academic_year:)
 
     render
   end
@@ -107,7 +107,10 @@ describe 'analyze/index' do
     end
 
     it 'displays disabled checkboxes for years that dont have data' do
+      ResponseRateLoader.refresh
       year_checkbox = subject.css("##{academic_year.range}").first
+      expect(year_checkbox.name).to eq 'input'
+      expect(academic_year.range).to eq '2050-51'
       expect(year_checkbox).to have_attribute 'disabled'
     end
   end

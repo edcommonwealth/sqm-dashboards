@@ -16,13 +16,17 @@ class OverviewController < SqmApplicationController
   end
 
   def check_empty_dataset
-    @has_empty_dataset = measures.all? do |measure|
-      measure.none_meet_threshold? school: @school, academic_year: @academic_year
+    @has_empty_dataset = subcategories.all? do |subcategory|
+      response_rate = subcategory.response_rate(school: @school, academic_year: @academic_year)
+      !response_rate.meets_student_threshold && !response_rate.meets_teacher_threshold
     end
   end
 
   def measures
-    @measures ||= Measure.all.includes(%i[scales admin_data_items subcategory
-                                          category]).includes(subcategory: :measures)
+    @measures ||= Measure.all.includes(%i[scales admin_data_items category])
+  end
+
+  def subcategories
+    @subcategories ||= Subcategory.all
   end
 end

@@ -5,6 +5,7 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :academic_year
   belongs_to :school
   belongs_to :survey_item
+  has_one :measure, through: :survey_item
 
   scope :exclude_boston, lambda {
                            boston = District.find_by_name('Boston')

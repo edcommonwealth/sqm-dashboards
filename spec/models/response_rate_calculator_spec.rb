@@ -3,6 +3,9 @@ require 'rails_helper'
 describe ResponseRateCalculator, type: :model do
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
+  let(:survey) { create(:survey, school:, academic_year:) }
+  let(:short_form_survey) { create(:survey, form: :short, school:, academic_year:) }
+  let(:respondent) { create(:respondent, school:, academic_year:) }
 
   describe StudentResponseRateCalculator do
     let(:subcategory) { create(:subcategory) }
@@ -23,13 +26,14 @@ describe ResponseRateCalculator, type: :model do
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
                                                                                          academic_year:, school:, likert_score: 4)
     end
-    context 'when a students take a regular survey' do
-      before :each do
-        create(:respondent, school:, academic_year:)
-        create(:survey, school:, academic_year:)
-      end
 
+    context 'when a students take a regular survey' do
       context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
+        before :each do
+          respondent
+          survey
+        end
+
         it 'returns a response rate equal to the response threshold' do
           expect(StudentResponseRateCalculator.new(subcategory:, school:,
                                                    academic_year:).rate).to eq 25
@@ -39,8 +43,8 @@ describe ResponseRateCalculator, type: :model do
 
     context 'when students take the short form survey' do
       before :each do
-        create(:respondent, school:, academic_year:)
-        create(:survey, form: :short, school:, academic_year:)
+        respondent
+        short_form_survey
       end
 
       context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
@@ -49,19 +53,19 @@ describe ResponseRateCalculator, type: :model do
           sufficient_student_survey_item_2.update! on_short_form: true
         end
 
-        it 'returns 100 percent' do
+        it 'takes into account the responses from both survey items' do
           expect(StudentResponseRateCalculator.new(subcategory:, school:,
                                                    academic_year:).rate).to eq 25
         end
 
-        context 'for the same number of responses, if only one of the questions is a short form question, the response rate will be half' do
+        context 'and only one of the survey items is on the short form' do
           before do
             sufficient_student_survey_item_2.update! on_short_form: false
           end
 
-          it 'returns 100 percent' do
+          it 'the response rate ignores the responses in the non-short form item' do
             expect(StudentResponseRateCalculator.new(subcategory:, school:,
-                                                     academic_year:).rate).to eq 50
+                                                     academic_year:).rate).to eq 25
           end
         end
       end
@@ -69,8 +73,8 @@ describe ResponseRateCalculator, type: :model do
 
     context 'when the average number of teacher responses is greater than the total possible responses' do
       before do
-        create(:respondent, school:, academic_year:)
-        create(:survey, school:, academic_year:)
+        respondent
+        survey
         create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD * 11, survey_item: sufficient_student_survey_item_2,
                                                                                                 academic_year:, school:, likert_score: 1)
       end
@@ -124,8 +128,8 @@ describe ResponseRateCalculator, type: :model do
 
     context 'when the average number of teacher responses per question in a subcategory is at the threshold' do
       before :each do
-        create(:respondent, school:, academic_year:)
-        create(:survey, school:, academic_year:)
+        respondent
+        survey
       end
       it 'returns 25 percent' do
         expect(TeacherResponseRateCalculator.new(subcategory:, school:,
@@ -135,8 +139,8 @@ describe ResponseRateCalculator, type: :model do
 
     context 'when the teacher response rate is not a whole number. eg 29.166%' do
       before do
-        create(:respondent, school:, academic_year:)
-        create(:survey, school:, academic_year:)
+        respondent
+        survey
         create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD + 1, survey_item: sufficient_teacher_survey_item_3,
                                                                                                academic_year:, school:, likert_score: 1)
       end
@@ -148,8 +152,8 @@ describe ResponseRateCalculator, type: :model do
 
     context 'when the average number of teacher responses is greater than the total possible responses' do
       before do
-        create(:respondent, school:, academic_year:)
-        create(:survey, school:, academic_year:)
+        respondent
+        survey
         create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD * 11, survey_item: sufficient_teacher_survey_item_3,
                                                                                                 academic_year:, school:, likert_score: 1)
       end
@@ -169,8 +173,8 @@ describe ResponseRateCalculator, type: :model do
     context 'when there is an imbalance in the response rate of the teacher items' do
       context 'and one of the teacher items has no associated survey item responses' do
         before do
-          create(:respondent, school:, academic_year:)
-          create(:survey, school:, academic_year:)
+          respondent
+          survey
           insufficient_teacher_survey_item_4
         end
         it 'ignores the empty survey item and returns only the average response rate of teacher survey items with responses' do

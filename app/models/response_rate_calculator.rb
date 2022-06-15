@@ -1,6 +1,7 @@
 module ResponseRateCalculator
   TEACHER_RATE_THRESHOLD = 25
   STUDENT_RATE_THRESHOLD = 25
+  attr_reader :subcategory, :school, :academic_year
 
   def initialize(subcategory:, school:, academic_year:)
     @subcategory = subcategory
@@ -28,6 +29,8 @@ module ResponseRateCalculator
   def meets_teacher_threshold?
     rate >= TEACHER_RATE_THRESHOLD
   end
+
+  private
 
   def cap_at_100(response_rate)
     response_rate > 100 ? 100 : response_rate

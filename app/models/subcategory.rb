@@ -4,26 +4,31 @@ class Subcategory < ActiveRecord::Base
   has_many :measures
 
   def score(school:, academic_year:)
-    scores = measures.includes([:survey_items]).map do |measure|
+    scores = measures.map do |measure|
       measure.score(school:, academic_year:).average
     end
     scores = scores.reject(&:nil?)
     scores.average
   end
 
-  def student_response_rate(school:, academic_year:)
-    @student_response_rate ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = StudentResponseRateCalculator.new(subcategory: self, school:, academic_year:)
+  def response_rate(school:, academic_year:)
+    @response_rate ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = ResponseRate.find_by(subcategory: self, school:, academic_year:)
     end
 
-    @student_response_rate[[school, academic_year]]
+    if @response_rate[[school, academic_year]].nil?
+      @response_rate[[school, academic_year]] = create_response_rate(subcategory: self, school:, academic_year:)
+    end
+
+    @response_rate[[school, academic_year]]
   end
 
-  def teacher_response_rate(school:, academic_year:)
-    @teacher_response_rate ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = TeacherResponseRateCalculator.new(subcategory: self, school:, academic_year:)
-    end
+  private
 
-    @teacher_response_rate[[school, academic_year]]
+  def create_response_rate(subcategory:, school:, academic_year:)
+    student = StudentResponseRateCalculator.new(subcategory: self, school:, academic_year:)
+    teacher = TeacherResponseRateCalculator.new(subcategory: self, school:, academic_year:)
+    ResponseRate.create(school:, academic_year:, subcategory: self, student_response_rate: student.rate, teacher_response_rate: teacher.rate,
+                        meets_student_threshold: student.meets_student_threshold?, meets_teacher_threshold: teacher.meets_teacher_threshold?)
   end
 end

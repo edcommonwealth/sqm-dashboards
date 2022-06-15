@@ -42,6 +42,17 @@ namespace :data do
       SurveyResponsesDataLoader.load_data filepath:
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+
+    puts 'Refreshing response rates'
+    ResponseRateLoader.refresh
+    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+  end
+
+  desc 'refresh response rate values'
+  task refresh_response_rates: :environment do
+    puts 'Refreshing response rates'
+    ResponseRateLoader.refresh
+    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 
   desc 'load admin_data'
