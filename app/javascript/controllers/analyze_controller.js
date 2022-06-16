@@ -1,21 +1,19 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="analyze"
 export default class extends Controller {
-  connect() { }
+  connect() {}
   refresh(event) {
-    let location = event.target.value+ "&academic_years=";
-    let year_checkboxes = document.getElementsByName("year-checkbox");
-    let selected_years = [];
+    let location = event.target.value;
+    let year_checkboxes = [...document.getElementsByName("year-checkbox")];
 
-    let ending = "";
-    year_checkboxes.forEach((item)=>{
-      if(item.checked) {
-        selected_years.push(item.id)
-      }
-    })
-
-    console.log(location)
-    window.location = location + selected_years.join(",")
+    let selected_years = year_checkboxes
+      .filter((item) => {
+        return item.checked;
+      })
+      .map((item) => {
+        return item.id;
+      });
+    window.location = location + "&academic_years=" + selected_years.join(",");
   }
 }

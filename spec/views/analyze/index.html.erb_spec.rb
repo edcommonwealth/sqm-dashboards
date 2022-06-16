@@ -107,7 +107,7 @@ describe 'analyze/index' do
     end
 
     it 'displays disabled checkboxes for years that dont have data' do
-      ResponseRateLoader.refresh
+      ResponseRateLoader.reset
       year_checkbox = subject.css("##{academic_year.range}").first
       expect(year_checkbox.name).to eq 'input'
       expect(academic_year.range).to eq '2050-51'

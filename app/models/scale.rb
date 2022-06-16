@@ -1,5 +1,5 @@
 class Scale < ApplicationRecord
-  belongs_to :measure
+  belongs_to :measure, counter_cache: true
   has_many :survey_items
   has_many :survey_item_responses, through: :survey_items
   has_many :admin_data_items

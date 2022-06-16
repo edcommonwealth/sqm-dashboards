@@ -49,9 +49,9 @@ namespace :data do
   end
 
   desc 'refresh response rate values'
-  task refresh_response_rates: :environment do
+  task reset_response_rates: :environment do
     puts 'Refreshing response rates'
-    ResponseRateLoader.refresh
+    ResponseRateLoader.reset
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 
@@ -63,6 +63,31 @@ namespace :data do
     end
     puts "=====================> Completed loading #{AdminDataValue.count} survey responses"
   end
+
+  desc 'reset all cache counters'
+  task reset_cache_counters: :environment do
+    puts '=====================> Resetting Category counters'
+    Category.all.each do |category|
+      Category.reset_counters(category.id, :subcategories)
+    end
+    puts '=====================> Resetting Subcategory counters'
+    Subcategory.all.each do |subcategory|
+      Subcategory.reset_counters(subcategory.id, :measures)
+    end
+    puts '=====================> Resetting Measure counters'
+    Measure.all.each do |measure|
+      Measure.reset_counters(measure.id, :scales)
+    end
+    puts '=====================> Resetting Scale counters'
+    Scale.all.each do |scale|
+      Scale.reset_counters(scale.id, :survey_items)
+    end
+    puts '=====================> Resetting SurveyItem counters'
+    SurveyItem.all.each do |survey_item|
+      SurveyItem.reset_counters(survey_item.id, :survey_item_responses)
+    end
+  end
+
   desc 'Load in all data'
   task load: :environment do
     # return if School.count > 0

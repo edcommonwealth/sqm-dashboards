@@ -1,5 +1,5 @@
 class ResponseRateLoader
-  def self.refresh
+  def self.reset
     schools = School.all
     academic_years = AcademicYear.all
     subcategories = Subcategory.all

@@ -4,7 +4,7 @@ class SurveyItemResponse < ActiveRecord::Base
 
   belongs_to :academic_year
   belongs_to :school
-  belongs_to :survey_item
+  belongs_to :survey_item, counter_cache: true
   has_one :measure, through: :survey_item
 
   scope :exclude_boston, lambda {

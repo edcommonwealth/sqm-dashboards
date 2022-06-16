@@ -44,7 +44,7 @@ describe ResponseRateLoader do
     DatabaseCleaner.clean
   end
 
-  describe 'self.refresh' do
+  describe 'self.reset' do
     context 'When refreshing response rates' do
       context 'and half the students responded to each question' do
         before :each do
@@ -58,7 +58,7 @@ describe ResponseRateLoader do
           create_list(:survey_item_response, 5, survey_item: t_phya_q2, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: t_phya_q3, likert_score: 3, school:, academic_year:)
 
-          ResponseRateLoader.refresh
+          ResponseRateLoader.reset
         end
 
         it 'populates the database with response rates' do
@@ -76,7 +76,7 @@ describe ResponseRateLoader do
         context 'when running the loader a second time' do
           it 'is idempotent' do
             response_count = ResponseRate.count
-            ResponseRateLoader.refresh
+            ResponseRateLoader.reset
             second_count = ResponseRate.count
 
             expect(response_count).to eq second_count
@@ -90,7 +90,7 @@ describe ResponseRateLoader do
           create_list(:survey_item_response, 5, survey_item: s_poaf_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: t_phya_q2, likert_score: 3, school:, academic_year:)
 
-          ResponseRateLoader.refresh
+          ResponseRateLoader.reset
         end
 
         it 'only takes into account the first question and ignores the other questions in the scale' do
@@ -106,7 +106,7 @@ describe ResponseRateLoader do
           create_list(:survey_item_response, 5, survey_item: s_poaf_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: t_phya_q2, likert_score: 3, school:, academic_year:)
 
-          ResponseRateLoader.refresh
+          ResponseRateLoader.reset
         end
 
         it 'since no score can be calculated, it returns a default of 100' do
@@ -128,7 +128,7 @@ describe ResponseRateLoader do
           create_list(:survey_item_response, 1, survey_item: t_phya_q3, likert_score: 3, school:, academic_year:)
           short_form_survey
 
-          ResponseRateLoader.refresh
+          ResponseRateLoader.reset
         end
 
         it 'only counts responses from survey items on the short form' do

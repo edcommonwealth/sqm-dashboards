@@ -1,5 +1,5 @@
 class SurveyItem < ActiveRecord::Base
-  belongs_to :scale
+  belongs_to :scale, counter_cache: true
   has_one :measure, through: :scale
   has_one :subcategory, through: :measure
 
