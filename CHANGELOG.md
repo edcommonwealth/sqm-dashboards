@@ -33,17 +33,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change wording of leadership scale
   bundle exec rake db:seed
 - Delete s-grmi scale
-- Add deployment script for beta.  Runs tests before deployment to Heroku's git server
+- Add deployment script for beta. Runs tests before deployment to Heroku's git server
 - Add new set of student results for 2016-17
 - Exclude results from boston. Add foreign key from school to district
 - Add admin data from 2016-17 and 2017-18
 
 - Add Analyze page
-- From analyze page, selecting a different school from the dropdown.  Changed behavior so user remains on analyze page
+- From analyze page, selecting a different school from the dropdown. Changed behavior so user remains on analyze page
 - Updated 2016-17 student survey responses
 - Add one off script to reset admin data values
 - Add school: Attleboro Community Academy
 - Add survey item responses for attleboro
+- Create category and subcategory selectors on analyze page that allow a user to select which subcategory to view
+- Create year selection checkboxes on analyze page that allow user to select the academic years of data to view
+- Allow user to deselect all academic years
+- Add tooltip next to year checkboxes to inform the user that year contains no data. Also disable checkbox
+- Analyze bars have a minimum height
+- Add survey results for Winchester 2021-22
+- Speed up score calculations
+- Reduce number of sql queries
+- Precalculate response rates
+- Add page caching
+- Add counter caches
+- Add async queries
+
 ## [Unreleased]
 
 ### Added
