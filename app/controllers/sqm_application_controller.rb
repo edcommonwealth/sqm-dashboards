@@ -7,11 +7,11 @@ class SqmApplicationController < ApplicationController
 
   def set_schools_and_districts
     @district = District.find_by_slug district_slug
-    @districts = District.all.order(:name)
+    @districts = District.all.order(:name).load_async
     @school = School.find_by_slug(school_slug)
-    @schools = School.includes([:district]).where(district: @district).order(:name)
+    @schools = School.includes([:district]).where(district: @district).order(:name).load_async
     @academic_year = AcademicYear.find_by_range params[:year]
-    @academic_years = AcademicYear.all.order(range: :desc)
+    @academic_years = AcademicYear.all.order(range: :desc).load_async
   end
 
   def district_slug
