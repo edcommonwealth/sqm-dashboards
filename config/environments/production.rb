@@ -111,5 +111,4 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.action_controller.include_all_helpers = false
-  config.active_record.async_query_executor = :global_thread_pool
 end

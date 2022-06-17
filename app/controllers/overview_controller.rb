@@ -23,10 +23,10 @@ class OverviewController < SqmApplicationController
   end
 
   def measures
-    @measures ||= Measure.all.includes(%i[scales admin_data_items category]).load_async
+    @measures ||= Measure.all.includes(%i[scales admin_data_items category])
   end
 
   def subcategories
-    @subcategories ||= Subcategory.all.load_async
+    @subcategories ||= Subcategory.all
   end
 end

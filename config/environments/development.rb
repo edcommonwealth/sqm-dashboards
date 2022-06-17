@@ -71,5 +71,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_controller.include_all_helpers = false
-  config.active_record.async_query_executor = :global_thread_pool
 end

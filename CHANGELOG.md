@@ -55,7 +55,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Precalculate response rates
 - Add page caching
 - Add counter caches
-- Add async queries
 
 ## [Unreleased]
 
