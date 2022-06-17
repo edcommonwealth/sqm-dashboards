@@ -43,14 +43,14 @@ namespace :data do
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
 
-    puts 'Refreshing response rates'
-    ResponseRateLoader.refresh
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 
-  desc 'refresh response rate values'
+  desc 'reset response rate values'
   task reset_response_rates: :environment do
-    puts 'Refreshing response rates'
+    puts 'Resetting response rates'
     ResponseRateLoader.reset
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end

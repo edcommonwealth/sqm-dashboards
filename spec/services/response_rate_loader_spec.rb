@@ -45,7 +45,7 @@ describe ResponseRateLoader do
   end
 
   describe 'self.reset' do
-    context 'When refreshing response rates' do
+    context 'When resetting response rates' do
       context 'and half the students responded to each question' do
         before :each do
           create_list(:survey_item_response, 5, survey_item: s_acst_q1, likert_score: 3, school:, academic_year:)

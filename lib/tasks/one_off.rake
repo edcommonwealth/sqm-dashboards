@@ -51,8 +51,8 @@ namespace :one_off do
     puts "=====================> Loading data from csv at path: #{filepath}"
     SurveyResponsesDataLoader.load_data filepath: filepath
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-    puts 'Refreshing response rates'
-    ResponseRateLoader.refresh
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 
@@ -64,8 +64,8 @@ namespace :one_off do
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
     end
-    puts 'Refreshing response rates'
-    ResponseRateLoader.refresh
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 
