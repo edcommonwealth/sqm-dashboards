@@ -68,6 +68,25 @@ namespace :one_off do
     ResponseRateLoader.reset
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
+  desc 'load revere somerville warehame results for 2021-22'
+  task load_revere: :environment do
+    ['2021-22_revere_somerville_wareham_student_survey_responses.csv',
+     '2021-22_revere_somerville_wareham_teacher_survey_responses.csv'].each do |filepath|
+      filepath = Rails.root.join('data', 'survey_responses', filepath)
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      SurveyResponsesDataLoader.load_data filepath:
+    end
+    puts 'Resetting response rates'
+    revere = District.find_by_name 'Revere'
+    somerville = District.find_by_name 'Somerville'
+    wareham = District.find_by_name 'Wareham'
+    academic_year = AcademicYear.find_by_range '2021-22'
+    ResponseRateLoader.reset(schools: revere.schools, academic_years: [academic_year])
+    ResponseRateLoader.reset(schools: somerville.schools, academic_years: [academic_year])
+    ResponseRateLoader.reset(schools: wareham.schools, academic_years: [academic_year])
+    Rails.cache.clear
+    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+  end
 
   desc 'list scales that have no survey responses'
   task list_scales_that_lack_survey_responses: :environment do

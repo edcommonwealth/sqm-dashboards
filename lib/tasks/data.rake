@@ -45,6 +45,7 @@ namespace :data do
 
     puts 'Resetting response rates'
     ResponseRateLoader.reset
+    Rails.cache.clear
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 
@@ -52,6 +53,7 @@ namespace :data do
   task reset_response_rates: :environment do
     puts 'Resetting response rates'
     ResponseRateLoader.reset
+    Rails.cache.clear
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 

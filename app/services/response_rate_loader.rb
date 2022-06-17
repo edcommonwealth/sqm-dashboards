@@ -1,15 +1,8 @@
 class ResponseRateLoader
-  def self.reset
-    schools = School.all
-    academic_years = AcademicYear.all
-    subcategories = Subcategory.all
-
+  def self.reset(schools: School.all, academic_years: AcademicYear.all, subcategories: Subcategory.all)
     milford = School.find_by_slug 'milford-high-school'
-
-    # ResponseRate.new(school:, academic_year:, subcategory:, student_response_rate: 50, teacher_response_rate: 50,
-    #                  meets_student_threshold: true, meets_teacher_threshold: true).save
-
     test_year = AcademicYear.find_by_range '2020-21'
+
     subcategories.each do |subcategory|
       schools.each do |school|
         next if ENV['RAILS_ENV'] == 'test' && !(school == milford)
