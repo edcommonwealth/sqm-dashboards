@@ -53,7 +53,7 @@ namespace :one_off do
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
     puts 'Resetting response rates'
     ResponseRateLoader.reset
-    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
   desc 'load winchester results for 2021-22'
@@ -66,7 +66,7 @@ namespace :one_off do
     end
     puts 'Resetting response rates'
     ResponseRateLoader.reset
-    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
   desc 'load revere somerville warehame results for 2021-22'
   task load_revere: :environment do
@@ -85,7 +85,7 @@ namespace :one_off do
     ResponseRateLoader.reset(schools: somerville.schools, academic_years: [academic_year])
     ResponseRateLoader.reset(schools: wareham.schools, academic_years: [academic_year])
     Rails.cache.clear
-    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
   desc 'list scales that have no survey responses'
