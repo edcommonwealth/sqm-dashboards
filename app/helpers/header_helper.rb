@@ -42,11 +42,11 @@ module HeaderHelper
   end
 
   def latest_year(school)
-    if school.district.name == 'Attleboro' || school.district.name == 'Winchester'
-      AcademicYear.find_by_range('2021-22')
-    else
-      AcademicYear.find_by_range('2020-21')
-    end
+    latest_response_rate = ResponseRate.where(school:).where('meets_student_threshold = ? or meets_teacher_threshold = ?', true,
+                                                             true).joins('inner join academic_years a on response_rates.academic_year_id=a.id').order('a.range DESC').first
+    academic_year = latest_response_rate.academic_year if latest_response_rate.present?
+
+    academic_year ||= AcademicYear.order('range DESC').first
   end
 
   def link_weight(path:)

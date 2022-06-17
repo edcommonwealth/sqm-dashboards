@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Precalculate response rates
 - Add page caching
 - Add counter caches
+- Detect the latest year for which a school has data and direct a user to that year when routing from welcome page
 
 ## [Unreleased]
 
