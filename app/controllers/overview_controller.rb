@@ -16,9 +16,9 @@ class OverviewController < SqmApplicationController
   end
 
   def check_empty_dataset
-    @has_empty_dataset = subcategories.all? do |subcategory|
+    @has_empty_dataset = !subcategories.any? do |subcategory|
       response_rate = subcategory.response_rate(school: @school, academic_year: @academic_year)
-      !response_rate.meets_student_threshold && !response_rate.meets_teacher_threshold
+      response_rate.meets_student_threshold || response_rate.meets_teacher_threshold
     end
   end
 
