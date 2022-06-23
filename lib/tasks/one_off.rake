@@ -88,6 +88,24 @@ namespace :one_off do
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
+  desc 'load lowell and milford results for 2021-22'
+  task load_lowell: :environment do
+    ['2021-22_lowell_milford_student_survey_responses.csv',
+     '2021-22_lowell_milford_student_survey_responses.csv'].each do |filepath|
+      filepath = Rails.root.join('data', 'survey_responses', filepath)
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      SurveyResponsesDataLoader.load_data filepath:
+    end
+    puts 'Resetting response rates'
+    lowell = District.find_by_name 'Lowell'
+    milford = District.find_by_name 'Milford'
+    academic_year = AcademicYear.find_by_range '2021-22'
+    ResponseRateLoader.reset(schools: lowell.schools, academic_years: [academic_year])
+    ResponseRateLoader.reset(schools: milford.schools, academic_years: [academic_year])
+    Rails.cache.clear
+    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
+  end
+
   desc 'list scales that have no survey responses'
   task list_scales_that_lack_survey_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
