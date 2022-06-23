@@ -91,7 +91,7 @@ namespace :one_off do
   desc 'load lowell and milford results for 2021-22'
   task load_lowell: :environment do
     ['2021-22_lowell_milford_student_survey_responses.csv',
-     '2021-22_lowell_milford_student_survey_responses.csv'].each do |filepath|
+     '2021-22_lowell_milford_teacher_survey_responses.csv'].each do |filepath|
       filepath = Rails.root.join('data', 'survey_responses', filepath)
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
