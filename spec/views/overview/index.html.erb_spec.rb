@@ -48,6 +48,9 @@ describe 'overview/index' do
     @district = create(:district)
     @school = create(:school)
 
+    ResponseRate.create!(subcategory: Subcategory.first, school: @school, academic_year: @academic_year,
+                         student_response_rate: 100, teacher_response_rate: 100, meets_student_threshold: true, meets_teacher_threshold: true)
+
     render
   end
 

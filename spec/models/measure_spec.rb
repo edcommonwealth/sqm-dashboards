@@ -7,6 +7,7 @@ RSpec.describe Measure, type: :model do
   let(:student_scale) { create(:student_scale, measure:) }
   let(:admin_scale) { create(:admin_scale, measure:) }
   let(:school) { create(:school) }
+  let(:short_form_school){ create(:school)}
   let(:academic_year) { create(:academic_year) }
 
   let(:admin_watch_low_benchmark) { 2.0 }
@@ -27,6 +28,8 @@ RSpec.describe Measure, type: :model do
   before do
     create(:respondent, school:, academic_year:)
     create(:survey, school:, academic_year:)
+    create(:respondent, school: short_form_school, academic_year:)
+    create(:survey, school: short_form_school, academic_year:, form: "short")
   end
 
   describe 'benchmarks' do
@@ -282,6 +285,9 @@ RSpec.describe Measure, type: :model do
       let(:student_survey_item_1) { create(:student_survey_item, scale: student_scale) }
       let(:student_survey_item_2) { create(:student_survey_item, scale: student_scale) }
       let(:student_survey_item_3) { create(:student_survey_item, scale: student_scale) }
+      let(:short_form_student_survey_item_1) { create(:student_survey_item, scale: student_scale, on_short_form: true) }
+      let(:short_form_student_survey_item_2) { create(:student_survey_item, scale: student_scale, on_short_form: true) }
+      let(:short_form_student_survey_item_3) { create(:student_survey_item, scale: student_scale, on_short_form: true) }
 
       context "and the number of responses for each of the measure's survey items meets the student threshold " do
         before :each do
@@ -356,6 +362,27 @@ RSpec.describe Measure, type: :model do
 
         it 'affirms that the result does not meet the threshold' do
           expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
+        end
+      end
+
+      context "and the school is a short form school" do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_1, academic_year:, school: short_form_school, likert_score: 1)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_2, academic_year:, school: short_form_school, likert_score: 1)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_3, academic_year:, school: short_form_school, likert_score: 1)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: short_form_student_survey_item_1, academic_year:, school: short_form_school, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: short_form_student_survey_item_2, academic_year:, school: short_form_school, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: short_form_student_survey_item_3, academic_year:, school: short_form_school, likert_score: 5)
+        end
+
+        it 'ignores any responses not on the short form and gives the average of short form survey items' do
+          expect(measure.score(school: short_form_school, academic_year:).average).to eq 4
         end
       end
     end

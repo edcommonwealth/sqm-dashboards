@@ -7,12 +7,15 @@ describe 'SQM Application' do
   let(:category) { create(:category) }
   let(:measure) { create(:measure) }
   let(:scale) { create(:teacher_scale, measure:) }
+  let(:subcategory) { create(:subcategory) }
 
   before :each do
     driven_by :rack_test
     page.driver.browser.basic_authorize(username, password)
     create(:respondent, school:, academic_year:)
     create(:survey, school:, academic_year:)
+    ResponseRate.create!(subcategory:, school:, academic_year:,
+                         student_response_rate: 0, teacher_response_rate: 0, meets_student_threshold: false, meets_teacher_threshold: false)
   end
 
   context 'when no measures meet their threshold' do
