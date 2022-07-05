@@ -11,7 +11,7 @@ class Scale < ApplicationRecord
         items << collect_survey_item_average(student_survey_items(school:, academic_year:), school, academic_year)
         items << collect_survey_item_average(teacher_survey_items, school, academic_year)
 
-        items.remove_zeros.average
+        items.remove_blanks.average
       end
     end
     @score[[school, academic_year]]
@@ -29,7 +29,7 @@ class Scale < ApplicationRecord
   def collect_survey_item_average(survey_items, school, academic_year)
     survey_items.map do |survey_item|
       survey_item.score(school:, academic_year:)
-    end.remove_zeros.average
+    end.remove_blanks.average
   end
 
   def teacher_survey_items

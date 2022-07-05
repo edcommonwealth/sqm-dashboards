@@ -3,7 +3,7 @@ module ArrayMonkeyPatches
     sum.to_f / size
   end
 
-  def remove_zeros
+  def remove_blanks
     reject { |item| item == 0 || item.to_f.nan? }
   end
 end
