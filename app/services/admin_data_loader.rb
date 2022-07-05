@@ -6,7 +6,11 @@ class AdminDataLoader
       likert_score = row['LikertScore'] || row['Likert Score'] || row['Likert_Score']
       likert_score = likert_score.to_f
       likert_score = 1 if likert_score > 0 && likert_score < 1
-      next unless valid_likert_score(likert_score:)
+
+      unless valid_likert_score(likert_score:)
+        puts "This value is not valid #{likert_score}"
+        next
+      end
 
       ay = row['Academic Year'] || row['AcademicYear']
       dese_id = row['DESE ID'] || row['Dese ID'] || row['Dese Id']

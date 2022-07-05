@@ -10,8 +10,6 @@ describe AdminDataLoader do
 
   before :each do
     Rails.application.load_seed
-
-    AdminDataLoader.load_data filepath: path_to_admin_data
   end
 
   after :each do
@@ -19,6 +17,9 @@ describe AdminDataLoader do
   end
 
   describe 'self.load_data' do
+    before :each do
+      AdminDataLoader.load_data filepath: path_to_admin_data
+    end
     it 'loads the correct admin data values' do
       # it 'assigns the academic year to admin data value' do
       expect(AdminDataValue.where(school: attleboro,
@@ -51,7 +52,27 @@ describe AdminDataLoader do
       # it 'rejects importing rows with a value of 0' do
       expect(AdminDataValue.where(school: attleboro, academic_year: ay_2018_19,
                                   admin_data_item: AdminDataItem.find_by_admin_data_item_id('a-reso-i1'))).not_to exist
+      expect(AdminDataValue.where(school: attleboro, academic_year: ay_2018_19,
+                                  admin_data_item: AdminDataItem.find_by_admin_data_item_id('a-sust-i3'))).not_to exist
       # end
     end
   end
+
+  describe 'output to console' do
+    it 'outputs a messsage saying a value has been rejected' do
+      output = capture_stdout { AdminDataLoader.load_data filepath: path_to_admin_data }.gsub("\n", '')
+      expect(output).to eq 'This value is not valid 0.0This value is not valid 100.0'
+    end
+  end
+end
+
+def capture_stdout
+  original_stdout = $stdout
+  $stdout = fake = StringIO.new
+  begin
+    yield
+  ensure
+    $stdout = original_stdout
+  end
+  fake.string
 end
