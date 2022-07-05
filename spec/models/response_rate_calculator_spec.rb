@@ -18,18 +18,15 @@ describe ResponseRateCalculator, type: :model do
     let(:insufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_student_survey_item_2) { create(:student_survey_item, scale: sufficient_scale_2) }
 
-    before :each do
-      create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
-                                                                                         academic_year:, school:, likert_score: 1)
-      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
-                                                                                         academic_year:, school:, likert_score: 4)
-      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
-                                                                                         academic_year:, school:, likert_score: 4)
-    end
-
     context 'when a students take a regular survey' do
       context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
         before :each do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
+                                                                                             academic_year:, school:, likert_score: 1)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
+                                                                                             academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
+                                                                                             academic_year:, school:, likert_score: 4)
           respondent
           survey
         end
@@ -39,10 +36,34 @@ describe ResponseRateCalculator, type: :model do
                                                    academic_year:).rate).to eq 25
         end
       end
+
+      context 'when the average number of student responses per question is below the student threshold' do
+        before :each do
+          create_list(:survey_item_response, 1, survey_item: sufficient_student_survey_item_1,
+                                                academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, 1, survey_item: sufficient_student_survey_item_2,
+                                                academic_year:, school:, likert_score: 4)
+          respondent
+          survey
+        end
+
+        it 'reports insufficient student responses' do
+          expect(StudentResponseRateCalculator.new(subcategory:, school:,
+                                                   academic_year:).rate).to eq 13
+          expect(StudentResponseRateCalculator.new(subcategory:, school:,
+                                                   academic_year:).meets_student_threshold?).to eq false
+        end
+      end
     end
 
     context 'when students take the short form survey' do
       before :each do
+        create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
+                                                                                           academic_year:, school:, likert_score: 1)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
+                                                                                           academic_year:, school:, likert_score: 4)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
+                                                                                           academic_year:, school:, likert_score: 4)
         respondent
         short_form_survey
       end
@@ -93,6 +114,12 @@ describe ResponseRateCalculator, type: :model do
     context 'when there is an imbalance in the response rate of the student items' do
       context 'and one of the student items has no associated survey item responses' do
         before do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
+                                                                                             academic_year:, school:, likert_score: 1)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
+                                                                                             academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
+                                                                                             academic_year:, school:, likert_score: 4)
           create(:respondent, school:, academic_year:)
           create(:survey, school:, academic_year:)
           insufficient_student_survey_item_1
