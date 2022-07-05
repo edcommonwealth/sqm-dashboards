@@ -80,7 +80,7 @@ class Measure < ActiveRecord::Base
       end
       scores << collect_admin_scale_average(admin_data_items:, school:, academic_year:) if includes_admin_data_items?
 
-      average = scores.flatten.compact.remove_zeros.average
+      average = scores.flatten.compact.remove_blanks.average
 
       next Score.new(nil, false, false, false) if average.nan?
 
@@ -94,14 +94,11 @@ class Measure < ActiveRecord::Base
   def student_score(school:, academic_year:)
     @student_score ||= Hash.new do |memo, (school, academic_year)|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
-      meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
       if meets_student_threshold
         average = collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
                                               academic_year:)
       end
-      memo[[school, academic_year]] =
-        Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+      memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
     @student_score[[school, academic_year]]
@@ -109,15 +106,12 @@ class Measure < ActiveRecord::Base
 
   def teacher_score(school:, academic_year:)
     @teacher_score ||= Hash.new do |memo, (school, academic_year)|
-      meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
       if meets_teacher_threshold
         average = collect_survey_item_average(survey_items: teacher_survey_items, school:,
                                               academic_year:)
       end
-      memo[[school, academic_year]] =
-        Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+      memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
     @teacher_score[[school, academic_year]]
@@ -166,11 +160,18 @@ class Measure < ActiveRecord::Base
 
   private
 
+  def scorify(average:, school:, academic_year:)
+    meets_student_threshold = sufficient_student_data?(school:, academic_year:)
+    meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
+    meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
+    Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+  end
+
   def collect_survey_item_average(survey_items:, school:, academic_year:)
     @collect_survey_item_average ||= Hash.new do |memo, (survey_items, school, academic_year)|
       averages = survey_items.map do |survey_item|
         grouped_responses(school:, academic_year:)[survey_item] || 0
-      end.remove_zeros
+      end.remove_blanks
       memo[[survey_items, school, academic_year]] = averages.any? ? averages.average : 0
     end
     @collect_survey_item_average[[survey_items, school, academic_year]]
