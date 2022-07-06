@@ -3,7 +3,7 @@ require 'rails_helper'
 module Legacy
   RSpec.describe 'legacy/recipients/edit', type: :view do
     before(:each) do
-      @school = assign(:recipient, School.create!( # TODO: does this need to be :school?
+      @school = assign(:recipient, School.create!(
                                      name: 'School'
                                    ))
 
