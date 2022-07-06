@@ -60,7 +60,6 @@ describe 'analyze/index' do
 
     render
   end
-
   context 'when all the presenters have a nil score' do
     # let(:grouped_bar_column_presenters) do
     #   measure = create(:measure, name: 'Display Me', measure_id: 'display-me')
@@ -113,8 +112,5 @@ describe 'analyze/index' do
       expect(academic_year.range).to eq '2050-51'
       expect(year_checkbox).to have_attribute 'disabled'
     end
-  end
-
-  context 'when presenters have a score' do
   end
 end

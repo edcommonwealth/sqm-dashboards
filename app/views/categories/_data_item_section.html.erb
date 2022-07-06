@@ -9,7 +9,7 @@
     >
       <%= data_item_section.title %>
       <% unless data_item_section.sufficient_data? %>
-        &nbsp;<i class="fa-solid fa-circle-exclamation"></i>
+        &nbsp;<i class="fa-solid fa-circle-exclamation" data-exclamation-point="<%= data_item_section.id  %>"></i>
       <% end %>
     </button>
   </h3>
@@ -22,13 +22,17 @@
   >
     <div class="accordion-body measure-accordion-body font-cabin font-size-14 weight-400">
       <% unless data_item_section.sufficient_data? %>
-        <div class="alert alert-secondary" role="alert">
+        <div class="alert alert-secondary" role="alert" data-insufficient-data-message="<%= data_item_section.id + '-' + data_item_section.reason_for_insufficiency  %>">
           Data not included due to <%= data_item_section.reason_for_insufficiency %>
         </div>
       <% end %>
       <ul>
-        <% data_item_section.item_descriptions.each do |description| %>
-          <li><%= description %></li>
+        <% data_item_section.descriptions_and_availability.each do |data| %>
+          <li><%= data.description %>
+              <% unless data.available? %>
+                &nbsp;<i class="fa-solid fa-circle-exclamation" data-missing-data="<%= data.id %>"></i>
+              <% end %>
+          </li>
         <% end %>
       </ul>
     </div>

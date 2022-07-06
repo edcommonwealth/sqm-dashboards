@@ -1,4 +1,6 @@
 class MeasurePresenter
+  attr_reader :measure, :academic_year, :school
+
   def initialize(measure:, academic_year:, school:)
     @measure = measure
     @academic_year = academic_year
@@ -29,15 +31,15 @@ class MeasurePresenter
     [].tap do |array|
       if @measure.student_survey_items.any?
         array << StudentSurveyPresenter.new(measure_id: @measure.measure_id, survey_items: @measure.student_survey_items,
-                                            has_sufficient_data: score_for_measure.meets_student_threshold?)
+                                            has_sufficient_data: score_for_measure.meets_student_threshold?, school:, academic_year:)
       end
       if @measure.teacher_survey_items.any?
         array << TeacherSurveyPresenter.new(measure_id: @measure.measure_id, survey_items: @measure.teacher_survey_items,
-                                            has_sufficient_data: score_for_measure.meets_teacher_threshold?)
+                                            has_sufficient_data: score_for_measure.meets_teacher_threshold?, school:, academic_year:)
       end
       if @measure.admin_data_items.any?
         array << AdminDataPresenter.new(measure_id: @measure.measure_id,
-                                        admin_data_items: @measure.admin_data_items, has_sufficient_data: score_for_measure.meets_admin_data_threshold?)
+                                        admin_data_items: @measure.admin_data_items, has_sufficient_data: score_for_measure.meets_admin_data_threshold?, school:, academic_year:)
       end
     end
   end

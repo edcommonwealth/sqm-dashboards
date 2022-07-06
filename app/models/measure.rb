@@ -63,7 +63,7 @@ class Measure < ActiveRecord::Base
     @score ||= Hash.new do |memo, (school, academic_year)|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
+      meets_admin_data_threshold = any_admin_data_collected?(school:, academic_year:)
       lacks_sufficient_survey_data = !meets_student_threshold && !meets_teacher_threshold
       incalculable_score = lacks_sufficient_survey_data && !includes_admin_data_items?
 
@@ -137,17 +137,18 @@ class Measure < ActiveRecord::Base
     @ideal_low_benchmark ||= benchmark(:ideal_low_benchmark)
   end
 
-  def all_admin_data_collected?(school:, academic_year:)
-    @all_admin_data_collected ||= Hash.new do |memo, (school, academic_year)|
-      total_possible_admin_data_items = scales.map { |scale| scale.admin_data_items.count }.sum
+  private
+
+  def any_admin_data_collected?(school:, academic_year:)
+    @any_admin_data_collected ||= Hash.new do |memo, (school, academic_year)|
       total_collected_admin_data_items = scales.map do |scale|
         scale.admin_data_items.map do |admin_data_item|
           admin_data_item.admin_data_values.where(school:, academic_year:).count
         end
       end.flatten.sum
-      memo[[school, academic_year]] = total_possible_admin_data_items == total_collected_admin_data_items
+      memo[[school, academic_year]] = total_collected_admin_data_items > 0
     end
-    @all_admin_data_collected[[school, academic_year]]
+    @any_admin_data_collected[[school, academic_year]]
   end
 
   def sufficient_survey_responses?(school:, academic_year:)
@@ -158,12 +159,10 @@ class Measure < ActiveRecord::Base
     @sufficient_survey_responses[[school, academic_year]]
   end
 
-  private
-
   def scorify(average:, school:, academic_year:)
     meets_student_threshold = sufficient_student_data?(school:, academic_year:)
     meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-    meets_admin_data_threshold = all_admin_data_collected?(school:, academic_year:)
+    meets_admin_data_threshold = any_admin_data_collected?(school:, academic_year:)
     Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
   end
 

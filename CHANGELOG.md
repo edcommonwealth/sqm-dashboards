@@ -60,3 +60,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+- Modify behavior of insufficient data indicators for admin data items. Now we show indicators in line with the admin data item descriptions to indicate which items are missing data
