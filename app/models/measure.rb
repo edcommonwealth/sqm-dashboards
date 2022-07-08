@@ -204,10 +204,8 @@ class Measure < ActiveRecord::Base
 
   def sufficient_student_data?(school:, academic_year:)
     return @sufficient_student_data ||= false unless includes_student_survey_items?
-    return @sufficient_student_data ||= false if student_survey_items_by_survey_type(school:,
-                                                                                     academic_year:).all? do |survey_item|
-                                                   survey_item.survey_item_responses.where(school:,
-                                                                                           academic_year:).none?
+    return @sufficient_student_data ||= false if student_survey_items_by_survey_type(school:, academic_year:).all? do |survey_item|
+                                                   survey_item.survey_item_responses.where(school:, academic_year:).none?
                                                  end
 
     @sufficient_student_data ||= subcategory.response_rate(school:, academic_year:).meets_student_threshold?
@@ -216,8 +214,7 @@ class Measure < ActiveRecord::Base
   def sufficient_teacher_data?(school:, academic_year:)
     return @sufficient_teacher_data ||= false unless includes_teacher_survey_items?
     return @sufficient_teacher_data ||= false if teacher_survey_items.all? do |survey_item|
-                                                   survey_item.survey_item_responses.where(school:,
-                                                                                           academic_year:).none?
+                                                   survey_item.survey_item_responses.where(school:, academic_year:).none?
                                                  end
 
     @sufficient_teacher_data ||= subcategory.response_rate(school:, academic_year:).meets_teacher_threshold?

@@ -30,7 +30,9 @@
         <% data_item_section.descriptions_and_availability.each do |data| %>
           <li><%= data.description %>
               <% unless data.available? %>
-                &nbsp;<i class="fa-solid fa-circle-exclamation" data-missing-data="<%= data.id %>"></i>
+                &nbsp;<i class="fa-solid fa-circle-exclamation" data-missing-data="<%= data.id %>"
+                        data-bs-toggle="popover" data-bs-placement="right"
+                        data-bs-content="Data not included due to limited availability"></i>
               <% end %>
           </li>
         <% end %>
