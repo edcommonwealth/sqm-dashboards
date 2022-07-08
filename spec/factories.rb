@@ -88,7 +88,7 @@ FactoryBot.define do
       scale_id { "s-#{rand}" }
     end
     factory :admin_scale do
-      scale_id { 'a-{rand' }
+      scale_id { "a-#{rand}" }
     end
   end
 

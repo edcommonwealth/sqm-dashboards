@@ -25,6 +25,8 @@ class TeacherSurveyPresenter < DataItemPresenter
   end
 
   def descriptions_and_availability
+    return [DataAvailability.new('1B-i', 'Items available upon request to MCIEA.', true)] if @measure_id == '1B-i'
+
     survey_items.map do |survey_item|
       DataAvailability.new(survey_item.survey_item_id, survey_item.prompt, true)
     end
