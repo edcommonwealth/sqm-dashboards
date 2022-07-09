@@ -1,0 +1,4 @@
+---
+detectors:
+  InstanceVariableAssumption:
+    enabled: false

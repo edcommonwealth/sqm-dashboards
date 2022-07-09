@@ -1,0 +1,13 @@
+inherit_from: ~/.rubocop.yml
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+
+
