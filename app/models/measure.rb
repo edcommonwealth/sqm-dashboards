@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Measure < ActiveRecord::Base
   belongs_to :subcategory, counter_cache: true
   has_one :category, through: :subcategory
@@ -24,9 +26,9 @@ class Measure < ActiveRecord::Base
 
   def student_survey_items_by_survey_type(school:, academic_year:)
     survey = Survey.where(school:, academic_year:).first
-    return survey_items.student_survey_items.short_form_items if survey.form == 'short'
+    return student_survey_items.short_form_items if survey.form == 'short'
 
-    survey_items.student_survey_items
+    student_survey_items
   end
 
   def teacher_scales
@@ -61,31 +63,14 @@ class Measure < ActiveRecord::Base
 
   def score(school:, academic_year:)
     @score ||= Hash.new do |memo, (school, academic_year)|
-      meets_student_threshold = sufficient_student_data?(school:, academic_year:)
-      meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      meets_admin_data_threshold = any_admin_data_collected?(school:, academic_year:)
-      lacks_sufficient_survey_data = !meets_student_threshold && !meets_teacher_threshold
-      incalculable_score = lacks_sufficient_survey_data && !includes_admin_data_items?
+      next Score::NIL_SCORE if incalculable_score(school:, academic_year:)
 
-      next Score.new(nil, false, false, false) if incalculable_score
-
-      scores = []
-      if meets_teacher_threshold
-        scores << collect_survey_item_average(survey_items: teacher_survey_items, school:,
-                                              academic_year:)
-      end
-      if meets_student_threshold
-        scores << collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
-                                              academic_year:)
-      end
-      scores << collect_admin_scale_average(admin_data_items:, school:, academic_year:) if includes_admin_data_items?
-
+      scores = collect_averages_for_teacher_student_and_admin_data(school:, academic_year:)
       average = scores.flatten.compact.remove_blanks.average
 
-      next Score.new(nil, false, false, false) if average.nan?
+      next Score::NIL_SCORE if average.nan?
 
-      memo[[school, academic_year]] =
-        Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+      memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
     @score[[school, academic_year]]
@@ -94,10 +79,7 @@ class Measure < ActiveRecord::Base
   def student_score(school:, academic_year:)
     @student_score ||= Hash.new do |memo, (school, academic_year)|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
-      if meets_student_threshold
-        average = collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
-                                              academic_year:)
-      end
+      average = student_average(school:, academic_year:) if meets_student_threshold
       memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
@@ -107,10 +89,7 @@ class Measure < ActiveRecord::Base
   def teacher_score(school:, academic_year:)
     @teacher_score ||= Hash.new do |memo, (school, academic_year)|
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      if meets_teacher_threshold
-        average = collect_survey_item_average(survey_items: teacher_survey_items, school:,
-                                              academic_year:)
-      end
+      average = teacher_average(school:, academic_year:) if meets_teacher_threshold
       memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
@@ -141,12 +120,11 @@ class Measure < ActiveRecord::Base
 
   def any_admin_data_collected?(school:, academic_year:)
     @any_admin_data_collected ||= Hash.new do |memo, (school, academic_year)|
-      total_collected_admin_data_items = scales.map do |scale|
-        scale.admin_data_items.map do |admin_data_item|
+      total_collected_admin_data_items =
+        admin_data_items.map do |admin_data_item|
           admin_data_item.admin_data_values.where(school:, academic_year:).count
-        end
-      end.flatten.sum
-      memo[[school, academic_year]] = total_collected_admin_data_items > 0
+        end.flatten.sum
+      memo[[school, academic_year]] = total_collected_admin_data_items.positive?
     end
     @any_admin_data_collected[[school, academic_year]]
   end
@@ -178,9 +156,11 @@ class Measure < ActiveRecord::Base
 
   def collect_admin_scale_average(admin_data_items:, school:, academic_year:)
     @collect_admin_scale_average ||= Hash.new do |memo, (admin_data_items, school, academic_year)|
-      memo[[admin_data_items, school, academic_year]] = admin_data_items.map do |admin_data_item|
-        admin_value = admin_data_item.admin_data_values.where(school:, academic_year:).first
-        admin_value.likert_score if admin_value.present?
+      memo[[admin_data_items, school, academic_year]] = begin
+        admin_values = AdminDataValue.where(school:, academic_year:)
+        admin_values.map do |admin_value|
+          admin_value.likert_score if admin_value.present?
+        end
       end
     end
     @collect_admin_scale_average[[admin_data_items, school, academic_year]]
@@ -204,19 +184,58 @@ class Measure < ActiveRecord::Base
 
   def sufficient_student_data?(school:, academic_year:)
     return @sufficient_student_data ||= false unless includes_student_survey_items?
-    return @sufficient_student_data ||= false if student_survey_items_by_survey_type(school:, academic_year:).all? do |survey_item|
-                                                   survey_item.survey_item_responses.where(school:, academic_year:).none?
-                                                 end
+    return @sufficient_student_data ||= false if no_student_responses_exist?(school:, academic_year:)
 
     @sufficient_student_data ||= subcategory.response_rate(school:, academic_year:).meets_student_threshold?
   end
 
   def sufficient_teacher_data?(school:, academic_year:)
     return @sufficient_teacher_data ||= false unless includes_teacher_survey_items?
-    return @sufficient_teacher_data ||= false if teacher_survey_items.all? do |survey_item|
-                                                   survey_item.survey_item_responses.where(school:, academic_year:).none?
-                                                 end
+    return @sufficient_teacher_data ||= false if no_teacher_responses_exist?(school:, academic_year:)
 
     @sufficient_teacher_data ||= subcategory.response_rate(school:, academic_year:).meets_teacher_threshold?
+  end
+
+  def no_student_responses_exist?(school:, academic_year:)
+    student_survey_items_by_survey_type(school:,
+                                        academic_year:).all? do |survey_item|
+      survey_item.survey_item_responses.where(school:,
+                                              academic_year:).none?
+    end
+  end
+
+  def no_teacher_responses_exist?(school:, academic_year:)
+    teacher_survey_items.all? do |survey_item|
+      survey_item.survey_item_responses.where(school:,
+                                              academic_year:).none?
+    end
+  end
+
+  def incalculable_score(school:, academic_year:)
+    meets_student_threshold = sufficient_student_data?(school:, academic_year:)
+    meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
+    lacks_sufficient_survey_data = !meets_student_threshold && !meets_teacher_threshold
+    lacks_sufficient_survey_data && !includes_admin_data_items?
+  end
+
+  def collect_averages_for_teacher_student_and_admin_data(school:, academic_year:)
+    scores = []
+    scores << teacher_average(school:, academic_year:) if sufficient_teacher_data?(school:, academic_year:)
+    scores << student_average(school:, academic_year:) if sufficient_student_data?(school:, academic_year:)
+    scores << admin_data_averages(school:, academic_year:) if includes_admin_data_items?
+    scores
+  end
+
+  def teacher_average(school:, academic_year:)
+    collect_survey_item_average(survey_items: teacher_survey_items, school:, academic_year:)
+  end
+
+  def student_average(school:, academic_year:)
+    collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
+                                academic_year:)
+  end
+
+  def admin_data_averages(school:, academic_year:)
+    collect_admin_scale_average(admin_data_items:, school:, academic_year:)
   end
 end

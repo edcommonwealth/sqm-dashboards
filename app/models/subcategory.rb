@@ -17,7 +17,7 @@ class Subcategory < ActiveRecord::Base
     end
 
     if @response_rate[[school, academic_year]].nil?
-      @response_rate[[school, academic_year]] = create_response_rate(subcategory: self, school:, academic_year:)
+      @response_rate[[school, academic_year]] = create_response_rate(school:, academic_year:)
     end
 
     @response_rate[[school, academic_year]]
@@ -25,10 +25,11 @@ class Subcategory < ActiveRecord::Base
 
   private
 
-  def create_response_rate(subcategory:, school:, academic_year:)
+  def create_response_rate(school:, academic_year:)
     student = StudentResponseRateCalculator.new(subcategory: self, school:, academic_year:)
     teacher = TeacherResponseRateCalculator.new(subcategory: self, school:, academic_year:)
-    ResponseRate.create(school:, academic_year:, subcategory: self, student_response_rate: student.rate, teacher_response_rate: teacher.rate,
-                        meets_student_threshold: student.meets_student_threshold?, meets_teacher_threshold: teacher.meets_teacher_threshold?)
+    ResponseRate.create(school:, academic_year:, subcategory: self, student_response_rate: student.rate,
+                        teacher_response_rate: teacher.rate, meets_student_threshold: student.meets_student_threshold?,
+                        meets_teacher_threshold: teacher.meets_teacher_threshold?)
   end
 end

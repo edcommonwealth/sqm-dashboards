@@ -41,7 +41,7 @@ class AnalyzeBarPresenter
                  else
                    0.0
                  end
-    bar_height < MINIMUM_BAR_HEIGHT ? MINIMUM_BAR_HEIGHT : bar_height
+    enforce_minimum_height(bar_height:)
   end
 
   def percentage
@@ -62,5 +62,11 @@ class AnalyzeBarPresenter
     return 0 if score.average.nil?
 
     score.average.round(6)
+  end
+
+  private
+
+  def enforce_minimum_height(bar_height:)
+    bar_height < MINIMUM_BAR_HEIGHT ? MINIMUM_BAR_HEIGHT : bar_height
   end
 end
