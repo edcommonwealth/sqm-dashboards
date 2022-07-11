@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DataItemPresenter
   attr_reader :measure_id, :has_sufficient_data, :school, :academic_year
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Subcategory < ActiveRecord::Base
   belongs_to :category, counter_cache: true
 

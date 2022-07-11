@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeacherSurveyPresenter < DataItemPresenter
   attr_reader :survey_items
 

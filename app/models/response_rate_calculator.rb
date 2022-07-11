@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ResponseRateCalculator
   TEACHER_RATE_THRESHOLD = 25
   STUDENT_RATE_THRESHOLD = 25
@@ -19,7 +21,7 @@ module ResponseRateCalculator
     return 0 unless total_possible_responses.positive?
 
     response_rate = (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
-    cap_at_100(response_rate)
+    cap_at_one_hundred(response_rate)
   end
 
   def meets_student_threshold?
@@ -32,7 +34,7 @@ module ResponseRateCalculator
 
   private
 
-  def cap_at_100(response_rate)
+  def cap_at_one_hundred(response_rate)
     response_rate > 100 ? 100 : response_rate
   end
 end

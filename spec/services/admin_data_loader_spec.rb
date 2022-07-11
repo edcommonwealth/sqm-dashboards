@@ -64,7 +64,7 @@ describe AdminDataLoader do
   describe 'output to console' do
     it 'outputs a messsage saying a value has been rejected' do
       output = capture_stdout { AdminDataLoader.load_data filepath: path_to_admin_data }.gsub("\n", '')
-      expect(output).to eq 'This value is not valid 0.0This value is not valid 100.0'
+      expect(output).to eq 'Invalid score: 0.0        for school: Attleboro High School        admin data item a-reso-i1 Invalid score: 100.0        for school: Winchester High School        admin data item a-sust-i3 '
     end
   end
 end

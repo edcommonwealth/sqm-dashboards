@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class GroupedBarColumnPresenter
   include AnalyzeHelper
-  include ColorHelper
 
   attr_reader :measure_name, :measure_id, :category, :position, :measure, :school, :academic_years
 
@@ -86,8 +87,8 @@ class GroupedBarColumnPresenter
       [year, score(index)]
     end
     yearly_scores.reject do |yearly_score|
-      score = yearly_score[1]
-      score.average.nil? || score.average.zero? || score.average.nan?
+      average = yearly_score[1].average
+      average.nil? || average.zero? || average.nan?
     end
   end
 
@@ -97,6 +98,7 @@ class GroupedBarColumnPresenter
   end
 
   def bar_x(index)
-    column_start_x + (index * bar_width * 1.2) + ((column_end_x - column_start_x) - (yearly_scores.size * bar_width * 1.2)) / 2
+    column_start_x + (index * bar_width * 1.2) +
+      ((column_end_x - column_start_x) - (yearly_scores.size * bar_width * 1.2)) / 2
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SurveyItemResponse < ActiveRecord::Base
   TEACHER_RESPONSE_THRESHOLD = 2
   STUDENT_RESPONSE_THRESHOLD = 2

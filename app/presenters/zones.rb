@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Zones
   def initialize(watch_low_benchmark:, growth_low_benchmark:, approval_low_benchmark:, ideal_low_benchmark:)
     @watch_low_benchmark = watch_low_benchmark
@@ -7,7 +9,19 @@ class Zones
     @warning_low_benchmark = 1
   end
 
-  Zone = Struct.new(:low_benchmark, :high_benchmark, :type)
+  Zone = Struct.new(:low_benchmark, :high_benchmark, :type) do
+    def contains?(number)
+      return false if number.nil? || number.is_a?(Float) && number.nan?
+
+      number.between?(low_benchmark, high_benchmark)
+    end
+  end
+
+  def all_zones
+    [
+      ideal_zone, approval_zone, growth_zone, watch_zone, warning_zone, insufficient_data
+    ]
+  end
 
   def warning_zone
     Zone.new(1, @watch_low_benchmark, :warning)
@@ -30,26 +44,10 @@ class Zones
   end
 
   def insufficient_data
-    Zone.new(0, @warning_low_benchmark, :insufficient_data)
+    Zone.new(Float::MIN, Float::MAX, :insufficient_data)
   end
 
   def zone_for_score(score)
-    return insufficient_data if score.nil?
-    return insufficient_data if score.is_a?(Float) && score.nan?
-
-    case score
-    when ideal_zone.low_benchmark..ideal_zone.high_benchmark
-      ideal_zone
-    when approval_zone.low_benchmark..approval_zone.high_benchmark
-      approval_zone
-    when growth_zone.low_benchmark..growth_zone.high_benchmark
-      growth_zone
-    when watch_zone.low_benchmark..watch_zone.high_benchmark
-      watch_zone
-    when 1..warning_zone.high_benchmark
-      warning_zone
-    else
-      insufficient_data
-    end
+    all_zones.find { |zone| zone.contains?(score) } || insufficient_data
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnalyzeController < SqmApplicationController
   def index
     assign_categories
@@ -19,7 +21,7 @@ class AnalyzeController < SqmApplicationController
   end
 
   def assign_measures
-    @measures = @subcategory.measures.order(:measure_id).includes(%i[scales admin_data_items subcategory])
+    @measures = @subcategory.measures.order(:measure_id).includes(%i[subcategory])
   end
 
   def assign_academic_years

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AcademicYear < ActiveRecord::Base
   def self.find_by_date(date)
     if date.month > 6

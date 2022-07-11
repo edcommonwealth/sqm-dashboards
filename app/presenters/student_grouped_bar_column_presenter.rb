@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StudentGroupedBarColumnPresenter < GroupedBarColumnPresenter
   def label
     'All Students'

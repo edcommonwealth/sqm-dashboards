@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ResponseRate < ApplicationRecord
   belongs_to :subcategory
   belongs_to :school

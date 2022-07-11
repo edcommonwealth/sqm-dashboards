@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Survey < ApplicationRecord
   belongs_to :academic_year
   belongs_to :school

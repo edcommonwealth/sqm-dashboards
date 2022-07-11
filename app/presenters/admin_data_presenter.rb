@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminDataPresenter < DataItemPresenter
   def initialize(measure_id:, admin_data_items:, has_sufficient_data:, school:, academic_year:)
     super(measure_id:, has_sufficient_data:, school:, academic_year:)

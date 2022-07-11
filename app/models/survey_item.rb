@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SurveyItem < ActiveRecord::Base
   belongs_to :scale, counter_cache: true
   has_one :measure, through: :scale

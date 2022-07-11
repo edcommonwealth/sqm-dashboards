@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ResponseRateLoader
   def self.reset(schools: School.all, academic_years: AcademicYear.all, subcategories: Subcategory.all)
     milford = School.find_by_slug 'milford-high-school'

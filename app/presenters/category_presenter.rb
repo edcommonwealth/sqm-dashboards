@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoryPresenter
   def initialize(category:)
     @category = category
@@ -24,34 +26,12 @@ class CategoryPresenter
   end
 
   def icon_class
-    icon_suffix = case name
-                  when 'Teachers & Leadership'
-                    'apple-alt'
-                  when 'School Culture'
-                    'school'
-                  when 'Resources'
-                    'users-cog'
-                  when 'Academic Learning'
-                    'graduation-cap'
-                  when 'Community & Wellbeing'
-                    'heart'
-                  end
+    icon_suffix = classes[name.to_sym]
     "fas fa-#{icon_suffix}"
   end
 
   def icon_color_class
-    color_suffix = case name
-                   when 'Teachers & Leadership'
-                     'blue'
-                   when 'School Culture'
-                     'red'
-                   when 'Resources'
-                     'black'
-                   when 'Academic Learning'
-                     'lime'
-                   when 'Community & Wellbeing'
-                     'teal'
-                   end
+    color_suffix = colors[name.to_sym]
     "color-#{color_suffix}"
   end
 
@@ -67,5 +47,23 @@ class CategoryPresenter
 
   def to_model
     @category
+  end
+
+  private
+
+  def colors
+    { 'Teachers & Leadership': 'blue',
+      'School Culture': 'red',
+      'Resources': 'black',
+      'Academic Learning': 'lime',
+      'Community & Wellbeing': 'teal' }
+  end
+
+  def classes
+    { 'Teachers & Leadership': 'apple-alt',
+      'School Culture': 'school',
+      'Resources': 'users-cog',
+      'Academic Learning': 'graduation-cap',
+      'Community & Wellbeing': 'heart' }
   end
 end

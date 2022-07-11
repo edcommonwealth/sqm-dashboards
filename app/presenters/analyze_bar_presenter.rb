@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnalyzeBarPresenter
   include AnalyzeHelper
   attr_reader :score, :x_position, :academic_year, :measure_id, :measure, :color
@@ -45,7 +47,8 @@ class AnalyzeBarPresenter
   end
 
   def percentage
-    (score.average - zone.low_benchmark) / (zone.high_benchmark - zone.low_benchmark)
+    low_benchmark = zone.low_benchmark
+    (score.average - low_benchmark) / (zone.high_benchmark - low_benchmark)
   end
 
   def zone
@@ -59,9 +62,10 @@ class AnalyzeBarPresenter
   end
 
   def average
-    return 0 if score.average.nil?
+    average = score.average
+    return 0 if average.nil?
 
-    score.average.round(6)
+    average.round(6)
   end
 
   private

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminDataItem < ActiveRecord::Base
   belongs_to :scale
   has_many :admin_data_values

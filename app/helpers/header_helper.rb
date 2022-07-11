@@ -46,7 +46,7 @@ module HeaderHelper
                                                              true).joins('inner join academic_years a on response_rates.academic_year_id=a.id').order('a.range DESC').first
     academic_year = latest_response_rate.academic_year if latest_response_rate.present?
 
-    academic_year ||= AcademicYear.order('range DESC').first
+    academic_year || AcademicYear.order('range DESC').first
   end
 
   def link_weight(path:)

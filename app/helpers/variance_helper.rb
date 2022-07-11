@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VarianceHelper
   def heading_gutter
     30

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Scale < ApplicationRecord
   belongs_to :measure, counter_cache: true
   has_many :survey_items
@@ -38,8 +40,9 @@ class Scale < ApplicationRecord
 
   def student_survey_items(school:, academic_year:)
     survey = Survey.where(school:, academic_year:).first
-    return survey_items.student_survey_items.short_form_items if survey.present? && survey.form == 'short'
+    student_survey_items = survey_items.student_survey_items
+    return student_survey_items.short_form_items if survey.present? && survey.form == 'short'
 
-    survey_items.student_survey_items
+    student_survey_items
   end
 end

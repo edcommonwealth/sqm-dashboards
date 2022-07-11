@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GaugePresenter
   def initialize(zones:, score:)
     @zones = zones

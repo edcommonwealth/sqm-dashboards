@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubcategoryCardPresenter
   attr_reader :name, :subcategory, :category, :subcategory_id
 

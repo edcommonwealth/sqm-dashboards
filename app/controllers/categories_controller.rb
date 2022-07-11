@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoriesController < SqmApplicationController
   helper GaugeHelper
   def show

@@ -62,6 +62,8 @@ class Measure < ActiveRecord::Base
   end
 
   def score(school:, academic_year:)
+    # average = SurveyItemResponse.where(school:, academic_year:).first
+    # Score.new(average, false, false, false)
     @score ||= Hash.new do |memo, (school, academic_year)|
       next Score::NIL_SCORE if incalculable_score(school:, academic_year:)
 
@@ -197,25 +199,33 @@ class Measure < ActiveRecord::Base
   end
 
   def no_student_responses_exist?(school:, academic_year:)
-    student_survey_items_by_survey_type(school:,
-                                        academic_year:).all? do |survey_item|
-      survey_item.survey_item_responses.where(school:,
-                                              academic_year:).none?
+    @no_student_responses_exist ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = student_survey_items_by_survey_type(school:, academic_year:).all? do |survey_item|
+        survey_item.survey_item_responses.where(school:, academic_year:).none?
+      end
     end
+    @no_student_responses_exist[[school, academic_year]]
   end
 
   def no_teacher_responses_exist?(school:, academic_year:)
-    teacher_survey_items.all? do |survey_item|
-      survey_item.survey_item_responses.where(school:,
-                                              academic_year:).none?
+    @no_teacher_responses_exist ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = teacher_survey_items.all? do |survey_item|
+        survey_item.survey_item_responses.where(school:,
+                                                academic_year:).none?
+      end
     end
+    @no_teacher_responses_exist[[school, academic_year]]
   end
 
   def incalculable_score(school:, academic_year:)
-    meets_student_threshold = sufficient_student_data?(school:, academic_year:)
-    meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-    lacks_sufficient_survey_data = !meets_student_threshold && !meets_teacher_threshold
-    lacks_sufficient_survey_data && !includes_admin_data_items?
+    @incalculable_score ||= Hash.new do |memo, (school, academic_year)|
+      meets_student_threshold = sufficient_student_data?(school:, academic_year:)
+      meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
+      lacks_sufficient_survey_data = !meets_student_threshold && !meets_teacher_threshold
+      memo[[school, academic_year]] = lacks_sufficient_survey_data && !includes_admin_data_items?
+    end
+
+    @incalculable_score[[school, academic_year]]
   end
 
   def collect_averages_for_teacher_student_and_admin_data(school:, academic_year:)
@@ -227,15 +237,26 @@ class Measure < ActiveRecord::Base
   end
 
   def teacher_average(school:, academic_year:)
-    collect_survey_item_average(survey_items: teacher_survey_items, school:, academic_year:)
+    @teacher_average ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] =
+        collect_survey_item_average(survey_items: teacher_survey_items, school:, academic_year:)
+    end
+
+    @teacher_average[[school, academic_year]]
   end
 
   def student_average(school:, academic_year:)
-    collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
-                                academic_year:)
+    @student_average ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
+                                                                  academic_year:)
+    end
+    @student_average[[school, academic_year]]
   end
 
   def admin_data_averages(school:, academic_year:)
-    collect_admin_scale_average(admin_data_items:, school:, academic_year:)
+    @admin_data_averages ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = collect_admin_scale_average(admin_data_items:, school:, academic_year:)
+    end
+    @admin_data_averages[[school, academic_year]]
   end
 end

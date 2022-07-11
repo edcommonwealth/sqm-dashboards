@@ -1,20 +1,15 @@
+# frozen_string_literal: true
+
 class SubcategoryPresenter
+  attr_reader :subcategory, :academic_year, :school, :id, :name, :description
+
   def initialize(subcategory:, academic_year:, school:)
     @subcategory = subcategory
     @academic_year = academic_year
     @school = school
-  end
-
-  def id
-    @subcategory.subcategory_id
-  end
-
-  def name
-    @subcategory.name
-  end
-
-  def description
-    @subcategory.description
+    @id = @subcategory.subcategory_id
+    @name = @subcategory.name
+    @description = @subcategory.description
   end
 
   def gauge_presenter
@@ -65,9 +60,10 @@ class SubcategoryPresenter
   end
 
   def admin_data_item_count
-    return AdminDataItem.for_measures(@subcategory.measures).count if @school.is_hs
+    measures = @subcategory.measures
+    return AdminDataItem.for_measures(measures).count if @school.is_hs
 
-    AdminDataItem.non_hs_items_for_measures(@subcategory.measures).count
+    AdminDataItem.non_hs_items_for_measures(measures).count
   end
 
   def format_a_non_applicable_rate(rate)

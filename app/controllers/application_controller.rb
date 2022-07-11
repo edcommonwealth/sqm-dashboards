@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :set_google_analytics_id
   before_action :set_hotjar_id
