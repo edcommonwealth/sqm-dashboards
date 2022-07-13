@@ -6,6 +6,7 @@ describe 'District Admin', js: true do
   let(:different_district) { District.find_by_slug 'wareham' }
   let(:school) { School.find_by_slug 'winchester-high-school' }
   let(:school_in_same_district) { School.find_by_slug 'muraco-elementary-school' }
+  let(:first_school_in_wareham) { School.find_by_slug 'john-william-decas-elementary-school' }
 
   let(:category) { Category.find_by_name('Teachers & Leadership') }
   let(:different_category) { Category.find_by_name('School Culture') }
@@ -28,6 +29,16 @@ describe 'District Admin', js: true do
 
   let(:ay_2021_22) { AcademicYear.find_by_range '2021-22' }
   let(:ay_2019_20) { AcademicYear.find_by_range '2019-20' }
+  let(:response_rates) do
+    [ay_2021_22, ay_2019_20].each do |academic_year|
+      [school, school_in_same_district, first_school_in_wareham].each do |school|
+        [subcategory, different_subcategory].each do |subcategory|
+          ResponseRate.create!(subcategory:, school:, academic_year:, student_response_rate: 100, teacher_response_rate: 100,
+                               meets_student_threshold: true, meets_teacher_threshold: true)
+        end
+      end
+    end
+  end
 
   # let(:username) { 'winchester' }
   # let(:password) { 'winchester!' }
@@ -47,6 +58,7 @@ describe 'District Admin', js: true do
     Rails.application.load_seed
 
     respondents
+    response_rates
     survey_item_responses = []
 
     survey_items_for_measure_1A_i.each do |survey_item|
@@ -85,6 +97,10 @@ describe 'District Admin', js: true do
     end
 
     SurveyItemResponse.import survey_item_responses
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 
   it 'navigates through the site' do

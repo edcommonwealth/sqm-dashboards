@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Point = Struct.new(:x, :y)
 Rect = Struct.new(:x, :y, :width, :height)
 
@@ -14,15 +16,29 @@ module GaugeHelper
     1
   end
 
+  def effective_radius
+    outer_radius + stroke_width
+  end
+
+  def diameter
+    2 * effective_radius
+  end
+
+  def width
+    diameter
+  end
+
+  def height
+    outer_radius + 2 * stroke_width + key_benchmark_indicator_gutter
+  end
+
   def key_benchmark_indicator_gutter
     10
   end
 
   def viewbox
-    x = arc_center.x - (outer_radius + stroke_width)
-    y = arc_center.y - (outer_radius + stroke_width) - key_benchmark_indicator_gutter
-    width = 2 * (outer_radius + stroke_width)
-    height = outer_radius + 2 * stroke_width + key_benchmark_indicator_gutter
+    x = arc_center.x - effective_radius
+    y = arc_center.y - effective_radius - key_benchmark_indicator_gutter
     Rect.new(x, y, width, height)
   end
 
@@ -47,8 +63,9 @@ module GaugeHelper
   end
 
   def arc_end_line_destination(radius:, percentage:)
-    x = arc_center.x + radius * Math.cos(angle_for(percentage:))
-    y = arc_center.y + radius * Math.sin(angle_for(percentage:))
+    angle = angle_for(percentage:)
+    x = arc_center.x + radius * Math.cos(angle)
+    y = arc_center.y + radius * Math.sin(angle)
     Point.new(x, y)
   end
 

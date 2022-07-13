@@ -49,7 +49,7 @@
     <% end %>
   </div>
 
-<% cache [@subcategory, @school, @selected_academic_years]  do %>
+<% cache [@subcategory, @school, @selected_academic_years, @response_rate_timestamp]  do %>
   <div class="bg-color-white flex-grow-1 col-9">
     <% @measures.each do  |measure|%>
     <section class="mb-6" >

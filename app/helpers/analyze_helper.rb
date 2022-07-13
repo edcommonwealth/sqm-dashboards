@@ -62,7 +62,8 @@ module AnalyzeHelper
   end
 
   def analyze_category_link(district:, school:, academic_year:, category:)
-    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&academic_years=#{academic_year.range}&category=#{category.category_id}"
+    year = academic_year.range
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{year}&academic_years=#{year}&category=#{category.category_id}"
   end
 
   def analyze_subcategory_link(district:, school:, academic_year:, category:, subcategory:)

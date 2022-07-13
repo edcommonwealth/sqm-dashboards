@@ -65,7 +65,7 @@
   </svg>
 <% end  %>
 
-<% cache [@school, @academic_year, ResponseRate.where(school: @school, academic_year: @academic_year).order(updated_at: :DESC).first.updated_at] do %>
+<% cache [@school, @academic_year, @response_rate_timestamp] do %>
   <div class="card">
     <div class="d-flex justify-content-between align-items-center">
       <h2 class="sub-header-2">School Quality Framework Indicators</h2>

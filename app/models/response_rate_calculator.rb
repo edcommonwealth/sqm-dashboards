@@ -12,16 +12,13 @@ module ResponseRateCalculator
   end
 
   def rate
-    return 100 if Respondent.where(school: @school, academic_year: @academic_year).count.zero?
+    return 100 if population_data_unavailable?
 
     return 0 unless survey_item_count.positive?
 
-    average_responses_per_survey_item = response_count / survey_item_count.to_f
-
     return 0 unless total_possible_responses.positive?
 
-    response_rate = (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
-    cap_at_one_hundred(response_rate)
+    cap_at_one_hundred(raw_response_rate)
   end
 
   def meets_student_threshold?
@@ -36,5 +33,21 @@ module ResponseRateCalculator
 
   def cap_at_one_hundred(response_rate)
     response_rate > 100 ? 100 : response_rate
+  end
+
+  def survey
+    Survey.find_by(school:, academic_year:)
+  end
+
+  def raw_response_rate
+    (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
+  end
+
+  def average_responses_per_survey_item
+    response_count / survey_item_count.to_f
+  end
+
+  def population_data_unavailable?
+    Respondent.where(school: @school, academic_year: @academic_year).count.zero?
   end
 end

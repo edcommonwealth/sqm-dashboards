@@ -3,6 +3,7 @@
 class SqmApplicationController < ApplicationController
   protect_from_forgery with: :exception, prepend: true
   before_action :set_schools_and_districts
+  before_action :response_rate_timestamp
   helper HeaderHelper
 
   private

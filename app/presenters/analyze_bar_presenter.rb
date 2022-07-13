@@ -29,20 +29,7 @@ class AnalyzeBarPresenter
   end
 
   def bar_height_percentage
-    bar_height = case zone.type
-                 when :ideal
-                   (percentage * zone_height_percentage + zone_height_percentage) * 100
-                 when :approval
-                   (percentage * zone_height_percentage) * 100
-                 when :growth
-                   ((1 - percentage) * zone_height_percentage) * 100
-                 when :watch
-                   ((1 - percentage) * zone_height_percentage + zone_height_percentage) * 100
-                 when :warning
-                   ((1 - percentage) * zone_height_percentage + zone_height_percentage + zone_height_percentage) * 100
-                 else
-                   0.0
-                 end
+    bar_height = send("#{zone.type}_bar_height_percentage") || 0
     enforce_minimum_height(bar_height:)
   end
 
@@ -72,5 +59,25 @@ class AnalyzeBarPresenter
 
   def enforce_minimum_height(bar_height:)
     bar_height < MINIMUM_BAR_HEIGHT ? MINIMUM_BAR_HEIGHT : bar_height
+  end
+
+  def ideal_bar_height_percentage
+    (percentage * zone_height_percentage + zone_height_percentage) * 100
+  end
+
+  def approval_bar_height_percentage
+    (percentage * zone_height_percentage) * 100
+  end
+
+  def growth_bar_height_percentage
+    ((1 - percentage) * zone_height_percentage) * 100
+  end
+
+  def watch_bar_height_percentage
+    ((1 - percentage) * zone_height_percentage + zone_height_percentage) * 100
+  end
+
+  def warning_bar_height_percentage
+    ((1 - percentage) * zone_height_percentage + zone_height_percentage + zone_height_percentage) * 100
   end
 end

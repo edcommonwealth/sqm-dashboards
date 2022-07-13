@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SchedulesHelper
   def options_for_frequency_hours
     [

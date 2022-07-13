@@ -18,11 +18,7 @@ class Subcategory < ActiveRecord::Base
       memo[[school, academic_year]] = ResponseRate.find_by(subcategory: self, school:, academic_year:)
     end
 
-    if @response_rate[[school, academic_year]].nil?
-      @response_rate[[school, academic_year]] = create_response_rate(school:, academic_year:)
-    end
-
-    @response_rate[[school, academic_year]]
+    @response_rate[[school, academic_year]] || create_response_rate(school:, academic_year:)
   end
 
   private

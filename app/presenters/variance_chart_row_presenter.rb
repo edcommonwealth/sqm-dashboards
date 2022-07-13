@@ -72,20 +72,31 @@ class VarianceChartRowPresenter
   WARNING_ZONE_WIDTH_PERCENTAGE = 0.2
 
   def bar_width_percentage
-    case zone.type
-    when :ideal
-      percentage * IDEAL_ZONE_WIDTH_PERCENTAGE + APPROVAL_ZONE_WIDTH_PERCENTAGE
-    when :approval
-      percentage * APPROVAL_ZONE_WIDTH_PERCENTAGE
-    when :growth
-      (1 - percentage) * GROWTH_ZONE_WIDTH_PERCENTAGE
-    when :watch
-      (1 - percentage) * WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
-    when :warning
-      (1 - percentage) * WARNING_ZONE_WIDTH_PERCENTAGE + WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
-    else
-      0.0
-    end
+    send("#{zone.type}_bar_width_percentage")
+  end
+
+  def ideal_bar_width_percentage
+    percentage * IDEAL_ZONE_WIDTH_PERCENTAGE + APPROVAL_ZONE_WIDTH_PERCENTAGE
+  end
+
+  def approval_bar_width_percentage
+    percentage * APPROVAL_ZONE_WIDTH_PERCENTAGE
+  end
+
+  def growth_bar_width_percentage
+    (1 - percentage) * GROWTH_ZONE_WIDTH_PERCENTAGE
+  end
+
+  def watch_bar_width_percentage
+    (1 - percentage) * WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
+  end
+
+  def warning_bar_width_percentage
+    (1 - percentage) * WARNING_ZONE_WIDTH_PERCENTAGE + WATCH_ZONE_WIDTH_PERCENTAGE + GROWTH_ZONE_WIDTH_PERCENTAGE
+  end
+
+  def insufficient_data_bar_width_percentage
+    0
   end
 
   def percentage

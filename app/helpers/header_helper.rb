@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HeaderHelper
   def link_to_overview(district:, school:, academic_year:)
     "/districts/#{district.slug}/schools/#{school.slug}/overview?year=#{academic_year.range}"
@@ -8,7 +10,8 @@ module HeaderHelper
   end
 
   def link_to_analyze(district:, school:, academic_year:)
-    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{academic_year.range}&category=1&academic_years=#{academic_year.range}"
+    year = academic_year.range
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{year}&category=1&academic_years=#{year}"
   end
 
   def district_url_for(district:, academic_year:)
@@ -42,8 +45,10 @@ module HeaderHelper
   end
 
   def latest_year(school)
-    latest_response_rate = ResponseRate.where(school:).where('meets_student_threshold = ? or meets_teacher_threshold = ?', true,
-                                                             true).joins('inner join academic_years a on response_rates.academic_year_id=a.id').order('a.range DESC').first
+    latest_response_rate = ResponseRate.where(school:)
+                                       .where('meets_student_threshold = ? or meets_teacher_threshold = ?', true, true)
+                                       .joins('inner join academic_years a on response_rates.academic_year_id=a.id')
+                                       .order('a.range DESC').first
     academic_year = latest_response_rate.academic_year if latest_response_rate.present?
 
     academic_year || AcademicYear.order('range DESC').first

@@ -51,19 +51,17 @@ class Measure < ActiveRecord::Base
     @includes_admin_data_items ||= admin_data_items.any?
   end
 
-  def sources
-    @sources ||= begin
-      sources = []
-      sources << :admin_data if includes_admin_data_items?
-      sources << :student_surveys if includes_student_survey_items?
-      sources << :teacher_surveys if includes_teacher_survey_items?
-      sources
-    end
-  end
+  # def sources
+  #   @sources ||= begin
+  #     sources = []
+  #     sources << Source.new(name: :admin_data, collection: admin_data_items) if includes_admin_data_items?
+  #     sources << Source.new(name: :student_surveys, collection: student_survey_items) if includes_student_survey_items?
+  #     sources << Source.new(name: :teacher_surveys, collection: teacher_survey_items) if includes_teacher_survey_items?
+  #     sources
+  #   end
+  # end
 
   def score(school:, academic_year:)
-    # average = SurveyItemResponse.where(school:, academic_year:).first
-    # Score.new(average, false, false, false)
     @score ||= Hash.new do |memo, (school, academic_year)|
       next Score::NIL_SCORE if incalculable_score(school:, academic_year:)
 
@@ -149,9 +147,9 @@ class Measure < ActiveRecord::Base
   def collect_survey_item_average(survey_items:, school:, academic_year:)
     @collect_survey_item_average ||= Hash.new do |memo, (survey_items, school, academic_year)|
       averages = survey_items.map do |survey_item|
-        grouped_responses(school:, academic_year:)[survey_item] || 0
+        grouped_responses(school:, academic_year:)[survey_item]
       end.remove_blanks
-      memo[[survey_items, school, academic_year]] = averages.any? ? averages.average : 0
+      memo[[survey_items, school, academic_year]] = averages.average || 0
     end
     @collect_survey_item_average[[survey_items, school, academic_year]]
   end
@@ -210,8 +208,7 @@ class Measure < ActiveRecord::Base
   def no_teacher_responses_exist?(school:, academic_year:)
     @no_teacher_responses_exist ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = teacher_survey_items.all? do |survey_item|
-        survey_item.survey_item_responses.where(school:,
-                                                academic_year:).none?
+        survey_item.survey_item_responses.where(school:, academic_year:).none?
       end
     end
     @no_teacher_responses_exist[[school, academic_year]]
@@ -219,9 +216,8 @@ class Measure < ActiveRecord::Base
 
   def incalculable_score(school:, academic_year:)
     @incalculable_score ||= Hash.new do |memo, (school, academic_year)|
-      meets_student_threshold = sufficient_student_data?(school:, academic_year:)
-      meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      lacks_sufficient_survey_data = !meets_student_threshold && !meets_teacher_threshold
+      lacks_sufficient_survey_data = !sufficient_student_data?(school:, academic_year:) &&
+                                     !sufficient_teacher_data?(school:, academic_year:)
       memo[[school, academic_year]] = lacks_sufficient_survey_data && !includes_admin_data_items?
     end
 
@@ -247,8 +243,8 @@ class Measure < ActiveRecord::Base
 
   def student_average(school:, academic_year:)
     @student_average ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = collect_survey_item_average(survey_items: student_survey_items_by_survey_type(school:, academic_year:), school:,
-                                                                  academic_year:)
+      survey_items = student_survey_items_by_survey_type(school:, academic_year:)
+      memo[[school, academic_year]] = collect_survey_item_average(survey_items:, school:, academic_year:)
     end
     @student_average[[school, academic_year]]
   end

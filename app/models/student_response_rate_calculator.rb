@@ -7,8 +7,6 @@ class StudentResponseRateCalculator
 
   def survey_item_count
     @survey_item_count ||= begin
-      survey = Survey.find_by(school:, academic_year:)
-
       survey_items = SurveyItem.includes(%i[scale
                                             measure]).student_survey_items.where("scale.measure": @subcategory.measures)
       survey_items = survey_items.where(on_short_form: true) if survey.form == 'short'
@@ -22,7 +20,6 @@ class StudentResponseRateCalculator
   def response_count
     @response_count ||= @subcategory.measures.map do |measure|
       measure.student_survey_items.map do |survey_item|
-        survey = Survey.find_by(school:, academic_year:)
         next 0 if survey.form == 'short' && survey_item.on_short_form == false
 
         survey_item.survey_item_responses.where(school:,
