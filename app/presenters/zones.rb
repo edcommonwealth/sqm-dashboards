@@ -9,13 +9,7 @@ class Zones
     @warning_low_benchmark = 1
   end
 
-  Zone = Struct.new(:low_benchmark, :high_benchmark, :type) do
-    def contains?(number)
-      return false if number.nil? || number.is_a?(Float) && number.nan?
-
-      number.between?(low_benchmark, high_benchmark)
-    end
-  end
+  Zone = Struct.new(:low_benchmark, :high_benchmark, :type)
 
   def all_zones
     [
@@ -48,6 +42,6 @@ class Zones
   end
 
   def zone_for_score(score)
-    all_zones.find { |zone| zone.contains?(score) } || insufficient_data
+    all_zones.find { |zone| Score.new(score).in_zone?(zone:) } || insufficient_data
   end
 end

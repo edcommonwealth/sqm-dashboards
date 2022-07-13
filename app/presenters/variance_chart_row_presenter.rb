@@ -100,7 +100,8 @@ class VarianceChartRowPresenter
   end
 
   def percentage
-    (@score - zone.low_benchmark) / (zone.high_benchmark - zone.low_benchmark)
+    low_benchmark = zone.low_benchmark
+    (@score - low_benchmark) / (zone.high_benchmark - low_benchmark)
   end
 
   def zone

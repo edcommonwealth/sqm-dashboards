@@ -16,11 +16,12 @@ class AnalyzeBarPresenter
   end
 
   def y_offset
+    benchmark_height = analyze_zone_height * 2
     case zone.type
     when :ideal, :approval
-      (analyze_zone_height * 2) - bar_height_percentage
+      benchmark_height - bar_height_percentage
     else
-      (analyze_zone_height * 2)
+      benchmark_height
     end
   end
 
@@ -49,8 +50,7 @@ class AnalyzeBarPresenter
   end
 
   def average
-    average = score.average
-    return 0 if average.nil?
+    average = score.average || 0
 
     average.round(6)
   end
