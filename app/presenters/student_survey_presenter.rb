@@ -25,8 +25,6 @@ class StudentSurveyPresenter < DataItemPresenter
   end
 
   def descriptions_and_availability
-    survey_items.map do |survey_item|
-      DataAvailability.new(survey_item.survey_item_id, survey_item.prompt, true)
-    end
+    survey_items.map(&:description)
   end
 end

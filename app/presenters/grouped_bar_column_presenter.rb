@@ -16,14 +16,15 @@ class GroupedBarColumnPresenter
   end
 
   def score(year_index)
-    measure.score(school:, academic_year: academic_years[year_index])
+    measure.score(school:, academic_year: academic_years[year_index]) || 0
   end
 
   def bars
-    @bars ||= yearly_scores.map.each_with_index do |item, index|
-      year = item[0]
-      score = item[1]
-      AnalyzeBarPresenter.new(measure:, academic_year: year, score:, x_position: bar_x(index),
+    @bars ||= yearly_scores.map.each_with_index do |yearly_score, index|
+      year = yearly_score.year
+      AnalyzeBarPresenter.new(measure:, academic_year: year,
+                              score: yearly_score.score,
+                              x_position: bar_x(index),
                               color: bar_color(year))
     end
   end
@@ -82,13 +83,13 @@ class GroupedBarColumnPresenter
 
   private
 
+  YearlyScore = Struct.new(:year, :score)
   def yearly_scores
     yearly_scores = academic_years.each_with_index.map do |year, index|
-      [year, score(index)]
+      YearlyScore.new(year,  score(index))
     end
     yearly_scores.reject do |yearly_score|
-      average = yearly_score[1].average
-      average.nil? || average.zero? || average.nan?
+      yearly_score.score.blank?
     end
   end
 

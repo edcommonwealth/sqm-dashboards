@@ -109,10 +109,15 @@ describe GroupedBarColumnPresenter do
   context 'for a grouped column presenter with both student and teacher responses' do
     context 'with a single year'
     before do
-      create(:survey_item_response,  survey_item: student_survey_item_for_composite_measure, school:,
-                                     academic_year:, likert_score: 4)
-      create(:survey_item_response,  survey_item: student_survey_item_for_composite_measure, school:,
-                                     academic_year:, likert_score: 5)
+      create(:survey_item_response,
+             survey_item: student_survey_item_for_composite_measure,
+             school:,
+             academic_year:,
+             likert_score: 4)
+      create(:survey_item_response,
+             survey_item: student_survey_item_for_composite_measure, school:,
+             academic_year:,
+             likert_score: 5)
     end
 
     it 'returns a score that is an average of the likert scores ' do
@@ -136,10 +141,6 @@ describe GroupedBarColumnPresenter do
   end
 
   context 'when a measure is based on student survey items' do
-    before do
-      year_index = academic_years.find_index(academic_year)
-    end
-
     context 'when there is insufficient data to show a score' do
       it_behaves_like 'measure_name'
       it_behaves_like 'column_midpoint'

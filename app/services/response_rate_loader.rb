@@ -4,10 +4,10 @@ class ResponseRateLoader
   def self.reset(schools: School.all, academic_years: AcademicYear.all, subcategories: Subcategory.all)
     subcategories.each do |subcategory|
       schools.each do |school|
-        next if rails_env == 'test' && (school != milford)
+        next if test_env? && (school != milford)
 
         academic_years.each do |academic_year|
-          next if rails_env == 'test' && (academic_year != test_year)
+          next if test_env? && (academic_year != test_year)
 
           process_response_rate(subcategory:, school:, academic_year:)
         end
@@ -35,13 +35,19 @@ class ResponseRateLoader
 
     response_rate = ResponseRate.find_or_create_by!(subcategory:, school:, academic_year:)
 
-    response_rate.update!(student_response_rate: student.rate, teacher_response_rate: teacher.rate,
+    response_rate.update!(student_response_rate: student.rate,
+                          teacher_response_rate: teacher.rate,
                           meets_student_threshold: student.meets_student_threshold?,
                           meets_teacher_threshold: teacher.meets_teacher_threshold?)
+  end
+
+  def self.test_env?
+    rails_env == 'test'
   end
 
   private_class_method :milford
   private_class_method :test_year
   private_class_method :rails_env
   private_class_method :process_response_rate
+  private_class_method :test_env?
 end

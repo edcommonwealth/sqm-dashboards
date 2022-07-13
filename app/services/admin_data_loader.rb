@@ -16,13 +16,18 @@ class AdminDataLoader
     end
   end
 
+  private
+
   def self.valid_likert_score(likert_score:)
     likert_score >= 1 && likert_score <= 5
   end
 
   def self.likert_score(row:)
-    likert_score = row['LikertScore'] || row['Likert Score'] || row['Likert_Score']
-    likert_score = likert_score.to_f
+    likert_score = (row['LikertScore'] || row['Likert Score'] || row['Likert_Score']).to_f
+    round_up_to_one(likert_score:)
+  end
+
+  def self.round_up_to_one(likert_score:)
     likert_score = 1 if likert_score.positive? && likert_score < 1
     likert_score
   end
@@ -40,13 +45,17 @@ class AdminDataLoader
   end
 
   def self.create_admin_data_value(row:, score:)
-    admin_data_value = AdminDataValue.new
-    admin_data_value.likert_score = score
-    admin_data_value.academic_year = AcademicYear.find_by_range ay(row:)
-    admin_data_value.school = School.find_by_dese_id dese_id(row:).to_i
-    admin_data_value.admin_data_item = AdminDataItem.find_by_admin_data_item_id admin_data_item(row:)
-    admin_data_value.save!
+    AdminDataValue.create!(likert_score: score,
+                           academic_year: AcademicYear.find_by_range(ay(row:)),
+                           school: School.find_by_dese_id(dese_id(row:).to_i),
+                           admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item(row:)))
   end
 
   private_class_method :valid_likert_score
+  private_class_method :likert_score
+  private_class_method :round_up_to_one
+  private_class_method :ay
+  private_class_method :dese_id
+  private_class_method :admin_data_item
+  private_class_method :create_admin_data_value
 end

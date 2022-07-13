@@ -7,4 +7,8 @@ class Score < Struct.new(:average, :meets_teacher_threshold?, :meets_student_thr
 
     average.between?(zone.low_benchmark, zone.high_benchmark)
   end
+
+  def blank?
+    average.nil? || average.zero? || average.nan?
+  end
 end

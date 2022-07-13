@@ -24,4 +24,8 @@ class SurveyItem < ActiveRecord::Base
   scope :short_form_items, lambda {
     where(on_short_form: true)
   }
+
+  def description
+    DataAvailability.new(survey_item_id, prompt, true)
+  end
 end

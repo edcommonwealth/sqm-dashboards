@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class StudentResponseRateCalculator
-  include ResponseRateCalculator
-
+class StudentResponseRateCalculator < ResponseRateCalculator
   private
 
   def survey_item_count

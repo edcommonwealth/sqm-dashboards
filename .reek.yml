@@ -4,3 +4,10 @@ detectors:
     enabled: false
   IrresponsibleModule:
     enabled: false
+exclude_paths:
+  - spec
+  - app/views/legacy
+  - app/controllers/legacy
+  - app/models/legacy
+  - db/migrate
+  - config

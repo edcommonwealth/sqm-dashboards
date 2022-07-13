@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ResponseRateCalculator
+class ResponseRateCalculator
   TEACHER_RATE_THRESHOLD = 25
   STUDENT_RATE_THRESHOLD = 25
   attr_reader :subcategory, :school, :academic_year

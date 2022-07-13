@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class TeacherResponseRateCalculator
-  include ResponseRateCalculator
-
+class TeacherResponseRateCalculator < ResponseRateCalculator
   def survey_item_count
     @survey_item_count ||= @subcategory.measures.map do |measure|
       measure.teacher_survey_items.reject do |survey_item|
