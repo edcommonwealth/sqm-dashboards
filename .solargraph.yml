@@ -1,0 +1,4 @@
+plugins:
+  - solargraph-reek
+reporters:
+  - reek

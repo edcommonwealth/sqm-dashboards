@@ -1,5 +1,7 @@
 inherit_from: ~/.rubocop.yml
 
+AllCops:
+  TargetRubyVersion: 3.1
 Lint/ShadowingOuterLocalVariable:
   Enabled: false
 

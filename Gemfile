@@ -59,19 +59,23 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'rack-mini-profiler'
   gem 'rspec-rails', '~> 5.1.0'
+  gem 'standard'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'brakeman'
   gem 'bullet'
+  gem 'erb_lint', require: false
+  gem 'erblint-github'
   gem 'listen', '~> 3.0.5'
   gem 'nested_scaffold'
+  gem 'reek', require: false
   gem 'rubocop', require: false
   gem 'seed_dump'
-  gem 'web-console'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'brakeman'
+  gem 'solargraph-reek'
   gem 'spring'
+  gem 'web-console'
 end
 
 group 'test' do
