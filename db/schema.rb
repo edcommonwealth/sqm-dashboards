@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_16_220352) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_22_030114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -290,6 +290,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_220352) do
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
 
+  create_table "races", force: :cascade do |t|
+    t.string "designation"
+    t.integer "qualtrics_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["designation"], name: "index_races_on_designation", unique: true
+    t.index ["qualtrics_code"], name: "index_races_on_qualtrics_code", unique: true
+    t.index ["slug"], name: "index_races_on_slug", unique: true
+  end
+
   create_table "respondents", force: :cascade do |t|
     t.bigint "school_id", null: false
     t.bigint "academic_year_id", null: false
@@ -313,7 +324,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_220352) do
     t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_response_rates_on_academic_year_id"
     t.index ["school_id", "subcategory_id"], name: "index_response_rates_on_school_id_and_subcategory_id"
-    t.index ["school_id"], name: "index_response_rates_on_school_id"
     t.index ["subcategory_id"], name: "index_response_rates_on_subcategory_id"
   end
 
@@ -361,7 +371,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_220352) do
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
-    t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
     t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id"
   end
 

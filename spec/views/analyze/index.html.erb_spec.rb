@@ -7,6 +7,14 @@ describe 'analyze/index' do
   let(:subcategory) { create(:subcategory, category:) }
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
+  let(:races) do
+    DemographicLoader.load_data(filepath: 'spec/fixtures/sample_demographics.csv')
+    Race.all
+  end
+  let(:graphs) do
+    [AnalysisGraph::StudentsAndTeachers.new, AnalysisGraph::StudentsByGroup.new]
+  end
+  let(:selected_races) { races }
 
   let(:support_for_teaching) do
     measure = create(:measure, name: 'Support For Teaching Development & Growth', measure_id: '1A-I', subcategory:)
@@ -45,6 +53,9 @@ describe 'analyze/index' do
   end
 
   before :each do
+    assign :races, races
+    assign :selected_races, selected_races
+    assign :graphs, graphs
     assign :academic_year, academic_year
     assign :available_academic_years, [academic_year]
     assign :selected_academic_years, [academic_year]
@@ -57,10 +68,11 @@ describe 'analyze/index' do
     assign :measures, [support_for_teaching, effective_leadership, professional_qualifications]
     create(:respondent, school:, academic_year:)
     create(:survey, school:, academic_year:)
-
-    render
   end
   context 'when all the presenters have a nil score' do
+    before do
+      render
+    end
     # let(:grouped_bar_column_presenters) do
     #   measure = create(:measure, name: 'Display Me', measure_id: 'display-me')
     #   scale = create(:scale, measure:)
@@ -83,8 +95,8 @@ describe 'analyze/index' do
       displayed_variance_rows = subject.css('[data-for-measure-id]')
       expect(displayed_variance_rows.first.attribute('data-for-measure-id').value).to eq '1A-I'
 
-      # displayed_academic_years = subject.css('[data-for-academic-year]')
-      # expect(displayed_academic_years.count).to eq 9
+      displayed_academic_years = subject.css('[data-for-academic-year]')
+      expect(displayed_academic_years.count).to eq 0
 
       displayed_variance_labels = subject.css('[data-grouped-bar-label]')
       expect(displayed_variance_labels.count).to eq 9
@@ -111,6 +123,30 @@ describe 'analyze/index' do
       expect(year_checkbox.name).to eq 'input'
       expect(academic_year.range).to eq '2050-51'
       expect(year_checkbox).to have_attribute 'disabled'
+    end
+
+    it 'displays a radio box selector for each type of data filter' do
+      expect(subject).to have_css '#students-and-teachers'
+      expect(subject).to have_css '#students-by-group'
+    end
+
+    it 'displays a checkbox for each race designation' do
+      race_slugs = %w[american-indian-or-alaskan-native asian-or-pacific-islander black-or-african-american
+                      hispanic-or-latinx middle-eastern multiracial unknown white-or-caucasian]
+      race_slugs.each do |slug|
+        expect(subject).to have_css("//input[@type='checkbox'][@id='#{slug}']")
+      end
+
+      expect(subject.css("//input[@type='checkbox'][@id='american-indian-or-alaskan-native']")).to have_checked_field
+    end
+  end
+
+  context 'when presenters have a displayable score' do
+    before do
+      render
+    end
+
+    context 'when displaying a student and teacher graph' do
     end
   end
 end

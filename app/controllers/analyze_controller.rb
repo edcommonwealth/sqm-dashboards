@@ -2,7 +2,7 @@
 
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
-                :response_rate_timestamp, only: [:index]
+                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, only: [:index]
   def index; end
 
   private
@@ -44,5 +44,32 @@ class AnalyzeController < SqmApplicationController
       rate.updated_at
     end
     @response_rate_timestamp
+  end
+
+  def races
+    @races ||= Race.all.order(designation: :ASC)
+  end
+
+  def selected_races
+    @selected_races ||= begin
+      race_params = params[:races]
+      return @selected_races = races unless race_params
+
+      race_list = race_params.split(',') if race_params
+      if race_list
+        race_list = race_list.map do |race|
+          Race.find_by_slug race
+        end
+      end
+      race_list
+    end
+  end
+
+  def graph
+    @graph ||= params[:graph] || 'students-and-teachers'
+  end
+
+  def graphs
+    @graphs ||= [AnalysisGraph::StudentsAndTeachers.new, AnalysisGraph::StudentsByGroup.new]
   end
 end

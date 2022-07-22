@@ -1,0 +1,28 @@
+<h3 class="sub-header-4 mt-5">Data Filters</h3>
+<div class="bg-gray p-3" data-controller="analyze">
+  <% @graphs.each do |graph| %>
+  <div>
+    <input type="radio" id="<%= graph.value %>" name="graph"
+    value="<%= base_url %>"
+    data-action="click->analyze#refresh"
+    <%= graph.value == @graph ? "checked" : "" %>>
+    <label for="<%= graph.value %>"><%= graph.to_s %></label>
+  </div>
+  <% end %>
+
+  <p class="sub-header-5 mt-3 font-size-14"> Select a group </p>
+
+    <% @races.each do |race | %>
+      <div class="d-flex <%= race.slug %>">
+        <input
+          id="<%= race.slug %>"
+          class="m-3 race-checkbox"
+          type="checkbox"
+          name="race-checkbox"
+          value="<%= base_url %>"
+          data-action="click->analyze#refresh"
+          <%= @selected_races.map(&:slug).include?(race.slug)  ? "checked" : "" %>>
+      <label for="<%= race.qualtrics_code %>"><%= race.designation %></label>
+      </div>
+    <% end %>
+</div>

@@ -1,66 +1,33 @@
 <% content_for :title do %>
   <h1 class="sub-header-2 color-white m-0"> Analysis of <%= @school.name %> </h1>
 <% end %>
-
 <div class="graph-content">
   <div class="breadcrumbs sub-header-4">
-    <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id  %>:<%= @subcategory.name %>
+    <%= @category.category_id %>:<%= @category.name %> > <%= @subcategory.subcategory_id %>:<%= @subcategory.name %>
   </div>
-  <hr/>
+  <hr>
 </div>
 
 <div class="d-flex flex-row pt-5 row">
   <div class="d-flex flex-column flex-grow-6 bg-color-white col-3 px-5" data-controller="analyze">
-    <h3 class="sub-header-4">Focus Area</h3>
-    <p>Select a category & subcategory to analyze measure-level results</p>
-    <select id="select-category" class="mx-3 form-select" data-id="category-dropdown" data-action="analyze#refresh">
-      <% @categories.each do |category|  %>
-        <option value="<%= analyze_category_link(district: @district, school: @school, academic_year: @academic_year, category: category) %>"  <%= @category.id == category.id ? "selected": ""  %> ><%= "#{category.category_id}: #{category.name}" %></option>
-      <% end %>
-    </select>
-    <select id="select-subcategory" class="mx-3 form-select mt-3" data-id="subcategory-dropdown" data-action="analyze#refresh">
-      <% @subcategories.each do |subcategory|  %>
-        <option value="<%= analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: subcategory) %>"  <%= @subcategory.subcategory_id == subcategory.subcategory_id ? "selected": ""  %>>
-          <%= "#{subcategory.subcategory_id}: #{subcategory.name}" %>
-        </option>
-      <% end %>
-    </select>
+    <%= render partial: "focus_area", locals: {categories: @categories, district: @district, school: @school, academic_year: @academic_year, category: @category,  subcategories: @subcategories} %>
 
-    <h3 class="sub-header-4 mt-5">School Years</h3>
-    <%  @available_academic_years.each_with_index do | year, index | %>
-      <div class="d-flex justify-content-start align-items-center mt-1" data-controller="analyze">
-        <input type="checkbox"
-          id="<%= year.range %>"
-          name="year-checkbox"
-          value="<%= analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: @subcategory) %>"
-          <%= @selected_academic_years.include?(year)  ? "checked" : "" %>
-          data-action="click->analyze#refresh"
-          <%= empty_dataset?(measures: @measures, school: @school, academic_year: year) ? "disabled" : ""  %>
-          >
-        <label class="px-3" for="<%= year.range %>" ><%= year.range %></label><br>
-        <div class="bg-color-blue px-3" style="width:20px;height:20px;background-color:<%= colors[index]  %>;"></div>
-        <% if empty_dataset?(measures: @measures, school: @school, academic_year: year)  %>
-          <i class="fa-solid fa-circle-exclamation px-3"
-            data-bs-toggle="popover" data-bs-placement="right"
-            data-bs-content="Teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD  %>%" >
-          </i>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render partial: "school_years", locals: {available_academic_years: @available_academic_years, selected_academic_years: @selected_academic_years, district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: @subcategory, measures: @measures} %>
+
+    <%= render partial: "data_filters", locals: {district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: @subcategory} %>
   </div>
 
-<% cache [@subcategory, @school, @selected_academic_years, @response_rate_timestamp]  do %>
-  <div class="bg-color-white flex-grow-1 col-9">
-    <% @measures.each do  |measure|%>
-    <section class="mb-6" >
-      <p class="construct-id">Measure <%= measure.measure_id %></p>
-      <h2> <%= measure.name %> </h2>
+  <% cache [@subcategory, @school, @selected_academic_years, @response_rate_timestamp]  do %>
+    <div class="bg-color-white flex-grow-1 col-9">
+      <% @measures.each do  |measure| %>
+        <section class="mb-6">
+          <p class="construct-id">Measure <%= measure.measure_id %></p>
+          <h2> <%= measure.name %> </h2>
 
-      <%= render partial: "grouped_bar_chart" , locals: { measure: measure} %>
-
-    </section>
-    <% end %>
-  </div>
-<% end  %>
+          <%= render partial: "grouped_bar_chart" , locals: { measure: measure} %>
+        </section>
+      <% end %>
+    </div>
+  <% end %>
 
 </div>
