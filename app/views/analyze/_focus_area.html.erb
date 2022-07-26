@@ -2,7 +2,7 @@
 <p>Select a category & subcategory to analyze measure-level results</p>
 <select id="select-category" class="mx-3 form-select" data-id="category-dropdown" data-action="analyze#refresh">
   <% categories.each do |category| %>
-    <option value="<%= analyze_category_link(district: district, school: school, academic_year: academic_year, category: category) %>" <%= category.id == category.id ? "selected": "" %>><%= "#{category.category_id}: #{category.name}" %></option>
+    <option value="<%= analyze_category_link(district: district, school: school, academic_year: academic_year, category: category) %>" <%= category.id == @category.id ? "selected": "" %>><%= "#{category.category_id}: #{category.name}" %></option>
   <% end %>
 </select>
 <select id="select-subcategory" class="mx-3 form-select mt-3" data-id="subcategory-dropdown" data-action="analyze#refresh">
