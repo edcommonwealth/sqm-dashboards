@@ -7,7 +7,7 @@
 </select>
 <select id="select-subcategory" class="mx-3 form-select mt-3" data-id="subcategory-dropdown" data-action="analyze#refresh">
   <% subcategories.each do |subcategory| %>
-    <option value="<%= analyze_subcategory_link(district: district, school: school, academic_year: academic_year, category: category, subcategory: subcategory) %>" <%= subcategory.subcategory_id == subcategory.subcategory_id ? "selected": "" %>>
+    <option value="<%= analyze_subcategory_link(district: district, school: school, academic_year: academic_year, category: category, subcategory: subcategory) %>" <%= subcategory.subcategory_id == @subcategory.subcategory_id ? "selected": "" %>>
     <%= "#{subcategory.subcategory_id}: #{subcategory.name}" %>
     </option>
   <% end %>
