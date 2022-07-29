@@ -67,11 +67,10 @@ namespace :data do
   end
   desc 'load students'
   task load_students: :environment do
-    files = [ '2021-22_winchester_student_survey_responses.csv' ]
-    # files = ['2021-22_attleboro_student_survey_responses.csv',
-    #         '2021-22_lowell_milford_student_survey_responses.csv',
-    #         '2021-22_revere_somerville_wareham_student_survey_responses.csv',
-    #         '2021-22_winchester_student_survey_responses.csv' ]
+    files = ['2021-22_attleboro_student_survey_responses.csv',
+            '2021-22_lowell_milford_student_survey_responses.csv',
+            '2021-22_revere_somerville_wareham_student_survey_responses.csv',
+            '2021-22_winchester_student_survey_responses.csv' ]
     files.each do |file|
       file = Rails.root.join('data', 'survey_responses', file)
       puts "=====================> Loading student data from csv at path: #{file}"
