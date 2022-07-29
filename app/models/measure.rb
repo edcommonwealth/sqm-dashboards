@@ -183,10 +183,11 @@ class Measure < ActiveRecord::Base
   end
 
   def sufficient_student_data?(school:, academic_year:)
-    return @sufficient_student_data ||= false unless includes_student_survey_items?
-    return @sufficient_student_data ||= false if no_student_responses_exist?(school:, academic_year:)
+    false unless includes_student_survey_items?
+    false if no_student_responses_exist?(school:, academic_year:)
 
-    @sufficient_student_data ||= subcategory.response_rate(school:, academic_year:).meets_student_threshold?
+    # this gets memoized on first run so check to make sure
+    subcategory.response_rate(school:, academic_year:).meets_student_threshold?
   end
 
   def sufficient_teacher_data?(school:, academic_year:)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_22_030114) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_28_232445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -350,6 +350,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_030114) do
     t.index ["dese_id"], name: "index_schools_on_dese_id", unique: true
   end
 
+  create_table "student_races", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "race_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_student_races_on_race_id"
+    t.index ["student_id"], name: "index_student_races_on_student_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "lasid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "response_id"
+    t.index ["lasid"], name: "index_students_on_lasid"
+  end
+
   create_table "subcategories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "category_id"
@@ -368,9 +385,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_030114) do
     t.integer "academic_year_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
+    t.index ["student_id"], name: "index_survey_item_responses_on_student_id"
     t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id"
   end
 
@@ -416,9 +435,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_030114) do
   add_foreign_key "response_rates", "subcategories"
   add_foreign_key "scales", "measures"
   add_foreign_key "schools", "districts"
+  add_foreign_key "student_races", "races"
+  add_foreign_key "student_races", "students"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
   add_foreign_key "survey_item_responses", "schools"
+  add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"
   add_foreign_key "survey_items", "scales"
   add_foreign_key "surveys", "academic_years"

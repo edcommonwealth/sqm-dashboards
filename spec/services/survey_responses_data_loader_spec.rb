@@ -132,8 +132,8 @@ def loads_student_survey_item_response_values
 end
 
 def student_survey_item_response_count_matches_expected
-  expect(SurveyItemResponse.where(survey_item: s_phys_q1).count).to eq 3
-  expect(SurveyItemResponse.where(survey_item: s_phys_q2).count).to eq 3
+  expect(SurveyItemResponse.where(survey_item: s_phys_q1).count).to eq 5
+  expect(SurveyItemResponse.where(survey_item: s_phys_q2).count).to eq 5
 end
 
 def captures_likert_scores_for_student_survey_item_responses

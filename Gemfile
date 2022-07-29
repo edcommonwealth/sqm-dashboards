@@ -60,6 +60,7 @@ group :development, :test do
   gem 'rack-mini-profiler'
   gem 'rspec-rails', '~> 5.1.0'
   gem 'standard'
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -70,7 +71,7 @@ group :development do
   gem 'erblint-github'
   gem 'listen', '~> 3.0.5'
   gem 'nested_scaffold'
-  gem 'reek', require: false
+  # gem 'reek', require: false
   gem 'rubocop', require: false
   gem 'seed_dump'
   gem 'solargraph-reek'
