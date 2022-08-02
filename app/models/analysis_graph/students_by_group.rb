@@ -7,5 +7,9 @@ module AnalysisGraph
     def value
       'students-by-group'
     end
+
+    def columns
+      [StudentGroupedBarColumnPresenter]
+    end
   end
 end

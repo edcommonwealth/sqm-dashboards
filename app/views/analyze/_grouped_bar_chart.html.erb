@@ -1,10 +1,10 @@
 <svg width="100%" height="<%= svg_height %>">
-  <%= render "graph_background" %>
+  <%= render partial: "graph_background", locals: {background: @background} %>
 
-  <% presenters =  [StudentGroupedBarColumnPresenter, TeacherGroupedBarColumnPresenter, GroupedBarColumnPresenter] %>
-  <% presenters.each_with_index do |presenter, index| %>
-    <% p = presenter.new(measure: measure, school: @school, academic_years: @selected_academic_years, position: index ) %>
-    <%= render partial: "grouped_bar_column", locals: {presenter: p} %>
+  <%# <% columns =  [StudentGroupedBarColumnPresenter, TeacherGroupedBarColumnPresenter, GroupedBarColumnPresenter] %1> %>
+  <% @graph.columns.each_with_index do |column, index| %>
+    <% p = column.new(measure: measure, school: @school, academic_years: @selected_academic_years, position: index ) %>
+    <%= render partial: "grouped_bar_column", locals: {column: p} %>
   <% end %>
 
 </svg>

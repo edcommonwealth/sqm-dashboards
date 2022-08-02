@@ -5,7 +5,7 @@
     <input type="radio" id="<%= graph.value %>" name="graph"
     value="<%= base_url %>"
     data-action="click->analyze#refresh"
-    <%= graph.value == @graph ? "checked" : "" %>>
+    <%= graph.value == @graph.value ? "checked" : "" %>>
     <label for="<%= graph.value %>"><%= graph.to_s %></label>
   </div>
   <% end %>

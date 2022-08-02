@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AnalysisGraph
   class StudentsAndTeachers
     def to_s
@@ -6,6 +8,10 @@ module AnalysisGraph
 
     def value
       'students-and-teachers'
+    end
+
+    def columns
+      [StudentGroupedBarColumnPresenter, TeacherGroupedBarColumnPresenter, GroupedBarColumnPresenter]
     end
   end
 end

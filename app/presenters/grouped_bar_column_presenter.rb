@@ -81,6 +81,18 @@ class GroupedBarColumnPresenter
     zone_label_width + (grouped_chart_column_width * position)
   end
 
+  def grouped_chart_column_width
+    graph_width / data_sources
+  end
+
+  def bar_label_height
+    (100 - ((100 - analyze_graph_height) / 2))
+  end
+
+  def data_sources
+    3
+  end
+
   private
 
   YearlyScore = Struct.new(:year, :score)

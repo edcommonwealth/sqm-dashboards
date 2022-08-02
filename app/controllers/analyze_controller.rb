@@ -2,7 +2,7 @@
 
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
-                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, only: [:index]
+                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, only: [:index]
   def index; end
 
   private
@@ -66,10 +66,18 @@ class AnalyzeController < SqmApplicationController
   end
 
   def graph
-    @graph ||= params[:graph] || 'students-and-teachers'
+    graphs.each do |graph|
+      @graph = graph if graph.value == params[:graph]
+    end
+
+    @graph ||= graphs.first
   end
 
   def graphs
     @graphs ||= [AnalysisGraph::StudentsAndTeachers.new, AnalysisGraph::StudentsByGroup.new]
+  end
+
+  def background
+    @background ||= BackgroundPresenter.new(num_of_columns: graph.columns.count)
   end
 end
