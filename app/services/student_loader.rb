@@ -2,7 +2,7 @@
 
 # SurveyItemResponse.where(student: StudentRace.where(race: Race.find_by_qualtrics_code(8)).limit(10).map(&:student)).count
 
-# TODO figure out why earlier years don't have races attached
+# TODO: figure out why earlier years don't have races attached
 require 'csv'
 
 class StudentLoader
@@ -23,13 +23,13 @@ class StudentLoader
   end
 
   def self.process_row(row:)
-    race_codes = row['RACE'] || row['What is your race/ethnicity?(Please select all that apply) - Selected Choice'] || '99'
+    race_codes = row['RACE'] || row['race'] || row['What is your race/ethnicity?(Please select all that apply) - Selected Choice'] || '99'
     race_codes = race_codes.split(',').map(&:to_i) || []
     races = process_races(codes: race_codes)
     response_id = row['ResponseId'] || row['Responseid'] || row['ResponseID'] ||
                   row['Response ID'] || row['Response id'] || row['Response Id']
     lasid = row['LASID'] || row['lasid']
-    return nil if student_exists?(response_id:)
+    # return nil if student_exists?(response_id:)
 
     student = create_student(response_id:, lasid:, races:)
 
@@ -52,7 +52,8 @@ class StudentLoader
   end
 
   def self.create_student(response_id:, lasid:, races:)
-    student = Student.new(response_id:)
+    student = Student.find_or_create_by(response_id:)
+    student.races = []
     races.each do |race|
       student.races << race
     end

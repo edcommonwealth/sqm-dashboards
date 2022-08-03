@@ -1,7 +1,7 @@
 # TODO: fix failing tests
 require 'rails_helper'
 include AnalyzeHelper
-
+include Analyze::Graph
 describe 'analyze/index' do
   subject { Nokogiri::HTML(rendered) }
   let(:category) { create(:category) }
@@ -12,9 +12,11 @@ describe 'analyze/index' do
     DemographicLoader.load_data(filepath: 'spec/fixtures/sample_demographics.csv')
     Race.all
   end
+  let(:graph) { StudentsAndTeachers.new }
   let(:graphs) do
-    [AnalysisGraph::StudentsAndTeachers.new, AnalysisGraph::StudentsByGroup.new]
+    [StudentsAndTeachers.new, StudentsByGroup.new]
   end
+  let(:background) { BackgroundPresenter.new(num_of_columns: graph.columns.count) }
   let(:selected_races) { races }
 
   let(:support_for_teaching) do
@@ -56,7 +58,9 @@ describe 'analyze/index' do
   before :each do
     assign :races, races
     assign :selected_races, selected_races
+    assign :graph, graph
     assign :graphs, graphs
+    assign :background, background
     assign :academic_year, academic_year
     assign :available_academic_years, [academic_year]
     assign :selected_academic_years, [academic_year]

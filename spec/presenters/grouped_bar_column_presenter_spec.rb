@@ -1,5 +1,6 @@
 require 'rails_helper'
 include AnalyzeHelper
+include Analyze::Graph::Column
 
 describe GroupedBarColumnPresenter do
   let(:school) { create(:school) }
@@ -62,18 +63,18 @@ describe GroupedBarColumnPresenter do
   end
 
   let(:student_presenter) do
-    StudentGroupedBarColumnPresenter.new measure: measure_with_student_survey_items, school:, academic_years:,
-                                         position: 0
+    Analyze::Graph::Column::Student.new measure: measure_with_student_survey_items, school:, academic_years:,
+                                        position: 0, number_of_columns: 3
   end
 
   let(:teacher_presenter) do
-    TeacherGroupedBarColumnPresenter.new measure: measure_with_teacher_survey_items, school:, academic_years:,
-                                         position: 0
+    Analyze::Graph::Column::Teacher.new measure: measure_with_teacher_survey_items, school:, academic_years:,
+                                        position: 0, number_of_columns: 3
   end
 
   let(:all_data_presenter) do
     GroupedBarColumnPresenter.new measure: measure_composed_of_student_and_teacher_items, school:, academic_years:,
-                                  position: 0
+                                  position: 0, number_of_columns: 3
   end
 
   before do
