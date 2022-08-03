@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # SurveyItemResponse.where(student: StudentRace.where(race: Race.find_by_qualtrics_code(8)).limit(10).map(&:student)).count
+
+# TODO figure out why earlier years don't have races attached
 require 'csv'
 
 class StudentLoader
