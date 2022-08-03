@@ -2,8 +2,9 @@
   <%= render partial: "graph_background", locals: {background: @background} %>
 
   <%# <% columns =  [StudentGroupedBarColumnPresenter, TeacherGroupedBarColumnPresenter, GroupedBarColumnPresenter] %1> %>
+  <% number_of_columns = @graph.columns.length %>
   <% @graph.columns.each_with_index do |column, index| %>
-    <% p = column.new(measure: measure, school: @school, academic_years: @selected_academic_years, position: index ) %>
+    <% p = column.new(measure: measure, school: @school, academic_years: @selected_academic_years, position: index , number_of_columns:) %>
     <%= render partial: "grouped_bar_column", locals: {column: p} %>
   <% end %>
 

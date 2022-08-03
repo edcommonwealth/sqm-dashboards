@@ -10,6 +10,7 @@
     <% end %>
   <% end %>
 
+  <line x1="<%= column.column_start_x %>%" y1="0" x2="<%= column.column_start_x %>%" y2="85%" stroke="grey" stroke-width="1" stroke-dasharray="5,2" />
   <text class="graph-footer" x="<%= column.column_midpoint %>%" y="<%= column.bar_label_height %>%" text-anchor="middle" dominant-baseline="middle" data-grouped-bar-label="<%= column.label %>">
     <%= column.label %>
   </text>
