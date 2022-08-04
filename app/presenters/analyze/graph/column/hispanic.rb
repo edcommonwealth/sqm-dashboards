@@ -6,7 +6,7 @@ module Analyze
       class Hispanic < GroupedBarColumnPresenter
         include Analyze::Graph::Column::RaceScore
         def label
-          'Hispanic or Latinx'
+          'Hispanic'
         end
 
         def basis

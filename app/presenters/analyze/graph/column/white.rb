@@ -6,7 +6,7 @@ module Analyze
       class White < GroupedBarColumnPresenter
         include Analyze::Graph::Column::RaceScore
         def label
-          'White or Caucasian'
+          'White'
         end
 
         def basis

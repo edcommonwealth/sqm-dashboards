@@ -7,7 +7,7 @@ module Analyze
         include Analyze::Graph::Column::RaceScore
         def label
           # TODO: offset labels so they don't overlap
-          'American Indian or Alaskan Native'
+          'American Indian'
         end
 
         def basis

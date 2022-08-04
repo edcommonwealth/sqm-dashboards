@@ -6,7 +6,7 @@ module Analyze
       class Asian < GroupedBarColumnPresenter
         include Analyze::Graph::Column::RaceScore
         def label
-          'Asian or Pacific Islander'
+          'Asian'
         end
 
         def basis
