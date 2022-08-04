@@ -13,7 +13,7 @@ module Analyze
       end
 
       def columns
-        [Student, Teacher, GroupedBarColumnPresenter]
+        [AllStudent, AllTeacher, GroupedBarColumnPresenter]
       end
     end
   end

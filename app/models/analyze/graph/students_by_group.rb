@@ -17,7 +17,7 @@ module Analyze
          Analyze::Graph::Column::MiddleEastern,
          Analyze::Graph::Column::Unknown,
          Analyze::Graph::Column::White,
-         Analyze::Graph::Column::Student]
+         Analyze::Graph::Column::AllStudent]
       end
     end
   end

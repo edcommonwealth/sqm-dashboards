@@ -3,17 +3,17 @@
 module Analyze
   module Graph
     module Column
-      class Teacher < GroupedBarColumnPresenter
+      class AllStudent < GroupedBarColumnPresenter
         def label
-          'All Teachers'
+          'All Students'
         end
 
         def basis
-          'teacher'
+          'student'
         end
 
         def show_irrelevancy_message?
-          !measure.includes_teacher_survey_items?
+          !measure.includes_student_survey_items?
         end
 
         def show_insufficient_data_message?
@@ -21,11 +21,11 @@ module Analyze
             measure.score(school:, academic_year: year)
           end
 
-          scores.all? { |score| !score.meets_teacher_threshold? }
+          scores.all? { |score| !score.meets_student_threshold? }
         end
 
         def score(year_index)
-          measure.teacher_score(school:, academic_year: academic_years[year_index])
+          measure.student_score(school:, academic_year: academic_years[year_index])
         end
       end
     end

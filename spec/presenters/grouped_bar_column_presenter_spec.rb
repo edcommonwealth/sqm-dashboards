@@ -63,13 +63,13 @@ describe GroupedBarColumnPresenter do
   end
 
   let(:student_presenter) do
-    Analyze::Graph::Column::Student.new measure: measure_with_student_survey_items, school:, academic_years:,
-                                        position: 0, number_of_columns: 3
+    Analyze::Graph::Column::AllStudent.new measure: measure_with_student_survey_items, school:, academic_years:,
+                                           position: 0, number_of_columns: 3
   end
 
   let(:teacher_presenter) do
-    Analyze::Graph::Column::Teacher.new measure: measure_with_teacher_survey_items, school:, academic_years:,
-                                        position: 0, number_of_columns: 3
+    Analyze::Graph::Column::AllTeacher.new measure: measure_with_teacher_survey_items, school:, academic_years:,
+                                           position: 0, number_of_columns: 3
   end
 
   let(:all_data_presenter) do
