@@ -1,4 +1,3 @@
-# TODO: fix failing tests
 require 'rails_helper'
 include AnalyzeHelper
 include Analyze::Graph
@@ -14,7 +13,7 @@ describe 'analyze/index' do
   end
   let(:graph) { StudentsAndTeachers.new }
   let(:graphs) do
-    [StudentsAndTeachers.new, StudentsByGroup.new]
+    [StudentsAndTeachers.new, StudentsByGroup.new(races:)]
   end
   let(:background) { BackgroundPresenter.new(num_of_columns: graph.columns.count) }
   let(:selected_races) { races }

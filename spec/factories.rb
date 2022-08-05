@@ -5,7 +5,7 @@ FactoryBot.define do
   end
 
   factory :race do
-    designation { "MyString" }
+    designation { "Race#{rand}" }
     qualtrics_code { 1 }
   end
 

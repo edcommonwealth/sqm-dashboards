@@ -31,7 +31,7 @@ class StudentLoader
     lasid = row['LASID'] || row['lasid']
     # return nil if student_exists?(response_id:)
 
-    student = create_student(response_id:, lasid:, races:)
+    student = find_or_create_student(response_id:, lasid:, races:)
 
     assign_student_to_responses(response_id:, student:)
     student
@@ -51,7 +51,7 @@ class StudentLoader
     # SurveyItemResponse.import survey_responses, on_duplicate_key_update: { conflict_target: [:id], columns: [:student] }
   end
 
-  def self.create_student(response_id:, lasid:, races:)
+  def self.find_or_create_student(response_id:, lasid:, races:)
     student = Student.find_or_create_by(response_id:)
     student.races = []
     races.each do |race|
@@ -67,11 +67,17 @@ class StudentLoader
       code = 99 if [6, 7].include?(code)
       Race.find_by_qualtrics_code(code)
     end
-    remove_unknown_race_if_other_races_present(races: codes.to_set)
+    races = remove_unknown_race_if_other_races_present(races: codes.uniq)
+    add_multiracial_designation(races:)
   end
 
   def self.remove_unknown_race_if_other_races_present(races:)
     races.delete(Race.find_by_qualtrics_code(99)) if races.length > 1
+    races
+  end
+
+  def self.add_multiracial_designation(races:)
+    races << Race.find_by_qualtrics_code(100) if races.length > 1
     races
   end
 end

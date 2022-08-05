@@ -74,7 +74,7 @@ class AnalyzeController < SqmApplicationController
   end
 
   def graphs
-    @graphs ||= [Analyze::Graph::StudentsAndTeachers.new, Analyze::Graph::StudentsByGroup.new]
+    @graphs ||= [Analyze::Graph::StudentsAndTeachers.new, Analyze::Graph::StudentsByGroup.new(races: selected_races)]
   end
 
   def background

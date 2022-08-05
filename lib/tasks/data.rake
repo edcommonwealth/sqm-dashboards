@@ -67,7 +67,7 @@ namespace :data do
   end
   desc 'load students'
   task load_students: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*student*.csv')).each do |file|
+    Dir.glob(Rails.root.join('data', 'survey_responses', '2021-22*student*.csv')).each do |file|
       puts "=====================> Loading student data from csv at path: #{file}"
       StudentLoader.load_data filepath: file
     end
