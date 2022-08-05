@@ -11,9 +11,12 @@
   <% end %>
 
   <line x1="<%= column.column_start_x %>%" y1="0" x2="<%= column.column_start_x %>%" y2="85%" stroke="grey" stroke-width="1" stroke-dasharray="5,2" />
-  <text class="graph-footer" x="<%= column.column_midpoint %>%" y="<%= column.bar_label_height %>%" text-anchor="middle" dominant-baseline="middle" data-grouped-bar-label="<%= column.label %>">
-    <%= column.label %>
-  </text>
+      <% words = column.label.split("\s") %>
+      <% words.each_with_index do | line, index | %>
+        <text class="graph-footer" x="<%= column.column_midpoint %>%" y="<%= column.bar_label_height + (index * 5) %>%" text-anchor="middle" dominant-baseline="middle" data-grouped-bar-label="<%= column.label %>">
+          <%= line %>
+        </text>
+      <% end %>
 
   <% if column.show_irrelevancy_message? %>
   <rect x="<%= column.message_x %>%" y="<%= column.message_y %>%" rx="15" ry="15" width="<%= column.message_width %>%" height="<%= column.message_height %>%" fill="white" stroke="gray" />

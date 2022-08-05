@@ -15,7 +15,8 @@ module Analyze
         end
 
         def show_irrelevancy_message?
-          !measure.includes_student_survey_items?
+          # !measure.includes_student_survey_items?
+          false
         end
 
         def show_insufficient_data_message?
