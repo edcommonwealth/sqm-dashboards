@@ -4,7 +4,8 @@ module Analyze
   module Graph
     module Column
       class MiddleEastern < GroupedBarColumnPresenter
-        include Analyze::Graph::Column::RaceScore
+        include Analyze::Graph::Column::ScoreForRace
+
         def label
           'Middle Eastern'
         end
@@ -14,16 +15,11 @@ module Analyze
         end
 
         def show_irrelevancy_message?
-          # !measure.includes_student_survey_items?
           false
         end
 
         def show_insufficient_data_message?
           false
-        end
-
-        def score(year_index)
-          race_score(measure:, school:, academic_year: academic_years[year_index], race:)
         end
 
         def race

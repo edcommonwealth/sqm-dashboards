@@ -56,9 +56,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add page caching
 - Add counter caches
 - Detect the latest year for which a school has data and direct a user to that year when routing from welcome page
+- Modify behavior of insufficient data indicators for admin data items. Now we show indicators in line with the admin data item descriptions to indicate which items are missing data
+- Add student demographic data to the database
+  + `bundle exec rake data:load_students`
+- Add students by group graph on analyze page
+- Precalculate race scores for analyze page
+  + `bundle exec rake one_off:reset_race_scores` : limit which years/schools/measures/races are processed
+  + `bundle exec rake data:reset_race_scores`  : reset all race scores
 
 ## [Unreleased]
 
 ### Added
 
-- Modify behavior of insufficient data indicators for admin data items. Now we show indicators in line with the admin data item descriptions to indicate which items are missing data

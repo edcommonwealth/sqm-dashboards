@@ -106,6 +106,14 @@ namespace :one_off do
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
+  desc 'reset race score calculations'
+  task reset_race_scores: :environment do
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(academic_years: [AcademicYear.find_by_range('2021-22')])
+    Rails.cache.clear
+    puts "=====================> Completed loading #{RaceScore.count} survey responses"
+  end
+
   desc 'list scales that have no survey responses'
   task list_scales_that_lack_survey_responses: :environment do
     output = AcademicYear.all.map do |academic_year|

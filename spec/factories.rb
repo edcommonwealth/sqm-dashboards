@@ -1,4 +1,18 @@
 FactoryBot.define do
+  factory :race_score do
+    measure { nil }
+    school { nil }
+    academic_year { nil }
+    race { nil }
+    average { 1.5 }
+    meets_student_threshold { false }
+  end
+
+  factory :student do
+    response_id { "ID#{rand}" }
+    lasid { "Lasid#{rand}" }
+  end
+
   factory :student_race do
     student { nil }
     race { nil }
@@ -81,11 +95,13 @@ FactoryBot.define do
     measure_id { rand.to_s }
     name { 'A Measure' }
     subcategory
-    # trait :with_student_survey_items do
-    #   after(:create) do |measure|
-    #     measure.survey_items << build_list(:student_survey_item, 2)
-    #   end
-    # end
+    trait :with_student_survey_items do
+      after(:create) do |measure|
+        create(:student_scale, measure:) do |scale|
+          create_list(:student_survey_item, 2, scale:)
+        end
+      end
+    end
   end
 
   factory :scale do

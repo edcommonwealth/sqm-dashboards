@@ -4,9 +4,8 @@ module Analyze
   module Graph
     module Column
       class Multiracial < GroupedBarColumnPresenter
-        include Analyze::Graph::Column::RaceScore
+        include Analyze::Graph::Column::ScoreForRace
         def label
-          # TODO: offset labels so they don't overlap
           'Multiracial'
         end
 
@@ -15,18 +14,11 @@ module Analyze
         end
 
         def show_irrelevancy_message?
-          # !measure.includes_student_survey_items?
           false
         end
 
         def show_insufficient_data_message?
-          # TODO: implement this logic.  Resize messages so they are bound to their column
           false
-        end
-
-        def score(year_index)
-          # TODO: make sure the score calculation bubble up instead of just average
-          race_score(measure:, school:, academic_year: academic_years[year_index], race:)
         end
 
         def race

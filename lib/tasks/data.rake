@@ -57,6 +57,14 @@ namespace :data do
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
   end
 
+  desc 'reset race score calculations'
+  task reset_race_scores: :environment do
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset
+    Rails.cache.clear
+    puts "=====================> Completed loading #{RaceScore.count} survey responses"
+  end
+
   desc 'load admin_data'
   task load_admin_data: :environment do
     Dir.glob(Rails.root.join('data', 'admin_data', '*.csv')).each do |filepath|
