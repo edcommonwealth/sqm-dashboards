@@ -18,8 +18,7 @@ class RaceScoreLoader
 
   def self.process_score(measure:, school:, academic_year:, race:)
     score = RaceScoreCalculator.new(measure:, school:, academic_year:, race:).score
-    rs = RaceScore.find_by(measure:, school:, academic_year:, race:)
-    rs ||= RaceScore.new(measure:, school:, academic_year:, race:)
+    rs = RaceScore.new(measure:, school:, academic_year:, race:)
     rs.average = score.average
     rs.meets_student_threshold = score.meets_student_threshold?
     rs

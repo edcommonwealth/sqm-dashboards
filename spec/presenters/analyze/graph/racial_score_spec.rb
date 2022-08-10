@@ -35,7 +35,7 @@ describe RacialScore do
       create(:survey_item_response, school:, academic_year:, likert_score: 4, survey_item: survey_item_2, student:)
     end
 
-    it 'returns a list of averages' do
+    xit 'returns a list of averages' do
       expect(measure.student_survey_items.count).to eq 2
       students = StudentRace.where(race:).pluck(:student_id)
 
