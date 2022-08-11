@@ -21,6 +21,18 @@ describe StudentLoader do
   describe '#process_races' do
     context 'as a standalone function' do
       it 'race codes of 6 or 7 get classified as an unknown race' do
+        codes = [1]
+        expect(StudentLoader.process_races(codes:)).to eq [american_indian]
+        codes = [2]
+        expect(StudentLoader.process_races(codes:)).to eq [asian]
+        codes = [3]
+        expect(StudentLoader.process_races(codes:)).to eq [black]
+        codes = [4]
+        expect(StudentLoader.process_races(codes:)).to eq [latinx]
+        codes = [5]
+        expect(StudentLoader.process_races(codes:)).to eq [white]
+        codes = [8]
+        expect(StudentLoader.process_races(codes:)).to eq [middle_eastern]
         codes = [6]
         expect(StudentLoader.process_races(codes:)).to eq [unknown]
         codes = [7]
@@ -29,21 +41,26 @@ describe StudentLoader do
         expect(StudentLoader.process_races(codes:)).to eq [unknown]
         codes = [1, 6, 7]
         expect(StudentLoader.process_races(codes:)).to eq [american_indian]
+        codes = [1, 6, 7, 2]
+        expect(StudentLoader.process_races(codes:)).to eq [american_indian, asian, multiracial]
+        codes = [3, 6, 7, 6, 6, 7, 7, 6, 2]
+        expect(StudentLoader.process_races(codes:)).to eq [black, asian, multiracial]
+        codes = [8, 2]
+        expect(StudentLoader.process_races(codes:)).to eq [middle_eastern, asian, multiracial]
       end
     end
   end
 
   describe '#add_multiracial_designation' do
-      it 'adds the multiracial race code to the list of races' do
-        races = [unknown]
-        expect(StudentLoader.add_multiracial_designation(races:)).to eq [unknown]
-        races = [american_indian, asian]
-        expect(StudentLoader.add_multiracial_designation(races:)).to eq [american_indian, asian, multiracial]
-        races = [white]
-        expect(StudentLoader.add_multiracial_designation(races:)).to eq [white]
-      end
+    it 'adds the multiracial race code to the list of races' do
+      races = [unknown]
+      expect(StudentLoader.add_multiracial_designation(races:)).to eq [unknown]
+      races = [american_indian, asian]
+      expect(StudentLoader.add_multiracial_designation(races:)).to eq [american_indian, asian, multiracial]
+      races = [white]
+      expect(StudentLoader.add_multiracial_designation(races:)).to eq [white]
+    end
   end
-
 
   # This fails in CI because github does not know what the key derivation salt is.
   # I'm not sure how to securely set the key derivation salt as an environment variable in CI

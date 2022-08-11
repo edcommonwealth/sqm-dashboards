@@ -12,8 +12,8 @@ module Analyze
 
           students = StudentRace.where(race:).pluck(:student_id).uniq
           averages = grouped_responses(school:, academic_year:, survey_items:, students:)
-          number_of_responses = total_responses(school:, academic_year:, students:, survey_items:)
-          scorify(responses: averages, number_of_responses:)
+          meets_student_threshold = sufficient_responses(school:, academic_year:, students:)
+          scorify(responses: averages, meets_student_threshold:)
         end
 
         private
@@ -43,20 +43,19 @@ module Analyze
           @response_rate[[school, academic_year]]
         end
 
-        def scorify(responses:, number_of_responses:)
+        def scorify(responses:, meets_student_threshold:)
           averages = bubble_up_averages(responses:)
           average = averages.average
 
-          meets_student_threshold = sufficient_responses(averages:, number_of_responses:)
           average = 0 unless meets_student_threshold
 
           Score.new(average, false, meets_student_threshold, false)
         end
 
-        def sufficient_responses(averages:, number_of_responses:)
-          total_questions = averages.count
-          average_num_of_responses = number_of_responses.to_f / total_questions
-          meets_student_threshold = average_num_of_responses >= 10
+        def sufficient_responses(school:, academic_year:, students:)
+          number_of_students_for_a_racial_group = SurveyItemResponse.where(school:, academic_year:,
+                                                                           student: students).map(&:student).uniq.count
+          number_of_students_for_a_racial_group >= 10
         end
 
         def bubble_up_averages(responses:)
