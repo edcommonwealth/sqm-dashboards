@@ -7,7 +7,8 @@
     value="<%= analyze_subcategory_link(district: district, school: school, academic_year: academic_year, category: category, subcategory: subcategory) %>"
     <%= selected_academic_years.include?(year)  ? "checked" : "" %>
     data-action="click->analyze#refresh"
-    <%= empty_dataset?(measures: measures, school: school, academic_year: year) ? "disabled" : "" %>>
+    <%= empty_dataset?(measures: measures, school: school, academic_year: year) ? "disabled" : "" %>
+    <%= @graph.value == 'students-by-group' && year.range != @available_academic_years.last.range ? "disabled" : "" %>>
 
     <label class="px-3" for="<%= year.range %>"><%= year.range %></label><br>
     <div class="bg-color-blue px-3" style="width:20px;height:20px;background-color:<%= colors[index] %>;"></div>

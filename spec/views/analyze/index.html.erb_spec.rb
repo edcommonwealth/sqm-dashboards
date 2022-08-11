@@ -141,8 +141,6 @@ describe 'analyze/index' do
       race_slugs.each do |slug|
         expect(subject).to have_css("//input[@type='checkbox'][@id='#{slug}']")
       end
-
-      expect(subject.css("//input[@type='checkbox'][@id='american-indian-or-alaskan-native']")).to have_checked_field
     end
   end
 

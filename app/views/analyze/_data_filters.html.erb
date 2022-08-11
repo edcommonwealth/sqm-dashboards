@@ -22,7 +22,9 @@
           name="race-checkbox"
           value="<%= base_url %>"
           data-action="click->analyze#refresh"
-          <%= @selected_races.map(&:slug).include?(race.slug)  ? "checked" : "" %>>
+          <%= @selected_races.map(&:slug).include?(race.slug)  ? "checked" : "" %>
+          <%= @graph.value == 'students-and-teachers' ? "disabled" : "" %>>
+
       <label for="<%= race.qualtrics_code %>"><%= race.designation %></label>
       </div>
     <% end %>
