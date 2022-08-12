@@ -33,7 +33,7 @@ describe RaceScoreCalculator do
       end
     end
 
-    it 'returns a list of averages' do
+    xit 'returns a list of averages' do
       expect(measure.student_survey_items.count).to eq 2
       american_indian_score = RaceScoreCalculator.new(measure:, school:, academic_year:, race:).score
       expect(american_indian_score).to eq Score.new(2.5, false, true, false)
