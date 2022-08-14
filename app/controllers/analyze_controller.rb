@@ -2,7 +2,7 @@
 
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
-                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, only: [:index]
+                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp, only: [:index]
   def index; end
 
   private
@@ -79,5 +79,13 @@ class AnalyzeController < SqmApplicationController
 
   def background
     @background ||= BackgroundPresenter.new(num_of_columns: graph.columns.count)
+  end
+
+  def race_score_timestamp
+    @race_score_timestamp ||= begin
+      score = RaceScore.where(school: @school,
+                              academic_year: @academic_year).order(updated_at: :DESC).first || Today.new
+      score.updated_at
+    end
   end
 end

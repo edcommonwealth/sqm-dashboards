@@ -17,7 +17,7 @@
     <%= render partial: "data_filters", locals: {district: @district, school: @school, academic_year: @academic_year, category: @category, subcategory: @subcategory} %>
   </div>
 
-  <% cache [@subcategory, @school, @selected_academic_years, @response_rate_timestamp, @graph, @selected_races]  do %>
+  <% cache [@subcategory, @school, @selected_academic_years, @response_rate_timestamp, @graph, @selected_races, @race_score_timestamp]  do %>
     <div class="bg-color-white flex-grow-1 col-9">
       <% @measures.each do  |measure| %>
         <section class="mb-6">
