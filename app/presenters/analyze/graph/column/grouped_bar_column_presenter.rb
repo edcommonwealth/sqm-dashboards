@@ -44,7 +44,7 @@ module Analyze
         end
 
         def show_irrelevancy_message?
-          !measure.includes_teacher_survey_items? && !measure.includes_student_survey_items?
+          false
         end
 
         def show_insufficient_data_message?
@@ -52,7 +52,9 @@ module Analyze
             measure.score(school:, academic_year: year)
           end
 
-          scores.all? { |score| !score.meets_teacher_threshold? && !score.meets_student_threshold? }
+          scores.all? do |score|
+            !score.meets_teacher_threshold? && !score.meets_student_threshold? && !score.meets_admin_data_threshold?
+          end
         end
 
         def column_midpoint
@@ -109,7 +111,7 @@ module Analyze
         YearlyScore = Struct.new(:year, :score)
         def yearly_scores
           yearly_scores = academic_years.each_with_index.map do |year, index|
-            YearlyScore.new(year,  score(index))
+            YearlyScore.new(year, score(index))
           end
           yearly_scores.reject do |yearly_score|
             yearly_score.score.blank?

@@ -42,7 +42,7 @@ module AnalyzeHelper
     @empty_dataset ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = measures.none? do |measure|
         response_rate = measure.subcategory.response_rate(school:, academic_year:)
-        response_rate.meets_student_threshold || response_rate.meets_teacher_threshold
+        response_rate.meets_student_threshold || response_rate.meets_teacher_threshold || measure.sufficient_admin_data?(school:, academic_year:)
       end
     end
 

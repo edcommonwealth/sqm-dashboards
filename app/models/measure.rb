@@ -116,6 +116,10 @@ class Measure < ActiveRecord::Base
     @ideal_low_benchmark ||= benchmark(:ideal_low_benchmark)
   end
 
+  def sufficient_admin_data?(school:, academic_year:)
+    any_admin_data_collected?(school:, academic_year:)
+  end
+
   private
 
   def any_admin_data_collected?(school:, academic_year:)
@@ -157,7 +161,7 @@ class Measure < ActiveRecord::Base
   def collect_admin_scale_average(admin_data_items:, school:, academic_year:)
     @collect_admin_scale_average ||= Hash.new do |memo, (admin_data_items, school, academic_year)|
       memo[[admin_data_items, school, academic_year]] = begin
-        admin_values = AdminDataValue.where(school:, academic_year:)
+        admin_values = AdminDataValue.where(school:, academic_year:, admin_data_item: admin_data_items)
         admin_values.map do |admin_value|
           admin_value.likert_score if admin_value.present?
         end
