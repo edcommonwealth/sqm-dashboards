@@ -2,6 +2,7 @@
 <% available_academic_years.each_with_index do | year, index | %>
   <div class="d-flex justify-content-start align-items-center mt-1" data-controller="analyze">
     <input type="checkbox"
+    class="form-check-input"
     id="<%= year.range %>"
     name="year-checkbox"
     value="<%= analyze_subcategory_link(district: district, school: school, academic_year: academic_year, category: category, subcategory: subcategory) %>"

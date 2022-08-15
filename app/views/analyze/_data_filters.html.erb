@@ -3,10 +3,13 @@
 <div class="bg-gray p-3" data-controller="analyze">
   <% @graphs.each do |graph| %>
   <div>
-    <input type="radio" id="<%= graph.value %>" name="graph"
-    value="<%= base_url %>"
-    data-action="click->analyze#refresh"
-    <%= graph.value == @graph.value ? "checked" : "" %>>
+    <input type="radio"
+           id="<%= graph.value %>"
+           class="form-check-input"
+           name="graph"
+            value="<%= base_url %>"
+            data-action="click->analyze#refresh"
+            <%= graph.value == @graph.value ? "checked" : "" %>>
     <label for="<%= graph.value %>"><%= graph.to_s %></label>
   </div>
   <% end %>
@@ -14,10 +17,10 @@
   <p class="sub-header-5 mt-3 font-size-14"> Select a group </p>
 
     <% @races.each do |race | %>
-      <div class="d-flex <%= race.slug %>">
+      <div class="d-flex align-items-center <%= race.slug %>">
         <input
           id="<%= race.slug %>"
-          class="m-3 race-checkbox"
+          class="m-3 race-checkbox form-check-input"
           type="checkbox"
           name="race-checkbox"
           value="<%= base_url %>"
