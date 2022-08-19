@@ -21,6 +21,10 @@ describe StudentLoader do
   describe '#process_races' do
     context 'as a standalone function' do
       it 'race codes of 6 or 7 get classified as an unknown race' do
+        codes = ['NA']
+        expect(StudentLoader.process_races(codes:)).to eq [unknown]
+        codes = []
+        expect(StudentLoader.process_races(codes:)).to eq [unknown]
         codes = [1]
         expect(StudentLoader.process_races(codes:)).to eq [american_indian]
         codes = [2]
@@ -64,7 +68,7 @@ describe StudentLoader do
 
   # This fails in CI because github does not know what the key derivation salt is.
   # I'm not sure how to securely set the key derivation salt as an environment variable in CI
-  xdescribe 'self.load_data' do
+  describe 'self.load_data' do
     context 'load student data' do
       before :each do
         SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
@@ -81,10 +85,22 @@ describe StudentLoader do
 end
 
 def assigns_student_to_the_survey_item_responses
-  expect(SurveyItemResponse.find_by_response_id('student_survey_response_1').student).not_to eq nil
-  expect(SurveyItemResponse.find_by_response_id('student_survey_response_1').student).to eq Student.find_by_lasid('123456')
-  expect(SurveyItemResponse.find_by_response_id('student_survey_response_6').student).not_to eq nil
-  expect(SurveyItemResponse.find_by_response_id('student_survey_response_6').student).to eq Student.find_by_response_id('student_survey_response_6')
+  # The csv file has no responses for `student_survey_response_2` so we can't assign a student to nil responses
+  expect(SurveyItemResponse.find_by_response_id('student_survey_response_2')).to eq nil
+
+  response_ids = %w[student_survey_response_1 student_survey_response_3
+                    student_survey_response_4
+                    student_survey_response_5
+                    student_survey_response_6
+                    student_survey_response_7]
+
+  response_ids.each do |response_id|
+    responses = SurveyItemResponse.where(response_id:)
+    responses.each do |response|
+      expect(response.student).not_to eq nil
+      expect(response.student).to eq Student.find_by_response_id(response_id)
+    end
+  end
 end
 
 def assigns_races_to_students
@@ -101,6 +117,8 @@ end
 
 def is_idempotent_for_students
   number_of_students = Student.count
+  number_of_responses = SurveyItemResponse.count
   StudentLoader.load_data filepath: path_to_student_responses
   expect(Student.count).to eq number_of_students
+  expect(SurveyItemResponse.count).to eq number_of_responses
 end

@@ -160,9 +160,53 @@ $ heroku run:detached -a mciea-beta bundle exec rake data:load_admin_data
 $ heroku run:detached -a mciea-dashboard bundle exec rake data:load_admin_data
 ```
 
+### Load Response Rates
+
+Many parts of the site rely on the response rate table being populated.  The response rate is taken into account when determining if there is sufficient data to show
+
+```bash
+# locally
+$ bundle exec rake data:reset_response_rates
+
+# on heroku staging environment
+$ heroku run:detached -a mciea-beta bundle exec rake data:reset_response_rates
+
+# on heroku production environment
+$ heroku run:detached -a mciea-dashboard bundle exec rake data:reset_response_rates
+```
+
+### Load Student demographic information
+
+Student demographic information is needed for the Analyze page disagregation
+
+```bash
+# locally
+$ bundle exec rake data:load_students
+
+# on heroku staging environment
+$ heroku run:detached -a mciea-beta bundle exec rake data:load_students
+
+# on heroku production environment
+$ heroku run:detached -a mciea-dashboard bundle exec rake data:load_students
+```
+
+### Load scores for each race
+For performance, the scores for an individual race must be precalculated.  Make sure to load response rates, and student demographic information before recaculating scores by race
+
+```bash
+# locally
+$ bundle exec rake data:reset_race_scores
+
+# on heroku staging environment
+$ heroku run:detached -a mciea-beta bundle exec rake data:reset_race_scores
+
+# on heroku production environment
+$ heroku run:detached -a mciea-dashboard bundle exec rake data:reset_race_scores
+```
+
 ## Running tests
 
-### Concurrent test execution
+### Single threaded test execution
 
 Prepare the test database.
 

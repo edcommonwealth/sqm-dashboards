@@ -6,68 +6,69 @@
 require 'csv'
 
 class StudentLoader
-  def self.load_data(filepath:)
+  def self.load_data(filepath:, reinitialize: false)
+    destroy_students if reinitialize
+
     File.open(filepath) do |file|
       headers = file.first
 
-      students = []
-      file.lazy.each_slice(1000) do |lines|
+      file.lazy.each_slice(1_000) do |lines|
         CSV.parse(lines.join, headers:).map do |row|
-          # students << process_row(row:)
           process_row(row:)
         end
       end
-      # Student.import students.compact.flatten.to_set.to_a, batch_size: 1000,
-      #                                                      on_duplicate_key_update: { conflict_target: [:id] }
     end
+  end
+
+  def self.destroy_students
+    SurveyItemResponse.update_all(student_id: nil)
+    StudentRace.delete_all
+    Student.delete_all
   end
 
   def self.process_row(row:)
-    race_codes = row['RACE'] || row['race'] || row['What is your race/ethnicity?(Please select all that apply) - Selected Choice'] || '99'
-    race_codes = race_codes.split(',').map(&:to_i) || []
-    races = process_races(codes: race_codes)
+    races = process_races(codes: race_codes(row:))
     response_id = row['ResponseId'] || row['Responseid'] || row['ResponseID'] ||
                   row['Response ID'] || row['Response id'] || row['Response Id']
     lasid = row['LASID'] || row['lasid']
-    # return nil if student_exists?(response_id:)
 
-    student = find_or_create_student(response_id:, lasid:, races:)
-
-    assign_student_to_responses(response_id:, student:)
-    student
+    find_or_create_student(response_id:, lasid:, races:)
   end
 
-  def self.student_exists?(response_id:)
-    Student.find_by_response_id(response_id).present?
+  def self.race_codes(row:)
+    race_codes = row['RACE'] || row['Race'] || row['race'] || row['What is your race/ethnicity?(Please select all that apply) - Selected Choice'] || '99'
+    race_codes.split(',').map(&:to_i) || []
   end
 
-  def self.assign_student_to_responses(response_id:, student:)
-    survey_responses = SurveyItemResponse.where(response_id:)
-    survey_responses.each do |response|
+  def self.assign_student_to_responses(student:, response_id:)
+    responses = SurveyItemResponse.where(response_id:)
+    loadable_responses = responses.map do |response|
       response.student = student
-      response.save
+      response
     end
 
-    # SurveyItemResponse.import survey_responses, on_duplicate_key_update: { conflict_target: [:id], columns: [:student] }
+    SurveyItemResponse.import(loadable_responses.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
   end
 
   def self.find_or_create_student(response_id:, lasid:, races:)
-    student = Student.find_or_create_by(response_id:)
-    student.races = []
-    races.each do |race|
+    student = Student.find_by(response_id:, lasid:)
+    return unless student.nil?
+
+    student = Student.create(response_id:, lasid:)
+    races.map do |race|
       student.races << race
     end
-    student.lasid = lasid
-    student.save
-    student
+    assign_student_to_responses(student:, response_id:)
   end
 
   def self.process_races(codes:)
-    codes = codes.map do |code|
-      code = 99 if [6, 7].include?(code)
+    races = codes.map do |code|
+      code = code.to_i
+      code = 99 if [6, 7].include?(code) || code.nil? || code.zero?
       Race.find_by_qualtrics_code(code)
-    end
-    races = remove_unknown_race_if_other_races_present(races: codes.uniq)
+    end.uniq
+    races = add_unknown_race_if_other_races_missing(races:)
+    races = remove_unknown_race_if_other_races_present(races:)
     add_multiracial_designation(races:)
   end
 
@@ -78,6 +79,11 @@ class StudentLoader
 
   def self.add_multiracial_designation(races:)
     races << Race.find_by_qualtrics_code(100) if races.length > 1
+    races
+  end
+
+  def self.add_unknown_race_if_other_races_missing(races:)
+    races << Race.find_by_qualtrics_code(99) if races.length == 0
     races
   end
 end

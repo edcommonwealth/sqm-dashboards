@@ -68,6 +68,16 @@ namespace :one_off do
     ResponseRateLoader.reset
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
+
+  desc 'load students'
+  task load_students: :environment do
+    Dir.glob(Rails.root.join('data', 'survey_responses', '2019-20_*student*.csv')).each do |file|
+      puts "=====================> Loading student data from csv at path: #{file}"
+      StudentLoader.load_data filepath: file
+    end
+    puts "=====================> Completed loading #{Student.count} survey responses"
+  end
+
   desc 'load revere somerville warehame results for 2021-22'
   task load_revere: :environment do
     ['2021-22_revere_somerville_wareham_student_survey_responses.csv',
@@ -109,9 +119,9 @@ namespace :one_off do
   desc 'reset race score calculations'
   task reset_race_scores: :environment do
     puts 'Resetting race scores'
-    RaceScoreLoader.reset(academic_years: [AcademicYear.find_by_range('2021-22')])
+    RaceScoreLoader.reset(schools: [School.find_by_slug('a-irvin-studley-elementary-school')])
     Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} survey responses"
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
   end
 
   desc 'list scales that have no survey responses'
