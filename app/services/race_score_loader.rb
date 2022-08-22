@@ -31,6 +31,10 @@ class RaceScoreLoader
         end
       end
       RaceScore.import(loadable_race_scores.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
+      @grouped_responses = nil
+      @total_responses = nil
+      @response_rate = nil
+      @sufficient_responses = nil
     end
   end
 

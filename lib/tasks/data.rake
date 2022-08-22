@@ -60,7 +60,7 @@ namespace :data do
   desc 'reset race score calculations'
   task reset_race_scores: :environment do
     puts 'Resetting race scores'
-    RaceScoreLoader.reset
+    RaceScoreLoader.reset(fast_processing: false)
     Rails.cache.clear
     puts "=====================> Completed loading #{RaceScore.count} survey responses"
   end

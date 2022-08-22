@@ -120,7 +120,52 @@ namespace :one_off do
   task reset_race_scores: :environment do
     puts 'Resetting race scores'
     academic_years = [AcademicYear.find_by_range('2021-22')]
-    RaceScoreLoader.reset(academic_years:)
+    RaceScoreLoader.reset(academic_years:, fast_processing: false)
+    Rails.cache.clear
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+  end
+
+  desc 'reset race score calculations'
+  task reset_race_scores_2020: :environment do
+    puts 'Resetting race scores'
+    academic_years = [AcademicYear.find_by_range('2020-21')]
+    RaceScoreLoader.reset(academic_years:, fast_processing: false)
+    Rails.cache.clear
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+  end
+
+  desc 'reset race score calculations'
+  task reset_race_scores_2019: :environment do
+    puts 'Resetting race scores'
+    academic_years = [AcademicYear.find_by_range('2019-20')]
+    RaceScoreLoader.reset(academic_years:, fast_processing: false)
+    Rails.cache.clear
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+  end
+
+  desc 'reset race score calculations'
+  task reset_race_scores_2018: :environment do
+    puts 'Resetting race scores'
+    academic_years = [AcademicYear.find_by_range('2018-19')]
+    RaceScoreLoader.reset(academic_years:, fast_processing: false)
+    Rails.cache.clear
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+  end
+
+  desc 'reset race score calculations'
+  task reset_race_scores_2017: :environment do
+    puts 'Resetting race scores'
+    academic_years = [AcademicYear.find_by_range('2017-18')]
+    RaceScoreLoader.reset(academic_years:, fast_processing: false)
+    Rails.cache.clear
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+  end
+
+  desc 'reset race score calculations'
+  task reset_race_scores_2016: :environment do
+    puts 'Resetting race scores'
+    academic_years = [AcademicYear.find_by_range('2016-17')]
+    RaceScoreLoader.reset(academic_years:, fast_processing: false)
     Rails.cache.clear
     puts "=====================> Completed loading #{RaceScore.count} race scores"
   end
