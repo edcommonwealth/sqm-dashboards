@@ -6,9 +6,7 @@
 require 'csv'
 
 class StudentLoader
-  def self.load_data(filepath:, reinitialize: true)
-    destroy_students if reinitialize
-
+  def self.load_data(filepath:)
     File.open(filepath) do |file|
       headers = file.first
 
@@ -18,12 +16,6 @@ class StudentLoader
         end
       end
     end
-  end
-
-  def self.destroy_students
-    SurveyItemResponse.update_all(student_id: nil)
-    StudentRace.delete_all
-    Student.delete_all
   end
 
   def self.process_row(row:)

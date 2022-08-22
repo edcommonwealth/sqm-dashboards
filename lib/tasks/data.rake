@@ -75,11 +75,14 @@ namespace :data do
   end
   desc 'load students'
   task load_students: :environment do
+    SurveyItemResponse.update_all(student_id: nil)
+    StudentRace.delete_all
+    Student.delete_all
     Dir.glob(Rails.root.join('data', 'survey_responses', '*student*.csv')).each do |file|
       puts "=====================> Loading student data from csv at path: #{file}"
       StudentLoader.load_data filepath: file
     end
-    puts "=====================> Completed loading #{Student.count} survey responses"
+    puts "=====================> Completed loading #{Student.count} students"
   end
 
   desc 'reset all cache counters'
