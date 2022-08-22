@@ -71,7 +71,7 @@ namespace :one_off do
 
   desc 'load students'
   task load_students: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '2019-20_*student*.csv')).each do |file|
+    Dir.glob(Rails.root.join('data', 'survey_responses', '2021-22_*student*.csv')).each do |file|
       puts "=====================> Loading student data from csv at path: #{file}"
       StudentLoader.load_data filepath: file
     end
@@ -119,7 +119,8 @@ namespace :one_off do
   desc 'reset race score calculations'
   task reset_race_scores: :environment do
     puts 'Resetting race scores'
-    RaceScoreLoader.reset(schools: [School.find_by_slug('a-irvin-studley-elementary-school')])
+    academic_years = [AcademicYear.find_by_range('2021-22')]
+    RaceScoreLoader.reset(academic_years:)
     Rails.cache.clear
     puts "=====================> Completed loading #{RaceScore.count} race scores"
   end

@@ -6,7 +6,7 @@
 require 'csv'
 
 class StudentLoader
-  def self.load_data(filepath:, reinitialize: false)
+  def self.load_data(filepath:, reinitialize: true)
     destroy_students if reinitialize
 
     File.open(filepath) do |file|

@@ -1,24 +1,38 @@
 class RaceScoreLoader
-  def self.reset(schools: School.all, academic_years: AcademicYear.all, measures: Measure.all, races: Race.all)
+  def self.reset(schools: School.all, academic_years: AcademicYear.all, measures: Measure.all, races: Race.all, fast_processing: true)
     RaceScore.where(school: schools, academic_year: academic_years, measure: measures, race: races).delete_all
     measures.each do |measure|
-      schools.each do |school|
-        loadable_race_scores = []
-        loadable_race_scores = academic_years.map do |academic_year|
-          races.map do |race|
-            process_score(measure:, school:, academic_year:, race:)
-          end
-        end
-        RaceScore.import(loadable_race_scores.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
-        @grouped_responses = nil
-        @total_responses = nil
-        @response_rate = nil
-        @sufficient_responses = nil
+      if fast_processing
+        large_memory_use(measure:, schools:, academic_years:, races:)
+      else
+        slow_loading_time(measure:, schools:, academic_years:, races:)
       end
     end
   end
 
   private
+
+  def self.large_memory_use(measure:, schools:, academic_years:, races:)
+    loadable_race_scores = schools.map do |school|
+      academic_years.map do |academic_year|
+        races.map do |race|
+          process_score(measure:, school:, academic_year:, race:)
+        end
+      end
+    end
+    RaceScore.import(loadable_race_scores.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
+  end
+
+  def self.slow_loading_time(measure:, schools:, academic_years:, races:)
+    schools.each do |school|
+      loadable_race_scores = academic_years.map do |academic_year|
+        races.map do |race|
+          process_score(measure:, school:, academic_year:, race:)
+        end
+      end
+      RaceScore.import(loadable_race_scores.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
+    end
+  end
 
   def self.process_score(measure:, school:, academic_year:, race:)
     score = race_score(measure:, school:, academic_year:, race:)
