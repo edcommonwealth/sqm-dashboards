@@ -32,7 +32,6 @@ class RaceScoreLoader
       end
       RaceScore.import(loadable_race_scores.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
       @grouped_responses = nil
-      @total_responses = nil
       @response_rate = nil
       @sufficient_responses = nil
     end
@@ -50,33 +49,22 @@ class RaceScoreLoader
 
     survey_items = measure.student_survey_items
 
-    students = StudentRace.where(race:).pluck(:student_id).uniq
-    averages = grouped_responses(school:, academic_year:, survey_items:, students:)
-    meets_student_threshold = sufficient_responses(school:, academic_year:, students:)
+    # students = StudentRace.where(race:).pluck(:student_id).uniq
+    averages = grouped_responses(school:, academic_year:, survey_items:, race:)
+    meets_student_threshold = sufficient_responses(school:, academic_year:, race:)
     scorify(responses: averages, meets_student_threshold:, measure:)
+    # binding.break
   end
 
-  def self.grouped_responses(school:, academic_year:, survey_items:, students:)
-    @grouped_responses ||= Hash.new do |memo, (school, academic_year, survey_items, students)|
-      memo[[school, academic_year, survey_items, students]] = SurveyItemResponse.where(school:,
-                                                                                       academic_year:,
-                                                                                       student: students,
-                                                                                       survey_item: survey_items)
-                                                                                .group(:survey_item_id)
-                                                                                .average(:likert_score)
+  def self.grouped_responses(school:, academic_year:, survey_items:, race:)
+    @grouped_responses ||= Hash.new do |memo, (school, academic_year, survey_items, race)|
+      memo[[school, academic_year, survey_items, race]] =
+        SurveyItemResponse.joins('JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id').where(
+          school:, academic_year:
+        ).where('student_races.race_id': race.id).group(:survey_item_id).average(:likert_score)
     end
 
-    @grouped_responses[[school, academic_year, survey_items, students]]
-  end
-
-  def self.total_responses(school:, academic_year:, students:, survey_items:)
-    @total_responses ||= Hash.new do
-      memo[[school, academic_year, students, survey_items]] = SurveyItemResponse.where(school:,
-                                                                                       academic_year:,
-                                                                                       student: students,
-                                                                                       survey_item: survey_items).count
-    end
-    @total_responses[[school, academic_year, students, survey_items]]
+    @grouped_responses[[school, academic_year, survey_items, race]]
   end
 
   def self.response_rate(school:, academic_year:, measure:)
@@ -98,13 +86,16 @@ class RaceScoreLoader
     Score.new(average, false, meets_student_threshold, false)
   end
 
-  def self.sufficient_responses(school:, academic_year:, students:)
-    @sufficient_responses ||= Hash.new do |memo, (school, academic_year, students)|
-      number_of_students_for_a_racial_group = SurveyItemResponse.where(school:, academic_year:,
-                                                                       student: students).map(&:student).uniq.count
-      memo[[school, academic_year, students]] = number_of_students_for_a_racial_group >= 10
+  def self.sufficient_responses(school:, academic_year:, race:)
+    @sufficient_responses ||= Hash.new do |memo, (school, academic_year, race)|
+      # number_of_students_for_a_racial_group = SurveyItemResponse.where(school:, academic_year:,
+      #                                                                  student: students).map(&:student).uniq.count
+      number_of_students_for_a_racial_group = SurveyItemResponse.joins('JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id').where(
+        school:, academic_year:
+      ).where("student_races.race_id": race.id).pluck(:student_id).uniq.count
+      memo[[school, academic_year, race]] = number_of_students_for_a_racial_group >= 10
     end
-    @sufficient_responses[[school, academic_year, students]]
+    @sufficient_responses[[school, academic_year, race]]
   end
 
   def self.bubble_up_averages(responses:, measure:)
@@ -118,7 +109,6 @@ class RaceScoreLoader
   private_class_method :process_score
   private_class_method :race_score
   private_class_method :grouped_responses
-  private_class_method :total_responses
   private_class_method :response_rate
   private_class_method :scorify
   private_class_method :sufficient_responses

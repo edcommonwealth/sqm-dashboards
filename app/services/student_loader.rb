@@ -28,7 +28,7 @@ class StudentLoader
   end
 
   def self.race_codes(row:)
-    race_codes = row['RACE'] || row['Race'] || row['race'] || row['What is your race/ethnicity?(Please select all that apply) - Selected Choice'] || '99'
+    race_codes = row['What is your race/ethnicity?(Please select all that apply) - Selected Choice'] || row['RACE'] || row['Race'] || row['race'] || '99'
     race_codes.split(',').map(&:to_i) || []
   end
 
@@ -43,10 +43,8 @@ class StudentLoader
   end
 
   def self.find_or_create_student(response_id:, lasid:, races:)
-    student = Student.find_by(response_id:, lasid:)
-    return unless student.nil?
-
-    student = Student.create(response_id:, lasid:)
+    student = Student.find_or_create_by(response_id:, lasid:)
+    student.races.delete_all
     races.map do |race|
       student.races << race
     end

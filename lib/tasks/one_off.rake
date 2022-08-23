@@ -117,10 +117,10 @@ namespace :one_off do
   end
 
   desc 'reset race score calculations'
-  task reset_race_scores: :environment do
+  task reset_race_scores_2021: :environment do
     puts 'Resetting race scores'
     academic_years = [AcademicYear.find_by_range('2021-22')]
-    RaceScoreLoader.reset(academic_years:, fast_processing: false)
+    RaceScoreLoader.reset(academic_years:, fast_processing: true)
     Rails.cache.clear
     puts "=====================> Completed loading #{RaceScore.count} race scores"
   end
