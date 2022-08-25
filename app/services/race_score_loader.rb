@@ -88,11 +88,9 @@ class RaceScoreLoader
 
   def self.sufficient_responses(school:, academic_year:, race:)
     @sufficient_responses ||= Hash.new do |memo, (school, academic_year, race)|
-      # number_of_students_for_a_racial_group = SurveyItemResponse.where(school:, academic_year:,
-      #                                                                  student: students).map(&:student).uniq.count
       number_of_students_for_a_racial_group = SurveyItemResponse.joins('JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id').where(
         school:, academic_year:
-      ).where("student_races.race_id": race.id).pluck(:student_id).uniq.count
+      ).where("student_races.race_id": race.id).distinct.pluck(:student_id).count
       memo[[school, academic_year, race]] = number_of_students_for_a_racial_group >= 10
     end
     @sufficient_responses[[school, academic_year, race]]
