@@ -79,6 +79,7 @@ class Seeder
   end
 
   def seed_sqm_framework(csv_file)
+    admin_data_item_ids = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
       category_id = row['Category ID'].strip
       category = Category.find_or_create_by!(category_id:)
@@ -123,20 +124,25 @@ class Seeder
         survey_item.approval_low_benchmark = approval_low if approval_low
         survey_item.ideal_low_benchmark = ideal_low if ideal_low
         survey_item.on_short_form = marked? on_short_form
-        survey_item.update! prompt: row['Question/item (20-21)'].strip
+        survey_item.update! prompt: row['Question/item (22-23)'].strip
       end
 
-      if row['Source'] == 'Admin Data'
+      if row['Source'] == 'Admin Data' && row['Active admin & survey items'] == 'TRUE'
+        binding.break if row['Question/item (22-23)'].nil?
         admin_data_item = AdminDataItem.where(admin_data_item_id: data_item_id, scale:).first_or_create
         admin_data_item.watch_low_benchmark = watch_low if watch_low
         admin_data_item.growth_low_benchmark = growth_low if growth_low
         admin_data_item.approval_low_benchmark = approval_low if approval_low
         admin_data_item.ideal_low_benchmark = ideal_low if ideal_low
-        admin_data_item.description = row['Question/item (20-21)'].strip
+        admin_data_item.description = row['Question/item (22-23)'].strip
         admin_data_item.hs_only_item = marked? row['HS only admin item?']
         admin_data_item.save!
+        admin_data_item_ids << admin_data_item.id
       end
     end
+
+    AdminDataValue.where.not(admin_data_item_id: admin_data_item_ids).delete_all
+    AdminDataItem.where.not(id: admin_data_item_ids).delete_all
   end
 
   def seed_demographics(csv_file)

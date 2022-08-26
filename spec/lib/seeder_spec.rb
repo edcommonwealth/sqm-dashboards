@@ -180,6 +180,28 @@ describe Seeder do
     end
   end
 
+  context 'admin data items' do
+    context 'when deprecated admin items exist in the database' do
+      before :each do
+        admin_data_item_1 = create(:admin_data_item, admin_data_item_id: 'a-cppm-i1')
+        create(:admin_data_value, admin_data_item_id: admin_data_item_1.id)
+        admin_data_item_2 = create(:admin_data_item, admin_data_item_id: 'a-ovpe-i2')
+        create(:admin_data_value, admin_data_item_id: admin_data_item_2.id)
+        admin_data_item_3 = create(:admin_data_item, admin_data_item_id: 'a-phys-i2')
+        create(:admin_data_value, admin_data_item_id: admin_data_item_3.id)
+
+        seeder.seed_sqm_framework sample_sqm_framework_csv
+      end
+
+      it 'removes the outdated admin items' do
+        expect(AdminDataItem.count).to eq 31
+        expect(AdminDataItem.find_by_admin_data_item_id('a-cppm-i1').nil?).to eq true
+        expect(AdminDataItem.find_by_admin_data_item_id('a-ovpe-i2').nil?).to eq true
+        expect(AdminDataItem.find_by_admin_data_item_id('a-phys-i2').nil?).to eq true
+      end
+    end
+  end
+
   context 'the sqm framework' do
     before do
       school_culture_category = create(:category, category_id: '2', sort_index: -1)
@@ -204,7 +226,7 @@ describe Seeder do
              }.by(136)
         .and change {
                AdminDataItem.count
-             }.by(32)
+             }.by(30)
     end
 
     context 'updates records to match given data' do
@@ -216,8 +238,8 @@ describe Seeder do
         teachers_leadership = Category.find_by_name 'Teachers & Leadership'
 
         expect(teachers_leadership.slug).to eq 'teachers-and-leadership'
-        expect(teachers_leadership.description).to eq 'This is a category description.'
-        expect(teachers_leadership.short_description).to eq 'This is a category short description.'
+        expect(teachers_leadership.description).to eq("Measures the relevant abilities of a school's teachers and the degree to which they are receiving the support they need to grow as professionals.  It considers factors like teacher professional qualifications, effective classroom practices, and school-wide support for teaching development and growth.")
+        expect(teachers_leadership.short_description).to eq "Measures the relevant abilities of a school's teachers and the degree to which they are receiving the support they need to grow as professionals."
       end
 
       it 'updates category sort index to match a predefined order' do
@@ -230,13 +252,13 @@ describe Seeder do
 
       it 'updates subcategory data' do
         subcategory = Subcategory.find_by_name 'Safety'
-        expect(subcategory.description).to eq 'This is a subcategory description.'
+        expect(subcategory.description).to eq 'Seeks to determine the degree to which school climate is a safe place for students to learn. It includes measures of student physical safety and student emotional safety.'
       end
 
       it 'updates measure data' do
         measure = Measure.find_by_measure_id '2A-i'
         expect(measure.name).to eq 'Student Physical Safety'
-        expect(measure.description).to eq 'This is a measure description.'
+        expect(measure.description).to eq 'Draws on anonymous student reports about the degree to which they feel physically safe at school. It also measures the use of exclusionary discipline at the school.'
       end
 
       it 'updates scale references' do
@@ -271,7 +293,7 @@ describe Seeder do
         expect(admin_data_item.growth_low_benchmark).to eq 3.5
         expect(admin_data_item.approval_low_benchmark).to eq 4
         expect(admin_data_item.ideal_low_benchmark).to eq 4.71
-        expect(admin_data_item.description).to eq 'Student to suspensions ratio'
+        expect(admin_data_item.description).to eq 'Percent of students suspended'
         expect(admin_data_item.hs_only_item).to be false
 
         hs_admin_data_item = AdminDataItem.find_by_admin_data_item_id 'a-curv-i1'
