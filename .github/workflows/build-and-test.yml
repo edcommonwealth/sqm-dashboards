@@ -29,7 +29,6 @@ jobs:
       PGHOST: localhost
       PGUSER: postgres
       PGPASSWORD: postgres
-      RAILS_MASTER_KEY: "${{ secrets.RAILS_MASTER_KEY }}"
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
