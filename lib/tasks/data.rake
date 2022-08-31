@@ -67,9 +67,10 @@ namespace :data do
 
   desc 'load admin_data'
   task load_admin_data: :environment do
-    Dir.glob(Rails.root.join('data', 'admin_data', '*.csv')).each do |filepath|
+    AdminDataValue.delete_all
+    Dir.glob(Rails.root.join('data', 'admin_data', 'dese', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
-      AdminDataLoader.load_data filepath:
+      Dese::FourDLoader.load_data filepath:
     end
     puts "=====================> Completed loading #{AdminDataValue.count} survey responses"
   end
