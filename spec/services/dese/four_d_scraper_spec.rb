@@ -1,6 +1,6 @@
 require 'rails_helper'
 require 'fileutils'
-RSpec.describe type: :model do
+RSpec.describe Dese::FourDScraper do
   let(:academic_years) do
     [
       create(:academic_year, range: '2020-21'),
@@ -13,6 +13,7 @@ RSpec.describe type: :model do
   before :each do
     academic_years
   end
+
   xcontext 'Creating a new FourDScraper' do
     it 'creates a csv file with the scraped data' do
       FileUtils.mkdir_p 'tmp/spec/dese'

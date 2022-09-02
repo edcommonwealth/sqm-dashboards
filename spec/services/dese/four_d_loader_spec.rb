@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe Dese::FourDLoader, type: :model do
+RSpec.describe Dese::FourDLoader do
   let(:path_to_admin_data) { Rails.root.join('spec', 'fixtures', 'sample_four_d_data.csv') }
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
   let(:ay_2018_19) { AcademicYear.find_by_range '2018-19' }

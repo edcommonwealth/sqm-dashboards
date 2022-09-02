@@ -24,7 +24,7 @@ module Dese
       browser.select(id: 'ctl00_ContentPlaceHolder1_ddReportType').select(/School/)
       browser.select(id: 'ctl00_ContentPlaceHolder1_ddYear').select(text: range)
       browser.button(id: 'btnViewReport').click
-      sleep 5  # Sleep to prevent hitting mass.edu with too many requests
+      sleep 2  # Sleep to prevent hitting mass.edu with too many requests
       document = Nokogiri::HTML(browser.html)
       document.css('tr')
     end
@@ -45,15 +45,17 @@ module Dese
           next if dese_id.nil? || dese_id.zero?
 
           raw_likert_score = calculate(cells: items)
-          items << raw_likert_score
           likert_score = raw_likert_score
           likert_score = 5 if raw_likert_score > 5
           likert_score = 1 if raw_likert_score < 1
           likert_score = likert_score.round(2)
-          items << likert_score
-          items << id
-          items << range
-          csv << items
+          output = []
+          output << raw_likert_score
+          output << likert_score
+          output << id
+          output << range
+          output << items
+          csv << output.flatten
         end
       end
     end
