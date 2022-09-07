@@ -3,6 +3,7 @@ require 'csv'
 
 module Dese
   class TwoAOneScraper
+    include Dese::Scraper
     attr_reader :filepaths
 
     Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
@@ -31,10 +32,12 @@ module Dese
                       'ctl00_ContentPlaceHolder1_ddYear' => range }
         submit_id = 'ctl00_ContentPlaceHolder1_btnViewReport'
         calculation = lambda { |headers, items|
-          suspensions = headers['% Out-of-School Suspension']
-          result = items[suspensions].to_f * 4 / 5.27 if suspensions.present?
-
-          reverse_score(likert_score: result)
+          suspensions_index = headers['% Out-of-School Suspension']
+          benchmark = 5.27
+          suspension_rate = items[suspensions_index].to_f
+          if suspensions_index.present? && items[suspensions_index] != ''
+            ((benchmark - suspension_rate) + benchmark) * 4 / 5.27
+          end
         }
         admin_data_item_id = 'a-phys-i1'
         Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
@@ -53,92 +56,15 @@ module Dese
                       'ctl00_ContentPlaceHolder1_ddYear' => range }
         submit_id = 'ctl00_ContentPlaceHolder1_btnViewReport'
         calculation = lambda { |headers, items|
-          days_missed = headers['% > 10 Days']
-          result = items[days_missed].to_f * 4 if days_missed.present?
-
-          reverse_score(likert_score: result)
+          days_missed_index = headers['% > 10 Days']
+          benchmark = 1
+          missed_days = items[days_missed_index].to_f
+          if days_missed_index.present? && items[days_missed_index] != ''
+            ((benchmark - missed_days) + benchmark) * 4 / benchmark
+          end
         }
         admin_data_item_id = 'a-phys-i3'
         Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
-      end
-    end
-
-    def reverse_score(likert_score:)
-      return nil unless likert_score.present?
-
-      likert_score = 1 if likert_score < 1
-      likert_score = 5 if likert_score > 5
-      (likert_score - 6).abs
-    end
-
-    def run
-      academic_years = AcademicYear.all.order(range: :DESC)
-      academic_years.each do |academic_year|
-        prerequisites = yield academic_year
-
-        document = get_html(url: prerequisites.url,
-                            selectors: prerequisites.selectors,
-                            submit_id: prerequisites.submit_id)
-        unless document.nil?
-          write_csv(document:, filepath: prerequisites.filepath, range: academic_year.range, id: prerequisites.admin_data_item_id,
-                    calculation: prerequisites.calculation)
-        end
-      end
-    end
-
-    def browser
-      @browser ||= Watir::Browser.new
-    end
-
-    def get_html(url:, selectors:, submit_id:)
-      browser.goto(url)
-
-      selectors.each do |key, value|
-        return unless browser.option(text: value).present?
-
-        browser.select(id: key).select(text: value)
-      end
-
-      browser.button(id: submit_id).click
-      sleep 2 # Sleep to prevent hitting mass.edu with too many requests
-      Nokogiri::HTML(browser.html)
-    end
-
-    def write_headers(filepath:, headers:)
-      CSV.open(filepath, 'w') do |csv|
-        csv << headers
-      end
-    end
-
-    def write_csv(document:, filepath:, range:, id:, calculation:)
-      table = document.css('tr')
-      headers = document.css('.sorting')
-      header_hash = headers.each_with_index.map { |header, index| [header.text, index] }.to_h
-
-      CSV.open(filepath, 'a') do |csv|
-        table.each do |row|
-          items = row.css('td').map(&:text)
-          dese_id = items[1].to_i
-          next if dese_id.nil? || dese_id.zero?
-
-          raw_likert_score = calculation.call(header_hash, items)
-          raw_likert_score ||= 'NA'
-          likert_score = raw_likert_score
-          if likert_score != 'NA'
-            likert_score = 5 if likert_score > 5
-            likert_score = 1 if likert_score < 1
-            likert_score = likert_score.round(2)
-          end
-
-          output = []
-          output << raw_likert_score
-          output << likert_score
-          output << id
-          output << range
-          output << items
-          output = output.flatten
-          csv << output
-        end
       end
     end
   end

@@ -47,20 +47,21 @@ RSpec.describe Dese::TwoAOneScraper do
 
     it 'has the right likert score results for a-phys-i1' do
       results = CSV.parse(File.read(i1_filepath), headers: true).map do |row|
-        row['Likert Score'].to_f
-      end
+        row['Likert Score'].to_f unless row['Likert Score'] == 'NA' || row['Likert Score'].nil?
+      end.flatten.compact
 
-      expect(results.take(20)).to eq [5.0, 5.0, 4.33, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
+      expect(results.take(20)).to eq [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0,
                                       5.0, 5.0, 5.0, 5.0]
     end
     it 'has the right likert score results for a-exp-i3' do
       results = CSV.parse(File.read(i3_filepath), headers: true).map do |row|
         next unless row['Admin Data Item'] == 'a-phys-i3' && row['Academic Year'] == '2020-21'
 
-        row['Likert Score'].to_f
+        row['Likert Score'].to_f unless row['Likert Score'] == 'NA' || row['Likert Score'].nil?
       end.flatten.compact
 
-      expect(results.take(20)).to eq [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+      expect(results.take(20)).to eq [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 3.6, 5.0,
+                                      5.0, 5.0, 5.0, 5.0]
     end
   end
 end
