@@ -2,15 +2,15 @@ require 'rails_helper'
 require 'fileutils'
 require 'csv'
 
-RSpec.describe Dese::TwoAOneScraper do
+RSpec.describe Dese::TwoAOne do
   let(:academic_years) do
     [
       create(:academic_year, range: '2021-22'),
-      create(:academic_year, range: '2020-21'),
-      create(:academic_year, range: '2019-20'),
-      create(:academic_year, range: '2018-19'),
-      create(:academic_year, range: '2017-18'),
-      create(:academic_year, range: '2016-17')
+      create(:academic_year, range: '2020-21')
+      # create(:academic_year, range: '2019-20'),
+      # create(:academic_year, range: '2018-19'),
+      # create(:academic_year, range: '2017-18'),
+      # create(:academic_year, range: '2016-17')
     ]
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Dese::TwoAOneScraper do
 
   context 'Creating a new Scraper' do
     it 'creates a csv file with the scraped data' do
-      Dese::TwoAOneScraper.new(filepaths:)
+      Dese::TwoAOne.new(filepaths:).run_all
       expect(i1_filepath).to exist
     end
 

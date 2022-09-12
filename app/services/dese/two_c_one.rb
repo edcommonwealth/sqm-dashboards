@@ -2,26 +2,28 @@ require 'watir'
 require 'csv'
 
 module Dese
-  class TwoCOneScraper
+  class TwoCOne
     include Dese::Scraper
     attr_reader :filepaths
 
-    Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
-                               :calculation)
-
     def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', 'two_c_one_attendance.csv')])
       @filepaths = filepaths
+    end
 
+    def run_all
+      write_a_vale_i1_headers
+      run_a_vale_i1
+      run_a_vale_i2
+
+      browser.close
+    end
+
+    def write_a_vale_i1_headers
       filepath = filepaths[0]
       headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
                  'Attendance Rate', 'Average # of Absences', 'Absent 10 or more days', 'Chronically Absent (10% or more)',
                  'Chronically Absent (20% or more)', 'Unexcused > 9 days']
       write_headers(filepath:, headers:)
-
-      run_a_vale_i1
-      run_a_vale_i2
-
-      browser.close
     end
 
     def run_a_vale_i1

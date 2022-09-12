@@ -2,18 +2,18 @@ require 'rails_helper'
 require 'fileutils'
 require 'csv'
 
-RSpec.describe Dese::OneAThreeScraper do
+RSpec.describe Dese::OneAThree do
   let(:academic_years) do
     [
       create(:academic_year, range: '2021-22'),
-      create(:academic_year, range: '2020-21'),
-      create(:academic_year, range: '2019-20'),
-      create(:academic_year, range: '2018-19'),
-      create(:academic_year, range: '2017-18'),
-      create(:academic_year, range: '2016-17')
+      create(:academic_year, range: '2020-21')
+      # create(:academic_year, range: '2019-20'),
+      # create(:academic_year, range: '2018-19'),
+      # create(:academic_year, range: '2017-18'),
+      # create(:academic_year, range: '2016-17')
     ]
   end
-  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a_three.csv') }
+  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a_three_staffing_retention.csv') }
   let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a_three_teachers_of_color.csv') }
 
   let(:filepaths) do
@@ -29,7 +29,7 @@ RSpec.describe Dese::OneAThreeScraper do
 
   context 'Creating a new Scraper' do
     it 'creates a csv file with the scraped data' do
-      Dese::OneAThreeScraper.new(filepaths:)
+      Dese::OneAThree.new(filepaths:).run_all
       expect(i1_filepath).to exist
     end
 

@@ -2,8 +2,8 @@ require 'watir'
 require 'csv'
 
 module Dese
-  class OneAScraper
-    def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', 'one_a.csv'))
+  class OneAOne
+    def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', 'one_a_one_teacher_data.csv'))
       url = 'https://profiles.doe.mass.edu/statereport/teacherdata.aspx'
       browser = Watir::Browser.new
       write_headers(filepath:)
@@ -25,7 +25,7 @@ module Dese
       browser.select(id: 'ctl00_ContentPlaceHolder1_ddReportType').select(text: 'School')
       browser.select(id: 'ctl00_ContentPlaceHolder1_ddYear').select(text: range)
       browser.button(id: 'ctl00_ContentPlaceHolder1_btnViewReport').click
-      sleep 3  # Sleep to prevent hitting mass.edu with too many requests
+      sleep Dese::Scraper::DELAY  # Sleep to prevent hitting mass.edu with too many requests
       Nokogiri::HTML(browser.html)
     end
 

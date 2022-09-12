@@ -1,7 +1,7 @@
 require 'csv'
 
 module Dese
-  class FourDLoader
+  class Loader
     def self.load_data(filepath:)
       CSV.parse(File.read(filepath), headers: true) do |row|
         score = likert_score(row:)

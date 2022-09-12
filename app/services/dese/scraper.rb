@@ -1,6 +1,9 @@
 module Dese
   module Scraper
-    DELAY = 3
+    DELAY = 20
+
+    Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
+                               :calculation)
     def reverse_score(likert_score:)
       return nil unless likert_score.present?
 

@@ -6,12 +6,11 @@ module Dese
     include Dese::Scraper
     attr_reader :filepaths
 
-    Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
-                               :calculation)
-
-    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', 'two_c_one_attendance.csv')])
+    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', 'three_a_one_gender_population.csv')])
       @filepaths = filepaths
+    end
 
+    def run_all
       filepath = filepaths[0]
       headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
                  'Total # of Classes', 'Average Class Size', 'Number of Students', 'Female %', 'Male %',

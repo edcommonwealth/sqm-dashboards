@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'fileutils'
 require 'csv'
 
-RSpec.describe Dese::OneAScraper do
+RSpec.describe Dese::OneAOne do
   let(:academic_years) do
     [
       create(:academic_year, range: '2021-22'),
@@ -13,7 +13,7 @@ RSpec.describe Dese::OneAScraper do
       # create(:academic_year, range: '2016-17')
     ]
   end
-  let(:filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a.csv') }
+  let(:filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a_one_teacher_data.csv') }
   before do
     FileUtils.mkdir_p 'tmp/spec/dese'
   end
@@ -24,7 +24,7 @@ RSpec.describe Dese::OneAScraper do
 
   xcontext 'Creating a new Scraper' do
     it 'creates a csv file with the scraped data' do
-      Dese::OneAScraper.new(filepath:)
+      Dese::OneAOne.new(filepath:)
       expect(filepath).to exist
     end
 

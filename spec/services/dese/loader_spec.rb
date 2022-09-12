@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe Dese::FourDLoader do
+RSpec.describe Dese::Loader do
   let(:path_to_admin_data) { Rails.root.join('spec', 'fixtures', 'sample_four_d_data.csv') }
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
   let(:ay_2018_19) { AcademicYear.find_by_range '2018-19' }
@@ -21,7 +21,7 @@ RSpec.describe Dese::FourDLoader do
   end
   context 'when running the loader' do
     before :each do
-      Dese::FourDLoader.load_data filepath: path_to_admin_data
+      Dese::Loader.load_data filepath: path_to_admin_data
     end
 
     it 'load the correct admin data values' do
@@ -42,7 +42,7 @@ RSpec.describe Dese::FourDLoader do
     end
 
     it 'is idempotent' do
-      Dese::FourDLoader.load_data filepath: path_to_admin_data
+      Dese::Loader.load_data filepath: path_to_admin_data
 
       expect(AdminDataValue.count).to eq 230
     end

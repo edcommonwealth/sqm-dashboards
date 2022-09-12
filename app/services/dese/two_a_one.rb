@@ -2,17 +2,16 @@ require 'watir'
 require 'csv'
 
 module Dese
-  class TwoAOneScraper
+  class TwoAOne
     include Dese::Scraper
     attr_reader :filepaths
-
-    Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
-                               :calculation)
 
     def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', 'two_a_one_students_suspended.csv'),
                                Rails.root.join('data', 'admin_data', 'dese', 'two_a_one_students_disciplined.csv')])
       @filepaths = filepaths
+    end
 
+    def run_all
       run_a_phys_i1
       run_a_phys_i3
 

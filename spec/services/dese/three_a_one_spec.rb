@@ -6,11 +6,11 @@ RSpec.describe Dese::ThreeAOne do
   let(:academic_years) do
     [
       create(:academic_year, range: '2021-22'),
-      create(:academic_year, range: '2020-21'),
-      create(:academic_year, range: '2019-20'),
-      create(:academic_year, range: '2018-19'),
-      create(:academic_year, range: '2017-18'),
-      create(:academic_year, range: '2016-17')
+      create(:academic_year, range: '2020-21')
+      # create(:academic_year, range: '2019-20'),
+      # create(:academic_year, range: '2018-19'),
+      # create(:academic_year, range: '2017-18'),
+      # create(:academic_year, range: '2016-17')
     ]
   end
 
@@ -29,7 +29,7 @@ RSpec.describe Dese::ThreeAOne do
 
   context 'Creating a new Scraper' do
     it 'creates a csv file with the scraped data' do
-      Dese::ThreeAOne.new(filepaths:)
+      Dese::ThreeAOne.new(filepaths:).run_all
       expect(i1_filepath).to exist
     end
 

@@ -2,7 +2,7 @@ require 'watir'
 require 'csv'
 
 module Dese
-  class FourDScraper
+  class FourDOne
     def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', 'four_d.csv'))
       url = 'https://profiles.doe.mass.edu/statereport/plansofhsgrads.aspx'
       browser = Watir::Browser.new
@@ -24,7 +24,7 @@ module Dese
       browser.select(id: 'ctl00_ContentPlaceHolder1_ddReportType').select(/School/)
       browser.select(id: 'ctl00_ContentPlaceHolder1_ddYear').select(text: range)
       browser.button(id: 'btnViewReport').click
-      sleep 2  # Sleep to prevent hitting mass.edu with too many requests
+      sleep Dese::Scraper::DELAY   # Sleep to prevent hitting mass.edu with too many requests
       document = Nokogiri::HTML(browser.html)
       document.css('tr')
     end
