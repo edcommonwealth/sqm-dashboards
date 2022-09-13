@@ -28,7 +28,7 @@ RSpec.describe Dese::TwoAOne do
     academic_years
   end
 
-  context 'Creating a new Scraper' do
+  xcontext 'Creating a new Scraper' do
     it 'creates a csv file with the scraped data' do
       Dese::TwoAOne.new(filepaths:).run_all
       expect(i1_filepath).to exist

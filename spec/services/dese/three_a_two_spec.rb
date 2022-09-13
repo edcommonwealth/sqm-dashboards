@@ -29,7 +29,7 @@ RSpec.describe Dese::ThreeATwo do
     academic_years
   end
 
-  context 'Creating a new Scraper' do
+  xcontext 'Creating a new Scraper' do
     it 'creates a csv file with the scraped data' do
       Dese::ThreeATwo.new(filepaths:).run_all
       expect(enrollment_filepath).to exist
@@ -112,7 +112,7 @@ RSpec.describe Dese::ThreeATwo do
     end
   end
 
-  context 'student_count' do
+  xcontext 'student_count' do
     it 'returns the right enrollment count for a school and year' do
       to_check = [[4_450_105, '2021-22', 1426],
                   [3_500_003, '2020-21', 489],
