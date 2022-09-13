@@ -6,7 +6,7 @@ module Dese
     include Dese::Scraper
     attr_reader :filepaths
 
-    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', 'two_c_one_attendance.csv')])
+    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', '2C_1_attendance.csv')])
       @filepaths = filepaths
     end
 

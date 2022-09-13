@@ -14,9 +14,9 @@ RSpec.describe Dese::ThreeATwo do
     ]
   end
 
-  let(:enrollment_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'enrollment.csv') }
-  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'three_a_two_age_staffing.csv') }
-  let(:i4_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'three_a_two_grade_subject_staffing.csv') }
+  let(:enrollment_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3A_2_enrollment.csv') }
+  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3A_2_age_staffing.csv') }
+  let(:i4_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3A_2_grade_subject_staffing.csv') }
 
   let(:filepaths) do
     [enrollment_filepath, i1_filepath, i4_filepath]

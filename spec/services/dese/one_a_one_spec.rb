@@ -13,7 +13,7 @@ RSpec.describe Dese::OneAOne do
       # create(:academic_year, range: '2016-17')
     ]
   end
-  let(:filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a_one_teacher_data.csv') }
+  let(:filepath) { Rails.root.join('tmp', 'spec', 'dese', '1A_1_teacher_data.csv') }
   before do
     FileUtils.mkdir_p 'tmp/spec/dese'
   end
@@ -47,6 +47,7 @@ RSpec.describe Dese::OneAOne do
                                       4.5, 4.21, 4.1, 5, 4.2, 4.51, 3.97, 4.35,
                                       4.38, 4.08, 4, 4.12, 5]
     end
+
     it 'has the right likert score results for a-exp-i3' do
       results = CSV.parse(File.read(filepath), headers: true).map do |row|
         next unless row['Admin Data Item'] == 'a-exp-i3' && row['Academic Year'] == '2020-21'

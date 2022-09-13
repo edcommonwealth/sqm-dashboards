@@ -14,9 +14,9 @@ RSpec.describe Dese::ThreeBOne do
     ]
   end
 
-  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'three_b_one_masscore.csv') }
-  let(:i2_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'three_b_one_advcoursecomprate.csv') }
-  let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'three_b_one_ap.csv') }
+  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_1_masscore.csv') }
+  let(:i2_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_1_advcoursecomprate.csv') }
+  let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_1_ap.csv') }
 
   let(:filepaths) do
     [i1_filepath, i2_filepath, i3_filepath]

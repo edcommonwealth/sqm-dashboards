@@ -13,8 +13,8 @@ RSpec.describe Dese::OneAThree do
       # create(:academic_year, range: '2016-17')
     ]
   end
-  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a_three_staffing_retention.csv') }
-  let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'one_a_three_teachers_of_color.csv') }
+  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', '1A_3_staffing_retention.csv') }
+  let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', '1A_3_teachers_of_color.csv') }
 
   let(:filepaths) do
     [i1_filepath, i3_filepath]
@@ -27,7 +27,7 @@ RSpec.describe Dese::OneAThree do
     academic_years
   end
 
-  context 'Creating a new Scraper' do
+  xcontext 'Creating a new Scraper' do
     it 'creates a csv file with the scraped data' do
       Dese::OneAThree.new(filepaths:).run_all
       expect(i1_filepath).to exist

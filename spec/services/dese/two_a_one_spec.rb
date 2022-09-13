@@ -14,8 +14,8 @@ RSpec.describe Dese::TwoAOne do
     ]
   end
 
-  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'two_a_one_students_suspended.csv') }
-  let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'two_a_one_students_disciplined.csv') }
+  let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', '2A_1_students_suspended.csv') }
+  let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', '2A_1_students_disciplined.csv') }
 
   let(:filepaths) do
     [i1_filepath, i3_filepath]

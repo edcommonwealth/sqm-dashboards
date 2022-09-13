@@ -3,7 +3,7 @@ require 'csv'
 
 module Dese
   class OneAOne
-    def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', 'one_a_one_teacher_data.csv'))
+    def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', '1A_1_teacher_data.csv'))
       url = 'https://profiles.doe.mass.edu/statereport/teacherdata.aspx'
       browser = Watir::Browser.new
       write_headers(filepath:)
