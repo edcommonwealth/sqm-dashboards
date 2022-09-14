@@ -1,0 +1,115 @@
+require 'watir'
+require 'csv'
+
+module Dese
+  class ThreeBTwo
+    include Dese::Scraper
+    include Dese::Enrollments
+    attr_reader :filepaths
+
+    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', 'enrollments.csv'),
+                               Rails.root.join('data', 'admin_data', 'dese', '3B_2_teacher_by_race_and_gender.csv'),
+                               Rails.root.join('data', 'admin_data', 'dese', '3B_2_student_by_race_and_gender.csv')])
+      @filepaths = filepaths
+    end
+
+    def run_all
+      filepath = filepaths[0]
+      scrape_enrollments(filepath:)
+
+      filepath = filepaths[1]
+      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Teachers of color (#)', 'School Name', 'DESE ID',
+                 'African American (#)', 'Asian (#)', 'Hispanic (#)', 'White (#)', 'Native American (#)',
+                 'Native Hawaiian Pacific Islander (#)', 'Multi-Race Non-Hispanic (#)', 'Females (#)',
+                 'Males (#)', 'FTE Count']
+      write_headers(filepath:, headers:)
+      run_teacher_demographics(filepath:)
+
+      filepath = filepaths[2]
+      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Non-White Teachers', 'Non-White Students', 'School Name', 'DESE ID',
+                 'African American', 'Asian', 'Hispanic', 'White', 'Native American',
+                 'Native Hawaiian or Pacific Islander', 'Multi-Race or Non-Hispanic', 'Males',
+                 'Females', 'Non-Binary', 'Students of color (%)']
+      write_headers(filepath:, headers:)
+      run_student_demographics(filepath:)
+
+      browser.close
+    end
+
+    def run_teacher_demographics(filepath:)
+      run do |academic_year|
+        admin_data_item_id = ''
+        url = 'https://profiles.doe.mass.edu/statereport/teacherbyracegender.aspx'
+        range = academic_year.range
+        selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
+                      'ctl00_ContentPlaceHolder1_ddYear' => range }
+        submit_id = 'ctl00_ContentPlaceHolder1_btnViewReport'
+        calculation = lambda { |headers, items|
+          african_american_index = headers['African American (#)']
+          african_american_number = items[african_american_index].to_f
+
+          asian_index = headers['Asian (#)']
+          asian_number = items[asian_index].to_f
+
+          hispanic_index = headers['Hispanic (#)']
+          hispanic_number = items[hispanic_index].to_f
+
+          native_american_index = headers['Native American (#)']
+          native_american_number = items[native_american_index].to_f
+
+          native_hawaiian_index = headers['Native Hawaiian, Pacific Islander (#)']
+          native_hawaiian_number = items[native_hawaiian_index].to_f
+
+          multi_race_index = headers['Multi-Race,Non-Hispanic (#)']
+          multi_race_number = items[multi_race_index].to_f
+
+          total_non_white_teachers = african_american_number + asian_number + hispanic_number + native_american_number + native_hawaiian_number + multi_race_number
+          items.unshift(total_non_white_teachers)
+
+          total_non_white_teachers
+        }
+        Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
+      end
+    end
+
+    def teacher_count(filepath:, dese_id:, year:)
+      @teachers ||= {}
+      if @teachers.count == 0
+        CSV.parse(File.read(filepath), headers: true).map do |row|
+          academic_year = row['Academic Year']
+          school_id = row['DESE ID'].to_i
+          total = row['Teachers of color (#)'].gsub(',', '').to_f
+          @teachers[[school_id, academic_year]] = total
+        end
+      end
+      @teachers[[dese_id, year]]
+    end
+
+    def run_student_demographics(filepath:)
+      run do |academic_year|
+        admin_data_item_id = 'a-cure-i1'
+        url = 'https://profiles.doe.mass.edu/statereport/enrollmentbyracegender.aspx'
+        range = academic_year.range
+        selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
+                      'ctl00_ContentPlaceHolder1_ddYear' => range }
+        submit_id = 'btnViewReport'
+        calculation = lambda { |headers, items|
+          white_index = headers['White']
+          white_number = items[white_index].to_f
+          non_white_student_percentage = 100 - white_number
+
+          dese_id = items[headers['School Code']].to_i
+          num_of_students = student_count(filepath: filepaths[0], dese_id:, year: academic_year.range) || 0
+          num_of_non_white_students = num_of_students * non_white_student_percentage / 100
+          items.unshift(num_of_non_white_students)
+
+          num_of_non_white_teachers = teacher_count(filepath: filepaths[1], dese_id:, year: academic_year.range)
+          items.unshift(num_of_non_white_teachers)
+          parity_index = num_of_non_white_teachers.to_f / num_of_non_white_students.to_f
+          parity_index * 4 / 0.26
+        }
+        Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
+      end
+    end
+  end
+end

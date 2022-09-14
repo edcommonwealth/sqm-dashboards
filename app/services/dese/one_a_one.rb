@@ -1,6 +1,6 @@
 require 'watir'
 require 'csv'
-
+# TODO convert this to simpler format  and add a run_all method
 module Dese
   class OneAOne
     def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', '1A_1_teacher_data.csv'))

@@ -47,11 +47,14 @@ module Dese
 
     def self.create_admin_data_value(row:, score:)
       school = School.find_by_dese_id(dese_id(row:).to_i)
+      admin_data_item_id = admin_data_item(row:)
+
       return if school.nil?
+      return if admin_data_item_id.nil? || admin_data_item_id.blank?
 
       admin_data_value = AdminDataValue.find_by(academic_year: AcademicYear.find_by_range(ay(row:)),
                                                 school:,
-                                                admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item(row:)))
+                                                admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item_id))
       if admin_data_value.present?
         admin_data_value.likert_score = score
         admin_data_value.save
