@@ -14,7 +14,7 @@ RSpec.describe Dese::ThreeBTwo do
     ]
   end
 
-  let(:enrollment_filepath) { Rails.root.join('tmp', 'spec', 'dese', 'enrollments.csv') }
+  let(:enrollment_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_2_enrollments.csv') }
   let(:teacher_race_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_2_teacher_by_race_and_gender.csv') }
   let(:student_race_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_2_student_by_race_and_gender.csv') }
 
@@ -41,33 +41,31 @@ RSpec.describe Dese::ThreeBTwo do
         headers = file.first
       end.split(',')
 
-      expect(headers).to eq ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Teachers of color (#)', 'School Name', 'DESE ID',
-                             'African American (#)', 'Asian (#)', 'Hispanic (#)', 'White (#)', 'Native American (#)',
-                             'Native Hawaiian Pacific Islander (#)', 'Multi-Race Non-Hispanic (#)', 'Females (#)',
-                             'Males (#)', "FTE Count\n"]
+      expect(headers).to eq ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Teachers of color (%)', 'School Name', 'DESE ID',
+                             'African American (%)', 'Asian (%)', 'Hispanic (%)', 'White (%)', 'Native American (%)',
+                             'Native Hawaiian Pacific Islander (%)', 'Multi-Race Non-Hispanic (%)', 'Females (%)',
+                             'Males (%)', "FTE Count\n"]
     end
     it 'has the correct headers for student demographic information' do
-      pending 'need feedback from peter'
       headers = File.open(student_race_filepath) do |file|
         headers = file.first
       end.split(',')
 
-      expect(headers).to eq ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Non-White Teachers', 'Non-White Students', 'School Name', 'DESE ID',
+      expect(headers).to eq ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Non-White Teachers %', 'Non-White Students %', 'School Name', 'DESE ID',
                              'African American', 'Asian', 'Hispanic', 'White', 'Native American',
                              'Native Hawaiian or Pacific Islander', 'Multi-Race or Non-Hispanic', 'Males',
                              'Females', 'Non-Binary', "Students of color (%)\n"]
     end
 
     it 'has the right likert score results for a-cure-i1' do
-      pending 'not yet implemented'
       results = CSV.parse(File.read(student_race_filepath), headers: true).map do |row|
         next unless row['Admin Data Item'] == 'a-cure-i1' && row['Academic Year'] == '2020-21'
 
         row['Likert Score'].to_f
       end.flatten.compact
 
-      expect(results.take(20)).to eq [4.44, 4.44, 3.33, 3.83, 4.44, 3.6, 4.44, 4.44, 1, 4.44, 4.44, 4.44, 4.44, 3.89,
-                                      4.44, 4.44, 4.44, 4.44, 4.01, 3.92]
+      expect(results.take(20)).to eq [1.78, 1.0, 5.0, 5.0, 1.0, 1.0, 5.0, 1.25, 1.68, 2.22, 2.48, 2.84, 1.27, 2.15,
+                                      3.0, 1.83, 2.23, 1.0, 3.28, 2.74]
     end
   end
 end
