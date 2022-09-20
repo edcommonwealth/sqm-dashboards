@@ -64,8 +64,8 @@ RSpec.describe Dese::ThreeBTwo do
         row['Likert Score'].to_f
       end.flatten.compact
 
-      expect(results.take(20)).to eq [1.78, 1.0, 5.0, 5.0, 1.0, 1.0, 5.0, 1.25, 1.68, 2.22, 2.48, 2.84, 1.27, 2.15,
-                                      3.0, 1.83, 2.23, 1.0, 3.28, 2.74]
+      expect(results.take(20)).to eq [1.78, 1.0, 5.0, 5.0, 1.0, 1.0, 5.0, 1.0, 1.0, 1.0, 2.48, 2.84, 1.0, 1.0, 3.0,
+                                      1.0, 1.0, 1.0, 1.0, 1.0]
     end
   end
 end

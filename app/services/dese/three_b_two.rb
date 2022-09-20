@@ -103,12 +103,12 @@ module Dese
 
           non_white_teachers = teacher_count(filepath: filepaths[1], dese_id:, year: academic_year.range).to_f
           items.unshift(non_white_teachers)
-          # if non_white_teachers >= 10
-          parity_index = non_white_teachers / non_white_student_percentage
-          likert_score = parity_index * 4 / 0.25
-          # else
-          #   likert_score = 1
-          # end
+          if non_white_teachers >= 6.7
+            parity_index = non_white_teachers / non_white_student_percentage
+            likert_score = parity_index * 4 / 0.25
+          else
+            likert_score = 1
+          end
           likert_score
         }
         Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
