@@ -29,7 +29,7 @@ RSpec.describe Dese::ThreeBTwo do
     academic_years
   end
 
-  context '#run_all' do
+  xcontext '#run_all' do
     it 'creates a csv file with the scraped data' do
       Dese::ThreeBTwo.new(filepaths:).run_all
       expect(teacher_race_filepath).to exist

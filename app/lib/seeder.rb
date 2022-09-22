@@ -128,7 +128,6 @@ class Seeder
       end
 
       if row['Source'] == 'Admin Data' && row['Active admin & survey items'] == 'TRUE'
-        binding.break if row['Question/item (22-23)'].nil?
         admin_data_item = AdminDataItem.where(admin_data_item_id: data_item_id, scale:).first_or_create
         admin_data_item.watch_low_benchmark = watch_low if watch_low
         admin_data_item.growth_low_benchmark = growth_low if growth_low

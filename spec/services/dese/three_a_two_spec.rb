@@ -1,8 +1,10 @@
 require 'rails_helper'
 require 'fileutils'
 require 'csv'
+require "#{Rails.root}/app/lib/seeder"
 
 RSpec.describe Dese::ThreeATwo do
+  let(:seeder) { Seeder.new }
   let(:academic_years) do
     [
       create(:academic_year, range: '2021-22'),
@@ -29,8 +31,9 @@ RSpec.describe Dese::ThreeATwo do
     academic_years
   end
 
-  xcontext 'Creating a new Scraper' do
+  xcontext '#run_all' do
     it 'creates a csv file with the scraped data' do
+      seeder.seed_districts_and_schools sample_districts_and_schools_csv
       Dese::ThreeATwo.new(filepaths:).run_all
       expect(enrollment_filepath).to exist
       expect(i1_filepath).to exist
@@ -71,11 +74,11 @@ RSpec.describe Dese::ThreeATwo do
       results = CSV.parse(File.read(i1_filepath), headers: true).map do |row|
         next unless row['Admin Data Item'] == 'a-sust-i1' && row['Academic Year'] == '2021-22'
 
-        row['Likert Score'].to_f
+        row['Likert Score'].to_f unless row['Likert Score'] == 'NA'
       end.flatten.compact
 
-      expect(results.take(20)).to eq [4.0, 1.0, 4.87, 1.0, 1.0, 1.0, 4.6, 5.0, 1.0, 1.89, 1.0, 1.55, 1.0, 1.0, 2.11,
-                                      4.7, 1.0, 1.0, 5.0, 1.0]
+      expect(results.take(20)).to eq [4.96, 1.0, 5.0, 1.0, 5.0, 4.21, 4.45, 4.15, 3.17, 5.0, 4.48, 3.62, 5.0, 1.0, 1.0,
+                                      4.44, 3.8, 1.0, 1.0, 1.0]
     end
 
     it 'has the right likert score results for a-sust-i2' do
@@ -127,5 +130,11 @@ RSpec.describe Dese::ThreeATwo do
 
       three_a_two.browser.close
     end
+  end
+
+  private
+
+  def sample_districts_and_schools_csv
+    Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
   end
 end

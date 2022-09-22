@@ -61,6 +61,10 @@ module Dese
           fte_index = headers['FTE Count']
           num_of_guidance_counselors = items[fte_index].to_f
           dese_id = items[headers['School Code']].to_i
+          school = School.find_by_dese_id(dese_id)
+
+          return 'NA' unless school.present? && school.is_hs?
+
           num_of_students = student_count(filepath: filepaths[0], dese_id:, year: academic_year.range) || 0
           items << num_of_students
           benchmark = 250
