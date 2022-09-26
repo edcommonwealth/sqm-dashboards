@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe DemographicLoader do
   let(:filepath) { 'spec/fixtures/sample_demographics.csv' }
+  let(:codes) do
+    { 'American Indian or Alaskan Native' => 1, 'Asian or Pacific Islander' => 2, 'Black or African American' => 3,
+      'Hispanic or Latinx' => 4, 'White or Caucasian' => 5, 'Unknown' => 99, 'Middle Eastern' => 8, 'Multiracial' => 100 }
+  end
 
   before :each do
     DemographicLoader.load_data(filepath:)
@@ -17,6 +21,12 @@ describe DemographicLoader do
     end
     it 'loads all racial designations' do
       expect(Race.all.count).to eq 8
+      codes.each do |key, value|
+        expect(Race.find_by_qualtrics_code(value)).not_to be nil
+        expect(Race.find_by_qualtrics_code(value).designation).to eq key
+        expect(Race.find_by_designation(key)).not_to be nil
+        expect(Race.find_by_designation(key).qualtrics_code).to be value
+      end
     end
   end
 end
