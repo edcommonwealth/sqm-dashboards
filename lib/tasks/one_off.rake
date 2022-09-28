@@ -40,14 +40,10 @@ namespace :one_off do
     end
   end
 
-  task change_overall_performance_measure_id: :environment do
-    measure_4aii = Measure.where(name: 'Overall Performance')[0]
-    measure_4aii.update! measure_id: '4A-i'
-  end
-
   desc 'load a single file'
   task load_single_file: :environment do
-    filepath = Rails.root.join('data', 'survey_responses', '2016-17_student_survey_responses.csv')
+    filepath = Rails.root.join('data', 'survey_responses',
+                               '2021-22_revere_somerville_wareham_student_survey_responses.csv')
     puts "=====================> Loading data from csv at path: #{filepath}"
     SurveyResponsesDataLoader.load_data filepath: filepath
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
@@ -78,94 +74,11 @@ namespace :one_off do
     puts "=====================> Completed loading #{Student.count} survey responses"
   end
 
-  desc 'load revere somerville warehame results for 2021-22'
-  task load_revere: :environment do
-    ['2021-22_revere_somerville_wareham_student_survey_responses.csv',
-     '2021-22_revere_somerville_wareham_teacher_survey_responses.csv'].each do |filepath|
-      filepath = Rails.root.join('data', 'survey_responses', filepath)
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts 'Resetting response rates'
-    revere = District.find_by_name 'Revere'
-    somerville = District.find_by_name 'Somerville'
-    wareham = District.find_by_name 'Wareham'
-    academic_year = AcademicYear.find_by_range '2021-22'
-    ResponseRateLoader.reset(schools: revere.schools, academic_years: [academic_year])
-    ResponseRateLoader.reset(schools: somerville.schools, academic_years: [academic_year])
-    ResponseRateLoader.reset(schools: wareham.schools, academic_years: [academic_year])
-    Rails.cache.clear
-    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
-  end
-
-  desc 'load lowell and milford results for 2021-22'
-  task load_lowell: :environment do
-    ['2021-22_lowell_milford_student_survey_responses.csv',
-     '2021-22_lowell_milford_teacher_survey_responses.csv'].each do |filepath|
-      filepath = Rails.root.join('data', 'survey_responses', filepath)
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts 'Resetting response rates'
-    lowell = District.find_by_name 'Lowell'
-    milford = District.find_by_name 'Milford'
-    academic_year = AcademicYear.find_by_range '2021-22'
-    ResponseRateLoader.reset(schools: lowell.schools, academic_years: [academic_year])
-    ResponseRateLoader.reset(schools: milford.schools, academic_years: [academic_year])
-    Rails.cache.clear
-    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
-  end
-
   desc 'reset race score calculations'
   task reset_race_scores_2021: :environment do
     puts 'Resetting race scores'
     academic_years = [AcademicYear.find_by_range('2021-22')]
     RaceScoreLoader.reset(academic_years:, fast_processing: true)
-    Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-  end
-
-  desc 'reset race score calculations'
-  task reset_race_scores_2020: :environment do
-    puts 'Resetting race scores'
-    academic_years = [AcademicYear.find_by_range('2020-21')]
-    RaceScoreLoader.reset(academic_years:, fast_processing: false)
-    Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-  end
-
-  desc 'reset race score calculations'
-  task reset_race_scores_2019: :environment do
-    puts 'Resetting race scores'
-    academic_years = [AcademicYear.find_by_range('2019-20')]
-    RaceScoreLoader.reset(academic_years:, fast_processing: false)
-    Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-  end
-
-  desc 'reset race score calculations'
-  task reset_race_scores_2018: :environment do
-    puts 'Resetting race scores'
-    academic_years = [AcademicYear.find_by_range('2018-19')]
-    RaceScoreLoader.reset(academic_years:, fast_processing: false)
-    Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-  end
-
-  desc 'reset race score calculations'
-  task reset_race_scores_2017: :environment do
-    puts 'Resetting race scores'
-    academic_years = [AcademicYear.find_by_range('2017-18')]
-    RaceScoreLoader.reset(academic_years:, fast_processing: false)
-    Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-  end
-
-  desc 'reset race score calculations'
-  task reset_race_scores_2016: :environment do
-    puts 'Resetting race scores'
-    academic_years = [AcademicYear.find_by_range('2016-17')]
-    RaceScoreLoader.reset(academic_years:, fast_processing: false)
     Rails.cache.clear
     puts "=====================> Completed loading #{RaceScore.count} race scores"
   end
@@ -201,25 +114,5 @@ namespace :one_off do
       end
     end
     pp output
-  end
-
-  desc 'delete invalid scale'
-  task delete_s_grmi_scale_from_2016_17: :environment do
-    academic_year = AcademicYear.find_by_range '2016-17'
-    survey_items = SurveyItem.where('survey_item_id LIKE ?', 's-grmi%')
-    SurveyItemResponse.joins(:survey_item).where(academic_year:, survey_item: survey_items).delete_all
-  end
-
-  desc 'reset admin data values'
-  task reset_admin_data_values: :environment do
-    puts "Initial count of admin data values #{AdminDataValue.all.count}"
-    AdminDataValue.delete_all
-    puts 'Deleted all admin data values'
-
-    Dir.glob(Rails.root.join('data', 'admin_data', '*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      AdminDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{AdminDataValue.count} survey responses"
   end
 end

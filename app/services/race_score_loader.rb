@@ -45,15 +45,13 @@ class RaceScoreLoader
 
   def self.race_score(measure:, school:, academic_year:, race:)
     rate = response_rate(school:, academic_year:, measure:)
-    return Score.new(0, false, false, false) unless rate.meets_student_threshold
+    return Score.new(average: 0, meets_teacher_threshold: false, meets_student_threshold: false, meets_admin_data_threshold: false) unless rate.meets_student_threshold
 
     survey_items = measure.student_survey_items
 
-    # students = StudentRace.where(race:).pluck(:student_id).uniq
     averages = grouped_responses(school:, academic_year:, survey_items:, race:)
     meets_student_threshold = sufficient_responses(school:, academic_year:, race:)
     scorify(responses: averages, meets_student_threshold:, measure:)
-    # binding.break
   end
 
   def self.grouped_responses(school:, academic_year:, survey_items:, race:)
@@ -83,7 +81,7 @@ class RaceScoreLoader
 
     average = 0 unless meets_student_threshold
 
-    Score.new(average, false, meets_student_threshold, false)
+    Score.new(average:, meets_teacher_threshold: false, meets_student_threshold:, meets_admin_data_threshold: false)
   end
 
   def self.sufficient_responses(school:, academic_year:, race:)

@@ -145,7 +145,7 @@ class Measure < ActiveRecord::Base
     meets_student_threshold = sufficient_student_data?(school:, academic_year:)
     meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
     meets_admin_data_threshold = any_admin_data_collected?(school:, academic_year:)
-    Score.new(average, meets_teacher_threshold, meets_student_threshold, meets_admin_data_threshold)
+    Score.new(average:, meets_teacher_threshold:, meets_student_threshold:, meets_admin_data_threshold:)
   end
 
   def collect_survey_item_average(survey_items:, school:, academic_year:)

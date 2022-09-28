@@ -1,23 +1,28 @@
-<%# TODO Hook up the buttons so that only the selected races are shown for each column %>
 <h3 class="sub-header-4 mt-5">Data Filters</h3>
 <div class="bg-gray p-3" data-controller="analyze">
-  <% @graphs.each do |graph| %>
+<% @sources.first.slices.each do |slice| %>
   <div>
     <input type="radio"
-           id="<%= graph.value %>"
+           id="<%= slice.slug %>"
            class="form-check-input"
-           name="graph"
+           name="slice"
             value="<%= base_url %>"
             data-action="click->analyze#refresh"
-            <%= graph.value == @graph.value ? "checked" : "" %>>
-    <label for="<%= graph.value %>"><%= graph.to_s %></label>
+            <%= slice.slug == @slice.slug ? "checked" : "" %>>
+            <label for="<%= slice.slug %>"><%= slice.to_s %></label>
   </div>
+<% end %>
+
+<select id="select-group" class="mx-3 form-select" data-id="group-dropdown" data-action="analyze#refresh">
+  <% @groups.each do |group| %>
+    <option id="<%= group.slug %>" name="group-option" value="<%= base_url %>" <%= group.slug == @group.slug ? "Selected": "" %>><%= group.name %> </option>
   <% end %>
+</select>
 
   <p class="sub-header-5 mt-3 font-size-14"> Select a group </p>
 
     <% @races.each do |race | %>
-      <div class="d-flex align-items-center <%= race.slug %>">
+      <div class="d-flex align-items-center">
         <input
           id="<%= race.slug %>"
           class="m-3 race-checkbox form-check-input"
@@ -26,9 +31,33 @@
           value="<%= base_url %>"
           data-action="click->analyze#refresh"
           <%= @selected_races.map(&:slug).include?(race.slug)  ? "checked" : "" %>
-          <%= @graph.value == 'students-and-teachers' ? "disabled" : "" %>>
+          <%= @graph.slug == 'students-and-teachers' ? "disabled" : "" %>
+          <%= @group.slug == 'race' ? "" : "hidden" %>>
 
-      <label for="<%= race.qualtrics_code %>"><%= race.designation %></label>
+          <label for="<%= race.qualtrics_code %>"
+            <%= @group.slug == 'race' ? "" : "hidden" %>>
+              <%= race.designation %>
+          </label>
+      </div>
+    <% end %>
+
+    <% @grades.each do |grade | %>
+      <div class="d-flex align-items-center">
+        <input
+          id="grade-<%= grade %>"
+          class="m-3 grade-checkbox form-check-input"
+          type="checkbox"
+          name="grade-checkbox"
+          value="<%= base_url %>"
+          data-action="click->analyze#refresh"
+          <%= @selected_grades.include?(grade)  ? "checked" : "" %>
+          <%= @graph.slug == 'students-and-teachers' ? "disabled" : "" %>
+          <%= @group.slug == 'grade' ? "" : "hidden" %>>
+
+          <label for="grade-<%= grade %>"
+            <%= @group.slug == 'grade' ? "" : "hidden" %>>
+              <%= grade %>
+          </label>
       </div>
     <% end %>
 </div>

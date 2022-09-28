@@ -15,4 +15,10 @@ class SurveyItemResponse < ActiveRecord::Base
                            boston = District.find_by_name('Boston')
                            where.not(school: boston.schools) if boston.present?
                          }
+
+  scope :averages_for_grade, ->(survey_items, school, academic_year, grade) {
+            SurveyItemResponse.where(survey_item: survey_items, school:,
+                                                academic_year: , grade:).group(:survey_item).average(:likert_score)
+  }
+
 end

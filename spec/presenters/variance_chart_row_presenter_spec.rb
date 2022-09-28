@@ -40,7 +40,7 @@ describe VarianceChartRowPresenter do
   end
 
   context 'when the score is in the Ideal zone' do
-    let(:score) { Score.new(4.4, true, true) }
+    let(:score) { Score.new(average: 4.4, meets_teacher_threshold: true, meets_student_threshold: true) }
 
     it_behaves_like 'measure_name'
 
@@ -58,7 +58,7 @@ describe VarianceChartRowPresenter do
   end
 
   context 'when the score is in the Approval zone' do
-    let(:score) { Score.new(3.7, true, true) }
+    let(:score) { Score.new(average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true) }
 
     it_behaves_like 'measure_name'
 
@@ -76,7 +76,7 @@ describe VarianceChartRowPresenter do
   end
 
   context 'when the score is in the Growth zone' do
-    let(:score) { Score.new(3.2, true, true) }
+    let(:score) { Score.new(average: 3.2, meets_teacher_threshold: true, meets_student_threshold: true) }
 
     it_behaves_like 'measure_name'
 
@@ -96,7 +96,7 @@ describe VarianceChartRowPresenter do
   end
 
   context 'when the score is in the Watch zone' do
-    let(:score) { Score.new(2.9, true, true) }
+    let(:score) { Score.new(average: 2.9, meets_teacher_threshold: true, meets_student_threshold: true) }
 
     it_behaves_like 'measure_name'
 
@@ -116,7 +116,7 @@ describe VarianceChartRowPresenter do
   end
 
   context 'when the score is in the Warning zone' do
-    let(:score) { Score.new(1.0, true, true) }
+    let(:score) { Score.new(average: 1.0, meets_teacher_threshold: true, meets_student_threshold: true) }
 
     it_behaves_like 'measure_name'
 
@@ -136,7 +136,7 @@ describe VarianceChartRowPresenter do
   end
 
   context 'when a measure does not contain admin data items' do
-    let(:score) { Score.new(nil, false, false) }
+    let(:score) { Score.new(average: nil, meets_teacher_threshold: false,  meets_student_threshold: false) }
 
     it 'it does not show a partial data indicator' do
       presenter_without_admin_data = VarianceChartRowPresenter.new measure: measure_without_admin_data_items,
@@ -149,7 +149,7 @@ describe VarianceChartRowPresenter do
     before :each do
     end
 
-    let(:score) { Score.new(nil, false, false) }
+    let(:score) { Score.new(average: nil, meets_teacher_threshold:  false, meets_student_threshold: false) }
 
     it 'shows a partial data indicator' do
       measure_with_admin_data = create(
@@ -165,7 +165,7 @@ describe VarianceChartRowPresenter do
              ideal_low_benchmark: ideal_low_benchmark
       admin_data_presenter = VarianceChartRowPresenter.new measure: measure_with_admin_data,
                                                            score: Score.new(
-                                                             3.7, true, true
+                                                             average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true
                                                            )
       expect(admin_data_presenter.show_partial_data_indicator?).to be true
       expect(admin_data_presenter.partial_data_sources).to eq ['administrative data']
@@ -179,7 +179,7 @@ describe VarianceChartRowPresenter do
     end
 
     context 'when there are insufficient teacher survey item responses' do
-      let(:score) { Score.new(nil, false, true) }
+      let(:score) { Score.new(average: nil, meets_teacher_threshold: false, meets_student_threshold: true) }
       it 'shows a partial data indicator' do
         expect(presenter.show_partial_data_indicator?).to be true
         expect(presenter.partial_data_sources).to eq ['teacher survey results']
@@ -187,7 +187,7 @@ describe VarianceChartRowPresenter do
     end
 
     context 'when there are sufficient teacher survey item responses' do
-      let(:score) { Score.new(nil, true, true) }
+      let(:score) { Score.new(average: nil, meets_teacher_threshold:  true, meets_student_threshold: true) }
       it 'does not show a partial data indicator' do
         expect(presenter.show_partial_data_indicator?).to be false
       end
@@ -201,7 +201,7 @@ describe VarianceChartRowPresenter do
     end
 
     context 'when there are insufficient student survey item responses' do
-      let(:score) { Score.new(nil, true, false) }
+      let(:score) { Score.new(average: nil, meets_teacher_threshold: true, meets_student_threshold: false) }
       it 'shows a partial data indicator' do
         expect(presenter.show_partial_data_indicator?).to be true
         expect(presenter.partial_data_sources).to eq ['student survey results']
@@ -220,7 +220,7 @@ describe VarianceChartRowPresenter do
     end
 
     context 'When there are sufficient student survey item responses' do
-      let(:score) { Score.new(nil, true, true) }
+      let(:score) { Score.new(average: nil, meets_teacher_threshold: true, meets_student_threshold: true) }
       it 'does not show a partial data indicator' do
         expect(presenter.show_partial_data_indicator?).to be false
       end
@@ -236,15 +236,15 @@ describe VarianceChartRowPresenter do
              growth_low_benchmark:,
              approval_low_benchmark:,
              ideal_low_benchmark:)
-      approval_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(3.7, true, true)
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(4.4, true, true)
+      approval_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 3.7, meets_teacher_threshold: true,meets_student_threshold: true)
+      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 4.4, meets_teacher_threshold: true, meets_student_threshold: true)
       expect(ideal_presenter <=> approval_presenter).to be < 0
       expect([approval_presenter, ideal_presenter].sort).to eq [ideal_presenter, approval_presenter]
     end
 
     it 'selects a warning bar below a ideal bar' do
-      warning_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(1.0, true, true)
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(5.0, true, true)
+      warning_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 1.0, meets_teacher_threshold: true, meets_student_threshold: true)
+      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 5.0, meets_teacher_threshold: true, meets_student_threshold: true)
       expect(warning_presenter <=> ideal_presenter).to be > 0
       expect([warning_presenter, ideal_presenter].sort).to eq [ideal_presenter, warning_presenter]
     end

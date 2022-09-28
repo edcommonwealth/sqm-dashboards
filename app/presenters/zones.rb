@@ -42,6 +42,6 @@ class Zones
   end
 
   def zone_for_score(score)
-    all_zones.find { |zone| Score.new(score).in_zone?(zone:) } || insufficient_data
+    all_zones.find { |zone| Score.new(average: score).in_zone?(zone:) } || insufficient_data
   end
 end

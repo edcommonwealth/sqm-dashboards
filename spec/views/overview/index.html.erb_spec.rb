@@ -58,7 +58,7 @@ describe 'overview/index' do
     let(:variance_chart_row_presenters) do
       [
         VarianceChartRowPresenter.new(measure: support_for_teaching, score: Score.new),
-        VarianceChartRowPresenter.new(measure: effective_leadership, score: Score.new(rand)),
+        VarianceChartRowPresenter.new(measure: effective_leadership, score: Score.new(average: rand)),
         VarianceChartRowPresenter.new(measure: professional_qualifications, score: Score.new)
       ]
     end
@@ -90,7 +90,7 @@ describe 'overview/index' do
              ideal_low_benchmark: 4.5)
       [
         VarianceChartRowPresenter.new(measure:,
-                                      score: Score.new(rand))
+                                      score: Score.new(average: rand))
       ]
     end
 

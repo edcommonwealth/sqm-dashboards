@@ -8,7 +8,10 @@ module Analyze
           average ||= 0
           meets_student_threshold = s.meets_student_threshold? unless s.nil?
           meets_student_threshold ||= false
-          Score.new(average, false, meets_student_threshold, false)
+          Score.new(average:,
+                    meets_teacher_threshold: false,
+                    meets_student_threshold:,
+                    meets_admin_data_threshold: false)
         end
       end
     end

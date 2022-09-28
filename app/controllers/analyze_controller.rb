@@ -2,7 +2,8 @@
 
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
-                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp, only: [:index]
+                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp,
+                :sources, :group, :groups, :selected_grades, :grades, :slice, only: [:index]
   def index; end
 
   private
@@ -67,14 +68,15 @@ class AnalyzeController < SqmApplicationController
 
   def graph
     graphs.each do |graph|
-      @graph = graph if graph.value == params[:graph]
+      @graph = graph if graph.slug == params[:graph]
     end
 
     @graph ||= graphs.first
   end
 
   def graphs
-    @graphs ||= [Analyze::Graph::StudentsAndTeachers.new, Analyze::Graph::StudentsByGroup.new(races: selected_races)]
+    @graphs ||= [Analyze::Graph::StudentsAndTeachers.new, Analyze::Graph::StudentsByRace.new(races: selected_races),
+                 Analyze::Graph::StudentsByGrade.new(grades: selected_grades)]
   end
 
   def background
@@ -87,5 +89,62 @@ class AnalyzeController < SqmApplicationController
                               academic_year: @academic_year).order(updated_at: :DESC).first || Today.new
       score.updated_at
     end
+  end
+
+  def sources
+    @sources = [Analyze::Source::SurveyData.new(slices:)]
+  end
+
+  def slices
+    students_and_teachers = Analyze::Slice::StudentsAndTeachers.new
+    students_by_group = Analyze::Slice::StudentsByGroup.new(races:, grades:)
+    [students_and_teachers, students_by_group]
+  end
+
+  def group
+    groups.each do |group|
+      @group = group if group.slug == params[:group]
+    end
+
+    @group ||= groups.first
+  end
+
+  def groups
+    @groups = [Analyze::Group::Race.new, Analyze::Group::Grade.new]
+  end
+
+  def selected_grades
+    @selected_grades ||= begin
+      grade_params = params[:grades]
+      return @selected_grades = grades unless grade_params
+
+      grade_list = grade_params.split(',') if grade_params
+      if grade_list
+        grade_list = grade_list.map do |grade|
+          grade.to_i
+        end
+      end
+      grade_list
+    end
+  end
+
+  def grades
+    @grades ||= SurveyItemResponse.where(school: @school, academic_year: @academic_year)
+                                  .where.not(grade: nil)
+                                  .group(:grade)
+                                  .select(:response_id)
+                                  .distinct(:response_id)
+                                  .count.reject do |_key, value|
+                                    value < 10
+                                  end.keys
+  end
+
+  def slice
+    slice_param = params[:slice]
+    slices.each do |slice|
+      @slice = slice if slice.slug == slice_param
+    end
+
+    @slice ||= slices.first
   end
 end

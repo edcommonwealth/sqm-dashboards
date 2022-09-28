@@ -13,7 +13,7 @@ describe 'analyze/index' do
   end
   let(:graph) { StudentsAndTeachers.new }
   let(:graphs) do
-    [StudentsAndTeachers.new, StudentsByGroup.new(races:)]
+    [StudentsAndTeachers.new, StudentsByRace.new(races:)]
   end
   let(:background) { BackgroundPresenter.new(num_of_columns: graph.columns.count) }
   let(:selected_races) { races }
@@ -54,6 +54,36 @@ describe 'analyze/index' do
     measure
   end
 
+  let(:sources) do
+    [Analyze::Source::SurveyData.new(slices:)]
+  end
+
+  let(:slices) do
+    students_and_teachers = Analyze::Slice::StudentsAndTeachers.new
+    students_by_group = Analyze::Slice::StudentsByGroup.new(races:, grades:)
+    [students_and_teachers, students_by_group]
+  end
+
+  let(:slice) do
+    slices.first
+  end
+
+  let(:groups) do
+    [Analyze::Group::Race.new, Analyze::Group::Grade.new]
+  end
+
+  let(:group) do
+    groups.first
+  end
+
+  let(:grades) do
+    (1..12).to_a
+  end
+
+  let(:selected_grades) do
+    grades
+  end
+
   before :each do
     assign :races, races
     assign :selected_races, selected_races
@@ -70,6 +100,12 @@ describe 'analyze/index' do
     assign :subcategory, subcategory
     assign :subcategories, category.subcategories
     assign :measures, [support_for_teaching, effective_leadership, professional_qualifications]
+    assign :sources, sources
+    assign :groups, groups
+    assign :group, group
+    assign :slice, slice
+    assign :grades, grades
+    assign :selected_grades, selected_grades
     create(:respondent, school:, academic_year:)
     create(:survey, school:, academic_year:)
   end
@@ -88,7 +124,7 @@ describe 'analyze/index' do
     #          ideal_low_benchmark: 4.5)
     #   [
     #     GroupedBarColumnPresenter.new(measure:,
-    #                                   score: Score.new(rand))
+    #                                   score: Score.new(average: rand))
     #   ]
     # end
 

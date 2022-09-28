@@ -29,15 +29,10 @@ describe SurveyResponsesDataLoader do
       end
       it 'ensures teacher responses load correctly' do
         assigns_academic_year_to_survey_item_responses
-
         assigns_school_to_the_survey_item_responses
-
         loads_survey_item_responses_for_a_given_survey_response
-
         loads_all_survey_item_responses_for_a_given_survey_item
-
         captures_likert_scores_for_survey_item_responses
-
         is_idempotent
       end
     end
@@ -53,16 +48,23 @@ describe SurveyResponsesDataLoader do
         loads_student_survey_item_response_values
         student_survey_item_response_count_matches_expected
         captures_likert_scores_for_student_survey_item_responses
+        assigns_grade_level_to_responses
         is_idempotent_for_students
       end
 
       context 'when updating student survey responses from another csv file' do
-        it 'updates the likert score to the score on the new csv file' do
+        before do
           SurveyResponsesDataLoader.load_data filepath: Rails.root.join('spec', 'fixtures',
                                                                         'secondary_test_2020-21_student_survey_responses.csv')
-          expect(SurveyItemResponse.joins(:survey_item).where(response_id: 'student_survey_response_3').where("survey_item.survey_item_id": 's-emsa-q1').first.likert_score).to eq 1
-          expect(SurveyItemResponse.joins(:survey_item).where(response_id: 'student_survey_response_4').where("survey_item.survey_item_id": 's-emsa-q1').first.likert_score).to eq 1
-          expect(SurveyItemResponse.joins(:survey_item).where(response_id: 'student_survey_response_5').where("survey_item.survey_item_id": 's-emsa-q1').first.likert_score).to eq 1
+        end
+        it 'updates the likert score to the score on the new csv file' do
+          s_emsa_q1 = SurveyItem.find_by_survey_item_id 's-emsa-q1'
+          expect(SurveyItemResponse.where(response_id: 'student_survey_response_3',
+                                          survey_item: s_emsa_q1).first.likert_score).to eq 1
+          expect(SurveyItemResponse.where(response_id: 'student_survey_response_4',
+                                          survey_item: s_emsa_q1).first.likert_score).to eq 1
+          expect(SurveyItemResponse.where(response_id: 'student_survey_response_5',
+                                          survey_item: s_emsa_q1).first.likert_score).to eq 1
         end
       end
     end
@@ -159,4 +161,18 @@ def is_idempotent_for_students
   SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
 
   expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
+end
+
+def assigns_grade_level_to_responses
+  results = { 'student_survey_response_1' => 11,
+              'student_survey_response_3' => 8,
+              'student_survey_response_4' => 8,
+              'student_survey_response_5' => 7,
+              'student_survey_response_6' => 3,
+              'student_survey_response_7' => 4 }
+  results.each do |key, value|
+    expect(SurveyItemResponse.where(response_id: key).all? do |response|
+             response.grade == value
+           end).to eq true
+  end
 end

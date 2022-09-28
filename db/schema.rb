@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_22_214951) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_15_023621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -339,7 +339,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_214951) do
     t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_response_rates_on_academic_year_id"
     t.index ["school_id", "subcategory_id"], name: "index_response_rates_on_school_id_and_subcategory_id"
-    t.index ["school_id"], name: "index_response_rates_on_school_id"
     t.index ["subcategory_id"], name: "index_response_rates_on_subcategory_id"
   end
 
@@ -364,6 +363,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_214951) do
     t.integer "dese_id", null: false
     t.boolean "is_hs", default: false
     t.index ["dese_id"], name: "index_schools_on_dese_id", unique: true
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.float "average"
+    t.boolean "meets_teacher_threshold"
+    t.boolean "meets_student_threshold"
+    t.boolean "meets_admin_data_threshold"
+    t.integer "group"
+    t.bigint "measure_id", null: false
+    t.bigint "school_id", null: false
+    t.bigint "academic_year_id", null: false
+    t.integer "grade"
+    t.bigint "race_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["academic_year_id"], name: "index_scores_on_academic_year_id"
+    t.index ["measure_id"], name: "index_scores_on_measure_id"
+    t.index ["race_id"], name: "index_scores_on_race_id"
+    t.index ["school_id"], name: "index_scores_on_school_id"
   end
 
   create_table "student_races", force: :cascade do |t|
@@ -403,10 +421,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_214951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "student_id"
+    t.integer "grade"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
-    t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
+    t.index ["school_id", "survey_item_id", "academic_year_id", "grade"], name: "index_survey_responses_on_grade"
     t.index ["student_id"], name: "index_survey_item_responses_on_student_id"
     t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id"
   end
@@ -457,6 +476,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_214951) do
   add_foreign_key "response_rates", "subcategories"
   add_foreign_key "scales", "measures"
   add_foreign_key "schools", "districts"
+  add_foreign_key "scores", "academic_years"
+  add_foreign_key "scores", "measures"
+  add_foreign_key "scores", "races"
+  add_foreign_key "scores", "schools"
   add_foreign_key "student_races", "races"
   add_foreign_key "student_races", "students"
   add_foreign_key "subcategories", "categories"

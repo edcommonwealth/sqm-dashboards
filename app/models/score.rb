@@ -1,7 +1,20 @@
 # frozen_string_literal: true
 
-class Score < Struct.new(:average, :meets_teacher_threshold?, :meets_student_threshold?, :meets_admin_data_threshold?)
-  NIL_SCORE = Score.new(nil, false, false, false)
+class Score < ApplicationRecord
+  belongs_to :measure
+  belongs_to :school
+  belongs_to :academic_year
+  belongs_to :race
+
+  NIL_SCORE = Score.new(average: nil, meets_teacher_threshold: false, meets_student_threshold:  false, meets_admin_data_threshold: false)
+
+  enum group: {
+    all_students: 0,
+    race: 1,
+    grade: 2,
+    gender: 3
+  }
+
   def in_zone?(zone:)
     return false if average.nil? || average.is_a?(Float) && average.nan?
 
