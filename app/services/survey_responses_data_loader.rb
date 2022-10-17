@@ -41,7 +41,7 @@ class SurveyResponsesDataLoader
 
   def self.create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:)
     if survey_item_response.present?
-      survey_item_response.update!(likert_score:)
+      survey_item_response.update!(likert_score:, grade: row.grade)
       []
     else
       SurveyItemResponse.new(response_id: row.response_id, academic_year: row.academic_year, school: row.school, survey_item:,
