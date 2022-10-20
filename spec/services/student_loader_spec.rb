@@ -8,8 +8,13 @@ describe StudentLoader do
   let(:latinx) { Race.find_by_qualtrics_code(4) }
   let(:white) { Race.find_by_qualtrics_code(5) }
   let(:middle_eastern) { Race.find_by_qualtrics_code(8) }
-  let(:unknown) { Race.find_by_qualtrics_code(99) }
+  let(:unknown_race) { Race.find_by_qualtrics_code(99) }
   let(:multiracial) { Race.find_by_qualtrics_code(100) }
+  let(:female) {Gender.find_by_qualtrics_code(1)}
+  let(:male) {Gender.find_by_qualtrics_code(2)}
+  let(:another_gender) {Gender.find_by_qualtrics_code(3)}
+  let(:non_binary) {Gender.find_by_qualtrics_code(4)}
+  let(:unknown_gender) {Gender.find_by_qualtrics_code(99)}
 
   before :each do
     Rails.application.load_seed
@@ -22,9 +27,9 @@ describe StudentLoader do
     context 'as a standalone function' do
       it 'race codes of 6 or 7 get classified as an unknown race' do
         codes = ['NA']
-        expect(StudentLoader.process_races(codes:)).to eq [unknown]
+        expect(StudentLoader.process_races(codes:)).to eq [unknown_race]
         codes = []
-        expect(StudentLoader.process_races(codes:)).to eq [unknown]
+        expect(StudentLoader.process_races(codes:)).to eq [unknown_race]
         codes = [1]
         expect(StudentLoader.process_races(codes:)).to eq [american_indian]
         codes = [2]
@@ -38,11 +43,11 @@ describe StudentLoader do
         codes = [8]
         expect(StudentLoader.process_races(codes:)).to eq [middle_eastern]
         codes = [6]
-        expect(StudentLoader.process_races(codes:)).to eq [unknown]
+        expect(StudentLoader.process_races(codes:)).to eq [unknown_race]
         codes = [7]
-        expect(StudentLoader.process_races(codes:)).to eq [unknown]
+        expect(StudentLoader.process_races(codes:)).to eq [unknown_race]
         codes = [6, 7]
-        expect(StudentLoader.process_races(codes:)).to eq [unknown]
+        expect(StudentLoader.process_races(codes:)).to eq [unknown_race]
         codes = [1, 6, 7]
         expect(StudentLoader.process_races(codes:)).to eq [american_indian]
         codes = [1, 6, 7, 2]
@@ -57,8 +62,8 @@ describe StudentLoader do
 
   describe '#add_multiracial_designation' do
     it 'adds the multiracial race code to the list of races' do
-      races = [unknown]
-      expect(StudentLoader.add_multiracial_designation(races:)).to eq [unknown]
+      races = [unknown_race]
+      expect(StudentLoader.add_multiracial_designation(races:)).to eq [unknown_race]
       races = [american_indian, asian]
       expect(StudentLoader.add_multiracial_designation(races:)).to eq [american_indian, asian, multiracial]
       races = [white]
@@ -106,13 +111,13 @@ end
 def assigns_races_to_students
   expect(Student.find_by_response_id('student_survey_response_1').races).to eq [american_indian]
   expect(Student.find_by_response_id('student_survey_response_2').races).to eq [asian, black, latinx, multiracial]
-  expect(Student.find_by_response_id('student_survey_response_3').races).to eq [unknown]
-  expect(Student.find_by_response_id('student_survey_response_4').races).to eq [unknown]
+  expect(Student.find_by_response_id('student_survey_response_3').races).to eq [unknown_race]
+  expect(Student.find_by_response_id('student_survey_response_4').races).to eq [unknown_race]
   expect(Student.find_by_response_id('student_survey_response_5').races).to eq [american_indian, asian, black, latinx, white,
                                                                                 middle_eastern, multiracial]
   expect(Student.find_by_response_id('student_survey_response_6').races).to eq [american_indian, asian, black, latinx, white,
                                                                                 middle_eastern, multiracial]
-  expect(Student.find_by_response_id('student_survey_response_7').races).to eq [unknown]
+  expect(Student.find_by_response_id('student_survey_response_7').races).to eq [unknown_race]
 end
 
 def is_idempotent_for_students

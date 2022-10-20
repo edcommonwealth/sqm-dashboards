@@ -95,6 +95,15 @@ class AnalyzeController < SqmApplicationController
     @sources = [Analyze::Source::SurveyData.new(slices:)]
   end
 
+  def slice
+    slice_param = params[:slice]
+    slices.each do |slice|
+      @slice = slice if slice.slug == slice_param
+    end
+
+    @slice ||= slices.first
+  end
+
   def slices
     students_and_teachers = Analyze::Slice::StudentsAndTeachers.new
     students_by_group = Analyze::Slice::StudentsByGroup.new(races:, grades:)
@@ -110,7 +119,7 @@ class AnalyzeController < SqmApplicationController
   end
 
   def groups
-    @groups = [Analyze::Group::Race.new, Analyze::Group::Grade.new]
+    @groups = [Analyze::Group::Race.new, Analyze::Group::Grade.new, Analyze::Group::Gender.new]
   end
 
   def selected_grades
@@ -139,12 +148,7 @@ class AnalyzeController < SqmApplicationController
                                   end.keys
   end
 
-  def slice
-    slice_param = params[:slice]
-    slices.each do |slice|
-      @slice = slice if slice.slug == slice_param
-    end
-
-    @slice ||= slices.first
+  def genders
+  @genders ||= Gender.all
   end
 end

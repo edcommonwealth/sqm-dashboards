@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :gender do
+    qualtrics_code { 1 }
+    designation { "MyString" }
+  end
+
   factory :race_score do
     measure { nil }
     school { nil }
