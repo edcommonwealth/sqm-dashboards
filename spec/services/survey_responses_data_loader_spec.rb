@@ -14,6 +14,12 @@ describe SurveyResponsesDataLoader do
   let(:s_phys_q1) { SurveyItem.find_by_survey_item_id 's-phys-q1' }
   let(:s_phys_q2) { SurveyItem.find_by_survey_item_id 's-phys-q2' }
 
+  let(:female) {Gender.find_by_qualtrics_code 1}
+  let(:male) {Gender.find_by_qualtrics_code 2}
+  let(:another_gender) {Gender.find_by_qualtrics_code 3}
+  let(:non_binary) {Gender.find_by_qualtrics_code 4}
+  let(:unknown_gender) {Gender.find_by_qualtrics_code 99 }
+
   before :each do
     Rails.application.load_seed
   end
@@ -49,6 +55,7 @@ describe SurveyResponsesDataLoader do
         student_survey_item_response_count_matches_expected
         captures_likert_scores_for_student_survey_item_responses
         assigns_grade_level_to_responses
+        assigns_gender_to_responses
         is_idempotent_for_students
       end
 
@@ -174,5 +181,18 @@ def assigns_grade_level_to_responses
     expect(SurveyItemResponse.where(response_id: key).all? do |response|
              response.grade == value
            end).to eq true
+  end
+end
+
+def assigns_gender_to_responses
+  results = { 'student_survey_response_1' => female,
+              'student_survey_response_3' => male,
+              'student_survey_response_4' => another_gender,
+              'student_survey_response_5' => non_binary,
+              'student_survey_response_6' => unknown_gender,
+              'student_survey_response_7' => unknown_gender }
+
+  results.each do |key, value|
+    expect(SurveyItemResponse.where(response_id: key).first.gender).to eq value
   end
 end

@@ -41,11 +41,11 @@ class SurveyResponsesDataLoader
 
   def self.create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:)
     if survey_item_response.present?
-      survey_item_response.update!(likert_score:, grade: row.grade)
+      survey_item_response.update!(likert_score:, grade: row.grade, gender: row.gender)
       []
     else
       SurveyItemResponse.new(response_id: row.response_id, academic_year: row.academic_year, school: row.school, survey_item:,
-                             likert_score:, grade: row.grade)
+                             likert_score:, grade: row.grade, gender: row.gender)
     end
   end
 
@@ -109,6 +109,13 @@ class Values
       raw_grade = (row['grade'] || row['Grade'] || row['What grade are you in?']).to_i
       raw_grade == 0 ? nil : raw_grade
     end
+  end
+
+  def gender
+    gender_code = row['gender'] || row['Gender'] || 99
+    gender_code = gender_code.to_i
+    gender_code = 99 if gender_code.zero?
+    Gender.find_by_qualtrics_code gender_code
   end
 end
 

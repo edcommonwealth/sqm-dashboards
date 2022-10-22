@@ -8,6 +8,7 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :school
   belongs_to :survey_item, counter_cache: true
   belongs_to :student, foreign_key: :student_id, optional: true
+  belongs_to :gender
 
   has_one :measure, through: :survey_item
 

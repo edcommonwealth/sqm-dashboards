@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_19_234615) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_22_035349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -431,7 +431,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_234615) do
     t.datetime "updated_at", null: false
     t.bigint "student_id"
     t.integer "grade"
+    t.bigint "gender_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
+    t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
     t.index ["school_id", "survey_item_id", "academic_year_id", "grade"], name: "index_survey_responses_on_grade"
@@ -494,6 +496,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_234615) do
   add_foreign_key "students", "genders"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
+  add_foreign_key "survey_item_responses", "genders"
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"
