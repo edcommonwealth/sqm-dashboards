@@ -1,29 +1,29 @@
 <h3 class="sub-header-4 mt-5">Data Filters</h3>
 <div class="bg-gray p-3" data-controller="analyze">
-<% @sources.first.slices.each do |slice| %>
-  <div>
-    <input type="radio"
-           id="<%= slice.slug %>"
-           class="form-check-input"
-           name="slice"
-            value="<%= base_url %>"
-            data-action="click->analyze#refresh"
-            <%= slice.slug == @slice.slug ? "checked" : "" %>>
-            <label for="<%= slice.slug %>"><%= slice.to_s %></label>
-  </div>
-<% end %>
-
-<select id="select-group" class="mx-3 form-select" data-id="group-dropdown" data-action="analyze#refresh">
-  <% @groups.each do |group| %>
-    <option id="<%= group.slug %>" name="group-option" value="<%= base_url %>" <%= group.slug == @group.slug ? "Selected": "" %>><%= group.name %> </option>
+  <% @sources.first.slices.each do |slice| %>
+    <div>
+      <input type="radio"
+             id="<%= slice.slug %>"
+             class="form-check-input"
+             name="slice"
+             value="<%= base_url %>"
+             data-action="click->analyze#refresh"
+             <%= slice.slug == @slice.slug ? "checked" : "" %>>
+             <label for="<%= slice.slug %>"><%= slice.to_s %></label>
+    </div>
   <% end %>
-</select>
+
+  <select id="select-group" class="mx-3 form-select" data-id="group-dropdown" data-action="analyze#refresh">
+    <% @groups.each do |group| %>
+      <option id="<%= group.slug %>" name="group-option" value="<%= base_url %>" <%= group.slug == @group.slug ? "Selected": "" %>><%= group.name %> </option>
+    <% end %>
+  </select>
 
   <p class="sub-header-5 mt-3 font-size-14"> Select a group </p>
 
-    <% @races.each do |race | %>
-      <div class="d-flex align-items-center">
-        <input
+  <% @races.each do |race| %>
+    <div class="d-flex align-items-center">
+      <input
           id="<%= race.slug %>"
           class="m-3 race-checkbox form-check-input"
           type="checkbox"
@@ -36,14 +36,14 @@
 
           <label for="<%= race.qualtrics_code %>"
             <%= @group.slug == 'race' ? "" : "hidden" %>>
-              <%= race.designation %>
+            <%= race.designation %>
           </label>
-      </div>
-    <% end %>
+    </div>
+  <% end %>
 
-    <% @grades.each do |grade | %>
-      <div class="d-flex align-items-center">
-        <input
+  <% @grades.each do |grade| %>
+    <div class="d-flex align-items-center">
+      <input
           id="grade-<%= grade %>"
           class="m-3 grade-checkbox form-check-input"
           type="checkbox"
@@ -56,8 +56,29 @@
 
           <label for="grade-<%= grade %>"
             <%= @group.slug == 'grade' ? "" : "hidden" %>>
-              <%= grade %>
+            <%= grade %>
           </label>
-      </div>
-    <% end %>
+    </div>
+  <% end %>
+
+  <% @genders.each do |gender| %>
+    <div class="d-flex align-items-center">
+      <input
+          id="gender-<%= gender %>"
+          class="m-3 gender-checkbox form-check-input"
+          type="checkbox"
+          name="gender-checkbox"
+          value="<%= base_url %>"
+          data-action="click->analyze#refresh"
+          <%# <%= @selected_genders.include?(gender)  ? "checked" : "" %1> %>
+          <%= @graph.slug == 'students-and-teachers' ? "disabled" : "" %>
+          <%= @group.slug == 'gender' ? "" : "hidden" %>>
+
+          <label for="gender-<%= gender %>"
+            <%= @group.slug == 'gender' ? "" : "hidden" %>>
+            <%= gender.designation %>
+          </label>
+    </div>
+  <% end %>
+
 </div>

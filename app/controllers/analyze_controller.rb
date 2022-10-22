@@ -3,7 +3,7 @@
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
                 :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp,
-                :sources, :group, :groups, :selected_grades, :grades, :slice, only: [:index]
+                :sources, :group, :groups, :selected_grades, :grades, :slice, :genders, only: [:index]
   def index; end
 
   private
@@ -149,6 +149,6 @@ class AnalyzeController < SqmApplicationController
   end
 
   def genders
-  @genders ||= Gender.all
+    @genders ||= Gender.all
   end
 end
