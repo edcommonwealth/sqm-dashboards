@@ -32,8 +32,8 @@ module Dese
 
     def write_headers(filepath:)
       CSV.open(filepath, 'w') do |csv|
-        headers = ['School Name', 'DESE ID', '4 Year Private College', '4 Year Public College', '2 Year Private College', '2 Year Public College',
-                   'Other Post Secondary', 'Apprenticeship', 'Work', 'Military', 'Other', 'Unknown', 'Total', 'Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year']
+        headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year','School Name', 'DESE ID', '4 Year Private College', '4 Year Public College', '2 Year Private College', '2 Year Public College',
+                   'Other Post Secondary', 'Apprenticeship', 'Work', 'Military', 'Other', 'Unknown', 'Total']
         csv << headers
       end
     end
