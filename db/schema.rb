@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_22_035349) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_22_225523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -406,8 +406,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_035349) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "response_id"
-    t.bigint "gender_id"
-    t.index ["gender_id"], name: "index_students_on_gender_id"
     t.index ["lasid"], name: "index_students_on_lasid"
   end
 
@@ -493,7 +491,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_035349) do
   add_foreign_key "scores", "schools"
   add_foreign_key "student_races", "races"
   add_foreign_key "student_races", "students"
-  add_foreign_key "students", "genders"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
   add_foreign_key "survey_item_responses", "genders"
