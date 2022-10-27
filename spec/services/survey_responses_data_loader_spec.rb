@@ -187,7 +187,7 @@ end
 def assigns_gender_to_responses
   results = { 'student_survey_response_1' => female,
               'student_survey_response_3' => male,
-              'student_survey_response_4' => another_gender,
+              'student_survey_response_4' => non_binary,
               'student_survey_response_5' => non_binary,
               'student_survey_response_6' => unknown_gender,
               'student_survey_response_7' => unknown_gender }

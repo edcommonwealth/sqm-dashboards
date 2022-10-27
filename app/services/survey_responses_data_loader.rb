@@ -114,6 +114,7 @@ class Values
   def gender
     gender_code = row['gender'] || row['Gender'] || 99
     gender_code = gender_code.to_i
+    gender_code = 4 if gender_code == 3
     gender_code = 99 if gender_code.zero?
     Gender.find_by_qualtrics_code gender_code
   end

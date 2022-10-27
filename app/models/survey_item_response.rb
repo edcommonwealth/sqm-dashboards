@@ -22,4 +22,8 @@ class SurveyItemResponse < ActiveRecord::Base
                                                 academic_year: , grade:).group(:survey_item).average(:likert_score)
   }
 
+  scope :averages_for_gender, ->(survey_items, school, academic_year, gender) {
+            SurveyItemResponse.where(survey_item: survey_items, school:,
+                                                academic_year: , gender:).group(:survey_item).average(:likert_score)
+  }
 end

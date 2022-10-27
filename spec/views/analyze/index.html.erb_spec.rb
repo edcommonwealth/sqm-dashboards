@@ -80,6 +80,15 @@ describe 'analyze/index' do
     (1..12).to_a
   end
 
+  let(:genders) do
+    DemographicLoader.load_data(filepath: 'spec/fixtures/sample_demographics.csv')
+    Gender.all
+  end
+
+  let(:selected_genders) do
+    genders
+  end
+
   let(:selected_grades) do
     grades
   end
@@ -106,6 +115,8 @@ describe 'analyze/index' do
     assign :slice, slice
     assign :grades, grades
     assign :selected_grades, selected_grades
+    assign :genders, genders
+    assign :selected_genders, selected_genders
     create(:respondent, school:, academic_year:)
     create(:survey, school:, academic_year:)
   end

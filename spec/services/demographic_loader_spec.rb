@@ -9,7 +9,7 @@ describe DemographicLoader do
 
   let(:gender_codes) do
     {
-      'Female' => 1, 'Male' => 2, 'Another gender or gender identity not listed above' => 3, 'Non-Binary' => 4, 'Unknown' => 99
+      'Female' => 1, 'Male' => 2, 'Non-Binary' => 4, 'Unknown' => 99
     }
   end
 
@@ -37,7 +37,7 @@ describe DemographicLoader do
     end
 
     it 'loads all gender designations' do
-      expect(Gender.all.count).to eq 5
+      expect(Gender.all.count).to eq 4
 
       gender_codes.each do |key, value|
         expect(Gender.find_by_qualtrics_code(value)).not_to eq nil

@@ -3,7 +3,7 @@
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
                 :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp,
-                :sources, :group, :groups, :selected_grades, :grades, :slice, :genders, only: [:index]
+                :sources, :group, :groups, :selected_grades, :grades, :slice, :selected_genders, :genders, only: [:index]
   def index; end
 
   private
@@ -76,7 +76,7 @@ class AnalyzeController < SqmApplicationController
 
   def graphs
     @graphs ||= [Analyze::Graph::StudentsAndTeachers.new, Analyze::Graph::StudentsByRace.new(races: selected_races),
-                 Analyze::Graph::StudentsByGrade.new(grades: selected_grades)]
+      Analyze::Graph::StudentsByGrade.new(grades: selected_grades), Analyze::Graph::StudentsByGender.new(genders: selected_genders)]
   end
 
   def background
@@ -146,6 +146,21 @@ class AnalyzeController < SqmApplicationController
                                   .count.reject do |_key, value|
                                     value < 10
                                   end.keys
+  end
+
+  def selected_genders
+    @selected_genders ||= begin
+      gender_params = params[:genders]
+      return @selected_genders = genders unless gender_params
+
+      gender_list = gender_params.split(',') if gender_params
+      if gender_list
+        gender_list = gender_list.map do |gender|
+        Gender.find_by_designation(gender)
+        end
+      end
+      gender_list
+    end
   end
 
   def genders

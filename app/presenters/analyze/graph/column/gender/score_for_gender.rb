@@ -1,0 +1,39 @@
+module Analyze
+  module Graph
+    module Column
+      module Gender
+        module ScoreForGender
+          def score(year_index)
+            academic_year = academic_years[year_index]
+            averages = SurveyItemResponse.averages_for_gender(measure.student_survey_items, school, academic_year, gender)
+            average = bubble_up_averages(averages:)
+
+            scorify(average:, meets_student_threshold: sufficient_student_responses?(academic_year:))
+          end
+
+          def bubble_up_averages(averages:)
+            measure.student_scales.map do |scale|
+              scale.survey_items.map do |survey_item|
+                averages[survey_item]
+              end.remove_blanks.average
+            end.remove_blanks.average
+          end
+
+          def scorify(average:, meets_student_threshold:)
+            return Score::NIL_SCORE unless meets_student_threshold
+
+            Score.new(average:,
+              meets_teacher_threshold: false,
+              meets_student_threshold: true,
+              meets_admin_data_threshold: false)
+          end
+
+          def sufficient_student_responses?(academic_year:)
+              yearly_counts = SurveyItemResponse.where(school: , academic_year: , gender:).group(:gender).select(:response_id).distinct(:response_id).count
+              yearly_counts.first[1] >= 10
+          end
+        end
+      end
+    end
+  end
+end

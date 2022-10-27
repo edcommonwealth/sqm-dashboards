@@ -18,6 +18,8 @@ export default class extends Controller {
       this.selected_graph() +
       "&races=" +
       this.selected_races().join(",") +
+      "&genders=" +
+      this.selected_genders().join(",") +
       "&grades=" +
       this.selected_grades().join(",");
 
@@ -79,10 +81,10 @@ export default class extends Controller {
       })[0];
     if (selected_graph === 'students-and-teachers') {
       return selected_graph;
-    }
-
-    if (this.selected_group() === 'race') {
+    } else if (this.selected_group() === 'race') {
       return 'students-by-race'
+    } else if (this.selected_group() === 'gender'){
+      return 'students-by-gender'
     } else {
       return 'students-by-grade'
     }
@@ -112,5 +114,18 @@ export default class extends Controller {
       });
 
     return grades;
+  }
+
+  selected_genders() {
+    let gender_checkboxes = [...document.getElementsByName("gender-checkbox")]
+    let genders = gender_checkboxes
+      .filter((item) => {
+        return item.checked;
+      })
+      .map((item) => {
+        return item.id.replace('gender-', '');
+      });
+
+    return genders;
   }
 }

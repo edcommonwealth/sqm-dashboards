@@ -64,13 +64,13 @@
   <% @genders.each do |gender| %>
     <div class="d-flex align-items-center">
       <input
-          id="gender-<%= gender %>"
+          id="gender-<%= gender.designation %>"
           class="m-3 gender-checkbox form-check-input"
           type="checkbox"
           name="gender-checkbox"
           value="<%= base_url %>"
           data-action="click->analyze#refresh"
-          <%# <%= @selected_genders.include?(gender)  ? "checked" : "" %1> %>
+          <%= @selected_genders.include?(gender)  ? "checked" : "" %>
           <%= @graph.slug == 'students-and-teachers' ? "disabled" : "" %>
           <%= @group.slug == 'gender' ? "" : "hidden" %>>
 
