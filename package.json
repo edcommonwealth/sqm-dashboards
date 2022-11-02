@@ -1,5 +1,9 @@
 {
   "name": "app",
+  "description": "School quality framework",
+  "engines": {
+    "node": "18.x"
+  },
   "private": "true",
   "dependencies": {
     "@babel/preset-env": "^7.15.8",
