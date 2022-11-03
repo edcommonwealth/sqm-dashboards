@@ -27,7 +27,8 @@ class DemographicLoader
     designation = row['Sex/Gender']
     return unless qualtrics_code && designation
 
-    Gender.find_or_create_by!(qualtrics_code:, designation:)
+    gender = Gender.find_or_create_by!(qualtrics_code:, designation:)
+    gender.save
   end
 end
 
