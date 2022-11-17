@@ -2,18 +2,18 @@
 
 module Analyze
   module Graph
-    class StudentsAndTeachers
+    class AllData
       include Analyze::Graph::Column
       def to_s
-        'Students & Teachers'
+        'All Data'
       end
 
       def slug
-        'students-and-teachers'
+        'all-data'
       end
 
       def columns
-        [AllStudent, AllTeacher, AllSurveyData]
+        [AllStudent, AllTeacher, AllAdmin, GroupedBarColumnPresenter]
       end
     end
   end

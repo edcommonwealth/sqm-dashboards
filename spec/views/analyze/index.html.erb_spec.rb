@@ -110,6 +110,7 @@ describe 'analyze/index' do
     assign :subcategories, category.subcategories
     assign :measures, [support_for_teaching, effective_leadership, professional_qualifications]
     assign :sources, sources
+    assign :source, sources.first
     assign :groups, groups
     assign :group, group
     assign :slice, slice

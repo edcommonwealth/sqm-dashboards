@@ -96,6 +96,16 @@ class Measure < ActiveRecord::Base
     @teacher_score[[school, academic_year]]
   end
 
+  def admin_score(school:, academic_year:)
+    @admin_score ||= Hash.new do |memo, (school, academic_year)|
+      meets_admin_threshold = sufficient_admin_data?(school:, academic_year:)
+      average = admin_data_averages(school:, academic_year:).average if meets_admin_threshold
+      memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
+    end
+
+    @admin_score[[school, academic_year]]
+  end
+
   def warning_low_benchmark
     1
   end

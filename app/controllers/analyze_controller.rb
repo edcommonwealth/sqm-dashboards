@@ -3,7 +3,7 @@
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
                 :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp,
-                :sources, :group, :groups, :selected_grades, :grades, :slice, :selected_genders, :genders, only: [:index]
+                :source, :sources, :group, :groups, :selected_grades, :grades, :slice, :selected_genders, :genders, only: [:index]
   def index; end
 
   private
@@ -75,8 +75,8 @@ class AnalyzeController < SqmApplicationController
   end
 
   def graphs
-    @graphs ||= [Analyze::Graph::StudentsAndTeachers.new, Analyze::Graph::StudentsByRace.new(races: selected_races),
-      Analyze::Graph::StudentsByGrade.new(grades: selected_grades), Analyze::Graph::StudentsByGender.new(genders: selected_genders)]
+    @graphs ||= [Analyze::Graph::AllData.new, Analyze::Graph::StudentsAndTeachers.new, Analyze::Graph::StudentsByRace.new(races: selected_races),
+                 Analyze::Graph::StudentsByGrade.new(grades: selected_grades), Analyze::Graph::StudentsByGender.new(genders: selected_genders)]
   end
 
   def background
@@ -91,8 +91,25 @@ class AnalyzeController < SqmApplicationController
     end
   end
 
+  def source
+    source_param = params[:source]
+    sources.each do |source|
+      @source = source if source.slug == source_param
+    end
+
+    @source ||= sources.first
+  end
+
   def sources
-    @sources = [Analyze::Source::SurveyData.new(slices:)]
+    all_data_slices = [Analyze::Slice::AllData.new]
+    all_data_source = Analyze::Source::AllData.new(slices: all_data_slices)
+
+    students_and_teachers = Analyze::Slice::StudentsAndTeachers.new
+    students_by_group = Analyze::Slice::StudentsByGroup.new(races:, grades:)
+    survey_data_slices = [students_and_teachers, students_by_group]
+    survey_data_source = Analyze::Source::SurveyData.new(slices: survey_data_slices)
+
+    @sources = [all_data_source, survey_data_source]
   end
 
   def slice
@@ -105,9 +122,7 @@ class AnalyzeController < SqmApplicationController
   end
 
   def slices
-    students_and_teachers = Analyze::Slice::StudentsAndTeachers.new
-    students_by_group = Analyze::Slice::StudentsByGroup.new(races:, grades:)
-    [students_and_teachers, students_by_group]
+    source.slices
   end
 
   def group
@@ -156,7 +171,7 @@ class AnalyzeController < SqmApplicationController
       gender_list = gender_params.split(',') if gender_params
       if gender_list
         gender_list = gender_list.map do |gender|
-        Gender.find_by_designation(gender)
+          Gender.find_by_designation(gender)
         end
       end
       gender_list

@@ -1,6 +1,6 @@
 module Analyze
   module Source
-    class SurveyData
+    class AllData
       attr_reader :slices
 
       include Analyze::Slice
@@ -10,11 +10,11 @@ module Analyze
       end
 
       def to_s
-        'Survey Data Only'
+        'All Data'
       end
 
       def slug
-        'survey-data-only'
+        'all-data'
       end
     end
   end
