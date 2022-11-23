@@ -7,12 +7,12 @@ class SurveyResponsesDataLoader
     File.open(filepath) do |file|
       headers = file.first
 
-      file.lazy.each_slice(500) do |lines|
+      file.lazy.each_slice(100) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
           process_row row: Values.new(row:, headers:)
         end
 
-        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
+        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 100
       end
     end
   end
