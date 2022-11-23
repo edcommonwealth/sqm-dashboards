@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Precalculate race scores for analyze page
   + `bundle exec rake one_off:reset_race_scores` : limit which years/schools/measures/races are processed
   + `bundle exec rake data:reset_race_scores`  : reset all race scores
+- Add 'all data' radio button to analyze page
 
 ## [Unreleased]
 
