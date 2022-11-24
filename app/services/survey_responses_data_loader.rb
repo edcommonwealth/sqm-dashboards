@@ -6,13 +6,14 @@ class SurveyResponsesDataLoader
   def self.load_data(filepath:)
     File.open(filepath) do |file|
       headers = file.first
+      genders_hash = genders
 
-      file.lazy.each_slice(100) do |lines|
+      file.lazy.each_slice(1000) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row row: Values.new(row:, headers:)
+          process_row row: Values.new(row:, headers:, genders: genders_hash)
         end
 
-        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 100
+        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
       end
     end
   end
@@ -40,26 +41,39 @@ class SurveyResponsesDataLoader
   end
 
   def self.create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:)
+    gender = row.gender
+    grade = row.grade
     if survey_item_response.present?
-      survey_item_response.update!(likert_score:, grade: row.grade, gender: row.gender)
+      survey_item_response.update!(likert_score:, grade:, gender:)
       []
     else
       SurveyItemResponse.new(response_id: row.response_id, academic_year: row.academic_year, school: row.school, survey_item:,
-                             likert_score:, grade: row.grade, gender: row.gender)
+                             likert_score:, grade:, gender:)
     end
+  end
+
+  def self.genders
+    gender_hash = {}
+
+    Gender.all.each do |gender|
+      gender_hash[gender.qualtrics_code] = gender
+    end
+    gender_hash
   end
 
   private_class_method :process_row
   private_class_method :process_survey_items
   private_class_method :create_or_update_response
+  private_class_method :genders
 end
 
 class Values
-  attr_reader :row, :headers
+  attr_reader :row, :headers, :genders
 
-  def initialize(row:, headers:)
+  def initialize(row:, headers:, genders:)
     @row = row
     @headers = headers
+    @genders = genders
   end
 
   def dese_id?
@@ -75,7 +89,23 @@ class Values
   end
 
   def survey_item_response(survey_item:)
-    SurveyItemResponse.find_by(response_id:, survey_item:)
+    @survey_item_response ||= Hash.new do |memo, survey_item|
+      memo[survey_item] = survey_item_responses[[response_id, survey_item]]
+    end
+
+    @survey_item_response[survey_item]
+  end
+
+  def survey_item_responses
+    @survey_item_responses ||= Hash.new do |memo|
+      responses_hash = {}
+      SurveyItemResponse.where(school:, academic_year:, response_id:).each do |response|
+        responses_hash[[response.response_id, response.survey_item]] = response
+      end
+      memo[[school, academic_year]] = responses_hash
+    end
+
+    @survey_item_responses[[school, academic_year]]
   end
 
   def response_id
@@ -116,7 +146,7 @@ class Values
     gender_code = gender_code.to_i
     gender_code = 4 if gender_code == 3
     gender_code = 99 if gender_code.zero?
-    Gender.find_by_qualtrics_code gender_code
+    genders[gender_code]
   end
 end
 
