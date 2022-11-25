@@ -124,14 +124,9 @@ class Values
     @school ||= School.find_by_dese_id(dese_id)
   end
 
+  # TODO: pass survey_items as an argument so we're not looking it up for every row.  The set of survey items only needs to be determined once from the file headers.
   def survey_items
     @survey_items ||= SurveyItem.where(survey_item_id: get_survey_item_ids_from_headers(headers:))
-  end
-
-  def get_survey_item_ids_from_headers(headers:)
-    CSV.parse(headers, headers: true).headers
-       .filter(&:present?)
-       .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
   end
 
   def grade
@@ -147,6 +142,14 @@ class Values
     gender_code = 4 if gender_code == 3
     gender_code = 99 if gender_code.zero?
     genders[gender_code]
+  end
+
+  private
+
+  def get_survey_item_ids_from_headers(headers:)
+    CSV.parse(headers, headers: true).headers
+       .filter(&:present?)
+       .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
   end
 end
 
