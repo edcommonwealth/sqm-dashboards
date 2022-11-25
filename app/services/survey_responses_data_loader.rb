@@ -8,12 +8,12 @@ class SurveyResponsesDataLoader
       headers = file.first
       genders_hash = genders
 
-      file.lazy.each_slice(1000) do |lines|
+      file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
           process_row row: Values.new(row:, headers:, genders: genders_hash)
         end
 
-        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
+        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
       end
     end
   end
@@ -90,7 +90,7 @@ class Values
 
   def survey_item_response(survey_item:)
     @survey_item_response ||= Hash.new do |memo, survey_item|
-      memo[survey_item] = survey_item_responses[[response_id, survey_item]]
+      memo[survey_item] = survey_item_responses[[response_id, survey_item.id]]
     end
 
     @survey_item_response[survey_item]
@@ -100,7 +100,7 @@ class Values
     @survey_item_responses ||= Hash.new do |memo|
       responses_hash = {}
       SurveyItemResponse.where(school:, academic_year:, response_id:).each do |response|
-        responses_hash[[response.response_id, response.survey_item]] = response
+        responses_hash[[response.response_id, response.survey_item.id]] = response
       end
       memo[[school, academic_year]] = responses_hash
     end
