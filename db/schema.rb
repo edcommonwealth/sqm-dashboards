@@ -346,6 +346,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_225523) do
     t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_response_rates_on_academic_year_id"
     t.index ["school_id", "subcategory_id"], name: "index_response_rates_on_school_id_and_subcategory_id"
+    t.index ["school_id"], name: "index_response_rates_on_school_id"
     t.index ["subcategory_id"], name: "index_response_rates_on_subcategory_id"
   end
 
@@ -435,6 +436,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_225523) do
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
     t.index ["school_id", "survey_item_id", "academic_year_id", "grade"], name: "index_survey_responses_on_grade"
+    t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
     t.index ["student_id"], name: "index_survey_item_responses_on_student_id"
     t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id"
   end

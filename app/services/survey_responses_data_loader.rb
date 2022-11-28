@@ -7,10 +7,11 @@ class SurveyResponsesDataLoader
     File.open(filepath) do |file|
       headers = file.first
       genders_hash = genders
+      all_survey_items = survey_items(headers:)
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row row: Values.new(row:, headers:, genders: genders_hash)
+          process_row row: Values.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items)
         end
 
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
@@ -61,19 +62,32 @@ class SurveyResponsesDataLoader
     gender_hash
   end
 
+  def self.survey_items(headers:)
+    SurveyItem.where(survey_item_id: get_survey_item_ids_from_headers(headers:))
+  end
+
+  def self.get_survey_item_ids_from_headers(headers:)
+    CSV.parse(headers, headers: true).headers
+       .filter(&:present?)
+       .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
+  end
+
   private_class_method :process_row
   private_class_method :process_survey_items
   private_class_method :create_or_update_response
   private_class_method :genders
+  private_class_method :survey_items
+  private_class_method :get_survey_item_ids_from_headers
 end
 
 class Values
-  attr_reader :row, :headers, :genders
+  attr_reader :row, :headers, :genders, :survey_items
 
-  def initialize(row:, headers:, genders:)
+  def initialize(row:, headers:, genders:, survey_items:)
     @row = row
     @headers = headers
     @genders = genders
+    @survey_items = survey_items
   end
 
   def dese_id?
@@ -124,11 +138,6 @@ class Values
     @school ||= School.find_by_dese_id(dese_id)
   end
 
-  # TODO: pass survey_items as an argument so we're not looking it up for every row.  The set of survey items only needs to be determined once from the file headers.
-  def survey_items
-    @survey_items ||= SurveyItem.where(survey_item_id: get_survey_item_ids_from_headers(headers:))
-  end
-
   def grade
     @grade ||= begin
       raw_grade = (row['grade'] || row['Grade'] || row['What grade are you in?']).to_i
@@ -142,14 +151,6 @@ class Values
     gender_code = 4 if gender_code == 3
     gender_code = 99 if gender_code.zero?
     genders[gender_code]
-  end
-
-  private
-
-  def get_survey_item_ids_from_headers(headers:)
-    CSV.parse(headers, headers: true).headers
-       .filter(&:present?)
-       .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
   end
 end
 
