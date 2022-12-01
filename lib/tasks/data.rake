@@ -5,7 +5,7 @@ namespace :data do
   task load_survey_responses: :environment do
     Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
+      SurveyResponsesDataLoader.load_data filepath:, load_only_lowell: true
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
 
