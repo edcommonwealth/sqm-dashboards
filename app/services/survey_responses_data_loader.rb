@@ -3,7 +3,7 @@
 require 'csv'
 
 class SurveyResponsesDataLoader
-  def self.load_data(filepath:)
+  def self.load_data(filepath:, rules: [Rule::NoRule])
     File.open(filepath) do |file|
       headers = file.first
       genders_hash = genders
@@ -11,7 +11,8 @@ class SurveyResponsesDataLoader
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row row: Values.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items)
+          process_row(row: Values.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items),
+                      rules:)
         end
 
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
@@ -21,9 +22,13 @@ class SurveyResponsesDataLoader
 
   private
 
-  def self.process_row(row:)
+  def self.process_row(row:, rules:)
     return unless row.dese_id?
     return unless row.school.present?
+
+    rules.each do |rule|
+      return if rule.new(row:).skip_row?
+    end
 
     process_survey_items(row:)
   end

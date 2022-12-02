@@ -14,11 +14,11 @@ describe SurveyResponsesDataLoader do
   let(:s_phys_q1) { SurveyItem.find_by_survey_item_id 's-phys-q1' }
   let(:s_phys_q2) { SurveyItem.find_by_survey_item_id 's-phys-q2' }
 
-  let(:female) {Gender.find_by_qualtrics_code 1}
-  let(:male) {Gender.find_by_qualtrics_code 2}
-  let(:another_gender) {Gender.find_by_qualtrics_code 3}
-  let(:non_binary) {Gender.find_by_qualtrics_code 4}
-  let(:unknown_gender) {Gender.find_by_qualtrics_code 99 }
+  let(:female) { Gender.find_by_qualtrics_code 1 }
+  let(:male) { Gender.find_by_qualtrics_code 2 }
+  let(:another_gender) { Gender.find_by_qualtrics_code 3 }
+  let(:non_binary) { Gender.find_by_qualtrics_code 4 }
+  let(:unknown_gender) { Gender.find_by_qualtrics_code 99 }
 
   before :each do
     Rails.application.load_seed
@@ -73,6 +73,25 @@ describe SurveyResponsesDataLoader do
           expect(SurveyItemResponse.where(response_id: 'student_survey_response_5',
                                           survey_item: s_emsa_q1).first.likert_score).to eq 1
         end
+      end
+    end
+
+    context 'when using Lowell rules to skip rows in the csv file' do
+      before :each do
+        SurveyResponsesDataLoader.load_data filepath: path_to_student_responses,
+                                            rules: [Rule::SkipNonLowellSchools]
+      end
+
+      it 'rejects any non-lowell school' do
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 0
+        expect(SurveyItemResponse.count).to eq 128
+      end
+
+      it 'loads the correct number of responses for lowell schools' do
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 27
       end
     end
   end
