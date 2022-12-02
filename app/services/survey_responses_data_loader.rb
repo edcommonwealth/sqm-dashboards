@@ -132,7 +132,7 @@ class Values
   end
 
   def dese_id
-    @dese_id ||= (row['DESE ID' || 'Dese ID'] || row['DeseId'] || row['DeseID']).to_i
+    @dese_id ||= (row['DESE ID' || 'Dese ID'] || row['DeseId'] || row['DeseID'] || row['School'] || row['school']).to_i
   end
 
   def likert_score(survey_item_id:)

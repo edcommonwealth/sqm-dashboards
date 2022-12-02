@@ -3,6 +3,9 @@ require 'rails_helper'
 describe SurveyResponsesDataLoader do
   let(:path_to_teacher_responses) { Rails.root.join('spec', 'fixtures', 'test_2020-21_teacher_survey_responses.csv') }
   let(:path_to_student_responses) { Rails.root.join('spec', 'fixtures', 'test_2020-21_student_survey_responses.csv') }
+  let(:path_to_butler_student_responses) do
+    Rails.root.join('spec', 'fixtures', 'test_2022-23_butler_student_survey_responses.csv')
+  end
 
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
 
@@ -92,6 +95,17 @@ describe SurveyResponsesDataLoader do
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 27
+      end
+
+      context 'when loading 22-23 bundler survey responses' do
+        before :each do
+          SurveyResponsesDataLoader.load_data filepath: path_to_butler_student_responses,
+                                              rules: [Rule::SkipNonLowellSchools]
+        end
+
+        it 'loads all the responses for Butler' do
+          expect(SurveyItemResponse.count).to eq 310
+        end
       end
     end
   end
