@@ -5,7 +5,26 @@ namespace :data do
   task load_survey_responses: :environment do
     Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:, load_only_lowell: true
+      SurveyResponsesDataLoader.load_data filepath:
+    end
+    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset
+    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false)
+    puts "=====================> Completed loading #{RaceScore.count} survey responses"
+
+    Rails.cache.clear
+  end
+
+  desc 'load survey responses for lowell schools'
+  task load_survey_responses_for_lowell: :environment do
+    Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      SurveyResponsesDataLoader.load_data filepath:, rules: [Rule::SkipNonLowellSchools]
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
 
