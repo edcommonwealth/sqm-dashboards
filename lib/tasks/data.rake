@@ -20,6 +20,18 @@ namespace :data do
     Rails.cache.clear
   end
 
+  desc 'seed only lowell'
+  task seed_only_lowell: :environment do
+    seeder = Seeder.new rules: [Rule::SeedOnlyLowell]
+
+    seeder.seed_academic_years '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23'
+    seeder.seed_districts_and_schools Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_surveys Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_respondents Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_sqm_framework Rails.root.join('data', 'sqm_framework.csv')
+    seeder.seed_demographics Rails.root.join('data', 'demographics.csv')
+  end
+
   desc 'load survey responses for lowell schools'
   task load_survey_responses_for_lowell: :environment do
     Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|

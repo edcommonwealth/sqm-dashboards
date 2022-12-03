@@ -48,6 +48,14 @@ bundle install
 bundle exec rake db:create db:schema:load db:seed
 ```
 
+Or if you only want to seed Lowell schools
+
+```bash
+bundle install
+bundle exec rake db:create db:schema:load
+bundle exec rake data:seed_only_lowell
+```
+
 Install the javascript dependencies
 
 ```bash
@@ -129,6 +137,13 @@ $ heroku run:detached -a mciea-beta bundle exec rake data:load_survey_responses
 
 # on heroku production environment
 $ heroku run:detached -a mciea-dashboard bundle exec rake data:load_survey_responses
+```
+
+Or if you only want to load data for Lowell
+
+```bash
+# locally
+$ bundle exec rake data:load_survey_responses_for_lowell
 ```
 
 For convenience, you can use the following script for loading data on Heroku:

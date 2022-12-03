@@ -1,6 +1,12 @@
 require 'csv'
 
 class Seeder
+  attr_reader :rules
+
+  def initialize(rules: [])
+    @rules = rules
+  end
+
   def seed_academic_years(*academic_year_ranges)
     academic_year_ranges.each do |range|
       AcademicYear.find_or_create_by! range:
@@ -11,6 +17,10 @@ class Seeder
     dese_ids = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
+      next if rules.any? do |rule|
+                rule.new(row:).skip_row?
+              end
+
       district_code = row['District Code'].try(:strip)
       dese_id = row['DESE School ID'].strip
       dese_ids << dese_id
@@ -36,6 +46,10 @@ class Seeder
   def seed_surveys(csv_file)
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
+      next if rules.any? do |rule|
+                rule.new(row:).skip_row?
+              end
+
       district = District.find_or_create_by! name: district_name
       dese_id = row['DESE School ID'].strip
       school = School.find_or_initialize_by dese_id: dese_id, district: district
@@ -56,6 +70,10 @@ class Seeder
       dese_id = row['DESE School ID'].strip.to_i
 
       district_name = row['District'].strip
+      next if rules.any? do |rule|
+                rule.new(row:).skip_row?
+              end
+
       district = District.find_or_create_by! name: district_name
 
       school = School.find_by dese_id: dese_id, district: district

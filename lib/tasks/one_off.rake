@@ -52,6 +52,19 @@ namespace :one_off do
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
+  desc 'load butler results for 2021-22'
+  task load_butler: :environment do
+    ['2022-23_butler_student_survey_responses.csv',
+     '2022-23_butler_teacher_survey_responses.csv'].each do |filepath|
+      filepath = Rails.root.join('data', 'survey_responses', filepath)
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      SurveyResponsesDataLoader.load_data filepath:
+    end
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset
+    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
+  end
+
   desc 'load winchester results for 2021-22'
   task load_winchester: :environment do
     ['2021-22_winchester_student_survey_responses.csv',

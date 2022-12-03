@@ -3,6 +3,7 @@ require "#{Rails.root}/app/lib/seeder"
 
 describe Seeder do
   let(:seeder) { Seeder.new }
+  let(:lowell_seeder) { Seeder.new rules: [Rule::SeedOnlyLowell] }
 
   context 'academic years' do
     before { AcademicYear.delete_all }
@@ -34,8 +35,8 @@ describe Seeder do
     it 'seeds new districts and schools' do
       expect do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
-      end.to change { District.count }.by(2)
-                                      .and change { School.count }.by(3)
+      end.to change { District.count }.by(3)
+                                      .and change { School.count }.by(4)
 
       high_school = School.find_by_dese_id 160_505
       expect(high_school.name).to eq 'Attleboro High School'
@@ -62,10 +63,10 @@ describe Seeder do
       it 'only creates new districts and schools' do
         expect do
           seeder.seed_districts_and_schools sample_districts_and_schools_csv
-        end.to change { District.count }.by(1)
+        end.to change { District.count }.by(2)
                                         .and change {
                                                School.count
-                                             }.by(1) # +2 for schools added from example csv, -1 for old school
+                                             }.by(2) # +2 for schools added from example csv, -1 for old school
 
         new_district = District.find_by_name 'Attleboro'
         expect(new_district.qualtrics_code).to eq 1
@@ -97,6 +98,17 @@ describe Seeder do
         expect(SurveyItemResponse.where(id: removed_survey_item_response)).not_to exist
         expect(Respondent.where(id: removed_respondent)).not_to exist
         expect(Survey.where(id: removed_survey)).not_to exist
+      end
+    end
+
+    context 'when passing a rule to only load lowell schools' do
+      it 'only loads lowell schools' do
+        expect do
+          lowell_seeder.seed_districts_and_schools sample_districts_and_schools_csv
+        end.to change { District.count }.by(1)
+                                        .and change {
+                                               School.count
+                                             }.by(1)
       end
     end
   end
