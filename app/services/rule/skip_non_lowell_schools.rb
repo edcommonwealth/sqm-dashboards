@@ -7,6 +7,9 @@ module Rule
     end
 
     def skip_row?
+      return true if row.school.nil?
+      return true if row.school.district.nil?
+
       row.school.district.name != 'Lowell'
     end
   end

@@ -205,6 +205,14 @@ $ heroku run:detached -a mciea-beta bundle exec rake data:load_students
 $ heroku run:detached -a mciea-dashboard bundle exec rake data:load_students
 ```
 
+
+Or if you only want to load students for Lowell schools
+
+```bash
+# locally
+$ bundle exec rake data:load_students_for_lowell
+```
+
 ### Load scores for each race
 For performance, the scores for an individual race must be precalculated.  Make sure to load response rates, and student demographic information before recaculating scores by race
 

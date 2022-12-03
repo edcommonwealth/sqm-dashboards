@@ -10,11 +10,11 @@ describe StudentLoader do
   let(:middle_eastern) { Race.find_by_qualtrics_code(8) }
   let(:unknown_race) { Race.find_by_qualtrics_code(99) }
   let(:multiracial) { Race.find_by_qualtrics_code(100) }
-  let(:female) {Gender.find_by_qualtrics_code(1)}
-  let(:male) {Gender.find_by_qualtrics_code(2)}
-  let(:another_gender) {Gender.find_by_qualtrics_code(3)}
-  let(:non_binary) {Gender.find_by_qualtrics_code(4)}
-  let(:unknown_gender) {Gender.find_by_qualtrics_code(99)}
+  let(:female) { Gender.find_by_qualtrics_code(1) }
+  let(:male) { Gender.find_by_qualtrics_code(2) }
+  let(:another_gender) { Gender.find_by_qualtrics_code(3) }
+  let(:non_binary) { Gender.find_by_qualtrics_code(4) }
+  let(:unknown_gender) { Gender.find_by_qualtrics_code(99) }
 
   before :each do
     Rails.application.load_seed
@@ -74,7 +74,7 @@ describe StudentLoader do
   # This fails in CI because github does not know what the key derivation salt is.
   # I'm not sure how to securely set the key derivation salt as an environment variable in CI
   describe 'self.load_data' do
-    context 'load student data' do
+    context 'load student data for all schools' do
       before :each do
         SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
         StudentLoader.load_data filepath: path_to_student_responses
@@ -84,6 +84,24 @@ describe StudentLoader do
         assigns_student_to_the_survey_item_responses
         assigns_races_to_students
         is_idempotent_for_students
+      end
+    end
+
+    context 'When using the rule to skip non Lowell schools' do
+      before :each do
+        SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
+        StudentLoader.load_data filepath: path_to_student_responses, rules: [Rule::SkipNonLowellSchools]
+      end
+
+      it 'only loads student data for lowell' do
+        expect(Student.find_by_response_id('student_survey_response_1')).to eq nil
+        expect(Student.find_by_response_id('student_survey_response_3').races).to eq [unknown_race]
+        expect(Student.find_by_response_id('student_survey_response_4').races).to eq [unknown_race]
+        expect(Student.find_by_response_id('student_survey_response_5').races).to eq [american_indian, asian, black, latinx, white,
+                                                                                      middle_eastern, multiracial]
+        expect(Student.find_by_response_id('student_survey_response_6').races).to eq [american_indian, asian, black, latinx, white,
+                                                                                      middle_eastern, multiracial]
+        expect(Student.find_by_response_id('student_survey_response_7').races).to eq [unknown_race]
       end
     end
   end

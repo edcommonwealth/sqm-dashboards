@@ -51,6 +51,24 @@ namespace :data do
     Rails.cache.clear
   end
 
+  desc 'load students for lowell'
+  task load_students_for_lowell: :environment do
+    SurveyItemResponse.update_all(student_id: nil)
+    StudentRace.delete_all
+    Student.delete_all
+    Dir.glob(Rails.root.join('data', 'survey_responses', '*student*.csv')).each do |file|
+      puts "=====================> Loading student data from csv at path: #{file}"
+      StudentLoader.load_data filepath: file, rules: [Rule::SkipNonLowellSchools]
+    end
+    puts "=====================> Completed loading #{Student.count} students"
+
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false)
+    puts "=====================> Completed loading #{RaceScore.count} survey responses"
+
+    Rails.cache.clear
+  end
+
   task load_survey_responses_21_22: :environment do
     Dir.glob(Rails.root.join('data', 'survey_responses', '*2021-22*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
