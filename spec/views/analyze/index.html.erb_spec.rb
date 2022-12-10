@@ -185,7 +185,7 @@ describe 'analyze/index' do
 
     it 'displays a checkbox for each race designation' do
       race_slugs = %w[american-indian-or-alaskan-native asian-or-pacific-islander black-or-african-american
-                      hispanic-or-latinx middle-eastern multiracial unknown white-or-caucasian]
+                      hispanic-or-latinx middle-eastern multiracial race-ethnicity-not-listed white-or-caucasian]
       race_slugs.each do |slug|
         expect(subject).to have_css("//input[@type='checkbox'][@id='#{slug}']")
       end

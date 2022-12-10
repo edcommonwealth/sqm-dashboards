@@ -4,7 +4,7 @@ describe DemographicLoader do
   let(:filepath) { 'spec/fixtures/sample_demographics.csv' }
   let(:race_codes) do
     { 'American Indian or Alaskan Native' => 1, 'Asian or Pacific Islander' => 2, 'Black or African American' => 3,
-      'Hispanic or Latinx' => 4, 'White or Caucasian' => 5, 'Unknown' => 99, 'Middle Eastern' => 8, 'Multiracial' => 100 }
+      'Hispanic or Latinx' => 4, 'White or Caucasian' => 5, 'Race/Ethnicity Not Listed' => 99, 'Middle Eastern' => 8, 'Multiracial' => 100 }
   end
 
   let(:gender_codes) do

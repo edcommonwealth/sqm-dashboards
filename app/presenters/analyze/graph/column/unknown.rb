@@ -6,7 +6,7 @@ module Analyze
       class Unknown < GroupedBarColumnPresenter
         include Analyze::Graph::Column::ScoreForRace
         def label
-          'Unknown'
+          'Race/Ethnicity Not-Listed'
         end
 
         def basis

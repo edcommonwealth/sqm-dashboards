@@ -40,6 +40,6 @@ end
 
 class UnknownRace
   def initialize(qualtrics_code:, designation:)
-    Race.find_or_create_by!(qualtrics_code: 99, designation: 'Unknown')
+    Race.find_or_create_by!(qualtrics_code: 99, designation: 'Race/Ethnicity Not Listed')
   end
 end
