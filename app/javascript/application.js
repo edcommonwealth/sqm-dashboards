@@ -9,12 +9,10 @@ import {
   initializeListenersForNavDropdowns,
   initializePopovers,
 } from "./overview";
-import { initializeListenersForHomeDropdowns } from "./home";
 import { showEmptyDatasetModal } from "./modal";
 
 document.addEventListener("turbo:load", () => {
   initializeListenersForNavDropdowns();
-  initializeListenersForHomeDropdowns();
   initializePopovers();
   showEmptyDatasetModal();
 });

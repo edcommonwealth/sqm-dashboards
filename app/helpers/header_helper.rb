@@ -34,26 +34,6 @@ module HeaderHelper
     end
   end
 
-  def school_mapper(school)
-    academic_year = latest_year(school)
-    {
-      name: school.name,
-      district_id: school.district_id,
-      url: district_school_overview_index_path(school.district, school,
-                                               { year: academic_year.range })
-    }
-  end
-
-  def latest_year(school)
-    latest_response_rate = ResponseRate.where(school:)
-                                       .where('meets_student_threshold = ? or meets_teacher_threshold = ?', true, true)
-                                       .joins('inner join academic_years a on response_rates.academic_year_id=a.id')
-                                       .order('a.range DESC').first
-    academic_year = latest_response_rate.academic_year if latest_response_rate.present?
-
-    academic_year || AcademicYear.order('range DESC').first
-  end
-
   def link_weight(path:)
     active?(path:) ? 'weight-700' : 'weight-400'
   end

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe 'home/index' do
+  let(:school) { create(:school) }
+  let(:district) { create(:district) }
   subject { Nokogiri::HTML(rendered) }
 
   before :each do

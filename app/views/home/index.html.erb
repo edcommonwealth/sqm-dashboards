@@ -2,20 +2,46 @@
   <div class="hero-text">
     <h1 class="sub-header">School Quality Measures Dashboard</h1>
     <p class="hero-description">A school quality framework with multiple measures that offers a fair and comprehensive
-      picture of school performance</p>
+    picture of school performance</p>
   </div>
 </div>
 <div class="bg-color-blue">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-6 welcome-controls d-flex justify-content-center">
-        <%= collection_select(:district, :id, @districts, :id, :name, { prompt: 'Select a district', selected: "" }, { id: 'district-dropdown', 'data-id': 'district-dropdown', class: 'form-select' }) %>
 
-        <select id="school-dropdown" class="mx-3 form-select" data-id="school-dropdown" disabled>
-          <option value="Select a school">Select a school</option>
-        </select>
+        <%= form_with(url: welcome_path, method: :get,
+                      data: {
+                        turbo_frame: "schools",
+                        turbo_action: "advance",
+                        controller: "form",
+                        action: "input->form#submit"
+                      }) do |f| %>
 
-        <button data-id="go-to-school" class="mx-3 btn btn-secondary" disabled>Go</button>
+                      <%= turbo_frame_tag "schools" do %>
+                        <div class="d-flex">
+                          <% if District.count > 1 %>
+                          <div class="row">
+                            <%= f.select :district,  @districts,
+                              {include_blank: "Select a District", selected: params[:district] } , {id: "district-dropdown", class: "form-select", hidden: @districts.count == 1} %>
+                          </div>
+                        <% end %>
+
+                          <div>
+                            <%= f.select :school,  @schools,
+                              {include_blank: "Select a School", selected: params[:school]}, { id: "school-dropdown", class: "form-select mx-3"} if @schools %>
+                          </div>
+
+                          <% if @school.present? %>
+                            <%= link_to "Go", district_school_overview_index_path(@district, @school, {year:  @year}  ), class: "mx-4 btn btn-secondary" , data: {turbo_frame: "_top"} %>
+                          <%  else %>
+                            <%= button_to "Go", "/", class: "mx-4 btn btn-secondary" , data: {turbo_frame: "_top"}, disabled:  true %>
+                          <% end %>
+
+                        </div>
+                      <% end %>
+                    <% end %>
+
       </div>
     </div>
   </div>
@@ -30,8 +56,8 @@
         </div>
 
         <p class="mt-5">The School Quality Measures Framework aims to describe the full measure of what makes a good
-          school. The three outer categories are essential inputs to school quality that influence the center two key
-          outcomes.</p>
+        school. The three outer categories are essential inputs to school quality that influence the center two key
+        outcomes.</p>
       </div>
       <div class="col-lg-7">
         <h2 class="mb-4">School Quality Measures Framework</h2>

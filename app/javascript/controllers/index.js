@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import AnalyzeController from "./analyze_controller.js"
 application.register("analyze", AnalyzeController)
+
+import FormController from "./form_controller.js"
+application.register("form", FormController)

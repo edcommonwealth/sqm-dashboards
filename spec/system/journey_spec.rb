@@ -163,8 +163,13 @@ def district_admin_sees_problem_solving_emphasis
 end
 
 def go_to_school_overview_from_welcome_page(district, school)
+  expect(page).to have_select('district', selected: 'Select a District')
   select district.name, from: 'district-dropdown'
+  expect(page).to have_select('school', selected: 'Select a School')
+  visit welcome_path({ district: district.id, school: school.id })
+  expect(page).to have_select('school', selected: 'Winchester High School')
   select school.name, from: 'school-dropdown'
+
   click_on 'Go'
 end
 
