@@ -34,12 +34,18 @@ end
 
 class KnownRace
   def initialize(qualtrics_code:, designation:)
-    Race.find_or_create_by!(qualtrics_code:, designation:)
+    known = Race.find_or_create_by!(qualtrics_code:)
+    known.designation = designation
+    known.slug = designation.parameterize
+    known.save
   end
 end
 
 class UnknownRace
   def initialize(qualtrics_code:, designation:)
-    Race.find_or_create_by!(qualtrics_code: 99, designation: 'Race/Ethnicity Not Listed')
+    unknown = Race.find_or_create_by!(qualtrics_code: 99)
+    unknown.designation = 'Race/Ethnicity Not Listed'
+    unknown.slug = designation.parameterize
+    unknown.save
   end
 end
