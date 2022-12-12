@@ -9,10 +9,6 @@ module Analyze
           'Multiracial'
         end
 
-        def basis
-          'student'
-        end
-
         def show_irrelevancy_message?
           false
         end

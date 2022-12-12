@@ -106,6 +106,14 @@ module Analyze
           number_of_columns
         end
 
+        def basis
+          'student surveys'
+        end
+
+        def insufficiency_message
+          ['survey response', 'rate below 25%']
+        end
+
         private
 
         YearlyScore = Struct.new(:year, :score)

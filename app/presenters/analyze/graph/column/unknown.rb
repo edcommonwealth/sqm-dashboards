@@ -9,10 +9,6 @@ module Analyze
           'Race/Ethnicity Not-Listed'
         end
 
-        def basis
-          'student'
-        end
-
         def show_irrelevancy_message?
           false
         end

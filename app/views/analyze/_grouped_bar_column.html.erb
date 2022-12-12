@@ -24,14 +24,16 @@
     <text x="<%= column.column_midpoint %>%" y="<%= 20 %>%" text-anchor="middle">
       <tspan x="<%= column.column_midpoint %>%" y="29%">measure not</tspan>
       <tspan x="<%= column.column_midpoint %>%" y="34%">based on</tspan>
-      <tspan x="<%= column.column_midpoint %>%" y="39%"><%= column.basis %>  surveys </tspan>
+      <tspan x="<%= column.column_midpoint %>%" y="39%"><%= column.basis %></tspan>
     </text>
   <% elsif column.show_insufficient_data_message? %>
   <rect x="<%= column.message_x %>%" y="<%= column.message_y %>%" rx="15" ry="15" width="<%= column.message_width %>%" height="<%= column.message_height %>%" fill="white" stroke="gray" />
 
     <text x="<%= column.column_midpoint %>%" y="<%= 20 %>%" text-anchor="middle">
-      <tspan x="<%= column.column_midpoint %>%" y="29%">survey response</tspan>
-      <tspan x="<%= column.column_midpoint %>%" y="34%">rate below 25%</tspan>
+    <% column.insufficiency_message.each_with_index do |line, index|  %>
+      <% offset = 29 + index * 5 %>
+      <tspan x='<%= column.column_midpoint  %>%' y='<%=  offset %>%'><%= line %></tspan>
+    <% end  %>
     </text>
   <% end %>
 </g>

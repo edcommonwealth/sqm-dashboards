@@ -10,10 +10,6 @@ module Analyze
           'Middle Eastern'
         end
 
-        def basis
-          'student'
-        end
-
         def show_irrelevancy_message?
           false
         end

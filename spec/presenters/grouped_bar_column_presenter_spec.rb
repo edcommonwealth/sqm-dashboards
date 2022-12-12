@@ -184,7 +184,7 @@ describe GroupedBarColumnPresenter do
       end
 
       it 'returns a text representation of the type of survey the bars are based on' do
-        expect(student_presenter.basis).to eq 'student'
+        expect(student_presenter.basis).to eq 'student surveys'
       end
 
       it 'returns only bars that have a numeric score' do

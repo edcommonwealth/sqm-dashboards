@@ -9,7 +9,7 @@ module Analyze
         end
 
         def basis
-          'teacher'
+          'teacher surveys'
         end
 
         def show_irrelevancy_message?

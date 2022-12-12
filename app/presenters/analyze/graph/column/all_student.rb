@@ -8,10 +8,6 @@ module Analyze
           'All Students'
         end
 
-        def basis
-          'student'
-        end
-
         def show_irrelevancy_message?
           !measure.includes_student_survey_items?
         end
