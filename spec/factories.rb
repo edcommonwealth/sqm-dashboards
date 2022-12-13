@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :gender do
     qualtrics_code { 1 }
-    designation { "MyString" }
+    designation { 'MyString' }
   end
 
   factory :race_score do
@@ -105,6 +105,13 @@ FactoryBot.define do
         create(:student_scale, measure:) do |scale|
           create_list(:student_survey_item, 2, scale:)
         end
+      end
+    end
+
+    trait :with_admin_data_items do
+      after(:create) do |measure|
+        scale = create(:scale, measure:)
+        create(:admin_data_item, scale:)
       end
     end
   end
