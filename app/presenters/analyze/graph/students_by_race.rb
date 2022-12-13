@@ -31,14 +31,14 @@ module Analyze
       end
 
       CFR = {
-        '1' => Analyze::Graph::Column::AmericanIndian,
-        '2' => Analyze::Graph::Column::Asian,
-        '3' => Analyze::Graph::Column::Black,
-        '4' => Analyze::Graph::Column::Hispanic,
-        '5' => Analyze::Graph::Column::White,
-        '8' => Analyze::Graph::Column::MiddleEastern,
-        '99' => Analyze::Graph::Column::Unknown,
-        '100' => Analyze::Graph::Column::Multiracial
+        '1' => Analyze::Graph::Column::RaceColumn::AmericanIndian,
+        '2' => Analyze::Graph::Column::RaceColumn::Asian,
+        '3' => Analyze::Graph::Column::RaceColumn::Black,
+        '4' => Analyze::Graph::Column::RaceColumn::Hispanic,
+        '5' => Analyze::Graph::Column::RaceColumn::White,
+        '8' => Analyze::Graph::Column::RaceColumn::MiddleEastern,
+        '99' => Analyze::Graph::Column::RaceColumn::Unknown,
+        '100' => Analyze::Graph::Column::RaceColumn::Multiracial
       }.freeze
     end
   end

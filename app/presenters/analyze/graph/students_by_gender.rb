@@ -1,7 +1,7 @@
 module Analyze
   module Graph
     class StudentsByGender
-      include Analyze::Graph::Column::Gender
+      include Analyze::Graph::Column::GenderColumn
       attr_reader :genders
 
       def initialize(genders:)
@@ -32,10 +32,10 @@ module Analyze
       end
 
       CFR = {
-        1 => Analyze::Graph::Column::Gender::Female,
-        2 => Analyze::Graph::Column::Gender::Male,
-        4 => Analyze::Graph::Column::Gender::NonBinary,
-        99 => Analyze::Graph::Column::Gender::Unknown
+        1 => Analyze::Graph::Column::GenderColumn::Female,
+        2 => Analyze::Graph::Column::GenderColumn::Male,
+        4 => Analyze::Graph::Column::GenderColumn::NonBinary,
+        99 => Analyze::Graph::Column::GenderColumn::Unknown
       }.freeze
     end
   end

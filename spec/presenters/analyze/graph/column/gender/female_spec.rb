@@ -1,6 +1,6 @@
 require 'rails_helper'
 include Analyze::Graph
-include Analyze::Graph::Column::Gender
+include Analyze::Graph::Column::GenderColumn
 describe StudentsByRace do
   let(:female) { create(:gender, qualtrics_code: 1, designation: 'Female') }
   let(:school) { create(:school) }

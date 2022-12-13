@@ -3,15 +3,11 @@
 module Analyze
   module Graph
     module Column
-      module Gender
-        class Female < GroupedBarColumnPresenter
-          include Analyze::Graph::Column::Gender::ScoreForGender
+      module RaceColumn
+        class Black < GroupedBarColumnPresenter
+          include Analyze::Graph::Column::ScoreForRace
           def label
-            'Female'
-          end
-
-          def basis
-            'student'
+            'Black'
           end
 
           def show_irrelevancy_message?
@@ -22,8 +18,8 @@ module Analyze
             false
           end
 
-          def gender
-            ::Gender.find_by_qualtrics_code 1
+          def race
+            Race.find_by_qualtrics_code 3
           end
         end
       end

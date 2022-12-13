@@ -3,9 +3,9 @@
 module Analyze
   module Graph
     module Column
-      module Gender
+      module GenderColumn
         class Unknown < GroupedBarColumnPresenter
-          include Analyze::Graph::Column::Gender::ScoreForGender
+          include Analyze::Graph::Column::GenderColumn::ScoreForGender
           def label
             'Unknown'
           end

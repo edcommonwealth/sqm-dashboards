@@ -1,6 +1,7 @@
 require 'rails_helper'
 include Analyze::Graph
 include Analyze::Graph::Column
+include Analyze::Graph::Column::RaceColumn
 describe StudentsByRace do
   let(:american_indian) { create(:race, qualtrics_code: 1) }
   let(:asian) { create(:race, qualtrics_code: 2) }

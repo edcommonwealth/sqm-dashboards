@@ -3,15 +3,11 @@
 module Analyze
   module Graph
     module Column
-      module Gender
-        class NonBinary < GroupedBarColumnPresenter
-          include Analyze::Graph::Column::Gender::ScoreForGender
+      module RaceColumn
+        class White < GroupedBarColumnPresenter
+          include Analyze::Graph::Column::ScoreForRace
           def label
-            'Non-Binary'
-          end
-
-          def basis
-            'student'
+            'White'
           end
 
           def show_irrelevancy_message?
@@ -22,8 +18,8 @@ module Analyze
             false
           end
 
-          def gender
-            ::Gender.find_by_qualtrics_code 4
+          def race
+            Race.find_by_qualtrics_code 5
           end
         end
       end

@@ -1,7 +1,7 @@
 module Analyze
   module Graph
     module Column
-      module Gender
+      module GenderColumn
         module ScoreForGender
           def score(year_index)
             academic_year = academic_years[year_index]
