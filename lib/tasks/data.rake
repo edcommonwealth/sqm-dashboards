@@ -69,6 +69,16 @@ namespace :data do
     Rails.cache.clear
   end
 
+  desc 'delete non-lowell schools and districts'
+  task delete_non_lowell: :environment do
+    schools = School.all.reject { |s| s.district.name == 'Lowell' }
+    Respondent.where(school: schools).delete_all
+    Survey.where(school: schools).delete_all
+    schools.each { |school| school.delete }
+    districts = District.all.reject { |district| district.name == 'Lowell' }
+    districts.each { |district| district.delete }
+  end
+
   task load_survey_responses_21_22: :environment do
     Dir.glob(Rails.root.join('data', 'survey_responses', '*2021-22*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
