@@ -7,7 +7,7 @@ module Analyze
         class Unknown < GroupedBarColumnPresenter
           include Analyze::Graph::Column::ScoreForRace
           def label
-            'Race/Ethnicity Not-Listed'
+            'Not Listed'
           end
 
           def show_irrelevancy_message?
