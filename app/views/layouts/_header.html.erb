@@ -10,12 +10,12 @@
 
       <div class="col d-flex justify-content-end">
         <select id="select-district" class="form-select" name="district" <%= District.count == 1 ? "hidden": ""  %> >
-            <% @districts.each do |district| %>
-              <option class="district-options" value="<%= district_url_for(district: district, academic_year: @academic_year) %>" <%= @district.slug == district.slug ? "selected" : nil %>>
-              <%= district.name %>
-              </option>
-            <% end %>
-          </select>
+          <% @districts.each do |district| %>
+            <option class="district-options" value="<%= district_url_for(district: district, academic_year: @academic_year) %>" <%= @district.slug == district.slug ? "selected" : nil %>>
+            <%= district.name %>
+            </option>
+          <% end %>
+        </select>
 
         <select id="select-school" class="ms-3 form-select" name="school">
           <% @schools.each do |school| %>
