@@ -194,4 +194,14 @@ namespace :data do
       SurveyItem.reset_counters(survey_item.id, :survey_item_responses)
     end
   end
+
+  desc 'scrape dese site for admin data'
+  task scrape_all: :environment do
+    puts 'scraping data from dese'
+    scrapers = [Dese::OneAOne, Dese::OneAThree, Dese::TwoAOne, Dese::TwoCOne, Dese::ThreeAOne, Dese::ThreeATwo,
+                Dese::ThreeBOne, Dese::ThreeBTwo, Dese::FourAOne, Dese::FourBTwo, Dese::FourDOne, Dese::FiveCOne, Dese::FiveDTwo]
+    scrapers.each do |scraper|
+      scraper.new.run_all
+    end
+  end
 end

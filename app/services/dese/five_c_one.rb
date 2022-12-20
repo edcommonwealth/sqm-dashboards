@@ -33,7 +33,9 @@ module Dese
         submit_id = 'btnViewReport'
         calculation = lambda { |headers, items|
           percent_graduated_index = headers['All Grades'] - 1
-          return 'NA' if items[percent_graduated_index] == '' || items[percent_graduated_index].strip == '.0'
+          if items[percent_graduated_index].nil? || items[percent_graduated_index] == '' || items[percent_graduated_index].strip == '.0'
+            return 'NA'
+          end
 
           percent_passing = items[percent_graduated_index].to_f
           benchmark = 77.5

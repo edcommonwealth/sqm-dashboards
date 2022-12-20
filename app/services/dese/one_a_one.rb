@@ -1,9 +1,15 @@
 require 'watir'
 require 'csv'
-# TODO convert this to simpler format  and add a run_all method
+# TODO: convert this to simpler format  and add a run_all method
 module Dese
   class OneAOne
+    attr_reader :filepath
+
     def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', '1A_1_teacher_data.csv'))
+      @filepath = filepath
+    end
+
+    def run_all
       url = 'https://profiles.doe.mass.edu/statereport/teacherdata.aspx'
       browser = Watir::Browser.new
       write_headers(filepath:)

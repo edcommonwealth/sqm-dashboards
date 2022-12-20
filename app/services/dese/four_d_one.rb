@@ -4,7 +4,13 @@ require 'csv'
 # TODO: convert this to simpler format  and add a run_all method
 module Dese
   class FourDOne
+    attr_reader :filepath
+
     def initialize(filepath: Rails.root.join('data', 'admin_data', 'dese', '4D_1_plans_of_grads.csv'))
+      @filepath = filepath
+    end
+
+    def run_all
       url = 'https://profiles.doe.mass.edu/statereport/plansofhsgrads.aspx'
       browser = Watir::Browser.new
       write_headers(filepath:)
@@ -32,7 +38,7 @@ module Dese
 
     def write_headers(filepath:)
       CSV.open(filepath, 'w') do |csv|
-        headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year','School Name', 'DESE ID', '4 Year Private College', '4 Year Public College', '2 Year Private College', '2 Year Public College',
+        headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID', '4 Year Private College', '4 Year Public College', '2 Year Private College', '2 Year Public College',
                    'Other Post Secondary', 'Apprenticeship', 'Work', 'Military', 'Other', 'Unknown', 'Total']
         csv << headers
       end
