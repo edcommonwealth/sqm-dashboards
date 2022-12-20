@@ -49,6 +49,16 @@ module AnalyzeHelper
     @empty_dataset[[school, academic_year]]
   end
 
+  def empty_survey_dataset?(measures:, school:, academic_year:)
+    @empty_survey_dataset ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = measures.none? do |measure|
+        response_rate = measure.subcategory.response_rate(school:, academic_year:)
+        response_rate.meets_student_threshold || response_rate.meets_teacher_threshold
+      end
+    end
+    @empty_survey_dataset[[school, academic_year]]
+  end
+
   def base_url
     analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @category,
                              subcategory: @subcategory)
