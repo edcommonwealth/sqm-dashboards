@@ -72,6 +72,7 @@ namespace :data do
   desc 'delete non-lowell schools and districts'
   task delete_non_lowell: :environment do
     schools = School.all.reject { |s| s.district.name == 'Lowell' }
+    ResponseRate.where(school: schools).delete_all
     Respondent.where(school: schools).delete_all
     Survey.where(school: schools).delete_all
     schools.each { |school| school.delete }
