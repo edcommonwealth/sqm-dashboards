@@ -29,7 +29,7 @@ class StudentLoader
   end
 
   def self.race_codes(row:)
-    race_codes = row['race'] || row['RACE'] || row['Race'] || '99'
+    race_codes = row['race'] || row['RACE'] || row['Race'] || row['What is your race/ethnicity?(Please select all that apply) - Selected Choice'] || row['What is your race/ethnicity?'] || '99'
     race_codes.split(',').map(&:to_i) || []
   end
 

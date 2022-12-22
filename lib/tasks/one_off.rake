@@ -40,19 +40,35 @@ namespace :one_off do
     end
   end
 
-  desc 'load a single file'
-  task load_single_file: :environment do
-    filepath = Rails.root.join('data', 'survey_responses',
-                               '2021-22_revere_somerville_wareham_student_survey_responses.csv')
-    puts "=====================> Loading data from csv at path: #{filepath}"
-    SurveyResponsesDataLoader.load_data filepath: filepath
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+  desc 'load stoklosa results for 2022-23'
+  task load_stoklosa: :environment do
+    survey_item_response_count = SurveyItemResponse.count
+    school = School.find_by_dese_id(1_600_360)
+    academic_year = AcademicYear.find_by_range('2022-23')
+
+    ['2022-23_stoklosa_student_survey_responses.csv',
+     '2022-23_stoklosa_teacher_survey_responses.csv'].each do |filepath|
+      filepath = Rails.root.join('data', 'survey_responses', filepath)
+      puts "=====================> Loading data from csv at path: #{filepath}"
+      SurveyResponsesDataLoader.load_data filepath:
+    end
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
+
     puts 'Resetting response rates'
-    ResponseRateLoader.reset
+    ResponseRateLoader.reset(schools: [school],
+                             academic_years: [academic_year])
+
+    Dir.glob(Rails.root.join('data', 'survey_responses',
+                             '2022-23_stoklosa_student_survey_responses.csv')).each do |file|
+      puts "=====================> Loading student data from csv at path: #{file}"
+      StudentLoader.load_data filepath: file, rules: [Rule::SkipNonLowellSchools]
+    end
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: true, schools: [school], academic_years: [academic_year])
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
-  desc 'load butler results for 2021-22'
+  desc 'load butler results for 2022-23'
   task load_butler: :environment do
     ['2022-23_butler_student_survey_responses.csv',
      '2022-23_butler_teacher_survey_responses.csv'].each do |filepath|
@@ -63,28 +79,6 @@ namespace :one_off do
     puts 'Resetting response rates'
     ResponseRateLoader.reset
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
-  end
-
-  desc 'load winchester results for 2021-22'
-  task load_winchester: :environment do
-    ['2021-22_winchester_student_survey_responses.csv',
-     '2021-22_winchester_teacher_survey_responses.csv'].each do |filepath|
-      filepath = Rails.root.join('data', 'survey_responses', filepath)
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset
-    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
-  end
-
-  desc 'load students'
-  task load_students: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '2021-22_*student*.csv')).each do |file|
-      puts "=====================> Loading student data from csv at path: #{file}"
-      StudentLoader.load_data filepath: file
-    end
-    puts "=====================> Completed loading #{Student.count} survey responses"
   end
 
   desc 'reset race score calculations'
