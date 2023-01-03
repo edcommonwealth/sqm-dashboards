@@ -19,6 +19,25 @@ class StudentLoader
     end
   end
 
+  def self.from_file(file:, rules: [])
+    headers = file.gets
+
+    survey_item_responses = []
+    until file.eof?
+      line = file.gets
+      next unless line.present?
+
+      CSV.parse(line, headers:).map do |row|
+        next if rules.any? do |rule|
+                  rule.new(row: SurveyItemValues.new(row:, headers:, genders: nil, survey_items: nil)).skip_row?
+                end
+
+        process_row(row:)
+      end
+
+    end
+  end
+
   def self.process_row(row:)
     races = process_races(codes: race_codes(row:))
     response_id = row['ResponseId'] || row['Responseid'] || row['ResponseID'] ||

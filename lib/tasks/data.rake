@@ -48,11 +48,11 @@ namespace :data do
 
     puts 'Resetting response rates'
     ResponseRateLoader.reset
-    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+    puts "=====================> Completed loading #{ResponseRate.count} response rates"
 
     puts 'Resetting race scores'
     RaceScoreLoader.reset(fast_processing: false)
-    puts "=====================> Completed loading #{RaceScore.count} survey responses"
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     Rails.cache.clear
   end

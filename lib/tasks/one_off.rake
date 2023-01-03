@@ -122,4 +122,13 @@ namespace :one_off do
     end
     pp output
   end
+
+  desc 'list the most recent admin data values'
+  task list_recent_admin_data_values: :environment do
+    range = 4.weeks.ago..1.second.ago
+    values = AdminDataValue.where(updated_at: range).group(:admin_data_item).count.map do |item|
+      [item[0].admin_data_item_id, item[0].scale.measure.measure_id]
+    end
+    puts values
+  end
 end
