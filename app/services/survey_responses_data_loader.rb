@@ -20,6 +20,25 @@ class SurveyResponsesDataLoader
     end
   end
 
+  def self.from_file(file:, rules: [])
+    headers = file.gets
+    genders_hash = genders
+    all_survey_items = survey_items(headers:)
+
+    survey_item_responses = []
+    until file.eof?
+      line = file.gets
+      next unless line.present?
+
+      CSV.parse(line, headers:).map do |row|
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items),
+                                             rules:)
+      end
+
+    end
+    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
+  end
+
   private
 
   def self.process_row(row:, rules:)

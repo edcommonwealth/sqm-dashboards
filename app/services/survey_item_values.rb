@@ -53,7 +53,11 @@ class SurveyItemValues
   end
 
   def school
-    @school ||= School.includes(:district).find_by_dese_id(dese_id)
+    @school ||= schools[dese_id]
+  end
+
+  def schools
+    @@schools ||= School.all.map { |school| [school.dese_id, school] }.to_h
   end
 
   def grade
