@@ -23,12 +23,8 @@ describe SurveyResponsesDataLoader do
   let(:non_binary) { Gender.find_by_qualtrics_code 4 }
   let(:unknown_gender) { Gender.find_by_qualtrics_code 99 }
 
-  before :each do
+  before :all do
     Rails.application.load_seed
-  end
-
-  after :each do
-    DatabaseCleaner.clean
   end
 
   describe 'self.load_data' do
