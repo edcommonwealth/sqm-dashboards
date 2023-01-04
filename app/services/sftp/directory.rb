@@ -4,7 +4,7 @@ require 'csv'
 
 module Sftp
   class Directory
-    def self.open(path: '/data/survey_responses/', &block)
+    def self.open(path: '/data/survey_responses/clean', &block)
       sftptogo_url = ENV['SFTPTOGO_URL']
       uri = URI.parse(sftptogo_url)
       Net::SFTP.start(uri.host, uri.user, password: uri.password) do |sftp|
