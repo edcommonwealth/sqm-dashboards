@@ -16,9 +16,9 @@
     "@rails/ujs": "^6.0.0",
     "babel-preset-es2015": "^6.24.1",
     "bootstrap": "^5.1.3",
+    "debounce": "^1.2.1",
     "esbuild": "^0.13.6",
-    "sass": "^1.43.4",
-    "debounce": "^1.2.1"
+    "sass": "^1.43.4"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
