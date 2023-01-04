@@ -26,6 +26,7 @@ class SurveyResponsesDataLoader
     all_survey_items = survey_items(headers:)
 
     survey_item_responses = []
+    row_count = 0
     until file.eof?
       line = file.gets
       next unless line.present?
@@ -35,8 +36,13 @@ class SurveyResponsesDataLoader
                                              rules:)
       end
 
+      row_count += 1
+      next unless row_count == 1000
+
+      SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
+      survey_item_responses = []
+      row_count = 0
     end
-    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
   end
 
   private
