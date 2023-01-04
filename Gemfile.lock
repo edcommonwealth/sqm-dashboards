@@ -193,6 +193,7 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.8.1)
     minitest (5.16.3)
     msgpack (1.5.2)
     multi_json (1.15.0)
@@ -207,9 +208,8 @@ GEM
       net-protocol
     newrelic_rpm (8.8.0)
     nio4r (2.5.8)
-    nokogiri (1.13.9-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.13.9-x86_64-linux)
+    nokogiri (1.13.9)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     omniauth (2.1.0)
       hashie (>= 3.4.6)
@@ -457,7 +457,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.2.0p0
 
 BUNDLED WITH
    2.3.3
