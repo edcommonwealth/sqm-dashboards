@@ -31,7 +31,7 @@ class Seeder
       district = District.find_or_create_by! name: district_name
       district.update! slug: district_name.parameterize, qualtrics_code: district_code
 
-      school = School.find_or_initialize_by dese_id: dese_id, district: district
+      school = School.find_or_initialize_by(dese_id:, district:)
       school.name = school_name
       school.qualtrics_code = school_code
       school.is_hs = marked? hs
@@ -52,7 +52,7 @@ class Seeder
 
       district = District.find_or_create_by! name: district_name
       dese_id = row['DESE School ID'].strip
-      school = School.find_or_initialize_by dese_id: dese_id, district: district
+      school = School.find_or_initialize_by(dese_id:, district:)
       academic_years = AcademicYear.all
       academic_years.each do |academic_year|
         short_form = row["Short Form Only (#{academic_year.range})"]
@@ -76,7 +76,7 @@ class Seeder
 
       district = District.find_or_create_by! name: district_name
 
-      school = School.find_by dese_id: dese_id, district: district
+      school = School.find_by(dese_id:, district:)
       schools << school
 
       academic_years = AcademicYear.all
@@ -85,7 +85,7 @@ class Seeder
         total_teachers = row["Total Teachers for Response Rate (#{academic_year.range})"]
         total_students = remove_commas(total_students)
         total_teachers = remove_commas(total_teachers)
-        respondent = Respondent.find_or_initialize_by school: school, academic_year: academic_year
+        respondent = Respondent.find_or_initialize_by(school:, academic_year:)
         respondent.total_students = total_students
         respondent.total_teachers = total_teachers
         respondent.academic_year = academic_year
@@ -112,7 +112,7 @@ class Seeder
                        short_description: row['Category Short Description'], slug: category_slugs[category_id], sort_index: category_slugs.keys.index(category_id)
 
       subcategory_id = row['Subcategory ID'].strip
-      subcategory = Subcategory.find_or_create_by! subcategory_id: subcategory_id, category: category
+      subcategory = Subcategory.find_or_create_by!(subcategory_id:, category:)
       subcategory.update! name: row['Subcategory'].strip, description: row['Subcategory Description'].strip
 
       measure_id = row['Measure ID'].strip
@@ -126,14 +126,14 @@ class Seeder
 
       next if row['Source'] == 'No source'
 
-      measure = Measure.find_or_create_by! measure_id: measure_id, subcategory: subcategory
+      measure = Measure.find_or_create_by!(measure_id:, subcategory:)
       measure.name = measure_name
       measure.description = measure_description
       measure.save!
 
       data_item_id = row['Survey Item ID'].strip
       scale_id = data_item_id.split('-')[0..1].join('-')
-      scale = Scale.find_or_create_by! scale_id: scale_id, measure: measure
+      scale = Scale.find_or_create_by!(scale_id:, measure:)
 
       if %w[Teachers Students].include? row['Source']
         survey_item = SurveyItem.where(survey_item_id: data_item_id, scale:).first_or_create
