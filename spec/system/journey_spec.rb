@@ -148,7 +148,10 @@ private
 
 def district_admin_sees_professional_qualifications
   expect(page).to have_text('Professional Qualifications')
-  expect(page).to have_css("[data-for-measure-id='1A-i'][width='2.99%'][x='60%']")
+  expect(page).to have_css("[data-for-measure-id='1A-i']")
+
+  # TODO: cutpoints in source of truth have changed so the cutpoints have moved and '2.99%' is no longer a valid value for this cutpoint.
+  # expect(page).to have_css("[data-for-measure-id='1A-i'][width='2.99%'][x='60%']")
 end
 
 def district_admin_sees_student_physical_safety

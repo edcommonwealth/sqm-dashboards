@@ -25,6 +25,13 @@ class StudentSurveyPresenter < DataItemPresenter
   end
 
   def descriptions_and_availability
-    survey_items.map(&:description)
+    survey_items.reject do |survey_item|
+      question_id = survey_item.survey_item_id.split('-')[2]
+      if question_id.present?
+        question_id.starts_with?('es')
+      else
+        false
+      end
+    end.map(&:description)
   end
 end
