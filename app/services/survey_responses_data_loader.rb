@@ -43,6 +43,8 @@ class SurveyResponsesDataLoader
       survey_item_responses = []
       row_count = 0
     end
+
+    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
   end
 
   private
