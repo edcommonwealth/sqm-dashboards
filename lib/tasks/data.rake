@@ -34,11 +34,17 @@ namespace :data do
 
   desc 'load survey responses for lowell schools'
   task load_survey_responses_for_lowell: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:, rules: [Rule::SkipNonLowellSchools]
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    Sftp::Directory.open(path: '/data/survey_responses/clean/') do |file|
+      SurveyResponsesDataLoader.from_file(file:)
     end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
+
+    Sftp::Directory.open(path: '/data/survey_responses/clean/') do |file|
+      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts 'Resetting response rates'
     ResponseRateLoader.reset
@@ -56,11 +62,11 @@ namespace :data do
     SurveyItemResponse.update_all(student_id: nil)
     StudentRace.delete_all
     Student.delete_all
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*student*.csv')).each do |file|
-      puts "=====================> Loading student data from csv at path: #{file}"
-      StudentLoader.load_data filepath: file, rules: [Rule::SkipNonLowellSchools]
+
+    Sftp::Directory.open(path: '/data/survey_responses/clean/') do |file|
+      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
     end
-    puts "=====================> Completed loading #{Student.count} students"
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts 'Resetting race scores'
     RaceScoreLoader.reset(fast_processing: false)
