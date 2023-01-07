@@ -75,14 +75,19 @@ module Dese
 
     def teacher_count(filepath:, dese_id:, year:)
       @teachers ||= {}
+      @years_with_data ||= Set.new
       if @teachers.count == 0
         CSV.parse(File.read(filepath), headers: true).map do |row|
           academic_year = row['Academic Year']
+          @years_with_data << academic_year
           school_id = row['DESE ID'].to_i
-          total = row['Teachers of color (%)'].gsub(',', '').to_f
+          total = row['Teachers of color (%)'].gsub(',', '')
+          total = 'NA' if total == '' || total.nil?
           @teachers[[school_id, academic_year]] = total
         end
       end
+      return 'NA' unless @years_with_data.include? year
+
       @teachers[[dese_id, year]]
     end
 
@@ -91,6 +96,7 @@ module Dese
         admin_data_item_id = 'a-cure-i1'
         url = 'https://profiles.doe.mass.edu/statereport/enrollmentbyracegender.aspx'
         range = academic_year.range
+
         selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
                       'ctl00_ContentPlaceHolder1_ddYear' => range }
         submit_id = 'btnViewReport'
@@ -100,8 +106,10 @@ module Dese
           dese_id = items[headers['School Code']].to_i
           non_white_student_percentage = (100 - white_number).to_f
           items.unshift(non_white_student_percentage)
+          count_of_teachers = teacher_count(filepath: filepaths[1], dese_id:, year: academic_year.range)
+          return 'NA' if count_of_teachers == 'NA'
 
-          non_white_teacher_percentage = teacher_count(filepath: filepaths[1], dese_id:, year: academic_year.range).to_f
+          non_white_teacher_percentage = count_of_teachers.to_f
           items.unshift(non_white_teacher_percentage)
 
           floor = 5
