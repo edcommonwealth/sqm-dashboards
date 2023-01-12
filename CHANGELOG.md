@@ -64,6 +64,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   + `bundle exec rake one_off:reset_race_scores` : limit which years/schools/measures/races are processed
   + `bundle exec rake data:reset_race_scores`  : reset all race scores
 - Add 'all data' radio button to analyze page
+- Read survey results from sftp
+- add admin data for 3A-i and 3B-i
+- Fix bug where cultural responsiveness gives a false score of 1 when there is actually no data for that year
 
 ## [Unreleased]
 
