@@ -55,7 +55,7 @@ class CategoryPresenter
     { 'Teachers & Leadership': 'blue',
       'School Culture': 'red',
       'Resources': 'black',
-      'Academic Learning': 'lime',
+      'Perceptions of Learning': 'lime',
       'Community & Wellbeing': 'teal' }
   end
 
@@ -63,7 +63,7 @@ class CategoryPresenter
     { 'Teachers & Leadership': 'apple-alt',
       'School Culture': 'school',
       'Resources': 'users-cog',
-      'Academic Learning': 'graduation-cap',
+      'Perceptions of Learning': 'graduation-cap',
       'Community & Wellbeing': 'heart' }
   end
 end
