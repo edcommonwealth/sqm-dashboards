@@ -166,7 +166,7 @@ def assigns_school_to_student_survey_item_responses
 end
 
 def loads_student_survey_item_response_values
-  expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 2
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 3
   expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
   expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
   expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
@@ -174,12 +174,12 @@ def loads_student_survey_item_response_values
 end
 
 def student_survey_item_response_count_matches_expected
-  expect(SurveyItemResponse.where(survey_item: s_phys_q1).count).to eq 5
+  expect(SurveyItemResponse.where(survey_item: s_phys_q1).count).to eq 6
   expect(SurveyItemResponse.where(survey_item: s_phys_q2).count).to eq 5
 end
 
 def captures_likert_scores_for_student_survey_item_responses
-  expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').where(survey_item: s_phys_q1)).to be_empty
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').where(survey_item: s_phys_q1).first.likert_score).to eq 3
   expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').where(survey_item: s_phys_q2)).to be_empty
 
   expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').where(survey_item: s_phys_q1)).to be_empty

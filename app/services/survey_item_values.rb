@@ -49,7 +49,7 @@ class SurveyItemValues
   end
 
   def likert_score(survey_item_id:)
-    row[survey_item_id]
+    row[survey_item_id] || row["#{survey_item_id}-1"]
   end
 
   def school
