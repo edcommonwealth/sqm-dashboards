@@ -26,7 +26,7 @@ describe CategoryPresenter do
   end
 
   let(:academic_learning_presenter) do
-    category = create(:category, name: 'Academic Learning')
+    category = create(:category, name: 'Perceptions of Learning')
     return CategoryPresenter.new(category:)
   end
 

@@ -161,7 +161,7 @@ def district_admin_sees_student_physical_safety
 end
 
 def district_admin_sees_problem_solving_emphasis
-  expect(page).to have_text('Problem Solving Emphasis')
+  expect(page).to have_text('Problem Solving')
   expect(page).to have_css("[data-for-measure-id='4C-i'][width='60.0%'][x='0.0%']")
 end
 
