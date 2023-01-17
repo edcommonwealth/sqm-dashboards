@@ -3,11 +3,24 @@ require 'csv'
 namespace :data do
   desc 'load survey responses'
   task load_survey_responses: :environment do
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+
     Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
     end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
+
+    SurveyItemResponse.update_all(student_id: nil)
+    StudentRace.delete_all
+    Student.delete_all
+
+    Dir.glob(Rails.root.join('data', 'survey_responses', '*student*.csv')).each do |file|
+      puts "=====================> Loading student data from csv at path: #{file}"
+      StudentLoader.load_data filepath: file
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts 'Resetting response rates'
     ResponseRateLoader.reset
