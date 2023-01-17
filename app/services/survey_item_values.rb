@@ -61,10 +61,7 @@ class SurveyItemValues
   end
 
   def grade
-    @grade ||= begin
-      raw_grade = (row['grade'] || row['Grade'] || row['What grade are you in?']).to_i
-      raw_grade == 0 ? nil : raw_grade
-    end
+    @grade ||= raw_grade = (row['grade'] || row['Grade'] || row['What grade are you in?']).to_i
   end
 
   def gender

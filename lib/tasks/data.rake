@@ -59,6 +59,7 @@ namespace :data do
 
   desc 'load students for lowell'
   task load_students_for_lowell: :environment do
+    student_count = Student.count
     SurveyItemResponse.update_all(student_id: nil)
     StudentRace.delete_all
     Student.delete_all
