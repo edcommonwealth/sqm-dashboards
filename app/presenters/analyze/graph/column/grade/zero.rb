@@ -23,7 +23,7 @@ module Analyze
           end
 
           def grade
-            1
+            0
           end
         end
       end
