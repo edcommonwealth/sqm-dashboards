@@ -93,14 +93,25 @@ describe SurveyResponsesDataLoader do
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 27
       end
 
-      context 'when loading 22-23 bundler survey responses' do
+      context 'when loading 22-23 butler survey responses' do
         before :each do
           SurveyResponsesDataLoader.load_data filepath: path_to_butler_student_responses,
                                               rules: [Rule::SkipNonLowellSchools]
         end
 
         it 'loads all the responses for Butler' do
-          expect(SurveyItemResponse.count).to eq 310
+          expect(SurveyItemResponse.count).to eq 400
+        end
+
+        it 'blank entries for grade get loaded as nils, not zero values' do
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_1').first.grade).to eq 7
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_2').first.grade).to eq 7
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_3').first.grade).to eq 7
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_4').first.grade).to eq 5
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_5').first.grade).to eq 7
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_6').first.grade).to eq 6
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_7').first.grade).to eq nil
+          expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_8').first.grade).to eq 0
         end
       end
     end
