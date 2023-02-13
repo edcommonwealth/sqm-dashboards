@@ -156,4 +156,40 @@ namespace :one_off do
 
     Rails.cache.clear
   end
+
+  desc 'delete 2022-23 survey responses'
+  task delete_survey_responses_2022_23: :environment do
+    response_count = SurveyItemResponse.all.count
+    SurveyItemResponse.where(academic_year: AcademicYear.find_by_range('2022-23')).delete_all
+
+    puts "=====================> Deleted #{response_count - SurveyItemResponse.all.count} survey responses"
+    # should be somewhere near 295738
+  end
+
+  desc 'load survey responses for lowell schools 2022-23'
+  task load_survey_responses_for_lowell_2022_23: :environment do
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    path = '/data/survey_responses/2022-23/'
+
+    Sftp::Directory.open(path:) do |file|
+      SurveyResponsesDataLoader.from_file(file:)
+    end
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
+
+    Sftp::Directory.open(path:) do |file|
+      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
+
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset academic_years: [AcademicYear.find_by_range('2022-23')]
+    puts "=====================> Completed loading #{ResponseRate.count} response rates"
+
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false, academic_years: [AcademicYear.find_by_range('2022-23')])
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+
+    Rails.cache.clear
+  end
 end
