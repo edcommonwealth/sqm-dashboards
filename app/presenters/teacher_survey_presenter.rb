@@ -16,18 +16,15 @@ class TeacherSurveyPresenter < DataItemPresenter
     "teacher-survey-items-#{@measure_id}"
   end
 
-  def item_descriptions
-    return ['Items available upon request to MCIEA.'] if @measure_id == '1B-i'
-
-    @survey_items.map(&:prompt)
-  end
-
   def reason_for_insufficiency
     'low response rate'
   end
 
   def descriptions_and_availability
-    return [DataAvailability.new('1B-i', 'Items available upon request to MCIEA.', true)] if @measure_id == '1B-i'
+    if @measure_id == '1B-i'
+      return [DataAvailability.new('1B-i', 'Items available upon request to Lowell Public Schools.',
+                                   true)]
+    end
 
     survey_items.map do |survey_item|
       DataAvailability.new(survey_item.survey_item_id, survey_item.prompt, true)

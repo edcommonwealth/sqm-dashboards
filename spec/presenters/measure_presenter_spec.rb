@@ -41,8 +41,6 @@ describe MeasurePresenter do
       expect(measure_presenter.data_item_presenters.first.id).to eq 'teacher-survey-items-measure-id'
       expect(measure_presenter.data_item_presenters.first.title).to eq 'Teacher survey'
       expect(measure_presenter.data_item_presenters.first.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
-      expect(measure_presenter.data_item_presenters.first.item_descriptions).to eq ['A teacher survey item prompt',
-                                                                                    'Another teacher survey item prompt']
     end
   end
 
@@ -61,15 +59,11 @@ describe MeasurePresenter do
       expect(first_data_item_presenter.id).to eq 'teacher-survey-items-measure-id'
       expect(first_data_item_presenter.title).to eq 'Teacher survey'
       expect(first_data_item_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
-      expect(first_data_item_presenter.item_descriptions).to eq ['A teacher survey item prompt',
-                                                                 'Another teacher survey item prompt']
 
       second_data_item_presenter = measure_presenter.data_item_presenters[1]
       expect(second_data_item_presenter.id).to eq 'admin-data-items-measure-id'
       expect(second_data_item_presenter.title).to eq 'School admin data'
       expect(second_data_item_presenter.data_item_accordion_id).to eq 'data-item-accordion-measure-id'
-      expect(second_data_item_presenter.item_descriptions).to eq ['An admin data item description',
-                                                                  'Another admin data item description']
     end
   end
 

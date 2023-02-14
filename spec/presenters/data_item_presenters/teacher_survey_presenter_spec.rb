@@ -32,28 +32,6 @@ describe TeacherSurveyPresenter do
     survey_item_4
   end
 
-  describe '#item_description' do
-    context 'When the presenter is based on measure 1A-1' do
-      it 'returns a list of survey prompts for teacher survey items' do
-        expect(TeacherSurveyPresenter.new(measure_id: measure_1A_i.measure_id, survey_items: measure_1A_i.teacher_survey_items,
-                                          has_sufficient_data: true, school:, academic_year:).item_descriptions).to eq [
-                                            'Given your preparation for teaching how comfortable are you teaching at the grade-level you have been assigned?',
-                                            'How prepared are you for teaching the topics that you are expected to teach in your assignment?',
-                                            'How confident are you in working with the student body at your school?'
-                                          ]
-      end
-    end
-
-    context 'When the presenter is based on measure 1B-i' do
-      it 'returns a message hiding the actual prompts.  Instead it presents a message telling the user they can ask for more information' do
-        expect(TeacherSurveyPresenter.new(measure_id: measure_1B_i.measure_id, survey_items: measure_1B_i.teacher_survey_items,
-                                          has_sufficient_data: true, school:, academic_year:).item_descriptions).to eq [
-                                            'Items available upon request to MCIEA.'
-                                          ]
-      end
-    end
-  end
-
   describe '#descriptions_and_availability' do
     context 'When the presenter is NOT based on measure 1B-i' do
       it 'returns a list containing the survey item properties' do
@@ -86,7 +64,7 @@ describe TeacherSurveyPresenter do
             academic_year:
           ).descriptions_and_availability
         ).to eq [
-          DataAvailability.new('1B-i', 'Items available upon request to MCIEA.', true)
+          DataAvailability.new('1B-i', 'Items available upon request to Lowell Public Schools.', true)
         ]
       end
     end
