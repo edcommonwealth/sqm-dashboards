@@ -16,10 +16,6 @@ class StudentSurveyPresenter < DataItemPresenter
     "student-survey-items-#{@measure_id}"
   end
 
-  def item_descriptions
-    @survey_items.map(&:prompt)
-  end
-
   def reason_for_insufficiency
     'low response rate'
   end

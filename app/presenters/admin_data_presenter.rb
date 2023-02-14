@@ -14,10 +14,6 @@ class AdminDataPresenter < DataItemPresenter
     "admin-data-items-#{@measure_id}"
   end
 
-  def item_descriptions
-    @admin_data_items.map(&:description)
-  end
-
   def reason_for_insufficiency
     'limited availability'
   end
