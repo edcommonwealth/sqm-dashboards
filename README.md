@@ -2,7 +2,7 @@
 
 This project contains three pieces:
 
-- A webapp for visualizing and understanding MCIEA survey data
+- A webapp for visualizing and understanding survey data
 - Tasks for processing and indexing raw survey data
 - Experimental work to conduct survey samples via text message
 

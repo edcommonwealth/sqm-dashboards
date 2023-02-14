@@ -6,7 +6,7 @@ module Dese
       CSV.parse(File.read(filepath), headers: true) do |row|
         score = likert_score(row:)
         unless valid_likert_score(likert_score: score)
-          school = School.find_by_dese_id(row['DESE ID']) || School.new(name: 'Non-MCIEA school',
+          school = School.find_by_dese_id(row['DESE ID']) || School.new(name: 'School not in consortium',
                                                                         dese_id: row['DESE ID'])
           puts "Invalid score: #{score}
         for school: #{school.name}
