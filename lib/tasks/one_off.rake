@@ -45,7 +45,7 @@ namespace :one_off do
     filepath = Rails.root.join('data', 'survey_responses',
                                '2021-22_revere_somerville_wareham_student_survey_responses.csv')
     puts "=====================> Loading data from csv at path: #{filepath}"
-    SurveyResponsesDataLoader.load_data filepath: filepath
+    SurveyResponsesDataLoader.load_data(filepath:)
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
     puts 'Resetting response rates'
     ResponseRateLoader.reset
@@ -136,5 +136,13 @@ namespace :one_off do
       [item[0].admin_data_item_id, item[0].scale.measure.measure_id]
     end
     puts values
+  end
+
+  desc 'delete survey item responses for 2016-2017'
+  task delete_survey_item_responses_2016_17: :environment do
+    academic_years = AcademicYear.where(range: %w[2016-17 2017-18])
+    response_count = SurveyItemResponse.where(academic_year: academic_years).count
+    SurveyItemResponse.where(academic_year: academic_years).delete_all
+    puts "Deleted #{response_count} survey item responses"
   end
 end
