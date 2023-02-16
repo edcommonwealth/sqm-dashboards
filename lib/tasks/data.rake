@@ -3,27 +3,28 @@ require 'csv'
 namespace :data do
   desc 'load survey responses'
   task load_survey_responses: :environment do
-    survey_item_response_count = surveyitemresponse.count
-    student_count = student.count
-    sftp.directory.open(path: '/data/survey_responses/clean/') do |file|
-      surveyresponsesdataloader.from_file(file:)
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    path = '/data/survey_responses/clean/'
+    Sftp::Directory.open(path:) do |file|
+      SurveyResponsesDataLoader.from_file(file:)
     end
-    puts "=====================> completed loading #{surveyitemresponse.count - survey_item_response_count} survey responses. #{surveyitemresponse.count} total responses in the database"
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 
-    sftp.directory.open(path: '/data/survey_responses/clean/') do |file|
-      studentloader.from_file(file:, rules: [rule.skipnonlowellschools])
+    Sftp::Directory.open(path:) do |file|
+      StudentLoader.from_file(file:, rules: [])
     end
-    puts "=====================> completed loading #{student.count - student_count} students. #{student.count} total students"
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
-    puts 'resetting response rates'
-    responserateloader.reset
-    puts "=====================> completed loading #{responserate.count} response rates"
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset
+    puts "=====================> Completed loading #{ResponseRate.count} response rates"
 
-    puts 'resetting race scores'
-    racescoreloader.reset(fast_processing: false)
-    puts "=====================> completed loading #{racescore.count} race scores"
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false)
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
 
-    rails.cache.clear
+    Rails.cache.clear
   end
 
   desc 'seed only lowell'
@@ -40,27 +41,28 @@ namespace :data do
 
   desc 'load survey responses for lowell schools'
   task load_survey_responses_for_lowell: :environment do
-    survey_item_response_count = surveyitemresponse.count
-    student_count = student.count
-    sftp.directory.open(path: '/data/survey_responses/clean/') do |file|
-      surveyresponsesdataloader.from_file(file:)
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    path = '/data/survey_responses/clean/'
+    Sftp::Directory.open(path:) do |file|
+      SurveyResponsesDataLoader.from_file(file:)
     end
-    puts "=====================> completed loading #{surveyitemresponse.count - survey_item_response_count} survey responses. #{surveyitemresponse.count} total responses in the database"
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 
-    sftp.directory.open(path: '/data/survey_responses/clean/') do |file|
-      studentloader.from_file(file:, rules: [rule.skipnonlowellschools])
+    Sftp::Directory.open(path:) do |file|
+      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
     end
-    puts "=====================> completed loading #{student.count - student_count} students. #{student.count} total students"
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
-    puts 'resetting response rates'
-    responserateloader.reset
-    puts "=====================> completed loading #{responserate.count} response rates"
+    puts 'Resetting response rates'
+    ResponseRateLoader.reset
+    puts "=====================> Completed loading #{ResponseRate.count} response rates"
 
-    puts 'resetting race scores'
-    racescoreloader.reset(fast_processing: false)
-    puts "=====================> completed loading #{racescore.count} race scores"
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false)
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
 
-    rails.cache.clear
+    Rails.cache.clear
   end
 
   desc 'load students for lowell'
