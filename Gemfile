@@ -59,12 +59,12 @@ gem 'selenium-webdriver', '~> 4.4'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'parallel_tests'
   gem 'rack-mini-profiler'
   gem 'rspec-rails', '~> 5.1.0'
   gem 'standard'
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
