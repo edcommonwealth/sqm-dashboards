@@ -139,7 +139,7 @@ namespace :one_off do
   end
 
   desc 'delete survey item responses for 2016-2018'
-  task delete_survey_item_responses_2016_18: :environment do
+  task delete_survey_responses_2016_18: :environment do
     academic_years = AcademicYear.where(range: %w[2016-17 2017-18])
     response_count = SurveyItemResponse.where(academic_year: academic_years).count
     SurveyItemResponse.where(academic_year: academic_years).delete_all
@@ -151,7 +151,7 @@ namespace :one_off do
     survey_item_response_count = SurveyItemResponse.count
     academic_years = AcademicYear.where(range: %w[2016-17 2017-18])
     student_count = Student.count
-    path = '/data/survey_responses/clean/2016-18'
+    path = '/data/survey_responses/2016_18'
     Sftp::Directory.open(path:) do |file|
       SurveyResponsesDataLoader.from_file(file:)
     end
@@ -166,9 +166,9 @@ namespace :one_off do
     ResponseRateLoader.reset(academic_years:)
     puts "=====================> Completed loading #{ResponseRate.count} response rates"
 
-    # puts 'Resetting race scores'
-    # RaceScoreLoader.reset(fast_processing: false)
-    # puts "=====================> Completed loading #{RaceScore.count} race scores"
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false, academic_years:)
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     Rails.cache.clear
   end
