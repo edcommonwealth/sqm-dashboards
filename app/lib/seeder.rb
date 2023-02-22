@@ -166,6 +166,10 @@ class Seeder
     DemographicLoader.load_data(filepath: csv_file)
   end
 
+  def seed_enrollment(csv_file)
+    EnrollmentLoader.load_data(filepath: csv_file)
+  end
+
   private
 
   def marked?(mark)

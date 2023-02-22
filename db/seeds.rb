@@ -8,3 +8,7 @@ seeder.seed_surveys Rails.root.join('data', 'master_list_of_schools_and_district
 seeder.seed_respondents Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
 seeder.seed_sqm_framework Rails.root.join('data', 'sqm_framework.csv')
 seeder.seed_demographics Rails.root.join('data', 'demographics.csv')
+
+Dir.glob(Rails.root.join('data', 'enrollment', '*')).each do |file|
+  seeder.seed_enrollment(file)
+end

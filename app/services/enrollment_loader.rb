@@ -7,7 +7,7 @@ class EnrollmentLoader
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = EnrollmentRowValues.new(row:)
 
-      next unless row.school && row.academic_year
+      next unless row.school.present? && row.academic_year.present?
 
       create_enrollment_entry(row:)
     end
@@ -46,8 +46,8 @@ class EnrollmentRowValues
 
   def school
     @school ||= begin
-      school_code = row['School Code']
-      School.find_by_dese_id(school_code)
+      dese_id = row['School Code'].try(:strip).to_i
+      School.find_by_dese_id(dese_id)
     end
   end
 
