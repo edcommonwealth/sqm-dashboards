@@ -29,4 +29,7 @@ class SurveyItemResponse < ActiveRecord::Base
 
   # grouped_responses = SurveyItemResponse.where(academic_year:, school:, survey_item: student_survey_items).group(["survey_item_id, grade"]).count
   #  grouped_responses = SurveyItemResponse.select("survey_item_id, grade, count(survey_item_id) as count").group("survey_item_id, grade")
+  #  grade_zeroitems = SurveyItemResponse.where(grade: 0, school:, academic_year:).select(:survey_item_id).distinct.to_set
+  #  grade_zeroitems.subset? all_student_survey_items
+  #  SurveyItem.includes(:survey_item_responses).where("survey_item_responses.grade": 0,"survey_item_responses.school": school , "survey_item_responses.academic_year": academic_year).distinct(:survey_item_id).count
 end
