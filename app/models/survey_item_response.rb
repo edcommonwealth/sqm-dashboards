@@ -17,13 +17,16 @@ class SurveyItemResponse < ActiveRecord::Base
                            where.not(school: boston.schools) if boston.present?
                          }
 
-  scope :averages_for_grade, ->(survey_items, school, academic_year, grade) {
-            SurveyItemResponse.where(survey_item: survey_items, school:,
-                                                academic_year: , grade:).group(:survey_item).average(:likert_score)
+  scope :averages_for_grade, lambda { |survey_items, school, academic_year, grade|
+    SurveyItemResponse.where(survey_item: survey_items, school:,
+                             academic_year:, grade:).group(:survey_item).average(:likert_score)
   }
 
-  scope :averages_for_gender, ->(survey_items, school, academic_year, gender) {
-            SurveyItemResponse.where(survey_item: survey_items, school:,
-                                                academic_year: , gender:).group(:survey_item).average(:likert_score)
+  scope :averages_for_gender, lambda { |survey_items, school, academic_year, gender|
+    SurveyItemResponse.where(survey_item: survey_items, school:,
+                             academic_year:, gender:).group(:survey_item).average(:likert_score)
   }
+
+  # grouped_responses = SurveyItemResponse.where(academic_year:, school:, survey_item: student_survey_items).group(["survey_item_id, grade"]).count
+  #  grouped_responses = SurveyItemResponse.select("survey_item_id, grade, count(survey_item_id) as count").group("survey_item_id, grade")
 end
