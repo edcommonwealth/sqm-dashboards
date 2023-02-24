@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 
+# SurveyItem.includes(%i[scale measure subcategory]).where("scale.measure.subcategory": subcategory).first.subcategory
+# SurveyItem.survey_items_for_grade_and_subcategory(school, academic_year, 0, subcategory)
+# SurveyItem.includes(:survey_item_responses)
+#        .includes(:subcategory)
+#        .where("survey_item_responses.grade": grade,
+#               "survey_item_responses.school": school,
+#               "survey_item_responses.academic_year": academic_year,
+#               survey_item_id: subcategory.survey_items.pluck(:survey_item_id
+#               )).count
 class SurveyItem < ActiveRecord::Base
   belongs_to :scale, counter_cache: true
   has_one :measure, through: :scale
@@ -32,12 +41,25 @@ class SurveyItem < ActiveRecord::Base
     includes(:survey_item_responses)
       .where("survey_item_responses.grade": grade,
              "survey_item_responses.school": school,
-             "survey_item_responses.academic_year": academic_year)
-      .pluck(:survey_item_id).to_set
+             "survey_item_responses.academic_year": academic_year).distinct
+  }
+
+  scope :survey_item_ids_for_grade, lambda { |school, academic_year, grade|
+    survey_items_for_grade(school, academic_year, grade).pluck(:survey_item_id)
+  }
+
+  scope :survey_items_for_grade_and_subcategory, lambda { |school, academic_year, grade, subcategory|
+    includes(:survey_item_responses)
+      .where(
+        survey_item_id: subcategory.survey_items.pluck(:survey_item_id),
+        "survey_item_responses.school": school,
+        "survey_item_responses.academic_year": academic_year,
+        "survey_item_responses.grade": grade
+      )
   }
 
   scope :survey_type_for_grade, lambda { |school, academic_year, grade|
-    survey_items_set_by_grade = survey_items_for_grade(school, academic_year, grade)
+    survey_items_set_by_grade = survey_items_for_grade(school, academic_year, grade).to_set
     if survey_items_set_by_grade.size > 0 && survey_items_set_by_grade.subset?(early_education_surveys.pluck(:survey_item_id).to_set)
       return :early_education
     end
@@ -45,6 +67,7 @@ class SurveyItem < ActiveRecord::Base
     :regular
   }
 
+  # Do I need this?
   def description
     DataAvailability.new(survey_item_id, prompt, true)
   end

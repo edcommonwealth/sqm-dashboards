@@ -1,8 +1,23 @@
 # frozen_string_literal: true
 
 class StudentResponseRateCalculator < ResponseRateCalculator
+  def rate; end
+
   private
 
+  # def rate
+  # check to see if enrollment data is available
+  #   if not, run the dese loader to get the data
+  #   then upload the enrollment data into the db
+  #
+  # if you still don't see enrollment for the school, raise an error and return 100 from this method
+  #
+  #  Get the enrollment information from the db
+  #  Get the list of all grades
+  #  For each grade, get the survey items with data
+  #
+  #
+  #  All methods below will need to specify a grade
   def survey_item_count
     @survey_item_count ||= begin
       survey_items = SurveyItem.includes(%i[scale

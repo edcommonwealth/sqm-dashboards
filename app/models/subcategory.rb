@@ -4,6 +4,7 @@ class Subcategory < ActiveRecord::Base
   belongs_to :category, counter_cache: true
 
   has_many :measures
+  has_many :survey_items, through: :measures
 
   def score(school:, academic_year:)
     scores = measures.map do |measure|
