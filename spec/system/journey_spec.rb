@@ -43,15 +43,15 @@ describe 'District Admin', js: true do
   # let(:username) { 'winchester' }
   # let(:password) { 'winchester!' }
   let(:respondents) do
-    respondents = Respondent.where(school:, academic_year: ay_2021_22).first
-    respondents.total_students = 8
-    respondents.total_teachers = 8
-    respondents.save
+    respondent = create(:respondent, school:, academic_year: ay_2021_22)
+    respondent.total_students = 8
+    respondent.total_teachers = 8
+    respondent.save
 
-    respondents = Respondent.where(school:, academic_year: ay_2019_20).first
-    respondents.total_students = 8
-    respondents.total_teachers = 8
-    respondents.save
+    respondent = create(:respondent, school:, academic_year: ay_2019_20)
+    respondent.total_students = 8
+    respondent.total_teachers = 8
+    respondent.save
   end
 
   before :each do
