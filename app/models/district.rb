@@ -15,5 +15,7 @@ class District < ApplicationRecord
     self.slug ||= name.parameterize
   end
 
-  scope :boston, -> { where(name: 'Boston') }
+  def self.boston
+    @@boston ||= District.find_by_name('Boston')
+  end
 end
