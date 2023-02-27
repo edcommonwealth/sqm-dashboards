@@ -39,10 +39,6 @@ class ResponseRateCalculator
     Survey.find_by(school:, academic_year:)
   end
 
-  def raw_response_rate
-    (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
-  end
-
   def average_responses_per_survey_item
     response_count / survey_item_count.to_f
   end
