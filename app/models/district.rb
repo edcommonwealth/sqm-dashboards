@@ -16,6 +16,6 @@ class District < ApplicationRecord
   end
 
   def self.boston
-    @@boston ||= District.find_by_name('Boston')
+    District.find_by_name('Boston')
   end
 end
