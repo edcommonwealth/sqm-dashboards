@@ -3,11 +3,11 @@ require 'rails_helper'
 describe ResponseRateLoader do
   let(:school) { School.find_by_slug 'milford-high-school' }
   let(:academic_year) { AcademicYear.find_by_range '2020-21' }
-  let(:respondents) do
-    respondents = Respondent.where(school:, academic_year:).first
-    respondents.total_students = 10
-    respondents.total_teachers = 10
-    respondents.save
+  let(:respondent) do
+    respondent = create(:respondent, school:, academic_year:)
+    respondent.total_students = 10
+    respondent.total_teachers = 10
+    respondent.save
   end
 
   let(:short_form_survey) do
@@ -37,7 +37,7 @@ describe ResponseRateLoader do
 
   before :each do
     Rails.application.load_seed
-    respondents
+    respondent
   end
 
   after :each do
@@ -101,7 +101,7 @@ describe ResponseRateLoader do
 
       context 'and no respondent entry exists for the school and year' do
         before do
-          Respondent.destroy_all
+          Respondent.delete_all
           create_list(:survey_item_response, 5, survey_item: s_acst_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: s_poaf_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: t_phya_q2, likert_score: 3, school:, academic_year:)
