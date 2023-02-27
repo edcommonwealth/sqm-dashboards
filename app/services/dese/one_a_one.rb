@@ -1,6 +1,6 @@
 require 'watir'
-require 'csv'
-# TODO: convert this to simpler format  and add a run_all method
+# TODO: use blocks to pass a block of code like other DESE scrapers
+
 module Dese
   class OneAOne
     attr_reader :filepath

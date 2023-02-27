@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'fileutils'
-require 'csv'
 
 RSpec.describe Dese::TwoCOne do
   let(:academic_years) do

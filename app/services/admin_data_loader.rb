@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 class AdminDataLoader
   def self.load_data(filepath:)
     CSV.parse(File.read(filepath), headers: true) do |row|

@@ -1,5 +1,4 @@
 require 'watir'
-require 'csv'
 
 # TODO: convert this to simpler format  and add a run_all method
 module Dese

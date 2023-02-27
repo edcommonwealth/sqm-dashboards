@@ -1,6 +1,5 @@
 require 'net/sftp'
 require 'uri'
-require 'csv'
 
 module Sftp
   class Directory

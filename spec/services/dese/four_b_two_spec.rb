@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'fileutils'
-require 'csv'
 
 RSpec.describe Dese::FourBTwo do
   let(:academic_years) do

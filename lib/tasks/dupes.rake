@@ -1,5 +1,3 @@
-require 'csv'
-
 namespace :dupes do
   # produce CSV file that displays:
   # | district_name | school_name    | school_slug | created_at | updated_at |

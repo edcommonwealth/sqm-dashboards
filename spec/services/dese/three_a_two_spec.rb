@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'fileutils'
-require 'csv'
 require "#{Rails.root}/app/lib/seeder"
 
 RSpec.describe Dese::ThreeATwo do

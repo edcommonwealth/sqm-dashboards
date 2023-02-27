@@ -1,5 +1,3 @@
-require 'csv'
-
 namespace :data do
   desc 'load survey responses'
   task load_survey_responses: :environment do

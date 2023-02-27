@@ -1,5 +1,3 @@
-require 'csv'
-
 class Seeder
   attr_reader :rules
 

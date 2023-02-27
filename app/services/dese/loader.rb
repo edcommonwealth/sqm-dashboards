@@ -1,5 +1,3 @@
-require 'csv'
-
 module Dese
   class Loader
     def self.load_data(filepath:)

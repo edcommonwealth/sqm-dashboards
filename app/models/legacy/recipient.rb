@@ -1,5 +1,3 @@
-require 'csv'
-
 module Legacy
   class Recipient < ApplicationRecord
     belongs_to :school

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 class StudentLoader
   def self.load_data(filepath:, rules: [])
     File.open(filepath) do |file|

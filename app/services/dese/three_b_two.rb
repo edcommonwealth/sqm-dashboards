@@ -1,5 +1,4 @@
 require 'watir'
-require 'csv'
 
 module Dese
   class ThreeBTwo

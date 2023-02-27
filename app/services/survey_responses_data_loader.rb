@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 class SurveyResponsesDataLoader
   def self.load_data(filepath:, rules: [Rule::NoRule])
     File.open(filepath) do |file|
