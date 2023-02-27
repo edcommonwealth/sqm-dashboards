@@ -4,13 +4,18 @@ require 'csv'
 
 class EnrollmentLoader
   def self.load_data(filepath:)
+    schools = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = EnrollmentRowValues.new(row:)
 
       next unless row.school.present? && row.academic_year.present?
 
+      schools << row.school
+
       create_enrollment_entry(row:)
     end
+
+    # Respondent.where.not(school: schools).destroy_all
   end
 
   private
