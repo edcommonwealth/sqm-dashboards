@@ -70,7 +70,7 @@ RSpec.describe Report::Pillar, type: :model do
       pillar = Report::Pillar.new(school:, measures:, indicator: 'The Teaching Environment', period: 'Current',
                                   academic_year: academic_year_1)
       expect(pillar.score).to eq 4.5
-      expect(pillar.zone).to eq 'approval'
+      expect(pillar.zone).to eq 'Approval'
     end
   end
 end

@@ -15,7 +15,7 @@ module Report
     end
 
     def pillar
-      pillars[indicator.to_sym]
+      PILLARS[indicator.to_sym]
     end
 
     def score
@@ -38,12 +38,12 @@ module Report
                         approval_low_benchmark:,
                         ideal_low_benchmark:)
 
-      zones.zone_for_score(score).type.to_s
+      zones.zone_for_score(score).type.to_s.capitalize
     end
 
     private
 
-    def pillars
+    PILLARS =
       { "Teaching Environment": 'Operational Efficiency',
         "Safety": 'Safe and Welcoming Environment',
         "Relationships": 'Safe and Welcoming Environment',
@@ -55,7 +55,6 @@ module Report
         "Student Commitment To Learning": 'Academics and Student Achievement',
         "Critical Thinking": 'Academics and Student Achievement',
         "College & Career Readiness": 'Academics and Student Achievement' }
-    end
 
     def watch_low_benchmark
       measures.map do |measure|
