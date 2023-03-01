@@ -29,16 +29,17 @@ module Report
     end
 
     INDICATORS =
-      { "Teaching Environment": [Measure.find_by_measure_id('1A-iii'), Measure.find_by_measure_id('1B-ii')],
-        "Safety": Subcategory.find_by_subcategory_id('2A').measures,
-        "Relationships": Subcategory.find_by_subcategory_id('2B').measures,
-        "Academic Orientation": Subcategory.find_by_subcategory_id('2C').measures,
-        "Facilities & Personnel": Subcategory.find_by_subcategory_id('3A').measures,
-        "Family-School Relationships": [Measure.find_by_measure_id('3C-i')],
-        "Community Involvement & External Partners": [Measure.find_by_measure_id('3C-ii')],
-        "Perception of Performance": Subcategory.find_by_subcategory_id('4A').measures,
-        "Student Commitment To Learning": Subcategory.find_by_subcategory_id('4B').measures,
-        "Critical Thinking": Subcategory.find_by_subcategory_id('4C').measures,
-        "College & Career Readiness": Subcategory.find_by_subcategory_id('4D').measures }
+      { "Teaching Environment": [Measure.includes(%i[subcategory admin_data_items]).find_by_measure_id('1A-iii'), Measure.includes(%i[subcategory admin_data_items]).find_by_measure_id('1B-ii')],
+        "Safety": Subcategory.find_by_subcategory_id('2A').measures.includes(:admin_data_items),
+        "Relationships": Subcategory.find_by_subcategory_id('2B').measures.includes(:admin_data_items),
+        "Academic Orientation": Subcategory.find_by_subcategory_id('2C').measures.includes(:admin_data_items),
+        "Facilities & Personnel": Subcategory.find_by_subcategory_id('3A').measures.includes(:admin_data_items),
+        "Family-School Relationships": [Measure.includes(%i[subcategory admin_data_items]).find_by_measure_id('3C-i')],
+        "Community Involvement & External Partners": [Measure.includes(%i[subcategory
+                                                                          admin_data_items]).find_by_measure_id('3C-ii')],
+        "Perception of Performance": Subcategory.find_by_subcategory_id('4A').measures.includes(:admin_data_items),
+        "Student Commitment To Learning": Subcategory.find_by_subcategory_id('4B').measures.includes(:admin_data_items),
+        "Critical Thinking": Subcategory.find_by_subcategory_id('4C').measures.includes(:admin_data_items),
+        "College & Career Readiness": Subcategory.find_by_subcategory_id('4D').measures.includes(:admin_data_items) }
   end
 end
