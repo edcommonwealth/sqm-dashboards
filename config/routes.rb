@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get :reports, to: 'reports#index'
+  get 'reports/gps', to: 'gps#index'
+
   get '/welcome', to: 'home#index'
   root to: 'home#index'
 end
