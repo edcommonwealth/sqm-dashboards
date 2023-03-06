@@ -42,7 +42,7 @@ module Dese
     def run_a_pcom_i3
       filepath = filepaths[1]
       headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
-                 'African American (%)', 'Asian (%)', 'Hispanic (%)', 'White (%)', 'Native Hawaiian, Pacific Islander (%)',
+                 'African American (%)', 'Asian (%)', 'Hispanic (%)', 'White (%)', 'Native Amertican (%)', 'Native Hawaiian, Pacific Islander (%)',
                  'Multi-Race,Non-Hispanic (%)', 'Females (%)', 'Males (%)', 'FTE Count']
       write_headers(filepath:, headers:)
 

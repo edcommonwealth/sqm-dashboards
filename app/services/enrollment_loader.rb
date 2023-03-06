@@ -15,7 +15,7 @@ class EnrollmentLoader
       create_enrollment_entry(row:)
     end
 
-    # Respondent.where.not(school: schools).destroy_all
+    Respondent.where.not(school: schools).destroy_all
   end
 
   private
@@ -51,7 +51,7 @@ class EnrollmentRowValues
 
   def school
     @school ||= begin
-      dese_id = row['School Code'].try(:strip).to_i
+      dese_id = row['DESE ID'].try(:strip).to_i
       School.find_by_dese_id(dese_id)
     end
   end

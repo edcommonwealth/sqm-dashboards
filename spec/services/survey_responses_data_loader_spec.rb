@@ -27,6 +27,10 @@ describe SurveyResponsesDataLoader do
     Rails.application.load_seed
   end
 
+  after :each do
+    DatabaseCleaner.clean
+  end
+
   describe 'self.load_data' do
     context 'loading teacher survey responses' do
       before :each do

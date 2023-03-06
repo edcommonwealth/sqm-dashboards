@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_22_003823) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -345,7 +345,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_003823) do
     t.integer "twelve"
     t.index ["academic_year_id"], name: "index_respondents_on_academic_year_id"
     t.index ["school_id", "academic_year_id"], name: "index_respondents_on_school_id_and_academic_year_id", unique: true
-    t.index ["school_id"], name: "index_respondents_on_school_id"
   end
 
   create_table "response_rates", force: :cascade do |t|

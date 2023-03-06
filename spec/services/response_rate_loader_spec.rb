@@ -4,7 +4,7 @@ describe ResponseRateLoader do
   let(:school) { School.find_by_slug 'milford-high-school' }
   let(:academic_year) { AcademicYear.find_by_range '2020-21' }
   let(:respondent) do
-    respondent = create(:respondent, school:, academic_year:)
+    respondent = Respondent.find_or_initialize_by(school:, academic_year:)
     respondent.total_students = 10
     respondent.total_teachers = 10
     respondent.save
@@ -35,19 +35,19 @@ describe ResponseRateLoader do
 
   let(:response_rate) { ResponseRate.find_by(subcategory:, school:, academic_year:) }
 
-  before :each do
+  before do
     Rails.application.load_seed
     respondent
   end
 
-  after :each do
+  after do
     DatabaseCleaner.clean
   end
 
   describe 'self.reset' do
     context 'When resetting response rates' do
       context 'and half the students responded to each question' do
-        before :each do
+        before do
           create_list(:survey_item_response, 5, survey_item: s_acst_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: s_acst_q2, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: s_acst_q3, likert_score: 3, school:, academic_year:)
@@ -85,7 +85,7 @@ describe ResponseRateLoader do
       end
 
       context 'and only the first question for each scale was asked; e.g. like on a short form' do
-        before :each do
+        before do
           create_list(:survey_item_response, 5, survey_item: s_acst_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: s_poaf_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: t_phya_q2, likert_score: 3, school:, academic_year:)
@@ -116,7 +116,7 @@ describe ResponseRateLoader do
       end
 
       context 'and the school took the short form student survey' do
-        before :each do
+        before do
           create_list(:survey_item_response, 1, survey_item: s_acst_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 6, survey_item: s_acst_q2, likert_score: 3, school:, academic_year:) # short form
           create_list(:survey_item_response, 1, survey_item: s_acst_q3, likert_score: 3, school:, academic_year:)

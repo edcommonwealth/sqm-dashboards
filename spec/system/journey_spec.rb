@@ -43,18 +43,18 @@ describe 'District Admin', js: true do
   # let(:username) { 'winchester' }
   # let(:password) { 'winchester!' }
   let(:respondents) do
-    respondent = create(:respondent, school:, academic_year: ay_2021_22)
+    respondent = Respondent.find_or_initialize_by(school:, academic_year: ay_2021_22)
     respondent.total_students = 8
     respondent.total_teachers = 8
     respondent.save
 
-    respondent = create(:respondent, school:, academic_year: ay_2019_20)
+    respondent = Respondent.find_or_initialize_by(school:, academic_year: ay_2019_20)
     respondent.total_students = 8
     respondent.total_teachers = 8
     respondent.save
   end
 
-  before :each do
+  before do
     Rails.application.load_seed
 
     respondents
@@ -99,7 +99,7 @@ describe 'District Admin', js: true do
     SurveyItemResponse.import survey_item_responses
   end
 
-  after :each do
+  after do
     DatabaseCleaner.clean
   end
 

@@ -138,6 +138,14 @@ class Seeder
     EnrollmentLoader.load_data(filepath: csv_file)
   end
 
+  def seed_staffing(csv_file)
+    StaffingLoader.load_data(filepath: csv_file)
+    missing_staffing_for_current_year = Respondent.where(academic_year: AcademicYear.order(:range).last).none? do |respondent|
+      respondent.total_teachers.present?
+    end
+    StaffingLoader.clone_previous_year_data if missing_staffing_for_current_year
+  end
+
   private
 
   def marked?(mark)
