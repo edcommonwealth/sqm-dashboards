@@ -2,15 +2,25 @@ require 'rails_helper'
 
 describe AdminDataLoader do
   let(:path_to_admin_data) { Rails.root.join('spec', 'fixtures', 'sample_admin_data.csv') }
-  let(:ay_2018_19) { AcademicYear.find_by_range '2018-19' }
-  let(:attleboro) { School.find_by_dese_id 160_505 }
-  let(:winchester) { School.find_by_dese_id 3_440_505 }
-  let(:beachmont) { School.find_by_dese_id 2_480_013 }
-  let(:chronic_absense_rate) { AdminDataItem.find_by_admin_data_item_id 'a-vale-i1' }
-  let(:student_to_instructor_ratio) { AdminDataItem.find_by_admin_data_item_id 'a-sust-i3' }
+  let(:ay_2018_19) { create(:academic_year, range: '2018-19') }
+  let(:attleboro)  { create(:school, name: 'Attleboro High School', dese_id: 160_505) }
+  let(:winchester) { create(:school, name: 'Winchester High School', dese_id: 3_440_505) }
+  let(:beachmont)  { create(:school, dese_id: 2_480_013) }
+  let(:woodland)   { create(:school, dese_id: 1_850_090) } # not explicitly tested
+  let(:chronic_absense_rate)        { create(:admin_data_item, admin_data_item_id: 'a-vale-i1') }
+  let(:student_to_instructor_ratio) { create(:admin_data_item, admin_data_item_id: 'a-sust-i3') }
+  let(:a_reso) { create(:admin_data_item, admin_data_item_id: 'a-reso-i1') } # not explicitly tested
 
   before :each do
-    Rails.application.load_seed
+    ay_2018_19
+    attleboro
+    winchester
+    beachmont
+    woodland
+    chronic_absense_rate
+    student_to_instructor_ratio
+    a_reso
+    AdminDataLoader.load_data filepath: path_to_admin_data
   end
 
   after :each do
@@ -18,9 +28,6 @@ describe AdminDataLoader do
   end
 
   describe 'self.load_data' do
-    before :each do
-      AdminDataLoader.load_data filepath: path_to_admin_data
-    end
     it 'loads the correct admin data values' do
       # it 'assigns the academic year to admin data value' do
       expect(AdminDataValue.where(school: attleboro,
