@@ -1,42 +1,41 @@
 require 'rails_helper'
 
 describe ResponseRateLoader do
-  let(:school) { School.find_by_slug 'milford-high-school' }
-  let(:academic_year) { AcademicYear.find_by_range '2020-21' }
+  let(:school) { create(:school, name: 'milford-high-school') }
+  let(:academic_year) { create(:academic_year, range: '2020-21') }
   let(:respondent) do
-    respondent = Respondent.find_or_initialize_by(school:, academic_year:)
+    respondent = create(:respondent, school:, academic_year:)
     respondent.total_students = 10
     respondent.total_teachers = 10
     respondent.save
   end
 
   let(:short_form_survey) do
-    survey = Survey.find_by(school:, academic_year:)
+    survey = create(:survey, school:, academic_year:)
     survey.form = :short
     survey.save
     survey
   end
 
-  let(:subcategory) { Subcategory.find_by_subcategory_id '5D' }
+  let(:subcategory) { create(:subcategory, subcategory_id: '5D', name: 'Health') }
+  let(:measure) { create(:measure, measure_id: '5D-ii', subcategory:) }
 
-  let(:s_acst_q1) { SurveyItem.find_by_survey_item_id 's-acst-q1' }
-  let(:s_acst_q2) { SurveyItem.find_by_survey_item_id 's-acst-q2' } # short form
-  let(:s_acst_q3) { SurveyItem.find_by_survey_item_id 's-acst-q3' }
-  let(:s_poaf_q1) { SurveyItem.find_by_survey_item_id 's-poaf-q1' }
-  let(:s_poaf_q2) { SurveyItem.find_by_survey_item_id 's-poaf-q2' }
-  let(:s_poaf_q3) { SurveyItem.find_by_survey_item_id 's-poaf-q3' } # short form
-  let(:s_poaf_q4) { SurveyItem.find_by_survey_item_id 's-poaf-q4' }
-  let(:t_phya_q2) { SurveyItem.find_by_survey_item_id 't-phya-q2' }
-  let(:t_phya_q3) { SurveyItem.find_by_survey_item_id 't-phya-q3' }
+  let(:s_acst_q1) { create(:survey_item, survey_item_id: 's-acst-q1', scale: s_acst) }
+  let(:s_acst_q2) { create(:survey_item, survey_item_id: 's-acst-q2', scale: s_acst, on_short_form: true) } # short form
+  let(:s_acst_q3) { create(:survey_item, survey_item_id: 's-acst-q3', scale: s_acst) }
+  let(:s_poaf_q1) { create(:survey_item, survey_item_id: 's-poaf-q1', scale: s_poaf) }
+  let(:s_poaf_q2) { create(:survey_item, survey_item_id: 's-poaf-q2', scale: s_poaf) }
+  let(:s_poaf_q3) { create(:survey_item, survey_item_id: 's-poaf-q3', scale: s_poaf, on_short_form: true) } # short form
+  let(:s_poaf_q4) { create(:survey_item, survey_item_id: 's-poaf-q4', scale: s_poaf) }
+  let(:t_phya_q2) { create(:survey_item, survey_item_id: 't-phya-q2', scale: t_phya) }
+  let(:t_phya_q3) { create(:survey_item, survey_item_id: 't-phya-q3', scale: t_phya) }
 
-  let(:s_acst) { Scale.find_by_scale_id 's-acst' }
-  let(:s_poaf) { Scale.find_by_scale_id 's-poaf' }
-  let(:t_phya) { Scale.find_by_scale_id 't-phya' }
-
-  let(:response_rate) { ResponseRate.find_by(subcategory:, school:, academic_year:) }
-
+  let(:s_acst) { create(:scale, scale_id: 's-acst', measure:) }
+  let(:s_poaf) { create(:scale, scale_id: 's-poaf', measure:) }
+  let(:t_phya) { create(:scale, scale_id: 't-phya', measure:) }
+  let(:response_rate) { ResponseRate.find_by(school:, academic_year:) }
   before do
-    Rails.application.load_seed
+    short_form_survey
     respondent
   end
 
@@ -47,7 +46,7 @@ describe ResponseRateLoader do
   describe 'self.reset' do
     context 'When resetting response rates' do
       context 'and half the students responded to each question' do
-        before do
+        before :each do
           create_list(:survey_item_response, 5, survey_item: s_acst_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: s_acst_q2, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: s_acst_q3, likert_score: 3, school:, academic_year:)
@@ -84,9 +83,10 @@ describe ResponseRateLoader do
         end
       end
 
-      context 'and only the first question for each scale was asked; e.g. like on a short form' do
+      context 'and only the first question was asked; e.g. its on a short form and this is marked as a short form school' do
         before do
           create_list(:survey_item_response, 5, survey_item: s_acst_q1, likert_score: 3, school:, academic_year:)
+          s_acst_q1.update(on_short_form: true)
           create_list(:survey_item_response, 5, survey_item: s_poaf_q1, likert_score: 3, school:, academic_year:)
           create_list(:survey_item_response, 5, survey_item: t_phya_q2, likert_score: 3, school:, academic_year:)
 
