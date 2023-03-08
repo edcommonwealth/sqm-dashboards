@@ -5,6 +5,7 @@ require 'csv'
 class EnrollmentLoader
   def self.load_data(filepath:)
     schools = []
+    enrollments = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = EnrollmentRowValues.new(row:)
 
@@ -12,8 +13,12 @@ class EnrollmentLoader
 
       schools << row.school
 
-      create_enrollment_entry(row:)
+      enrollments << create_enrollment_entry(row:)
     end
+
+    # It's possible that instead of updating all columns on duplicate key, we could just update the student columns and leave total_teachers alone. Right now enrollment data loads before staffing data so it works correctly.
+    Respondent.import enrollments, batch_size: 1000,
+                                   on_duplicate_key_update: %i[pk k one two three four five six seven eight nine ten eleven twelve total_students]
 
     Respondent.where.not(school: schools).destroy_all
   end
@@ -21,7 +26,7 @@ class EnrollmentLoader
   private
 
   def self.create_enrollment_entry(row:)
-    respondent = Respondent.find_or_create_by(school: row.school, academic_year: row.academic_year)
+    respondent = Respondent.find_or_initialize_by(school: row.school, academic_year: row.academic_year)
     respondent.pk = row.pk
     respondent.k = row.k
     respondent.one = row.one
@@ -36,7 +41,8 @@ class EnrollmentLoader
     respondent.ten = row.ten
     respondent.eleven = row.eleven
     respondent.twelve = row.twelve
-    respondent.save
+    respondent.total_students = row.total_students
+    respondent
   end
 
   private_class_method :create_enrollment_entry
@@ -117,5 +123,9 @@ class EnrollmentRowValues
 
   def twelve
     row['12']
+  end
+
+  def total_students
+    row['Total'].gsub(',', '').to_i
   end
 end

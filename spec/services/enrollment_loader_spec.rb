@@ -23,15 +23,18 @@ describe EnrollmentLoader do
     it 'loads the correct enrollment numbers' do
       academic_year = ay_2022_23
       expect(Respondent.find_by(school: attleboro, academic_year:).nine).to eq 506
+      # expect(Respondent.find_by(school: attleboro, academic_year:).total_students).to eq 1844
 
       expect(Respondent.find_by(school: beachmont, academic_year:).pk).to eq 34
       expect(Respondent.find_by(school: beachmont, academic_year:).k).to eq 64
       expect(Respondent.find_by(school: beachmont, academic_year:).one).to eq 58
+      expect(Respondent.find_by(school: beachmont, academic_year:).total_students).to eq 336
 
       expect(Respondent.find_by(school: winchester, academic_year:).nine).to eq 361
       expect(Respondent.find_by(school: winchester, academic_year:).ten).to eq 331
       expect(Respondent.find_by(school: winchester, academic_year:).eleven).to eq 339
       expect(Respondent.find_by(school: winchester, academic_year:).twelve).to eq 352
+      expect(Respondent.find_by(school: winchester, academic_year:).total_students).to eq 1383
     end
   end
 end
