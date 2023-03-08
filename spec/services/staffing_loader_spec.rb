@@ -9,7 +9,6 @@ describe StaffingLoader do
   let(:winchester) { School.find_or_create_by(name: 'Winchester', dese_id: 3_440_505) }
 
   before :each do
-    School.destroy_all
     ay_2022_23
     ay_2021_22
     attleboro

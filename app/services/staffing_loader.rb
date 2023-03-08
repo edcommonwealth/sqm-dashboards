@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
+# TODO
 require 'csv'
 
 class StaffingLoader
   def self.load_data(filepath:)
     schools = []
+    respondents = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = StaffingRowValues.new(row:)
       next unless row.school.present? && row.academic_year.present?
 
       schools << row.school
 
-      create_staffing_entry(row:)
+      respondents << create_staffing_entry(row:)
     end
 
+    Respondent.import respondents, batch_size: 1000, on_duplicate_key_update: [:total_teachers]
     Respondent.where.not(school: schools).destroy_all
   end
 
@@ -21,13 +24,15 @@ class StaffingLoader
     years = AcademicYear.order(:range).last(2)
     previous_year = years.first
     current_year = years.last
+    respondents = []
     School.all.each do |school|
       Respondent.where(school:, academic_year: previous_year).each do |respondent|
         current_respondent = Respondent.find_or_initialize_by(school:, academic_year: current_year)
         current_respondent.total_teachers = respondent.total_teachers
-        current_respondent.save
+        respondents << current_respondent
       end
     end
+    Respondent.import respondents, batch_size: 1000, on_duplicate_key_update: [:total_teachers]
   end
 
   private
@@ -35,7 +40,7 @@ class StaffingLoader
   def self.create_staffing_entry(row:)
     respondent = Respondent.find_or_initialize_by(school: row.school, academic_year: row.academic_year)
     respondent.total_teachers = row.fte_count
-    respondent.save
+    respondent
   end
 
   private_class_method :create_staffing_entry
