@@ -273,6 +273,14 @@ Run the tests
 bundle exec rake
 ```
 
+### Automating test running
+
+The guard-rspec gem will run the tests automatically when files are changed.
+
+```bash
+bundle exec guard
+```
+
 ### Parallel test execution
 
 The [parallel tests](https://github.com/grosser/parallel_tests) gem is installed. It's optional to use.
