@@ -8,13 +8,18 @@ class Seeder
   end
 
   def seed_academic_years(*academic_year_ranges)
+    academic_years = []
     academic_year_ranges.each do |range|
-      AcademicYear.find_or_create_by! range:
+      academic_year = AcademicYear.find_or_initialize_by(range:)
+      academic_years << academic_year
     end
+
+    AcademicYear.import academic_years, on_duplicate_key_update: :all
   end
 
   def seed_districts_and_schools(csv_file)
     dese_ids = []
+    schools = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
       next if rules.any? do |rule|
@@ -29,14 +34,18 @@ class Seeder
       hs = row['HS?']
 
       district = District.find_or_create_by! name: district_name
-      district.update! slug: district_name.parameterize, qualtrics_code: district_code
+      district.slug = district_name.parameterize
+      district.qualtrics_code = district_code
+      district.save
 
       school = School.find_or_initialize_by(dese_id:, district:)
       school.name = school_name
       school.qualtrics_code = school_code
       school.is_hs = marked? hs
-      school.save!
+      schools << school
     end
+
+    School.import schools, on_duplicate_key_update: :all
 
     Respondent.joins(:school).where.not("school.dese_id": dese_ids).destroy_all
     Survey.joins(:school).where.not("school.dese_id": dese_ids).destroy_all
@@ -44,6 +53,7 @@ class Seeder
   end
 
   def seed_surveys(csv_file)
+    surveys = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
       district_name = row['District'].strip
       next if rules.any? do |rule|
@@ -59,9 +69,11 @@ class Seeder
         survey = Survey.find_or_initialize_by(school:, academic_year:)
         is_short_form_school = marked?(short_form)
         survey.form = is_short_form_school ? Survey.forms[:short] : Survey.forms[:normal]
-        survey.save!
+        surveys << survey
       end
     end
+
+    Survey.import surveys, on_duplicate_key_update: :all
   end
 
   def seed_respondents(csv_file)
