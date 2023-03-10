@@ -18,6 +18,9 @@ class StudentResponseRateCalculator < ResponseRateCalculator
     #
     #  All methods below will need to specify a grade
 
+    grades_with_sufficient_responses.map do |grade|
+      puts "Grade: #{grade}"
+    end
     (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
   end
 
@@ -51,5 +54,16 @@ class StudentResponseRateCalculator < ResponseRateCalculator
 
       total_responses.total_students
     end
+  end
+
+  def grades_with_sufficient_responses
+    SurveyItemResponse.where(school:, academic_year:,
+                             survey_item: subcategory.survey_items.student_survey_items).where.not(grade: nil)
+                      .group(:grade)
+                      .select(:response_id)
+                      .distinct(:response_id)
+                      .count.reject do |_key, value|
+      value < 10
+    end.keys
   end
 end
