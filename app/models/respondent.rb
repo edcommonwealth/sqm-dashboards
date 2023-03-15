@@ -3,4 +3,6 @@
 class Respondent < ApplicationRecord
   belongs_to :school
   belongs_to :academic_year
+
+  validates :school, uniqueness: { scope: :academic_year }
 end

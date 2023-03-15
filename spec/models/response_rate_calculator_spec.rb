@@ -18,6 +18,11 @@ describe ResponseRateCalculator, type: :model do
     let(:insufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_student_survey_item_2) { create(:student_survey_item, scale: sufficient_scale_2) }
 
+    context '.grades_with_sufficient_responses' do
+      pending 'implement this'
+      before :each do
+      end
+    end
     context 'when a students take a regular survey' do
       context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
         before :each do

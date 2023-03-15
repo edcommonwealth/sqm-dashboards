@@ -43,6 +43,7 @@ class AdminDataLoader
   end
 
   def self.create_admin_data_value(row:, score:)
+    # byebug unless %w[a-vale-i1 a-sust-i3].include? admin_data_item(row:)
     AdminDataValue.create!(likert_score: score,
                            academic_year: AcademicYear.find_by_range(ay(row:)),
                            school: School.find_by_dese_id(dese_id(row:).to_i),

@@ -13,17 +13,16 @@ class SurveyItemResponse < ActiveRecord::Base
   has_one :measure, through: :survey_item
 
   scope :exclude_boston, lambda {
-                           boston = District.find_by_name('Boston')
-                           where.not(school: boston.schools) if boston.present?
+                           where.not(school: District.boston.schools) if District.boston.present?
                          }
 
-  scope :averages_for_grade, ->(survey_items, school, academic_year, grade) {
-            SurveyItemResponse.where(survey_item: survey_items, school:,
-                                                academic_year: , grade:).group(:survey_item).average(:likert_score)
+  scope :averages_for_grade, lambda { |survey_items, school, academic_year, grade|
+    SurveyItemResponse.where(survey_item: survey_items, school:,
+                             academic_year:, grade:).group(:survey_item).average(:likert_score)
   }
 
-  scope :averages_for_gender, ->(survey_items, school, academic_year, gender) {
-            SurveyItemResponse.where(survey_item: survey_items, school:,
-                                                academic_year: , gender:).group(:survey_item).average(:likert_score)
+  scope :averages_for_gender, lambda { |survey_items, school, academic_year, gender|
+    SurveyItemResponse.where(survey_item: survey_items, school:,
+                             academic_year:, gender:).group(:survey_item).average(:likert_score)
   }
 end

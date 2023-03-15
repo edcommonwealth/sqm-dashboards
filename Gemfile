@@ -76,6 +76,7 @@ group :development do
   gem 'bullet'
   gem 'erb_lint', require: false
   gem 'erblint-github'
+  gem 'guard-rspec', require: false
   gem 'listen', '~> 3.0.5'
   gem 'nested_scaffold'
   # gem 'reek', require: false

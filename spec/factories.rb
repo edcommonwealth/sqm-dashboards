@@ -147,6 +147,14 @@ FactoryBot.define do
       approval_low_benchmark { 4.0 }
       ideal_low_benchmark { 4.5 }
     end
+
+    factory :early_education_survey_item do
+      survey_item_id { "s-#{rand}-es#{rand}" }
+      watch_low_benchmark { 2.0 }
+      growth_low_benchmark { 3.0 }
+      approval_low_benchmark { 4.0 }
+      ideal_low_benchmark { 4.5 }
+    end
   end
 
   factory :survey_item_response do
