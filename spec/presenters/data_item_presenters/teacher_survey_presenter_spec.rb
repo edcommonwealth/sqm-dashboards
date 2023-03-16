@@ -64,7 +64,7 @@ describe TeacherSurveyPresenter do
             academic_year:
           ).descriptions_and_availability
         ).to eq [
-          DataAvailability.new('1B-i', 'Items available upon request to Lowell Public Schools.', true)
+          DataAvailability.new('1B-i', 'Items available upon request to ECP', true)
         ]
       end
     end
