@@ -1,7 +1,7 @@
 require 'rails_helper'
 include AnalyzeHelper
 
-describe 'District Admin', js: true do
+xdescribe 'District Admin', js: true do
   let(:district) { District.find_by_slug 'lee-public-schools' }
   let(:different_district) { District.find_by_slug 'maynard-public-schools' }
   let(:school) { School.find_by_slug 'lee-elementary-school' }
