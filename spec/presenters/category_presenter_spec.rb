@@ -11,27 +11,27 @@ describe CategoryPresenter do
   end
 
   let(:teachers_and_leadership_presenter) do
-    category = create(:category, name: 'Teachers & Leadership')
+    category = create(:category, name: 'Teachers & Leadership', category_id: '1')
     return CategoryPresenter.new(category:)
   end
 
   let(:school_culture_presenter) do
-    category = create(:category, name: 'School Culture')
+    category = create(:category, name: 'School Culture', category_id: '2')
     return CategoryPresenter.new(category:)
   end
 
   let(:resources_presenter) do
-    category = create(:category, name: 'Resources')
+    category = create(:category, name: 'Resources', category_id: '3')
     return CategoryPresenter.new(category:)
   end
 
   let(:academic_learning_presenter) do
-    category = create(:category, name: 'Perceptions of Learning')
+    category = create(:category, name: 'Perceptions of Learning', category_id: '4')
     return CategoryPresenter.new(category:)
   end
 
   let(:community_and_wellbeing_presenter) do
-    category = create(:category, name: 'Community & Wellbeing')
+    category = create(:category, name: 'Community & Wellbeing', category_id: '5')
     return CategoryPresenter.new(category:)
   end
 

@@ -26,12 +26,12 @@ class CategoryPresenter
   end
 
   def icon_class
-    icon_suffix = classes[name.to_sym]
+    icon_suffix = classes[id.to_sym]
     "fas fa-#{icon_suffix}"
   end
 
   def icon_color_class
-    color_suffix = colors[name.to_sym]
+    color_suffix = colors[id.to_sym]
     "color-#{color_suffix}"
   end
 
@@ -52,18 +52,18 @@ class CategoryPresenter
   private
 
   def colors
-    { 'Teachers & Leadership': 'blue',
-      'School Culture': 'red',
-      'Resources': 'black',
-      'Perceptions of Learning': 'lime',
-      'Community & Wellbeing': 'teal' }
+    { '1': 'blue',
+      '2': 'red',
+      '3': 'black',
+      '4': 'lime',
+      '5': 'teal' }
   end
 
   def classes
-    { 'Teachers & Leadership': 'apple-alt',
-      'School Culture': 'school',
-      'Resources': 'users-cog',
-      'Perceptions of Learning': 'graduation-cap',
-      'Community & Wellbeing': 'heart' }
+    { '1': 'apple-alt',
+      '2': 'school',
+      '3': 'users-cog',
+      '4': 'graduation-cap',
+      '5': 'heart' }
   end
 end
