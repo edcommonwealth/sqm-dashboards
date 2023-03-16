@@ -22,7 +22,7 @@ class TeacherSurveyPresenter < DataItemPresenter
 
   def descriptions_and_availability
     if @measure_id == '1B-i'
-      return [DataAvailability.new('1B-i', 'Items available upon request to Lowell Public Schools.',
+      return [DataAvailability.new('1B-i', 'Items available upon request to ECP',
                                    true)]
     end
 

@@ -16,7 +16,7 @@ module Sftp
           puts filename
 
           sftp.file.open(filepath(path:, filename:), 'r') do |f|
-            StudentLoader.from_file(file: f, rules: [Rule::SkipNonLowellSchools])
+            StudentLoader.from_file(file: f, rules: [])
           end
         end
       end
