@@ -9,8 +9,8 @@ describe SurveyResponsesDataLoader do
 
   let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
 
-  let(:attleboro_high_school) { School.find_by_slug 'attleboro-high-school' }
-  let(:butler_middle_school) { School.find_by_slug 'butler-middle-school' }
+  let(:school) { School.find_by_slug 'lee-elementary-school' }
+  let(:second_school) { School.find_by_slug 'lee-middle-high-school' }
 
   let(:t_pcom_q3) { SurveyItem.find_by_survey_item_id 't-pcom-q3' }
   let(:t_pcom_q2) { SurveyItem.find_by_survey_item_id 't-pcom-q2' }
@@ -31,11 +31,12 @@ describe SurveyResponsesDataLoader do
     DatabaseCleaner.clean
   end
 
-  describe 'self.load_data' do
+  context 'self.load_data' do
     context 'loading teacher survey responses' do
       before :each do
         SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
       end
+
       it 'ensures teacher responses load correctly' do
         assigns_academic_year_to_survey_item_responses
         assigns_school_to_the_survey_item_responses
@@ -128,7 +129,7 @@ def assigns_academic_year_to_survey_item_responses
 end
 
 def assigns_school_to_the_survey_item_responses
-  expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').school).to eq attleboro_high_school
+  expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').school).to eq school
 end
 
 def loads_survey_item_responses_for_a_given_survey_response
@@ -174,7 +175,7 @@ def assigns_academic_year_to_student_survey_item_responses
 end
 
 def assigns_school_to_student_survey_item_responses
-  expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').school).to eq butler_middle_school
+  expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').school).to eq second_school
 end
 
 def loads_student_survey_item_response_values

@@ -2,11 +2,11 @@ require 'rails_helper'
 include AnalyzeHelper
 
 describe 'District Admin', js: true do
-  let(:district) { District.find_by_slug 'winchester' }
-  let(:different_district) { District.find_by_slug 'wareham' }
-  let(:school) { School.find_by_slug 'winchester-high-school' }
-  let(:school_in_same_district) { School.find_by_slug 'muraco-elementary-school' }
-  let(:first_school_in_wareham) { School.find_by_slug 'john-william-decas-elementary-school' }
+  let(:district) { District.find_by_slug 'lee-public-schools' }
+  let(:different_district) { District.find_by_slug 'maynard-public-schools' }
+  let(:school) { School.find_by_slug 'lee-elementary-school' }
+  let(:school_in_same_district) { School.find_by_slug 'lee-middle-high-school' }
+  let(:first_school_in_wareham) { School.find_by_slug 'fowler-school' }
 
   let(:category) { Category.find_by_name('Teachers & Leadership') }
   let(:different_category) { Category.find_by_name('School Culture') }
@@ -170,7 +170,7 @@ def go_to_school_overview_from_welcome_page(district, school)
   select district.name, from: 'district-dropdown'
   expect(page).to have_select('school', selected: 'Select a School')
   select school.name, from: 'school-dropdown'
-  expect(page).to have_select('school', selected: 'Winchester High School')
+  expect(page).to have_select('school', selected: 'Lee Elementary School')
 
   click_on 'Go'
 end
@@ -206,8 +206,8 @@ end
 
 def district_admin_sees_overview_content
   expect(page).to have_select('academic-year', selected: '2021 – 2022')
-  expect(page).to have_select('district', selected: 'Winchester')
-  expect(page).to have_select('school', selected: 'Winchester High School')
+  expect(page).to have_select('district', selected: 'Lee Public Schools')
+  expect(page).to have_select('school', selected: 'Lee Elementary School')
   expect(page).to have_text(school.name)
 
   district_admin_sees_professional_qualifications
