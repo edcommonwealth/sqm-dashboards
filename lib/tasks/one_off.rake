@@ -146,12 +146,13 @@ namespace :one_off do
     puts "Deleted #{response_count} survey item responses"
   end
 
-  desc 'load survey responses for 2016-18'
-  task load_survey_responses_2016_18: :environment do
+  desc 'load survey responses for 2022-23'
+  task load_survey_responses_2022_23: :environment do
     survey_item_response_count = SurveyItemResponse.count
-    academic_years = AcademicYear.where(range: %w[2016-17 2017-18])
+    academic_year = AcademicYear.find_by_range '2022-23'
+    academic_years = [academic_year]
     student_count = Student.count
-    path = '/data/survey_responses/2016_18'
+    path = '/data/survey_responses/2022_23'
     Sftp::Directory.open(path:) do |file|
       SurveyResponsesDataLoader.from_file(file:)
     end
@@ -170,6 +171,14 @@ namespace :one_off do
     RaceScoreLoader.reset(fast_processing: false, academic_years:)
     puts "=====================> Completed loading #{RaceScore.count} race scores"
 
+    District.all.each do |district|
+      num_of_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
+                                                                             "schools.district": district).pluck(:response_id).uniq.count
+      response_count = SurveyItemResponse.joins(school: :district).where(academic_year:,
+                                                                         "schools.district": district).count
+      puts "=====================> #{district.name} has #{num_of_respondents} respondents"
+      puts "=====================> #{district.name} has #{response_count} responses"
+    end
     Rails.cache.clear
   end
 end
