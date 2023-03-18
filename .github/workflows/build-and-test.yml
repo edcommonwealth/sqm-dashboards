@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ rpp-main ]
+    branches: [ mciea-main ]
 
 jobs:
   test:
