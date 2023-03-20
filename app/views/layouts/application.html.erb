@@ -1,37 +1,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
-<head>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-  <link href="https://fonts.googleapis.com/css?family=Bitter:400,600,700" rel="stylesheet" type="text/css"/>
-  <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet" type="text/css"/>
-  <title>HALS</title>
-  <%= csp_meta_tag %>
-  <%= stylesheet_link_tag 'sqm', media: 'all', 'data-turbo-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
-  <%= render partial: 'layouts/google_analytics', locals: { google_analytics_id: @google_analytics_id } %>
-  <%= render partial: 'layouts/hotjar', locals: { hotjar_id: @hotjar_id } %>
-</head>
+  <head>
+    <title>ECP</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 
-<body>
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400,600,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet" type="text/css"/>
 
-<div>
-  <%= render partial: 'layouts/header' %>
-</div>
+    <%= csp_meta_tag %>
 
-<div class="bg-color-light-blue">
-  <div class="container">
-    <div class="row">
-      <div class="col mt-7">
-        <%= yield %>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <%= stylesheet_link_tag 'sqm', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+
+    <%= render partial: 'layouts/google_analytics', locals: { google_analytics_id: @google_analytics_id } %>
+    <%= render partial: 'layouts/hotjar', locals: { hotjar_id: @hotjar_id } %>
+  </head>
+
+  <body>
+
+    <div>
+      <%= render partial: 'layouts/header' %>
+    </div>
+
+    <div class="bg-color-light-blue">
+      <div class="container">
+        <div class="row">
+          <div class="col mt-7">
+            <%= yield %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div>
-  <%= render partial: 'layouts/footer' %>
-</div>
+    <div>
+      <%= render partial: 'layouts/footer' %>
+    </div>
 
-</body>
+  </body>
 </html>
