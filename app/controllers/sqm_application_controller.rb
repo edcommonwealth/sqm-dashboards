@@ -10,8 +10,11 @@ class SqmApplicationController < ApplicationController
   private
 
   def authenticate_district
-    name = @district.name.split(" ").first.downcase
-    authenticate(name, "#{name}!")
+    authenticate(district_name, "#{district_name}!")
+  end
+
+  def district_name
+    @district_name ||= @district.name.split(" ").first.downcase
   end
 
   def set_schools_and_districts
