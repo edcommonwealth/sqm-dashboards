@@ -4,9 +4,15 @@ class SqmApplicationController < ApplicationController
   protect_from_forgery with: :exception, prepend: true
   before_action :set_schools_and_districts
   before_action :response_rate_timestamp
+  before_action :authenticate_district
   helper HeaderHelper
 
   private
+
+  def authenticate_district
+    name = @district.name.split(" ").first.downcase
+    authenticate(name, "#{name}!")
+  end
 
   def set_schools_and_districts
     @district = District.find_by_slug district_slug
@@ -23,5 +29,11 @@ class SqmApplicationController < ApplicationController
 
   def school_slug
     params[:school_id]
+  end
+
+  def authenticate(username, password)
+    authenticate_or_request_with_http_basic do |u, p|
+      u == username && p == password
+    end
   end
 end
