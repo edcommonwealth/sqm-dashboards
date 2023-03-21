@@ -5,11 +5,11 @@ module Analyze
     module Column
       class AllAdmin < GroupedBarColumnPresenter
         def label
-          'All Admin'
+          "School data"
         end
 
         def basis
-          'admin data'
+          "school data"
         end
 
         def show_irrelevancy_message?
@@ -23,7 +23,7 @@ module Analyze
         end
 
         def insufficiency_message
-          ['data not', 'available']
+          ["data not", "available"]
         end
 
         def score(year_index)
