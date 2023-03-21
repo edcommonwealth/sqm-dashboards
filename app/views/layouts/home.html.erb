@@ -1,31 +1,36 @@
 <html>
-<head>
-  <title>HALS</title>
-  <link href="https://fonts.googleapis.com/css?family=Bitter:400,600,700" rel="stylesheet" type="text/css"/>
-  <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet" type="text/css"/>
-  <%= stylesheet_link_tag 'sqm', media: 'all', 'data-turbo-track': 'reload' %>
-  <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbo-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
-  <%= render partial: 'layouts/google_analytics', locals: { google_analytics_id: @google_analytics_id } %>
-  <%= render partial: 'layouts/hotjar', locals: { hotjar_id: @hotjar_id } %>
-</head>
-<body>
+  <head>
+    <title>HALS</title>
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400,600,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet" type="text/css"/>
+    <%= stylesheet_link_tag 'sqm', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= render partial: 'layouts/google_analytics', locals: { google_analytics_id: @google_analytics_id } %>
+    <%= render partial: 'layouts/hotjar', locals: { hotjar_id: @hotjar_id } %>
 
-<header>
-  <div class="container">
-    <div class="row py-4 justify-content-between align-items-center">
-      <div class="col d-flex justify-content-start align-items-center">
-        <%= link_to image_tag('sqm_logo.png', alt: 'School Quality Measures Dashboard', class: 'height-56'), welcome_path, class: 'me-7' %>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  </head>
+  <body>
+
+    <header>
+      <div class="container">
+        <div class="row py-4 justify-content-between align-items-center">
+          <div class="col d-flex justify-content-start align-items-center">
+            <%= link_to image_tag('sqm_logo.png', alt: 'School Quality Measures Dashboard', class: 'height-56'), welcome_path, class: 'me-7' %>
+          </div>
+        </div>
       </div>
+    </header>
+
+    <%= yield %>
+
+    <div>
+      <%= render partial: 'layouts/footer' %>
     </div>
-  </div>
-</header>
 
-<%= yield %>
-
-<div>
-  <%= render partial: 'layouts/footer' %>
-</div>
-
-</body>
+  </body>
 </html>
