@@ -48,7 +48,7 @@ describe 'SQM Application' do
   private
 
   def username
-    district.name.downcase
+    district.short_name
   end
 
   def password

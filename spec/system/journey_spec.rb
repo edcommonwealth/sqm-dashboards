@@ -40,8 +40,9 @@ xdescribe 'District Admin', js: true do
     end
   end
 
-  # let(:username) { 'winchester' }
-  # let(:password) { 'winchester!' }
+  let(:username) { district.short_name}
+  let(:password) { "#{district.short_name}!" }
+
   let(:respondents) do
     respondent = Respondent.find_or_initialize_by(school:, academic_year: ay_2021_22)
     respondent.total_students = 8
@@ -104,7 +105,7 @@ xdescribe 'District Admin', js: true do
   end
 
   it 'navigates through the site' do
-    # page.driver.basic_authorize(username, password)
+    page.driver.basic_authorize(username, password)
 
     visit '/welcome'
     expect(page).to have_text('Teachers & Leadership')
