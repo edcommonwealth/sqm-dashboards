@@ -59,7 +59,7 @@ class VarianceChartRowPresenter
     [].tap do |sources|
       sources << 'teacher survey results' if @measure.includes_teacher_survey_items? && !@meets_teacher_threshold
       sources << 'student survey results' if @measure.includes_student_survey_items? && !@meets_student_threshold
-      sources << 'administrative data' if @measure.includes_admin_data_items?
+      sources << 'school data' if @measure.includes_admin_data_items?
     end
   end
 

@@ -7,7 +7,7 @@ class AdminDataPresenter < DataItemPresenter
   end
 
   def title
-    'School admin data'
+    "School data"
   end
 
   def id
@@ -15,13 +15,13 @@ class AdminDataPresenter < DataItemPresenter
   end
 
   def reason_for_insufficiency
-    'limited availability'
+    "limited availability"
   end
 
   def descriptions_and_availability
     @admin_data_items.map do |admin_data_item|
       DataAvailability.new(admin_data_item.admin_data_item_id, admin_data_item.description,
-                           admin_data_item.admin_data_values.where(school:, academic_year:).count > 0)
+        admin_data_item.admin_data_values.where(school:, academic_year:).count > 0)
     end
   end
 end
