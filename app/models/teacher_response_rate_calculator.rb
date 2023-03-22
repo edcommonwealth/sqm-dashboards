@@ -26,4 +26,8 @@ class TeacherResponseRateCalculator < ResponseRateCalculator
       total_responses.total_teachers
     end
   end
+
+  def raw_response_rate
+    (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
+  end
 end

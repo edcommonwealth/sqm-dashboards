@@ -24,7 +24,41 @@ class SurveyItem < ActiveRecord::Base
   scope :short_form_items, lambda {
     where(on_short_form: true)
   }
+  scope :early_education_surveys, lambda {
+    where("survey_item_id LIKE '%-%-es%'")
+  }
 
+  scope :survey_items_for_grade, lambda { |school, academic_year, grade|
+    includes(:survey_item_responses)
+      .where("survey_item_responses.grade": grade,
+             "survey_item_responses.school": school,
+             "survey_item_responses.academic_year": academic_year).distinct
+  }
+
+  scope :survey_item_ids_for_grade, lambda { |school, academic_year, grade|
+    survey_items_for_grade(school, academic_year, grade).pluck(:survey_item_id)
+  }
+
+  scope :survey_items_for_grade_and_subcategory, lambda { |school, academic_year, grade, subcategory|
+    includes(:survey_item_responses)
+      .where(
+        survey_item_id: subcategory.survey_items.pluck(:survey_item_id),
+        "survey_item_responses.school": school,
+        "survey_item_responses.academic_year": academic_year,
+        "survey_item_responses.grade": grade
+      )
+  }
+
+  scope :survey_type_for_grade, lambda { |school, academic_year, grade|
+    survey_items_set_by_grade = survey_items_for_grade(school, academic_year, grade).pluck(:survey_item_id).to_set
+    if survey_items_set_by_grade.size > 0 && survey_items_set_by_grade.subset?(early_education_surveys.pluck(:survey_item_id).to_set)
+      return :early_education
+    end
+
+    :regular
+  }
+
+  # TODO: rename this to Summary
   def description
     DataAvailability.new(survey_item_id, prompt, true)
   end

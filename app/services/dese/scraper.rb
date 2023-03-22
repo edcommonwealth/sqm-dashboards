@@ -1,6 +1,6 @@
 module Dese
   module Scraper
-    DELAY = 20
+    DELAY = 20 # The dese site will block you if you hit it too many times in a short period of time
 
     Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
                                :calculation)

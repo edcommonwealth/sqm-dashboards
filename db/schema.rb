@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_22_225523) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -329,8 +329,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_225523) do
     t.float "total_teachers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "pk"
+    t.integer "k"
+    t.integer "one"
+    t.integer "two"
+    t.integer "three"
+    t.integer "four"
+    t.integer "five"
+    t.integer "six"
+    t.integer "seven"
+    t.integer "eight"
+    t.integer "nine"
+    t.integer "ten"
+    t.integer "eleven"
+    t.integer "twelve"
     t.index ["academic_year_id"], name: "index_respondents_on_academic_year_id"
-    t.index ["school_id"], name: "index_respondents_on_school_id"
+    t.index ["school_id", "academic_year_id"], name: "index_respondents_on_school_id_and_academic_year_id", unique: true
   end
 
   create_table "response_rates", force: :cascade do |t|

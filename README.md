@@ -227,6 +227,30 @@ $ heroku run:detached -a mciea-beta bundle exec rake data:reset_race_scores
 $ heroku run:detached -a mciea-dashboard bundle exec rake data:reset_race_scores
 ```
 
+### Load enrollment and staffing data
+
+Enrollment and staffing numbers are taken from the DESE website.
+
+To scrape staffing data from dese:
+```bash
+bundle exec rake scrape:staffing
+```
+
+To scrape enrollment data from dese:
+```bash
+bundle exec rake scrape:enrollment
+```
+
+Then to load it, run the seeder:
+```bash
+bundle exec rake db:seed
+```
+
+Or to load it for the lowell dashboard specifically
+```bash
+bundle exec rake data:seed_only_lowell
+```
+
 ## Running tests
 
 ### Single threaded test execution
@@ -247,6 +271,14 @@ Run the tests
 
 ```bash
 bundle exec rake
+```
+
+### Automating test running
+
+The guard-rspec gem will run the tests automatically when files are changed.
+
+```bash
+bundle exec guard
 ```
 
 ### Parallel test execution
