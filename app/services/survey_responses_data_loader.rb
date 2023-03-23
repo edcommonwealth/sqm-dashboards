@@ -12,7 +12,6 @@ class SurveyResponsesDataLoader
           process_row(row: SurveyItemValues.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items),
                       rules:)
         end
-
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
       end
     end

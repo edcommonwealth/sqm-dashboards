@@ -57,7 +57,7 @@ class SurveyItemValues
   end
 
   def schools
-    @@schools ||= School.all.map { |school| [school.dese_id, school] }.to_h
+    School.all.map { |school| [school.dese_id, school] }.to_h
   end
 
   def grade

@@ -7,119 +7,177 @@ describe SurveyResponsesDataLoader do
     Rails.root.join('spec', 'fixtures', 'test_2022-23_butler_student_survey_responses.csv')
   end
 
-  let(:ay_2020_21) { AcademicYear.find_by_range '2020-21' }
+  let(:ay_2020_21) { create(:academic_year, range: '2020-21') }
+  let(:ay_2022_23) { create(:academic_year, range: '2022-23') }
 
-  let(:attleboro_high_school) { School.find_by_slug 'attleboro-high-school' }
-  let(:butler_middle_school) { School.find_by_slug 'butler-middle-school' }
-
-  let(:t_pcom_q3) { SurveyItem.find_by_survey_item_id 't-pcom-q3' }
-  let(:t_pcom_q2) { SurveyItem.find_by_survey_item_id 't-pcom-q2' }
-  let(:s_phys_q1) { SurveyItem.find_by_survey_item_id 's-phys-q1' }
-  let(:s_phys_q2) { SurveyItem.find_by_survey_item_id 's-phys-q2' }
-
-  let(:female) { Gender.find_by_qualtrics_code 1 }
-  let(:male) { Gender.find_by_qualtrics_code 2 }
-  let(:another_gender) { Gender.find_by_qualtrics_code 3 }
-  let(:non_binary) { Gender.find_by_qualtrics_code 4 }
-  let(:unknown_gender) { Gender.find_by_qualtrics_code 99 }
-
-  before :all do
-    Rails.application.load_seed
+  let(:school) { create(:school, slug: 'lee-elementary-school', dese_id: 1_500_025) }
+  let(:lowell) { create(:district, name: 'Lowell', slug: 'lowell') }
+  let(:second_school) { create(:school, slug: 'lee-middle-high-school', dese_id: 1_500_505, district: lowell) }
+  let(:butler_school) do
+    create(:school, name: 'Butler Elementary School', slug: 'butler-elementary-school', dese_id: 1_600_310,
+                    district: lowell)
   end
 
-  after :each do
-    DatabaseCleaner.clean
+  let(:t_pcom_q3) { create(:survey_item, survey_item_id: 't-pcom-q3') }
+  let(:t_pcom_q2) { create(:survey_item, survey_item_id: 't-pcom-q2') }
+  let(:t_coll_q1) { create(:survey_item, survey_item_id: 't-coll-q1') }
+  let(:t_coll_q2) { create(:survey_item, survey_item_id: 't-coll-q2') }
+  let(:t_coll_q3) { create(:survey_item, survey_item_id: 't-coll-q3') }
+  let(:t_sach_q1) { create(:survey_item, survey_item_id: 't-sach-q1') }
+  let(:t_sach_q2) { create(:survey_item, survey_item_id: 't-sach-q2') }
+  let(:t_sach_q3) { create(:survey_item, survey_item_id: 't-sach-q3') }
+
+  let(:s_phys_q1) { create(:survey_item, survey_item_id: 's-phys-q1') }
+  let(:s_phys_q2) { create(:survey_item, survey_item_id: 's-phys-q2') }
+  let(:s_phys_q3) { create(:survey_item, survey_item_id: 's-phys-q3') }
+  let(:s_phys_q4) { create(:survey_item, survey_item_id: 's-phys-q4') }
+  let(:s_vale_q1) { create(:survey_item, survey_item_id: 's-phys-q1') }
+  let(:s_vale_q2) { create(:survey_item, survey_item_id: 's-phys-q2') }
+  let(:s_vale_q3) { create(:survey_item, survey_item_id: 's-phys-q3') }
+  let(:s_vale_q4) { create(:survey_item, survey_item_id: 's-phys-q4') }
+  let(:s_acst_q1) { create(:survey_item, survey_item_id: 's-acst-q1') }
+  let(:s_acst_q2) { create(:survey_item, survey_item_id: 's-acst-q2') }
+  let(:s_acst_q3) { create(:survey_item, survey_item_id: 's-acst-q3') }
+  let(:s_acst_q4) { create(:survey_item, survey_item_id: 's-acst-q4') }
+  let(:s_emsa_q1) { create(:survey_item, survey_item_id: 's-emsa-q1') }
+  let(:s_emsa_q2) { create(:survey_item, survey_item_id: 's-emsa-q2') }
+  let(:s_emsa_q3) { create(:survey_item, survey_item_id: 's-emsa-q3') }
+
+  let(:female)         {  create(:gender, qualtrics_code: 1) }
+  let(:male)           {  create(:gender, qualtrics_code: 2) }
+  let(:another_gender) {  create(:gender, qualtrics_code: 3) }
+  let(:non_binary)     {  create(:gender, qualtrics_code: 4) }
+  let(:unknown_gender) {  create(:gender, qualtrics_code: 99) }
+
+  let(:setup) do
+    ay_2020_21
+    ay_2022_23
+    school
+    second_school
+    butler_school
+    t_pcom_q3
+    t_pcom_q2
+    t_coll_q1
+    t_coll_q2
+    t_coll_q3
+    t_sach_q1
+    t_sach_q2
+    t_sach_q3
+    s_phys_q1
+    s_phys_q2
+    s_phys_q3
+    s_phys_q4
+    s_vale_q1
+    s_vale_q2
+    s_vale_q3
+    s_vale_q4
+    s_acst_q1
+    s_acst_q2
+    s_acst_q3 # ./spec/services/survey_responses_data_loader_spec.rb:163:in `block (4 levels) in <top (required)>'
+    s_acst_q4
+    s_emsa_q1
+    s_emsa_q2
+    s_emsa_q3
+    female
+    male
+    another_gender
+    non_binary
+    unknown_gender
   end
 
-  describe 'self.load_data' do
-    context 'loading teacher survey responses' do
-      before :each do
-        SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
-      end
-      it 'ensures teacher responses load correctly' do
-        assigns_academic_year_to_survey_item_responses
-        assigns_school_to_the_survey_item_responses
-        loads_survey_item_responses_for_a_given_survey_response
-        loads_all_survey_item_responses_for_a_given_survey_item
-        captures_likert_scores_for_survey_item_responses
-        is_idempotent
-      end
+  before :each do
+    AcademicYear.reset_academic_years
+
+    setup
+  end
+
+  describe 'loading teacher survey responses' do
+    before do
+      SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
     end
 
-    context 'student survey responses' do
-      before :each do
-        SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
-      end
+    it 'ensures teacher responses load correctly' do
+      assigns_academic_year_to_survey_item_responses
+      assigns_school_to_the_survey_item_responses
+      loads_survey_item_responses_for_a_given_survey_response
+      loads_all_survey_item_responses_for_a_given_survey_item
+      captures_likert_scores_for_survey_item_responses
+      is_idempotent
+    end
+  end
 
-      it 'ensures student responses load correctly' do
-        assigns_academic_year_to_student_survey_item_responses
-        assigns_school_to_student_survey_item_responses
-        loads_student_survey_item_response_values
-        student_survey_item_response_count_matches_expected
-        captures_likert_scores_for_student_survey_item_responses
-        assigns_grade_level_to_responses
-        assigns_gender_to_responses
-        is_idempotent_for_students
-      end
-
-      context 'when updating student survey responses from another csv file' do
-        before do
-          SurveyResponsesDataLoader.load_data filepath: Rails.root.join('spec', 'fixtures',
-                                                                        'secondary_test_2020-21_student_survey_responses.csv')
-        end
-        it 'updates the likert score to the score on the new csv file' do
-          s_emsa_q1 = SurveyItem.find_by_survey_item_id 's-emsa-q1'
-          expect(SurveyItemResponse.where(response_id: 'student_survey_response_3',
-                                          survey_item: s_emsa_q1).first.likert_score).to eq 1
-          expect(SurveyItemResponse.where(response_id: 'student_survey_response_4',
-                                          survey_item: s_emsa_q1).first.likert_score).to eq 1
-          expect(SurveyItemResponse.where(response_id: 'student_survey_response_5',
-                                          survey_item: s_emsa_q1).first.likert_score).to eq 1
-        end
-      end
+  describe 'student survey responses' do
+    before do
+      SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
     end
 
-    # This file loads the seeder every time, which is slow.  Turning it off since the above checks the correct behavior and the below will obviously fail when seeding lowell data
-    # context 'when using Lowell rules to skip rows in the csv file' do
-    #   before :each do
-    #     SurveyResponsesDataLoader.load_data filepath: path_to_student_responses,
-    #                                         rules: [Rule::SkipNonLowellSchools]
-    #   end
+    it 'ensures student responses load correctly' do
+      assigns_academic_year_to_student_survey_item_responses
+      assigns_school_to_student_survey_item_responses
+      loads_student_survey_item_response_values
+      student_survey_item_response_count_matches_expected
+      captures_likert_scores_for_student_survey_item_responses
+      assigns_grade_level_to_responses
+      assigns_gender_to_responses
+      is_idempotent_for_students
+    end
 
-    #   it 'rejects any non-lowell school' do
-    #     expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 0
-    #     expect(SurveyItemResponse.count).to eq 128
-    #   end
+    context 'when updating student survey responses from another csv file' do
+      before :each do
+        SurveyResponsesDataLoader.load_data filepath: Rails.root.join('spec', 'fixtures',
+                                                                      'secondary_test_2020-21_student_survey_responses.csv')
+      end
+      it 'updates the likert score to the score on the new csv file' do
+        s_emsa_q1 = SurveyItem.find_by_survey_item_id 's-emsa-q1'
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_3',
+                                        survey_item: s_emsa_q1).first.likert_score).to eq 1
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_4',
+                                        survey_item: s_emsa_q1).first.likert_score).to eq 2
+        expect(SurveyItemResponse.where(response_id: 'student_survey_response_5',
+                                        survey_item: s_emsa_q1).first.likert_score).to eq 2
+      end
+    end
+  end
+  # figure out why this is failing
+  describe 'when using Lowell rules to skip rows in the csv file' do
+    before :each do
+      SurveyResponsesDataLoader.load_data filepath: path_to_student_responses,
+                                          rules: [Rule::SkipNonLowellSchools]
+    end
 
-    #   it 'loads the correct number of responses for lowell schools' do
-    #     expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
-    #     expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
-    #     expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
-    #     expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 27
-    #   end
+    it 'rejects any non-lowell school' do
+      expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 0
+      expect(SurveyItemResponse.count).to eq 69
+    end
 
-    #   context 'when loading 22-23 butler survey responses' do
-    #     before :each do
-    #       SurveyResponsesDataLoader.load_data filepath: path_to_butler_student_responses,
-    #                                           rules: [Rule::SkipNonLowellSchools]
-    #     end
+    it 'loads the correct number of responses for lowell schools' do
+      expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
+      expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 12
+      expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 15
+      expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 14
+    end
 
-    #     it 'loads all the responses for Butler' do
-    #       expect(SurveyItemResponse.count).to eq 400
-    #     end
+    context 'when loading 22-23 butler survey responses' do
+      before :each do
+        SurveyResponsesDataLoader.load_data filepath: path_to_butler_student_responses,
+                                            rules: [Rule::SkipNonLowellSchools]
+      end
 
-    #     it 'blank entries for grade get loaded as nils, not zero values' do
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_1').first.grade).to eq 7
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_2').first.grade).to eq 7
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_3').first.grade).to eq 7
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_4').first.grade).to eq 5
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_5').first.grade).to eq 7
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_6').first.grade).to eq 6
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_7').first.grade).to eq nil
-    #       expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_8').first.grade).to eq 0
-    #     end
-    #   end
-    # end
+      it 'loads all the responses for Butler' do
+        expect(SurveyItemResponse.where(school: butler_school).count).to eq 56
+      end
+
+      it 'blank entries for grade get loaded as nils, not zero values' do
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_1').first.grade).to eq 7
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_2').first.grade).to eq 7
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_3').first.grade).to eq 7
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_4').first.grade).to eq 5
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_5').first.grade).to eq 7
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_6').first.grade).to eq 6
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_7').first.grade).to eq nil
+        expect(SurveyItemResponse.where(response_id: 'butler_student_survey_response_8').first.grade).to eq 0
+      end
+    end
   end
 end
 
@@ -128,15 +186,15 @@ def assigns_academic_year_to_survey_item_responses
 end
 
 def assigns_school_to_the_survey_item_responses
-  expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').school).to eq attleboro_high_school
+  expect(SurveyItemResponse.find_by_response_id('teacher_survey_response_1').school).to eq school
 end
 
 def loads_survey_item_responses_for_a_given_survey_response
   expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_1').count).to eq 5
   expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_2').count).to eq 0
-  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').count).to eq 69
-  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').count).to eq 69
-  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').count).to eq 69
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_3').count).to eq 8
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_4').count).to eq 8
+  expect(SurveyItemResponse.where(response_id: 'teacher_survey_response_5').count).to eq 8
 end
 
 def loads_all_survey_item_responses_for_a_given_survey_item
@@ -174,15 +232,15 @@ def assigns_academic_year_to_student_survey_item_responses
 end
 
 def assigns_school_to_student_survey_item_responses
-  expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').school).to eq butler_middle_school
+  expect(SurveyItemResponse.find_by_response_id('student_survey_response_3').school).to eq second_school
 end
 
 def loads_student_survey_item_response_values
   expect(SurveyItemResponse.where(response_id: 'student_survey_response_1').count).to eq 3
   expect(SurveyItemResponse.where(response_id: 'student_survey_response_2').count).to eq 0
-  expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 25
-  expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 22
-  expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 27
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_3').count).to eq 12
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_4').count).to eq 15
+  expect(SurveyItemResponse.where(response_id: 'student_survey_response_5').count).to eq 14
 end
 
 def student_survey_item_response_count_matches_expected
@@ -241,3 +299,4 @@ def assigns_gender_to_responses
     expect(SurveyItemResponse.where(response_id: key).first.gender).to eq value
   end
 end
+

@@ -22,11 +22,11 @@ RSpec.describe AdminDataValue, type: :model do
         expect do
           AdminDataValue.create!(likert_score: 0, school:, admin_data_item:,
                                  academic_year:)
-        end.to raise_error
+        end.to raise_error 'Validation failed: Likert score must be greater than 0'
         expect do
           AdminDataValue.create!(likert_score: 5.00001, school:, admin_data_item:,
                                  academic_year:)
-        end.to raise_error
+        end.to raise_error 'Validation failed: Likert score must be less than or equal to 5'
         expect(AdminDataValue.count).to eq(0)
       end
     end
