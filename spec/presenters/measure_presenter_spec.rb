@@ -62,7 +62,7 @@ describe MeasurePresenter do
 
       second_data_item_presenter = measure_presenter.data_item_presenters[1]
       expect(second_data_item_presenter.id).to eq "admin-data-items-measure-id"
-      expect(second_data_item_presenter.title).to eq "School data"
+      expect(second_data_item_presenter.title).to eq "School Data"
       expect(second_data_item_presenter.data_item_accordion_id).to eq "data-item-accordion-measure-id"
     end
   end
@@ -105,7 +105,7 @@ describe MeasurePresenter do
         presenter.title == "Student survey"
       end
       admin_data_item_presenter = measure_presenter.data_item_presenters.find do |presenter|
-        presenter.title == "School data"
+        presenter.title == "School Data"
       end
       expect(teacher_data_item_presenter.reason_for_insufficiency).to eq "low response rate"
       expect(student_data_item_presenter.reason_for_insufficiency).to eq "low response rate"

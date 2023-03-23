@@ -7,7 +7,7 @@ class AdminDataPresenter < DataItemPresenter
   end
 
   def title
-    "School data"
+    "School Data"
   end
 
   def id
