@@ -66,7 +66,6 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'rack-mini-profiler'
   gem 'rspec-rails', '~> 5.1.0'
-  gem 'standard'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 end
 
