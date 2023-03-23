@@ -6,6 +6,10 @@
   },
   "private": "true",
   "dependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/helper-compilation-targets": "7.20.7",
+    "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "7.20.7",
+    "@babel/preset-env": "^7.20.2",
     "@fortawesome/fontawesome-free": "^6.0.0-beta3",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.1",

@@ -24,7 +24,7 @@ class AcademicYear < ActiveRecord::Base
   end
 
   def self.academic_years
-    @@academic_years ||= AcademicYear.all.map { |academic_year| [academic_year.range, academic_year] }.to_h
+    AcademicYear.all.map { |academic_year| [academic_year.range, academic_year] }.to_h
   end
 
   private_class_method :academic_years
