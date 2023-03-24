@@ -186,8 +186,6 @@ namespace :one_off do
       teacher_response_count = SurveyItemResponse.joins(school: :district).joins(:survey_item).where(academic_year:,
                                                                                                      survey_item: SurveyItem.where('survey_item_id like ? ', 't-%'), "schools.district": district).count
       puts "#{district.name} has #{num_of_respondents} respondents"
-
-      puts "#{district.name} has #{num_of_respondents} respondents"
       puts "#{district.name} has #{teacher_respondents} teacher respondents"
       puts "#{district.name} has #{student_respondents} student respondents"
       puts "#{district.name} has #{response_count} responses"
