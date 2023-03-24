@@ -174,10 +174,26 @@ namespace :one_off do
     District.all.each do |district|
       num_of_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
                                                                              "schools.district": district).pluck(:response_id).uniq.count
+      teacher_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
+                                                                              survey_item: SurveyItem.where('survey_item_id like ? ', 't-%'), "schools.district": district).pluck(:response_id).uniq.count
+      student_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
+                                                                              survey_item: SurveyItem.where('survey_item_id like ? ', 's-%'), "schools.district": district).pluck(:response_id).uniq.count
+
       response_count = SurveyItemResponse.joins(school: :district).where(academic_year:,
                                                                          "schools.district": district).count
-      puts "=====================> #{district.name} has #{num_of_respondents} respondents"
-      puts "=====================> #{district.name} has #{response_count} responses"
+      student_response_count = SurveyItemResponse.joins(school: :district).joins(:survey_item).where(academic_year:,
+                                                                                                     survey_item: SurveyItem.where('survey_item_id like ? ', 's-%'), "schools.district": district).count
+      teacher_response_count = SurveyItemResponse.joins(school: :district).joins(:survey_item).where(academic_year:,
+                                                                                                     survey_item: SurveyItem.where('survey_item_id like ? ', 't-%'), "schools.district": district).count
+      puts "#{district.name} has #{num_of_respondents} respondents"
+
+      puts "#{district.name} has #{num_of_respondents} respondents"
+      puts "#{district.name} has #{teacher_respondents} teacher respondents"
+      puts "#{district.name} has #{student_respondents} student respondents"
+      puts "#{district.name} has #{response_count} responses"
+      puts "#{district.name} has #{student_response_count} teacher responses"
+      puts "#{district.name} has #{teacher_response_count} student responses"
+      puts "\n"
     end
     Rails.cache.clear
   end
