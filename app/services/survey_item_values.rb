@@ -57,7 +57,7 @@ class SurveyItemValues
   end
 
   def schools
-    School.all.map { |school| [school.dese_id, school] }.to_h
+    @schools ||= School.all.map { |school| [school.dese_id, school] }.to_h
   end
 
   def grade
@@ -65,7 +65,7 @@ class SurveyItemValues
       raw_grade = (row['grade'] || row['Grade'] || row['What grade are you in?'])
       return nil if raw_grade.blank?
 
-      raw_grade = raw_grade.to_i
+      raw_grade.to_i
     end
   end
 

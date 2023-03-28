@@ -86,6 +86,8 @@ describe SurveyResponsesDataLoader do
   end
 
   before :each do
+    AcademicYear.reset_academic_years
+
     setup
   end
 
