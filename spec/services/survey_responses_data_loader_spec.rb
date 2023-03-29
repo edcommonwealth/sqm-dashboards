@@ -132,9 +132,9 @@ describe SurveyResponsesDataLoader do
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_3',
                                         survey_item: s_emsa_q1).first.likert_score).to eq 1
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_4',
-                                        survey_item: s_emsa_q1).first.likert_score).to eq 2
+                                        survey_item: s_emsa_q1).first.likert_score).to eq 1
         expect(SurveyItemResponse.where(response_id: 'student_survey_response_5',
-                                        survey_item: s_emsa_q1).first.likert_score).to eq 2
+                                        survey_item: s_emsa_q1).first.likert_score).to eq 1
       end
     end
   end
