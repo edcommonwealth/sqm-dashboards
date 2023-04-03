@@ -18,9 +18,6 @@ class StudentResponseRateCalculator < ResponseRateCalculator
     #
     #  All methods below will need to specify a grade
 
-    grades_with_sufficient_responses.map do |grade|
-      puts "Grade: #{grade}"
-    end
     (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
   end
 
