@@ -14,7 +14,7 @@ class ResponseRateCalculator
   def rate
     return 100 if population_data_unavailable?
 
-    return 0 unless survey_item_count.positive?
+    return 0 unless survey_items_have_sufficient_responses?
 
     return 0 unless total_possible_responses.positive?
 
@@ -33,14 +33,6 @@ class ResponseRateCalculator
 
   def cap_at_one_hundred(response_rate)
     response_rate > 100 ? 100 : response_rate
-  end
-
-  def survey
-    Survey.find_by(school:, academic_year:)
-  end
-
-  def raw_response_rate
-    (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
   end
 
   def average_responses_per_survey_item

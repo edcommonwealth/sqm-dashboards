@@ -1,5 +1,3 @@
-require 'csv'
-
 class Seeder
   attr_reader :rules
 
@@ -48,64 +46,7 @@ class Seeder
     School.import schools, on_duplicate_key_update: :all
 
     Respondent.joins(:school).where.not("school.dese_id": dese_ids).destroy_all
-    Survey.joins(:school).where.not("school.dese_id": dese_ids).destroy_all
     School.where.not(dese_id: dese_ids).destroy_all
-  end
-
-  def seed_surveys(csv_file)
-    surveys = []
-    CSV.parse(File.read(csv_file), headers: true) do |row|
-      district_name = row['District'].strip
-      next if rules.any? do |rule|
-                rule.new(row:).skip_row?
-              end
-
-      district = District.find_or_create_by! name: district_name
-      dese_id = row['DESE School ID'].strip
-      school = School.find_or_initialize_by(dese_id:, district:)
-      academic_years = AcademicYear.all
-      academic_years.each do |academic_year|
-        short_form = row["Short Form Only (#{academic_year.range})"]
-        survey = Survey.find_or_initialize_by(school:, academic_year:)
-        is_short_form_school = marked?(short_form)
-        survey.form = is_short_form_school ? Survey.forms[:short] : Survey.forms[:normal]
-        surveys << survey
-      end
-    end
-
-    Survey.import surveys, on_duplicate_key_update: :all
-  end
-
-  def seed_respondents(csv_file)
-    schools = []
-    CSV.parse(File.read(csv_file), headers: true) do |row|
-      dese_id = row['DESE School ID'].strip.to_i
-
-      district_name = row['District'].strip
-      next if rules.any? do |rule|
-                rule.new(row:).skip_row?
-              end
-
-      district = District.find_or_create_by! name: district_name
-
-      school = School.find_by(dese_id:, district:)
-      schools << school
-
-      academic_years = AcademicYear.all
-      academic_years.each do |academic_year|
-        total_students = row["Total Students for Response Rate (#{academic_year.range})"]
-        total_teachers = row["Total Teachers for Response Rate (#{academic_year.range})"]
-        total_students = remove_commas(total_students)
-        total_teachers = remove_commas(total_teachers)
-        respondent = Respondent.find_or_initialize_by(school:, academic_year:)
-        respondent.total_students = total_students
-        respondent.total_teachers = total_teachers
-        respondent.academic_year = academic_year
-        respondent.save
-      end
-    end
-
-    Respondent.where.not(school: schools).destroy_all
   end
 
   def seed_sqm_framework(csv_file)
@@ -178,6 +119,18 @@ class Seeder
     DemographicLoader.load_data(filepath: csv_file)
   end
 
+  def seed_enrollment(csv_file)
+    EnrollmentLoader.load_data(filepath: csv_file)
+  end
+
+  def seed_staffing(csv_file)
+    StaffingLoader.load_data(filepath: csv_file)
+    missing_staffing_for_current_year = Respondent.where(academic_year: AcademicYear.order(:range).last).none? do |respondent|
+      respondent.total_teachers.present?
+    end
+    StaffingLoader.clone_previous_year_data if missing_staffing_for_current_year
+  end
+
   private
 
   def marked?(mark)
@@ -185,6 +138,6 @@ class Seeder
   end
 
   def remove_commas(target)
-    target.gsub(',', '') if target.present?
+    target.delete(',') if target.present?
   end
 end

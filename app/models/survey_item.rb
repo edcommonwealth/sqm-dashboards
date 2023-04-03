@@ -16,13 +16,16 @@ class SurveyItem < ActiveRecord::Base
   end
 
   scope :student_survey_items, lambda {
-    where("survey_item_id LIKE 's-%'")
+    where("survey_items.survey_item_id LIKE 's-%'")
   }
   scope :teacher_survey_items, lambda {
-    where("survey_item_id LIKE 't-%'")
+    where("survey_items.survey_item_id LIKE 't-%'")
   }
   scope :short_form_items, lambda {
     where(on_short_form: true)
+  }
+  scope :early_education_surveys, lambda {
+    where("survey_items.survey_item_id LIKE '%-%-es%'")
   }
 
   def description

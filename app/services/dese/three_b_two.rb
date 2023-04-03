@@ -43,7 +43,8 @@ module Dese
         range = academic_year.range
         selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
                       'ctl00_ContentPlaceHolder1_ddYear' => range,
-                      'ctl00_ContentPlaceHolder1_ddDisplay' => 'Percentages' }
+                      'ctl00_ContentPlaceHolder1_ddDisplay' => 'Percentages',
+                      'ctl00_ContentPlaceHolder1_ddClassification' => 'Teacher' }
         submit_id = 'ctl00_ContentPlaceHolder1_btnViewReport'
         calculation = lambda { |headers, items|
           african_american_index = headers['African American (%)']

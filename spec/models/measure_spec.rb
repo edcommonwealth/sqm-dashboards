@@ -26,7 +26,7 @@ RSpec.describe Measure, type: :model do
   let(:teacher_ideal_low_benchmark) { 4.2 }
 
   before do
-    create(:respondent, school:, academic_year:)
+    create(:respondent, school:, academic_year:, one: 40)
     create(:survey, school:, academic_year:)
     create(:respondent, school: short_form_school, academic_year:)
     create(:survey, school: short_form_school, academic_year:, form: 'short')
@@ -369,27 +369,6 @@ RSpec.describe Measure, type: :model do
           expect(measure.score(school:, academic_year:).meets_student_threshold?).to be false
         end
       end
-
-      context 'and the school is a short form school' do
-        before :each do
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                      survey_item: student_survey_item_1, academic_year:, school: short_form_school, likert_score: 1)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                      survey_item: student_survey_item_2, academic_year:, school: short_form_school, likert_score: 1)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                      survey_item: student_survey_item_3, academic_year:, school: short_form_school, likert_score: 1)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                      survey_item: short_form_student_survey_item_1, academic_year:, school: short_form_school, likert_score: 3)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                      survey_item: short_form_student_survey_item_2, academic_year:, school: short_form_school, likert_score: 4)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                      survey_item: short_form_student_survey_item_3, academic_year:, school: short_form_school, likert_score: 5)
-        end
-
-        it 'ignores any responses not on the short form and gives the average of short form survey items' do
-          expect(measure.score(school: short_form_school, academic_year:).average).to eq 4
-        end
-      end
     end
 
     context 'when the measure includes both teacher and student data' do
@@ -475,7 +454,7 @@ RSpec.describe Measure, type: :model do
           create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD - 1,
                       survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 1)
           create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 5)
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 5, grade: 1)
         end
 
         it 'returns the average of the likert scores of the student survey items' do

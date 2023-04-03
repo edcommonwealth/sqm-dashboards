@@ -152,6 +152,7 @@ FactoryBot.define do
   factory :survey_item_response do
     likert_score { 3 }
     response_id { rand.to_s }
+    grade { 1 }
     academic_year
     school
     survey_item factory: :teacher_survey_item
@@ -166,6 +167,8 @@ FactoryBot.define do
   factory :respondent do
     school
     academic_year
+    one { 40 }
+
     total_students { SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD * 4 }
     total_teachers { SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD * 4 }
   end
