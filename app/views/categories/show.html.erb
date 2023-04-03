@@ -9,21 +9,17 @@
       </div>
     <% end %>
   </nav>
-
   <select id="select-academic-year" class="form-select" name="academic-year">
     <% @academic_years.each do |year| %>
       <option value="<%= url_for [@district, @school, @category , {year: year.range} ]%>" <%= @academic_year == year ? "selected" : nil %>><%= year.formatted_range %></option>
+      <% end %>
+    </select>
+  <% end %>
+  <% cache [@category, @school, @academic_year] do %>
+    <p class="construct-id">Category <%= @category.id %></p>
+    <h1 class="sub-header font-bitter color-red"><%= @category.name %></h1>
+    <p class="col-8 body-large"><%= @category.description %></p>
+    <% @category.subcategories(academic_year: @academic_year, school: @school).each do |subcategory| %>
+      <%= render partial: "subcategory_section", locals: {subcategory: subcategory} %>
     <% end %>
-  </select>
-<% end %>
-
-<% cache [@category, @school, @academic_year] do %>
-<p class="construct-id">Category <%= @category.id %></p>
-<h1 class="sub-header font-bitter color-red"><%= @category.name %></h1>
-<p class="col-8 body-large"><%= @category.description %></p>
-
-<% @category.subcategories(academic_year: @academic_year, school: @school).each do |subcategory| %>
-  <%= render partial: "subcategory_section", locals: {subcategory: subcategory} %>
-<% end %>
-
-<% end %>
+  <% end %>

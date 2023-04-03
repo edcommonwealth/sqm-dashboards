@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: resize bars so they never extend beyond the bounds of the column
 module Analyze
   module Graph
     module Column

@@ -42,10 +42,10 @@ RSpec.describe Report::Pillar, type: :model do
 
   context '.score' do
     before do
-      create(:survey_item_response, survey_item: survey_item_1, school:, academic_year: academic_year_1,
-                                    likert_score: 3)
-      create(:survey_item_response, survey_item: survey_item_1, school:, academic_year: academic_year_1,
-                                    likert_score: 5)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item_1, school:, academic_year: academic_year_1,
+                                                                                         likert_score: 3)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item_1, school:, academic_year: academic_year_1,
+                                                                                         likert_score: 5)
     end
     it 'returns the average score for all the measures in the pillar' do
       pillar = Report::Pillar.new(school:, measures:, indicator: 'The Teaching Environment', period: 'Current',
@@ -56,14 +56,14 @@ RSpec.describe Report::Pillar, type: :model do
 
   context '.zone' do
     before do
-      create(:survey_item_response, survey_item: survey_item_1, school:, academic_year: academic_year_1,
-                                    likert_score: 4)
-      create(:survey_item_response, survey_item: survey_item_1, school:, academic_year: academic_year_1,
-                                    likert_score: 5)
-      create(:survey_item_response, survey_item: survey_item_2, school:, academic_year: academic_year_1,
-                                    likert_score: 4)
-      create(:survey_item_response, survey_item: survey_item_2, school:, academic_year: academic_year_1,
-                                    likert_score: 5)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item_1, school:, academic_year: academic_year_1,
+                                                                                         likert_score: 4)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item_1, school:, academic_year: academic_year_1,
+                                                                                         likert_score: 5)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item_2, school:, academic_year: academic_year_1,
+                                                                                         likert_score: 4)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: survey_item_2, school:, academic_year: academic_year_1,
+                                                                                         likert_score: 5)
     end
 
     it 'returns the zone for the average score for all the measures in the pillar' do

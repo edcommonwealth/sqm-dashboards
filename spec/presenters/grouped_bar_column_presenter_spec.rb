@@ -110,15 +110,15 @@ describe GroupedBarColumnPresenter do
   context 'for a grouped column presenter with both student and teacher responses' do
     context 'with a single year'
     before do
-      create(:survey_item_response,
-             survey_item: student_survey_item_for_composite_measure,
-             school:,
-             academic_year:,
-             likert_score: 4)
-      create(:survey_item_response,
-             survey_item: student_survey_item_for_composite_measure, school:,
-             academic_year:,
-             likert_score: 5)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                  survey_item: student_survey_item_for_composite_measure,
+                  school:,
+                  academic_year:,
+                  likert_score: 4)
+      create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                  survey_item: student_survey_item_for_composite_measure, school:,
+                  academic_year:,
+                  likert_score: 5)
     end
 
     it 'returns a score that is an average of the likert scores ' do
@@ -165,10 +165,10 @@ describe GroupedBarColumnPresenter do
 
     context 'when the score is in the Ideal zone' do
       before do
-        create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                       academic_year:, likert_score: 5)
-        create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                       academic_year:, likert_score: 4)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                           academic_year:, likert_score: 5)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                           academic_year:, likert_score: 4)
       end
 
       it_behaves_like 'measure_name'
@@ -219,8 +219,8 @@ describe GroupedBarColumnPresenter do
 
     context 'when the score is in the Approval zone' do
       before do
-        create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                       academic_year:, likert_score: 4)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                           academic_year:, likert_score: 4)
       end
 
       it_behaves_like 'measure_name'
@@ -240,8 +240,8 @@ describe GroupedBarColumnPresenter do
     end
     context 'when the score is in the Growth zone' do
       before do
-        create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                       academic_year:, likert_score: 3)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                           academic_year:, likert_score: 3)
       end
 
       it_behaves_like 'measure_name'
@@ -255,7 +255,7 @@ describe GroupedBarColumnPresenter do
 
       context 'when the score is less than 5 percent away from the approval low benchmark line' do
         before do
-          create_list(:survey_item_response, 40, survey_item: student_survey_item, school:,
+          create_list(:survey_item_response, 80, survey_item: student_survey_item, school:,
                                                  academic_year:, likert_score: 4)
         end
 
@@ -267,8 +267,8 @@ describe GroupedBarColumnPresenter do
 
     context 'when the score is in the Watch zone' do
       before do
-        create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                       academic_year:, likert_score: 2)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                           academic_year:, likert_score: 2)
       end
 
       it_behaves_like 'measure_name'
@@ -282,8 +282,8 @@ describe GroupedBarColumnPresenter do
     end
     context 'when the score is in the Warning zone' do
       before do
-        create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                       academic_year:, likert_score: 1)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                           academic_year:, likert_score: 1)
       end
 
       it_behaves_like 'measure_name'

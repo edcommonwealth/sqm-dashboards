@@ -2,7 +2,6 @@
 
 class OverviewController < SqmApplicationController
   before_action :check_empty_dataset, only: [:index]
-  before_action :response_rate_timestamp, only: [:index]
   helper VarianceHelper
 
   def index
@@ -31,15 +30,5 @@ class OverviewController < SqmApplicationController
 
   def subcategories
     @subcategories ||= Subcategory.all
-  end
-
-  def response_rate_timestamp
-    @response_rate_timestamp = begin
-      rate = ResponseRate.where(school: @school,
-                                academic_year: @academic_year).order(updated_at: :DESC).first || Today.new
-
-      rate.updated_at
-    end
-    @response_rate_timestamp
   end
 end

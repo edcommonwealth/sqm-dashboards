@@ -4,11 +4,10 @@ describe ResponseRateCalculator, type: :model do
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
   let(:survey) { create(:survey, school:, academic_year:) }
-  let(:short_form_survey) { create(:survey, form: :short, school:, academic_year:) }
-  let(:respondent) { create(:respondent, school:, academic_year:) }
 
   describe StudentResponseRateCalculator do
     let(:subcategory) { create(:subcategory) }
+    let(:second_subcategory) { create(:subcategory_with_measures) }
     let(:sufficient_measure_1) { create(:measure, subcategory:) }
     let(:sufficient_scale_1) { create(:scale, measure: sufficient_measure_1) }
     let(:sufficient_measure_2) { create(:measure, subcategory:) }
@@ -17,92 +16,166 @@ describe ResponseRateCalculator, type: :model do
     let(:sufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
     let(:insufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_student_survey_item_2) { create(:student_survey_item, scale: sufficient_scale_2) }
+    let(:sufficient_student_survey_item_3) { create(:student_survey_item, scale: sufficient_scale_2) }
 
-    context '.grades_with_sufficient_responses' do
-      pending 'implement this'
-      before :each do
-      end
-    end
-    context 'when a students take a regular survey' do
-      context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
-        before :each do
-          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
-                                                                                             academic_year:, school:, likert_score: 1)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
-                                                                                             academic_year:, school:, likert_score: 4)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
-                                                                                             academic_year:, school:, likert_score: 4)
-          respondent
-          survey
+    context '.raw_response_rate' do
+      context 'when no survey item responses exist' do
+        before do
+          create(:respondent, school:, academic_year:, pk: 20)
+        end
+        it 'returns an average of the response rates for all grades' do
+          expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 0
         end
 
-        it 'returns a response rate equal to the response threshold' do
-          expect(StudentResponseRateCalculator.new(subcategory:, school:,
-                                                   academic_year:).rate).to eq 25
-        end
-      end
-
-      context 'when the average number of student responses per question is below the student threshold' do
-        before :each do
-          create_list(:survey_item_response, 1, survey_item: sufficient_student_survey_item_1,
-                                                academic_year:, school:, likert_score: 4)
-          create_list(:survey_item_response, 1, survey_item: sufficient_student_survey_item_2,
-                                                academic_year:, school:, likert_score: 4)
-          respondent
-          survey
-        end
-
-        it 'reports insufficient student responses' do
-          expect(StudentResponseRateCalculator.new(subcategory:, school:,
-                                                   academic_year:).rate).to eq 13
-          expect(StudentResponseRateCalculator.new(subcategory:, school:,
-                                                   academic_year:).meets_student_threshold?).to eq false
-        end
-      end
-    end
-
-    context 'when students take the short form survey' do
-      before :each do
-        create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
-                                                                                           academic_year:, school:, likert_score: 1)
-        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
-                                                                                           academic_year:, school:, likert_score: 4)
-        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
-                                                                                           academic_year:, school:, likert_score: 4)
-        respondent
-        short_form_survey
-      end
-
-      context 'when the average number of student responses per question in a subcategory is equal to the student response threshold' do
-        before :each do
-          sufficient_student_survey_item_1.update! on_short_form: true
-          sufficient_student_survey_item_2.update! on_short_form: true
-        end
-
-        it 'takes into account the responses from both survey items' do
-          expect(StudentResponseRateCalculator.new(subcategory:, school:,
-                                                   academic_year:).rate).to eq 25
-        end
-
-        context 'and only one of the survey items is on the short form' do
+        context 'or when the count of survey items does not meet the minimum threshold' do
           before do
-            sufficient_student_survey_item_2.update! on_short_form: false
+            create_list(:survey_item_response, 9, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                  school:, grade: 1)
+          end
+          it 'returns an average of the response rates for all grades' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 0
+          end
+        end
+      end
+
+      context 'when at least one survey item has sufficient responses' do
+        before do
+          create(:respondent, school:, academic_year:, total_students: 20, one: 20)
+          create_list(:survey_item_response, 10, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                 school:, grade: 1)
+        end
+
+        context 'and half of students responded' do
+          it 'reports a response rate of fifty percent' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:,
+                                                     academic_year:).rate).to eq 50
+          end
+        end
+
+        context 'and another unrelated subcategory has responses' do
+          before do
+            create_list(:survey_item_response, 10,
+                        survey_item: second_subcategory.measures.first.scales.first.survey_items.first, academic_year:, school:, grade: 1)
           end
 
-          it 'the response rate ignores the responses in the non-short form item' do
+          it 'does not count the responses for the unrelated subcategory' do
             expect(StudentResponseRateCalculator.new(subcategory:, school:,
-                                                     academic_year:).rate).to eq 25
+                                                     academic_year:).rate).to eq 50
           end
+        end
+
+        context 'there are responses for another survey item but not enough to meet the minimum threshold' do
+          before do
+            create_list(:survey_item_response, 9, survey_item: insufficient_student_survey_item_1, academic_year:,
+                                                  school:, grade: 1)
+          end
+          it 'returns an average of the response rates for all grades' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 50
+          end
+        end
+      end
+
+      context 'when two survey items have sufficient responses' do
+        before do
+          create(:respondent, school:, academic_year:, total_students: 20, one: 20)
+          create_list(:survey_item_response, 10, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                 school:, grade: 1)
+          create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_2, academic_year:,
+                                                 school:, grade: 1)
+        end
+
+        context 'one one question got half the students to respond and the other got all the students to respond' do
+          it 'reports a response rate that averages fifty and 100' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 75
+          end
+        end
+
+        context 'and another unrelated subcategory has responses' do
+          before do
+            create_list(:survey_item_response, 10,
+                        survey_item: second_subcategory.measures.first.scales.first.survey_items.first, academic_year:, school:, grade: 1)
+          end
+
+          it 'does not count the responses for the unrelated subcategory' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 75
+          end
+        end
+      end
+
+      context 'when there survey items between two scales' do
+        before do
+          create(:respondent, school:, academic_year:, total_students: 20, one: 20)
+          create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                 school:, grade: 1)
+          create_list(:survey_item_response, 15, survey_item: sufficient_student_survey_item_2, academic_year:,
+                                                 school:, grade: 1)
+          create_list(:survey_item_response, 10, survey_item: sufficient_student_survey_item_3, academic_year:,
+                                                 school:, grade: 1)
+        end
+
+        context 'one scale got all students to respond and another scale got an average response rate of fifty percent' do
+          it 'computes the response rate by dividing the actual responses over possible responses' do
+            # (20 + 15 + 10) / (20 + 20 + 20) * 100 = 75%
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 75
+          end
+        end
+
+        context 'and another unrelated subcategory has responses' do
+          before do
+            create_list(:survey_item_response, 10,
+                        survey_item: second_subcategory.measures.first.scales.first.survey_items.first, academic_year:, school:, grade: 1)
+          end
+
+          it 'does not count the responses for the unrelated subcategory' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 75
+          end
+        end
+      end
+      context 'when two grades have sufficient responses' do
+        context 'and half of one grade responded and all of the other grade responded' do
+          before do
+            create(:respondent, school:, academic_year:, total_students: 20, one: 20, two: 20)
+            create_list(:survey_item_response, 10, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                   school:, grade: 1)
+            create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                   school:, grade: 2)
+          end
+          it 'reports a response rate that averages fifty and 100' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 75
+          end
+        end
+
+        context 'and two grades responded to different questions at different rates' do
+          before do
+            create(:respondent, school:, academic_year:, total_students: 20, one: 20, two: 20)
+            create_list(:survey_item_response, 10, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                   school:, grade: 1)
+            create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_2, academic_year:,
+                                                   school:, grade: 2)
+          end
+          it 'reports a response rate that averages fifty and 100' do
+            expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 75
+          end
+        end
+      end
+
+      context 'when one grade gets surveyed but another does not, the grade that does not get surveyed is not counted' do
+        before do
+          create(:respondent, school:, academic_year:, total_students: 20, one: 20, two: 20)
+          create_list(:survey_item_response, 10, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                 school:, grade: 1)
+        end
+        it 'reports a response rate that averages fifty and 100' do
+          expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 50
         end
       end
     end
 
-    context 'when the average number of teacher responses is greater than the total possible responses' do
+    context 'when the average number of student responses is greater than the total possible responses' do
       before do
-        respondent
-        survey
+        create(:respondent, school:, academic_year:, total_students: 20, one: 20, two: 20)
         create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD * 11, survey_item: sufficient_student_survey_item_2,
-                                                                                                academic_year:, school:, likert_score: 1)
+                                                                                                academic_year:, school:, likert_score: 1, grade: 1)
       end
       it 'returns 100 percent' do
         expect(StudentResponseRateCalculator.new(subcategory:, school:,
@@ -113,26 +186,6 @@ describe ResponseRateCalculator, type: :model do
     context 'when no survey information exists for that school or year' do
       it 'returns 100 percent' do
         expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 100
-      end
-    end
-
-    context 'when there is an imbalance in the response rate of the student items' do
-      context 'and one of the student items has no associated survey item responses' do
-        before do
-          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item,
-                                                                                             academic_year:, school:, likert_score: 1)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_1,
-                                                                                             academic_year:, school:, likert_score: 4)
-          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: sufficient_student_survey_item_2,
-                                                                                             academic_year:, school:, likert_score: 4)
-          create(:respondent, school:, academic_year:)
-          create(:survey, school:, academic_year:)
-          insufficient_student_survey_item_1
-        end
-        it 'ignores the empty survey item and returns only the average response rate of student survey items with responses' do
-          expect(StudentResponseRateCalculator.new(subcategory:, school:,
-                                                   academic_year:).rate).to eq 25
-        end
       end
     end
   end
@@ -148,6 +201,7 @@ describe ResponseRateCalculator, type: :model do
     let(:sufficient_teacher_survey_item_3) { create(:teacher_survey_item, scale: sufficient_scale_1) }
     let(:insufficient_teacher_survey_item_4) { create(:teacher_survey_item, scale: sufficient_scale_1) }
     let(:sufficient_student_survey_item_1) { create(:student_survey_item, scale: sufficient_scale_1) }
+    let(:respondent) { create(:respondent, school:, academic_year:, total_teachers: 8) }
 
     before :each do
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: sufficient_teacher_survey_item_1,
