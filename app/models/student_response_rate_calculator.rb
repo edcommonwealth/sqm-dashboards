@@ -1,66 +1,54 @@
 # frozen_string_literal: true
 
 class StudentResponseRateCalculator < ResponseRateCalculator
-  private
-
   def raw_response_rate
-    # def rate
-    # check to see if enrollment data is available
-    #   if not, run the dese loader to get the data
-    #   then upload the enrollment data into the db
-    #
-    # if you still don't see enrollment for the school, raise an error and return 100 from this method
-    #
-    #  Get the enrollment information from the db
-    #  Get the list of all grades
-    #  For each grade, get the survey items with data
-    #
-    #
-    #  All methods below will need to specify a grade
-
-    (average_responses_per_survey_item / total_possible_responses.to_f * 100).round
+    rates_by_grade.length.positive? ? rates_by_grade.average : 0
   end
 
-  def survey_item_count
-    @survey_item_count ||= begin
-      survey_items = SurveyItem.includes(%i[scale
-                                            measure]).student_survey_items.where("scale.measure": @subcategory.measures)
-      survey_items = survey_items.where(on_short_form: true) if survey.form == 'short'
-      survey_items = survey_items.reject do |survey_item|
-        survey_item.survey_item_responses.where(school:, academic_year:).none?
+  def rates_by_grade
+    @rates_by_grade ||= counts_by_grade.map do |grade, num_of_students_in_grade|
+      sufficient_survey_items = survey_items_with_sufficient_responses(grade:).keys
+      actual_response_count_for_grade = SurveyItemResponse.where(school:, academic_year:, grade:,
+                                                                 survey_item: sufficient_survey_items).count.to_f
+      count_of_survey_items_with_sufficient_responses = survey_item_count(grade:)
+      if count_of_survey_items_with_sufficient_responses.nil? || count_of_survey_items_with_sufficient_responses.zero? || num_of_students_in_grade.nil? || num_of_students_in_grade.zero?
+        next nil
       end
-      survey_items.count
-    end
+
+      actual_response_count_for_grade / count_of_survey_items_with_sufficient_responses / num_of_students_in_grade * 100
+    end.compact
   end
 
-  def response_count
-    @response_count ||= @subcategory.measures.map do |measure|
-      measure.student_survey_items.map do |survey_item|
-        next 0 if survey.form == 'short' && survey_item.on_short_form == false
+  def counts_by_grade
+    @counts_by_grade ||= respondents.counts_by_grade
+  end
 
-        survey_item.survey_item_responses.where(school:,
-                                                academic_year:).exclude_boston.count
-      end.sum
-    end.sum
+  def survey_items_have_sufficient_responses?
+    rates_by_grade.length.positive?
+  end
+
+  def survey_items_with_sufficient_responses(grade:)
+    SurveyItem.joins('inner join survey_item_responses on  survey_item_responses.survey_item_id = survey_items.id')
+              .student_survey_items
+              .where("survey_item_responses.school": school, "survey_item_responses.academic_year": academic_year, "survey_item_responses.grade": grade, "survey_item_responses.survey_item_id": subcategory.survey_items.student_survey_items)
+              .group('survey_items.id')
+              .having('count(*) >= 10')
+              .count
+  end
+
+  def survey_item_count(grade:)
+    survey_items_with_sufficient_responses(grade:).count
+  end
+
+  def respondents
+    @respondents ||= Respondent.find_by(school:, academic_year:)
   end
 
   def total_possible_responses
     @total_possible_responses ||= begin
-      total_responses = Respondent.find_by(school:, academic_year:)
-      return 0 unless total_responses.present?
+      return 0 unless respondents.present?
 
-      total_responses.total_students
+      respondents.total_students
     end
-  end
-
-  def grades_with_sufficient_responses
-    SurveyItemResponse.where(school:, academic_year:,
-                             survey_item: subcategory.survey_items.student_survey_items).where.not(grade: nil)
-                      .group(:grade)
-                      .select(:response_id)
-                      .distinct(:response_id)
-                      .count.reject do |_key, value|
-      value < 10
-    end.keys
   end
 end

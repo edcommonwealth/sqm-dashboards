@@ -16,6 +16,6 @@ namespace :scrape do
 
   desc 'scrape dese site for student staffing information'
   task staffing: :environment do
-    Dese::OneAThree.new(filepaths: ['not used', Rails.root.join('data', 'staffing', 'staffing.csv')]).run_a_pcom_i3
+    Dese::Staffing.new.run_all
   end
 end

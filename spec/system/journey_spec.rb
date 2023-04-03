@@ -47,11 +47,13 @@ xdescribe 'District Admin', js: true do
     respondent = Respondent.find_or_initialize_by(school:, academic_year: ay_2021_22)
     respondent.total_students = 8
     respondent.total_teachers = 8
+    respondent.one = 20
     respondent.save
 
     respondent = Respondent.find_or_initialize_by(school:, academic_year: ay_2019_20)
     respondent.total_students = 8
     respondent.total_teachers = 8
+    respondent.one = 20
     respondent.save
   end
 
@@ -72,28 +74,28 @@ xdescribe 'District Admin', js: true do
     survey_items_for_measure_2A_i.each do |survey_item|
       SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
-                                                        school:, survey_item:, likert_score: 5)
+                                                        school:, survey_item:, likert_score: 5, grade: 1)
       end
     end
 
     survey_items_for_measure_2A_ii.each do |survey_item|
       SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
-                                                        school:, survey_item:, likert_score: 5)
+                                                        school:, survey_item:, likert_score: 5, grade: 1)
       end
     end
 
     survey_items_for_measure_4C_i.each do |survey_item|
       SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
-                                                        school:, survey_item:, likert_score: 1)
+                                                        school:, survey_item:, likert_score: 1, grade: 1)
       end
     end
 
     survey_items_for_subcategory.each do |survey_item|
       2.times do
         survey_item_responses << SurveyItemResponse.new(response_id: rand.to_s, academic_year: ay_2021_22,
-                                                        school:, survey_item:, likert_score: 4)
+                                                        school:, survey_item:, likert_score: 4, grade: 1)
       end
     end
 

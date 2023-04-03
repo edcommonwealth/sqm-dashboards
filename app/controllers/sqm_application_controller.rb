@@ -3,8 +3,8 @@
 class SqmApplicationController < ApplicationController
   protect_from_forgery with: :exception, prepend: true
   before_action :set_schools_and_districts
-  before_action :response_rate_timestamp
   before_action :authenticate_district
+
   helper HeaderHelper
 
   private
@@ -14,7 +14,7 @@ class SqmApplicationController < ApplicationController
   end
 
   def district_name
-    @district_name ||= @district.name.split(" ").first.downcase
+    @district_name ||= @district.name.split(' ').first.downcase
   end
 
   def set_schools_and_districts

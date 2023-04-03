@@ -9,6 +9,10 @@ class TeacherResponseRateCalculator < ResponseRateCalculator
     end.sum
   end
 
+  def survey_items_have_sufficient_responses?
+    survey_item_count.positive?
+  end
+
   def response_count
     @response_count ||= @subcategory.measures.map do |measure|
       measure.teacher_survey_items.map do |survey_item|

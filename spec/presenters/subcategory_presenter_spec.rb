@@ -39,10 +39,8 @@ describe SubcategoryPresenter do
                                                                                        academic_year:, school:, likert_score: 1)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item3,
                                                                                        academic_year:, school:, likert_score: 5)
-    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item4,
-                                                                                           academic_year:, school:, likert_score: 3)
-    create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD / 2, survey_item: survey_item4,
-                                                                                           academic_year:, school:, likert_score: 3)
+    create_list(:survey_item_response, 10, survey_item: survey_item4,
+                                           academic_year:, school:, likert_score: 3, grade: 1)
 
     # Adding responses corresponding to different years and schools should not pollute the score calculations
     create_survey_item_responses_for_different_years_and_schools(survey_item1)
@@ -51,7 +49,7 @@ describe SubcategoryPresenter do
   end
 
   before do
-    create(:respondent, school:, academic_year:)
+    create(:respondent, school:, academic_year:, one: 40)
     create(:survey, school:, academic_year:)
   end
 

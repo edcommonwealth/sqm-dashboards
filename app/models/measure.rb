@@ -51,16 +51,6 @@ class Measure < ActiveRecord::Base
     @includes_admin_data_items ||= admin_data_items.any?
   end
 
-  # def sources
-  #   @sources ||= begin
-  #     sources = []
-  #     sources << Source.new(name: :admin_data, collection: admin_data_items) if includes_admin_data_items?
-  #     sources << Source.new(name: :student_surveys, collection: student_survey_items) if includes_student_survey_items?
-  #     sources << Source.new(name: :teacher_surveys, collection: teacher_survey_items) if includes_teacher_survey_items?
-  #     sources
-  #   end
-  # end
-
   def score(school:, academic_year:)
     @score ||= Hash.new do |memo, (school, academic_year)|
       next Score::NIL_SCORE if incalculable_score(school:, academic_year:)
@@ -72,7 +62,6 @@ class Measure < ActiveRecord::Base
 
       memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
-
     @score[[school, academic_year]]
   end
 
@@ -212,18 +201,16 @@ class Measure < ActiveRecord::Base
 
   def no_student_responses_exist?(school:, academic_year:)
     @no_student_responses_exist ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = student_survey_items_by_survey_type(school:, academic_year:).all? do |survey_item|
-        survey_item.survey_item_responses.where(school:, academic_year:).none?
-      end
+      memo[[school, academic_year]] =
+        SurveyItemResponse.where(school:, academic_year:, survey_item: survey_items.student_survey_items).count.zero?
     end
     @no_student_responses_exist[[school, academic_year]]
   end
 
   def no_teacher_responses_exist?(school:, academic_year:)
     @no_teacher_responses_exist ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = teacher_survey_items.all? do |survey_item|
-        survey_item.survey_item_responses.where(school:, academic_year:).none?
-      end
+      memo[[school, academic_year]] =
+        SurveyItemResponse.where(school:, academic_year:, survey_item: survey_items.teacher_survey_items).count.zero?
     end
     @no_teacher_responses_exist[[school, academic_year]]
   end

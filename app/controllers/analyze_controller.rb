@@ -2,7 +2,7 @@
 
 class AnalyzeController < SqmApplicationController
   before_action :assign_categories, :assign_subcategories, :assign_measures, :assign_academic_years,
-                :response_rate_timestamp, :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp,
+                :races, :selected_races, :graph, :graphs, :background, :race_score_timestamp,
                 :source, :sources, :group, :groups, :selected_grades, :grades, :slice, :selected_genders, :genders, only: [:index]
   def index; end
 
@@ -33,18 +33,6 @@ class AnalyzeController < SqmApplicationController
     @academic_year_params.each do |year|
       @selected_academic_years << AcademicYear.find_by_range(year)
     end
-  end
-
-  def response_rate_timestamp
-    @response_rate_timestamp = begin
-      academic_year = @selected_academic_years.last
-      academic_year ||= @academic_year
-      rate = ResponseRate.where(school: @school,
-                                academic_year:).order(updated_at: :DESC).first || Today.new
-
-      rate.updated_at
-    end
-    @response_rate_timestamp
   end
 
   def races
