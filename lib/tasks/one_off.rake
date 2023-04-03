@@ -166,11 +166,11 @@ namespace :one_off do
     # should be somewhere near 295738
   end
 
-  desc 'load survey responses for lowell schools 2022-23'
-  task load_survey_responses_for_lowell_2022_23: :environment do
+  desc 'load survey responses'
+  task load_survey_responses: :environment do
     survey_item_response_count = SurveyItemResponse.count
     student_count = Student.count
-    path = '/data/survey_responses/2022-23/'
+    path = '/data/survey_responses/clean/'
 
     Sftp::Directory.open(path:) do |file|
       SurveyResponsesDataLoader.from_file(file:)
