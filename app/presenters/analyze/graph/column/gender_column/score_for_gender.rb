@@ -31,7 +31,7 @@ module Analyze
 
           def sufficient_student_responses?(academic_year:)
             yearly_counts = SurveyItemResponse.where(school:, academic_year:,
-                                                     gender:).group(:gender).select(:response_id).distinct(:response_id).count
+                                                     gender:, survey_item: measure.student_survey_items).group(:gender).select(:response_id).distinct(:response_id).count
             yearly_counts.any? do |count|
               count[1] >= 10
             end
