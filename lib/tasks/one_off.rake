@@ -201,12 +201,12 @@ namespace :one_off do
       rate.student_response_rate > 0
     end.map(&:id)
     sufficient_response_rate = ResponseRate.where(id: sufficient_response_rate)
-    sufficient_response_rate.update_all(student_response_rate: 100)
+    sufficient_response_rate.update_all(student_response_rate: 100, meets_student_threshold: true)
 
     sufficient_response_rate = ResponseRate.where(academic_year:, school: lee.schools).select do |rate|
       rate.teacher_response_rate > 0
     end.map(&:id)
     sufficient_response_rate = ResponseRate.where(id: sufficient_response_rate)
-    sufficient_response_rate.update_all(teacher_response_rate: 100)
+    sufficient_response_rate.update_all(teacher_response_rate: 100, meets_teacher_threshold: true)
   end
 end
