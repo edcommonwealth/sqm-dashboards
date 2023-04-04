@@ -192,4 +192,21 @@ namespace :one_off do
 
     Rails.cache.clear
   end
+
+  desc 'set response rates for lee schools to 100'
+  task set_response_rates_for_lee: :environment do
+    lee = District.find_by(name: 'Lee Public Schools')
+    academic_year = AcademicYear.find_by_range('2022-23')
+    sufficient_response_rate = ResponseRate.where(academic_year:, school: lee.schools).select do |rate|
+      rate.student_response_rate > 0
+    end.map(&:id)
+    sufficient_response_rate = ResponseRate.where(id: sufficient_response_rate)
+    sufficient_response_rate.update_all(student_response_rate: 100)
+
+    sufficient_response_rate = ResponseRate.where(academic_year:, school: lee.schools).select do |rate|
+      rate.teacher_response_rate > 0
+    end.map(&:id)
+    sufficient_response_rate = ResponseRate.where(id: sufficient_response_rate)
+    sufficient_response_rate.update_all(teacher_response_rate: 100)
+  end
 end
