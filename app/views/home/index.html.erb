@@ -2,13 +2,14 @@
   <div class="hero-text">
     <h1 class="sub-header">School Quality Measures Dashboard</h1>
     <p class="hero-description">A school quality framework with multiple measures that offers a fair and comprehensive
-      picture of school performance</p>
+    picture of school performance</p>
   </div>
 </div>
 <div class="bg-color-blue">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-6 welcome-controls d-flex justify-content-center">
+
         <%= form_with(url: welcome_path, method: :get,
                       data: {
                         turbo_frame: "schools",
@@ -16,30 +17,36 @@
                         controller: "form",
                         action: "change->form#submit"
                       }) do |f| %>
-          <%= turbo_frame_tag "schools" do %>
-            <div class="d-flex">
-              <% if District.count > 1 %>
-                <div class="row">
-                  <%= f.select :district,  @districts,
+
+                      <%= turbo_frame_tag "schools" do %>
+                        <div class="d-flex">
+                          <% if District.count > 1 %>
+                            <div class="row">
+                              <%= f.select :district,  @districts,
                                 {include_blank: "Select a District", selected: params[:district] } , {id: "district-dropdown", class: "form-select", hidden: @districts.count == 1} %>
-                </div>
-              <% end %>
-              <div>
-                <%= f.select :school,  @schools,
+                          </div>
+                        <% end %>
+
+                        <div>
+                          <%= f.select :school,  @schools,
                             {include_blank: "Select a School", selected: params[:school]}, { id: "school-dropdown", class: "form-select mx-3"} if @schools %>
-              </div>
-              <% if @school.present? %>
-                <%= link_to "Go", district_school_overview_index_path(@district, @school, {year:  @year}  ), class: "mx-4 btn btn-secondary" , data: {turbo_frame: "_top"} %>
-              <%  else %>
-                <%= button_to "Go", "/", class: "mx-4 btn btn-secondary" , data: {turbo_frame: "_top"}, disabled:  true %>
-              <% end %>
-            </div>
-          <% end %>
-        <% end %>
+                      </div>
+
+                      <% if @school.present? %>
+                        <%= link_to "Go", district_school_overview_index_path(@district, @school, {year:  @year}  ), class: "mx-4 btn btn-secondary" , data: {turbo_frame: "_top"} %>
+                      <%  else %>
+                        <%= button_to "Go", "/", class: "mx-4 btn btn-secondary" , data: {turbo_frame: "_top"}, disabled:  true %>
+                      <% end %>
+
+                        </div>
+                      <% end %>
+                    <% end %>
+
       </div>
     </div>
   </div>
 </div>
+
 <div class="bg-color-light-blue pt-12 pb-11">
   <div class="container">
     <div class="row">
@@ -47,9 +54,10 @@
         <div>
           <%= image_tag('framework_wheel.png', alt: 'School Quality Framework Wheel') %>
         </div>
+
         <p class="mt-5">The School Quality Measures Framework aims to describe the full measure of what makes a good
-          school. The three outer categories are essential inputs to school quality that influence the center two key
-          outcomes.</p>
+        school. The three outer categories are essential inputs to school quality that influence the center two key
+        outcomes.</p>
       </div>
       <div class="col-lg-7">
         <h2 class="mb-4">School Quality Measures Framework</h2>
@@ -62,7 +70,7 @@
               <h3 class="accordion-header" id="<%= category.slug %>-header">
                 <button class="accordion-button sub-header-4 collapsed" data-bs-toggle="collapse" data-bs-target="#<%= category.slug %>-item" aria-expanded="false" aria-controls="<%= category.slug %>-item">
                   <i class="<%= category.icon_class %> fa-lg fa-fw me-3 <%= category.icon_color_class %>"></i> <%= category.name %>
-                </button>
+              </button>
               </h3>
               <div id="<%= category.slug %>-item" class="accordion-collapse collapse" aria-labelledby="<%= category.slug %>-header" data-bs-parent="#landing-accordion">
                 <div class="accordion-body">
@@ -76,7 +84,8 @@
     </div>
   </div>
 </div>
-<div class="bg-color-blue text-center pt-11">
+
+<div class="bg-color-blue text-center py-11">
   <div class="about-mciea">
     <h2 class="mb-4">About ECP</h2>
     <p>Based at the University of Massachusetts - Lowell, ECP seeks to improve the way student learning and school quality are assessed, advancing a valid, democratic, and equitable approach to assessment and accountability. ECP works to accomplish this through free dissemination of the tools designed and piloted within MCIEA. This includes the School Quality Measures (SQM) framework, surveys, and an open-source data dashboard. It also includes the Quality Performance Assessment (QPA) Task Bank, along with accompanying tools and practices. ECP will provide no-cost assistance to Massachusetts public schools and districts interested in SQM or QPA work. ECP also allows schools and districts to move at their own pace and customize their pathway. Partnership with ECP can lead to a district choosing to join MCIEA.</p>
