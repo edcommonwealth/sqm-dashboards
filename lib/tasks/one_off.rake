@@ -178,7 +178,7 @@ namespace :one_off do
     puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 
     Sftp::Directory.open(path:) do |file|
-      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
+      StudentLoader.from_file(file:, rules: [])
     end
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
