@@ -171,6 +171,7 @@ namespace :one_off do
     survey_item_response_count = SurveyItemResponse.count
     student_count = Student.count
     path = '/data/survey_responses/clean/'
+    schools = District.find_by_slug('maynard-public-schools').schools
 
     Sftp::Directory.open(path:) do |file|
       SurveyResponsesDataLoader.from_file(file:)
@@ -183,11 +184,11 @@ namespace :one_off do
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts 'Resetting response rates'
-    ResponseRateLoader.reset academic_years: [AcademicYear.find_by_range('2022-23')]
+    ResponseRateLoader.reset(academic_years: [AcademicYear.find_by_range('2022-23')], schools:)
     puts "=====================> Completed loading #{ResponseRate.count} response rates"
 
     puts 'Resetting race scores'
-    RaceScoreLoader.reset(fast_processing: false, academic_years: [AcademicYear.find_by_range('2022-23')])
+    RaceScoreLoader.reset(fast_processing: false, academic_years: [AcademicYear.find_by_range('2022-23')], schools:)
     puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     Rails.cache.clear
