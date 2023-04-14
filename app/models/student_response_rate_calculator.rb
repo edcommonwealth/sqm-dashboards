@@ -6,7 +6,7 @@ class StudentResponseRateCalculator < ResponseRateCalculator
   end
 
   def rates_by_grade
-    @rates_by_grade ||= counts_by_grade.map do |grade, num_of_students_in_grade|
+    @rates_by_grade ||= enrollment_by_grade.map do |grade, num_of_students_in_grade|
       sufficient_survey_items = survey_items_with_sufficient_responses(grade:).keys
       actual_response_count_for_grade = SurveyItemResponse.where(school:, academic_year:, grade:,
                                                                  survey_item: sufficient_survey_items).count.to_f
@@ -19,8 +19,8 @@ class StudentResponseRateCalculator < ResponseRateCalculator
     end.compact
   end
 
-  def counts_by_grade
-    @counts_by_grade ||= respondents.counts_by_grade
+  def enrollment_by_grade
+    @enrollment_by_grade ||= respondents.counts_by_grade
   end
 
   def survey_items_have_sufficient_responses?
