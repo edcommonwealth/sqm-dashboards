@@ -192,4 +192,9 @@ namespace :one_off do
 
     Rails.cache.clear
   end
+
+  desc 'delete errant response'
+  task delete_response: :environment do
+    SurveyItemResponse.where(response_id: 'R_diYAw7qOj4W1UZ3').delete_all
+  end
 end
