@@ -24,11 +24,15 @@ class Measure < ActiveRecord::Base
     @student_survey_items ||= survey_items.student_survey_items
   end
 
-  def student_survey_items_by_survey_type(school:, academic_year:)
-    survey = Survey.where(school:, academic_year:).first
-    return student_survey_items.short_form_items if survey.form == 'short'
-
-    student_survey_items
+  def student_survey_items_with_sufficient_responses(school:, academic_year:)
+    SurveyItem.where(id: SurveyItem.joins('inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id')
+                                .student_survey_items
+                                .where("survey_item_responses.school": school,
+                                       "survey_item_responses.academic_year": academic_year,
+                                       "survey_item_responses.survey_item_id": survey_items.student_survey_items)
+                                .group('survey_items.id')
+                                .having('count(*) >= 10')
+                                .count.keys)
   end
 
   def teacher_scales
@@ -244,7 +248,7 @@ class Measure < ActiveRecord::Base
 
   def student_average(school:, academic_year:)
     @student_average ||= Hash.new do |memo, (school, academic_year)|
-      survey_items = student_survey_items_by_survey_type(school:, academic_year:)
+      survey_items = student_survey_items_with_sufficient_responses(school:, academic_year:)
       memo[[school, academic_year]] = collect_survey_item_average(survey_items:, school:, academic_year:)
     end
     @student_average[[school, academic_year]]
