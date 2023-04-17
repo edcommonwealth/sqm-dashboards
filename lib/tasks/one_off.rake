@@ -194,7 +194,9 @@ namespace :one_off do
   end
 
   desc 'delete errant response'
-  task delete_response: :environment do
+  task delete_responses: :environment do
     SurveyItemResponse.where(response_id: 'R_diYAw7qOj4W1UZ3').delete_all
+    SurveyItemResponse.where(response_id: 'R_27fKhVfyeKGMF5q').delete_all
+    SurveyItemResponse.where(response_id: 'R_2cjPX1Ngxr2Hc4c').delete_all
   end
 end

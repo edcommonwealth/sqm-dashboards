@@ -129,10 +129,10 @@ describe GroupedBarColumnPresenter do
     end
     context 'when more than one year exists' do
       before do
-        create(:survey_item_response,  survey_item: student_survey_item_for_composite_measure, school:,
-                                       academic_year: another_academic_year, likert_score: 5)
-        create(:survey_item_response,  survey_item: student_survey_item_for_composite_measure, school:,
-                                       academic_year: another_academic_year, likert_score: 3)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item_for_composite_measure, school:,
+                                                                                           academic_year: another_academic_year, likert_score: 5)
+        create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item_for_composite_measure, school:,
+                                                                                           academic_year: another_academic_year, likert_score: 3)
       end
       it 'returns independent scores for each year of data' do
         expect(all_data_presenter.score(0).average).to eq 4.5
@@ -205,10 +205,10 @@ describe GroupedBarColumnPresenter do
 
       context 'when there is more than one years worth of data to show' do
         before do
-          create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                         academic_year: another_academic_year, likert_score: 3)
-          create(:survey_item_response,  survey_item: student_survey_item, school:,
-                                         academic_year: another_academic_year, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                             academic_year: another_academic_year, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item, school:,
+                                                                                             academic_year: another_academic_year, likert_score: 4)
         end
 
         it 'returns only bars that have a numeric score' do
@@ -305,8 +305,8 @@ describe GroupedBarColumnPresenter do
     end
     context 'when there are enough responses to calculate a score' do
       before do
-        create(:survey_item_response,  survey_item: teacher_survey_item, school:,
-                                       academic_year:)
+        create(:survey_item_response, survey_item: teacher_survey_item, school:,
+                                      academic_year:)
       end
 
       it 'indicates it should show the insufficient data message' do

@@ -294,6 +294,46 @@ RSpec.describe Measure, type: :model do
       let(:short_form_student_survey_item_2) { create(:student_survey_item, scale: student_scale, on_short_form: true) }
       let(:short_form_student_survey_item_3) { create(:student_survey_item, scale: student_scale, on_short_form: true) }
 
+      context "and the number of responses for each of the measure's survey items does not meet the student threshold " do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_2, academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_3, academic_year:, school:, likert_score: 5)
+        end
+        it 'it does not return an average score' do
+          expect(measure.score(school:, academic_year:).average).to eq nil
+        end
+      end
+
+      context 'and one survey item has sufficient responses but other items do not meet the threshold' do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_2, academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_3, academic_year:, school:, likert_score: 5)
+        end
+        it 'it does not return an average score' do
+          expect(measure.score(school:, academic_year:).average).to eq 3
+        end
+      end
+      context 'and two survey items have sufficient responses but other items do not meet the threshold' do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
+                      survey_item: student_survey_item_2, academic_year:, school:, likert_score: 4)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_3, academic_year:, school:, likert_score: 5)
+        end
+        it 'it does not return an average score' do
+          expect(measure.score(school:, academic_year:).average).to eq 3.5
+        end
+      end
       context "and the number of responses for each of the measure's survey items meets the student threshold " do
         before :each do
           create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
@@ -313,22 +353,6 @@ RSpec.describe Measure, type: :model do
         end
         it 'notes that the result does not meet the teacher threshold' do
           expect(measure.score(school:, academic_year:).meets_teacher_threshold?).to be false
-        end
-      end
-
-      context "and the average number of responses across the measure's survey items meets the student threshold " do
-        before :each do
-          create_list(:survey_item_response,  SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD + 1, survey_item: student_survey_item_1, academic_year:,
-                                                                                                  school:, likert_score: 3)
-          create_list(:survey_item_response,  SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD, survey_item: student_survey_item_2, academic_year:,
-                                                                                              school:, likert_score: 4)
-          create_list(:survey_item_response,  SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1, survey_item: student_survey_item_3, academic_year:,
-                                                                                                  school:, likert_score: 5)
-        end
-
-        it 'returns the average of the likert scores of the survey items' do
-          average_score = 4
-          expect(measure.score(school:, academic_year:).average).to be_within(0.001).of(average_score)
         end
       end
 
@@ -375,6 +399,18 @@ RSpec.describe Measure, type: :model do
       let(:teacher_survey_item_1) { create(:teacher_survey_item, scale: teacher_scale) }
       let(:student_survey_item_1) { create(:student_survey_item, scale: student_scale) }
 
+      context 'and there is sufficient teacher data but insufficient student data' do
+        before :each do
+          create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
+                      survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 3)
+          create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
+                      survey_item: student_survey_item_1, academic_year:, school:, likert_score: 5)
+        end
+
+        it 'returns the average of the likert scores of the survey items' do
+          expect(measure.score(school:, academic_year:).average).to eq 3
+        end
+      end
       context 'and there is sufficient teacher data and sufficient student data' do
         before :each do
           create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
