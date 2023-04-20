@@ -134,14 +134,14 @@ module Dese
     def run_a_sust_i4(filepath:)
       run do |academic_year|
         admin_data_item_id = 'a-sust-i4'
-        url = 'https://profiles.doe.mass.edu/state_report/gradesubjectstaffing.aspx'
+        url = 'https://profiles.doe.mass.edu/statereport/gradesubjectstaffing.aspx'
         range = academic_year.range
-        selectors = {
-          'ctl00_ContentPlaceHolder1_reportType' => 'School',
-          'ctl00_ContentPlaceHolder1_fyCode' => range,
-          'ctl00_ContentPlaceHolder1_subjectCode' => 'Arts'
-        }
-        submit_id = 'ctl00_ContentPlaceHolder1_Continue'
+
+        selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
+                      'ctl00_ContentPlaceHolder1_ddYear' => range,
+                      'ctl00_ContentPlaceHolder1_ddDisplay' => 'Full-time Equivalents',
+                      'ctl00_ContentPlaceHolder1_ddSubject' => 'Arts' }
+        submit_id = 'btnViewReport'
         calculation = lambda { |_headers, items|
           num_of_art_teachers = items.last.to_f
           dese_id = items[1].to_i
