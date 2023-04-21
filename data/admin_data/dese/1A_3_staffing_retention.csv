@@ -1,4 +1,1824 @@
 Raw likert calculation,Likert Score,Admin Data Item,Academic Year,School Name,DESE ID,Principal Total,Principal # Retained,Principal % Retained,Teacher Total,Teacher # Retained,Teacher % Retained
+3.9670588235294115,3.97,a-pcom-i1,2022-23,Abby Kelley Foster Charter Public (District)-Abby Kelley Foster Charter Public School,04450105,3,2,66.7,121,102,84.3
+3.764705882352941,3.76,a-pcom-i1,2022-23,Abington-Abington Early Education Program,00010001,1,1,100.0,5,4,80.0
+3.7411764705882353,3.74,a-pcom-i1,2022-23,Abington-Abington High,00010505,1,1,100.0,44,35,79.5
+3.807058823529412,3.81,a-pcom-i1,2022-23,Abington-Abington Middle School,00010405,1,1,100.0,47,38,80.9
+4.051764705882353,4.05,a-pcom-i1,2022-23,Abington-Beaver Brook Elementary,00010020,1,0,0.0,36,31,86.1
+3.6376470588235295,3.64,a-pcom-i1,2022-23,Abington-Woodsdale Elementary School,00010015,1,0,0.0,22,17,77.3
+2.776470588235294,2.78,a-pcom-i1,2022-23,Academy Of the Pacific Rim Charter Public (District)-Academy Of the Pacific Rim Charter Public School,04120530,2,1,50.0,61,36,59.0
+4.192941176470588,4.19,a-pcom-i1,2022-23,Acton-Boxborough-Acton-Boxborough Regional High,06000505,1,1,100.0,138,123,89.1
+4.334117647058823,4.33,a-pcom-i1,2022-23,Acton-Boxborough-Blanchard Memorial School,06000005,1,1,100.0,38,35,92.1
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Acton-Boxborough-C.T. Douglas Elementary School,06000020,1,1,100.0,28,24,85.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Acton-Boxborough-Carol Huebner Early Childhood Program,06000001,1,1,100.0,8,8,100.0
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Acton-Boxborough-Luther Conant School,06000030,1,0,0.0,31,26,83.9
+4.169411764705882,4.17,a-pcom-i1,2022-23,Acton-Boxborough-McCarthy-Towne School,06000015,1,1,100.0,35,31,88.6
+4.291764705882353,4.29,a-pcom-i1,2022-23,Acton-Boxborough-Merriam School,06000010,1,0,0.0,34,31,91.2
+4.20235294117647,4.2,a-pcom-i1,2022-23,Acton-Boxborough-Paul P Gates Elementary School,06000025,1,0,0.0,28,25,89.3
+3.995294117647059,4.0,a-pcom-i1,2022-23,Acton-Boxborough-Raymond J Grey Junior High,06000405,1,1,100.0,73,62,84.9
+4.334117647058823,4.33,a-pcom-i1,2022-23,Acushnet-Acushnet Elementary School,00030025,1,1,100.0,38,35,92.1
+3.92,3.92,a-pcom-i1,2022-23,Acushnet-Albert F Ford Middle School,00030305,1,1,100.0,30,25,83.3
+4.1129411764705885,4.11,a-pcom-i1,2022-23,Advanced Math and Science Academy Charter (District)-Advanced Math and Science Academy Charter School,04300305,1,1,100.0,87,76,87.4
+3.764705882352941,3.76,a-pcom-i1,2022-23,Agawam-Agawam Early Childhood Center,00050003,1,1,100.0,10,8,80.0
+4.178823529411765,4.18,a-pcom-i1,2022-23,Agawam-Agawam High,00050505,1,1,100.0,98,87,88.8
+4.258823529411765,4.26,a-pcom-i1,2022-23,Agawam-Agawam Junior High,00050405,1,1,100.0,63,57,90.5
+4.0,4.0,a-pcom-i1,2022-23,Agawam-Benjamin J Phelps,00050020,1,1,100.0,20,17,85.0
+3.138823529411765,3.14,a-pcom-i1,2022-23,Agawam-Clifford M Granger,00050010,1,1,100.0,21,14,66.7
+3.468235294117647,3.47,a-pcom-i1,2022-23,Agawam-James Clark School,00050030,1,1,100.0,19,14,73.7
+3.1670588235294117,3.17,a-pcom-i1,2022-23,Agawam-Roberta G. Doering School,00050303,1,1,100.0,49,33,67.3
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Agawam-Robinson Park,00050025,1,1,100.0,19,16,84.2
+2.385882352941177,2.39,a-pcom-i1,2022-23,Alma del Mar Charter School (District)-Alma del Mar Charter School,04090205,2,1,50.0,73,37,50.7
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Amesbury-Amesbury Elementary,00070005,1,1,100.0,30,23,76.7
+4.225882352941176,4.23,a-pcom-i1,2022-23,Amesbury-Amesbury High,00070505,1,1,100.0,49,44,89.8
+3.138823529411765,3.14,a-pcom-i1,2022-23,Amesbury-Amesbury Innovation High School,00070515,1,1,100.0,6,4,66.7
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Amesbury-Amesbury Middle,00070013,1,1,100.0,56,48,85.7
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Amesbury-Charles C Cashman Elementary,00070010,1,1,100.0,34,28,82.4
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Amherst-Crocker Farm Elementary,00080009,1,1,100.0,46,38,82.6
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Amherst-Fort River Elementary,00080020,1,0,0.0,40,30,75.0
+3.929411764705882,3.93,a-pcom-i1,2022-23,Amherst-Pelham-Amherst Regional High,06050505,1,1,100.0,79,66,83.5
+3.604705882352941,3.6,a-pcom-i1,2022-23,Amherst-Pelham-Amherst Regional Middle School,06050405,1,1,100.0,47,36,76.6
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Amherst-Wildwood Elementary,00080050,1,1,100.0,41,37,90.2
+4.178823529411765,4.18,a-pcom-i1,2022-23,Andover-Andover High,00090505,1,1,100.0,134,119,88.8
+3.4305882352941177,3.43,a-pcom-i1,2022-23,Andover-Andover West Middle,00090310,1,1,100.0,59,43,72.9
+3.764705882352941,3.76,a-pcom-i1,2022-23,Andover-Bancroft Elementary,00090003,1,0,0.0,50,40,80.0
+3.7976470588235296,3.8,a-pcom-i1,2022-23,Andover-Doherty Middle,00090305,1,1,100.0,57,46,80.7
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Andover-Henry C Sanborn Elementary,00090010,1,1,100.0,31,27,87.1
+4.131764705882353,4.13,a-pcom-i1,2022-23,Andover-High Plain Elementary,00090004,1,1,100.0,49,43,87.8
+4.117647058823529,4.12,a-pcom-i1,2022-23,Andover-Shawsheen School,00090005,1,1,100.0,8,7,87.5
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Andover-South Elementary,00090020,1,1,100.0,38,32,84.2
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Andover-West Elementary,00090025,1,1,100.0,56,46,82.1
+3.7411764705882353,3.74,a-pcom-i1,2022-23,Andover-Wood Hill Middle School,00090350,1,1,100.0,44,35,79.5
+2.2682352941176473,2.27,a-pcom-i1,2022-23,Argosy Collegiate Charter School (District)-Argosy Collegiate Charter School,35090305,3,2,66.7,56,27,48.2
+3.915294117647059,3.92,a-pcom-i1,2022-23,Arlington-Arlington High,00100505,1,1,100.0,125,104,83.2
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Arlington-Brackett,00100010,1,1,100.0,35,29,82.9
+4.136470588235294,4.14,a-pcom-i1,2022-23,Arlington-Cyrus E Dallin,00100025,1,1,100.0,33,29,87.9
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Arlington-Gibbs School,00100305,1,1,100.0,42,32,76.2
+3.92,3.92,a-pcom-i1,2022-23,Arlington-Hardy,00100030,1,1,100.0,36,30,83.3
+4.390588235294118,4.39,a-pcom-i1,2022-23,Arlington-John A Bishop,00100005,1,1,100.0,30,28,93.3
+4.19764705882353,4.2,a-pcom-i1,2022-23,Arlington-M Norcross Stratton,00100055,1,1,100.0,37,33,89.2
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Arlington-Menotomy Preschool,00100038,1,1,100.0,7,5,71.4
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Arlington-Ottoson Middle,00100410,1,1,100.0,85,70,82.4
+3.7317647058823527,3.73,a-pcom-i1,2022-23,Arlington-Peirce,00100045,1,1,100.0,29,23,79.3
+4.018823529411765,4.02,a-pcom-i1,2022-23,Arlington-Thompson,00100050,1,1,100.0,41,35,85.4
+4.465882352941176,4.47,a-pcom-i1,2022-23,Ashburnham-Westminster-Briggs Elementary,06100025,1,1,100.0,39,37,94.9
+3.218823529411765,3.22,a-pcom-i1,2022-23,Ashburnham-Westminster-Meetinghouse School,06100010,1,1,100.0,19,13,68.4
+3.6,3.6,a-pcom-i1,2022-23,Ashburnham-Westminster-Oakmont Regional High School,06100505,1,1,100.0,51,39,76.5
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Ashburnham-Westminster-Overlook Middle School,06100305,1,0,0.0,38,32,84.2
+4.235294117647059,4.24,a-pcom-i1,2022-23,Ashburnham-Westminster-Westminster Elementary,06100005,1,1,100.0,30,27,90.0
+4.291764705882353,4.29,a-pcom-i1,2022-23,Ashland-Ashland High,00140505,1,1,100.0,57,52,91.2
+4.108235294117647,4.11,a-pcom-i1,2022-23,Ashland-Ashland Middle,00140405,1,1,100.0,55,48,87.3
+4.418823529411765,4.42,a-pcom-i1,2022-23,Ashland-David Mindess,00140015,1,0,0.0,49,46,93.9
+4.498823529411764,4.5,a-pcom-i1,2022-23,Ashland-Henry E Warren Elementary,00140010,1,1,100.0,45,43,95.6
+4.705882352941177,4.71,a-pcom-i1,2022-23,Ashland-William Pittaway Elementary,00140005,1,1,100.0,7,7,100.0
+4.418823529411765,4.42,a-pcom-i1,2022-23,Assabet Valley Regional Vocational Technical-Assabet Valley Vocational High School,08010605,1,1,100.0,114,107,93.9
+3.138823529411765,3.14,a-pcom-i1,2022-23,Athol-Royalston-Athol Community Elementary School,06150020,1,1,100.0,45,30,66.7
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Athol-Royalston-Athol High,06150505,1,1,100.0,33,24,72.7
+3.2800000000000002,3.28,a-pcom-i1,2022-23,Athol-Royalston-Athol-Royalston Middle School,06150305,1,0,0.0,33,23,69.7
+2.5647058823529414,2.56,a-pcom-i1,2022-23,Athol-Royalston-Royalston Community School,06150050,1,1,100.0,11,6,54.5
+3.1858823529411766,3.19,a-pcom-i1,2022-23,Atlantis Charter (District)-Atlantis Charter School,04910550,2,1,50.0,99,67,67.7
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Attleboro-A. Irvin Studley Elementary School,00160001,1,0,0.0,28,23,82.1
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Attleboro-Attleboro Community Academy,00160515,1,1,100.0,8,6,75.0
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Attleboro-Attleboro High,00160505,1,0,0.0,132,112,84.8
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Attleboro-Attleboro Virtual Academy,00160705,1,1,100.0,11,8,72.7
+4.047058823529412,4.05,a-pcom-i1,2022-23,Attleboro-Cyril K. Brennan Middle School,00160315,1,0,0.0,43,37,86.0
+4.117647058823529,4.12,a-pcom-i1,2022-23,Attleboro-Early Learning Center,00160008,1,0,0.0,8,7,87.5
+3.92,3.92,a-pcom-i1,2022-23,Attleboro-Hill-Roberts Elementary School,00160045,1,0,0.0,30,25,83.3
+4.056470588235294,4.06,a-pcom-i1,2022-23,Attleboro-Hyman Fine Elementary School,00160040,1,0,0.0,29,25,86.2
+3.3976470588235297,3.4,a-pcom-i1,2022-23,Attleboro-Peter Thacher Elementary School,00160050,1,0,0.0,36,26,72.2
+3.816470588235294,3.82,a-pcom-i1,2022-23,Attleboro-Robert J. Coelho Middle School,00160305,1,1,100.0,37,30,81.1
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Attleboro-Thomas Willett Elementary School,00160035,1,1,100.0,28,22,78.6
+4.235294117647059,4.24,a-pcom-i1,2022-23,Attleboro-Wamsutta Middle School,00160320,1,1,100.0,40,36,90.0
+4.225882352941176,4.23,a-pcom-i1,2022-23,Auburn-Auburn Middle,00170305,1,1,100.0,49,44,89.8
+4.2305882352941175,4.23,a-pcom-i1,2022-23,Auburn-Auburn Senior High,00170505,1,1,100.0,69,62,89.9
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Auburn-Bryn Mawr,00170010,1,0,0.0,20,15,75.0
+3.2941176470588234,3.29,a-pcom-i1,2022-23,Auburn-Pakachoag School,00170025,1,1,100.0,20,14,70.0
+3.628235294117647,3.63,a-pcom-i1,2022-23,Auburn-Swanson Road Intermediate School,00170030,1,1,100.0,48,37,77.1
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Avon-Avon Middle High School,00180510,1,1,100.0,36,27,75.0
+4.301176470588236,4.3,a-pcom-i1,2022-23,Avon-Ralph D Butler,00180010,1,1,100.0,35,32,91.4
+3.8823529411764706,3.88,a-pcom-i1,2022-23,Ayer Shirley School District-Ayer Shirley Regional High School,06160505,1,1,100.0,40,33,82.5
+3.764705882352941,3.76,a-pcom-i1,2022-23,Ayer Shirley School District-Ayer Shirley Regional Middle School,06160305,1,1,100.0,35,28,80.0
+3.6752941176470584,3.68,a-pcom-i1,2022-23,Ayer Shirley School District-Lura A. White Elementary School,06160001,1,1,100.0,32,25,78.1
+3.9576470588235293,3.96,a-pcom-i1,2022-23,Ayer Shirley School District-Page Hilltop Elementary School,06160002,1,1,100.0,44,37,84.1
+3.5717647058823534,3.57,a-pcom-i1,2022-23,Barnstable-Barnstable Community Innovation School,00200012,1,1,100.0,29,22,75.9
+4.018823529411765,4.02,a-pcom-i1,2022-23,Barnstable-Barnstable High,00200505,1,1,100.0,151,129,85.4
+2.9788235294117644,2.98,a-pcom-i1,2022-23,Barnstable-Barnstable Intermediate School,00200315,1,0,0.0,60,38,63.3
+4.235294117647059,4.24,a-pcom-i1,2022-23,Barnstable-Barnstable United Elementary School,00200050,1,1,100.0,70,63,90.0
+4.517647058823529,4.52,a-pcom-i1,2022-23,Barnstable-Centerville Elementary,00200010,1,0,0.0,25,24,96.0
+4.183529411764706,4.18,a-pcom-i1,2022-23,Barnstable-Enoch Cobb Early Learning Center,00200001,1,1,100.0,9,8,88.9
+4.418823529411765,4.42,a-pcom-i1,2022-23,Barnstable-Hyannis West Elementary,00200025,1,1,100.0,33,31,93.9
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Barnstable-West Barnstable Elementary,00200005,1,1,100.0,22,21,95.5
+3.849411764705882,3.85,a-pcom-i1,2022-23,Barnstable-West Villages Elementary School,00200045,1,0,0.0,33,27,81.8
+1.9529411764705882,1.95,a-pcom-i1,2022-23,Baystate Academy Charter Public School (District)-Baystate Academy Charter Public School,35020405,1,0,0.0,53,22,41.5
+3.816470588235294,3.82,a-pcom-i1,2022-23,Bedford-Bedford High,00230505,1,1,100.0,95,77,81.1
+4.117647058823529,4.12,a-pcom-i1,2022-23,Bedford-John Glenn Middle,00230305,1,1,100.0,64,56,87.5
+4.094117647058823,4.09,a-pcom-i1,2022-23,Bedford-Lt Eleazer Davis,00230010,1,1,100.0,54,47,87.0
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Bedford-Lt Job Lane School,00230012,1,1,100.0,56,47,83.9
+4.536470588235295,4.54,a-pcom-i1,2022-23,Belchertown-Belchertown High,00240505,1,1,100.0,55,53,96.4
+3.981176470588235,3.98,a-pcom-i1,2022-23,Belchertown-Chestnut Hill Community School,00240006,1,1,100.0,39,33,84.6
+4.371764705882353,4.37,a-pcom-i1,2022-23,Belchertown-Cold Spring,00240005,1,1,100.0,14,13,92.9
+4.301176470588236,4.3,a-pcom-i1,2022-23,Belchertown-Jabish Middle School,00240025,1,1,100.0,35,32,91.4
+4.334117647058823,4.33,a-pcom-i1,2022-23,Belchertown-Swift River Elementary,00240018,1,1,100.0,38,35,92.1
+3.138823529411765,3.14,a-pcom-i1,2022-23,Bellingham-Bellingham Early Childhood Center,00250003,1,0,0.0,6,4,66.7
+4.0,4.0,a-pcom-i1,2022-23,Bellingham-Bellingham High School,00250505,1,1,100.0,60,51,85.0
+4.08,4.08,a-pcom-i1,2022-23,Bellingham-Bellingham Memorial School,00250315,1,1,100.0,45,39,86.7
+4.117647058823529,4.12,a-pcom-i1,2022-23,Bellingham-Joseph F DiPietro Elementary School,00250020,1,1,100.0,24,21,87.5
+2.6870588235294117,2.69,a-pcom-i1,2022-23,Bellingham-Keough Memorial Academy,00250510,1,0,0.0,7,4,57.1
+4.428235294117647,4.43,a-pcom-i1,2022-23,Bellingham-Stall Brook,00250025,1,1,100.0,17,16,94.1
+4.296470588235294,4.3,a-pcom-i1,2022-23,Belmont-Belmont High,00260505,1,1,100.0,92,84,91.3
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Belmont-Daniel Butler,00260015,1,0,0.0,25,21,84.0
+4.527058823529412,4.53,a-pcom-i1,2022-23,Belmont-Mary Lee Burbank,00260010,1,0,0.0,26,25,96.2
+3.788235294117647,3.79,a-pcom-i1,2022-23,Belmont-Roger E Wellington,00260035,1,1,100.0,41,33,80.5
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Belmont-Winn Brook,00260005,1,1,100.0,28,22,78.6
+3.849411764705882,3.85,a-pcom-i1,2022-23,Belmont-Winthrop L Chenery Middle,00260305,1,0,0.0,88,72,81.8
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Benjamin Banneker Charter Public (District)-Benjamin Banneker Charter Public School,04200205,1,1,100.0,21,18,85.7
+3.5717647058823534,3.57,a-pcom-i1,2022-23,Benjamin Franklin Classical Charter Public (District)-Benjamin Franklin Classical Charter Public School,04470205,1,1,100.0,58,44,75.9
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Berkley-Berkley Community School,00270010,1,1,100.0,41,37,90.2
+4.249411764705882,4.25,a-pcom-i1,2022-23,Berkley-Berkley Middle School,00270305,1,1,100.0,31,28,90.3
+3.557647058823529,3.56,a-pcom-i1,2022-23,Berkshire Arts and Technology Charter Public (District)-Berkshire Arts and Technology Charter Public School,04140305,1,0,0.0,41,31,75.6
+3.9058823529411764,3.91,a-pcom-i1,2022-23,Berkshire Hills-Monument Mt Regional High,06180505,1,1,100.0,47,39,83.0
+4.451764705882352,4.45,a-pcom-i1,2022-23,Berkshire Hills-Muddy Brook Regional Elementary School,06180035,1,1,100.0,37,35,94.6
+3.5670588235294116,3.57,a-pcom-i1,2022-23,Berkshire Hills-W.E.B. Du Bois Regional Middle School,06180310,1,1,100.0,33,25,75.8
+4.705882352941177,4.71,a-pcom-i1,2022-23,Berlin-Boylston-Berlin Memorial School,06200005,1,1,100.0,23,23,100.0
+3.5717647058823534,3.57,a-pcom-i1,2022-23,Berlin-Boylston-Boylston Elementary School,06200010,1,0,0.0,29,22,75.9
+4.32,4.32,a-pcom-i1,2022-23,Berlin-Boylston-Tahanto Regional High,06200505,1,0,0.0,49,45,91.8
+3.92,3.92,a-pcom-i1,2022-23,Beverly-Ayers/Ryal Side School,00300055,1,1,100.0,30,25,83.3
+4.004705882352941,4.0,a-pcom-i1,2022-23,Beverly-Beverly High,00300505,1,1,100.0,101,86,85.1
+4.009411764705883,4.01,a-pcom-i1,2022-23,Beverly-Beverly Middle School,00300305,1,1,100.0,115,98,85.2
+4.390588235294118,4.39,a-pcom-i1,2022-23,Beverly-Centerville Elementary,00300010,1,1,100.0,30,28,93.3
+4.291764705882353,4.29,a-pcom-i1,2022-23,Beverly-Cove Elementary,00300015,1,1,100.0,34,31,91.2
+4.08,4.08,a-pcom-i1,2022-23,Beverly-Hannah Elementary,00300033,1,1,100.0,30,26,86.7
+4.235294117647059,4.24,a-pcom-i1,2022-23,Beverly-McKeown School,00300002,1,1,100.0,10,9,90.0
+4.136470588235294,4.14,a-pcom-i1,2022-23,Beverly-North Beverly Elementary,00300040,2,1,50.0,33,29,87.9
+4.2305882352941175,4.23,a-pcom-i1,2022-23,Billerica-Billerica Memorial High School,00310505,1,1,100.0,139,125,89.9
+3.6376470588235295,3.64,a-pcom-i1,2022-23,Billerica-Frederick J Dutile,00310007,1,1,100.0,22,17,77.3
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Billerica-Hajjar Elementary,00310026,1,1,100.0,31,26,83.9
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Billerica-John F Kennedy,00310012,1,1,100.0,26,23,88.5
+4.254117647058824,4.25,a-pcom-i1,2022-23,Billerica-Locke Middle,00310310,1,1,100.0,52,47,90.4
+4.047058823529412,4.05,a-pcom-i1,2022-23,Billerica-Marshall Middle School,00310305,1,1,100.0,57,49,86.0
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Billerica-Parker,00310015,1,1,100.0,35,30,85.7
+4.051764705882353,4.05,a-pcom-i1,2022-23,Billerica-Thomas Ditson,00310005,1,1,100.0,36,31,86.1
+4.437647058823529,4.44,a-pcom-i1,2022-23,Blackstone Valley Regional Vocational Technical-Blackstone Valley,08050605,1,1,100.0,105,99,94.3
+2.456470588235294,2.46,a-pcom-i1,2022-23,Blackstone-Millville-A F Maloney,06220015,1,1,100.0,23,12,52.2
+3.6470588235294117,3.65,a-pcom-i1,2022-23,Blackstone-Millville-Blackstone Millville RHS,06220505,1,1,100.0,40,31,77.5
+3.449411764705882,3.45,a-pcom-i1,2022-23,Blackstone-Millville-Frederick W. Hartnett Middle School,06220405,1,1,100.0,30,22,73.3
+1.411764705882353,1.41,a-pcom-i1,2022-23,Blackstone-Millville-John F Kennedy Elementary,06220008,1,1,100.0,10,3,30.0
+3.764705882352941,3.76,a-pcom-i1,2022-23,Blackstone-Millville-Millville Elementary,06220010,1,1,100.0,25,20,80.0
+4.470588235294118,4.47,a-pcom-i1,2022-23,Blue Hills Regional Vocational Technical-Blue Hills Regional Vocational Technical,08060605,1,1,100.0,80,76,95.0
+2.9552941176470586,2.96,a-pcom-i1,2022-23,Boston Collegiate Charter (District)-Boston Collegiate Charter School,04490305,4,3,75.0,78,49,62.8
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Boston Day and Evening Academy Charter (District)-Boston Day and Evening Academy Charter School,04240505,1,1,100.0,31,26,83.9
+2.7811764705882354,2.78,a-pcom-i1,2022-23,Boston Green Academy Horace Mann Charter School (District)-Boston Green Academy Horace Mann Charter School,04110305,1,1,100.0,66,39,59.1
+2.183529411764706,2.18,a-pcom-i1,2022-23,Boston Preparatory Charter Public (District)-Boston Preparatory Charter Public School,04160305,2,1,50.0,69,32,46.4
+3.458823529411765,3.46,a-pcom-i1,2022-23,Boston Renaissance Charter Public (District)-Boston Renaissance Charter Public School,04810550,1,1,100.0,83,61,73.5
+3.896470588235294,3.9,a-pcom-i1,2022-23,Boston-Adams Elementary School,00350302,1,1,100.0,29,24,82.8
+3.92,3.92,a-pcom-i1,2022-23,Boston-Alighieri Dante Montessori School,00350066,1,1,100.0,12,10,83.3
+3.07764705882353,3.08,a-pcom-i1,2022-23,Boston-Another Course To College,00350541,1,1,100.0,26,17,65.4
+3.449411764705882,3.45,a-pcom-i1,2022-23,Boston-Baldwin Early Learning Pilot Academy,00350003,2,1,50.0,15,11,73.3
+3.981176470588235,3.98,a-pcom-i1,2022-23,Boston-Bates Elementary School,00350278,1,1,100.0,26,22,84.6
+4.315294117647059,4.32,a-pcom-i1,2022-23,Boston-Beethoven Elementary School,00350021,1,1,100.0,24,22,91.7
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Boston-Blackstone Elementary School,00350390,1,1,100.0,56,46,82.1
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Boston-Boston Adult Tech Academy,00350548,1,1,100.0,19,15,78.9
+3.783529411764706,3.78,a-pcom-i1,2022-23,Boston-Boston Arts Academy,00350546,1,1,100.0,51,41,80.4
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Boston-Boston Collaborative High School,00350755,1,1,100.0,14,10,71.4
+3.684705882352941,3.68,a-pcom-i1,2022-23,Boston-Boston Community Leadership Academy,00350558,1,1,100.0,69,54,78.3
+3.92,3.92,a-pcom-i1,2022-23,Boston-Boston International High School & Newcomers Academy,00350507,1,1,100.0,54,45,83.3
+3.9105882352941173,3.91,a-pcom-i1,2022-23,Boston-Boston Latin Academy,00350545,2,1,50.0,89,74,83.1
+4.141176470588236,4.14,a-pcom-i1,2022-23,Boston-Boston Latin School,00350560,1,0,0.0,125,110,88.0
+2.7811764705882354,2.78,a-pcom-i1,2022-23,Boston-Boston Teachers Union K-8 Pilot,00350012,2,2,100.0,22,13,59.1
+3.44,3.44,a-pcom-i1,2022-23,Boston-Bradley Elementary School,00350215,1,1,100.0,26,19,73.1
+3.223529411764706,3.22,a-pcom-i1,2022-23,Boston-Brighton High School,00350505,1,1,100.0,54,37,68.5
+3.689411764705883,3.69,a-pcom-i1,2022-23,Boston-Burke High School,00350525,2,2,100.0,37,29,78.4
+0.0,1,a-pcom-i1,2022-23,Boston-Carter School,00350036,1,1,100.0,1,0,0.0
+2.550588235294118,2.55,a-pcom-i1,2022-23,Boston-Channing Elementary School,00350360,1,1,100.0,24,13,54.2
+3.2988235294117643,3.3,a-pcom-i1,2022-23,Boston-Charlestown High School,00350515,1,0,0.0,87,61,70.1
+4.249411764705882,4.25,a-pcom-i1,2022-23,Boston-Chittick Elementary School,00350154,1,1,100.0,31,28,90.3
+3.3223529411764705,3.32,a-pcom-i1,2022-23,Boston-Clap Elementary School,00350298,1,1,100.0,17,12,70.6
+2.3529411764705883,2.35,a-pcom-i1,2022-23,Boston-Community Academy,00350518,1,1,100.0,12,6,50.0
+4.084705882352941,4.08,a-pcom-i1,2022-23,Boston-Community Academy of Science and Health,00350581,1,1,100.0,38,33,86.8
+3.3505882352941176,3.35,a-pcom-i1,2022-23,Boston-Condon K-8 School,00350146,1,0,0.0,66,47,71.2
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Boston-Conley Elementary School,00350122,1,1,100.0,21,16,76.2
+3.755294117647059,3.76,a-pcom-i1,2022-23,Boston-Curley K-8 School,00350020,1,1,100.0,94,75,79.8
+2.051764705882353,2.05,a-pcom-i1,2022-23,Boston-Dearborn 6-12 STEM Academy,00350074,1,1,100.0,55,24,43.6
+4.117647058823529,4.12,a-pcom-i1,2022-23,Boston-Dever Elementary School,00350268,2,1,50.0,40,35,87.5
+3.3976470588235297,3.4,a-pcom-i1,2022-23,Boston-East Boston Early Education Center,00350009,1,0,0.0,18,13,72.2
+3.8917647058823532,3.89,a-pcom-i1,2022-23,Boston-East Boston High School,00350530,1,1,100.0,98,81,82.7
+3.849411764705882,3.85,a-pcom-i1,2022-23,Boston-Edison K-8 School,00350375,1,1,100.0,55,45,81.8
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Boston-Eliot K-8 Innovation School,00350096,1,1,100.0,57,48,84.2
+3.181176470588235,3.18,a-pcom-i1,2022-23,Boston-Ellis Elementary School,00350072,1,1,100.0,37,25,67.6
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Boston-Ellison-Parks Early Education School,00350008,1,1,100.0,21,15,71.4
+3.595294117647059,3.6,a-pcom-i1,2022-23,Boston-English High School,00350535,1,1,100.0,55,42,76.4
+3.2752941176470585,3.28,a-pcom-i1,2022-23,Boston-Everett Elementary School,00350088,1,1,100.0,23,16,69.6
+3.1058823529411765,3.11,a-pcom-i1,2022-23,Boston-Excel High School,00350522,1,1,100.0,47,31,66.0
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Boston-Fenway High School,00350540,1,1,100.0,32,26,81.3
+3.783529411764706,3.78,a-pcom-i1,2022-23,Boston-Frederick Pilot Middle School,00350383,2,1,50.0,46,37,80.4
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Boston-Gardner Pilot Academy,00350326,1,1,100.0,35,30,85.7
+2.9929411764705884,2.99,a-pcom-i1,2022-23,Boston-Greater Egleston High School,00350543,1,1,100.0,11,7,63.6
+2.672941176470588,2.67,a-pcom-i1,2022-23,Boston-Greenwood Sarah K-8 School,00350308,1,1,100.0,37,21,56.8
+3.2094117647058824,3.21,a-pcom-i1,2022-23,Boston-Grew Elementary School,00350135,1,1,100.0,22,15,68.2
+3.792941176470588,3.79,a-pcom-i1,2022-23,Boston-Guild Elementary School,00350062,1,1,100.0,31,25,80.6
+3.618823529411765,3.62,a-pcom-i1,2022-23,Boston-Hale Elementary School,00350243,1,1,100.0,13,10,76.9
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Boston-Haley Pilot School,00350077,1,1,100.0,45,38,84.4
+3.7223529411764704,3.72,a-pcom-i1,2022-23,Boston-Harvard-Kent Elementary School,00350200,1,0,0.0,43,34,79.1
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Boston-Haynes Early Education Center,00350010,1,1,100.0,19,15,78.9
+4.0,4.0,a-pcom-i1,2022-23,Boston-Henderson K-12 Inclusion School Lower,00350266,1,1,100.0,20,17,85.0
+3.458823529411765,3.46,a-pcom-i1,2022-23,Boston-Henderson K-12 Inclusion School Upper,00350426,1,1,100.0,83,61,73.5
+3.849411764705882,3.85,a-pcom-i1,2022-23,Boston-Hennigan K-8 School,00350153,1,1,100.0,55,45,81.8
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Boston-Hernandez K-8 School,00350691,2,2,100.0,26,21,80.8
+2.061176470588235,2.06,a-pcom-i1,2022-23,Boston-Higginson Inclusion K0-2 School,00350015,1,1,100.0,16,7,43.8
+3.07764705882353,3.08,a-pcom-i1,2022-23,Boston-Higginson-Lewis K-8 School,00350377,1,0,0.0,26,17,65.4
+4.20235294117647,4.2,a-pcom-i1,2022-23,Boston-Holmes Elementary School,00350138,1,0,0.0,28,25,89.3
+4.235294117647059,4.24,a-pcom-i1,2022-23,Boston-Horace Mann School for the Deaf Hard of Hearing,00350750,1,1,100.0,40,36,90.0
+4.094117647058823,4.09,a-pcom-i1,2022-23,Boston-Hurley K-8 School,00350182,2,1,50.0,23,20,87.0
+4.5317647058823525,4.53,a-pcom-i1,2022-23,Boston-Kennedy John F Elementary School,00350166,1,1,100.0,27,26,96.3
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Boston-Kennedy Patrick J Elementary School,00350264,1,1,100.0,26,23,88.5
+3.2941176470588234,3.29,a-pcom-i1,2022-23,Boston-Kenny Elementary School,00350328,2,1,50.0,30,21,70.0
+4.385882352941176,4.39,a-pcom-i1,2022-23,Boston-Kilmer K-8 School,00350190,1,1,100.0,44,41,93.2
+3.4447058823529413,3.44,a-pcom-i1,2022-23,Boston-King Elementary School,00350376,1,1,100.0,56,41,73.2
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Boston-Lee Academy,00350001,3,1,33.3,16,13,81.3
+3.242352941176471,3.24,a-pcom-i1,2022-23,Boston-Lee K-8 School,00350183,1,1,100.0,61,42,68.9
+3.072941176470588,3.07,a-pcom-i1,2022-23,Boston-Lyndon K-8 School,00350262,1,1,100.0,49,32,65.3
+2.1176470588235294,2.12,a-pcom-i1,2022-23,Boston-Lyon High School,00350655,1,1,100.0,20,9,45.0
+3.6376470588235295,3.64,a-pcom-i1,2022-23,Boston-Lyon K-8 School,00350004,1,1,100.0,22,17,77.3
+3.392941176470588,3.39,a-pcom-i1,2022-23,Boston-Madison Park Technical Vocational High School,00350537,1,1,100.0,129,93,72.1
+4.390588235294118,4.39,a-pcom-i1,2022-23,Boston-Manning Elementary School,00350184,1,0,0.0,15,14,93.3
+3.138823529411765,3.14,a-pcom-i1,2022-23,Boston-Margarita Muniz Academy,00350549,1,1,100.0,30,20,66.7
+3.0870588235294116,3.09,a-pcom-i1,2022-23,Boston-Mario Umana Academy,00350656,1,1,100.0,61,40,65.6
+2.7435294117647056,2.74,a-pcom-i1,2022-23,Boston-Mason Elementary School,00350304,1,1,100.0,24,14,58.3
+3.628235294117647,3.63,a-pcom-i1,2022-23,Boston-Mather Elementary School,00350227,2,1,50.0,48,37,77.1
+4.094117647058823,4.09,a-pcom-i1,2022-23,Boston-Mattahunt Elementary School,00350016,1,1,100.0,46,40,87.0
+3.5670588235294116,3.57,a-pcom-i1,2022-23,Boston-McKay K-8 School,00350080,1,0,0.0,66,50,75.8
+3.792941176470588,3.79,a-pcom-i1,2022-23,Boston-McKinley Schools,00350363,1,1,100.0,67,54,80.6
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Boston-Mendell Elementary School,00350100,1,1,100.0,25,21,84.0
+4.047058823529412,4.05,a-pcom-i1,2022-23,Boston-Mildred Avenue K-8 School,00350378,1,0,0.0,50,43,86.0
+3.468235294117647,3.47,a-pcom-i1,2022-23,Boston-Mozart Elementary School,00350237,1,0,0.0,19,14,73.7
+4.343529411764706,4.34,a-pcom-i1,2022-23,Boston-Murphy K-8 School,00350240,1,1,100.0,65,60,92.3
+3.138823529411765,3.14,a-pcom-i1,2022-23,Boston-New Mission High School,00350542,1,1,100.0,45,30,66.7
+3.8588235294117648,3.86,a-pcom-i1,2022-23,Boston-O'Bryant School of Math & Science,00350575,1,1,100.0,100,82,82.0
+3.2752941176470585,3.28,a-pcom-i1,2022-23,Boston-O'Donnell Elementary School,00350141,1,1,100.0,23,16,69.6
+4.503529411764706,4.5,a-pcom-i1,2022-23,Boston-Ohrenberger School,00350258,1,0,0.0,47,45,95.7
+2.889411764705882,2.89,a-pcom-i1,2022-23,Boston-Orchard Gardens K-8 School,00350257,1,1,100.0,70,43,61.4
+4.136470588235294,4.14,a-pcom-i1,2022-23,Boston-Otis Elementary School,00350156,1,1,100.0,33,29,87.9
+2.9741176470588235,2.97,a-pcom-i1,2022-23,Boston-Perkins Elementary School,00350231,1,1,100.0,19,12,63.2
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Boston-Perry Elementary School,00350255,1,0,0.0,21,15,71.4
+3.138823529411765,3.14,a-pcom-i1,2022-23,Boston-Philbrick Elementary School,00350172,1,1,100.0,15,10,66.7
+4.084705882352941,4.08,a-pcom-i1,2022-23,Boston-Quincy Elementary School,00350286,1,1,100.0,68,59,86.8
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Boston-Quincy Upper School,00350565,2,2,100.0,42,32,76.2
+3.689411764705883,3.69,a-pcom-i1,2022-23,Boston-Roosevelt K-8 School,00350116,1,1,100.0,37,29,78.4
+3.792941176470588,3.79,a-pcom-i1,2022-23,Boston-Russell Elementary School,00350366,1,1,100.0,31,25,80.6
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Boston-Shaw Elementary School,00350014,1,0,0.0,16,13,81.3
+3.392941176470588,3.39,a-pcom-i1,2022-23,Boston-Snowden International High School,00350690,1,1,100.0,43,31,72.1
+4.371764705882353,4.37,a-pcom-i1,2022-23,Boston-Sumner Elementary School,00350052,1,1,100.0,42,39,92.9
+3.3976470588235297,3.4,a-pcom-i1,2022-23,Boston-Taylor Elementary School,00350054,1,1,100.0,36,26,72.2
+3.1905882352941175,3.19,a-pcom-i1,2022-23,Boston-TechBoston Academy,00350657,2,1,50.0,90,61,67.8
+4.051764705882353,4.05,a-pcom-i1,2022-23,Boston-Tobin K-8 School,00350229,1,1,100.0,36,31,86.1
+2.851764705882353,2.85,a-pcom-i1,2022-23,Boston-Trotter Elementary School,00350370,1,1,100.0,33,20,60.6
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Boston-Tynan Elementary School,00350181,1,1,100.0,28,23,82.1
+4.131764705882353,4.13,a-pcom-i1,2022-23,Boston-UP Academy Holland,00350167,1,1,100.0,49,43,87.8
+4.503529411764706,4.5,a-pcom-i1,2022-23,Boston-Warren-Prescott K-8 School,00350346,1,1,100.0,47,45,95.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Boston-West Zone Early Learning Center,00350006,1,1,100.0,12,12,100.0
+4.48,4.48,a-pcom-i1,2022-23,Boston-Winship Elementary School,00350374,1,1,100.0,21,20,95.2
+4.343529411764706,4.34,a-pcom-i1,2022-23,Boston-Winthrop Elementary School,00350180,1,1,100.0,26,24,92.3
+2.635294117647059,2.64,a-pcom-i1,2022-23,Boston-Young Achievers K-8 School,00350380,1,1,100.0,50,28,56.0
+3.468235294117647,3.47,a-pcom-i1,2022-23,Bourne-Bourne High School,00360505,1,1,100.0,38,28,73.7
+4.084705882352941,4.08,a-pcom-i1,2022-23,Bourne-Bourne Intermediate School,00360030,1,1,100.0,38,33,86.8
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Bourne-Bourne Middle School,00360325,1,1,100.0,44,42,95.5
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Bourne-Bournedale Elementary School,00360005,1,1,100.0,34,30,88.2
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Boxford-Harry Lee Cole,00380005,1,1,100.0,32,26,81.3
+4.145882352941176,4.15,a-pcom-i1,2022-23,Boxford-Spofford Pond,00380013,1,1,100.0,42,37,88.1
+4.4,4.4,a-pcom-i1,2022-23,Braintree-Archie T Morrison,00400033,1,1,100.0,31,29,93.5
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Braintree-Braintree High,00400505,1,1,100.0,125,106,84.8
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Braintree-Donald Ross,00400050,1,1,100.0,24,18,75.0
+4.352941176470588,4.35,a-pcom-i1,2022-23,Braintree-East Middle School,00400305,1,1,100.0,80,74,92.5
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Braintree-Highlands,00400015,1,0,0.0,34,28,82.4
+4.371764705882353,4.37,a-pcom-i1,2022-23,Braintree-Hollis,00400005,1,1,100.0,28,26,92.9
+4.136470588235294,4.14,a-pcom-i1,2022-23,Braintree-Liberty,00400025,1,1,100.0,33,29,87.9
+3.764705882352941,3.76,a-pcom-i1,2022-23,Braintree-Mary E Flaherty School,00400020,1,1,100.0,25,20,80.0
+3.6,3.6,a-pcom-i1,2022-23,Braintree-Monatiquot Kindergarten Center,00400009,1,1,100.0,17,13,76.5
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Braintree-South Middle School,00400310,1,1,100.0,46,39,84.8
+4.117647058823529,4.12,a-pcom-i1,2022-23,Brewster-Eddy Elementary,00410010,1,1,100.0,24,21,87.5
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Brewster-Stony Brook Elementary,00410005,1,1,100.0,26,21,80.8
+3.138823529411765,3.14,a-pcom-i1,2022-23,Bridge Boston Charter School (District)-Bridge Boston Charter School,04170205,1,1,100.0,39,26,66.7
+4.315294117647059,4.32,a-pcom-i1,2022-23,Bridgewater-Raynham-Bridgewater Middle School,06250320,1,1,100.0,36,33,91.7
+4.028235294117647,4.03,a-pcom-i1,2022-23,Bridgewater-Raynham-Bridgewater-Raynham Regional,06250505,1,1,100.0,90,77,85.6
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Bridgewater-Raynham-Laliberte Elementary School,06250050,1,1,100.0,32,27,84.4
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Bridgewater-Raynham-Merrill Elementary School,06250020,1,1,100.0,24,19,79.2
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Bridgewater-Raynham-Mitchell Elementary School,06250002,1,1,100.0,70,50,71.4
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Bridgewater-Raynham-Raynham Middle School,06250315,1,1,100.0,46,38,82.6
+0.7858823529411765,1,a-pcom-i1,2022-23,Bridgewater-Raynham-Therapeutic Day School,06250415,1,1,100.0,12,2,16.7
+2.8941176470588235,2.89,a-pcom-i1,2022-23,Bridgewater-Raynham-Williams Intermediate School,06250300,1,1,100.0,52,32,61.5
+4.536470588235295,4.54,a-pcom-i1,2022-23,Brimfield-Brimfield Elementary,00430005,1,1,100.0,28,27,96.4
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Bristol County Agricultural-Bristol County Agricultural High,09100705,1,1,100.0,39,32,82.1
+4.395294117647059,4.4,a-pcom-i1,2022-23,Bristol-Plymouth Regional Vocational Technical-Bristol-Plymouth Vocational Technical,08100605,1,1,100.0,106,99,93.4
+3.745882352941176,3.75,a-pcom-i1,2022-23,Brockton-Ashfield Middle School,00440421,1,1,100.0,49,39,79.6
+2.875294117647059,2.88,a-pcom-i1,2022-23,Brockton-Barrett Russell Early Childhood Center,00440008,1,0,0.0,18,11,61.1
+3.1952941176470593,3.2,a-pcom-i1,2022-23,Brockton-Brockton Champion High School,00440515,1,0,0.0,28,19,67.9
+3.8588235294117648,3.86,a-pcom-i1,2022-23,Brockton-Brockton High,00440505,1,0,0.0,278,228,82.0
+1.0258823529411765,1.03,a-pcom-i1,2022-23,Brockton-Brockton Virtual Learning Academy,00440705,1,0,0.0,55,12,21.8
+3.9435294117647057,3.94,a-pcom-i1,2022-23,Brockton-Brookfield,00440010,1,0,0.0,37,31,83.8
+4.065882352941177,4.07,a-pcom-i1,2022-23,Brockton-Downey,00440110,1,0,0.0,44,38,86.4
+3.6517647058823526,3.65,a-pcom-i1,2022-23,Brockton-Dr W Arnone Community School,00440001,1,1,100.0,58,45,77.6
+3.6329411764705886,3.63,a-pcom-i1,2022-23,Brockton-East Middle School,00440405,1,0,0.0,57,44,77.2
+3.5670588235294116,3.57,a-pcom-i1,2022-23,Brockton-Edgar B Davis,00440023,1,1,100.0,66,50,75.8
+3.011764705882353,3.01,a-pcom-i1,2022-23,Brockton-Edison Academy,00440520,1,0,0.0,25,16,64.0
+3.7317647058823527,3.73,a-pcom-i1,2022-23,Brockton-Gilmore Elementary School,00440055,1,0,0.0,29,23,79.3
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Brockton-Hancock,00440045,1,1,100.0,38,32,84.2
+0.5882352941176471,1,a-pcom-i1,2022-23,Brockton-Huntington Therapeutic Day School,00440400,1,0,0.0,24,3,12.5
+3.84,3.84,a-pcom-i1,2022-23,Brockton-John F Kennedy,00440017,1,0,0.0,38,31,81.6
+3.8823529411764706,3.88,a-pcom-i1,2022-23,Brockton-Louis F Angelo Elementary,00440065,1,1,100.0,57,47,82.5
+3.0352941176470587,3.04,a-pcom-i1,2022-23,Brockton-Manthala George Jr. School,00440003,1,1,100.0,62,40,64.5
+3.5058823529411764,3.51,a-pcom-i1,2022-23,Brockton-Mary E. Baker School,00440002,1,1,100.0,55,41,74.5
+3.407058823529412,3.41,a-pcom-i1,2022-23,Brockton-North Middle School,00440410,1,0,0.0,29,21,72.4
+3.6705882352941175,3.67,a-pcom-i1,2022-23,Brockton-Oscar F Raymond,00440078,1,1,100.0,59,46,78.0
+3.162352941176471,3.16,a-pcom-i1,2022-23,Brockton-Plouffe Middle School,00440422,1,1,100.0,61,41,67.2
+3.392941176470588,3.39,a-pcom-i1,2022-23,Brockton-South Middle School,00440415,1,0,0.0,61,44,72.1
+3.3129411764705887,3.31,a-pcom-i1,2022-23,Brockton-West Middle School,00440420,1,1,100.0,54,38,70.4
+3.072941176470588,3.07,a-pcom-i1,2022-23,Brooke Charter School (District)-Brooke Charter School,04280305,5,3,60.0,190,124,65.3
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Brookfield-Brookfield Elementary,00450005,1,1,100.0,25,21,84.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Brookline-Brookline Early Education Program at Beacon,00460001,1,0,0.0,5,5,100.0
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Brookline-Brookline Early Education Program at Clark Road,00460003,1,0,0.0,7,5,71.4
+3.92,3.92,a-pcom-i1,2022-23,Brookline-Brookline Early Education Program at Putterham,00460002,1,0,0.0,6,5,83.3
+4.20235294117647,4.2,a-pcom-i1,2022-23,Brookline-Brookline High,00460505,1,1,100.0,214,191,89.3
+3.92,3.92,a-pcom-i1,2022-23,Brookline-Edith C Baker,00460005,2,1,50.0,66,55,83.3
+3.6705882352941175,3.67,a-pcom-i1,2022-23,Brookline-Florida Ruffin Ridley School,00460015,1,1,100.0,82,64,78.0
+3.807058823529412,3.81,a-pcom-i1,2022-23,Brookline-Heath,00460025,1,1,100.0,47,38,80.9
+3.934117647058823,3.93,a-pcom-i1,2022-23,Brookline-John D Runkle,00460045,1,1,100.0,55,46,83.6
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Brookline-Lawrence,00460030,1,1,100.0,64,48,75.0
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Brookline-Michael Driscoll,00460020,1,1,100.0,52,42,80.8
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Brookline-Pierce,00460040,1,0,0.0,68,56,82.4
+3.764705882352941,3.76,a-pcom-i1,2022-23,Brookline-The Lynch Center,00460060,1,0,0.0,5,4,80.0
+4.056470588235294,4.06,a-pcom-i1,2022-23,Brookline-William H Lincoln,00460035,1,1,100.0,58,50,86.2
+4.263529411764706,4.26,a-pcom-i1,2022-23,Burlington-Burlington High,00480505,2,2,100.0,96,87,90.6
+4.583529411764706,4.58,a-pcom-i1,2022-23,Burlington-Fox Hill,00480007,1,1,100.0,38,37,97.4
+3.981176470588235,3.98,a-pcom-i1,2022-23,Burlington-Francis Wyman Elementary,00480035,1,1,100.0,52,44,84.6
+4.188235294117647,4.19,a-pcom-i1,2022-23,Burlington-Marshall Simonds Middle,00480303,1,1,100.0,73,65,89.0
+4.084705882352941,4.08,a-pcom-i1,2022-23,Burlington-Memorial,00480015,2,0,0.0,38,33,86.8
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Burlington-Pine Glen Elementary,00480020,1,1,100.0,31,27,87.1
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Cambridge-Amigos School,00490006,1,1,100.0,38,32,84.2
+4.014117647058823,4.01,a-pcom-i1,2022-23,Cambridge-Cambridge Rindge and Latin,00490506,2,1,50.0,224,191,85.3
+3.3458823529411763,3.35,a-pcom-i1,2022-23,Cambridge-Cambridge Street Upper School,00490305,1,0,0.0,38,27,71.1
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Cambridge-Cambridgeport,00490007,1,1,100.0,30,23,76.7
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Cambridge-Fletcher/Maynard Academy,00490090,1,0,0.0,34,28,82.4
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Cambridge-Graham and Parks,00490080,1,0,0.0,34,30,88.2
+3.764705882352941,3.76,a-pcom-i1,2022-23,Cambridge-Haggerty,00490020,1,1,100.0,30,24,80.0
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Cambridge-John M Tobin,00490065,1,1,100.0,31,27,87.1
+3.5623529411764707,3.56,a-pcom-i1,2022-23,Cambridge-Kennedy-Longfellow,00490040,1,1,100.0,37,28,75.7
+3.6376470588235295,3.64,a-pcom-i1,2022-23,Cambridge-King Open,00490035,1,1,100.0,44,34,77.3
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Cambridge-Maria L. Baldwin,00490005,1,1,100.0,35,29,82.9
+4.183529411764706,4.18,a-pcom-i1,2022-23,Cambridge-Martin Luther King Jr.,00490030,1,1,100.0,36,32,88.9
+4.070588235294117,4.07,a-pcom-i1,2022-23,Cambridge-Morse,00490045,1,1,100.0,37,32,86.5
+3.3411764705882354,3.34,a-pcom-i1,2022-23,Cambridge-Peabody,00490050,2,1,50.0,31,22,71.0
+3.181176470588235,3.18,a-pcom-i1,2022-23,Cambridge-Putnam Avenue Upper School,00490310,1,1,100.0,37,25,67.6
+4.014117647058823,4.01,a-pcom-i1,2022-23,Cambridge-Rindge Avenue Upper School,00490315,1,1,100.0,34,29,85.3
+3.792941176470588,3.79,a-pcom-i1,2022-23,Cambridge-Vassal Lane Upper School,00490320,1,1,100.0,36,29,80.6
+4.061176470588235,4.06,a-pcom-i1,2022-23,Canton-Canton High,00500505,1,1,100.0,73,63,86.3
+4.070588235294117,4.07,a-pcom-i1,2022-23,Canton-Dean S Luce,00500020,1,1,100.0,37,32,86.5
+3.7411764705882353,3.74,a-pcom-i1,2022-23,Canton-John F Kennedy,00500017,1,0,0.0,39,31,79.5
+4.470588235294118,4.47,a-pcom-i1,2022-23,Canton-Lt Peter M Hansen,00500012,1,1,100.0,40,38,95.0
+3.92,3.92,a-pcom-i1,2022-23,Canton-Rodman Early Childhood Center,00500010,1,1,100.0,6,5,83.3
+4.065882352941177,4.07,a-pcom-i1,2022-23,Canton-Wm H Galvin Middle,00500305,1,0,0.0,66,57,86.4
+3.491764705882353,3.49,a-pcom-i1,2022-23,Cape Cod Lighthouse Charter (District)-Cape Cod Lighthouse Charter School,04320530,1,0,0.0,31,23,74.2
+3.6470588235294117,3.65,a-pcom-i1,2022-23,Cape Cod Regional Vocational Technical-Cape Cod Region Vocational Technical,08150605,1,1,100.0,71,55,77.5
+4.550588235294118,4.55,a-pcom-i1,2022-23,Carlisle-Carlisle School,00510025,2,2,100.0,60,58,96.7
+4.221176470588236,4.22,a-pcom-i1,2022-23,Carver-Carver Elementary School,00520015,1,1,100.0,58,52,89.7
+4.301176470588236,4.3,a-pcom-i1,2022-23,Carver-Carver Middle/High School,00520405,1,0,0.0,70,64,91.4
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Central Berkshire-Becket Washington School,06350005,1,1,100.0,11,8,72.7
+4.27764705882353,4.28,a-pcom-i1,2022-23,Central Berkshire-Craneville,06350025,1,0,0.0,33,30,90.9
+4.315294117647059,4.32,a-pcom-i1,2022-23,Central Berkshire-Kittredge,06350035,1,1,100.0,12,11,91.7
+3.44,3.44,a-pcom-i1,2022-23,Central Berkshire-Nessacus Regional Middle School,06350305,1,1,100.0,26,19,73.1
+4.2164705882352935,4.22,a-pcom-i1,2022-23,Central Berkshire-Wahconah Regional High,06350505,1,1,100.0,48,43,89.6
+4.352941176470588,4.35,a-pcom-i1,2022-23,Chelmsford-Byam School,00560030,1,1,100.0,40,37,92.5
+4.183529411764706,4.18,a-pcom-i1,2022-23,Chelmsford-Center Elementary School,00560005,1,1,100.0,36,32,88.9
+3.792941176470588,3.79,a-pcom-i1,2022-23,Chelmsford-Charles D Harrington,00560025,1,1,100.0,36,29,80.6
+4.192941176470588,4.19,a-pcom-i1,2022-23,Chelmsford-Chelmsford High,00560505,1,1,100.0,110,98,89.1
+3.981176470588235,3.98,a-pcom-i1,2022-23,Chelmsford-Col Moses Parker School,00560305,1,1,100.0,65,55,84.6
+4.183529411764706,4.18,a-pcom-i1,2022-23,Chelmsford-Community Education Center,00560001,1,1,100.0,9,8,88.9
+4.272941176470588,4.27,a-pcom-i1,2022-23,Chelmsford-McCarthy Middle School,00560310,1,1,100.0,65,59,90.8
+4.291764705882353,4.29,a-pcom-i1,2022-23,Chelmsford-South Row,00560015,1,1,100.0,34,31,91.2
+3.138823529411765,3.14,a-pcom-i1,2022-23,Chelsea-Chelsea High,00570505,1,0,0.0,123,82,66.7
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Chelsea-Chelsea Opportunity Academy,00570515,1,1,100.0,8,6,75.0
+3.92,3.92,a-pcom-i1,2022-23,Chelsea-Chelsea Virtual Learning Academy,00570705,1,1,100.0,6,5,83.3
+2.988235294117647,2.99,a-pcom-i1,2022-23,Chelsea-Clark Avenue School,00570050,1,1,100.0,52,33,63.5
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Chelsea-Edgar A Hooks Elementary,00570030,1,1,100.0,39,32,82.1
+4.145882352941176,4.15,a-pcom-i1,2022-23,Chelsea-Eugene Wright Science and Technology Academy,00570045,1,1,100.0,42,37,88.1
+3.5905882352941174,3.59,a-pcom-i1,2022-23,Chelsea-Frank M Sokolowski Elementary,00570040,1,1,100.0,38,29,76.3
+3.3976470588235297,3.4,a-pcom-i1,2022-23,Chelsea-George F. Kelly Elementary,00570035,1,1,100.0,36,26,72.2
+3.1011764705882356,3.1,a-pcom-i1,2022-23,Chelsea-Joseph A. Browne School,00570055,1,0,0.0,44,29,65.9
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Chelsea-Shurtleff Early Childhood,00570003,1,1,100.0,56,46,82.1
+3.378823529411765,3.38,a-pcom-i1,2022-23,Chelsea-William A Berkowitz Elementary,00570025,1,1,100.0,39,28,71.8
+3.138823529411765,3.14,a-pcom-i1,2022-23,Chesterfield-Goshen-New Hingham Regional Elementary,06320025,1,1,100.0,18,12,66.7
+3.792941176470588,3.79,a-pcom-i1,2022-23,Chicopee-Barry,00610003,1,1,100.0,31,25,80.6
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Chicopee-Belcher,00610010,1,1,100.0,17,14,82.4
+4.084705882352941,4.08,a-pcom-i1,2022-23,Chicopee-Bellamy Middle,00610305,1,1,100.0,76,66,86.8
+4.428235294117647,4.43,a-pcom-i1,2022-23,Chicopee-Bowe,00610015,1,0,0.0,34,32,94.1
+4.48,4.48,a-pcom-i1,2022-23,Chicopee-Bowie,00610020,1,1,100.0,21,20,95.2
+4.08,4.08,a-pcom-i1,2022-23,Chicopee-Chicopee Academy,00610021,1,1,100.0,15,13,86.7
+4.268235294117647,4.27,a-pcom-i1,2022-23,Chicopee-Chicopee Comprehensive High School,00610510,1,1,100.0,108,98,90.7
+4.127058823529412,4.13,a-pcom-i1,2022-23,Chicopee-Chicopee High,00610505,1,1,100.0,81,71,87.7
+3.138823529411765,3.14,a-pcom-i1,2022-23,Chicopee-Dupont Middle,00610310,1,0,0.0,57,38,66.7
+4.27764705882353,4.28,a-pcom-i1,2022-23,Chicopee-Fairview Elementary,00610050,1,1,100.0,33,30,90.9
+3.792941176470588,3.79,a-pcom-i1,2022-23,Chicopee-Gen John J Stefanik,00610090,1,1,100.0,31,25,80.6
+4.329411764705882,4.33,a-pcom-i1,2022-23,Chicopee-Lambert-Lavoie,00610040,1,0,0.0,25,23,92.0
+4.4,4.4,a-pcom-i1,2022-23,Chicopee-Litwin,00610022,1,1,100.0,31,29,93.5
+4.0,4.0,a-pcom-i1,2022-23,Chicopee-Streiber Memorial School,00610065,1,1,100.0,20,17,85.0
+3.237647058823529,3.24,a-pcom-i1,2022-23,Chicopee-Szetela Early Childhood Center,00610001,1,1,100.0,16,11,68.8
+2.588235294117647,2.59,a-pcom-i1,2022-23,Christa McAuliffe Charter School (District)-Christa McAuliffe Charter School,04180305,1,0,0.0,40,22,55.0
+2.7576470588235296,2.76,a-pcom-i1,2022-23,City on a Hill Charter Public School (District)-City on a Hill Charter Public School,04370505,1,1,100.0,29,17,58.6
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Clarksburg-Clarksburg Elementary,00630010,1,0,0.0,17,14,82.4
+4.145882352941176,4.15,a-pcom-i1,2022-23,Clinton-Clinton Elementary,00640050,1,1,100.0,67,59,88.1
+3.938823529411765,3.94,a-pcom-i1,2022-23,Clinton-Clinton Middle School,00640305,1,1,100.0,49,41,83.7
+3.6376470588235295,3.64,a-pcom-i1,2022-23,Clinton-Clinton Senior High,00640505,1,1,100.0,44,34,77.3
+3.2752941176470585,3.28,a-pcom-i1,2022-23,Codman Academy Charter Public (District)-Codman Academy Charter Public School,04380505,1,1,100.0,56,39,69.6
+4.371764705882353,4.37,a-pcom-i1,2022-23,Cohasset-Cohasset High School,00650505,1,1,100.0,42,39,92.9
+3.7364705882352944,3.74,a-pcom-i1,2022-23,Cohasset-Cohasset Middle School,00650305,1,1,100.0,34,27,79.4
+4.20235294117647,4.2,a-pcom-i1,2022-23,Cohasset-Deer Hill,00650005,1,1,100.0,28,25,89.3
+4.517647058823529,4.52,a-pcom-i1,2022-23,Cohasset-Joseph Osgood,00650010,1,1,100.0,25,24,96.0
+1.5952941176470588,1.6,a-pcom-i1,2022-23,Collegiate Charter School of Lowell (District)-Collegiate Charter School of Lowell,35030205,1,0,0.0,59,20,33.9
+3.016470588235294,3.02,a-pcom-i1,2022-23,Community Charter School of Cambridge (District)-Community Charter School of Cambridge,04360305,2,0,0.0,39,25,64.1
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Community Day Charter Public School (District)-Community Day Charter Public School,04400205,4,4,100.0,40,30,75.0
+4.018823529411765,4.02,a-pcom-i1,2022-23,Concord-Alcott,00670005,1,1,100.0,41,35,85.4
+4.047058823529412,4.05,a-pcom-i1,2022-23,Concord-Carlisle-Concord Carlisle High,06400505,1,0,0.0,121,104,86.0
+3.934117647058823,3.93,a-pcom-i1,2022-23,Concord-Concord Middle,00670305,1,1,100.0,67,56,83.6
+4.235294117647059,4.24,a-pcom-i1,2022-23,Concord-Thoreau,00670020,1,1,100.0,50,45,90.0
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Concord-Willard,00670030,1,1,100.0,46,38,82.6
+3.642352941176471,3.64,a-pcom-i1,2022-23,Conservatory Lab Charter (District)-Conservatory Lab Charter School,04390050,1,1,100.0,31,24,77.4
+4.183529411764706,4.18,a-pcom-i1,2022-23,Conway-Conway Grammar,00680005,1,1,100.0,18,16,88.9
+4.338823529411765,4.34,a-pcom-i1,2022-23,Danvers-Danvers High,00710505,1,1,100.0,77,71,92.2
+4.517647058823529,4.52,a-pcom-i1,2022-23,Danvers-Great Oak,00710015,1,1,100.0,25,24,96.0
+4.527058823529412,4.53,a-pcom-i1,2022-23,Danvers-Highlands,00710010,1,1,100.0,26,25,96.2
+4.117647058823529,4.12,a-pcom-i1,2022-23,Danvers-Holten Richmond Middle School,00710305,1,1,100.0,72,63,87.5
+4.705882352941177,4.71,a-pcom-i1,2022-23,Danvers-Ivan G Smith,00710032,1,1,100.0,27,27,100.0
+4.20235294117647,4.2,a-pcom-i1,2022-23,Danvers-Riverside,00710030,1,0,0.0,28,25,89.3
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Danvers-Willis E Thorpe,00710045,1,1,100.0,25,21,84.0
+4.390588235294118,4.39,a-pcom-i1,2022-23,Dartmouth-Andrew B. Cushman School,00720005,2,1,50.0,15,14,93.3
+4.315294117647059,4.32,a-pcom-i1,2022-23,Dartmouth-Dartmouth High,00720505,1,0,0.0,84,77,91.7
+4.32,4.32,a-pcom-i1,2022-23,Dartmouth-Dartmouth Middle,00720050,1,1,100.0,85,78,91.8
+4.390588235294118,4.39,a-pcom-i1,2022-23,Dartmouth-George H Potter,00720030,1,1,100.0,30,28,93.3
+4.268235294117647,4.27,a-pcom-i1,2022-23,Dartmouth-James M. Quinn School,00720040,1,1,100.0,54,49,90.7
+4.221176470588236,4.22,a-pcom-i1,2022-23,Dartmouth-Joseph Demello,00720015,1,0,0.0,29,26,89.7
+4.5458823529411765,4.55,a-pcom-i1,2022-23,Dedham-Avery,00730010,1,0,0.0,29,28,96.6
+4.014117647058823,4.01,a-pcom-i1,2022-23,Dedham-Dedham High,00730505,1,1,100.0,68,58,85.3
+4.305882352941176,4.31,a-pcom-i1,2022-23,Dedham-Dedham Middle School,00730305,1,1,100.0,59,54,91.5
+4.329411764705882,4.33,a-pcom-i1,2022-23,Dedham-Early Childhood Center,00730005,1,1,100.0,25,23,92.0
+4.508235294117647,4.51,a-pcom-i1,2022-23,Dedham-Greenlodge,00730025,1,1,100.0,24,23,95.8
+4.065882352941177,4.07,a-pcom-i1,2022-23,Dedham-Oakdale,00730030,1,1,100.0,22,19,86.4
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Dedham-Riverdale,00730045,1,0,0.0,19,15,78.9
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Deerfield-Deerfield Elementary,00740015,1,1,100.0,38,30,78.9
+4.268235294117647,4.27,a-pcom-i1,2022-23,Dennis-Yarmouth-Dennis-Yarmouth Intermediate School,06450050,1,1,100.0,43,39,90.7
+4.305882352941176,4.31,a-pcom-i1,2022-23,Dennis-Yarmouth-Dennis-Yarmouth Middle School,06450305,1,1,100.0,47,43,91.5
+4.042352941176471,4.04,a-pcom-i1,2022-23,Dennis-Yarmouth-Dennis-Yarmouth Regional High,06450505,1,1,100.0,85,73,85.9
+4.324705882352942,4.32,a-pcom-i1,2022-23,Dennis-Yarmouth-Ezra H Baker Innovation School,06450005,1,1,100.0,37,34,91.9
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Dennis-Yarmouth-Marguerite E Small Elementary,06450015,1,1,100.0,33,28,84.8
+4.221176470588236,4.22,a-pcom-i1,2022-23,Dennis-Yarmouth-Station Avenue Elementary,06450025,1,1,100.0,39,35,89.7
+4.334117647058823,4.33,a-pcom-i1,2022-23,Dighton-Rehoboth-Dighton Elementary,06500005,1,1,100.0,38,35,92.1
+4.08,4.08,a-pcom-i1,2022-23,Dighton-Rehoboth-Dighton Middle School,06500305,1,1,100.0,30,26,86.7
+3.792941176470588,3.79,a-pcom-i1,2022-23,Dighton-Rehoboth-Dighton-Rehoboth Regional High School,06500505,1,0,0.0,67,54,80.6
+4.145882352941176,4.15,a-pcom-i1,2022-23,Dighton-Rehoboth-Dorothy L Beckwith,06500310,1,0,0.0,42,37,88.1
+4.169411764705882,4.17,a-pcom-i1,2022-23,Dighton-Rehoboth-Palmer River,06500010,1,0,0.0,44,39,88.6
+4.235294117647059,4.24,a-pcom-i1,2022-23,Douglas-Douglas Elementary School,00770015,1,0,0.0,30,27,90.0
+4.324705882352942,4.32,a-pcom-i1,2022-23,Douglas-Douglas High School,00770505,1,0,0.0,37,34,91.9
+4.094117647058823,4.09,a-pcom-i1,2022-23,Douglas-Douglas Middle School,00770305,1,1,100.0,23,20,87.0
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Douglas-Douglas Primary School,00770005,1,1,100.0,19,16,84.2
+4.145882352941176,4.15,a-pcom-i1,2022-23,Dover-Chickering,00780005,1,1,100.0,42,37,88.1
+4.249411764705882,4.25,a-pcom-i1,2022-23,Dover-Sherborn-Dover-Sherborn Regional High,06550505,1,1,100.0,62,56,90.3
+3.934117647058823,3.93,a-pcom-i1,2022-23,Dover-Sherborn-Dover-Sherborn Regional Middle School,06550405,2,0,0.0,55,46,83.6
+4.136470588235294,4.14,a-pcom-i1,2022-23,Dracut-Brookside Elementary,00790035,1,1,100.0,33,29,87.9
+4.145882352941176,4.15,a-pcom-i1,2022-23,Dracut-Dracut Senior High,00790505,1,1,100.0,67,59,88.1
+4.169411764705882,4.17,a-pcom-i1,2022-23,Dracut-George H. Englesby Elementary School,00790045,1,0,0.0,35,31,88.6
+2.456470588235294,2.46,a-pcom-i1,2022-23,Dracut-Greenmont Avenue,00790030,1,1,100.0,23,12,52.2
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Dracut-Joseph A Campbell Elementary,00790020,1,1,100.0,39,32,82.1
+3.472941176470588,3.47,a-pcom-i1,2022-23,Dracut-Justus C. Richardson Middle School,00790410,1,1,100.0,61,45,73.8
+4.235294117647059,4.24,a-pcom-i1,2022-23,Dudley Street Neighborhood Charter School (District)-Dudley Street Neighborhood Charter School,04070405,1,1,100.0,20,18,90.0
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Dudley-Charlton Reg-Charlton Elementary,06580020,1,1,100.0,26,23,88.5
+4.061176470588235,4.06,a-pcom-i1,2022-23,Dudley-Charlton Reg-Charlton Middle School,06580310,1,1,100.0,51,44,86.3
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Dudley-Charlton Reg-Dudley Elementary,06580005,1,1,100.0,31,26,83.9
+4.183529411764706,4.18,a-pcom-i1,2022-23,Dudley-Charlton Reg-Dudley Middle School,06580305,1,1,100.0,36,32,88.9
+4.051764705882353,4.05,a-pcom-i1,2022-23,Dudley-Charlton Reg-Heritage School,06580030,1,1,100.0,36,31,86.1
+4.094117647058823,4.09,a-pcom-i1,2022-23,Dudley-Charlton Reg-Mason Road School,06580010,1,1,100.0,23,20,87.0
+3.84,3.84,a-pcom-i1,2022-23,Dudley-Charlton Reg-Shepherd Hill Regional High,06580505,1,0,0.0,76,62,81.6
+4.2164705882352935,4.22,a-pcom-i1,2022-23,Duxbury-Alden School,00820004,1,1,100.0,48,43,89.6
+4.305882352941176,4.31,a-pcom-i1,2022-23,Duxbury-Chandler Elementary,00820006,1,1,100.0,47,43,91.5
+4.183529411764706,4.18,a-pcom-i1,2022-23,Duxbury-Duxbury High,00820505,1,0,0.0,90,80,88.9
+4.385882352941176,4.39,a-pcom-i1,2022-23,Duxbury-Duxbury Middle,00820305,1,1,100.0,59,55,93.2
+4.0329411764705885,4.03,a-pcom-i1,2022-23,East Bridgewater-Central,00830005,1,1,100.0,42,36,85.7
+3.934117647058823,3.93,a-pcom-i1,2022-23,East Bridgewater-East Bridgewater JR./SR. High School,00830505,1,1,100.0,73,61,83.6
+4.2447058823529416,4.24,a-pcom-i1,2022-23,East Bridgewater-Gordon W. Mitchell School,00830010,1,0,0.0,51,46,90.2
+4.183529411764706,4.18,a-pcom-i1,2022-23,East Longmeadow-Birchland Park,00870305,1,0,0.0,54,48,88.9
+4.27764705882353,4.28,a-pcom-i1,2022-23,East Longmeadow-East Longmeadow High,00870505,1,1,100.0,66,60,90.9
+4.527058823529412,4.53,a-pcom-i1,2022-23,East Longmeadow-Mapleshade,00870010,1,0,0.0,26,25,96.2
+4.352941176470588,4.35,a-pcom-i1,2022-23,East Longmeadow-Meadow Brook,00870013,1,1,100.0,40,37,92.5
+4.183529411764706,4.18,a-pcom-i1,2022-23,East Longmeadow-Mountain View,00870015,1,1,100.0,27,24,88.9
+4.065882352941177,4.07,a-pcom-i1,2022-23,Eastham-Eastham Elementary,00850005,1,1,100.0,22,19,86.4
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Easthampton-Easthampton High,00860505,1,1,100.0,34,30,88.2
+4.183529411764706,4.18,a-pcom-i1,2022-23,Easton-Blanche A. Ames Elementary School,00880015,1,1,100.0,27,24,88.9
+4.075294117647059,4.08,a-pcom-i1,2022-23,Easton-Easton Middle School,00880405,1,1,100.0,67,58,86.6
+4.235294117647059,4.24,a-pcom-i1,2022-23,Easton-Oliver Ames High,00880505,2,1,50.0,90,81,90.0
+3.9058823529411764,3.91,a-pcom-i1,2022-23,Easton-Richardson Olmsted School,00880025,1,1,100.0,53,44,83.0
+4.145882352941176,4.15,a-pcom-i1,2022-23,Edgartown-Edgartown Elementary,00890005,1,1,100.0,59,52,88.1
+3.7411764705882353,3.74,a-pcom-i1,2022-23,Edward M. Kennedy Academy for Health Careers: A Horace Mann Charter Public School (District)-Edward M. Kennedy Academy for Health Careers: A Horace Mann Charter Public School,04520505,1,1,100.0,39,31,79.5
+4.470588235294118,4.47,a-pcom-i1,2022-23,Erving-Erving Elementary,00910030,1,1,100.0,20,19,95.0
+3.938823529411765,3.94,a-pcom-i1,2022-23,Essex North Shore Agricultural and Technical School District-Essex North Shore Agricultural and Technical School,08170505,1,1,100.0,153,128,83.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Everett-Adams School,00930003,1,1,100.0,9,9,100.0
+3.0258823529411765,3.03,a-pcom-i1,2022-23,Everett-Devens School,00930030,1,0,0.0,14,9,64.3
+3.868235294117647,3.87,a-pcom-i1,2022-23,Everett-Everett High,00930505,2,2,100.0,163,134,82.2
+4.145882352941176,4.15,a-pcom-i1,2022-23,Everett-George Keverian School,00930028,1,1,100.0,67,59,88.1
+4.141176470588236,4.14,a-pcom-i1,2022-23,Everett-Lafayette School,00930038,1,1,100.0,83,73,88.0
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Everett-Madeline English School,00930018,1,1,100.0,66,56,84.8
+3.830588235294118,3.83,a-pcom-i1,2022-23,Everett-Parlin School,00930058,2,2,100.0,70,57,81.4
+3.5764705882352943,3.58,a-pcom-i1,2022-23,Everett-Sumner G. Whittier School,00930010,1,1,100.0,50,38,76.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Everett-Webster Extension,00930001,1,1,100.0,12,12,100.0
+4.258823529411765,4.26,a-pcom-i1,2022-23,Everett-Webster School,00930015,1,1,100.0,42,38,90.5
+2.9647058823529413,2.96,a-pcom-i1,2022-23,Excel Academy Charter (District)-Excel Academy Charter School,04100205,4,2,50.0,135,85,63.0
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Fairhaven-East Fairhaven,00940010,1,1,100.0,32,26,81.3
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Fairhaven-Fairhaven High,00940505,1,1,100.0,57,45,78.9
+3.8823529411764706,3.88,a-pcom-i1,2022-23,Fairhaven-Hastings Middle,00940305,1,1,100.0,40,33,82.5
+4.19764705882353,4.2,a-pcom-i1,2022-23,Fairhaven-Leroy Wood,00940030,1,0,0.0,37,33,89.2
+3.934117647058823,3.93,a-pcom-i1,2022-23,Fall River-B M C Durfee High,00950505,1,1,100.0,195,163,83.6
+3.6705882352941175,3.67,a-pcom-i1,2022-23,Fall River-Carlton M. Viveiros Elementary School,00950009,1,1,100.0,50,39,78.0
+2.7341176470588238,2.73,a-pcom-i1,2022-23,Fall River-Henry Lord Community School,00950017,1,1,100.0,62,36,58.1
+3.3223529411764705,3.32,a-pcom-i1,2022-23,Fall River-James Tansey,00950140,1,0,0.0,17,12,70.6
+3.5905882352941174,3.59,a-pcom-i1,2022-23,Fall River-John J Doran,00950045,1,1,100.0,38,29,76.3
+3.1011764705882356,3.1,a-pcom-i1,2022-23,Fall River-Letourneau Elementary School,00950013,1,1,100.0,41,27,65.9
+2.5788235294117645,2.58,a-pcom-i1,2022-23,Fall River-Mary Fonseca Elementary School,00950011,1,1,100.0,42,23,54.8
+2.9505882352941177,2.95,a-pcom-i1,2022-23,Fall River-Matthew J Kuss Middle,00950320,1,1,100.0,59,37,62.7
+2.3952941176470586,2.4,a-pcom-i1,2022-23,Fall River-Morton Middle,00950315,1,0,0.0,57,29,50.9
+3.2658823529411767,3.27,a-pcom-i1,2022-23,Fall River-North End Elementary,00950005,1,1,100.0,49,34,69.4
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Fall River-Resiliency Preparatory Academy,00950525,1,0,0.0,21,15,71.4
+2.1176470588235294,2.12,a-pcom-i1,2022-23,Fall River-Samuel Watson,00950145,1,1,100.0,20,9,45.0
+3.92,3.92,a-pcom-i1,2022-23,Fall River-Spencer Borden,00950130,1,1,100.0,42,35,83.3
+2.767058823529412,2.77,a-pcom-i1,2022-23,Fall River-Stone PK-12 School,00950340,1,1,100.0,17,10,58.8
+2.9929411764705884,2.99,a-pcom-i1,2022-23,Fall River-Talbot Innovation School,00950305,1,1,100.0,55,35,63.6
+2.4047058823529412,2.4,a-pcom-i1,2022-23,Fall River-William S Greene,00950065,1,1,100.0,47,24,51.1
+4.357647058823529,4.36,a-pcom-i1,2022-23,Falmouth-East Falmouth Elementary,00960005,1,1,100.0,27,25,92.6
+3.995294117647059,4.0,a-pcom-i1,2022-23,Falmouth-Falmouth High,00960505,1,0,0.0,86,73,84.9
+4.009411764705883,4.01,a-pcom-i1,2022-23,Falmouth-Lawrence,00960405,1,1,100.0,54,46,85.2
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Falmouth-Morse Pond School,00960305,1,0,0.0,46,39,84.8
+4.117647058823529,4.12,a-pcom-i1,2022-23,Falmouth-Mullen-Hall,00960020,1,1,100.0,40,35,87.5
+4.555294117647058,4.56,a-pcom-i1,2022-23,Falmouth-North Falmouth Elementary,00960030,1,0,0.0,31,30,96.8
+4.20235294117647,4.2,a-pcom-i1,2022-23,Falmouth-Teaticket,00960015,1,1,100.0,28,25,89.3
+4.705882352941177,4.71,a-pcom-i1,2022-23,Farmington River Reg-Farmington River Elementary,06620020,1,1,100.0,15,15,100.0
+3.1058823529411765,3.11,a-pcom-i1,2022-23,Fitchburg-Arthur M Longsjo Middle School,00970315,1,0,0.0,50,33,66.0
+3.783529411764706,3.78,a-pcom-i1,2022-23,Fitchburg-Crocker Elementary,00970016,1,1,100.0,46,37,80.4
+3.684705882352941,3.68,a-pcom-i1,2022-23,Fitchburg-Fitchburg High,00970505,1,1,100.0,92,72,78.3
+4.235294117647059,4.24,a-pcom-i1,2022-23,Fitchburg-Goodrich Academy,00970510,1,1,100.0,10,9,90.0
+2.2211764705882353,2.22,a-pcom-i1,2022-23,Fitchburg-McKay Elementary School,00970340,1,1,100.0,53,25,47.2
+3.1105882352941174,3.11,a-pcom-i1,2022-23,Fitchburg-Memorial Middle School,00970048,1,1,100.0,56,37,66.1
+3.5011764705882356,3.5,a-pcom-i1,2022-23,Fitchburg-Reingold Elementary,00970043,1,1,100.0,43,32,74.4
+1.0211764705882354,1.02,a-pcom-i1,2022-23,Fitchburg-South Street Early Learning Center,00970060,1,1,100.0,46,10,21.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Florida-Abbott Memorial,00980005,1,1,100.0,11,11,100.0
+4.381176470588235,4.38,a-pcom-i1,2022-23,Four Rivers Charter Public (District)-Four Rivers Charter Public School,04130505,1,0,0.0,29,27,93.1
+0.0,1,a-pcom-i1,2022-23,Foxborough Regional Charter (District)-Foxborough Regional Charter School,04460550,"",Failed to,meet reporting,requirements,"",""
+3.4776470588235298,3.48,a-pcom-i1,2022-23,Foxborough-Charles Taylor Elementary,00990050,1,1,100.0,23,17,73.9
+3.976470588235294,3.98,a-pcom-i1,2022-23,Foxborough-Foxborough High,00990505,1,0,0.0,71,60,84.5
+3.981176470588235,3.98,a-pcom-i1,2022-23,Foxborough-John J Ahern,00990405,1,1,100.0,65,55,84.6
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Foxborough-Mabelle M Burrell,00990015,1,0,0.0,26,23,88.5
+3.628235294117647,3.63,a-pcom-i1,2022-23,Foxborough-Vincent M Igo Elementary,00990020,1,0,0.0,35,27,77.1
+3.2517647058823527,3.25,a-pcom-i1,2022-23,Framingham-Barbieri Elementary,01000035,1,1,100.0,55,38,69.1
+3.2141176470588233,3.21,a-pcom-i1,2022-23,Framingham-Brophy,01000006,1,0,0.0,41,28,68.3
+4.211764705882353,4.21,a-pcom-i1,2022-23,Framingham-Cameron Middle School,01000302,1,1,100.0,57,51,89.5
+4.343529411764706,4.34,a-pcom-i1,2022-23,Framingham-Charlotte A Dunning,01000007,1,1,100.0,39,36,92.3
+4.065882352941177,4.07,a-pcom-i1,2022-23,Framingham-Framingham High School,01000515,1,1,100.0,199,172,86.4
+3.604705882352941,3.6,a-pcom-i1,2022-23,Framingham-Fuller Middle,01000305,1,1,100.0,64,49,76.6
+2.7435294117647056,2.74,a-pcom-i1,2022-23,Framingham-Harmony Grove Elementary,01000055,1,0,0.0,48,28,58.3
+3.3317647058823527,3.33,a-pcom-i1,2022-23,Framingham-Hemenway,01000015,1,0,0.0,48,34,70.8
+4.503529411764706,4.5,a-pcom-i1,2022-23,Framingham-Juniper Hill School,01000001,1,1,100.0,23,22,95.7
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Framingham-King Elementary School,01000005,2,1,50.0,32,26,81.3
+3.091764705882353,3.09,a-pcom-i1,2022-23,Framingham-Mary E Stapleton Elementary,01000045,2,1,50.0,35,23,65.7
+2.7435294117647056,2.74,a-pcom-i1,2022-23,Framingham-Miriam F McCarthy School,01000050,1,1,100.0,48,28,58.3
+2.823529411764706,2.82,a-pcom-i1,2022-23,Framingham-Potter Road,01000039,1,1,100.0,40,24,60.0
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Framingham-Walsh Middle,01000310,1,1,100.0,84,60,71.4
+3.6517647058823526,3.65,a-pcom-i1,2022-23,Francis W. Parker Charter Essential (District)-Francis W. Parker Charter Essential School,04780505,1,0,0.0,49,38,77.6
+3.7176470588235295,3.72,a-pcom-i1,2022-23,Franklin County Regional Vocational Technical-Franklin County Technical,08180605,1,1,100.0,62,49,79.0
+3.4352941176470586,3.44,a-pcom-i1,2022-23,Franklin-Annie Sullivan Middle School,01010040,1,1,100.0,37,27,73.0
+3.2941176470588234,3.29,a-pcom-i1,2022-23,Franklin-Franklin Early Childhood Development Center,01010003,1,1,100.0,10,7,70.0
+4.094117647058823,4.09,a-pcom-i1,2022-23,Franklin-Franklin High,01010505,1,1,100.0,123,107,87.0
+4.094117647058823,4.09,a-pcom-i1,2022-23,Franklin-Helen Keller Elementary,01010012,1,1,100.0,46,40,87.0
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Franklin-Horace Mann,01010405,1,1,100.0,41,34,82.9
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Franklin-J F Kennedy Memorial,01010013,2,1,50.0,31,26,83.9
+2.9929411764705884,2.99,a-pcom-i1,2022-23,Franklin-Jefferson Elementary,01010010,1,0,0.0,33,21,63.6
+3.708235294117647,3.71,a-pcom-i1,2022-23,Franklin-Oak Street Elementary,01010030,1,1,100.0,33,26,78.8
+2.3529411764705883,2.35,a-pcom-i1,2022-23,Franklin-Parmenter,01010032,1,1,100.0,36,18,50.0
+4.145882352941176,4.15,a-pcom-i1,2022-23,Franklin-Remington Middle,01010310,1,1,100.0,42,37,88.1
+4.258823529411765,4.26,a-pcom-i1,2022-23,Freetown-Lakeville-Apponequet Regional High,06650505,1,1,100.0,63,57,90.5
+4.249411764705882,4.25,a-pcom-i1,2022-23,Freetown-Lakeville-Assawompset Elementary School,06650002,1,1,100.0,31,28,90.3
+3.6752941176470584,3.68,a-pcom-i1,2022-23,Freetown-Lakeville-Freetown Elementary School,06650001,1,1,100.0,32,25,78.1
+3.8588235294117648,3.86,a-pcom-i1,2022-23,Freetown-Lakeville-Freetown-Lakeville Middle School,06650305,1,1,100.0,50,41,82.0
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Freetown-Lakeville-George R Austin Intermediate School,06650015,1,1,100.0,33,28,84.8
+4.136470588235294,4.14,a-pcom-i1,2022-23,Frontier-Frontier Regional,06700505,1,1,100.0,58,51,87.9
+3.138823529411765,3.14,a-pcom-i1,2022-23,Gardner-Gardner Academy for Learning and Technology,01030515,1,1,100.0,9,6,66.7
+4.0,4.0,a-pcom-i1,2022-23,Gardner-Gardner Elementary School,01030001,1,0,0.0,40,34,85.0
+4.042352941176471,4.04,a-pcom-i1,2022-23,Gardner-Gardner High,01030505,1,1,100.0,64,55,85.9
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Gardner-Gardner Middle School,01030405,1,1,100.0,42,30,71.4
+2.767058823529412,2.77,a-pcom-i1,2022-23,Gateway-Chester Elementary,06720059,1,0,0.0,17,10,58.8
+3.181176470588235,3.18,a-pcom-i1,2022-23,Gateway-Gateway Regional High,06720505,1,1,100.0,37,25,67.6
+2.9129411764705884,2.91,a-pcom-i1,2022-23,Gateway-Gateway Regional Middle School,06720405,1,1,100.0,21,13,61.9
+3.181176470588235,3.18,a-pcom-i1,2022-23,Gateway-Littleville Elementary School,06720143,1,0,0.0,34,23,67.6
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Georgetown-Georgetown High School,01050505,1,1,100.0,42,33,78.6
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Georgetown-Georgetown Middle School,01050305,1,1,100.0,27,21,77.8
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Georgetown-Penn Brook,01050010,1,0,0.0,52,46,88.5
+4.705882352941177,4.71,a-pcom-i1,2022-23,Georgetown-Perley Elementary,01050005,1,0,0.0,1,1,100.0
+3.618823529411765,3.62,a-pcom-i1,2022-23,Gill-Montague-Gill Elementary,06740005,1,0,0.0,13,10,76.9
+3.44,3.44,a-pcom-i1,2022-23,Gill-Montague-Great Falls Middle,06740310,1,1,100.0,26,19,73.1
+4.183529411764706,4.18,a-pcom-i1,2022-23,Gill-Montague-Hillcrest Elementary School,06740015,1,1,100.0,18,16,88.9
+3.92,3.92,a-pcom-i1,2022-23,Gill-Montague-Sheffield Elementary School,06740050,1,0,0.0,24,20,83.3
+3.2564705882352944,3.26,a-pcom-i1,2022-23,Gill-Montague-Turners Fall High,06740505,1,1,100.0,26,18,69.2
+3.171764705882353,3.17,a-pcom-i1,2022-23,Global Learning Charter Public (District)-Global Learning Charter Public School,04960305,1,1,100.0,46,31,67.4
+4.263529411764706,4.26,a-pcom-i1,2022-23,Gloucester-Beeman Memorial,01070010,1,1,100.0,32,29,90.6
+4.705882352941177,4.71,a-pcom-i1,2022-23,Gloucester-East Gloucester Elementary,01070020,1,1,100.0,20,20,100.0
+4.061176470588235,4.06,a-pcom-i1,2022-23,Gloucester-Gloucester High,01070505,1,1,100.0,80,69,86.3
+4.705882352941177,4.71,a-pcom-i1,2022-23,Gloucester-Gloucester PreSchool,01070025,1,0,0.0,8,8,100.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Gloucester-Plum Cove School,01070042,1,1,100.0,18,18,100.0
+3.783529411764706,3.78,a-pcom-i1,2022-23,Gloucester-Ralph B O'Maley Middle,01070305,1,1,100.0,56,45,80.4
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Gloucester-Veterans Memorial,01070045,1,1,100.0,26,23,88.5
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Gloucester-West Parish,01070050,1,1,100.0,30,23,76.7
+0.0,1,a-pcom-i1,2022-23,Gosnold-Cuttyhunk Elementary,01090005,"","","","","",""
+4.004705882352941,4.0,a-pcom-i1,2022-23,Grafton-Grafton High School,01100505,1,1,100.0,74,63,85.1
+4.592941176470588,4.59,a-pcom-i1,2022-23,Grafton-Grafton Middle,01100305,1,1,100.0,42,41,97.6
+4.108235294117647,4.11,a-pcom-i1,2022-23,Grafton-Millbury Street Elementary School,01100200,1,1,100.0,55,48,87.3
+4.094117647058823,4.09,a-pcom-i1,2022-23,Grafton-North Grafton Elementary,01100025,1,1,100.0,23,20,87.0
+4.27764705882353,4.28,a-pcom-i1,2022-23,Grafton-North Street Elementary School,01100030,1,1,100.0,44,40,90.9
+4.065882352941177,4.07,a-pcom-i1,2022-23,Grafton-South Grafton Elementary,01100005,1,0,0.0,22,19,86.4
+3.458823529411765,3.46,a-pcom-i1,2022-23,Granby-East Meadow,01110004,1,0,0.0,34,25,73.5
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Granby-Granby Jr Sr High School,01110505,1,1,100.0,31,27,87.1
+3.628235294117647,3.63,a-pcom-i1,2022-23,Greater Commonwealth Virtual District-Greater Commonwealth Virtual School,39010900,1,0,0.0,70,54,77.1
+4.381176470588235,4.38,a-pcom-i1,2022-23,Greater Fall River Regional Vocational Technical-Diman Regional Vocational Technical High,08210605,1,1,100.0,144,134,93.1
+4.042352941176471,4.04,a-pcom-i1,2022-23,Greater Lawrence Regional Vocational Technical-Gr Lawrence Regional Vocational Technical,08230605,1,1,100.0,149,128,85.9
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Greater Lowell Regional Vocational Technical-Gr Lowell Regional Vocational Technical,08280605,1,1,100.0,201,192,95.5
+4.254117647058824,4.25,a-pcom-i1,2022-23,Greater New Bedford Regional Vocational Technical-Gr New Bedford Vocational Technical,08250605,1,1,100.0,197,178,90.4
+2.263529411764706,2.26,a-pcom-i1,2022-23,Greenfield-Discovery School at Four Corners,01140025,1,0,0.0,27,13,48.1
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Greenfield-Federal Street School,01140010,1,1,100.0,21,15,71.4
+3.6376470588235295,3.64,a-pcom-i1,2022-23,Greenfield-Greenfield High,01140505,1,0,0.0,44,34,77.3
+2.4235294117647057,2.42,a-pcom-i1,2022-23,Greenfield-Greenfield Middle,01140305,1,0,0.0,33,17,51.5
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Greenfield-Newton School,01140035,1,0,0.0,22,16,72.7
+1.7129411764705882,1.71,a-pcom-i1,2022-23,Greenfield-The Academy of Early Learning at North Parish,01140005,1,1,100.0,11,4,36.4
+3.92,3.92,a-pcom-i1,2022-23,Groton-Dunstable-Boutwell School,06730001,1,1,100.0,6,5,83.3
+3.392941176470588,3.39,a-pcom-i1,2022-23,Groton-Dunstable-Florence Roche School,06730010,1,1,100.0,43,31,72.1
+4.211764705882353,4.21,a-pcom-i1,2022-23,Groton-Dunstable-Groton Dunstable Regional,06730505,1,0,0.0,57,51,89.5
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Groton-Dunstable-Groton Dunstable Regional Middle,06730305,1,1,100.0,63,54,85.7
+4.357647058823529,4.36,a-pcom-i1,2022-23,Groton-Dunstable-Swallow/Union School,06730005,1,0,0.0,27,25,92.6
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Hadley-Hadley Elementary,01170015,1,1,100.0,24,19,79.2
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Hadley-Hopkins Academy,01170505,1,1,100.0,28,22,78.6
+4.456470588235295,4.46,a-pcom-i1,2022-23,Halifax-Halifax Elementary,01180005,1,1,100.0,38,36,94.7
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Hamilton-Wenham-Bessie Buker Elementary,06750007,1,1,100.0,21,17,81.0
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Hamilton-Wenham-Cutler School,06750010,2,0,0.0,28,22,78.6
+3.92,3.92,a-pcom-i1,2022-23,Hamilton-Wenham-Hamilton-Wenham Regional High,06750505,1,1,100.0,54,45,83.3
+4.465882352941176,4.47,a-pcom-i1,2022-23,Hamilton-Wenham-Miles River Middle,06750310,1,0,0.0,39,37,94.9
+4.20235294117647,4.2,a-pcom-i1,2022-23,Hamilton-Wenham-Winthrop School,06750015,1,1,100.0,28,25,89.3
+2.9176470588235293,2.92,a-pcom-i1,2022-23,Hampden Charter School of Science East (District)-Hampden Charter School of Science East,04990305,1,1,100.0,50,31,62.0
+2.908235294117647,2.91,a-pcom-i1,2022-23,Hampden Charter School of Science West (District)-Hampden Charter School of Science West,35160305,1,0,0.0,34,21,61.8
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Hampden-Wilbraham-Green Meadows Elementary,06800005,1,1,100.0,32,24,75.0
+3.835294117647059,3.84,a-pcom-i1,2022-23,Hampden-Wilbraham-Mile Tree Elementary,06800025,1,0,0.0,27,22,81.5
+4.447058823529412,4.45,a-pcom-i1,2022-23,Hampden-Wilbraham-Minnechaug Regional High,06800505,1,1,100.0,73,69,94.5
+4.065882352941177,4.07,a-pcom-i1,2022-23,Hampden-Wilbraham-Soule Road,06800030,1,0,0.0,22,19,86.4
+4.508235294117647,4.51,a-pcom-i1,2022-23,Hampden-Wilbraham-Stony Hill School,06800050,1,1,100.0,24,23,95.8
+4.418823529411765,4.42,a-pcom-i1,2022-23,Hampden-Wilbraham-Wilbraham Middle,06800310,1,1,100.0,49,46,93.9
+4.2164705882352935,4.22,a-pcom-i1,2022-23,Hampshire-Hampshire Regional High,06830505,1,1,100.0,77,69,89.6
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Hancock-Hancock Elementary,01210005,1,1,100.0,9,7,77.8
+4.051764705882353,4.05,a-pcom-i1,2022-23,Hanover-Cedar Elementary,01220004,2,0,0.0,36,31,86.1
+3.8823529411764706,3.88,a-pcom-i1,2022-23,Hanover-Center Elementary,01220005,1,1,100.0,40,33,82.5
+4.27764705882353,4.28,a-pcom-i1,2022-23,Hanover-Hanover High,01220505,1,1,100.0,66,60,90.9
+3.807058823529412,3.81,a-pcom-i1,2022-23,Hanover-Hanover Middle,01220305,1,1,100.0,68,55,80.9
+4.357647058823529,4.36,a-pcom-i1,2022-23,Harvard-Bromfield,01250505,1,0,0.0,54,50,92.6
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Harvard-Hildreth Elementary School,01250005,1,0,0.0,35,30,85.7
+3.684705882352941,3.68,a-pcom-i1,2022-23,Hatfield-Hatfield Elementary,01270005,1,0,0.0,23,18,78.3
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Hatfield-Smith Academy,01270505,1,0,0.0,23,19,82.6
+1.8823529411764706,1.88,a-pcom-i1,2022-23,Haverhill-Bartlett School and Assessment Center,01280073,1,1,100.0,5,2,40.0
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Haverhill-Bradford Elementary,01280008,1,1,100.0,46,39,84.8
+4.018823529411765,4.02,a-pcom-i1,2022-23,Haverhill-Caleb Dustin Hunking School,01280030,1,0,0.0,82,70,85.4
+3.7976470588235296,3.8,a-pcom-i1,2022-23,Haverhill-Consentino Middle School,01280100,1,1,100.0,57,46,80.7
+3.84,3.84,a-pcom-i1,2022-23,Haverhill-Dr Paul Nettle,01280050,1,0,0.0,49,40,81.6
+2.3529411764705883,2.35,a-pcom-i1,2022-23,Haverhill-Gateway Academy,01280515,1,0,0.0,2,1,50.0
+4.018823529411765,4.02,a-pcom-i1,2022-23,Haverhill-Golden Hill,01280026,1,1,100.0,41,35,85.4
+2.9411764705882355,2.94,a-pcom-i1,2022-23,Haverhill-Greenleaf Academy,01280033,1,1,100.0,8,5,62.5
+4.065882352941177,4.07,a-pcom-i1,2022-23,Haverhill-Haverhill High,01280505,1,0,0.0,140,121,86.4
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Haverhill-John G Whittier,01280085,1,0,0.0,38,30,78.9
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Haverhill-Moody,01280045,1,1,100.0,16,12,75.0
+3.764705882352941,3.76,a-pcom-i1,2022-23,Haverhill-Moody Preschool Extension,01280001,1,1,100.0,5,4,80.0
+3.849411764705882,3.85,a-pcom-i1,2022-23,Haverhill-Pentucket Lake Elementary,01280054,1,1,100.0,44,36,81.8
+4.065882352941177,4.07,a-pcom-i1,2022-23,Haverhill-Silver Hill Elementary School,01280067,1,0,0.0,44,38,86.4
+3.764705882352941,3.76,a-pcom-i1,2022-23,Haverhill-Tilton,01280075,1,1,100.0,35,28,80.0
+3.92,3.92,a-pcom-i1,2022-23,Haverhill-Tilton Upper Middle School,01280105,1,1,100.0,18,15,83.3
+3.981176470588235,3.98,a-pcom-i1,2022-23,Haverhill-Walnut Square,01280080,1,1,100.0,13,11,84.6
+2.9929411764705884,2.99,a-pcom-i1,2022-23,Hawlemont-Hawlemont Regional,06850005,2,1,50.0,11,7,63.6
+1.8823529411764706,1.88,a-pcom-i1,2022-23,Helen Y. Davis Leadership Academy Charter Public (District)-Helen Y. Davis Leadership Academy Charter Public School,04190305,2,1,50.0,20,8,40.0
+2.8658823529411763,2.87,a-pcom-i1,2022-23,Hill View Montessori Charter Public (District)-Hill View Montessori Charter Public School,04550050,1,1,100.0,23,14,60.9
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Hilltown Cooperative Charter Public (District)-Hilltown Cooperative Charter Public School,04500105,1,0,0.0,24,19,79.2
+4.192941176470588,4.19,a-pcom-i1,2022-23,Hingham-East Elementary School,01310005,1,0,0.0,46,41,89.1
+4.291764705882353,4.29,a-pcom-i1,2022-23,Hingham-Hingham High,01310505,1,1,100.0,102,93,91.2
+4.127058823529412,4.13,a-pcom-i1,2022-23,Hingham-Hingham Middle School,01310410,1,0,0.0,81,71,87.7
+3.764705882352941,3.76,a-pcom-i1,2022-23,Hingham-Plymouth River,01310019,1,1,100.0,35,28,80.0
+4.145882352941176,4.15,a-pcom-i1,2022-23,Hingham-South Elementary,01310020,1,1,100.0,42,37,88.1
+4.131764705882353,4.13,a-pcom-i1,2022-23,Hingham-Wm L Foster Elementary,01310010,1,0,0.0,41,36,87.8
+3.237647058823529,3.24,a-pcom-i1,2022-23,Holbrook-Holbrook Middle High School,01330505,1,0,0.0,48,33,68.8
+4.235294117647059,4.24,a-pcom-i1,2022-23,Holbrook-John F Kennedy,01330018,1,1,100.0,50,45,90.0
+4.442352941176471,4.44,a-pcom-i1,2022-23,Holland-Holland Elementary,01350005,1,1,100.0,18,17,94.4
+4.145882352941176,4.15,a-pcom-i1,2022-23,Holliston-Holliston High,01360505,1,1,100.0,67,59,88.1
+3.6517647058823526,3.65,a-pcom-i1,2022-23,Holliston-Miller School,01360007,1,1,100.0,58,45,77.6
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Holliston-Placentino Elementary,01360010,1,1,100.0,56,48,85.7
+3.5717647058823534,3.57,a-pcom-i1,2022-23,Holliston-Robert H. Adams Middle School,01360305,1,1,100.0,58,44,75.9
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Holyoke Community Charter (District)-Holyoke Community Charter School,04530005,1,1,100.0,44,32,72.7
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Holyoke-E N White Elementary,01370045,1,1,100.0,33,28,84.8
+2.823529411764706,2.82,a-pcom-i1,2022-23,Holyoke-H.B. Lawrence School,01370070,1,1,100.0,20,12,60.0
+3.2658823529411767,3.27,a-pcom-i1,2022-23,Holyoke-Holyoke High,01370505,4,2,50.0,134,93,69.4
+2.6588235294117646,2.66,a-pcom-i1,2022-23,Holyoke-Holyoke STEM Academy,01370320,1,0,0.0,23,13,56.5
+2.823529411764706,2.82,a-pcom-i1,2022-23,Holyoke-Joseph Metcalf School,01370003,1,1,100.0,30,18,60.0
+3.2752941176470585,3.28,a-pcom-i1,2022-23,Holyoke-Kelly Elementary,01370040,1,1,100.0,23,16,69.6
+3.4352941176470586,3.44,a-pcom-i1,2022-23,Holyoke-Lt Clayre Sullivan Elementary,01370055,1,1,100.0,37,27,73.0
+3.449411764705882,3.45,a-pcom-i1,2022-23,Holyoke-Lt Elmer J McMahon Elementary,01370015,1,0,0.0,30,22,73.3
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Holyoke-Maurice A Donahue Elementary,01370060,1,1,100.0,36,28,77.8
+3.138823529411765,3.14,a-pcom-i1,2022-23,Holyoke-Morgan Full Service Community School,01370025,1,1,100.0,21,14,66.7
+2.249411764705882,2.25,a-pcom-i1,2022-23,Holyoke-William R. Peck School,01370030,1,1,100.0,23,11,47.8
+3.44,3.44,a-pcom-i1,2022-23,Hoosac Valley Regional-Hoosac Valley Elementary School,06030020,1,1,100.0,26,19,73.1
+2.6164705882352943,2.62,a-pcom-i1,2022-23,Hoosac Valley Regional-Hoosac Valley High School,06030505,1,1,100.0,36,20,55.6
+2.9223529411764706,2.92,a-pcom-i1,2022-23,Hoosac Valley Regional-Hoosac Valley Middle School,06030315,1,1,100.0,29,18,62.1
+4.004705882352941,4.0,a-pcom-i1,2022-23,Hopedale-Hopedale Jr Sr High,01380505,1,1,100.0,47,40,85.1
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Hopedale-Memorial,01380010,1,1,100.0,46,38,82.6
+4.705882352941177,4.71,a-pcom-i1,2022-23,Hopedale-Park Street School,01380003,1,1,100.0,6,6,100.0
+4.065882352941177,4.07,a-pcom-i1,2022-23,Hopkinton-Elmwood,01390010,1,1,100.0,44,38,86.4
+4.296470588235294,4.3,a-pcom-i1,2022-23,Hopkinton-Hopkins Elementary School,01390015,1,1,100.0,46,42,91.3
+4.287058823529412,4.29,a-pcom-i1,2022-23,Hopkinton-Hopkinton High,01390505,1,1,100.0,101,92,91.1
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Hopkinton-Hopkinton Middle School,01390305,1,0,0.0,70,60,85.7
+3.138823529411765,3.14,a-pcom-i1,2022-23,Hopkinton-Hopkinton Pre-School,01390003,1,1,100.0,6,4,66.7
+4.385882352941176,4.39,a-pcom-i1,2022-23,Hopkinton-Marathon Elementary School,01390005,1,1,100.0,44,41,93.2
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Hudson-C A Farley,01410030,1,1,100.0,41,34,82.9
+3.835294117647059,3.84,a-pcom-i1,2022-23,Hudson-David J. Quinn Middle School,01410410,1,1,100.0,54,44,81.5
+3.642352941176471,3.64,a-pcom-i1,2022-23,Hudson-Forest Avenue Elementary,01410015,1,1,100.0,31,24,77.4
+4.178823529411765,4.18,a-pcom-i1,2022-23,Hudson-Hudson High,01410505,1,1,100.0,80,71,88.8
+4.536470588235295,4.54,a-pcom-i1,2022-23,Hudson-Mulready Elementary,01410007,1,1,100.0,28,27,96.4
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Hull-Hull High,01420505,1,0,0.0,28,22,78.6
+4.014117647058823,4.01,a-pcom-i1,2022-23,Hull-Lillian M Jacobs,01420015,1,0,0.0,34,29,85.3
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Hull-Memorial Middle,01420305,1,1,100.0,21,16,76.2
+3.242352941176471,3.24,a-pcom-i1,2022-23,Innovation Academy Charter (District)-Innovation Academy Charter School,04350305,2,0,0.0,74,51,68.9
+3.934117647058823,3.93,a-pcom-i1,2022-23,Ipswich-Ipswich High,01440505,1,1,100.0,55,46,83.6
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Ipswich-Ipswich Middle School,01440305,1,1,100.0,42,34,81.0
+4.437647058823529,4.44,a-pcom-i1,2022-23,Ipswich-Paul F Doyon Memorial,01440007,1,1,100.0,35,33,94.3
+4.465882352941176,4.47,a-pcom-i1,2022-23,Ipswich-Winthrop,01440015,1,1,100.0,39,37,94.9
+2.592941176470588,2.59,a-pcom-i1,2022-23,KIPP Academy Boston Charter School (District)-KIPP Academy Boston Charter School,04630205,1,1,100.0,49,27,55.1
+3.5105882352941173,3.51,a-pcom-i1,2022-23,KIPP Academy Lynn Charter (District)-KIPP Academy Lynn Charter School,04290010,3,2,66.7,114,85,74.6
+4.183529411764706,4.18,a-pcom-i1,2022-23,King Philip-King Philip Middle School,06900510,1,1,100.0,54,48,88.9
+4.258823529411765,4.26,a-pcom-i1,2022-23,King Philip-King Philip Regional High,06900505,1,1,100.0,84,76,90.5
+4.235294117647059,4.24,a-pcom-i1,2022-23,Kingston-Kingston Elementary,01450005,1,1,100.0,30,27,90.0
+3.788235294117647,3.79,a-pcom-i1,2022-23,Kingston-Kingston Intermediate,01450020,1,1,100.0,41,33,80.5
+1.948235294117647,1.95,a-pcom-i1,2022-23,Lawrence Family Development Charter (District)-Lawrence Family Development Charter School,04540205,1,1,100.0,58,24,41.4
+3.303529411764706,3.3,a-pcom-i1,2022-23,Lawrence-Alexander B Bruce,01490015,1,1,100.0,47,33,70.2
+3.449411764705882,3.45,a-pcom-i1,2022-23,Lawrence-Arlington Elementary,01490009,2,1,50.0,60,44,73.3
+3.3458823529411763,3.35,a-pcom-i1,2022-23,Lawrence-Arlington Middle School,01490017,1,1,100.0,45,32,71.1
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Lawrence-Edward F. Parthum,01490053,1,1,100.0,46,39,84.8
+2.7105882352941175,2.71,a-pcom-i1,2022-23,Lawrence-Emily G Wetherbee,01490080,1,0,0.0,59,34,57.6
+3.4964705882352938,3.5,a-pcom-i1,2022-23,Lawrence-Francis M Leahy,01490040,1,1,100.0,35,26,74.3
+3.237647058823529,3.24,a-pcom-i1,2022-23,Lawrence-Frost Middle School,01490525,1,1,100.0,32,22,68.8
+2.6494117647058824,2.65,a-pcom-i1,2022-23,Lawrence-Gerard A. Guilmette,01490022,1,1,100.0,48,27,56.3
+3.1105882352941174,3.11,a-pcom-i1,2022-23,Lawrence-Guilmette Middle School,01490025,1,1,100.0,56,37,66.1
+4.442352941176471,4.44,a-pcom-i1,2022-23,Lawrence-High School Learning Center,01490536,1,1,100.0,18,17,94.4
+3.458823529411765,3.46,a-pcom-i1,2022-23,Lawrence-James F Hennessey,01490020,1,1,100.0,34,25,73.5
+4.094117647058823,4.09,a-pcom-i1,2022-23,Lawrence-John Breen School,01490003,1,1,100.0,23,20,87.0
+3.07764705882353,3.08,a-pcom-i1,2022-23,Lawrence-John K Tarbox,01490075,2,1,50.0,26,17,65.4
+2.1741176470588237,2.17,a-pcom-i1,2022-23,Lawrence-Lawlor Early Childhood Center,01490002,1,1,100.0,13,6,46.2
+4.705882352941177,4.71,a-pcom-i1,2022-23,Lawrence-Lawrence Family Public Academy,01490011,1,1,100.0,14,14,100.0
+2.936470588235294,2.94,a-pcom-i1,2022-23,Lawrence-Lawrence High School,01490515,6,5,83.3,263,164,62.4
+0.6964705882352942,1,a-pcom-i1,2022-23,Lawrence-Leonard Middle School,01490090,2,0,0.0,27,4,14.8
+2.927058823529412,2.93,a-pcom-i1,2022-23,Lawrence-Oliver Elementary School,01490048,1,1,100.0,37,23,62.2
+3.1952941176470593,3.2,a-pcom-i1,2022-23,Lawrence-Oliver Middle School,01490049,1,1,100.0,28,19,67.9
+3.2752941176470585,3.28,a-pcom-i1,2022-23,Lawrence-Parthum Middle School,01490027,1,1,100.0,46,32,69.6
+2.7435294117647056,2.74,a-pcom-i1,2022-23,Lawrence-RISE Academy,01490615,1,1,100.0,12,7,58.3
+3.868235294117647,3.87,a-pcom-i1,2022-23,Lawrence-Robert Frost,01490018,2,2,100.0,45,37,82.2
+2.9411764705882355,2.94,a-pcom-i1,2022-23,Lawrence-Rollins Early Childhood Center,01490001,1,1,100.0,16,10,62.5
+3.792941176470588,3.79,a-pcom-i1,2022-23,Lawrence-School for Exceptional Studies,01490537,1,1,100.0,36,29,80.6
+3.3364705882352945,3.34,a-pcom-i1,2022-23,Lawrence-South Lawrence East Elementary School,01490004,1,1,100.0,55,39,70.9
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Lawrence-Spark Academy,01490085,1,1,100.0,42,33,78.6
+2.291764705882353,2.29,a-pcom-i1,2022-23,Learning First Charter Public School (District)-Learning First Charter Public School,04860105,2,2,100.0,39,19,48.7
+3.84,3.84,a-pcom-i1,2022-23,Lee-Lee Elementary,01500025,1,1,100.0,38,31,81.6
+3.816470588235294,3.82,a-pcom-i1,2022-23,Lee-Lee Middle/High School,01500505,1,1,100.0,37,30,81.1
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Leicester-Leicester Elementary,01510005,1,1,100.0,35,29,82.9
+3.628235294117647,3.63,a-pcom-i1,2022-23,Leicester-Leicester High,01510505,1,1,100.0,35,27,77.1
+4.705882352941177,4.71,a-pcom-i1,2022-23,Leicester-Leicester Integrated Preschool,01510001,1,1,100.0,4,4,100.0
+3.764705882352941,3.76,a-pcom-i1,2022-23,Leicester-Leicester Middle,01510015,1,0,0.0,30,24,80.0
+4.343529411764706,4.34,a-pcom-i1,2022-23,Lenox-Lenox Memorial High,01520505,1,0,0.0,52,48,92.3
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Lenox-Morris,01520015,1,1,100.0,30,23,76.7
+3.92,3.92,a-pcom-i1,2022-23,Leominster-Bennett,01530003,1,1,100.0,6,5,83.3
+3.1011764705882356,3.1,a-pcom-i1,2022-23,Leominster-Center For Technical Education Innovation,01530605,1,1,100.0,44,29,65.9
+3.604705882352941,3.6,a-pcom-i1,2022-23,Leominster-Fall Brook,01530007,1,1,100.0,47,36,76.6
+4.27764705882353,4.28,a-pcom-i1,2022-23,Leominster-Frances Drake School,01530010,1,1,100.0,44,40,90.9
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Leominster-Johnny Appleseed,01530025,1,1,100.0,51,45,88.2
+3.138823529411765,3.14,a-pcom-i1,2022-23,Leominster-Leominster Center for Excellence,01530515,1,1,100.0,6,4,66.7
+4.051764705882353,4.05,a-pcom-i1,2022-23,Leominster-Leominster High School,01530505,1,0,0.0,108,93,86.1
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Leominster-Lincoln School,01530005,1,1,100.0,4,3,75.0
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Leominster-Northwest,01530030,1,0,0.0,49,42,85.7
+4.235294117647059,4.24,a-pcom-i1,2022-23,Leominster-Priest Street,01530040,1,1,100.0,10,9,90.0
+3.9435294117647057,3.94,a-pcom-i1,2022-23,Leominster-Samoset School,01530045,1,1,100.0,37,31,83.8
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Leominster-Sky View Middle School,01530320,1,1,100.0,61,54,88.5
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Leverett-Leverett Elementary,01540005,1,1,100.0,16,12,75.0
+3.5764705882352943,3.58,a-pcom-i1,2022-23,Lexington-Bowman,01550008,1,1,100.0,50,38,76.0
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Lexington-Bridge,01550006,1,1,100.0,41,34,82.9
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Lexington-Fiske,01550015,1,1,100.0,45,38,84.4
+3.5058823529411764,3.51,a-pcom-i1,2022-23,Lexington-Harrington,01550030,1,1,100.0,47,35,74.5
+4.155294117647059,4.16,a-pcom-i1,2022-23,Lexington-Jonas Clarke Middle,01550305,1,1,100.0,94,83,88.3
+4.004705882352941,4.0,a-pcom-i1,2022-23,Lexington-Joseph Estabrook,01550010,1,0,0.0,47,40,85.1
+4.705882352941177,4.71,a-pcom-i1,2022-23,Lexington-Lexington Children's Place,01550001,1,0,0.0,8,8,100.0
+4.070588235294117,4.07,a-pcom-i1,2022-23,Lexington-Lexington High,01550505,1,1,100.0,200,173,86.5
+3.8823529411764706,3.88,a-pcom-i1,2022-23,Lexington-Maria Hastings,01550035,1,0,0.0,57,47,82.5
+4.0,4.0,a-pcom-i1,2022-23,Lexington-Wm Diamond Middle,01550310,1,0,0.0,100,85,85.0
+2.508235294117647,2.51,a-pcom-i1,2022-23,Libertas Academy Charter School (District)-Libertas Academy Charter School,35140305,1,1,100.0,45,24,53.3
+4.442352941176471,4.44,a-pcom-i1,2022-23,Lincoln-Hanscom Middle,01570305,1,1,100.0,36,34,94.4
+4.169411764705882,4.17,a-pcom-i1,2022-23,Lincoln-Hanscom Primary,01570006,1,1,100.0,35,31,88.6
+3.896470588235294,3.9,a-pcom-i1,2022-23,Lincoln-Lincoln School,01570025,2,2,100.0,64,53,82.8
+4.103529411764706,4.1,a-pcom-i1,2022-23,Lincoln-Sudbury-Lincoln-Sudbury Regional High,06950505,1,1,100.0,141,123,87.2
+4.334117647058823,4.33,a-pcom-i1,2022-23,Littleton-Littleton High School,01580505,1,1,100.0,38,35,92.1
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Littleton-Littleton Middle School,01580305,1,1,100.0,28,23,82.1
+4.183529411764706,4.18,a-pcom-i1,2022-23,Littleton-Russell St Elementary,01580015,1,1,100.0,27,24,88.9
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Littleton-Shaker Lane Elementary,01580005,1,1,100.0,35,29,82.9
+3.016470588235294,3.02,a-pcom-i1,2022-23,Longmeadow-Blueberry Hill,01590005,1,0,0.0,39,25,64.1
+3.6470588235294117,3.65,a-pcom-i1,2022-23,Longmeadow-Center,01590010,1,1,100.0,40,31,77.5
+4.705882352941177,4.71,a-pcom-i1,2022-23,Longmeadow-Glenbrook Middle,01590017,1,1,100.0,32,32,100.0
+4.324705882352942,4.32,a-pcom-i1,2022-23,Longmeadow-Longmeadow High,01590505,1,1,100.0,86,79,91.9
+4.014117647058823,4.01,a-pcom-i1,2022-23,Longmeadow-Williams Middle,01590305,1,1,100.0,34,29,85.3
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Longmeadow-Wolf Swamp Road,01590025,1,1,100.0,41,37,90.2
+3.383529411764706,3.38,a-pcom-i1,2022-23,Lowell Community Charter Public (District)-Lowell Community Charter Public School,04560050,2,0,0.0,64,46,71.9
+3.764705882352941,3.76,a-pcom-i1,2022-23,Lowell Middlesex Academy Charter (District)-Lowell Middlesex Academy Charter School,04580505,1,1,100.0,5,4,80.0
+4.211764705882353,4.21,a-pcom-i1,2022-23,Lowell-Abraham Lincoln,01600020,1,1,100.0,38,34,89.5
+3.171764705882353,3.17,a-pcom-i1,2022-23,Lowell-B.F. Butler Middle School,01600310,1,0,0.0,43,29,67.4
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Lowell-Bartlett Community Partnership,01600090,1,1,100.0,42,36,85.7
+4.117647058823529,4.12,a-pcom-i1,2022-23,Lowell-Cardinal O'Connell Early Learning Center,01600001,1,1,100.0,8,7,87.5
+4.574117647058824,4.57,a-pcom-i1,2022-23,Lowell-Charles W Morey,01600030,1,1,100.0,36,35,97.2
+4.334117647058823,4.33,a-pcom-i1,2022-23,Lowell-Charlotte M Murkland Elementary,01600080,1,1,100.0,38,35,92.1
+4.065882352941177,4.07,a-pcom-i1,2022-23,Lowell-Dr An Wang School,01600345,1,1,100.0,44,38,86.4
+4.324705882352942,4.32,a-pcom-i1,2022-23,Lowell-Dr Gertrude Bailey,01600002,1,1,100.0,37,34,91.9
+4.705882352941177,4.71,a-pcom-i1,2022-23,Lowell-Dr. Janice Adie Day School,01600605,1,1,100.0,12,12,100.0
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Lowell-Greenhalge,01600015,1,1,100.0,38,32,84.2
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Lowell-Henry J Robinson Middle,01600330,1,1,100.0,48,39,81.3
+4.207058823529412,4.21,a-pcom-i1,2022-23,Lowell-James S Daley Middle School,01600315,1,0,0.0,47,42,89.4
+4.192941176470588,4.19,a-pcom-i1,2022-23,Lowell-James Sullivan Middle School,01600340,2,2,100.0,46,41,89.1
+2.8941176470588235,2.89,a-pcom-i1,2022-23,Lowell-John J Shaughnessy,01600050,2,1,50.0,39,24,61.5
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Lowell-Joseph McAvinnue,01600010,2,2,100.0,38,32,84.2
+3.68,3.68,a-pcom-i1,2022-23,Lowell-Kathryn P. Stoklosa Middle School,01600360,2,2,100.0,55,43,78.2
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Lowell-Laura Lee Therapeutic Day School,01600085,1,1,100.0,8,6,75.0
+4.183529411764706,4.18,a-pcom-i1,2022-23,Lowell-Leblanc Therapeutic Day School,01600320,1,1,100.0,9,8,88.9
+4.028235294117647,4.03,a-pcom-i1,2022-23,Lowell-Lowell High,01600505,1,1,100.0,229,196,85.6
+4.470588235294118,4.47,a-pcom-i1,2022-23,Lowell-Moody Elementary,01600027,1,1,100.0,20,19,95.0
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Lowell-Pawtucketville Memorial,01600036,1,1,100.0,35,30,85.7
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Lowell-Peter W Reilly,01600040,2,1,50.0,35,29,82.9
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Lowell-Pyne Arts,01600018,1,1,100.0,41,34,82.9
+3.4870588235294115,3.49,a-pcom-i1,2022-23,Lowell-Rogers STEM Academy,01600005,1,1,100.0,58,43,74.1
+4.334117647058823,4.33,a-pcom-i1,2022-23,Lowell-S Christa McAuliffe Elementary,01600075,1,1,100.0,38,35,92.1
+4.705882352941177,4.71,a-pcom-i1,2022-23,Lowell-The Career Academy,01600515,1,1,100.0,12,12,100.0
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Lowell-Washington,01600055,1,1,100.0,22,21,95.5
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Ludlow-East Street Elementary School,01610010,1,1,100.0,35,30,85.7
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Ludlow-Harris Brook Elementary School,01610665,2,2,100.0,58,47,81.0
+4.235294117647059,4.24,a-pcom-i1,2022-23,Ludlow-Ludlow Senior High,01610505,2,2,100.0,80,72,90.0
+4.009411764705883,4.01,a-pcom-i1,2022-23,Ludlow-Paul R Baird Middle,01610305,1,0,0.0,54,46,85.2
+0.0,1,a-pcom-i1,2022-23,Lunenburg-Advanced Community Experience Program,01620605,1,1,100.0,1,0,0.0
+4.145882352941176,4.15,a-pcom-i1,2022-23,Lunenburg-Lunenburg High,01620505,2,2,100.0,42,37,88.1
+4.428235294117647,4.43,a-pcom-i1,2022-23,Lunenburg-Lunenburg Middle School,01620305,1,1,100.0,34,32,94.1
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Lunenburg-Lunenburg Primary School,01620010,1,1,100.0,26,21,80.8
+3.92,3.92,a-pcom-i1,2022-23,Lunenburg-Turkey Hill Elementary School,01620025,1,1,100.0,24,20,83.3
+2.724705882352941,2.72,a-pcom-i1,2022-23,Lynn-A Drewicz Elementary,01630016,1,1,100.0,38,22,57.9
+2.823529411764706,2.82,a-pcom-i1,2022-23,Lynn-Aborn,01630011,1,0,0.0,20,12,60.0
+3.491764705882353,3.49,a-pcom-i1,2022-23,Lynn-Breed Middle School,01630405,1,1,100.0,97,72,74.2
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Lynn-Brickett Elementary,01630020,1,1,100.0,28,20,71.4
+3.792941176470588,3.79,a-pcom-i1,2022-23,Lynn-Capt William G Shoemaker,01630090,1,1,100.0,36,29,80.6
+3.581176470588235,3.58,a-pcom-i1,2022-23,Lynn-Classical High,01630505,1,1,100.0,109,83,76.1
+3.07764705882353,3.08,a-pcom-i1,2022-23,Lynn-Cobbet Elementary,01630035,1,1,100.0,52,34,65.4
+3.1105882352941174,3.11,a-pcom-i1,2022-23,Lynn-E J Harrington,01630045,1,1,100.0,62,41,66.1
+2.9929411764705884,2.99,a-pcom-i1,2022-23,Lynn-Edward A Sisson,01630095,1,1,100.0,33,21,63.6
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Lynn-Fecteau-Leary Junior/Senior High School,01630525,1,1,100.0,38,32,84.2
+3.2564705882352944,3.26,a-pcom-i1,2022-23,Lynn-Hood,01630055,1,1,100.0,39,27,69.2
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Lynn-Ingalls,01630060,1,0,0.0,58,47,81.0
+3.138823529411765,3.14,a-pcom-i1,2022-23,Lynn-Julia F Callahan,01630030,1,1,100.0,39,26,66.7
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Lynn-Lincoln-Thomson,01630070,1,1,100.0,25,21,84.0
+3.4305882352941177,3.43,a-pcom-i1,2022-23,Lynn-Lynn English High,01630510,2,1,50.0,129,94,72.9
+3.44,3.44,a-pcom-i1,2022-23,Lynn-Lynn Vocational Technical Institute,01630605,1,1,100.0,130,95,73.1
+3.468235294117647,3.47,a-pcom-i1,2022-23,Lynn-Lynn Woods,01630075,1,1,100.0,19,14,73.7
+3.84,3.84,a-pcom-i1,2022-23,Lynn-Pickering Middle,01630420,1,1,100.0,49,40,81.6
+3.4352941176470586,3.44,a-pcom-i1,2022-23,Lynn-Robert L Ford,01630050,1,0,0.0,37,27,73.0
+2.0894117647058823,2.09,a-pcom-i1,2022-23,Lynn-Sewell-Anderson,01630085,1,0,0.0,27,12,44.4
+3.1670588235294117,3.17,a-pcom-i1,2022-23,Lynn-Thurgood Marshall Mid,01630305,1,0,0.0,98,66,67.3
+3.0588235294117645,3.06,a-pcom-i1,2022-23,Lynn-Tracy,01630100,1,0,0.0,40,26,65.0
+3.303529411764706,3.3,a-pcom-i1,2022-23,Lynn-Washington Elementary School,01630005,1,1,100.0,47,33,70.2
+2.823529411764706,2.82,a-pcom-i1,2022-23,Lynn-William R Fallon,01630080,1,1,100.0,10,6,60.0
+1.7788235294117645,1.78,a-pcom-i1,2022-23,Lynn-Wm P Connery,01630040,1,0,0.0,45,17,37.8
+4.418823529411765,4.42,a-pcom-i1,2022-23,Lynnfield-Huckleberry Hill,01640010,1,1,100.0,33,31,93.9
+4.451764705882352,4.45,a-pcom-i1,2022-23,Lynnfield-Lynnfield High,01640505,1,1,100.0,56,53,94.6
+4.352941176470588,4.35,a-pcom-i1,2022-23,Lynnfield-Lynnfield Middle School,01640405,1,1,100.0,53,49,92.5
+2.3529411764705883,2.35,a-pcom-i1,2022-23,Lynnfield-Lynnfield Preschool,01640005,1,1,100.0,4,2,50.0
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Lynnfield-Summer Street,01640020,1,1,100.0,32,26,81.3
+3.138823529411765,3.14,a-pcom-i1,2022-23,Ma Academy for Math and Science-Ma Academy for Math and Science School,04680505,1,1,100.0,6,4,66.7
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Malden-Beebe,01650003,1,1,100.0,70,55,78.6
+3.750588235294118,3.75,a-pcom-i1,2022-23,Malden-Ferryway,01650013,1,1,100.0,69,55,79.7
+3.68,3.68,a-pcom-i1,2022-23,Malden-Forestdale,01650027,1,1,100.0,55,43,78.2
+2.9505882352941177,2.95,a-pcom-i1,2022-23,Malden-Linden,01650047,1,1,100.0,67,42,62.7
+4.296470588235294,4.3,a-pcom-i1,2022-23,Malden-Malden Early Learning Center,01650049,1,1,100.0,23,21,91.3
+3.623529411764706,3.62,a-pcom-i1,2022-23,Malden-Malden High,01650505,1,1,100.0,126,97,77.0
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Malden-Salemwood,01650057,1,1,100.0,84,63,75.0
+4.329411764705882,4.33,a-pcom-i1,2022-23,Manchester Essex Regional-Essex Elementary,06980020,1,0,0.0,25,23,92.0
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Manchester Essex Regional-Manchester Essex Regional High School,06980510,1,1,100.0,45,35,77.8
+3.792941176470588,3.79,a-pcom-i1,2022-23,Manchester Essex Regional-Manchester Essex Regional Middle School,06980030,1,1,100.0,31,25,80.6
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Manchester Essex Regional-Manchester Memorial Elementary,06980010,1,1,100.0,38,32,84.2
+4.465882352941176,4.47,a-pcom-i1,2022-23,Mansfield-Everett W Robinson,01670007,1,1,100.0,59,56,94.9
+4.418823529411765,4.42,a-pcom-i1,2022-23,Mansfield-Harold L Qualters Middle,01670035,1,1,100.0,82,77,93.9
+4.385882352941176,4.39,a-pcom-i1,2022-23,Mansfield-Jordan/Jackson Elementary,01670014,1,1,100.0,59,55,93.2
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Mansfield-Mansfield High,01670505,1,0,0.0,102,92,90.2
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Mansfield-Roland Green School,01670003,1,1,100.0,7,6,85.7
+3.92,3.92,a-pcom-i1,2022-23,Map Academy Charter School (District)-Map Academy Charter School,35170505,2,2,100.0,24,20,83.3
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Marblehead Community Charter Public (District)-Marblehead Community Charter Public School,04640305,1,1,100.0,21,18,85.7
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Marblehead-Glover,01680020,1,0,0.0,31,26,83.9
+3.9435294117647057,3.94,a-pcom-i1,2022-23,Marblehead-Lucretia and Joseph Brown School,01680030,1,0,0.0,37,31,83.8
+4.018823529411765,4.02,a-pcom-i1,2022-23,Marblehead-Marblehead High,01680505,1,1,100.0,89,76,85.4
+4.258823529411765,4.26,a-pcom-i1,2022-23,Marblehead-Marblehead Veterans Middle School,01680300,1,1,100.0,42,38,90.5
+4.334117647058823,4.33,a-pcom-i1,2022-23,Marblehead-Village School,01680016,1,1,100.0,63,58,92.1
+4.169411764705882,4.17,a-pcom-i1,2022-23,Marion-Sippican,01690005,1,1,100.0,35,31,88.6
+3.774117647058824,3.77,a-pcom-i1,2022-23,Marlborough-1 LT Charles W. Whitcomb School,01700045,1,1,100.0,96,77,80.2
+3.6329411764705886,3.63,a-pcom-i1,2022-23,Marlborough-Charles Jaworek School,01700030,1,1,100.0,57,44,77.2
+4.315294117647059,4.32,a-pcom-i1,2022-23,Marlborough-Early Childhood Center,01700006,1,1,100.0,12,11,91.7
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Marlborough-Francis J Kane,01700008,1,1,100.0,41,37,90.2
+3.750588235294118,3.75,a-pcom-i1,2022-23,Marlborough-Goodnow Brothers Elementary School,01700020,1,1,100.0,59,47,79.7
+4.070588235294117,4.07,a-pcom-i1,2022-23,Marlborough-Marlborough High,01700505,1,1,100.0,96,83,86.5
+3.745882352941176,3.75,a-pcom-i1,2022-23,Marlborough-Richer,01700025,1,1,100.0,49,39,79.6
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Marshfield-Daniel Webster,01710015,1,1,100.0,38,32,84.2
+3.92,3.92,a-pcom-i1,2022-23,Marshfield-Eames Way School,01710005,1,1,100.0,30,25,83.3
+4.239999999999999,4.24,a-pcom-i1,2022-23,Marshfield-Furnace Brook Middle,01710310,1,1,100.0,81,73,90.1
+4.131764705882353,4.13,a-pcom-i1,2022-23,Marshfield-Gov Edward Winslow,01710020,1,1,100.0,41,36,87.8
+3.976470588235294,3.98,a-pcom-i1,2022-23,Marshfield-Marshfield High,01710505,1,1,100.0,116,98,84.5
+3.6517647058823526,3.65,a-pcom-i1,2022-23,Marshfield-Martinson Elementary,01710025,1,1,100.0,49,38,77.6
+4.183529411764706,4.18,a-pcom-i1,2022-23,Marshfield-South River,01710010,1,1,100.0,36,32,88.9
+3.068235294117647,3.07,a-pcom-i1,2022-23,Martha's Vineyard Charter Public School (District)-Martha's Vineyard Charter Public School,04660550,1,1,100.0,23,15,65.2
+4.188235294117647,4.19,a-pcom-i1,2022-23,Martha's Vineyard-Martha's Vineyard Regional High,07000505,1,1,100.0,82,73,89.0
+2.7058823529411766,2.71,a-pcom-i1,2022-23,"Martin Luther King, Jr. Charter School of Excellence (District)-Martin Luther King, Jr. Charter School of Excellence",04920005,1,1,100.0,40,23,57.5
+4.211764705882353,4.21,a-pcom-i1,2022-23,Masconomet-Masconomet Regional High School,07050505,1,1,100.0,86,77,89.5
+4.20235294117647,4.2,a-pcom-i1,2022-23,Masconomet-Masconomet Regional Middle School,07050405,1,1,100.0,56,50,89.3
+3.6752941176470584,3.68,a-pcom-i1,2022-23,Mashpee-Kenneth Coombs School,01720005,1,1,100.0,32,25,78.1
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Mashpee-Mashpee Middle-High School,01720505,1,0,0.0,57,48,84.2
+3.5905882352941174,3.59,a-pcom-i1,2022-23,Mashpee-Quashnet School,01720035,1,1,100.0,38,29,76.3
+2.762352941176471,2.76,a-pcom-i1,2022-23,Match Charter Public School (District)-Match Charter Public School,04690505,3,2,66.7,126,74,58.7
+4.329411764705882,4.33,a-pcom-i1,2022-23,Mattapoisett-Center,01730005,1,0,0.0,25,23,92.0
+4.235294117647059,4.24,a-pcom-i1,2022-23,Mattapoisett-Old Hammondtown,01730010,1,0,0.0,20,18,90.0
+4.065882352941177,4.07,a-pcom-i1,2022-23,Maynard-Fowler School,01740305,1,1,100.0,44,38,86.4
+3.9435294117647057,3.94,a-pcom-i1,2022-23,Maynard-Green Meadow,01740010,1,1,100.0,37,31,83.8
+4.221176470588236,4.22,a-pcom-i1,2022-23,Maynard-Maynard High,01740505,2,0,0.0,39,35,89.7
+4.301176470588236,4.3,a-pcom-i1,2022-23,Medfield-Dale Street,01750005,1,1,100.0,35,32,91.4
+4.169411764705882,4.17,a-pcom-i1,2022-23,Medfield-Medfield Senior High,01750505,1,1,100.0,70,62,88.6
+4.4141176470588235,4.41,a-pcom-i1,2022-23,Medfield-Memorial School,01750003,1,1,100.0,32,30,93.8
+4.550588235294118,4.55,a-pcom-i1,2022-23,Medfield-Ralph Wheelock School,01750007,1,1,100.0,30,29,96.7
+4.145882352941176,4.15,a-pcom-i1,2022-23,Medfield-Thomas Blake Middle,01750305,1,1,100.0,67,59,88.1
+3.9576470588235293,3.96,a-pcom-i1,2022-23,Medford-Brooks School,01760130,1,1,100.0,44,37,84.1
+2.0188235294117645,2.02,a-pcom-i1,2022-23,Medford-Curtis-Tufts,01760510,1,0,0.0,7,3,42.9
+4.103529411764706,4.1,a-pcom-i1,2022-23,Medford-John J McGlynn Elementary School,01760068,1,0,0.0,39,34,87.2
+3.407058823529412,3.41,a-pcom-i1,2022-23,Medford-John J. McGlynn Middle School,01760320,1,1,100.0,58,42,72.4
+3.783529411764706,3.78,a-pcom-i1,2022-23,Medford-Madeleine Dugger Andrews,01760315,1,1,100.0,51,41,80.4
+4.235294117647059,4.24,a-pcom-i1,2022-23,Medford-Medford High,01760505,2,1,50.0,130,117,90.0
+4.047058823529412,4.05,a-pcom-i1,2022-23,Medford-Milton Fuller Roberts,01760150,1,1,100.0,43,37,86.0
+3.830588235294118,3.83,a-pcom-i1,2022-23,Medford-Missituk Elementary School,01760140,1,1,100.0,43,35,81.4
+3.458823529411765,3.46,a-pcom-i1,2022-23,Medway-Burke/Memorial Elementary School,01770015,1,1,100.0,34,25,73.5
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Medway-John D Mc Govern Elementary,01770013,1,1,100.0,24,19,79.2
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Medway-Medway High,01770505,1,1,100.0,48,38,79.2
+3.92,3.92,a-pcom-i1,2022-23,Medway-Medway Middle,01770305,1,1,100.0,54,45,83.3
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Melrose-Early Childhood Center,01780003,1,1,100.0,21,17,81.0
+3.835294117647059,3.84,a-pcom-i1,2022-23,Melrose-Herbert Clark Hoover,01780017,1,1,100.0,27,22,81.5
+4.456470588235295,4.46,a-pcom-i1,2022-23,Melrose-Horace Mann,01780025,1,1,100.0,19,18,94.7
+3.3976470588235297,3.4,a-pcom-i1,2022-23,Melrose-Lincoln,01780020,1,0,0.0,36,26,72.2
+4.0,4.0,a-pcom-i1,2022-23,Melrose-Melrose High,01780505,1,1,100.0,80,68,85.0
+4.056470588235294,4.06,a-pcom-i1,2022-23,Melrose-Melrose Middle,01780305,1,0,0.0,65,56,86.2
+3.6752941176470584,3.68,a-pcom-i1,2022-23,Melrose-Roosevelt,01780035,1,1,100.0,32,25,78.1
+3.764705882352941,3.76,a-pcom-i1,2022-23,Melrose-Winthrop,01780050,1,1,100.0,30,24,80.0
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Mendon-Upton-Henry P Clough,07100179,1,0,0.0,26,23,88.5
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Mendon-Upton-Memorial School,07100001,1,1,100.0,33,24,72.7
+3.783529411764706,3.78,a-pcom-i1,2022-23,Mendon-Upton-Miscoe Hill School,07100015,1,1,100.0,51,41,80.4
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Mendon-Upton-Nipmuc Regional High,07100510,2,2,100.0,51,46,90.2
+4.136470588235294,4.14,a-pcom-i1,2022-23,Methuen-Comprehensive Grammar School,01810050,1,1,100.0,91,80,87.9
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Methuen-Donald P Timony Grammar,01810060,1,1,100.0,101,80,79.2
+4.084705882352941,4.08,a-pcom-i1,2022-23,Methuen-Marsh Grammar School,01810030,1,1,100.0,91,79,86.8
+3.8258823529411763,3.83,a-pcom-i1,2022-23,Methuen-Methuen High,01810505,1,1,100.0,155,126,81.3
+4.324705882352942,4.32,a-pcom-i1,2022-23,Methuen-Tenney Grammar School,01810055,1,1,100.0,99,91,91.9
+3.6470588235294117,3.65,a-pcom-i1,2022-23,Middleborough-Henry B. Burkland Elementary School,01820008,1,1,100.0,40,31,77.5
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Middleborough-John T. Nichols Middle,01820305,1,1,100.0,56,46,82.1
+4.258823529411765,4.26,a-pcom-i1,2022-23,Middleborough-Mary K. Goode Elementary School,01820010,2,2,100.0,42,38,90.5
+4.0,4.0,a-pcom-i1,2022-23,Middleborough-Memorial Early Childhood Center,01820011,1,1,100.0,20,17,85.0
+4.4141176470588235,4.41,a-pcom-i1,2022-23,Middleborough-Middleborough High,01820505,1,1,100.0,65,61,93.8
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Middleton-Fuller Meadow,01840003,1,0,0.0,36,27,75.0
+3.7223529411764704,3.72,a-pcom-i1,2022-23,Middleton-Howe-Manning,01840005,1,1,100.0,43,34,79.1
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Milford-Brookside,01850065,1,0,0.0,45,38,84.4
+4.3623529411764705,4.36,a-pcom-i1,2022-23,Milford-Memorial,01850010,1,1,100.0,41,38,92.7
+4.065882352941177,4.07,a-pcom-i1,2022-23,Milford-Milford High,01850505,1,1,100.0,103,89,86.4
+4.705882352941177,4.71,a-pcom-i1,2022-23,Milford-Shining Star Early Childhood Center,01850075,1,1,100.0,9,9,100.0
+3.844705882352941,3.84,a-pcom-i1,2022-23,Milford-Stacy Middle,01850305,1,1,100.0,82,67,81.7
+4.103529411764706,4.1,a-pcom-i1,2022-23,Milford-Woodland,01850090,1,1,100.0,86,75,87.2
+3.458823529411765,3.46,a-pcom-i1,2022-23,Millbury-Elmwood Street,01860017,1,1,100.0,34,25,73.5
+3.849411764705882,3.85,a-pcom-i1,2022-23,Millbury-Millbury Junior/Senior High,01860505,1,1,100.0,66,54,81.8
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Millbury-Raymond E. Shaw Elementary,01860025,1,1,100.0,31,26,83.9
+4.103529411764706,4.1,a-pcom-i1,2022-23,Millis-Clyde F Brown,01870005,1,1,100.0,47,41,87.2
+4.4141176470588235,4.41,a-pcom-i1,2022-23,Millis-Millis High School,01870505,1,1,100.0,32,30,93.8
+3.764705882352941,3.76,a-pcom-i1,2022-23,Millis-Millis Middle,01870020,1,0,0.0,35,28,80.0
+4.169411764705882,4.17,a-pcom-i1,2022-23,Milton-Charles S Pierce Middle,01890410,1,1,100.0,79,70,88.6
+4.004705882352941,4.0,a-pcom-i1,2022-23,Milton-Collicot,01890005,1,1,100.0,47,40,85.1
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Milton-Cunningham School,01890007,1,1,100.0,56,47,83.9
+4.2164705882352935,4.22,a-pcom-i1,2022-23,Milton-Glover,01890010,1,1,100.0,48,43,89.6
+4.16,4.16,a-pcom-i1,2022-23,Milton-Milton High,01890505,1,1,100.0,86,76,88.4
+4.070588235294117,4.07,a-pcom-i1,2022-23,Milton-Tucker,01890020,1,0,0.0,37,32,86.5
+4.287058823529412,4.29,a-pcom-i1,2022-23,Minuteman Regional Vocational Technical-Minuteman Regional High,08300605,1,1,100.0,79,72,91.1
+4.211764705882353,4.21,a-pcom-i1,2022-23,Mohawk Trail-Buckland-Shelburne Regional,07170005,1,1,100.0,19,17,89.5
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Mohawk Trail-Colrain Central,07170010,1,1,100.0,11,8,72.7
+3.830588235294118,3.83,a-pcom-i1,2022-23,Mohawk Trail-Mohawk Trail Regional School,07170505,1,0,0.0,43,35,81.4
+3.618823529411765,3.62,a-pcom-i1,2022-23,Mohawk Trail-Sanderson Academy,07170020,1,1,100.0,13,10,76.9
+4.0,4.0,a-pcom-i1,2022-23,Monomoy Regional School District-Chatham Elementary School,07120001,1,1,100.0,20,17,85.0
+4.315294117647059,4.32,a-pcom-i1,2022-23,Monomoy Regional School District-Harwich Elementary School,07120002,1,0,0.0,48,44,91.7
+3.708235294117647,3.71,a-pcom-i1,2022-23,Monomoy Regional School District-Monomoy Regional High School,07120515,1,1,100.0,66,52,78.8
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Monomoy Regional School District-Monomoy Regional Middle School,07120315,1,1,100.0,44,33,75.0
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Monson-Granite Valley School,01910030,1,1,100.0,42,32,76.2
+3.764705882352941,3.76,a-pcom-i1,2022-23,Monson-Monson High School,01910505,1,0,0.0,35,28,80.0
+3.138823529411765,3.14,a-pcom-i1,2022-23,Monson-Quarry Hill Community School,01910010,1,0,0.0,9,6,66.7
+4.376470588235295,4.38,a-pcom-i1,2022-23,Montachusett Regional Vocational Technical-Montachusett Regional Vocational Technical,08320605,1,0,0.0,115,107,93.0
+4.296470588235294,4.3,a-pcom-i1,2022-23,Mount Greylock-Lanesborough Elementary,07150005,1,1,100.0,23,21,91.3
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Mount Greylock-Mt Greylock Regional High,07150505,1,1,100.0,53,42,79.2
+3.830588235294118,3.83,a-pcom-i1,2022-23,Mount Greylock-Williamstown Elementary,07150010,1,1,100.0,43,35,81.4
+2.795294117647059,2.8,a-pcom-i1,2022-23,Mystic Valley Regional Charter (District)-Mystic Valley Regional Charter School,04700105,1,1,100.0,101,60,59.4
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Nahant-Johnson,01960010,1,1,100.0,14,10,71.4
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Nantucket-Cyrus Peirce,01970010,1,1,100.0,36,28,77.8
+3.8823529411764706,3.88,a-pcom-i1,2022-23,Nantucket-Nantucket Elementary,01970005,1,1,100.0,40,33,82.5
+3.2517647058823527,3.25,a-pcom-i1,2022-23,Nantucket-Nantucket High,01970505,1,1,100.0,55,38,69.1
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Nantucket-Nantucket Intermediate School,01970020,1,1,100.0,35,29,82.9
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Narragansett-Narragansett Middle,07200305,1,1,100.0,27,21,77.8
+3.5623529411764707,3.56,a-pcom-i1,2022-23,Narragansett-Narragansett Regional High,07200505,1,1,100.0,37,28,75.7
+4.465882352941176,4.47,a-pcom-i1,2022-23,Narragansett-Templeton Elementary School,07200020,1,1,100.0,39,37,94.9
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Nashoba Valley Regional Vocational Technical-Nashoba Valley Technical High School,08520605,1,1,100.0,66,56,84.8
+4.385882352941176,4.39,a-pcom-i1,2022-23,Nashoba-Center School,07250020,1,0,0.0,44,41,93.2
+4.48,4.48,a-pcom-i1,2022-23,Nashoba-Florence Sawyer School,07250025,1,1,100.0,62,59,95.2
+3.388235294117647,3.39,a-pcom-i1,2022-23,Nashoba-Hale,07250310,1,1,100.0,25,18,72.0
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Nashoba-Luther Burbank Middle School,07250305,1,0,0.0,24,18,75.0
+4.16,4.16,a-pcom-i1,2022-23,Nashoba-Mary Rowlandson Elementary,07250010,1,1,100.0,43,38,88.4
+3.830588235294118,3.83,a-pcom-i1,2022-23,Nashoba-Nashoba Regional,07250505,1,1,100.0,70,57,81.4
+4.334117647058823,4.33,a-pcom-i1,2022-23,Natick-Bennett-Hemenway,01980005,1,1,100.0,38,35,92.1
+3.788235294117647,3.79,a-pcom-i1,2022-23,Natick-Brown,01980010,1,1,100.0,41,33,80.5
+4.042352941176471,4.04,a-pcom-i1,2022-23,Natick-J F Kennedy Middle School,01980305,1,1,100.0,78,67,85.9
+2.475294117647059,2.48,a-pcom-i1,2022-23,Natick-Johnson,01980031,1,0,0.0,19,10,52.6
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Natick-Lilja Elementary,01980035,1,0,0.0,32,27,84.4
+4.536470588235295,4.54,a-pcom-i1,2022-23,Natick-Memorial,01980043,1,0,0.0,28,27,96.4
+4.207058823529412,4.21,a-pcom-i1,2022-23,Natick-Natick High,01980505,2,1,50.0,160,143,89.4
+3.8917647058823532,3.89,a-pcom-i1,2022-23,Natick-Wilson Middle,01980310,1,1,100.0,81,67,82.7
+4.263529411764706,4.26,a-pcom-i1,2022-23,Nauset-Nauset Regional High,06600505,1,0,0.0,85,77,90.6
+4.192941176470588,4.19,a-pcom-i1,2022-23,Nauset-Nauset Regional Middle,06600305,1,0,0.0,55,49,89.1
+4.117647058823529,4.12,a-pcom-i1,2022-23,Needham-Broadmeadow,01990005,1,1,100.0,40,35,87.5
+4.48,4.48,a-pcom-i1,2022-23,Needham-High Rock School,01990410,1,1,100.0,42,40,95.2
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Needham-John Eliot,01990020,1,1,100.0,38,32,84.2
+4.385882352941176,4.39,a-pcom-i1,2022-23,Needham-Needham High,01990505,1,1,100.0,146,136,93.2
+3.5105882352941173,3.51,a-pcom-i1,2022-23,Needham-Newman Elementary,01990050,1,1,100.0,59,44,74.6
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Needham-Pollard Middle,01990405,1,1,100.0,85,74,87.1
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Needham-Sunita L. Williams Elementary,01990035,1,0,0.0,43,33,76.7
+3.2141176470588233,3.21,a-pcom-i1,2022-23,Needham-William Mitchell,01990040,1,1,100.0,41,28,68.3
+3.063529411764706,3.06,a-pcom-i1,2022-23,Neighborhood House Charter (District)-Neighborhood House Charter School,04440205,3,3,100.0,83,54,65.1
+3.5294117647058822,3.53,a-pcom-i1,2022-23,New Bedford-Abraham Lincoln,02010095,1,1,100.0,48,36,75.0
+4.169411764705882,4.17,a-pcom-i1,2022-23,New Bedford-Alfred J Gomes,02010063,1,1,100.0,44,39,88.6
+4.48,4.48,a-pcom-i1,2022-23,New Bedford-Betsey B Winslow,02010140,1,1,100.0,21,20,95.2
+2.9647058823529413,2.96,a-pcom-i1,2022-23,New Bedford-Carlos Pacheco,02010105,1,0,0.0,27,17,63.0
+4.061176470588235,4.06,a-pcom-i1,2022-23,New Bedford-Casimir Pulaski,02010123,1,1,100.0,51,44,86.3
+4.296470588235294,4.3,a-pcom-i1,2022-23,New Bedford-Charles S Ashley,02010010,1,0,0.0,23,21,91.3
+3.07764705882353,3.08,a-pcom-i1,2022-23,New Bedford-Elizabeth Carter Brooks,02010015,1,1,100.0,26,17,65.4
+3.981176470588235,3.98,a-pcom-i1,2022-23,New Bedford-Ellen R Hathaway,02010075,1,1,100.0,26,22,84.6
+4.381176470588235,4.38,a-pcom-i1,2022-23,New Bedford-Elwyn G Campbell,02010020,1,1,100.0,29,27,93.1
+3.3505882352941176,3.35,a-pcom-i1,2022-23,New Bedford-Hayden/McFadden,02010078,1,0,0.0,59,42,71.2
+4.564705882352941,4.56,a-pcom-i1,2022-23,New Bedford-Irwin M. Jacobs Elementary School,02010070,1,1,100.0,33,32,97.0
+4.527058823529412,4.53,a-pcom-i1,2022-23,New Bedford-James B Congdon,02010040,1,1,100.0,26,25,96.2
+4.0,4.0,a-pcom-i1,2022-23,New Bedford-Jireh Swift,02010130,1,1,100.0,20,17,85.0
+3.2941176470588234,3.29,a-pcom-i1,2022-23,New Bedford-John Avery Parker,02010115,1,1,100.0,20,14,70.0
+3.44,3.44,a-pcom-i1,2022-23,New Bedford-John B Devalles,02010050,1,0,0.0,26,19,73.1
+3.868235294117647,3.87,a-pcom-i1,2022-23,New Bedford-Keith Middle School,02010405,1,1,100.0,90,74,82.2
+3.8917647058823532,3.89,a-pcom-i1,2022-23,New Bedford-New Bedford High,02010505,2,2,100.0,208,172,82.7
+4.20235294117647,4.2,a-pcom-i1,2022-23,New Bedford-Normandin Middle School,02010410,1,1,100.0,84,75,89.3
+3.8258823529411763,3.83,a-pcom-i1,2022-23,New Bedford-Renaissance Community Innovation School,02010124,1,0,0.0,16,13,81.3
+3.981176470588235,3.98,a-pcom-i1,2022-23,New Bedford-Roosevelt Middle School,02010415,1,1,100.0,78,66,84.6
+3.3364705882352945,3.34,a-pcom-i1,2022-23,New Bedford-Sgt Wm H Carney Academy,02010045,1,0,0.0,55,39,70.9
+3.218823529411765,3.22,a-pcom-i1,2022-23,New Bedford-Thomas R Rodman,02010125,1,0,0.0,19,13,68.4
+4.117647058823529,4.12,a-pcom-i1,2022-23,New Bedford-Trinity Day Academy,02010510,1,1,100.0,16,14,87.5
+4.456470588235295,4.46,a-pcom-i1,2022-23,New Bedford-Whaling City Junior/Senior High School,02010515,1,1,100.0,19,18,94.7
+3.2752941176470585,3.28,a-pcom-i1,2022-23,New Bedford-William H Taylor,02010135,1,1,100.0,23,16,69.6
+2.9223529411764706,2.92,a-pcom-i1,2022-23,New Heights Charter School of Brockton (District)-New Heights Charter School of Brockton,35130305,1,1,100.0,58,36,62.1
+4.117647058823529,4.12,a-pcom-i1,2022-23,New Salem-Wendell-Swift River,07280015,1,1,100.0,16,14,87.5
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Newburyport-Edward G. Molin Elementary School,02040030,1,1,100.0,35,29,82.9
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Newburyport-Francis T Bresnahan Elementary,02040005,1,1,100.0,58,47,81.0
+4.108235294117647,4.11,a-pcom-i1,2022-23,Newburyport-Newburyport High,02040505,1,1,100.0,71,62,87.3
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Newburyport-Rupert A Nock Middle,02040305,1,1,100.0,56,46,82.1
+3.783529411764706,3.78,a-pcom-i1,2022-23,Newton-A E Angier,02070005,1,1,100.0,46,37,80.4
+3.816470588235294,3.82,a-pcom-i1,2022-23,Newton-Bigelow Middle,02070305,1,1,100.0,53,43,81.1
+3.6752941176470584,3.68,a-pcom-i1,2022-23,Newton-Bowen,02070015,1,1,100.0,32,25,78.1
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Newton-C C Burr,02070020,1,1,100.0,33,28,84.8
+4.442352941176471,4.44,a-pcom-i1,2022-23,Newton-Cabot,02070025,1,1,100.0,36,34,94.4
+4.20235294117647,4.2,a-pcom-i1,2022-23,Newton-Charles E Brown Middle,02070310,1,1,100.0,75,67,89.3
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Newton-Countryside,02070040,1,1,100.0,34,30,88.2
+3.868235294117647,3.87,a-pcom-i1,2022-23,Newton-F A Day Middle,02070315,1,1,100.0,90,74,82.2
+3.9435294117647057,3.94,a-pcom-i1,2022-23,Newton-Franklin,02070055,1,1,100.0,37,31,83.8
+4.263529411764706,4.26,a-pcom-i1,2022-23,Newton-Horace Mann,02070075,1,1,100.0,32,29,90.6
+3.684705882352941,3.68,a-pcom-i1,2022-23,Newton-John Ward,02070120,1,1,100.0,23,18,78.3
+4.27764705882353,4.28,a-pcom-i1,2022-23,Newton-Lincoln-Eliot,02070070,1,0,0.0,33,30,90.9
+4.263529411764706,4.26,a-pcom-i1,2022-23,Newton-Mason-Rice,02070080,1,1,100.0,32,29,90.6
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Newton-Memorial Spaulding,02070105,1,1,100.0,39,32,82.1
+4.117647058823529,4.12,a-pcom-i1,2022-23,Newton-Newton Early Childhood Program,02070108,1,1,100.0,16,14,87.5
+4.16,4.16,a-pcom-i1,2022-23,Newton-Newton North High,02070505,1,1,100.0,207,183,88.4
+4.272941176470588,4.27,a-pcom-i1,2022-23,Newton-Newton South High,02070510,1,1,100.0,174,158,90.8
+4.2305882352941175,4.23,a-pcom-i1,2022-23,Newton-Oak Hill Middle,02070320,1,1,100.0,69,62,89.9
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Newton-Peirce,02070100,1,0,0.0,22,21,95.5
+3.4211764705882355,3.42,a-pcom-i1,2022-23,Newton-Underwood,02070115,1,1,100.0,22,16,72.7
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Newton-Williams,02070125,2,2,100.0,21,18,85.7
+3.84,3.84,a-pcom-i1,2022-23,Newton-Zervas,02070130,1,1,100.0,38,31,81.6
+4.301176470588236,4.3,a-pcom-i1,2022-23,Norfolk County Agricultural-Norfolk County Agricultural,09150705,1,0,0.0,58,53,91.4
+4.602352941176471,4.6,a-pcom-i1,2022-23,Norfolk-Freeman-Kennedy School,02080005,1,1,100.0,45,44,97.8
+4.258823529411765,4.26,a-pcom-i1,2022-23,Norfolk-H Olive Day,02080015,1,1,100.0,42,38,90.5
+3.1952941176470593,3.2,a-pcom-i1,2022-23,North Adams-Brayton,02090035,1,0,0.0,28,19,67.9
+4.183529411764706,4.18,a-pcom-i1,2022-23,North Adams-Colegrove Park Elementary,02090008,1,1,100.0,27,24,88.9
+3.604705882352941,3.6,a-pcom-i1,2022-23,North Adams-Drury High,02090505,1,0,0.0,47,36,76.6
+3.388235294117647,3.39,a-pcom-i1,2022-23,North Adams-Greylock,02090015,1,0,0.0,25,18,72.0
+4.4,4.4,a-pcom-i1,2022-23,North Andover-Anne Bradstreet Early Childhood Center,02110005,1,1,100.0,31,29,93.5
+3.9482352941176475,3.95,a-pcom-i1,2022-23,North Andover-Annie L Sargent School,02110018,1,1,100.0,31,26,83.9
+4.705882352941177,4.71,a-pcom-i1,2022-23,North Andover-Atkinson,02110001,1,1,100.0,24,24,100.0
+3.6988235294117646,3.7,a-pcom-i1,2022-23,North Andover-Franklin,02110010,1,1,100.0,28,22,78.6
+4.442352941176471,4.44,a-pcom-i1,2022-23,North Andover-Kittredge,02110015,1,1,100.0,18,17,94.4
+4.094117647058823,4.09,a-pcom-i1,2022-23,North Andover-North Andover High,02110505,1,1,100.0,108,94,87.0
+4.395294117647059,4.4,a-pcom-i1,2022-23,North Andover-North Andover Middle,02110305,1,1,100.0,76,71,93.4
+4.117647058823529,4.12,a-pcom-i1,2022-23,North Andover-Thomson,02110020,1,1,100.0,24,21,87.5
+4.329411764705882,4.33,a-pcom-i1,2022-23,North Attleborough-Amvet Boulevard,02120007,1,0,0.0,25,23,92.0
+4.249411764705882,4.25,a-pcom-i1,2022-23,North Attleborough-Community,02120030,1,1,100.0,31,28,90.3
+4.235294117647059,4.24,a-pcom-i1,2022-23,North Attleborough-Falls,02120010,1,1,100.0,20,18,90.0
+3.8823529411764706,3.88,a-pcom-i1,2022-23,North Attleborough-Joseph W Martin Jr Elementary,02120013,1,1,100.0,40,33,82.5
+3.543529411764706,3.54,a-pcom-i1,2022-23,North Attleborough-North Attleboro High,02120505,1,1,100.0,85,64,75.3
+4.183529411764706,4.18,a-pcom-i1,2022-23,North Attleborough-North Attleborough Early Learning Center,02120020,1,0,0.0,9,8,88.9
+4.183529411764706,4.18,a-pcom-i1,2022-23,North Attleborough-North Attleborough Middle,02120305,1,1,100.0,72,64,88.9
+4.27764705882353,4.28,a-pcom-i1,2022-23,North Attleborough-Roosevelt Avenue,02120015,1,1,100.0,22,20,90.9
+3.5764705882352943,3.58,a-pcom-i1,2022-23,North Brookfield-North Brookfield Elementary,02150015,1,1,100.0,25,19,76.0
+2.4658823529411764,2.47,a-pcom-i1,2022-23,North Brookfield-North Brookfield High,02150505,1,0,0.0,21,11,52.4
+4.08,4.08,a-pcom-i1,2022-23,North Middlesex-Ashby Elementary,07350010,1,1,100.0,15,13,86.7
+4.48,4.48,a-pcom-i1,2022-23,North Middlesex-Hawthorne Brook,07350030,1,1,100.0,42,40,95.2
+4.061176470588235,4.06,a-pcom-i1,2022-23,North Middlesex-Nissitissit Middle School,07350310,1,1,100.0,51,44,86.3
+3.8117647058823527,3.81,a-pcom-i1,2022-23,North Middlesex-North Middlesex Regional,07350505,1,1,100.0,58,47,81.0
+4.301176470588236,4.3,a-pcom-i1,2022-23,North Middlesex-Spaulding Memorial,07350005,1,1,100.0,35,32,91.4
+4.117647058823529,4.12,a-pcom-i1,2022-23,North Middlesex-Squannacook Early Childhood Center,07350002,1,0,0.0,8,7,87.5
+3.684705882352941,3.68,a-pcom-i1,2022-23,North Middlesex-Varnum Brook,07350035,1,0,0.0,46,36,78.3
+4.343529411764706,4.34,a-pcom-i1,2022-23,North Reading-E Ethel Little School,02170003,1,1,100.0,26,24,92.3
+4.705882352941177,4.71,a-pcom-i1,2022-23,North Reading-J Turner Hood,02170010,1,1,100.0,31,31,100.0
+4.437647058823529,4.44,a-pcom-i1,2022-23,North Reading-L D Batchelder,02170005,1,1,100.0,35,33,94.3
+4.578823529411765,4.58,a-pcom-i1,2022-23,North Reading-North Reading High,02170505,1,1,100.0,73,71,97.3
+4.437647058823529,4.44,a-pcom-i1,2022-23,North Reading-North Reading Middle,02170305,1,1,100.0,53,50,94.3
+3.6,3.6,a-pcom-i1,2022-23,Northampton-Bridge Street,02100005,1,0,0.0,34,26,76.5
+3.849411764705882,3.85,a-pcom-i1,2022-23,Northampton-Jackson Street,02100020,1,1,100.0,33,27,81.8
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Northampton-John F Kennedy Middle School,02100410,1,0,0.0,63,51,81.0
+3.792941176470588,3.79,a-pcom-i1,2022-23,Northampton-Leeds,02100025,1,1,100.0,31,25,80.6
+4.117647058823529,4.12,a-pcom-i1,2022-23,Northampton-Northampton High,02100505,1,1,100.0,64,56,87.5
+4.527058823529412,4.53,a-pcom-i1,2022-23,Northampton-R. K. Finn Ryan Road,02100029,1,0,0.0,26,25,96.2
+4.136470588235294,4.14,a-pcom-i1,2022-23,Northampton-Smith Vocational Agricultural-Smith Vocational and Agricultural High,04060705,1,1,100.0,58,51,87.9
+4.296470588235294,4.3,a-pcom-i1,2022-23,Northboro-Southboro-Algonquin Regional High,07300505,1,1,100.0,115,105,91.3
+4.296470588235294,4.3,a-pcom-i1,2022-23,Northborough-Fannie E Proctor,02130015,1,1,100.0,23,21,91.3
+4.117647058823529,4.12,a-pcom-i1,2022-23,Northborough-Lincoln Street,02130003,1,1,100.0,24,21,87.5
+4.296470588235294,4.3,a-pcom-i1,2022-23,Northborough-Marguerite E Peaslee,02130014,1,1,100.0,23,21,91.3
+4.705882352941177,4.71,a-pcom-i1,2022-23,Northborough-Marion E Zeh,02130020,1,0,0.0,22,22,100.0
+4.192941176470588,4.19,a-pcom-i1,2022-23,Northborough-Robert E. Melican Middle School,02130305,1,1,100.0,55,49,89.1
+4.178823529411765,4.18,a-pcom-i1,2022-23,Northbridge-Northbridge Elementary School,02140001,2,1,50.0,80,71,88.8
+3.2658823529411767,3.27,a-pcom-i1,2022-23,Northbridge-Northbridge High,02140505,1,0,0.0,49,34,69.4
+2.847058823529412,2.85,a-pcom-i1,2022-23,Northbridge-Northbridge Middle,02140305,1,1,100.0,43,26,60.5
+4.08,4.08,a-pcom-i1,2022-23,Northeast Metropolitan Regional Vocational Technical-Northeast Metro Regional Vocational,08530605,1,1,100.0,120,104,86.7
+4.4,4.4,a-pcom-i1,2022-23,Northern Berkshire Regional Vocational Technical-Charles McCann Vocational Technical,08510605,1,1,100.0,46,43,93.5
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Norton-Henri A. Yelle,02180060,1,1,100.0,32,27,84.4
+4.211764705882353,4.21,a-pcom-i1,2022-23,Norton-J C Solmonese,02180015,1,1,100.0,38,34,89.5
+3.896470588235294,3.9,a-pcom-i1,2022-23,Norton-L G Nourse Elementary,02180010,1,0,0.0,29,24,82.8
+4.183529411764706,4.18,a-pcom-i1,2022-23,Norton-Norton High,02180505,1,1,100.0,63,56,88.9
+4.329411764705882,4.33,a-pcom-i1,2022-23,Norton-Norton Middle,02180305,1,1,100.0,50,46,92.0
+3.764705882352941,3.76,a-pcom-i1,2022-23,Norwell-Grace Farrar Cole,02190005,1,1,100.0,40,32,80.0
+4.070588235294117,4.07,a-pcom-i1,2022-23,Norwell-Norwell High,02190505,1,1,100.0,52,45,86.5
+4.475294117647058,4.48,a-pcom-i1,2022-23,Norwell-Norwell Middle School,02190405,1,0,0.0,41,39,95.1
+4.0,4.0,a-pcom-i1,2022-23,Norwell-William G Vinal,02190020,1,1,100.0,40,34,85.0
+4.4141176470588235,4.41,a-pcom-i1,2022-23,Norwood-Balch,02200005,1,1,100.0,32,30,93.8
+4.343529411764706,4.34,a-pcom-i1,2022-23,Norwood-Charles J Prescott,02200025,1,1,100.0,26,24,92.3
+3.981176470588235,3.98,a-pcom-i1,2022-23,Norwood-Cornelius M Callahan,02200010,1,0,0.0,26,22,84.6
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Norwood-Dr. Philip O. Coakley Middle School,02200305,1,1,100.0,70,55,78.6
+4.291764705882353,4.29,a-pcom-i1,2022-23,Norwood-F A Cleveland,02200015,1,0,0.0,34,31,91.2
+4.08,4.08,a-pcom-i1,2022-23,Norwood-George F. Willett,02200075,1,0,0.0,30,26,86.7
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Norwood-John P Oldham,02200020,1,1,100.0,28,23,82.1
+4.188235294117647,4.19,a-pcom-i1,2022-23,Norwood-Norwood High,02200505,1,1,100.0,91,81,89.0
+3.9576470588235293,3.96,a-pcom-i1,2022-23,Oak Bluffs-Oak Bluffs Elementary,02210005,1,1,100.0,63,53,84.1
+4.08,4.08,a-pcom-i1,2022-23,Old Colony Regional Vocational Technical-Old Colony Regional Vocational Technical,08550605,1,1,100.0,60,52,86.7
+4.447058823529412,4.45,a-pcom-i1,2022-23,Old Rochester-Old Rochester Regional High,07400505,1,1,100.0,55,52,94.5
+4.442352941176471,4.44,a-pcom-i1,2022-23,Old Rochester-Old Rochester Regional Jr High,07400405,1,1,100.0,36,34,94.4
+3.2094117647058824,3.21,a-pcom-i1,2022-23,Old Sturbridge Academy Charter Public School (District)-Old Sturbridge Academy Charter Public School,35150205,1,1,100.0,22,15,68.2
+2.6588235294117646,2.66,a-pcom-i1,2022-23,Orange-Dexter Park,02230010,1,0,0.0,23,13,56.5
+2.6164705882352943,2.62,a-pcom-i1,2022-23,Orange-Fisher Hill,02230015,1,0,0.0,18,10,55.6
+4.705882352941177,4.71,a-pcom-i1,2022-23,Orleans-Orleans Elementary,02240005,1,1,100.0,23,23,100.0
+4.117647058823529,4.12,a-pcom-i1,2022-23,Oxford-Alfred M Chaffee,02260010,1,1,100.0,32,28,87.5
+4.20235294117647,4.2,a-pcom-i1,2022-23,Oxford-Clara Barton,02260005,1,0,0.0,28,25,89.3
+3.1670588235294117,3.17,a-pcom-i1,2022-23,Oxford-Oxford High,02260505,1,0,0.0,52,35,67.3
+3.981176470588235,3.98,a-pcom-i1,2022-23,Oxford-Oxford Middle,02260405,1,1,100.0,39,33,84.6
+3.708235294117647,3.71,a-pcom-i1,2022-23,Palmer-Old Mill Pond,02270008,1,0,0.0,52,41,78.8
+3.4164705882352937,3.42,a-pcom-i1,2022-23,Palmer-Palmer High,02270505,1,1,100.0,62,45,72.6
+3.7788235294117647,3.78,a-pcom-i1,2022-23,Pathfinder Regional Vocational Technical-Pathfinder Vocational Technical,08600605,1,1,100.0,71,57,80.3
+0.0,1,a-pcom-i1,2022-23,Paulo Freire Social Justice Charter School (District)-Paulo Freire Social Justice Charter School,35010505,"",Failed to,meet reporting,requirements,"",""
+4.221176470588236,4.22,a-pcom-i1,2022-23,Peabody-Captain Samuel Brown,02290005,1,1,100.0,39,35,89.7
+3.708235294117647,3.71,a-pcom-i1,2022-23,Peabody-Center,02290015,1,0,0.0,33,26,78.8
+4.08,4.08,a-pcom-i1,2022-23,Peabody-J Henry Higgins Middle,02290305,1,1,100.0,105,91,86.7
+3.2,3.2,a-pcom-i1,2022-23,Peabody-John E Burke,02290007,1,1,100.0,25,17,68.0
+3.7317647058823527,3.73,a-pcom-i1,2022-23,Peabody-John E. McCarthy,02290016,1,1,100.0,29,23,79.3
+3.138823529411765,3.14,a-pcom-i1,2022-23,Peabody-Peabody Personalized Remote Education Program (Peabody P.R.E.P.),02290705,1,1,100.0,9,6,66.7
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Peabody-Peabody Veterans Memorial High,02290510,1,0,0.0,120,101,84.2
+4.5458823529411765,4.55,a-pcom-i1,2022-23,Peabody-South Memorial,02290035,1,0,0.0,29,28,96.6
+3.6470588235294117,3.65,a-pcom-i1,2022-23,Peabody-Thomas Carroll,02290010,1,1,100.0,40,31,77.5
+4.315294117647059,4.32,a-pcom-i1,2022-23,Peabody-West Memorial,02290045,1,1,100.0,24,22,91.7
+3.138823529411765,3.14,a-pcom-i1,2022-23,Peabody-William A Welch Sr,02290027,1,1,100.0,30,20,66.7
+3.8776470588235297,3.88,a-pcom-i1,2022-23,Pelham-Pelham Elementary,02300005,1,1,100.0,17,14,82.4
+4.263529411764706,4.26,a-pcom-i1,2022-23,Pembroke-Bryantville Elementary,02310003,1,1,100.0,32,29,90.6
+4.301176470588236,4.3,a-pcom-i1,2022-23,Pembroke-Hobomock Elementary,02310010,1,1,100.0,35,32,91.4
+4.578823529411765,4.58,a-pcom-i1,2022-23,Pembroke-North Pembroke Elementary,02310015,1,1,100.0,37,36,97.3
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Pembroke-Pembroke Community Middle School,02310305,1,1,100.0,33,28,84.8
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Pembroke-Pembroke High School,02310505,1,1,100.0,61,54,88.5
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Pentucket-Dr Frederick N Sweetsir,07450020,1,0,0.0,21,18,85.7
+3.491764705882353,3.49,a-pcom-i1,2022-23,Pentucket-Dr John C Page School,07450015,1,1,100.0,31,23,74.2
+4.117647058823529,4.12,a-pcom-i1,2022-23,Pentucket-Elmer S Bagnall,07450005,1,1,100.0,40,35,87.5
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Pentucket-Helen R Donaghue School,07450010,1,0,0.0,26,21,80.8
+3.4447058823529413,3.44,a-pcom-i1,2022-23,Pentucket-Pentucket Regional Middle,07450405,1,1,100.0,41,30,73.2
+3.849411764705882,3.85,a-pcom-i1,2022-23,Pentucket-Pentucket Regional Sr High,07450505,1,1,100.0,66,54,81.8
+2.531764705882353,2.53,a-pcom-i1,2022-23,Petersham-Petersham Center,02340005,1,1,100.0,13,7,53.8
+2.1741176470588237,2.17,a-pcom-i1,2022-23,"Phoenix Academy Charter Public High School, Chelsea (District)-Phoenix Academy Charter Public High School, Chelsea",04930505,1,1,100.0,13,6,46.2
+1.8823529411764706,1.88,a-pcom-i1,2022-23,"Phoenix Academy Public Charter High School, Lawrence (District)-Phoenix Academy Public Charter High School, Lawrence",35180505,1,1,100.0,15,6,40.0
+1.5670588235294116,1.57,a-pcom-i1,2022-23,"Phoenix Academy Public Charter High School, Springfield (District)-Phoenix Academy Public Charter High School, Springfield",35080505,1,1,100.0,9,3,33.3
+3.2988235294117643,3.3,a-pcom-i1,2022-23,Pioneer Charter School of Science (District)-Pioneer Charter School of Science,04940205,2,2,100.0,77,54,70.1
+3.764705882352941,3.76,a-pcom-i1,2022-23,Pioneer Charter School of Science II (District)-Pioneer Charter School of Science II,35060505,1,1,100.0,35,28,80.0
+3.2894117647058825,3.29,a-pcom-i1,2022-23,Pioneer Valley Chinese Immersion Charter (District)-Pioneer Valley Chinese Immersion Charter School,04970205,1,1,100.0,73,51,69.9
+3.063529411764706,3.06,a-pcom-i1,2022-23,Pioneer Valley Performing Arts Charter Public (District)-Pioneer Valley Performing Arts Charter Public School,04790505,1,1,100.0,43,28,65.1
+4.705882352941177,4.71,a-pcom-i1,2022-23,Pioneer Valley-Bernardston Elementary,07500006,1,0,0.0,19,19,100.0
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Pioneer Valley-Northfield Elementary,07500008,1,0,0.0,21,16,76.2
+3.835294117647059,3.84,a-pcom-i1,2022-23,Pioneer Valley-Pioneer Valley Regional,07500505,1,0,0.0,27,22,81.5
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Pittsfield-Allendale,02360010,1,1,100.0,28,24,85.7
+3.1858823529411766,3.19,a-pcom-i1,2022-23,Pittsfield-Crosby,02360065,1,0,0.0,31,21,67.7
+2.3529411764705883,2.35,a-pcom-i1,2022-23,Pittsfield-Crosby Educational Academy,02360030,1,1,100.0,8,4,50.0
+0.9411764705882353,1,a-pcom-i1,2022-23,Pittsfield-Eagle Education Academy,02360525,1,0,0.0,5,1,20.0
+3.92,3.92,a-pcom-i1,2022-23,Pittsfield-Egremont,02360035,1,1,100.0,36,30,83.3
+3.138823529411765,3.14,a-pcom-i1,2022-23,Pittsfield-John T Reid Middle,02360305,1,0,0.0,51,34,66.7
+2.8941176470588235,2.89,a-pcom-i1,2022-23,Pittsfield-Morningside Community School,02360055,1,0,0.0,39,24,61.5
+4.174117647058823,4.17,a-pcom-i1,2022-23,Pittsfield-Pittsfield High,02360505,1,0,0.0,71,63,88.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Pittsfield-Pittsfield Public Virtual Academy,02360705,1,1,100.0,2,2,100.0
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Pittsfield-Robert T. Capeless Elementary School,02360045,1,0,0.0,21,18,85.7
+3.628235294117647,3.63,a-pcom-i1,2022-23,Pittsfield-Silvio O Conte Community,02360105,1,1,100.0,35,27,77.1
+3.7317647058823527,3.73,a-pcom-i1,2022-23,Pittsfield-Stearns,02360090,1,1,100.0,29,23,79.3
+4.004705882352941,4.0,a-pcom-i1,2022-23,Pittsfield-Taconic High,02360510,1,1,100.0,87,74,85.1
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Pittsfield-Theodore Herberg Middle,02360310,1,1,100.0,52,42,80.8
+4.08,4.08,a-pcom-i1,2022-23,Pittsfield-Williams,02360100,1,1,100.0,30,26,86.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Plainville-Anna Ware Jackson,02380010,1,1,100.0,25,25,100.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Plainville-Beatrice H Wood Elementary,02380005,1,1,100.0,25,25,100.0
+3.981176470588235,3.98,a-pcom-i1,2022-23,Plymouth-Cold Spring,02390005,1,1,100.0,26,22,84.6
+4.08,4.08,a-pcom-i1,2022-23,Plymouth-Federal Furnace School,02390011,1,0,0.0,45,39,86.7
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Plymouth-Hedge,02390010,1,1,100.0,26,21,80.8
+4.131764705882353,4.13,a-pcom-i1,2022-23,Plymouth-Indian Brook,02390012,1,1,100.0,49,43,87.8
+3.92,3.92,a-pcom-i1,2022-23,Plymouth-Manomet Elementary,02390015,1,1,100.0,24,20,83.3
+4.131764705882353,4.13,a-pcom-i1,2022-23,Plymouth-Nathaniel Morton Elementary,02390030,1,1,100.0,49,43,87.8
+3.844705882352941,3.84,a-pcom-i1,2022-23,Plymouth-Plymouth Commun Intermediate,02390405,1,1,100.0,82,67,81.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Plymouth-Plymouth Early Childhood Center,02390003,1,1,100.0,8,8,100.0
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Plymouth-Plymouth North High,02390505,1,1,100.0,110,97,88.2
+4.084705882352941,4.08,a-pcom-i1,2022-23,Plymouth-Plymouth South High,02390515,1,1,100.0,114,99,86.8
+4.047058823529412,4.05,a-pcom-i1,2022-23,Plymouth-Plymouth South Middle,02390305,1,1,100.0,57,49,86.0
+3.4870588235294115,3.49,a-pcom-i1,2022-23,Plymouth-South Elementary,02390046,1,0,0.0,54,40,74.1
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Plymouth-West Elementary,02390047,1,0,0.0,31,27,87.1
+4.27764705882353,4.28,a-pcom-i1,2022-23,Plympton-Dennett Elementary,02400010,1,1,100.0,22,20,90.9
+2.847058823529412,2.85,a-pcom-i1,2022-23,Prospect Hill Academy Charter (District)-Prospect Hill Academy Charter School,04870550,3,3,100.0,114,69,60.5
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Provincetown-Provincetown Schools,02420020,1,0,0.0,26,21,80.8
+2.6870588235294117,2.69,a-pcom-i1,2022-23,Quabbin-Hardwick Elementary,07530005,1,1,100.0,21,12,57.1
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Quabbin-Hubbardston Center,07530010,1,1,100.0,19,15,78.9
+0.6729411764705883,1,a-pcom-i1,2022-23,Quabbin-New Braintree Grade,07530020,1,1,100.0,7,1,14.3
+3.618823529411765,3.62,a-pcom-i1,2022-23,Quabbin-Oakham Center,07530025,1,1,100.0,13,10,76.9
+3.703529411764706,3.7,a-pcom-i1,2022-23,Quabbin-Quabbin Regional High School,07530505,1,0,0.0,47,37,78.7
+3.3458823529411763,3.35,a-pcom-i1,2022-23,Quabbin-Quabbin Regional Middle School,07530405,1,0,0.0,38,27,71.1
+3.237647058823529,3.24,a-pcom-i1,2022-23,Quabbin-Ruggles Lane,07530030,2,1,50.0,32,22,68.8
+3.783529411764706,3.78,a-pcom-i1,2022-23,Quaboag Regional-Quaboag Regional High,07780505,1,1,100.0,46,37,80.4
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Quaboag Regional-Quaboag Regional Middle Innovation School,07780305,1,1,100.0,24,18,75.0
+2.9647058823529413,2.96,a-pcom-i1,2022-23,Quaboag Regional-Warren Elementary,07780005,1,1,100.0,27,17,63.0
+3.3223529411764705,3.32,a-pcom-i1,2022-23,Quaboag Regional-West Brookfield Elementary,07780010,1,1,100.0,17,12,70.6
+4.705882352941177,4.71,a-pcom-i1,2022-23,Quincy-Amelio Della Chiesa Early Childhood Center,02430005,1,1,100.0,14,14,100.0
+3.7317647058823527,3.73,a-pcom-i1,2022-23,Quincy-Atherton Hough,02430040,1,1,100.0,29,23,79.3
+3.689411764705883,3.69,a-pcom-i1,2022-23,Quincy-Atlantic Middle,02430305,1,1,100.0,37,29,78.4
+4.141176470588236,4.14,a-pcom-i1,2022-23,Quincy-Beechwood Knoll Elementary,02430020,1,0,0.0,25,22,88.0
+3.708235294117647,3.71,a-pcom-i1,2022-23,Quincy-Broad Meadows Middle,02430310,1,1,100.0,33,26,78.8
+3.868235294117647,3.87,a-pcom-i1,2022-23,Quincy-Central Middle,02430315,1,1,100.0,45,37,82.2
+4.183529411764706,4.18,a-pcom-i1,2022-23,Quincy-Charles A Bernazzani Elementary,02430025,1,1,100.0,27,24,88.9
+4.385882352941176,4.39,a-pcom-i1,2022-23,Quincy-Clifford H Marshall Elementary,02430055,1,1,100.0,44,41,93.2
+3.792941176470588,3.79,a-pcom-i1,2022-23,Quincy-Francis W Parker,02430075,1,1,100.0,31,25,80.6
+4.503529411764706,4.5,a-pcom-i1,2022-23,Quincy-Lincoln-Hancock Community School,02430035,1,0,0.0,46,44,95.7
+3.449411764705882,3.45,a-pcom-i1,2022-23,Quincy-Merrymount,02430060,1,1,100.0,30,22,73.3
+4.19764705882353,4.2,a-pcom-i1,2022-23,Quincy-Montclair,02430065,1,1,100.0,37,33,89.2
+4.263529411764706,4.26,a-pcom-i1,2022-23,Quincy-North Quincy High,02430510,1,1,100.0,96,87,90.6
+4.291764705882353,4.29,a-pcom-i1,2022-23,Quincy-Point Webster Middle,02430325,1,1,100.0,34,31,91.2
+4.014117647058823,4.01,a-pcom-i1,2022-23,Quincy-Quincy High,02430505,1,1,100.0,129,110,85.3
+4.018823529411765,4.02,a-pcom-i1,2022-23,Quincy-Snug Harbor Community School,02430090,1,1,100.0,41,35,85.4
+3.4964705882352938,3.5,a-pcom-i1,2022-23,Quincy-South West Middle School,02430320,1,0,0.0,35,26,74.3
+4.27764705882353,4.28,a-pcom-i1,2022-23,Quincy-Squantum,02430095,1,1,100.0,33,30,90.9
+3.835294117647059,3.84,a-pcom-i1,2022-23,Quincy-Wollaston School,02430110,1,1,100.0,27,22,81.5
+3.896470588235294,3.9,a-pcom-i1,2022-23,Ralph C Mahar-Ralph C Mahar Regional,07550505,1,1,100.0,58,48,82.8
+4.009411764705883,4.01,a-pcom-i1,2022-23,Randolph-Elizabeth G Lyons Elementary,02440020,1,1,100.0,27,23,85.2
+3.552941176470588,3.55,a-pcom-i1,2022-23,Randolph-J F Kennedy Elementary,02440018,1,1,100.0,49,37,75.5
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Randolph-Margaret L Donovan,02440015,1,1,100.0,42,32,76.2
+3.491764705882353,3.49,a-pcom-i1,2022-23,Randolph-Martin E Young Elementary,02440040,1,1,100.0,31,23,74.2
+3.162352941176471,3.16,a-pcom-i1,2022-23,Randolph-Randolph Community Middle,02440410,1,1,100.0,61,41,67.2
+3.3364705882352945,3.34,a-pcom-i1,2022-23,Randolph-Randolph High,02440505,1,1,100.0,55,39,70.9
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Reading-Alice M Barrows,02460002,1,0,0.0,28,23,82.1
+3.849411764705882,3.85,a-pcom-i1,2022-23,Reading-Arthur W Coolidge Middle,02460305,1,1,100.0,44,36,81.8
+4.183529411764706,4.18,a-pcom-i1,2022-23,Reading-Birch Meadow,02460005,1,1,100.0,36,32,88.9
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Reading-J Warren Killam,02460017,1,1,100.0,31,27,87.1
+4.056470588235294,4.06,a-pcom-i1,2022-23,Reading-Joshua Eaton,02460010,1,1,100.0,29,25,86.2
+3.92,3.92,a-pcom-i1,2022-23,Reading-RISE PreSchool,02460001,1,0,0.0,12,10,83.3
+4.225882352941176,4.23,a-pcom-i1,2022-23,Reading-Reading Memorial High,02460505,1,1,100.0,98,88,89.8
+3.981176470588235,3.98,a-pcom-i1,2022-23,Reading-Walter S Parker Middle,02460310,1,0,0.0,52,44,84.6
+3.92,3.92,a-pcom-i1,2022-23,Reading-Wood End Elementary School,02460020,1,0,0.0,24,20,83.3
+4.108235294117647,4.11,a-pcom-i1,2022-23,Revere-A. C. Whelan Elementary School,02480003,1,1,100.0,55,48,87.3
+3.92,3.92,a-pcom-i1,2022-23,Revere-Abraham Lincoln,02480025,1,1,100.0,48,40,83.3
+4.418823529411765,4.42,a-pcom-i1,2022-23,Revere-Beachmont Veterans Memorial School,02480013,1,1,100.0,33,31,93.9
+3.764705882352941,3.76,a-pcom-i1,2022-23,Revere-CityLab Innovation High School,02480520,1,1,100.0,15,12,80.0
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Revere-Garfield Elementary School,02480056,1,1,100.0,61,55,90.2
+4.094117647058823,4.09,a-pcom-i1,2022-23,Revere-Garfield Middle School,02480057,1,1,100.0,46,40,87.0
+4.117647058823529,4.12,a-pcom-i1,2022-23,Revere-Paul Revere,02480050,1,0,0.0,40,35,87.5
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Revere-Revere High,02480505,2,0,0.0,152,126,82.9
+2.875294117647059,2.88,a-pcom-i1,2022-23,Revere-Rumney Marsh Academy,02480014,1,1,100.0,54,33,61.1
+4.108235294117647,4.11,a-pcom-i1,2022-23,Revere-Staff Sargent James J. Hill Elementary School,02480035,1,1,100.0,55,48,87.3
+3.8917647058823532,3.89,a-pcom-i1,2022-23,Revere-Susan B. Anthony Middle School,02480305,1,1,100.0,52,43,82.7
+4.065882352941177,4.07,a-pcom-i1,2022-23,Richmond-Richmond Consolidated,02490005,1,0,0.0,22,19,86.4
+3.1105882352941174,3.11,a-pcom-i1,2022-23,Rising Tide Charter Public (District)-Rising Tide Charter Public School,04830305,2,0,0.0,59,39,66.1
+4.296470588235294,4.3,a-pcom-i1,2022-23,River Valley Charter (District)-River Valley Charter School,04820050,1,1,100.0,23,21,91.3
+4.258823529411765,4.26,a-pcom-i1,2022-23,Rochester-Rochester Memorial,02500005,1,1,100.0,42,38,90.5
+4.357647058823529,4.36,a-pcom-i1,2022-23,Rockland-Jefferson Elementary School,02510060,1,1,100.0,27,25,92.6
+4.183529411764706,4.18,a-pcom-i1,2022-23,Rockland-John W Rogers Middle,02510305,1,1,100.0,54,48,88.9
+4.508235294117647,4.51,a-pcom-i1,2022-23,Rockland-Memorial Park,02510020,1,1,100.0,24,23,95.8
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Rockland-R Stewart Esten,02510025,1,1,100.0,30,23,76.7
+3.9105882352941173,3.91,a-pcom-i1,2022-23,Rockland-Rockland Senior High,02510505,1,1,100.0,59,49,83.1
+4.705882352941177,4.71,a-pcom-i1,2022-23,Rockport-Rockport Elementary,02520005,1,0,0.0,32,32,100.0
+4.324705882352942,4.32,a-pcom-i1,2022-23,Rockport-Rockport High,02520510,1,1,100.0,37,34,91.9
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Rockport-Rockport Middle,02520305,1,1,100.0,31,26,83.9
+4.235294117647059,4.24,a-pcom-i1,2022-23,Rowe-Rowe Elementary,02530005,1,1,100.0,10,9,90.0
+0.0,1,a-pcom-i1,2022-23,Roxbury Preparatory Charter (District)-Roxbury Preparatory Charter School,04840505,"","","","","",""
+3.1058823529411765,3.11,a-pcom-i1,2022-23,Salem Academy Charter (District)-Salem Academy Charter School,04850485,2,0,0.0,50,33,66.0
+3.628235294117647,3.63,a-pcom-i1,2022-23,Salem-Bates,02580003,1,1,100.0,35,27,77.1
+1.8541176470588234,1.85,a-pcom-i1,2022-23,Salem-Bentley Academy Innovation School,02580010,1,1,100.0,33,13,39.4
+4.141176470588236,4.14,a-pcom-i1,2022-23,Salem-Carlton,02580015,1,1,100.0,25,22,88.0
+2.9129411764705884,2.91,a-pcom-i1,2022-23,Salem-Collins Middle,02580305,1,0,0.0,63,39,61.9
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Salem-Horace Mann Laboratory,02580030,1,0,0.0,27,21,77.8
+2.6164705882352943,2.62,a-pcom-i1,2022-23,Salem-New Liberty Innovation School,02580510,1,0,0.0,9,5,55.6
+2.7435294117647056,2.74,a-pcom-i1,2022-23,Salem-Salem Early Childhood,02580001,1,1,100.0,12,7,58.3
+2.988235294117647,2.99,a-pcom-i1,2022-23,Salem-Salem High,02580505,1,1,100.0,104,66,63.5
+2.3529411764705883,2.35,a-pcom-i1,2022-23,Salem-Salem Prep High School,02580515,1,0,0.0,6,3,50.0
+3.3976470588235297,3.4,a-pcom-i1,2022-23,Salem-Saltonstall School,02580050,1,1,100.0,36,26,72.2
+3.472941176470588,3.47,a-pcom-i1,2022-23,Salem-Witchcraft Heights,02580070,1,1,100.0,42,31,73.8
+4.108235294117647,4.11,a-pcom-i1,2022-23,Sandwich-Forestdale School,02610002,1,1,100.0,55,48,87.3
+4.221176470588236,4.22,a-pcom-i1,2022-23,Sandwich-Oak Ridge,02610025,1,1,100.0,58,52,89.7
+4.051764705882353,4.05,a-pcom-i1,2022-23,Sandwich-Sandwich Middle High School,02610505,1,1,100.0,72,62,86.1
+3.938823529411765,3.94,a-pcom-i1,2022-23,Saugus-Belmonte STEAM Academy,02620060,1,1,100.0,43,36,83.7
+3.995294117647059,4.0,a-pcom-i1,2022-23,Saugus-Saugus High,02620505,1,0,0.0,53,45,84.9
+3.4023529411764706,3.4,a-pcom-i1,2022-23,Saugus-Saugus Middle School,02620305,1,1,100.0,47,34,72.3
+3.407058823529412,3.41,a-pcom-i1,2022-23,Saugus-Veterans Early Learning Center,02620065,1,1,100.0,29,21,72.4
+4.705882352941177,4.71,a-pcom-i1,2022-23,Savoy-Emma L Miller Elementary School,02630010,1,1,100.0,7,7,100.0
+4.08,4.08,a-pcom-i1,2022-23,Scituate-Cushing Elementary,02640007,1,0,0.0,30,26,86.7
+4.258823529411765,4.26,a-pcom-i1,2022-23,Scituate-Gates Middle School,02640305,1,1,100.0,63,57,90.5
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Scituate-Hatherly Elementary,02640010,1,1,100.0,30,23,76.7
+4.5600000000000005,4.56,a-pcom-i1,2022-23,Scituate-Jenkins Elementary School,02640015,1,0,0.0,32,31,96.9
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Scituate-Scituate High School,02640505,1,1,100.0,69,57,82.6
+4.0,4.0,a-pcom-i1,2022-23,Scituate-Wampatuck Elementary,02640020,1,1,100.0,40,34,85.0
+4.296470588235294,4.3,a-pcom-i1,2022-23,Seekonk-Dr. Kevin M. Hurley Middle School,02650405,1,1,100.0,46,42,91.3
+3.7411764705882353,3.74,a-pcom-i1,2022-23,Seekonk-George R Martin,02650007,1,1,100.0,39,31,79.5
+4.018823529411765,4.02,a-pcom-i1,2022-23,Seekonk-Mildred Aitken School,02650015,1,0,0.0,41,35,85.4
+4.357647058823529,4.36,a-pcom-i1,2022-23,Seekonk-Seekonk High,02650505,1,1,100.0,54,50,92.6
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Sharon-Cottage Street,02660005,1,1,100.0,35,30,85.7
+3.7364705882352944,3.74,a-pcom-i1,2022-23,Sharon-East Elementary,02660010,1,1,100.0,34,27,79.4
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Sharon-Heights Elementary,02660015,1,1,100.0,33,28,84.8
+4.705882352941177,4.71,a-pcom-i1,2022-23,Sharon-Sharon Early Childhood Center,02660001,1,1,100.0,4,4,100.0
+4.014117647058823,4.01,a-pcom-i1,2022-23,Sharon-Sharon High,02660505,1,0,0.0,102,87,85.3
+3.981176470588235,3.98,a-pcom-i1,2022-23,Sharon-Sharon Middle,02660305,1,1,100.0,78,66,84.6
+4.456470588235295,4.46,a-pcom-i1,2022-23,Shawsheen Valley Regional Vocational Technical-Shawsheen Valley Vocational Technical High School,08710605,1,1,100.0,131,124,94.7
+4.117647058823529,4.12,a-pcom-i1,2022-23,Sherborn-Pine Hill,02690010,1,1,100.0,32,28,87.5
+4.141176470588236,4.14,a-pcom-i1,2022-23,Shrewsbury-Calvin Coolidge School,02710015,1,0,0.0,25,22,88.0
+4.103529411764706,4.1,a-pcom-i1,2022-23,Shrewsbury-Floral Street School,02710020,1,1,100.0,47,41,87.2
+4.390588235294118,4.39,a-pcom-i1,2022-23,Shrewsbury-Major Howard W. Beal School,02710005,1,1,100.0,45,42,93.3
+4.08,4.08,a-pcom-i1,2022-23,Shrewsbury-Oak Middle School,02710030,1,0,0.0,75,65,86.7
+4.27764705882353,4.28,a-pcom-i1,2022-23,Shrewsbury-Parker Road Preschool,02710040,1,1,100.0,11,10,90.9
+3.844705882352941,3.84,a-pcom-i1,2022-23,Shrewsbury-Sherwood Middle School,02710305,1,1,100.0,71,58,81.7
+4.141176470588236,4.14,a-pcom-i1,2022-23,Shrewsbury-Shrewsbury High School,02710505,1,1,100.0,133,117,88.0
+4.117647058823529,4.12,a-pcom-i1,2022-23,Shrewsbury-Spring Street School,02710035,1,1,100.0,24,21,87.5
+4.329411764705882,4.33,a-pcom-i1,2022-23,Shrewsbury-Walter J. Paton School,02710025,1,0,0.0,25,23,92.0
+4.08,4.08,a-pcom-i1,2022-23,Shutesbury-Shutesbury Elementary,02720005,1,1,100.0,15,13,86.7
+3.8588235294117648,3.86,a-pcom-i1,2022-23,Silver Lake-Silver Lake Regional High,07600505,1,1,100.0,100,82,82.0
+4.390588235294118,4.39,a-pcom-i1,2022-23,Silver Lake-Silver Lake Regional Middle School,07600405,1,0,0.0,45,42,93.3
+2.5176470588235293,2.52,a-pcom-i1,2022-23,Sizer School: A North Central Charter Essential (District)-Sizer School: A North Central Charter Essential School,04740505,1,0,0.0,43,23,53.5
+4.169411764705882,4.17,a-pcom-i1,2022-23,Somerset Berkley Regional School District-Somerset Berkley Regional High School,07630505,1,1,100.0,79,70,88.6
+4.381176470588235,4.38,a-pcom-i1,2022-23,Somerset-Chace Street,02730005,1,1,100.0,29,27,93.1
+4.084705882352941,4.08,a-pcom-i1,2022-23,Somerset-North Elementary,02730008,1,1,100.0,38,33,86.8
+4.004705882352941,4.0,a-pcom-i1,2022-23,Somerset-Somerset Middle School,02730305,1,1,100.0,47,40,85.1
+4.503529411764706,4.5,a-pcom-i1,2022-23,Somerset-South,02730015,1,1,100.0,23,22,95.7
+3.44,3.44,a-pcom-i1,2022-23,Somerville-Albert F. Argenziano School at Lincoln Park,02740087,1,1,100.0,52,38,73.1
+3.2752941176470585,3.28,a-pcom-i1,2022-23,Somerville-Arthur D Healey,02740075,1,1,100.0,46,32,69.6
+3.764705882352941,3.76,a-pcom-i1,2022-23,Somerville-Benjamin G Brown,02740015,1,1,100.0,15,12,80.0
+3.981176470588235,3.98,a-pcom-i1,2022-23,Somerville-Capuano Early Childhood Center,02740005,1,0,0.0,26,22,84.6
+3.896470588235294,3.9,a-pcom-i1,2022-23,Somerville-E Somerville Community,02740111,1,0,0.0,58,48,82.8
+3.981176470588235,3.98,a-pcom-i1,2022-23,Somerville-Full Circle High School,02740510,1,1,100.0,13,11,84.6
+3.3976470588235297,3.4,a-pcom-i1,2022-23,Somerville-John F Kennedy,02740083,1,0,0.0,36,26,72.2
+4.705882352941177,4.71,a-pcom-i1,2022-23,Somerville-Next Wave Junior High,02740410,1,1,100.0,4,4,100.0
+3.868235294117647,3.87,a-pcom-i1,2022-23,Somerville-Somerville High,02740505,1,0,0.0,135,111,82.2
+4.056470588235294,4.06,a-pcom-i1,2022-23,Somerville-West Somerville Neighborhood,02740115,1,0,0.0,29,25,86.2
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Somerville-Winter Hill Community,02740120,1,1,100.0,46,39,84.8
+4.258823529411765,4.26,a-pcom-i1,2022-23,South Hadley-Michael E. Smith Middle School,02780305,1,0,0.0,42,38,90.5
+4.221176470588236,4.22,a-pcom-i1,2022-23,South Hadley-Mosier,02780020,1,1,100.0,29,26,89.7
+4.329411764705882,4.33,a-pcom-i1,2022-23,South Hadley-Plains Elementary,02780015,1,0,0.0,25,23,92.0
+4.0329411764705885,4.03,a-pcom-i1,2022-23,South Hadley-South Hadley High,02780505,1,1,100.0,56,48,85.7
+3.8588235294117648,3.86,a-pcom-i1,2022-23,South Middlesex Regional Vocational Technical-Joseph P Keefe Technical High School,08290605,1,1,100.0,89,73,82.0
+3.844705882352941,3.84,a-pcom-i1,2022-23,South Shore Charter Public (District)-South Shore Charter Public School,04880550,1,1,100.0,104,85,81.7
+4.263529411764706,4.26,a-pcom-i1,2022-23,South Shore Regional Vocational Technical-South Shore Vocational Technical High,08730605,1,1,100.0,64,58,90.6
+4.343529411764706,4.34,a-pcom-i1,2022-23,Southampton-William E Norris,02750005,1,1,100.0,39,36,92.3
+4.258823529411765,4.26,a-pcom-i1,2022-23,Southborough-Albert S. Woodward Memorial School,02760050,1,1,100.0,21,19,90.5
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Southborough-Margaret A Neary,02760020,1,1,100.0,22,21,95.5
+4.357647058823529,4.36,a-pcom-i1,2022-23,Southborough-Mary E Finn School,02760008,1,1,100.0,27,25,92.6
+3.849411764705882,3.85,a-pcom-i1,2022-23,Southborough-P Brent Trottier,02760305,1,1,100.0,44,36,81.8
+2.070588235294118,2.07,a-pcom-i1,2022-23,Southbridge-Charlton Street,02770005,1,0,0.0,25,11,44.0
+3.388235294117647,3.39,a-pcom-i1,2022-23,Southbridge-Eastford Road,02770010,1,0,0.0,25,18,72.0
+1.4494117647058824,1.45,a-pcom-i1,2022-23,Southbridge-Southbridge Academy,02770525,1,1,100.0,13,4,30.8
+2.6164705882352943,2.62,a-pcom-i1,2022-23,Southbridge-Southbridge High School,02770515,1,0,0.0,36,20,55.6
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Southbridge-Southbridge Middle School,02770315,1,1,100.0,36,27,75.0
+2.5976470588235294,2.6,a-pcom-i1,2022-23,Southbridge-West Street,02770020,1,1,100.0,29,16,55.2
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Southeastern Regional Vocational Technical-Southeastern Regional Vocational Technical,08720605,1,1,100.0,121,100,82.6
+3.84,3.84,a-pcom-i1,2022-23,Southern Berkshire-Mt Everett Regional,07650505,1,1,100.0,49,40,81.6
+4.27764705882353,4.28,a-pcom-i1,2022-23,Southern Berkshire-New Marlborough Central,07650018,1,1,100.0,11,10,90.9
+0.9411764705882353,1,a-pcom-i1,2022-23,Southern Berkshire-South Egremont,07650030,1,1,100.0,5,1,20.0
+4.183529411764706,4.18,a-pcom-i1,2022-23,Southern Berkshire-Undermountain,07650035,1,1,100.0,27,24,88.9
+4.376470588235295,4.38,a-pcom-i1,2022-23,Southern Worcester County Regional Vocational School District-Bay Path Regional Vocational Technical High School,08760605,1,1,100.0,115,107,93.0
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Southwick-Tolland-Granville Regional School District-Powder Mill School,07660315,1,1,100.0,34,30,88.2
+3.934117647058823,3.93,a-pcom-i1,2022-23,Southwick-Tolland-Granville Regional School District-Southwick Regional School,07660505,1,1,100.0,61,51,83.6
+4.235294117647059,4.24,a-pcom-i1,2022-23,Southwick-Tolland-Granville Regional School District-Woodland School,07660010,1,1,100.0,30,27,90.0
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Spencer-E Brookfield-David Prouty High,07670505,1,0,0.0,26,21,80.8
+4.235294117647059,4.24,a-pcom-i1,2022-23,Spencer-E Brookfield-East Brookfield Elementary,07670008,1,1,100.0,20,18,90.0
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Spencer-E Brookfield-Knox Trail Middle School,07670415,1,0,0.0,32,24,75.0
+4.418823529411765,4.42,a-pcom-i1,2022-23,Spencer-E Brookfield-Wire Village School,07670040,1,1,100.0,33,31,93.9
+3.138823529411765,3.14,a-pcom-i1,2022-23,Springfield International Charter (District)-Springfield International Charter School,04410505,4,3,75.0,93,62,66.7
+4.169411764705882,4.17,a-pcom-i1,2022-23,Springfield Preparatory Charter School (District)-Springfield Preparatory Charter School,35100205,1,1,100.0,35,31,88.6
+3.407058823529412,3.41,a-pcom-i1,2022-23,Springfield-Alfred G. Zanetti Montessori Magnet School,02810095,1,1,100.0,29,21,72.4
+3.92,3.92,a-pcom-i1,2022-23,Springfield-Alice B Beal Elementary,02810175,1,1,100.0,24,20,83.3
+4.141176470588236,4.14,a-pcom-i1,2022-23,Springfield-Arthur T Talmadge,02810165,1,1,100.0,25,22,88.0
+3.5905882352941174,3.59,a-pcom-i1,2022-23,Springfield-Brightwood,02810025,1,0,0.0,38,29,76.3
+2.5647058823529414,2.56,a-pcom-i1,2022-23,Springfield-Chestnut Accelerated Middle School (Talented and Gifted),02810367,1,1,100.0,33,18,54.5
+3.3411764705882354,3.34,a-pcom-i1,2022-23,Springfield-Conservatory of the Arts,02810475,1,1,100.0,31,22,71.0
+3.816470588235294,3.82,a-pcom-i1,2022-23,Springfield-Daniel B Brunton,02810035,1,1,100.0,37,30,81.1
+2.489411764705882,2.49,a-pcom-i1,2022-23,Springfield-Early Childhood Education Center,02810001,1,1,100.0,17,9,52.9
+2.889411764705882,2.89,a-pcom-i1,2022-23,Springfield-Edward P. Boland School,02810010,1,1,100.0,57,35,61.4
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Springfield-Elias Brookings,02810030,1,1,100.0,31,27,87.1
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Springfield-Emergence Academy,02810318,1,1,100.0,8,6,75.0
+2.1976470588235295,2.2,a-pcom-i1,2022-23,Springfield-Forest Park Middle,02810325,1,1,100.0,45,21,46.7
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Springfield-Frank H Freedman,02810075,1,1,100.0,24,19,79.2
+3.9058823529411764,3.91,a-pcom-i1,2022-23,Springfield-Frederick Harris,02810080,1,1,100.0,53,44,83.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Springfield-Gateway to College at Holyoke Community College,02810575,1,1,100.0,1,1,100.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Springfield-Gateway to College at Springfield Technical Community College,02810580,1,1,100.0,1,1,100.0
+4.155294117647059,4.16,a-pcom-i1,2022-23,Springfield-German Gerena Community School,02810195,1,1,100.0,60,53,88.3
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Springfield-Glenwood,02810065,1,1,100.0,25,21,84.0
+4.20235294117647,4.2,a-pcom-i1,2022-23,Springfield-Glickman Elementary,02810068,1,1,100.0,28,25,89.3
+3.2564705882352944,3.26,a-pcom-i1,2022-23,Springfield-High School Of Commerce,02810510,5,4,80.0,146,101,69.2
+2.9129411764705884,2.91,a-pcom-i1,2022-23,Springfield-Hiram L Dorman,02810050,1,1,100.0,21,13,61.9
+3.4352941176470586,3.44,a-pcom-i1,2022-23,Springfield-Homer Street,02810085,1,1,100.0,37,27,73.0
+2.4423529411764706,2.44,a-pcom-i1,2022-23,Springfield-Impact Prep at Chestnut,02810366,1,0,0.0,27,14,51.9
+3.807058823529412,3.81,a-pcom-i1,2022-23,Springfield-Indian Orchard Elementary,02810100,1,1,100.0,47,38,80.9
+3.3741176470588234,3.37,a-pcom-i1,2022-23,Springfield-John F Kennedy Middle,02810328,1,1,100.0,53,38,71.7
+3.8023529411764705,3.8,a-pcom-i1,2022-23,Springfield-John J Duggan Academy,02810320,2,1,50.0,78,63,80.8
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Springfield-Kensington International School,02810110,1,1,100.0,26,23,88.5
+3.0447058823529414,3.04,a-pcom-i1,2022-23,Springfield-Kiley Academy,02810316,1,1,100.0,34,22,64.7
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Springfield-Kiley Prep,02810315,1,1,100.0,21,17,81.0
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Springfield-Liberty,02810115,1,1,100.0,28,23,82.1
+3.92,3.92,a-pcom-i1,2022-23,Springfield-Liberty Preparatory Academy,02810560,1,1,100.0,6,5,83.3
+3.096470588235294,3.1,a-pcom-i1,2022-23,Springfield-Lincoln,02810120,1,1,100.0,38,25,65.8
+4.117647058823529,4.12,a-pcom-i1,2022-23,Springfield-Margaret C Ells,02810060,1,1,100.0,16,14,87.5
+3.981176470588235,3.98,a-pcom-i1,2022-23,Springfield-Mary A. Dryden Veterans Memorial School,02810125,1,1,100.0,26,22,84.6
+3.138823529411765,3.14,a-pcom-i1,2022-23,Springfield-Mary M Lynch,02810140,1,1,100.0,21,14,66.7
+4.371764705882353,4.37,a-pcom-i1,2022-23,Springfield-Mary M Walsh,02810155,1,1,100.0,28,26,92.9
+3.5670588235294116,3.57,a-pcom-i1,2022-23,Springfield-Mary O Pottenger,02810145,1,1,100.0,33,25,75.8
+3.4305882352941177,3.43,a-pcom-i1,2022-23,Springfield-Milton Bradley School,02810023,1,1,100.0,48,35,72.9
+3.491764705882353,3.49,a-pcom-i1,2022-23,Springfield-Rebecca M Johnson,02810055,1,1,100.0,66,49,74.2
+2.3529411764705883,2.35,a-pcom-i1,2022-23,Springfield-Rise Academy at Van Sickle,02810480,1,1,100.0,28,14,50.0
+4.075294117647059,4.08,a-pcom-i1,2022-23,Springfield-Roger L. Putnam Vocational Technical Academy,02810620,1,1,100.0,134,116,86.6
+3.684705882352941,3.68,a-pcom-i1,2022-23,Springfield-STEM Middle Academy,02810350,1,1,100.0,23,18,78.3
+3.835294117647059,3.84,a-pcom-i1,2022-23,Springfield-Samuel Bowles,02810020,1,1,100.0,27,22,81.5
+2.1176470588235294,2.12,a-pcom-i1,2022-23,Springfield-South End Middle School,02810355,1,0,0.0,20,9,45.0
+4.070588235294117,4.07,a-pcom-i1,2022-23,Springfield-Springfield Central High,02810500,1,1,100.0,163,141,86.5
+4.456470588235295,4.46,a-pcom-i1,2022-23,Springfield-Springfield High School,02810570,1,1,100.0,19,18,94.7
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Springfield-Springfield High School of Science and Technology,02810530,1,1,100.0,103,79,76.7
+4.705882352941177,4.71,a-pcom-i1,2022-23,Springfield-Springfield International Academy at Johnson,02810215,1,1,100.0,2,2,100.0
+3.764705882352941,3.76,a-pcom-i1,2022-23,Springfield-Springfield International Academy at Sci-Tech,02810700,1,1,100.0,15,12,80.0
+1.148235294117647,1.15,a-pcom-i1,2022-23,Springfield-Springfield Legacy Academy,02810317,1,1,100.0,45,11,24.4
+2.0894117647058823,2.09,a-pcom-i1,2022-23,Springfield-Springfield Middle School,02810360,1,1,100.0,9,4,44.4
+3.618823529411765,3.62,a-pcom-i1,2022-23,Springfield-Springfield Public Day Elementary School,02810005,1,1,100.0,13,10,76.9
+3.764705882352941,3.76,a-pcom-i1,2022-23,Springfield-Springfield Public Day High School,02810550,1,1,100.0,20,16,80.0
+3.0258823529411765,3.03,a-pcom-i1,2022-23,Springfield-Springfield Public Day Middle School,02810345,1,1,100.0,14,9,64.3
+3.138823529411765,3.14,a-pcom-i1,2022-23,Springfield-Springfield Realization Academy,02810335,1,1,100.0,9,6,66.7
+3.138823529411765,3.14,a-pcom-i1,2022-23,Springfield-Springfield Transition Academy,02810675,1,0,0.0,6,4,66.7
+3.604705882352941,3.6,a-pcom-i1,2022-23,Springfield-Sumner Avenue,02810160,1,1,100.0,47,36,76.6
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Springfield-The Springfield Renaissance School an Expeditionary Learning School,02810205,1,1,100.0,56,44,78.6
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Springfield-The Springfield Virtual School,02810705,2,2,100.0,43,33,76.7
+2.447058823529412,2.45,a-pcom-i1,2022-23,Springfield-Thomas M Balliet,02810015,1,1,100.0,25,13,52.0
+3.896470588235294,3.9,a-pcom-i1,2022-23,Springfield-Van Sickle Academy,02810485,1,1,100.0,29,24,82.8
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Springfield-Warner,02810180,1,1,100.0,24,18,75.0
+4.018823529411765,4.02,a-pcom-i1,2022-23,Springfield-Washington,02810185,1,1,100.0,41,35,85.4
+3.9623529411764706,3.96,a-pcom-i1,2022-23,Springfield-White Street,02810190,1,1,100.0,38,32,84.2
+3.835294117647059,3.84,a-pcom-i1,2022-23,Springfield-William N. DeBerry,02810045,1,1,100.0,27,22,81.5
+4.296470588235294,4.3,a-pcom-i1,2022-23,Stoneham-Colonial Park,02840005,1,1,100.0,23,21,91.3
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Stoneham-Robin Hood,02840025,1,0,0.0,31,27,87.1
+4.371764705882353,4.37,a-pcom-i1,2022-23,Stoneham-South,02840030,1,1,100.0,28,26,92.9
+3.6658823529411766,3.67,a-pcom-i1,2022-23,Stoneham-Stoneham Central Middle School,02840405,1,0,0.0,68,53,77.9
+3.8823529411764706,3.88,a-pcom-i1,2022-23,Stoneham-Stoneham High,02840505,1,1,100.0,63,52,82.5
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Stoughton-Edwin A Jones Early Childhood Center,02850012,1,0,0.0,8,6,75.0
+4.329411764705882,4.33,a-pcom-i1,2022-23,Stoughton-Helen Hansen Elementary,02850010,1,1,100.0,25,23,92.0
+4.550588235294118,4.55,a-pcom-i1,2022-23,Stoughton-Joseph H Gibbons,02850025,1,1,100.0,30,29,96.7
+4.291764705882353,4.29,a-pcom-i1,2022-23,Stoughton-Joseph R Dawe Jr Elementary,02850014,1,1,100.0,34,31,91.2
+4.2823529411764705,4.28,a-pcom-i1,2022-23,Stoughton-O'Donnell Middle School,02850405,1,1,100.0,78,71,91.0
+3.835294117647059,3.84,a-pcom-i1,2022-23,Stoughton-Richard L. Wilkins Elementary School,02850020,1,1,100.0,27,22,81.5
+4.705882352941177,4.71,a-pcom-i1,2022-23,Stoughton-South Elementary,02850015,1,1,100.0,23,23,100.0
+4.018823529411765,4.02,a-pcom-i1,2022-23,Stoughton-Stoughton High,02850505,1,1,100.0,103,88,85.4
+4.371764705882353,4.37,a-pcom-i1,2022-23,Sturbridge-Burgess Elementary,02870005,1,1,100.0,70,65,92.9
+4.070588235294117,4.07,a-pcom-i1,2022-23,Sturgis Charter Public (District)-Sturgis Charter Public School,04890505,2,2,100.0,104,90,86.5
+3.9576470588235293,3.96,a-pcom-i1,2022-23,Sudbury-Ephraim Curtis Middle,02880305,1,1,100.0,82,69,84.1
+4.009411764705883,4.01,a-pcom-i1,2022-23,Sudbury-General John Nixon Elementary,02880025,1,1,100.0,27,23,85.2
+4.456470588235295,4.46,a-pcom-i1,2022-23,Sudbury-Israel Loring School,02880015,1,1,100.0,38,36,94.7
+3.5717647058823534,3.57,a-pcom-i1,2022-23,Sudbury-Josiah Haynes,02880010,1,0,0.0,29,22,75.9
+4.183529411764706,4.18,a-pcom-i1,2022-23,Sudbury-Peter Noyes,02880030,1,1,100.0,45,40,88.9
+3.0258823529411765,3.03,a-pcom-i1,2022-23,Sunderland-Sunderland Elementary,02890005,1,1,100.0,28,18,64.3
+4.329411764705882,4.33,a-pcom-i1,2022-23,Sutton-Sutton Early Learning,02900003,1,1,100.0,25,23,92.0
+4.527058823529412,4.53,a-pcom-i1,2022-23,Sutton-Sutton Elementary,02900005,1,1,100.0,26,25,96.2
+4.569411764705882,4.57,a-pcom-i1,2022-23,Sutton-Sutton High School,02900510,1,1,100.0,35,34,97.1
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Sutton-Sutton Middle School,02900305,1,1,100.0,26,23,88.5
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Swampscott-Clarke,02910005,1,0,0.0,25,21,84.0
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Swampscott-Hadley,02910010,1,0,0.0,28,22,78.6
+3.138823529411765,3.14,a-pcom-i1,2022-23,Swampscott-Stanley,02910020,1,1,100.0,21,14,66.7
+4.065882352941177,4.07,a-pcom-i1,2022-23,Swampscott-Swampscott High,02910505,1,1,100.0,66,57,86.4
+4.338823529411765,4.34,a-pcom-i1,2022-23,Swampscott-Swampscott Middle,02910305,1,1,100.0,64,59,92.2
+4.065882352941177,4.07,a-pcom-i1,2022-23,Swansea-Elizabeth S Brown,02920006,1,1,100.0,22,19,86.4
+4.456470588235295,4.46,a-pcom-i1,2022-23,Swansea-Gardner,02920015,1,1,100.0,19,18,94.7
+3.92,3.92,a-pcom-i1,2022-23,Swansea-Joseph Case High,02920505,1,0,0.0,48,40,83.3
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Swansea-Joseph Case Jr High,02920305,1,1,100.0,41,37,90.2
+4.258823529411765,4.26,a-pcom-i1,2022-23,Swansea-Joseph G Luther,02920020,1,1,100.0,21,19,90.5
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Swansea-Mark G Hoyle Elementary,02920017,1,1,100.0,22,21,95.5
+4.12235294117647,4.12,a-pcom-i1,2022-23,TEC Connections Academy Commonwealth Virtual School District-TEC Connections Academy Commonwealth Virtual School,39020900,3,1,33.3,105,92,87.6
+4.305882352941176,4.31,a-pcom-i1,2022-23,Tantasqua-Tantasqua Regional Jr High,07700405,1,1,100.0,47,43,91.5
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Tantasqua-Tantasqua Regional Sr High,07700505,1,1,100.0,84,72,85.7
+3.764705882352941,3.76,a-pcom-i1,2022-23,Tantasqua-Tantasqua Regional Vocational,07700605,1,1,100.0,15,12,80.0
+4.254117647058824,4.25,a-pcom-i1,2022-23,Taunton-Benjamin Friedman Middle,02930315,1,1,100.0,52,47,90.4
+4.376470588235295,4.38,a-pcom-i1,2022-23,Taunton-East Taunton Elementary,02930010,1,0,0.0,43,40,93.0
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Taunton-Edmund Hatch Bennett,02930007,1,1,100.0,27,21,77.8
+3.2941176470588234,3.29,a-pcom-i1,2022-23,Taunton-Edward F. Leddy Preschool,02930005,1,1,100.0,10,7,70.0
+3.9058823529411764,3.91,a-pcom-i1,2022-23,Taunton-Elizabeth Pole,02930027,1,1,100.0,47,39,83.0
+4.371764705882353,4.37,a-pcom-i1,2022-23,Taunton-H H Galligan,02930057,1,1,100.0,28,26,92.9
+3.981176470588235,3.98,a-pcom-i1,2022-23,Taunton-James L. Mulcahey Elementary School,02930015,1,1,100.0,65,55,84.6
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Taunton-John F Parker Middle,02930305,1,1,100.0,36,27,75.0
+4.051764705882353,4.05,a-pcom-i1,2022-23,Taunton-Joseph C Chamberlain,02930008,1,1,100.0,36,31,86.1
+3.8588235294117648,3.86,a-pcom-i1,2022-23,Taunton-Joseph H Martin,02930042,1,0,0.0,50,41,82.0
+2.6870588235294117,2.69,a-pcom-i1,2022-23,Taunton-Taunton Alternative High School,02930525,1,1,100.0,7,4,57.1
+3.915294117647059,3.92,a-pcom-i1,2022-23,Taunton-Taunton High,02930505,1,1,100.0,184,153,83.2
+3.835294117647059,3.84,a-pcom-i1,2022-23,Tewksbury-Heath-Brook,02950010,1,1,100.0,27,22,81.5
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Tewksbury-John F. Ryan,02950023,1,1,100.0,46,39,84.8
+3.938823529411765,3.94,a-pcom-i1,2022-23,Tewksbury-John W. Wynn Middle,02950305,1,1,100.0,43,36,83.7
+4.004705882352941,4.0,a-pcom-i1,2022-23,Tewksbury-L F Dewing,02950001,1,1,100.0,47,40,85.1
+4.065882352941177,4.07,a-pcom-i1,2022-23,Tewksbury-Louise Davy Trahan,02950025,1,1,100.0,22,19,86.4
+3.5764705882352943,3.58,a-pcom-i1,2022-23,Tewksbury-North Street,02950020,1,0,0.0,25,19,76.0
+4.2305882352941175,4.23,a-pcom-i1,2022-23,Tewksbury-Tewksbury Memorial High,02950505,1,0,0.0,69,62,89.9
+3.84,3.84,a-pcom-i1,2022-23,Tisbury-Tisbury Elementary,02960005,1,1,100.0,49,40,81.6
+4.20235294117647,4.2,a-pcom-i1,2022-23,Topsfield-Proctor Elementary,02980005,1,1,100.0,28,25,89.3
+3.792941176470588,3.79,a-pcom-i1,2022-23,Topsfield-Steward Elementary,02980010,1,1,100.0,36,29,80.6
+4.028235294117647,4.03,a-pcom-i1,2022-23,Tri-County Regional Vocational Technical-Tri-County Regional Vocational Technical,08780605,1,1,100.0,90,77,85.6
+4.343529411764706,4.34,a-pcom-i1,2022-23,Triton-Newbury Elementary,07730020,1,1,100.0,39,36,92.3
+3.5623529411764707,3.56,a-pcom-i1,2022-23,Triton-Pine Grove,07730025,1,1,100.0,37,28,75.7
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Triton-Salisbury Elementary,07730015,1,1,100.0,42,30,71.4
+4.192941176470588,4.19,a-pcom-i1,2022-23,Triton-Triton Regional High School,07730505,1,1,100.0,55,49,89.1
+3.5623529411764707,3.56,a-pcom-i1,2022-23,Triton-Triton Regional Middle School,07730405,1,1,100.0,37,28,75.7
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Truro-Truro Central,03000005,1,1,100.0,21,17,81.0
+4.470588235294118,4.47,a-pcom-i1,2022-23,Tyngsborough-Tyngsborough Elementary,03010020,1,1,100.0,60,57,95.0
+3.816470588235294,3.82,a-pcom-i1,2022-23,Tyngsborough-Tyngsborough High School,03010505,1,1,100.0,37,30,81.1
+4.211764705882353,4.21,a-pcom-i1,2022-23,Tyngsborough-Tyngsborough Middle,03010305,1,1,100.0,38,34,89.5
+3.138823529411765,3.14,a-pcom-i1,2022-23,UP Academy Charter School of Boston (District)-UP Academy Charter School of Boston,04800405,2,1,50.0,33,22,66.7
+3.4776470588235298,3.48,a-pcom-i1,2022-23,UP Academy Charter School of Dorchester (District)-UP Academy Charter School of Dorchester,35050405,1,1,100.0,46,34,73.9
+4.27764705882353,4.28,a-pcom-i1,2022-23,Up-Island Regional-Chilmark Elementary,07740010,1,1,100.0,11,10,90.9
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Up-Island Regional-West Tisbury Elementary,07740020,1,1,100.0,51,46,90.2
+4.075294117647059,4.08,a-pcom-i1,2022-23,Upper Cape Cod Regional Vocational Technical-Upper Cape Cod Vocational Technical,08790605,1,0,0.0,82,71,86.6
+0.0,1,a-pcom-i1,2022-23,Uxbridge-Gateway to College,03040515,"","","","","",""
+3.9576470588235293,3.96,a-pcom-i1,2022-23,Uxbridge-Taft Early Learning Center,03040005,1,1,100.0,44,37,84.1
+4.3623529411764705,4.36,a-pcom-i1,2022-23,Uxbridge-Uxbridge High,03040505,1,1,100.0,55,51,92.7
+3.981176470588235,3.98,a-pcom-i1,2022-23,Uxbridge-Whitin Intermediate,03040405,1,1,100.0,39,33,84.6
+2.672941176470588,2.67,a-pcom-i1,2022-23,Veritas Preparatory Charter School (District)-Veritas Preparatory Charter School,04980405,1,1,100.0,44,25,56.8
+4.517647058823529,4.52,a-pcom-i1,2022-23,Wachusett-Central Tree Middle,07750310,1,1,100.0,25,24,96.0
+4.1647058823529415,4.16,a-pcom-i1,2022-23,Wachusett-Chocksett Middle School,07750315,1,1,100.0,26,23,88.5
+4.235294117647059,4.24,a-pcom-i1,2022-23,Wachusett-Davis Hill Elementary,07750018,1,1,100.0,30,27,90.0
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Wachusett-Dawson,07750020,1,0,0.0,31,27,87.1
+4.705882352941177,4.71,a-pcom-i1,2022-23,Wachusett-Early Childhood Center,07750001,1,1,100.0,9,9,100.0
+3.618823529411765,3.62,a-pcom-i1,2022-23,Wachusett-Glenwood Elementary School,07750060,1,1,100.0,26,20,76.9
+3.92,3.92,a-pcom-i1,2022-23,Wachusett-Houghton Elementary,07750027,1,1,100.0,24,20,83.3
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Wachusett-Leroy E.Mayo,07750032,1,0,0.0,32,27,84.4
+4.315294117647059,4.32,a-pcom-i1,2022-23,Wachusett-Mountview Middle,07750305,1,1,100.0,48,44,91.7
+4.094117647058823,4.09,a-pcom-i1,2022-23,Wachusett-Naquag Elementary School,07750005,1,0,0.0,23,20,87.0
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Wachusett-Paxton Center,07750040,1,1,100.0,32,27,84.4
+3.764705882352941,3.76,a-pcom-i1,2022-23,Wachusett-Thomas Prince,07750045,1,0,0.0,25,20,80.0
+4.239999999999999,4.24,a-pcom-i1,2022-23,Wachusett-Wachusett Regional High,07750505,1,1,100.0,142,128,90.1
+4.564705882352941,4.56,a-pcom-i1,2022-23,Wakefield-Dolbeare,03050005,1,1,100.0,33,32,97.0
+4.235294117647059,4.24,a-pcom-i1,2022-23,Wakefield-Early Childhood Center at the Doyle School,03050001,1,1,100.0,10,9,90.0
+3.868235294117647,3.87,a-pcom-i1,2022-23,Wakefield-Galvin Middle School,03050310,1,1,100.0,90,74,82.2
+4.211764705882353,4.21,a-pcom-i1,2022-23,Wakefield-Greenwood,03050020,1,1,100.0,19,17,89.5
+4.357647058823529,4.36,a-pcom-i1,2022-23,Wakefield-Wakefield Memorial High,03050505,1,1,100.0,81,75,92.6
+4.1505882352941175,4.15,a-pcom-i1,2022-23,Wakefield-Walton,03050040,1,1,100.0,17,15,88.2
+3.816470588235294,3.82,a-pcom-i1,2022-23,Wakefield-Woodville School,03050015,1,1,100.0,37,30,81.1
+3.618823529411765,3.62,a-pcom-i1,2022-23,Wales-Wales Elementary,03060005,1,0,0.0,13,10,76.9
+4.117647058823529,4.12,a-pcom-i1,2022-23,Walpole-Bird Middle,03070305,1,1,100.0,40,35,87.5
+4.235294117647059,4.24,a-pcom-i1,2022-23,Walpole-Boyden,03070010,1,1,100.0,30,27,90.0
+3.92,3.92,a-pcom-i1,2022-23,Walpole-Daniel Feeney Preschool Center,03070002,1,1,100.0,6,5,83.3
+4.084705882352941,4.08,a-pcom-i1,2022-23,Walpole-Eleanor N Johnson Middle,03070310,1,1,100.0,38,33,86.8
+4.390588235294118,4.39,a-pcom-i1,2022-23,Walpole-Elm Street School,03070005,1,1,100.0,30,28,93.3
+4.291764705882353,4.29,a-pcom-i1,2022-23,Walpole-Fisher,03070015,1,1,100.0,34,31,91.2
+4.4141176470588235,4.41,a-pcom-i1,2022-23,Walpole-Old Post Road,03070018,1,1,100.0,32,30,93.8
+4.352941176470588,4.35,a-pcom-i1,2022-23,Walpole-Walpole High,03070505,1,1,100.0,93,86,92.5
+4.169411764705882,4.17,a-pcom-i1,2022-23,Waltham-Douglas MacArthur Elementary School,03080032,1,1,100.0,44,39,88.6
+3.684705882352941,3.68,a-pcom-i1,2022-23,Waltham-Henry Whittemore Elementary School,03080065,1,1,100.0,46,36,78.3
+3.868235294117647,3.87,a-pcom-i1,2022-23,Waltham-James Fitzgerald Elementary School,03080060,1,1,100.0,45,37,82.2
+3.7788235294117647,3.78,a-pcom-i1,2022-23,Waltham-John F Kennedy Middle,03080404,1,1,100.0,61,49,80.3
+3.68,3.68,a-pcom-i1,2022-23,Waltham-John W. McDevitt Middle School,03080415,1,0,0.0,87,68,78.2
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Waltham-Northeast Elementary School,03080040,1,1,100.0,56,47,83.9
+3.4447058823529413,3.44,a-pcom-i1,2022-23,Waltham-Thomas R Plympton Elementary School,03080050,1,1,100.0,41,30,73.2
+2.183529411764706,2.18,a-pcom-i1,2022-23,Waltham-Waltham Public Schools Dual Language Program,03080001,1,0,0.0,28,13,46.4
+3.915294117647059,3.92,a-pcom-i1,2022-23,Waltham-Waltham Sr High,03080505,1,0,0.0,167,139,83.2
+3.5058823529411764,3.51,a-pcom-i1,2022-23,Waltham-William F. Stanley Elementary School,03080005,1,1,100.0,55,41,74.5
+4.371764705882353,4.37,a-pcom-i1,2022-23,Ware-Stanley M Koziol Elementary School,03090020,1,1,100.0,28,26,92.9
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Ware-Ware Junior/Senior High School,03090505,1,1,100.0,42,36,85.7
+3.849411764705882,3.85,a-pcom-i1,2022-23,Ware-Ware Middle School,03090305,1,1,100.0,22,18,81.8
+2.6870588235294117,2.69,a-pcom-i1,2022-23,Wareham-Wareham Cooperative Alternative School,03100315,1,1,100.0,7,4,57.1
+4.009411764705883,4.01,a-pcom-i1,2022-23,Wareham-Wareham Elementary School,03100017,1,0,0.0,27,23,85.2
+4.4941176470588236,4.49,a-pcom-i1,2022-23,Wareham-Wareham Middle,03100305,1,1,100.0,44,42,95.5
+3.792941176470588,3.79,a-pcom-i1,2022-23,Wareham-Wareham Senior High,03100505,1,1,100.0,67,54,80.6
+3.792941176470588,3.79,a-pcom-i1,2022-23,Watertown-Cunniff,03140015,1,1,100.0,36,29,80.6
+4.023529411764706,4.02,a-pcom-i1,2022-23,Watertown-Hosmer,03140020,1,1,100.0,69,59,85.5
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Watertown-James Russell Lowell,03140025,1,1,100.0,46,38,82.6
+4.1129411764705885,4.11,a-pcom-i1,2022-23,Watertown-Watertown High,03140505,1,1,100.0,87,76,87.4
+3.9105882352941173,3.91,a-pcom-i1,2022-23,Watertown-Watertown Middle,03140305,1,0,0.0,59,49,83.1
+4.503529411764706,4.5,a-pcom-i1,2022-23,Wayland-Claypit Hill School,03150005,1,0,0.0,47,45,95.7
+4.418823529411765,4.42,a-pcom-i1,2022-23,Wayland-Happy Hollow School,03150015,1,1,100.0,33,31,93.9
+4.263529411764706,4.26,a-pcom-i1,2022-23,Wayland-Loker School,03150020,1,1,100.0,32,29,90.6
+4.268235294117647,4.27,a-pcom-i1,2022-23,Wayland-Wayland High School,03150505,1,1,100.0,86,78,90.7
+4.343529411764706,4.34,a-pcom-i1,2022-23,Wayland-Wayland Middle School,03150305,1,1,100.0,65,60,92.3
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Webster-Bartlett High School,03160505,1,0,0.0,40,30,75.0
+4.155294117647059,4.16,a-pcom-i1,2022-23,Webster-Park Avenue Elementary,03160015,1,0,0.0,60,53,88.3
+3.7270588235294118,3.73,a-pcom-i1,2022-23,Webster-Webster Middle School,03160315,1,1,100.0,48,38,79.2
+3.764705882352941,3.76,a-pcom-i1,2022-23,Wellesley-Ernest F Upham,03170050,1,1,100.0,25,20,80.0
+3.92,3.92,a-pcom-i1,2022-23,Wellesley-Hunnewell,03170025,1,1,100.0,18,15,83.3
+3.849411764705882,3.85,a-pcom-i1,2022-23,Wellesley-John D Hardy,03170020,1,1,100.0,22,18,81.8
+4.094117647058823,4.09,a-pcom-i1,2022-23,Wellesley-Joseph E Fiske,03170015,1,1,100.0,23,20,87.0
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Wellesley-Katharine Lee Bates,03170005,1,1,100.0,21,16,76.2
+4.183529411764706,4.18,a-pcom-i1,2022-23,Wellesley-Preschool at Wellesley Schools,03170001,1,1,100.0,9,8,88.9
+3.896470588235294,3.9,a-pcom-i1,2022-23,Wellesley-Schofield,03170045,1,0,0.0,29,24,82.8
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Wellesley-Sprague Elementary School,03170048,1,1,100.0,28,20,71.4
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Wellesley-Wellesley Middle,03170305,1,1,100.0,115,95,82.6
+4.12235294117647,4.12,a-pcom-i1,2022-23,Wellesley-Wellesley Sr High,03170505,1,1,100.0,137,120,87.6
+3.0258823529411765,3.03,a-pcom-i1,2022-23,Wellfleet-Wellfleet Elementary,03180005,1,1,100.0,14,9,64.3
+4.315294117647059,4.32,a-pcom-i1,2022-23,West Boylston-Major Edwards Elementary,03220005,1,1,100.0,36,33,91.7
+3.6,3.6,a-pcom-i1,2022-23,West Boylston-West Boylston Junior/Senior High,03220505,1,1,100.0,51,39,76.5
+4.705882352941177,4.71,a-pcom-i1,2022-23,West Bridgewater-Howard School,03230305,1,1,100.0,20,20,100.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,West Bridgewater-Rose L Macdonald,03230003,1,1,100.0,22,22,100.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,West Bridgewater-Spring Street School,03230005,1,1,100.0,13,13,100.0
+4.047058823529412,4.05,a-pcom-i1,2022-23,West Bridgewater-West Bridgewater Junior/Senior,03230505,1,1,100.0,50,43,86.0
+3.3317647058823527,3.33,a-pcom-i1,2022-23,West Springfield-John Ashley,03320005,1,0,0.0,24,17,70.8
+3.938823529411765,3.94,a-pcom-i1,2022-23,West Springfield-John R Fausey,03320010,1,1,100.0,43,36,83.7
+3.5294117647058822,3.53,a-pcom-i1,2022-23,West Springfield-Memorial,03320025,1,1,100.0,28,21,75.0
+4.27764705882353,4.28,a-pcom-i1,2022-23,West Springfield-Mittineague,03320030,1,0,0.0,22,20,90.9
+4.5317647058823525,4.53,a-pcom-i1,2022-23,West Springfield-Philip G Coburn,03320007,1,0,0.0,54,52,96.3
+3.449411764705882,3.45,a-pcom-i1,2022-23,West Springfield-Tatham,03320040,1,1,100.0,30,22,73.3
+4.705882352941177,4.71,a-pcom-i1,2022-23,West Springfield-West Springfield Early Childhood,03320001,1,1,100.0,10,10,100.0
+3.9623529411764706,3.96,a-pcom-i1,2022-23,West Springfield-West Springfield High,03320505,1,1,100.0,101,85,84.2
+4.338823529411765,4.34,a-pcom-i1,2022-23,West Springfield-West Springfield Middle,03320305,1,1,100.0,77,71,92.2
+3.9011764705882355,3.9,a-pcom-i1,2022-23,Westborough-Annie E Fales,03210010,1,1,100.0,35,29,82.9
+4.023529411764706,4.02,a-pcom-i1,2022-23,Westborough-Elsie A Hastings Elementary,03210025,1,1,100.0,55,47,85.5
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Westborough-J Harding Armstrong,03210005,1,1,100.0,36,28,77.8
+3.9576470588235293,3.96,a-pcom-i1,2022-23,Westborough-Mill Pond School,03210045,1,1,100.0,82,69,84.1
+4.023529411764706,4.02,a-pcom-i1,2022-23,Westborough-Sarah W Gibbons Middle,03210305,1,1,100.0,62,53,85.5
+3.92,3.92,a-pcom-i1,2022-23,Westborough-Westborough High,03210505,1,1,100.0,108,90,83.3
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Westfield-Abner Gibbs,03250020,1,1,100.0,16,12,75.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Westfield-Fort Meadow Early Childhood Center,03250003,2,1,50.0,8,8,100.0
+3.3223529411764705,3.32,a-pcom-i1,2022-23,Westfield-Franklin Ave,03250015,1,1,100.0,17,12,70.6
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Westfield-Highland,03250025,1,1,100.0,28,23,82.1
+3.9482352941176475,3.95,a-pcom-i1,2022-23,Westfield-Munger Hill,03250033,1,0,0.0,31,26,83.9
+3.388235294117647,3.39,a-pcom-i1,2022-23,Westfield-Paper Mill,03250036,1,1,100.0,25,18,72.0
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Westfield-Southampton Road,03250040,2,2,100.0,23,19,82.6
+3.854117647058824,3.85,a-pcom-i1,2022-23,Westfield-Westfield High,03250505,1,1,100.0,94,77,81.9
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Westfield-Westfield Intermediate School,03250075,1,1,100.0,58,47,81.0
+3.792941176470588,3.79,a-pcom-i1,2022-23,Westfield-Westfield Middle School,03250310,1,0,0.0,62,50,80.6
+4.174117647058823,4.17,a-pcom-i1,2022-23,Westfield-Westfield Technical Academy,03250605,1,1,100.0,62,55,88.7
+1.5670588235294116,1.57,a-pcom-i1,2022-23,Westfield-Westfield Virtual School,03250705,1,1,100.0,18,6,33.3
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Westford-Abbot Elementary,03260004,1,0,0.0,35,30,85.7
+4.2447058823529416,4.24,a-pcom-i1,2022-23,Westford-Blanchard Middle,03260310,1,1,100.0,51,46,90.2
+4.343529411764706,4.34,a-pcom-i1,2022-23,Westford-Col John Robinson,03260025,1,1,100.0,26,24,92.3
+4.0988235294117645,4.1,a-pcom-i1,2022-23,Westford-Day Elementary,03260007,1,1,100.0,31,27,87.1
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Westford-John A. Crisafulli Elementary School,03260045,1,1,100.0,32,27,84.4
+4.357647058823529,4.36,a-pcom-i1,2022-23,Westford-Nabnasset,03260015,1,1,100.0,27,25,92.6
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Westford-Rita E. Miller Elementary School,03260055,1,1,100.0,28,24,85.7
+4.428235294117647,4.43,a-pcom-i1,2022-23,Westford-Stony Brook School,03260330,1,0,0.0,51,48,94.1
+4.089411764705883,4.09,a-pcom-i1,2022-23,Westford-Westford Academy,03260505,1,1,100.0,122,106,86.9
+3.92,3.92,a-pcom-i1,2022-23,Westhampton-Westhampton Elementary School,03270005,1,1,100.0,18,15,83.3
+4.381176470588235,4.38,a-pcom-i1,2022-23,Weston-Country,03300010,1,1,100.0,29,27,93.1
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Weston-Field Elementary School,03300012,1,1,100.0,28,22,78.6
+4.075294117647059,4.08,a-pcom-i1,2022-23,Weston-Weston High,03300505,1,1,100.0,67,58,86.6
+4.023529411764706,4.02,a-pcom-i1,2022-23,Weston-Weston Middle,03300305,1,1,100.0,62,53,85.5
+3.642352941176471,3.64,a-pcom-i1,2022-23,Weston-Woodland,03300015,1,0,0.0,31,24,77.4
+4.315294117647059,4.32,a-pcom-i1,2022-23,Westport-Alice A Macomber,03310015,1,1,100.0,12,11,91.7
+3.9905882352941173,3.99,a-pcom-i1,2022-23,Westport-Westport Elementary,03310030,1,1,100.0,33,28,84.8
+3.7411764705882353,3.74,a-pcom-i1,2022-23,Westport-Westport Middle-High School,03310515,2,2,100.0,78,62,79.5
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Westwood-Deerfield School,03350010,1,1,100.0,21,17,81.0
+4.056470588235294,4.06,a-pcom-i1,2022-23,Westwood-Downey,03350012,1,1,100.0,29,25,86.2
+4.136470588235294,4.14,a-pcom-i1,2022-23,Westwood-E W Thurston Middle,03350305,1,1,100.0,58,51,87.9
+4.117647058823529,4.12,a-pcom-i1,2022-23,Westwood-Martha Jones,03350017,1,0,0.0,24,21,87.5
+3.468235294117647,3.47,a-pcom-i1,2022-23,Westwood-Paul Hanlon,03350015,1,1,100.0,19,14,73.7
+3.8870588235294115,3.89,a-pcom-i1,2022-23,Westwood-Westwood High,03350505,1,1,100.0,86,71,82.6
+4.705882352941177,4.71,a-pcom-i1,2022-23,Westwood-Westwood Integrated Preschool,03350050,1,1,100.0,3,3,100.0
+4.357647058823529,4.36,a-pcom-i1,2022-23,Westwood-William E Sheehan,03350025,1,1,100.0,27,25,92.6
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Weymouth-Academy Avenue,03360005,1,1,100.0,28,24,85.7
+4.343529411764706,4.34,a-pcom-i1,2022-23,Weymouth-Frederick C Murphy,03360050,1,1,100.0,26,24,92.3
+3.618823529411765,3.62,a-pcom-i1,2022-23,Weymouth-Johnson Early Childhood Center,03360003,1,1,100.0,13,10,76.9
+3.981176470588235,3.98,a-pcom-i1,2022-23,Weymouth-Lawrence W Pingree,03360065,1,0,0.0,26,22,84.6
+3.138823529411765,3.14,a-pcom-i1,2022-23,Weymouth-Ralph Talbot,03360085,1,1,100.0,21,14,66.7
+4.094117647058823,4.09,a-pcom-i1,2022-23,Weymouth-Thomas V Nash,03360060,1,0,0.0,23,20,87.0
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Weymouth-Thomas W. Hamilton Primary School,03360105,1,1,100.0,28,24,85.7
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Weymouth-Wessagusset,03360110,1,1,100.0,30,23,76.7
+3.1952941176470593,3.2,a-pcom-i1,2022-23,Weymouth-Weymouth High School,03360505,1,0,0.0,187,127,67.9
+3.0447058823529414,3.04,a-pcom-i1,2022-23,Weymouth-William Seach,03360080,1,0,0.0,34,22,64.7
+3.92,3.92,a-pcom-i1,2022-23,Whately-Whately Elementary,03370005,1,1,100.0,18,15,83.3
+4.442352941176471,4.44,a-pcom-i1,2022-23,Whitman-Hanson-Hanson Middle School,07800315,1,1,100.0,36,34,94.4
+4.249411764705882,4.25,a-pcom-i1,2022-23,Whitman-Hanson-Indian Head,07800035,1,1,100.0,31,28,90.3
+3.92,3.92,a-pcom-i1,2022-23,Whitman-Hanson-John H Duval,07800030,1,1,100.0,36,30,83.3
+4.428235294117647,4.43,a-pcom-i1,2022-23,Whitman-Hanson-Louise A Conley,07800010,1,1,100.0,34,32,94.1
+2.823529411764706,2.82,a-pcom-i1,2022-23,Whitman-Hanson-The Pre-School Academy at Whitman Hanson,07800001,1,1,100.0,5,3,60.0
+4.155294117647059,4.16,a-pcom-i1,2022-23,Whitman-Hanson-Whitman Hanson Regional,07800505,1,1,100.0,77,68,88.3
+4.0,4.0,a-pcom-i1,2022-23,Whitman-Hanson-Whitman Middle,07800310,1,0,0.0,40,34,85.0
+4.348235294117647,4.35,a-pcom-i1,2022-23,Whittier Regional Vocational Technical-Whittier Regional Vocational,08850605,1,1,100.0,118,109,92.4
+2.823529411764706,2.82,a-pcom-i1,2022-23,Williamsburg-Anne T. Dunphy School,03400020,1,1,100.0,20,12,60.0
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Wilmington-Boutwell,03420005,1,1,100.0,14,10,71.4
+4.117647058823529,4.12,a-pcom-i1,2022-23,Wilmington-North Intermediate,03420060,1,0,0.0,24,21,87.5
+4.0329411764705885,4.03,a-pcom-i1,2022-23,Wilmington-Shawsheen Elementary,03420025,1,1,100.0,28,24,85.7
+4.065882352941177,4.07,a-pcom-i1,2022-23,Wilmington-West Intermediate,03420080,1,1,100.0,22,19,86.4
+4.094117647058823,4.09,a-pcom-i1,2022-23,Wilmington-Wilmington High,03420505,1,0,0.0,77,67,87.0
+4.221176470588236,4.22,a-pcom-i1,2022-23,Wilmington-Wilmington Middle School,03420330,1,1,100.0,78,70,89.7
+4.221176470588236,4.22,a-pcom-i1,2022-23,Wilmington-Woburn Street,03420020,1,1,100.0,29,26,89.7
+4.211764705882353,4.21,a-pcom-i1,2022-23,Winchendon-Memorial,03430040,1,0,0.0,19,17,89.5
+1.5670588235294116,1.57,a-pcom-i1,2022-23,Winchendon-Murdock Academy for Success,03430405,1,1,100.0,3,1,33.3
+3.5764705882352943,3.58,a-pcom-i1,2022-23,Winchendon-Murdock High School,03430515,1,0,0.0,25,19,76.0
+3.8117647058823527,3.81,a-pcom-i1,2022-23,Winchendon-Murdock Middle School,03430315,1,1,100.0,21,17,81.0
+4.235294117647059,4.24,a-pcom-i1,2022-23,Winchendon-Toy Town Elementary,03430050,1,1,100.0,20,18,90.0
+4.705882352941177,4.71,a-pcom-i1,2022-23,Winchendon-Winchendon PreSchool Program,03430010,1,0,0.0,3,3,100.0
+4.27764705882353,4.28,a-pcom-i1,2022-23,Winchester-Ambrose Elementary,03440045,1,1,100.0,33,30,90.9
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Winchester-Lincoln Elementary,03440005,1,1,100.0,30,23,76.7
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Winchester-Lynch Elementary,03440020,1,1,100.0,45,38,84.4
+3.9529411764705884,3.95,a-pcom-i1,2022-23,Winchester-McCall Middle,03440305,1,1,100.0,94,79,84.0
+3.9717647058823533,3.97,a-pcom-i1,2022-23,Winchester-Muraco Elementary,03440040,1,1,100.0,32,27,84.4
+4.051764705882353,4.05,a-pcom-i1,2022-23,Winchester-Vinson-Owen Elementary,03440025,1,1,100.0,36,31,86.1
+4.32,4.32,a-pcom-i1,2022-23,Winchester-Winchester High School,03440505,1,1,100.0,110,101,91.8
+3.792941176470588,3.79,a-pcom-i1,2022-23,Winthrop-Arthur T. Cummings Elementary School,03460020,2,1,50.0,36,29,80.6
+4.103529411764706,4.1,a-pcom-i1,2022-23,Winthrop-William P. Gorman/Fort Banks Elementary,03460015,1,1,100.0,39,34,87.2
+3.868235294117647,3.87,a-pcom-i1,2022-23,Winthrop-Winthrop High School,03460505,1,1,100.0,45,37,82.2
+3.764705882352941,3.76,a-pcom-i1,2022-23,Winthrop-Winthrop Middle School,03460305,1,1,100.0,40,32,80.0
+3.689411764705883,3.69,a-pcom-i1,2022-23,Woburn-Clyde Reeves,03470040,1,1,100.0,37,29,78.4
+3.8917647058823532,3.89,a-pcom-i1,2022-23,Woburn-Daniel L Joyce Middle School,03470410,1,1,100.0,52,43,82.7
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Woburn-Goodyear Elementary School,03470005,1,1,100.0,27,21,77.8
+4.329411764705882,4.33,a-pcom-i1,2022-23,Woburn-Hurld-Wyman Elementary School,03470020,1,1,100.0,25,23,92.0
+4.131764705882353,4.13,a-pcom-i1,2022-23,Woburn-John F Kennedy Middle School,03470405,1,1,100.0,49,43,87.8
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Woburn-Linscott-Rumford,03470025,1,0,0.0,18,14,77.8
+4.117647058823529,4.12,a-pcom-i1,2022-23,Woburn-Malcolm White,03470055,1,1,100.0,24,21,87.5
+3.6376470588235295,3.64,a-pcom-i1,2022-23,Woburn-Mary D Altavesta,03470065,1,1,100.0,22,17,77.3
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Woburn-Shamrock,03470043,1,1,100.0,32,24,75.0
+4.32,4.32,a-pcom-i1,2022-23,Woburn-Woburn High,03470505,1,0,0.0,110,101,91.8
+3.171764705882353,3.17,a-pcom-i1,2022-23,Worcester-Belmont Street Community,03480020,1,0,0.0,46,31,67.4
+2.6070588235294117,2.61,a-pcom-i1,2022-23,Worcester-Burncoat Middle School,03480405,1,1,100.0,74,41,55.4
+3.538823529411765,3.54,a-pcom-i1,2022-23,Worcester-Burncoat Senior High,03480503,1,1,100.0,101,76,75.2
+3.5294117647058822,3.53,a-pcom-i1,2022-23,Worcester-Burncoat Street,03480035,1,1,100.0,28,21,75.0
+3.3600000000000003,3.36,a-pcom-i1,2022-23,Worcester-Canterbury,03480045,1,1,100.0,28,20,71.4
+3.5011764705882356,3.5,a-pcom-i1,2022-23,Worcester-Chandler Elementary Community,03480050,1,1,100.0,39,29,74.4
+3.0447058823529414,3.04,a-pcom-i1,2022-23,Worcester-Chandler Magnet,03480052,1,1,100.0,51,33,64.7
+3.016470588235294,3.02,a-pcom-i1,2022-23,Worcester-City View,03480053,1,1,100.0,39,25,64.1
+3.3317647058823527,3.33,a-pcom-i1,2022-23,Worcester-Claremont Academy,03480350,1,1,100.0,48,34,70.8
+3.1952941176470593,3.2,a-pcom-i1,2022-23,Worcester-Clark St Community,03480055,1,1,100.0,28,19,67.9
+4.014117647058823,4.01,a-pcom-i1,2022-23,Worcester-Columbus Park,03480060,1,0,0.0,34,29,85.3
+4.075294117647059,4.08,a-pcom-i1,2022-23,Worcester-Doherty Memorial High,03480512,1,1,100.0,112,97,86.6
+3.181176470588235,3.18,a-pcom-i1,2022-23,Worcester-Elm Park Community,03480095,1,1,100.0,34,23,67.6
+3.388235294117647,3.39,a-pcom-i1,2022-23,Worcester-Flagg Street,03480090,1,1,100.0,25,18,72.0
+3.6941176470588237,3.69,a-pcom-i1,2022-23,Worcester-Forest Grove Middle,03480415,1,1,100.0,79,62,78.5
+3.5858823529411765,3.59,a-pcom-i1,2022-23,Worcester-Francis J McGrath Elementary,03480177,1,1,100.0,21,16,76.2
+3.830588235294118,3.83,a-pcom-i1,2022-23,Worcester-Gates Lane,03480110,1,1,100.0,43,35,81.4
+3.0070588235294116,3.01,a-pcom-i1,2022-23,Worcester-Goddard School/Science Technical,03480100,1,1,100.0,36,23,63.9
+3.708235294117647,3.71,a-pcom-i1,2022-23,Worcester-Grafton Street,03480115,1,1,100.0,33,26,78.8
+1.5011764705882353,1.5,a-pcom-i1,2022-23,Worcester-Head Start,03480002,1,1,100.0,47,15,31.9
+3.684705882352941,3.68,a-pcom-i1,2022-23,Worcester-Heard Street,03480136,1,1,100.0,23,18,78.3
+3.6988235294117646,3.7,a-pcom-i1,2022-23,Worcester-Jacob Hiatt Magnet,03480140,1,0,0.0,28,22,78.6
+2.9741176470588235,2.97,a-pcom-i1,2022-23,Worcester-La Familia Dual Language School,03480025,1,1,100.0,19,12,63.2
+3.4776470588235298,3.48,a-pcom-i1,2022-23,Worcester-Lake View,03480145,1,0,0.0,23,17,73.9
+3.3317647058823527,3.33,a-pcom-i1,2022-23,Worcester-Lincoln Street,03480160,1,1,100.0,24,17,70.8
+3.011764705882353,3.01,a-pcom-i1,2022-23,Worcester-May Street,03480175,1,1,100.0,25,16,64.0
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Worcester-Midland Street,03480185,1,1,100.0,19,15,78.9
+3.0023529411764707,3.0,a-pcom-i1,2022-23,Worcester-Nelson Place,03480200,1,0,0.0,58,37,63.8
+3.5058823529411764,3.51,a-pcom-i1,2022-23,Worcester-Norrback Avenue,03480202,1,1,100.0,47,35,74.5
+3.543529411764706,3.54,a-pcom-i1,2022-23,Worcester-North High,03480515,1,1,100.0,97,73,75.3
+3.5105882352941173,3.51,a-pcom-i1,2022-23,Worcester-Quinsigamond,03480210,1,1,100.0,59,44,74.6
+4.117647058823529,4.12,a-pcom-i1,2022-23,Worcester-Rice Square,03480215,1,1,100.0,32,28,87.5
+3.628235294117647,3.63,a-pcom-i1,2022-23,Worcester-Roosevelt,03480220,1,0,0.0,48,37,77.1
+4.221176470588236,4.22,a-pcom-i1,2022-23,Worcester-South High Community,03480520,1,1,100.0,116,104,89.7
+3.5011764705882356,3.5,a-pcom-i1,2022-23,Worcester-Sullivan Middle,03480423,1,1,100.0,86,64,74.4
+3.6094117647058823,3.61,a-pcom-i1,2022-23,Worcester-Tatnuck,03480230,1,1,100.0,30,23,76.7
+3.4776470588235298,3.48,a-pcom-i1,2022-23,Worcester-Thorndyke Road,03480235,1,0,0.0,23,17,73.9
+2.296470588235294,2.3,a-pcom-i1,2022-23,Worcester-Union Hill School,03480240,1,1,100.0,43,21,48.8
+3.44,3.44,a-pcom-i1,2022-23,Worcester-University Pk Campus School,03480285,1,1,100.0,26,19,73.1
+2.2305882352941175,2.23,a-pcom-i1,2022-23,Worcester-Vernon Hill School,03480280,1,1,100.0,38,18,47.4
+3.0447058823529414,3.04,a-pcom-i1,2022-23,Worcester-Wawecus Road School,03480026,1,1,100.0,17,11,64.7
+3.6611764705882353,3.66,a-pcom-i1,2022-23,Worcester-West Tatnuck,03480260,1,0,0.0,27,21,77.8
+2.9835294117647058,2.98,a-pcom-i1,2022-23,Worcester-Woodland Academy,03480030,1,1,100.0,41,26,63.4
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Worcester-Worcester Arts Magnet School,03480225,1,1,100.0,28,23,82.1
+3.449411764705882,3.45,a-pcom-i1,2022-23,Worcester-Worcester East Middle,03480420,1,1,100.0,60,44,73.3
+3.7129411764705886,3.71,a-pcom-i1,2022-23,Worcester-Worcester Technical High,03480605,1,0,0.0,142,112,78.9
+4.117647058823529,4.12,a-pcom-i1,2022-23,Worthington-R. H. Conwell,03490010,1,1,100.0,8,7,87.5
+3.8635294117647057,3.86,a-pcom-i1,2022-23,Wrentham-Charles E Roderick,03500010,1,1,100.0,39,32,82.1
+4.141176470588236,4.14,a-pcom-i1,2022-23,Wrentham-Delaney,03500003,1,1,100.0,50,44,88.0
 4.0988235294117645,4.1,a-pcom-i1,2021-22,Abby Kelley Foster Charter Public (District)-Abby Kelley Foster Charter Public School,04450105,3,2,66.7,116,101,87.1
 4.705882352941177,4.71,a-pcom-i1,2021-22,Abington-Abington Early Education Program,00010001,1,0,0.0,5,5,100.0
 4.371764705882353,4.37,a-pcom-i1,2021-22,Abington-Abington High,00010505,1,1,100.0,42,39,92.9
