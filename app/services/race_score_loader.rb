@@ -45,7 +45,10 @@ class RaceScoreLoader
 
   def self.race_score(measure:, school:, academic_year:, race:)
     rate = response_rate(school:, academic_year:, measure:)
-    return Score.new(average: 0, meets_teacher_threshold: false, meets_student_threshold: false, meets_admin_data_threshold: false) unless rate.meets_student_threshold
+    unless rate.meets_student_threshold
+      return Score.new(average: 0, meets_teacher_threshold: false, meets_student_threshold: false,
+                       meets_admin_data_threshold: false)
+    end
 
     survey_items = measure.student_survey_items
 
@@ -59,7 +62,7 @@ class RaceScoreLoader
       memo[[school, academic_year, survey_items, race]] =
         SurveyItemResponse.joins('JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id').where(
           school:, academic_year:
-        ).where('student_races.race_id': race.id).group(:survey_item_id).average(:likert_score)
+        ).where("student_races.race_id": race.id).group(:survey_item_id).average(:likert_score)
     end
 
     @grouped_responses[[school, academic_year, survey_items, race]]
@@ -68,8 +71,7 @@ class RaceScoreLoader
   def self.response_rate(school:, academic_year:, measure:)
     subcategory = measure.subcategory
     @response_rate ||= Hash.new do |memo, (school, academic_year, subcategory)|
-      memo[[school, academic_year, subcategory]] =
-        ResponseRate.find_by(subcategory:, school:, academic_year:)
+      memo[[school, academic_year, subcategory]] = subcategory.response_rate(school:, academic_year:)
     end
 
     @response_rate[[school, academic_year, subcategory]]
