@@ -44,12 +44,12 @@ describe TeacherSurveyPresenter do
             academic_year:
           ).descriptions_and_availability
         ).to eq [
-          DataAvailability.new('t-1',
-                               'Given your preparation for teaching how comfortable are you teaching at the grade-level you have been assigned?', true),
-          DataAvailability.new('t-2',
-                               'How prepared are you for teaching the topics that you are expected to teach in your assignment?', true),
-          DataAvailability.new('t-3',
-                               'How confident are you in working with the student body at your school?', true)
+          Summary.new('t-1',
+                      'Given your preparation for teaching how comfortable are you teaching at the grade-level you have been assigned?', true),
+          Summary.new('t-2',
+                      'How prepared are you for teaching the topics that you are expected to teach in your assignment?', true),
+          Summary.new('t-3',
+                      'How confident are you in working with the student body at your school?', true)
         ]
       end
     end
@@ -64,7 +64,7 @@ describe TeacherSurveyPresenter do
             academic_year:
           ).descriptions_and_availability
         ).to eq [
-          DataAvailability.new('1B-i', 'Items available upon request to ECP', true)
+          Summary.new('1B-i', 'Items available upon request to ECP', true)
         ]
       end
     end

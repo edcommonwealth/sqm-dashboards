@@ -52,9 +52,9 @@ describe AdminDataPresenter do
             measure_id: measure_1A_i.measure_id, admin_data_items: measure_1A_i.admin_data_items, has_sufficient_data: true, school:, academic_year:
           ).descriptions_and_availability
         ).to eq [
-          DataAvailability.new('a-exp-i1', 'Percentage teachers with 5+ years of experience', true),
-          DataAvailability.new('a-exp-i2', 'Percentage teachers National Board certified', false),
-          DataAvailability.new('a-exp-i3', 'Percentage teachers teaching in area of licensure', false)
+          Summary.new('a-exp-i1', 'Percentage teachers with 5+ years of experience', true),
+          Summary.new('a-exp-i2', 'Percentage teachers National Board certified', false),
+          Summary.new('a-exp-i3', 'Percentage teachers teaching in area of licensure', false)
         ]
       end
     end
@@ -65,9 +65,9 @@ describe AdminDataPresenter do
             measure_id: measure_1A_i.measure_id, admin_data_items: measure_1A_i.admin_data_items, has_sufficient_data: true, school:, academic_year:
           ).descriptions_and_availability
         ).to eq [
-          DataAvailability.new('a-exp-i1', 'Percentage teachers with 5+ years of experience', false),
-          DataAvailability.new('a-exp-i2', 'Percentage teachers National Board certified', false),
-          DataAvailability.new('a-exp-i3', 'Percentage teachers teaching in area of licensure', false)
+          Summary.new('a-exp-i1', 'Percentage teachers with 5+ years of experience', false),
+          Summary.new('a-exp-i2', 'Percentage teachers National Board certified', false),
+          Summary.new('a-exp-i3', 'Percentage teachers teaching in area of licensure', false)
         ]
       end
     end

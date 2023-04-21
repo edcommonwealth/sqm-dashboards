@@ -22,12 +22,12 @@ class TeacherSurveyPresenter < DataItemPresenter
 
   def descriptions_and_availability
     if @measure_id == '1B-i'
-      return [DataAvailability.new('1B-i', 'Items available upon request to ECP',
-                                   true)]
+      return [Summary.new('1B-i', 'Items available upon request to ECP',
+                          true)]
     end
 
     survey_items.map do |survey_item|
-      DataAvailability.new(survey_item.survey_item_id, survey_item.prompt, true)
+      Summary.new(survey_item.survey_item_id, survey_item.prompt, true)
     end
   end
 end

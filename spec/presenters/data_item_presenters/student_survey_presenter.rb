@@ -38,10 +38,10 @@ describe StudentSurveyPresenter do
         expect(
           result
         ).to eq [
-          DataAvailability.new('s-sbel-q1',
-                               'I am happy when I am in class.', true),
-          DataAvailability.new('s-sbel-q2',
-                               'My teacher gives me help when I need it.', true)
+          Summary.new('s-sbel-q1',
+                      'I am happy when I am in class.', true),
+          Summary.new('s-sbel-q2',
+                      'My teacher gives me help when I need it.', true)
         ]
       end
     end
