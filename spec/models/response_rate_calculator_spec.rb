@@ -3,7 +3,6 @@ require 'rails_helper'
 describe ResponseRateCalculator, type: :model do
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
-  let(:survey) { create(:survey, school:, academic_year:) }
 
   describe StudentResponseRateCalculator do
     let(:subcategory) { create(:subcategory) }
@@ -215,7 +214,6 @@ describe ResponseRateCalculator, type: :model do
     context 'when the average number of teacher responses per question in a subcategory is at the threshold' do
       before :each do
         respondent
-        survey
       end
       it 'returns 25 percent' do
         expect(TeacherResponseRateCalculator.new(subcategory:, school:,
@@ -226,7 +224,6 @@ describe ResponseRateCalculator, type: :model do
     context 'when the teacher response rate is not a whole number. eg 29.166%' do
       before do
         respondent
-        survey
         create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD + 1, survey_item: sufficient_teacher_survey_item_3,
                                                                                                academic_year:, school:, likert_score: 1)
       end
@@ -239,7 +236,6 @@ describe ResponseRateCalculator, type: :model do
     context 'when the average number of teacher responses is greater than the total possible responses' do
       before do
         respondent
-        survey
         create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD * 11, survey_item: sufficient_teacher_survey_item_3,
                                                                                                 academic_year:, school:, likert_score: 1)
       end
@@ -260,7 +256,6 @@ describe ResponseRateCalculator, type: :model do
       context 'and one of the teacher items has no associated survey item responses' do
         before do
           respondent
-          survey
           insufficient_teacher_survey_item_4
         end
         it 'ignores the empty survey item and returns only the average response rate of teacher survey items with responses' do

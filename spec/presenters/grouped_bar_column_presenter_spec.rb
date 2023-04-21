@@ -79,8 +79,6 @@ describe GroupedBarColumnPresenter do
 
   before do
     create(:respondent, school:, academic_year:, total_students: 1, total_teachers: 1)
-    create(:survey, form: :normal, school:, academic_year:)
-    create(:survey, form: :normal, school:, academic_year: another_academic_year)
   end
 
   shared_examples_for 'measure_name' do

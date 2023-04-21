@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_034505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -470,16 +470,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
     t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id"
   end
 
-  create_table "surveys", force: :cascade do |t|
-    t.integer "form"
-    t.bigint "academic_year_id", null: false
-    t.bigint "school_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["academic_year_id"], name: "index_surveys_on_academic_year_id"
-    t.index ["school_id"], name: "index_surveys_on_school_id"
-  end
-
   add_foreign_key "admin_data_items", "scales"
   add_foreign_key "admin_data_values", "academic_years"
   add_foreign_key "admin_data_values", "admin_data_items"
@@ -513,6 +503,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
   add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"
   add_foreign_key "survey_items", "scales"
-  add_foreign_key "surveys", "academic_years"
-  add_foreign_key "surveys", "schools"
 end

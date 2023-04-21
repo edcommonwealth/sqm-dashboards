@@ -10,8 +10,6 @@ describe Seeder do
   end
 
   context 'academic years' do
-    # before { AcademicYear.delete_all }
-
     it 'seeds new academic years' do
       expect do
         seeder.seed_academic_years '2020-21', '2021-22', '2022-23'
@@ -57,7 +55,6 @@ describe Seeder do
         create(:school, name: 'John Oldest Academy', dese_id: 12_345, district: existing_district)
       end
       let!(:removed_survey_item_response) { create(:survey_item_response, school: removed_school) }
-      let!(:removed_survey) { create(:survey, school: removed_school) }
       let!(:existing_school) do
         create(:school, name: 'Sam Adams Elementary School', dese_id: 350_302, slug: 'some-slug-for-sam-adams',
                         district: existing_district)
@@ -99,7 +96,6 @@ describe Seeder do
 
         expect(School.where(id: removed_school)).not_to exist
         expect(SurveyItemResponse.where(id: removed_survey_item_response)).not_to exist
-        expect(Survey.where(id: removed_survey)).not_to exist
       end
     end
 
@@ -157,42 +153,6 @@ describe Seeder do
   #     expect(school_with_over_one_thousand_student_respondents.total_students).to eq 1792
   #   end
   # end
-
-  context 'surveys' do
-    before :each do
-      create(:academic_year, range: '2020-21')
-      seeder.seed_districts_and_schools sample_districts_and_schools_csv
-      seeder.seed_surveys sample_districts_and_schools_csv
-    end
-    it 'for one academic year, it seeds a count of surveys equal to the count of schools' do
-      expect(Survey.count).to eq School.count
-    end
-
-    it 'marks short form schools as short form schools' do
-      elementary_school = School.find_by_dese_id 160_001
-      academic_year = AcademicYear.find_by_range '2020-21'
-      survey = Survey.where(school: elementary_school, academic_year:).first
-      expect(survey.form).to eq 'short'
-    end
-
-    it 'does not mark long form schools as short form schools' do
-      elementary_school = School.find_by_dese_id 350_302
-      academic_year = AcademicYear.find_by_range '2020-21'
-      survey = Survey.where(school: elementary_school, academic_year:).first
-      expect(survey.form).to eq 'normal'
-    end
-    it 'seed idempotently' do
-      expect do
-        seeder.seed_surveys sample_districts_and_schools_csv
-      end.to change { Survey.count }.by 0
-    end
-    it 'seeds new surveys for every year in the database' do
-      expect do
-        create(:academic_year, range: '2019-20')
-        seeder.seed_surveys sample_districts_and_schools_csv
-      end.to change { Survey.count }.by School.count
-    end
-  end
 
   context 'admin data items' do
     context 'when deprecated admin items exist in the database' do

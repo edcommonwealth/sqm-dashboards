@@ -10,7 +10,6 @@ RSpec.describe Subcategory, type: :model do
   let(:student_scale) { create(:student_scale, measure: measure_2) }
   before do
     create(:respondent, school:, academic_year:)
-    create(:survey, school:, academic_year:)
   end
 
   describe '.score' do
@@ -25,21 +24,21 @@ RSpec.describe Subcategory, type: :model do
 
     before :each do
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
-                  survey_item: teacher_survey_item_1,  academic_year:, school:, likert_score: 2)
+                  survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 2)
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
-                  survey_item: teacher_survey_item_2,  academic_year:, school:, likert_score: 3)
+                  survey_item: teacher_survey_item_2, academic_year:, school:, likert_score: 3)
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
-                  survey_item: teacher_survey_item_3,  academic_year:, school:, likert_score: 4)
+                  survey_item: teacher_survey_item_3, academic_year:, school:, likert_score: 4)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                  survey_item: student_survey_item_1,  academic_year:, school:, likert_score: 1)
+                  survey_item: student_survey_item_1, academic_year:, school:, likert_score: 1)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                  survey_item: student_survey_item_2,  academic_year:, school:, likert_score: 2)
+                  survey_item: student_survey_item_2, academic_year:, school:, likert_score: 2)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                  survey_item: student_survey_item_3,  academic_year:, school:, likert_score: 3)
+                  survey_item: student_survey_item_3, academic_year:, school:, likert_score: 3)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                  survey_item: student_survey_item_4,  academic_year:, school:, likert_score: 4)
+                  survey_item: student_survey_item_4, academic_year:, school:, likert_score: 4)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD,
-                  survey_item: student_survey_item_5,  academic_year:, school:, likert_score: 5)
+                  survey_item: student_survey_item_5, academic_year:, school:, likert_score: 5)
     end
 
     it 'returns the average of the likert scores of the measures' do
