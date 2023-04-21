@@ -6,17 +6,13 @@ module Dese
     include Dese::Enrollments
     attr_reader :filepaths
 
-    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', '3B_2_enrollments.csv'),
-                               Rails.root.join('data', 'admin_data', 'dese', '3B_2_teacher_by_race_and_gender.csv'),
+    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', '3B_2_teacher_by_race_and_gender.csv'),
                                Rails.root.join('data', 'admin_data', 'dese', '3B_2_student_by_race_and_gender.csv')])
       @filepaths = filepaths
     end
 
     def run_all
-      # filepath = filepaths[0]
-      # scrape_enrollments(filepath:)
-
-      filepath = filepaths[1]
+      filepath = filepaths[0]
       headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Teachers of color (%)', 'School Name', 'DESE ID',
                  'African American (%)', 'Asian (%)', 'Hispanic (%)', 'White (%)', 'Native American (%)',
                  'Native Hawaiian Pacific Islander (%)', 'Multi-Race Non-Hispanic (%)', 'Females (%)',
@@ -24,7 +20,7 @@ module Dese
       write_headers(filepath:, headers:)
       run_teacher_demographics(filepath:)
 
-      filepath = filepaths[2]
+      filepath = filepaths[1]
       headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'Non-White Teachers %', 'Non-White Students %', 'School Name', 'DESE ID',
                  'African American', 'Asian', 'Hispanic', 'White', 'Native American',
                  'Native Hawaiian or Pacific Islander', 'Multi-Race or Non-Hispanic', 'Males',
@@ -81,7 +77,7 @@ module Dese
           academic_year = row['Academic Year']
           @years_with_data << academic_year
           school_id = row['DESE ID'].to_i
-          total = row['Teachers of color (%)'].gsub(',', '')
+          total = row['Teachers of color (%)'].delete(',')
           total = 'NA' if total == '' || total.nil?
           @teachers[[school_id, academic_year]] = total
         end
@@ -106,7 +102,7 @@ module Dese
           dese_id = items[headers['School Code']].to_i
           non_white_student_percentage = (100 - white_number).to_f
           items.unshift(non_white_student_percentage)
-          count_of_teachers = teacher_count(filepath: filepaths[1], dese_id:, year: academic_year.range)
+          count_of_teachers = teacher_count(filepath: filepaths[0], dese_id:, year: academic_year.range)
           return 'NA' if count_of_teachers == 'NA'
 
           non_white_teacher_percentage = count_of_teachers.to_f
