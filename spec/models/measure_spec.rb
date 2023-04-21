@@ -27,9 +27,7 @@ RSpec.describe Measure, type: :model do
 
   before do
     create(:respondent, school:, academic_year:, one: 40)
-    create(:survey, school:, academic_year:)
     create(:respondent, school: short_form_school, academic_year:)
-    create(:survey, school: short_form_school, academic_year:, form: 'short')
   end
 
   describe 'benchmarks' do

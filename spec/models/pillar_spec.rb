@@ -20,7 +20,6 @@ RSpec.describe Report::Pillar, type: :model do
 
   before :each do
     create(:respondent, school:, academic_year: academic_year_1)
-    create(:survey, school:, academic_year: academic_year_1)
     measures
   end
 

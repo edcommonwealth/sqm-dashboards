@@ -13,7 +13,6 @@ describe 'SQM Application' do
     driven_by :rack_test
     page.driver.browser.basic_authorize(username, password)
     create(:respondent, school:, academic_year:)
-    create(:survey, school:, academic_year:)
     ResponseRate.create!(subcategory:, school:, academic_year:,
                          student_response_rate: 0, teacher_response_rate: 0, meets_student_threshold: false, meets_teacher_threshold: false)
   end
