@@ -10,7 +10,6 @@ describe MeasurePresenter do
   let(:measure_presenter) { MeasurePresenter.new(measure:, academic_year:, school:) }
   before do
     create(:respondent, school:, academic_year:)
-    create(:survey, school:, academic_year:)
   end
 
   it 'returns the id of the measure' do

@@ -119,7 +119,6 @@ describe 'analyze/index' do
     assign :genders, genders
     assign :selected_genders, selected_genders
     create(:respondent, school:, academic_year:)
-    create(:survey, school:, academic_year:)
   end
   context 'when all the presenters have a nil score' do
     before do

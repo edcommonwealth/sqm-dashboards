@@ -50,7 +50,6 @@ describe SubcategoryPresenter do
 
   before do
     create(:respondent, school:, academic_year:, one: 40)
-    create(:survey, school:, academic_year:)
   end
 
   it 'returns the name of the subcategory' do

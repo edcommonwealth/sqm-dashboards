@@ -4,9 +4,6 @@ RSpec.describe Scale, type: :model do
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
   let(:scale) { create(:scale) }
-  before do
-    create(:survey, school:, academic_year:)
-  end
 
   describe '.score' do
     let(:teacher_survey_item_1) { create(:teacher_survey_item, scale:) }
@@ -45,12 +42,12 @@ RSpec.describe Scale, type: :model do
 
     context 'when both teacher and student survey items exist' do
       before :each do
-      create(:survey_item_response,
-             survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 3)
-      create(:survey_item_response,
-             survey_item: teacher_survey_item_2, academic_year:, school:, likert_score: 4)
-      create(:survey_item_response,
-             survey_item: teacher_survey_item_3, academic_year:, school:, likert_score: 5)
+        create(:survey_item_response,
+               survey_item: teacher_survey_item_1, academic_year:, school:, likert_score: 3)
+        create(:survey_item_response,
+               survey_item: teacher_survey_item_2, academic_year:, school:, likert_score: 4)
+        create(:survey_item_response,
+               survey_item: teacher_survey_item_3, academic_year:, school:, likert_score: 5)
       end
       context 'but no survey item responses are linked to student survey items' do
         before :each do

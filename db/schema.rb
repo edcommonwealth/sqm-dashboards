@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_034505) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "academic_years", id: :serial, force: :cascade do |t|
@@ -360,6 +359,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
     t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_response_rates_on_academic_year_id"
     t.index ["school_id", "subcategory_id"], name: "index_response_rates_on_school_id_and_subcategory_id"
+    t.index ["school_id"], name: "index_response_rates_on_school_id"
     t.index ["subcategory_id"], name: "index_response_rates_on_subcategory_id"
   end
 
@@ -449,6 +449,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
     t.index ["school_id", "survey_item_id", "academic_year_id", "grade"], name: "index_survey_responses_on_grade"
+    t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
     t.index ["student_id"], name: "index_survey_item_responses_on_student_id"
     t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id"
   end
@@ -467,16 +468,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
     t.integer "survey_item_responses_count"
     t.index ["scale_id"], name: "index_survey_items_on_scale_id"
     t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id"
-  end
-
-  create_table "surveys", force: :cascade do |t|
-    t.integer "form"
-    t.bigint "academic_year_id", null: false
-    t.bigint "school_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["academic_year_id"], name: "index_surveys_on_academic_year_id"
-    t.index ["school_id"], name: "index_surveys_on_school_id"
   end
 
   add_foreign_key "admin_data_items", "scales"
@@ -512,6 +503,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_132801) do
   add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"
   add_foreign_key "survey_items", "scales"
-  add_foreign_key "surveys", "academic_years"
-  add_foreign_key "surveys", "schools"
 end
