@@ -60,6 +60,6 @@ class SurveyItem < ActiveRecord::Base
 
   # TODO: rename this to Summary
   def description
-    DataAvailability.new(survey_item_id, prompt, true)
+    Summary.new(survey_item_id, prompt, true)
   end
 end
