@@ -226,7 +226,7 @@ NA,NA,"",2022-23,Boston - Kennedy John F Elementary School,00350166,      27,   
 NA,NA,"",2022-23,Boston - Kennedy Patrick J Elementary School,00350264,      24,      36,      39,      37,      38,      35,      35,      20,       0,       0,       0,       0,       0,       0,       0,     264
 NA,NA,"",2022-23,Boston - Kenny Elementary School,00350328,      27,      36,      37,      41,      46,      46,      41,      42,       0,       0,       0,       0,       0,       0,       0,     316
 NA,NA,"",2022-23,Boston - Kilmer K-8 School,00350190,      46,      41,      44,      34,      35,      37,      37,      39,      37,      46,       0,       0,       0,       0,       0,     396
-NA,NA,"",2022-23,Boston - King K-8 School,00350376,      63,      61,      65,      65,      53,      58,      46,      31,       0,       0,       0,       0,       0,       0,       0,     442
+NA,NA,"",2022-23,Boston - King Elementary School,00350376,      63,      61,      65,      65,      53,      58,      46,      31,       0,       0,       0,       0,       0,       0,       0,     442
 NA,NA,"",2022-23,Boston - Lee Academy,00350001,      54,      36,      32,      35,      30,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,     187
 NA,NA,"",2022-23,Boston - Lee K-8 School,00350183,      65,      50,      56,      57,      51,      60,      52,      55,      43,      52,       0,       0,       0,       0,       0,     541
 NA,NA,"",2022-23,Boston - Lyndon K-8 School,00350262,      61,      59,      66,      60,      70,      66,      65,      67,      40,      32,       0,       0,       0,       0,       0,     586
@@ -252,7 +252,7 @@ NA,NA,"",2022-23,Boston - Ohrenberger School,00350258,       0,       0,       0
 NA,NA,"",2022-23,Boston - Orchard Gardens K-8 School,00350257,      59,      55,      64,      64,      70,      88,      72,      86,      76,      90,       0,       0,       0,       0,       0,     724
 NA,NA,"",2022-23,Boston - Otis Elementary School,00350156,      44,      55,      63,      60,      60,      59,      41,      32,       0,       0,       0,       0,       0,       0,       0,     414
 NA,NA,"",2022-23,Boston - Perkins Elementary School,00350231,       8,      21,      17,      28,      27,      20,      14,      23,       0,       0,       0,       0,       0,       0,       0,     158
-NA,NA,"",2022-23,Boston - Perry K-8 School,00350255,      27,      32,      26,      23,      22,      29,      13,      10,       0,       0,       0,       0,       0,       0,       0,     182
+NA,NA,"",2022-23,Boston - Perry Elementary School,00350255,      27,      32,      26,      23,      22,      29,      13,      10,       0,       0,       0,       0,       0,       0,       0,     182
 NA,NA,"",2022-23,Boston - Philbrick Elementary School,00350172,      13,      18,      14,      14,      12,      16,      16,      11,       0,       0,       0,       0,       0,       0,       0,     114
 NA,NA,"",2022-23,Boston - Quincy Elementary School,00350286,      76,     103,     115,     101,     112,     121,     110,       0,       0,       0,       0,       0,       0,       0,       0,     738
 NA,NA,"",2022-23,Boston - Quincy Upper School,00350565,       0,       0,       0,       0,       0,       0,       0,     124,      83,      86,      71,      66,      61,      33,       6,     530
@@ -264,7 +264,7 @@ NA,NA,"",2022-23,Boston - Sumner Elementary School,00350052,      63,      75,  
 NA,NA,"",2022-23,Boston - Taylor Elementary School,00350054,      29,      43,      39,      38,      47,      60,      57,      45,       0,       0,       0,       0,       0,       0,       0,     358
 NA,NA,"",2022-23,Boston - TechBoston Academy,00350657,       0,       0,       0,       0,       0,       0,       0,      34,     103,     130,     154,     148,     161,     141,       0,     871
 NA,NA,"",2022-23,Boston - Tobin K-8 School,00350229,      21,      43,      37,      37,      41,      49,      49,      46,      48,      55,       0,       0,       0,       0,       0,     426
-NA,NA,"",2022-23,Boston - Trotter K-8 School,00350370,      37,      36,      38,      34,      34,      50,      38,      30,       0,       0,       0,       0,       0,       0,       0,     297
+NA,NA,"",2022-23,Boston - Trotter Elementary School,00350370,      37,      36,      38,      34,      34,      50,      38,      30,       0,       0,       0,       0,       0,       0,       0,     297
 NA,NA,"",2022-23,Boston - Tynan Elementary School,00350181,      20,      25,      26,      34,      26,      25,      17,      24,       0,       0,       0,       0,       0,       0,       0,     197
 NA,NA,"",2022-23,Boston - UP Academy Holland,00350167,      55,      88,      78,      95,     111,     105,     104,       0,       0,       0,       0,       0,       0,       0,       0,     636
 NA,NA,"",2022-23,Boston - Warren-Prescott K-8 School,00350346,      61,      71,      60,      66,      50,      58,      53,      40,      25,      39,       0,       0,       0,       0,       0,     523
@@ -322,12 +322,12 @@ NA,NA,"",2022-23,Brockton - Gilmore Elementary School,00440055,       0,      60
 NA,NA,"",2022-23,Brockton - Hancock,00440045,      22,     110,     102,     111,      97,      83,      91,       0,       0,       0,       0,       0,       0,       0,       0,     616
 NA,NA,"",2022-23,Brockton - Huntington Therapeutic Day School,00440400,       0,       0,       0,       0,       0,       0,       0,       1,       5,       7,       8,      13,      11,       4,       0,      49
 NA,NA,"",2022-23,Brockton - John F Kennedy,00440017,       0,      97,     106,      89,      68,      65,      88,       0,       0,       0,       0,       0,       0,       0,       0,     513
-NA,NA,"",2022-23,Brockton - Joseph F. Plouffe Academy,00440422,       0,       0,       0,       0,       0,       0,       0,     183,     239,     230,       0,       0,       0,       0,       0,     652
 NA,NA,"",2022-23,Brockton - Louis F Angelo Elementary,00440065,       0,      98,     113,     122,     108,     172,     178,       0,       0,       0,       0,       0,       0,       0,       0,     791
 NA,NA,"",2022-23,Brockton - Manthala George Jr. School,00440003,      53,     162,     159,     125,     102,      97,      96,       0,       0,       0,       0,       0,       0,       0,       0,     794
 NA,NA,"",2022-23,Brockton - Mary E. Baker School,00440002,       0,     108,     128,     108,     110,     112,     107,       0,       0,       0,       0,       0,       0,       0,       0,     673
 NA,NA,"",2022-23,Brockton - North Middle School,00440410,       0,       0,       0,       0,       0,       0,       0,     150,     135,     163,       0,       0,       0,       0,       0,     448
 NA,NA,"",2022-23,Brockton - Oscar F Raymond,00440078,      26,     155,     129,     140,     114,     115,     117,       0,       0,       0,       0,       0,       0,       0,       0,     796
+NA,NA,"",2022-23,Brockton - Plouffe Middle School,00440422,       0,       0,       0,       0,       0,       0,       0,     183,     239,     230,       0,       0,       0,       0,       0,     652
 NA,NA,"",2022-23,Brockton - PROMISE College and Career Academy,00440525,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,      38,       0,       0,       0,       0,      38
 NA,NA,"",2022-23,Brockton - South Middle School,00440415,       0,       0,       0,       0,       0,       0,       0,     177,     179,     162,       0,       0,       0,       0,       0,     518
 NA,NA,"",2022-23,Brockton - West Middle School,00440420,       0,       0,       0,       0,       0,       0,       0,     180,     194,     183,       0,       0,       0,       0,       0,     557
@@ -462,11 +462,11 @@ NA,NA,"",2022-23,Dedham - Greenlodge,00730025,       0,       0,      56,      5
 NA,NA,"",2022-23,Dedham - Oakdale,00730030,       0,       0,      54,      46,      57,      39,      49,       0,       0,       0,       0,       0,       0,       0,       0,     245
 NA,NA,"",2022-23,Dedham - Riverdale,00730045,       0,       0,      42,      35,      26,      44,      27,       0,       0,       0,       0,       0,       0,       0,       0,     174
 NA,NA,"",2022-23,Deerfield - Deerfield Elementary,00740015,      21,      28,      39,      27,      54,      38,      52,      50,       0,       0,       0,       0,       0,       0,       0,     309
+NA,NA,"",2022-23,Dennis-Yarmouth - Dennis-Yarmouth Intermediate School,06450050,       0,       0,       0,       0,       0,     253,     200,       1,       0,       0,       0,       0,       0,       0,       0,     454
+NA,NA,"",2022-23,Dennis-Yarmouth - Dennis-Yarmouth Middle School,06450305,       0,       0,       0,       0,       0,       0,       0,     233,     243,       0,       0,       0,       0,       0,       0,     476
 NA,NA,"",2022-23,Dennis-Yarmouth - Dennis-Yarmouth Regional High,06450505,       0,       0,       0,       0,       0,       0,       0,       0,       0,     199,     187,     185,     151,     166,       0,     888
 NA,NA,"",2022-23,Dennis-Yarmouth - Ezra H Baker Innovation School,06450005,      48,      77,      75,      63,      77,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,     340
 NA,NA,"",2022-23,Dennis-Yarmouth - Marguerite E Small Elementary,06450015,      63,      52,      60,      53,      54,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,     282
-NA,NA,"",2022-23,Dennis-Yarmouth - Mattacheese Middle School,06450305,       0,       0,       0,       0,       0,       0,       0,     233,     243,       0,       0,       0,       0,       0,       0,     476
-NA,NA,"",2022-23,Dennis-Yarmouth - Nathaniel H. Wixon School,06450050,       0,       0,       0,       0,       0,     253,     200,       1,       0,       0,       0,       0,       0,       0,       0,     454
 NA,NA,"",2022-23,Dennis-Yarmouth - Station Avenue Elementary,06450025,       0,     116,      98,      98,     105,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,     417
 NA,NA,"",2022-23,Dighton-Rehoboth - Dighton Elementary,06500005,      20,      64,      83,     104,      73,      87,       0,       0,       0,       0,       0,       0,       0,       0,       0,     431
 NA,NA,"",2022-23,Dighton-Rehoboth - Dighton Middle School,06500305,       0,       0,       0,       0,       0,       0,      96,      95,      83,      92,       0,       0,       0,       0,       0,     366
