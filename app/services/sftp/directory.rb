@@ -9,6 +9,8 @@ module Sftp
       uri = URI.parse(sftptogo_url)
       Net::SFTP.start(uri.host, uri.user, password: uri.password) do |sftp|
         sftp.dir.foreach(path) do |entry|
+          next unless entry.file?
+
           filename = entry.name
           puts filename
 
