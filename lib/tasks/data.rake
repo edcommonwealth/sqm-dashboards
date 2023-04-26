@@ -1,19 +1,22 @@
 namespace :data do
   desc 'load survey responses'
   task load_survey_responses: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    path = '/data/survey_responses/clean/'
+    Sftp::Directory.open(path:) do |file|
+      SurveyResponsesDataLoader.from_file(file:)
     end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset
-    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+    Sftp::Directory.open(path:) do |file|
+      StudentLoader.from_file(file:, rules: [])
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts 'Resetting race scores'
-    RaceScoreLoader.reset(fast_processing: false)
-    puts "=====================> Completed loading #{RaceScore.count} survey responses"
+    RaceScoreLoader.reset(fast_processing: true)
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     Rails.cache.clear
   end
@@ -45,10 +48,6 @@ namespace :data do
       StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
     end
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
-
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset
-    puts "=====================> Completed loading #{ResponseRate.count} response rates"
 
     puts 'Resetting race scores'
     RaceScoreLoader.reset(fast_processing: false)
