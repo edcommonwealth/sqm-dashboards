@@ -15,7 +15,7 @@ class StudentResponseRateCalculator < ResponseRateCalculator
         next nil
       end
 
-      actual_response_count_for_grade / count_of_survey_items_with_sufficient_responses / num_of_students_in_grade * 100
+      cap_at_one_hundred(actual_response_count_for_grade / count_of_survey_items_with_sufficient_responses / num_of_students_in_grade * 100)
     end.compact
   end
 
