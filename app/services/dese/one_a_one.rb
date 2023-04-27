@@ -1,5 +1,4 @@
 require 'watir'
-# TODO: use blocks to pass a block of code like other DESE scrapers
 
 module Dese
   class OneAOne

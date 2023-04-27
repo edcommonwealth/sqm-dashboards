@@ -31,8 +31,8 @@ class SurveyItem < ActiveRecord::Base
   scope :survey_items_for_grade, lambda { |school, academic_year, grade|
     includes(:survey_item_responses)
       .where("survey_item_responses.grade": grade,
-             "survey_item_responses.school": school,
-             "survey_item_responses.academic_year": academic_year).distinct
+        "survey_item_responses.school": school,
+        "survey_item_responses.academic_year": academic_year).distinct
   }
 
   scope :survey_item_ids_for_grade, lambda { |school, academic_year, grade|
@@ -58,7 +58,6 @@ class SurveyItem < ActiveRecord::Base
     :regular
   }
 
-  # TODO: rename this to Summary
   def description
     Summary.new(survey_item_id, prompt, true)
   end
