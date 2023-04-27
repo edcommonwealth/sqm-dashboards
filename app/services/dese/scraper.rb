@@ -35,7 +35,7 @@ module Dese
       browser.goto(url)
 
       selectors.each do |key, value|
-        next unless browser.option(text: value).present?
+        return unless browser.option(text: value).present?
 
         browser.select(id: key).select(text: value)
       end

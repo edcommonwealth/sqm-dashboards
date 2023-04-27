@@ -6,7 +6,7 @@ module Dese
     include Dese::Enrollments
     attr_reader :filepaths
 
-    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', '5D_2_enrollments.csv'),
+    def initialize(filepaths: [Rails.root.join('data', 'admin_data', 'dese', 'enrollments.csv'),
                                Rails.root.join('data', 'admin_data', 'dese', '5D_2_age_staffing.csv')])
       @filepaths = filepaths
     end

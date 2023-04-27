@@ -1,18 +1,22 @@
 module Dese
   class Loader
     def self.load_data(filepath:)
+      admin_data_values = []
       CSV.parse(File.read(filepath), headers: true) do |row|
         score = likert_score(row:)
         unless valid_likert_score(likert_score: score)
-          school = School.find_by_dese_id(row['DESE ID']) || School.new(name: 'School not in consortium',
-                                                                        dese_id: row['DESE ID'])
-          puts "Invalid score: #{score}
-        for school: #{school.name}
-        admin data item #{admin_data_item(row:)} "
+          # school = School.find_by_dese_id(row['DESE ID']) || School.new(name: 'School not in consortium',
+          #                                                               dese_id: row['DESE ID'])
+          # puts "Invalid score: #{score}
+          # for school: #{school.name}
+          # admin data item #{admin_data_item(row:)} "
           next
         end
-        create_admin_data_value(row:, score:)
+
+        admin_data_values << create_admin_data_value(row:, score:)
       end
+
+      AdminDataValue.import(admin_data_values.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
     end
 
     private
@@ -56,8 +60,9 @@ module Dese
       if admin_data_value.present?
         admin_data_value.likert_score = score
         admin_data_value.save
+        nil
       else
-        AdminDataValue.create!(
+        AdminDataValue.new(
           likert_score: score,
           academic_year: AcademicYear.find_by_range(ay(row:)),
           school:,
