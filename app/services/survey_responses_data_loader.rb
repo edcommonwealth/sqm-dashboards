@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 class SurveyResponsesDataLoader
   def self.load_data(filepath:, rules: [Rule::NoRule])
     File.open(filepath) do |file|
@@ -14,7 +12,6 @@ class SurveyResponsesDataLoader
           process_row(row: SurveyItemValues.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items),
                       rules:)
         end
-
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
       end
     end
@@ -101,7 +98,7 @@ class SurveyResponsesDataLoader
   def self.get_survey_item_ids_from_headers(headers:)
     CSV.parse(headers, headers: true).headers
        .filter(&:present?)
-       .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
+       .filter { |header| header.start_with? 't-', 's-' }
   end
 
   private_class_method :process_row

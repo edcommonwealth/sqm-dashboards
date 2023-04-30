@@ -57,18 +57,20 @@ class SurveyItemValues
   end
 
   def schools
-    @@schools ||= School.all.map { |school| [school.dese_id, school] }.to_h
+    @schools ||= School.all.map { |school| [school.dese_id, school] }.to_h
   end
 
   def grade
     @grade ||= begin
-      raw_grade = (row['grade'] || row['Grade'] || row['What grade are you in?']).to_i
-      raw_grade == 0 ? nil : raw_grade
+      raw_grade = (row['grade'] || row['Grade'] || row['What grade are you in?'])
+      return nil if raw_grade.blank?
+
+      raw_grade.to_i
     end
   end
 
   def gender
-    gender_code = row['gender'] || row['Gender'] || 99
+    gender_code = row['gender'] || row['Gender'] || row['What is your gender?'] || row['What is your gender? - Selected Choice'] || 99
     gender_code = gender_code.to_i
     gender_code = 4 if gender_code == 3
     gender_code = 99 if gender_code.zero?
