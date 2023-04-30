@@ -21,12 +21,12 @@ RSpec.describe Analyze::Graph::Column::GenderColumn::Unknown, type: :model do
   context 'when no teacher responses exist' do
     context 'when there are insufficient unknown students' do
       it 'reports a score of 3 when the average is 3' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:,
-                           number_of_columns:).score(0).average).to eq(nil)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).score(0).average).to eq(nil)
       end
       it 'reports insufficient data' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:,
-                           number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(false)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(false)
       end
     end
     context 'when there are sufficient unknown students' do
@@ -34,12 +34,13 @@ RSpec.describe Analyze::Graph::Column::GenderColumn::Unknown, type: :model do
         create_list(:survey_item_response, 10, school:, academic_year:, gender:, survey_item:)
       end
       it 'reports a score of 3 when the average is 3' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:, number_of_columns:).score(0).average).to eq(3)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).score(0).average).to eq(3)
       end
 
       it 'reports sufficient data' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:,
-                           number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(true)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(true)
       end
     end
   end
@@ -51,12 +52,12 @@ RSpec.describe Analyze::Graph::Column::GenderColumn::Unknown, type: :model do
 
     context 'when there are insufficient unknown students' do
       it 'reports a score of 3 when the average is 3' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:,
-                           number_of_columns:).score(0).average).to eq(nil)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).score(0).average).to eq(nil)
       end
       it 'reports insufficient data' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:,
-                           number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(false)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(false)
       end
     end
     context 'when there are sufficient unknown students' do
@@ -64,12 +65,13 @@ RSpec.describe Analyze::Graph::Column::GenderColumn::Unknown, type: :model do
         create_list(:survey_item_response, 10, school:, academic_year:, gender:, survey_item:)
       end
       it 'reports a score of 3 when the average is 3' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:, number_of_columns:).score(0).average).to eq(3)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).score(0).average).to eq(3)
       end
 
       it 'reports sufficient data' do
-        expect(Unknown.new(school:, academic_years:, position:, measure:,
-                           number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(true)
+        expect(Analyze::Graph::Column::GenderColumn::Unknown.new(school:, academic_years:, position:, measure:,
+                                                                 number_of_columns:).sufficient_student_responses?(academic_year:)).to eq(true)
       end
     end
   end
