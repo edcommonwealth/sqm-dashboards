@@ -359,6 +359,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    standard_deviation (1.0.3)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     temple (0.10.0)
@@ -449,6 +450,7 @@ DEPENDENCIES
   solargraph-reek
   spring
   sprockets-rails
+  standard_deviation
   stimulus-rails
   timecop
   turbo-rails

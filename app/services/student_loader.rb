@@ -10,7 +10,8 @@ class StudentLoader
       file.lazy.each_slice(1_000) do |lines|
         CSV.parse(lines.join, headers:).map do |row|
           next if rules.any? do |rule|
-                    rule.new(row: SurveyItemValues.new(row:, headers:, genders: nil, survey_items: nil)).skip_row?
+                    rule.new(row: SurveyItemValues.new(row:, headers:, genders: nil, survey_items: nil,
+                                                       schools:)).skip_row?
                   end
 
           process_row(row:)
@@ -29,7 +30,8 @@ class StudentLoader
 
       CSV.parse(line, headers:).map do |row|
         next if rules.any? do |rule|
-                  rule.new(row: SurveyItemValues.new(row:, headers:, genders: nil, survey_items: nil)).skip_row?
+                  rule.new(row: SurveyItemValues.new(row:, headers:, genders: nil, survey_items: nil,
+                                                     schools:)).skip_row?
                 end
 
         process_row(row:)
@@ -45,6 +47,10 @@ class StudentLoader
     lasid = row['LASID'] || row['lasid']
 
     find_or_create_student(response_id:, lasid:, races:)
+  end
+
+  def self.schools
+    @schools ||= School.all.map { |school| [school.dese_id, school] }.to_h
   end
 
   def self.race_codes(row:)

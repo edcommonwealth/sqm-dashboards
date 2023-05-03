@@ -35,4 +35,34 @@ RSpec.describe SurveyItem, type: :model do
       end
     end
   end
+
+  describe '.survey_type_for_grade' do
+    let(:early_education_survey_item1) { create(:early_education_survey_item, scale:) }
+    context 'when no responses exist' do
+      it 'it returns back a regular survey' do
+        expect(SurveyItem.survey_type_for_grade(school, academic_year, 0)).to eq :standard
+      end
+    end
+
+    context 'when some responses exist' do
+      context 'and the responses are only within the set of early education survey items' do
+        before :each do
+          create(:survey_item_response, survey_item: early_education_survey_item1, school:, academic_year:, grade: 0)
+        end
+
+        it 'reports the survey type as early education' do
+          expect(SurveyItem.survey_type_for_grade(school, academic_year, 0)).to eq :early_education
+        end
+      end
+
+      context 'when there are responses for both early education and regular survey items' do
+        before :each do
+          create(:survey_item_response, school:, academic_year:, grade: 0)
+        end
+        it 'reports the survey type as regular' do
+          expect(SurveyItem.survey_type_for_grade(school, academic_year, 0)).to eq :standard
+        end
+      end
+    end
+  end
 end
