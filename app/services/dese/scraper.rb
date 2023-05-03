@@ -71,7 +71,6 @@ module Dese
             likert_score = likert_score.round(2)
           end
 
-          # byebug if dese_id == 30_305
           output = []
           output << raw_likert_score
           output << likert_score

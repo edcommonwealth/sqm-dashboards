@@ -59,6 +59,8 @@ gem 'net-sftp'
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
 
+gem 'standard_deviation'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

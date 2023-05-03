@@ -9,7 +9,7 @@ class SurveyResponsesDataLoader
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row(row: SurveyItemValues.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items),
+          process_row(row: SurveyItemValues.new(row:, headers: headers.split(','), genders: genders_hash, survey_items: all_survey_items, schools:),
                       rules:)
         end
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
@@ -29,7 +29,7 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers:, genders: genders_hash, survey_items: all_survey_items),
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers.split(','), genders: genders_hash, survey_items: all_survey_items, schools:),
                                              rules:)
       end
 
@@ -54,6 +54,7 @@ class SurveyResponsesDataLoader
       return if rule.new(row:).skip_row?
     end
 
+    # byebug if row.response_id == 'butler_student_survey_response_1'
     process_survey_items(row:)
   end
 
@@ -82,13 +83,12 @@ class SurveyResponsesDataLoader
     end
   end
 
-  def self.genders
-    gender_hash = {}
+  def self.schools
+    School.school_hash
+  end
 
-    Gender.all.each do |gender|
-      gender_hash[gender.qualtrics_code] = gender
-    end
-    gender_hash
+  def self.genders
+    Gender.gender_hash
   end
 
   def self.survey_items(headers:)
@@ -96,9 +96,9 @@ class SurveyResponsesDataLoader
   end
 
   def self.get_survey_item_ids_from_headers(headers:)
-    CSV.parse(headers, headers: true).headers
-       .filter(&:present?)
-       .filter { |header| header.start_with? 't-' or header.start_with? 's-' }
+    headers.split(',')
+           .filter(&:present?)
+           .filter { |header| header.start_with? 't-', 's-' }
   end
 
   private_class_method :process_row
