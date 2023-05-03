@@ -8,6 +8,7 @@ class School < ApplicationRecord
   validates :name, presence: true
 
   scope :alphabetic, -> { order(name: :asc) }
+  scope :school_hash, -> { all.map { |school| [school.dese_id, school] }.to_h }
 
   include FriendlyId
   friendly_id :name, use: [:slugged]

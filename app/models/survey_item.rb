@@ -18,21 +18,24 @@ class SurveyItem < ActiveRecord::Base
   scope :student_survey_items, lambda {
     where("survey_items.survey_item_id LIKE 's-%'")
   }
+  scope :standard_survey_items, lambda {
+    where("survey_items.survey_item_id LIKE 's-%-q%'")
+  }
   scope :teacher_survey_items, lambda {
     where("survey_items.survey_item_id LIKE 't-%'")
   }
-  scope :short_form_items, lambda {
+  scope :short_form_survey_items, lambda {
     where(on_short_form: true)
   }
-  scope :early_education_surveys, lambda {
+  scope :early_education_survey_items, lambda {
     where("survey_items.survey_item_id LIKE '%-%-es%'")
   }
 
   scope :survey_items_for_grade, lambda { |school, academic_year, grade|
     includes(:survey_item_responses)
       .where("survey_item_responses.grade": grade,
-        "survey_item_responses.school": school,
-        "survey_item_responses.academic_year": academic_year).distinct
+             "survey_item_responses.school": school,
+             "survey_item_responses.academic_year": academic_year).distinct
   }
 
   scope :survey_item_ids_for_grade, lambda { |school, academic_year, grade|
@@ -51,14 +54,24 @@ class SurveyItem < ActiveRecord::Base
 
   scope :survey_type_for_grade, lambda { |school, academic_year, grade|
     survey_items_set_by_grade = survey_items_for_grade(school, academic_year, grade).pluck(:survey_item_id).to_set
-    if survey_items_set_by_grade.size > 0 && survey_items_set_by_grade.subset?(early_education_surveys.pluck(:survey_item_id).to_set)
+    if survey_items_set_by_grade.size > 0 && survey_items_set_by_grade.subset?(early_education_survey_items.pluck(:survey_item_id).to_set)
       return :early_education
     end
 
-    :regular
+    :standard
   }
 
   def description
     Summary.new(survey_item_id, prompt, true)
+  end
+
+  def self.survey_type(survey_item_ids:)
+    survey_item_ids = survey_item_ids.to_set
+    return :short_form if survey_item_ids.subset? short_form_survey_items.map(&:survey_item_id).to_set
+    return :early_education if survey_item_ids.subset? early_education_survey_items.map(&:survey_item_id).to_set
+    return :teacher if survey_item_ids.subset? teacher_survey_items.map(&:survey_item_id).to_set
+    return :standard if survey_item_ids.subset? standard_survey_items.map(&:survey_item_id).to_set
+
+    :unknown
   end
 end

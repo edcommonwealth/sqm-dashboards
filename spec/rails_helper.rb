@@ -73,6 +73,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do |example|
+    AcademicYear.reset_academic_years
     DatabaseCleaner.clean unless example.metadata[:skip_db_cleaner]
   end
 end

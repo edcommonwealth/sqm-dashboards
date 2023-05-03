@@ -40,7 +40,7 @@ RSpec.describe SurveyItem, type: :model do
     let(:early_education_survey_item1) { create(:early_education_survey_item, scale:) }
     context 'when no responses exist' do
       it 'it returns back a regular survey' do
-        expect(SurveyItem.survey_type_for_grade(school, academic_year, 0)).to eq :regular
+        expect(SurveyItem.survey_type_for_grade(school, academic_year, 0)).to eq :standard
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe SurveyItem, type: :model do
           create(:survey_item_response, school:, academic_year:, grade: 0)
         end
         it 'reports the survey type as regular' do
-          expect(SurveyItem.survey_type_for_grade(school, academic_year, 0)).to eq :regular
+          expect(SurveyItem.survey_type_for_grade(school, academic_year, 0)).to eq :standard
         end
       end
     end
