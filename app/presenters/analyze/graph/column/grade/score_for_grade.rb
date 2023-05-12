@@ -4,8 +4,9 @@ module Analyze
       module Grade
         module ScoreForGrade
           def score(year_index)
-            averages = SurveyItemResponse.averages_for_grade(measure.student_survey_items, school, academic_years[year_index], grade)
-            average = bubble_up_averages(averages:)
+            averages = SurveyItemResponse.averages_for_grade(measure.student_survey_items, school,
+                                                             academic_years[year_index], grade)
+            average = bubble_up_averages(averages:).round(2)
 
             Score.new(average:,
                       meets_teacher_threshold: false,

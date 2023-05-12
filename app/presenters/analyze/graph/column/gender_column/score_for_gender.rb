@@ -7,7 +7,7 @@ module Analyze
             academic_year = academic_years[year_index]
             averages = SurveyItemResponse.averages_for_gender(measure.student_survey_items, school, academic_year,
                                                               gender)
-            average = bubble_up_averages(averages:)
+            average = bubble_up_averages(averages:).round(2)
 
             scorify(average:, meets_student_threshold: sufficient_student_responses?(academic_year:))
           end

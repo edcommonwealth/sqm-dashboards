@@ -25,13 +25,13 @@ class Measure < ActiveRecord::Base
   end
 
   def student_survey_items_with_sufficient_responses(school:, academic_year:)
-    SurveyItem.where(id: SurveyItem.joins('inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id')
+    SurveyItem.where(id: SurveyItem.joins("inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id")
                                 .student_survey_items
                                 .where("survey_item_responses.school": school,
-                                       "survey_item_responses.academic_year": academic_year,
-                                       "survey_item_responses.survey_item_id": survey_items.student_survey_items)
-                                .group('survey_items.id')
-                                .having('count(*) >= 10')
+                                  "survey_item_responses.academic_year": academic_year,
+                                  "survey_item_responses.survey_item_id": survey_items.student_survey_items)
+                                .group("survey_items.id")
+                                .having("count(*) >= 10")
                                 .count.keys)
   end
 
@@ -60,7 +60,7 @@ class Measure < ActiveRecord::Base
       next Score::NIL_SCORE if incalculable_score(school:, academic_year:)
 
       scores = collect_averages_for_teacher_student_and_admin_data(school:, academic_year:)
-      average = scores.flatten.compact.remove_blanks.average
+      average = scores.flatten.compact.remove_blanks.average.round(2)
 
       next Score::NIL_SCORE if average.nan?
 
@@ -72,7 +72,7 @@ class Measure < ActiveRecord::Base
   def student_score(school:, academic_year:)
     @student_score ||= Hash.new do |memo, (school, academic_year)|
       meets_student_threshold = sufficient_student_data?(school:, academic_year:)
-      average = student_average(school:, academic_year:) if meets_student_threshold
+      average = student_average(school:, academic_year:).round(2) if meets_student_threshold
       memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
@@ -82,7 +82,7 @@ class Measure < ActiveRecord::Base
   def teacher_score(school:, academic_year:)
     @teacher_score ||= Hash.new do |memo, (school, academic_year)|
       meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-      average = teacher_average(school:, academic_year:) if meets_teacher_threshold
+      average = teacher_average(school:, academic_year:).round(2) if meets_teacher_threshold
       memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
@@ -92,7 +92,7 @@ class Measure < ActiveRecord::Base
   def admin_score(school:, academic_year:)
     @admin_score ||= Hash.new do |memo, (school, academic_year)|
       meets_admin_threshold = sufficient_admin_data?(school:, academic_year:)
-      average = admin_data_averages(school:, academic_year:).average if meets_admin_threshold
+      average = admin_data_averages(school:, academic_year:).average.round(2) if meets_admin_threshold
       memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
     end
 
@@ -222,7 +222,7 @@ class Measure < ActiveRecord::Base
   def incalculable_score(school:, academic_year:)
     @incalculable_score ||= Hash.new do |memo, (school, academic_year)|
       lacks_sufficient_survey_data = !sufficient_student_data?(school:, academic_year:) &&
-                                     !sufficient_teacher_data?(school:, academic_year:)
+        !sufficient_teacher_data?(school:, academic_year:)
       memo[[school, academic_year]] = lacks_sufficient_survey_data && !includes_admin_data_items?
     end
 
