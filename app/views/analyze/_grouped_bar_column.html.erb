@@ -4,7 +4,7 @@
     <rect data-for-academic-year="<%= bar.academic_year.range %>" x="<%= bar.x_position %>%" y="<%= bar.y_offset %>%" width="<%= column.bar_width %>%" height="<%= bar.bar_height_percentage %>%" fill="<%= bar.color %>" />
 
     <% if ENV["SCORES"].present?  && ENV["SCORES"].upcase == "SHOW" %>
-      <text x="<%= bar.x_position + 3 %>%" y="<%= score_label_y[index] %>%" text-anchor="middle" dominant-baseline="middle">
+      <text x="<%= bar.x_position + (column.bar_width * 0.5) %>%" y="<%= score_label_y[index] %>%" text-anchor="middle" dominant-baseline="middle">
         <%= bar.average %>
       </text>
     <% end %>

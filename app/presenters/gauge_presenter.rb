@@ -3,7 +3,7 @@
 class GaugePresenter
   def initialize(zones:, score:)
     @zones = zones
-    @score = score
+    @score = score&.round(2)
   end
 
   def title
