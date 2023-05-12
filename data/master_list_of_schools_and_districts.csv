@@ -1,4 +1,4 @@
-School Name,Alt School Name,District,District DESE ID,DESE School ID,HS?,Short Form Only (2022-23),School Closed In 
+School Name,Alt School Name,District,District DESE ID,DESE School ID,HS?,School Closed In ,Notes
 Lee Elementary School,,Lee Public Schools,1500000,1500025,,,
 Lee Middle/High School,,Lee Public Schools,1500000,1500505,X,,
 Fowler School,,Maynard Public Schools,1740000,1740305,,,
@@ -8,3 +8,10 @@ Buckland-Shelburne Regional,,Mohawk Trail School District,7170000,7170005,,,
 Colrain Central,,Mohawk Trail School District,7170000,7170010,,,
 Mohawk Trail Regional School,,Mohawk Trail School District,7170000,7170505,X,,
 Sanderson Academy,,Mohawk Trail School District,7170000,7170020,,,
+Meadow View Primary School,,Waupun Area School District,6216,160,,,WI school codes: https://apps6.dpi.wi.gov/SchDirPublic/districts
+Rock River Intermediate School,,Waupun Area School District,6216,110,,,
+School for Agricultural and Environmental Studies (SAGES),,Waupun Area School District,6216,150,,,
+Waupun Area Junior/Senior High School,,Waupun Area School District,6216,200,X,,
+John P. Faber School,,Dunellen Public Schools,1140,50,,,NJ school codes: https://rc.doe.state.nj.us/selectreport/2021-2022/23/1140
+Lincoln Middle School,,Dunellen Public Schools,1140,60,,,
+Dunellen High School,,Dunellen Public Schools,1140,40,X,,
