@@ -65,8 +65,9 @@ describe ResponseRateCalculator, type: :model do
 
         context 'there are responses for another survey item but not enough to meet the minimum threshold' do
           before do
-            create_list(:survey_item_response, 9, survey_item: insufficient_student_survey_item_1, academic_year:,
-                                                  school:, grade: 1)
+            less_than_a_quarter_of_respondents_for_first_grade = 4
+            create_list(:survey_item_response, less_than_a_quarter_of_respondents_for_first_grade, survey_item: insufficient_student_survey_item_1, academic_year:,
+                                                                                                   school:, grade: 1)
           end
           it 'returns an average of the response rates for all grades' do
             expect(StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).rate).to eq 50
