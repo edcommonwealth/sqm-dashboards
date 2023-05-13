@@ -1,7 +1,7 @@
 require 'rails_helper'
 include AnalyzeHelper
 
-xdescribe 'District Admin', js: true do
+describe 'District Admin', js: true do
   let(:district) { District.find_by_slug 'lee-public-schools' }
   let(:different_district) { District.find_by_slug 'maynard-public-schools' }
   let(:school) { School.find_by_slug 'lee-elementary-school' }
@@ -40,7 +40,7 @@ xdescribe 'District Admin', js: true do
     end
   end
 
-  let(:username) { district.short_name}
+  let(:username) { district.short_name }
   let(:password) { "#{district.short_name}!" }
 
   let(:respondents) do
@@ -140,6 +140,7 @@ xdescribe 'District Admin', js: true do
     district_admin_sees_schools_change
 
     go_to_different_district(different_district)
+    page.driver.basic_authorize(different_district.short_name, "#{different_district.short_name}!")
     district_admin_sees_district_change
 
     go_to_different_year(ay_2019_20)
