@@ -47,6 +47,6 @@ module VarianceHelper
   end
 
   def partial_data_indicator_size
-    16
+    20
   end
 end
