@@ -13,15 +13,15 @@ class SurveyItemValues
     dese_id.present?
   end
 
-  def response_date
-    @response_date ||= begin
+  def recorded_date
+    @recorded_date ||= begin
       recorded_date = value_from(pattern: /Recorded\s*Date/i)
       Date.parse(recorded_date)
     end
   end
 
   def academic_year
-    @academic_year ||= AcademicYear.find_by_date response_date
+    @academic_year ||= AcademicYear.find_by_date recorded_date
   end
 
   def survey_item_response(survey_item:)

@@ -1,0 +1,35 @@
+<style>
+/*
+    For some reason, none of the sizing in the pie class works, and it always
+    fills 100% of the containing frame, so the size has to be dictated by .prog
+*/
+.prog {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-top: 0.2em;
+}
+.pie {
+    aspect-ratio: 1;
+    display: inline-grid;
+    place-content: center;
+    margin: 5px;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+#response-rate-pie-<%= response_rate_presenter.focus %>:before{
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 0;
+  background: conic-gradient(<%= response_rate_presenter.color %> calc(<%= response_rate_presenter.percentage %>*1%),#0000 0);
+}
+</style>
+
+<div class="prog">
+    <div id="response-rate-pie-<%= response_rate_presenter.focus %>" class="pie"></div>
+</div>

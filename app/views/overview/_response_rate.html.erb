@@ -1,0 +1,8 @@
+<div class="overall-response-rate-container">
+  <div>Response Rates as of <%= response_rate_presenter.date.to_date.strftime("%m/%d/%y") %> </div>
+  <div style="display: flex; justify-content:space-between; width: 100px;">
+  <div><%= response_rate_presenter.focus.capitalize %> </div>
+  <%= render partial: "response_rate_graphic", locals: {response_rate_presenter: response_rate_presenter}, cached: true %>
+  <div><%= response_rate_presenter.percentage %>% </div>
+  </div>
+</div>

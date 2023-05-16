@@ -23,7 +23,7 @@ RSpec.describe Cleaner do
   end
 
   let(:common_headers) do
-    ['Recorded Date', 'DeseID', 'ResponseID']
+    ['Recorded Date', 'Dese ID', 'ResponseID']
   end
 
   let(:standard_survey_items) do

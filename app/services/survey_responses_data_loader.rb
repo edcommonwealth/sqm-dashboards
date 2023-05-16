@@ -77,11 +77,11 @@ class SurveyResponsesDataLoader
     gender = row.gender
     grade = row.grade
     if survey_item_response.present?
-      survey_item_response.update!(likert_score:, grade:, gender:)
+      survey_item_response.update!(likert_score:, grade:, gender:, recorded_date: row.recorded_date)
       []
     else
       SurveyItemResponse.new(response_id: row.response_id, academic_year: row.academic_year, school: row.school, survey_item:,
-                             likert_score:, grade:, gender:)
+                             likert_score:, grade:, gender:, recorded_date: row.recorded_date)
     end
   end
 

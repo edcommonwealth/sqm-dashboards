@@ -97,6 +97,7 @@ describe SurveyResponsesDataLoader do
     it "ensures teacher responses load correctly" do
       assigns_academic_year_to_survey_item_responses
       assigns_school_to_the_survey_item_responses
+      assigns_recorded_date_to_teacher_responses
       loads_survey_item_responses_for_a_given_survey_response
       loads_all_survey_item_responses_for_a_given_survey_item
       captures_likert_scores_for_survey_item_responses
@@ -112,6 +113,7 @@ describe SurveyResponsesDataLoader do
     it "ensures student responses load correctly" do
       assigns_academic_year_to_student_survey_item_responses
       assigns_school_to_student_survey_item_responses
+      assigns_recorded_date_to_student_responses
       loads_student_survey_item_response_values
       student_survey_item_response_count_matches_expected
       captures_likert_scores_for_student_survey_item_responses
@@ -298,3 +300,24 @@ def assigns_gender_to_responses
   end
 end
 
+def assigns_recorded_date_to_student_responses
+  results = {"student_survey_response_1" => "2020-09-30T18:48:50",
+             "student_survey_response_3" => "2021-03-31T09:59:02",
+             "student_survey_response_4" => "2021-03-31T10:00:17",
+             "student_survey_response_5" => "2021-03-31T10:01:36",
+             "student_survey_response_6" => "2021-03-31T10:01:37",
+             "student_survey_response_7" => "2021-03-31T10:01:38"}
+  results.each do |key, value|
+    expect(SurveyItemResponse.find_by_response_id(key).recorded_date).to eq Date.parse(value)
+  end
+end
+
+def assigns_recorded_date_to_teacher_responses
+  results = {"teacher_survey_response_1" => "2020-10-16 11:09:03",
+             "teacher_survey_response_3" => "2020-12-06 8:36:52",
+             "teacher_survey_response_4" => "2020-12-06 8:51:25",
+             "teacher_survey_response_5" => "2020-12-06 8:55:58"}
+  results.each do |key, value|
+    expect(SurveyItemResponse.find_by_response_id(key).recorded_date).to eq Date.parse(value)
+  end
+end

@@ -1,0 +1,45 @@
+class ResponseRatePresenter
+  attr_reader :focus, :academic_year, :school, :survey_items
+
+  def initialize(focus:, academic_year:, school:)
+    @focus = focus
+    @academic_year = academic_year
+    @school = school
+    @survey_items = SurveyItem.student_survey_items if focus == :student
+    @survey_items = SurveyItem.teacher_survey_items if focus == :teacher
+  end
+
+  def date
+    SurveyItemResponse.where(survey_item: survey_items, school:).order(updated_at: :DESC).first&.updated_at || Date.new
+  end
+
+  def percentage
+    cap_at_100(actual_count.to_f / respondents_count.to_f * 100).round
+  end
+
+  def color
+    # Problem: the color (either $gold or $purple) is determined by the scss variable, but the
+    # percentage is decided by the presenter. Therefore the class style must be generated
+    # within this file and not the scss file.
+    # TODO: Fix this.
+    percentage > 75 ? '#49416D' : '#FFC857'
+  end
+
+  private
+
+  def cap_at_100(value)
+    value > 100 ? 100 : value
+  end
+
+  def actual_count
+    SurveyItemResponse.where(school:, academic_year:,
+                             survey_item: survey_items).select(:response_id).distinct.count
+  end
+
+  def respondents_count
+    respondents = Respondent.find_by(school:, academic_year:)
+    count = respondents.total_students if focus == :student
+    count = respondents.total_teachers if focus == :teacher
+    count
+  end
+end
