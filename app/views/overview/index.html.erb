@@ -81,6 +81,12 @@
         </div>
       </div>
       <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters }, cached: true %>
+
+      <div class="overall-response-rate-row">
+        <%= render partial: "response_rate", locals: {response_rate_presenter: @student_response_rate_presenter}, cached: true %>
+        <%= render partial: "response_rate", locals: {response_rate_presenter: @teacher_response_rate_presenter}, cached: true %>
+      </div>
+
     </div>
     <div class="card">
       <h2 class="sub-header-2 mb-4">Distance From Benchmark</h2>

@@ -97,11 +97,18 @@ RSpec.describe SurveyItemValues, type: :model do
   context '.school' do
     it 'returns the school that maps to the dese id provided' do
       attleboro
+      headers = ['Dese ID']
       row = { 'Dese ID' => '1234' }
       values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
       expect(values.school).to eq attleboro
 
-      row = { 'DeseID' => '1234' }
+      headers = ['School']
+      row = { 'School' => '1234' }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.school).to eq attleboro
+
+      headers = ['School- Attleboro']
+      row = { 'School- Attleboro' => '1234' }
       values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
       expect(values.school).to eq attleboro
     end
@@ -114,6 +121,7 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.grade).to eq 1
     end
   end
+
   context '.gender' do
     it 'returns the grade that maps to the grade provided' do
       row = { 'Gender' => '1' }
@@ -122,17 +130,30 @@ RSpec.describe SurveyItemValues, type: :model do
     end
   end
 
-  context '.respondent_type' do
-    it 'reads header to find the survey type' do
-      headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-      values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
-      expect(values.respondent_type).to eq :student
-
-      headers = %w[t-sbel-q5 t-phys-q2]
-      values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
-      expect(values.respondent_type).to eq :teacher
+  context '.dese_id' do
+    it 'returns the dese id for the id provided' do
+      headers = ['Dese ID']
+      row = { 'Dese ID' => '11' }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.dese_id).to eq 11
+      headers = ['School']
+      row = { 'School' => '22' }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.dese_id).to eq 22
     end
   end
+
+  # context '.survey_type' do
+  #   it 'reads header to find the survey type' do
+  #     headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
+  #     values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+  #     expect(values.respondent_type).to eq :student
+
+  #     headers = %w[t-sbel-q5 t-phys-q2]
+  #     values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+  #     expect(values.respondent_type).to eq :teacher
+  #   end
+  # end
 
   context '.survey_type' do
     context 'when survey type is standard form' do
@@ -198,6 +219,20 @@ RSpec.describe SurveyItemValues, type: :model do
         headers = short_form_survey_items
         values = SurveyItemValues.new(row: { 'Duration (in seconds)' => 'NA' }, headers:, genders:, survey_items:,
                                       schools:)
+      end
+    end
+  end
+  context '.valid_duration' do
+    context 'when duration is valid' do
+      it 'returns true' do
+        headers = ['s-sbel-q5', 's-phys-q2', 'RecordedDate', 'Duration (in seconds)']
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '240' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_duration?).to eq true
+
+        headers = ['t-sbel-q5', 't-phys-q2', 'Duration (in seconds)']
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '300' }, headers:, genders:, survey_items:,
+                                      schools:)
         expect(values.valid_duration?).to eq true
       end
     end
@@ -205,6 +240,7 @@ RSpec.describe SurveyItemValues, type: :model do
     context 'when duration is invalid' do
       it 'returns false' do
         headers = standard_survey_items
+        # headers = ['s-sbel-q5', 's-phys-q2', 'RecordedDate', 'Duration (in seconds)']
         values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '239' }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq false

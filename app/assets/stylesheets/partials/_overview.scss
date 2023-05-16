@@ -89,6 +89,26 @@
   width: 20px;
 }
 
+.overall-response-rate-row {
+  width: 55%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: -23px;
+}
+
+.overall-response-rate-container {
+  padding: 0.4em 0.7em;
+  width: 48%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $gray-1;
+  @extend .bg-color-gray-3;
+  @extend .border-radius-8;
+  @extend .font-size-14
+}
+
 @media only screen and (min-width: 768px){
 .measure-row-label {
   width: 170px;

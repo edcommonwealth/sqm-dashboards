@@ -117,6 +117,9 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     date (3.3.3)
+    debug (1.8.0)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
     devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -189,6 +192,8 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
+    irb (1.7.4)
+      reline (>= 0.3.6)
     jaro_winkler (1.5.6)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -457,6 +462,7 @@ DEPENDENCIES
   cuprite
   cypress-rails
   database_cleaner
+  debug
   devise
   dotenv-rails
   ed25519
