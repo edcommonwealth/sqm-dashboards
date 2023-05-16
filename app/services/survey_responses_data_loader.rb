@@ -68,7 +68,7 @@ class SurveyResponsesDataLoader
       likert_score = row.likert_score(survey_item_id: survey_item.survey_item_id) || next
 
       unless likert_score.valid_likert_score?
-        puts "Response ID: #{row.response_id}, Likert score: #{likert_score} rejected" unless likert_score == 'NA'
+        puts "Response ID: #{row.response_id}, Likert score: #{likert_score} rejected" unless likert_score == "NA"
         next
       end
       response = row.survey_item_response(survey_item:)
@@ -96,7 +96,7 @@ class SurveyResponsesDataLoader
   def self.get_survey_item_ids_from_headers(headers:)
     CSV.parse(headers).first
        .filter(&:present?)
-       .filter { |header| header.start_with? 't-', 's-' }
+       .filter { |header| header.start_with? "t-", "s-" }
   end
 
   private_class_method :process_row

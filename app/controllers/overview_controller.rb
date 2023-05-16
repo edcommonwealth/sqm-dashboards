@@ -7,6 +7,10 @@ class OverviewController < SqmApplicationController
   def index
     @variance_chart_row_presenters = measures.map(&method(:presenter_for_measure))
     @category_presenters = Category.sorted.map { |category| CategoryPresenter.new(category:) }
+    @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
+      academic_year: @academic_year)
+    @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
+      academic_year: @academic_year)
   end
 
   private
