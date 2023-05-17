@@ -64,11 +64,11 @@ gem 'standard_deviation'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'parallel_tests'
   gem 'rack-mini-profiler'
   gem 'rspec-rails', '~> 5.1.0'
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -77,6 +77,10 @@ group :development do
   gem 'bullet'
   gem 'erb_lint', require: false
   gem 'erblint-github'
+  gem 'guard'
+  gem 'guard-rspec', require: false
+  gem 'guard-livereload', '~> 2.5', require: false
+  gem 'rack-livereload'
   gem 'listen', '~> 3.0.5'
   gem 'nested_scaffold'
   # gem 'reek', require: false
