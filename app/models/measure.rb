@@ -25,13 +25,13 @@ class Measure < ActiveRecord::Base
   end
 
   def student_survey_items_with_sufficient_responses(school:, academic_year:)
-    SurveyItem.where(id: SurveyItem.joins("inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id")
+    SurveyItem.where(id: SurveyItem.joins('inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id')
                                 .student_survey_items
                                 .where("survey_item_responses.school": school,
-                                  "survey_item_responses.academic_year": academic_year,
-                                  "survey_item_responses.survey_item_id": survey_items.student_survey_items)
-                                .group("survey_items.id")
-                                .having("count(*) >= 10")
+                                       "survey_item_responses.academic_year": academic_year,
+                                       "survey_item_responses.survey_item_id": survey_items.student_survey_items)
+                                .group('survey_items.id')
+                                .having('count(*) >= 10')
                                 .count.keys)
   end
 
@@ -123,6 +123,14 @@ class Measure < ActiveRecord::Base
     any_admin_data_collected?(school:, academic_year:)
   end
 
+  def benchmark(name)
+    averages = []
+    averages << student_survey_items.first.send(name) if includes_student_survey_items?
+    averages << teacher_survey_items.first.send(name) if includes_teacher_survey_items?
+    (averages << admin_data_items.map(&name)).flatten! if includes_admin_data_items?
+    averages.average
+  end
+
   private
 
   def any_admin_data_collected?(school:, academic_year:)
@@ -181,14 +189,6 @@ class Measure < ActiveRecord::Base
     @grouped_responses[[school, academic_year]]
   end
 
-  def benchmark(name)
-    averages = []
-    averages << student_survey_items.first.send(name) if includes_student_survey_items?
-    averages << teacher_survey_items.first.send(name) if includes_teacher_survey_items?
-    (averages << admin_data_items.map(&name)).flatten! if includes_admin_data_items?
-    averages.average
-  end
-
   def sufficient_student_data?(school:, academic_year:)
     return false unless includes_student_survey_items?
     return false if no_student_responses_exist?(school:, academic_year:)
@@ -222,7 +222,7 @@ class Measure < ActiveRecord::Base
   def incalculable_score(school:, academic_year:)
     @incalculable_score ||= Hash.new do |memo, (school, academic_year)|
       lacks_sufficient_survey_data = !sufficient_student_data?(school:, academic_year:) &&
-        !sufficient_teacher_data?(school:, academic_year:)
+                                     !sufficient_teacher_data?(school:, academic_year:)
       memo[[school, academic_year]] = lacks_sufficient_survey_data && !includes_admin_data_items?
     end
 
