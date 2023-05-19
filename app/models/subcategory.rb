@@ -7,11 +7,27 @@ class Subcategory < ActiveRecord::Base
   has_many :survey_items, through: :measures
 
   def score(school:, academic_year:)
-    scores = measures.map do |measure|
+    measures.map do |measure|
       measure.score(school:, academic_year:).average
-    end
-    scores = scores.reject(&:nil?)
-    scores.average
+    end.remove_blanks.average
+  end
+
+  def student_score(school:, academic_year:)
+    measures.map do |measure|
+      measure.student_score(school:, academic_year:).average
+    end.remove_blanks.average
+  end
+
+  def teacher_score(school:, academic_year:)
+    measures.map do |measure|
+      measure.teacher_score(school:, academic_year:).average
+    end.remove_blanks.average
+  end
+
+  def admin_score(school:, academic_year:)
+    measures.map do |measure|
+      measure.admin_score(school:, academic_year:).average
+    end.remove_blanks.average
   end
 
   def student_score(school:, academic_year:)
