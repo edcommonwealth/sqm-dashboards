@@ -4,12 +4,13 @@ class SurveyResponsesDataLoader
   def self.load_data(filepath:, rules: [Rule::NoRule])
     File.open(filepath) do |file|
       headers = file.first
+      headers_array = headers.split(',')
       genders_hash = genders
       all_survey_items = survey_items(headers:)
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row(row: SurveyItemValues.new(row:, headers: headers.split(','), genders: genders_hash, survey_items: all_survey_items, schools:),
+          process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders: genders_hash, survey_items: all_survey_items, schools:),
                       rules:)
         end
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
@@ -19,6 +20,7 @@ class SurveyResponsesDataLoader
 
   def self.from_file(file:, rules: [])
     headers = file.gets
+    headers_array = headers.split(',')
     genders_hash = genders
     all_survey_items = survey_items(headers:)
 
@@ -29,7 +31,7 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers.split(','), genders: genders_hash, survey_items: all_survey_items, schools:),
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders: genders_hash, survey_items: all_survey_items, schools:),
                                              rules:)
       end
 

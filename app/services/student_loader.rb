@@ -6,11 +6,12 @@ class StudentLoader
   def self.load_data(filepath:, rules: [])
     File.open(filepath) do |file|
       headers = file.first
+      headers_array = headers.split(',')
 
       file.lazy.each_slice(1_000) do |lines|
         CSV.parse(lines.join, headers:).map do |row|
           next if rules.any? do |rule|
-                    rule.new(row: SurveyItemValues.new(row:, headers:, genders: nil, survey_items: nil,
+            rule.new(row: SurveyItemValues.new(row:, headers: headers_array, genders: nil, survey_items: nil,
                                                        schools:)).skip_row?
                   end
 
@@ -22,6 +23,7 @@ class StudentLoader
 
   def self.from_file(file:, rules: [])
     headers = file.gets
+    headers_array = headers.split(',')
 
     survey_item_responses = []
     until file.eof?
@@ -30,7 +32,7 @@ class StudentLoader
 
       CSV.parse(line, headers:).map do |row|
         next if rules.any? do |rule|
-                  rule.new(row: SurveyItemValues.new(row:, headers:, genders: nil, survey_items: nil,
+                  rule.new(row: SurveyItemValues.new(row:, headers: headers_array, genders: nil, survey_items: nil,
                                                      schools:)).skip_row?
                 end
 
