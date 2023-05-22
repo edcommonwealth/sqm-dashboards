@@ -25,6 +25,11 @@ $growth: $gold;
 $approval: $purple;
 $ideal: $purple;
 
+:root {
+  --color-purple: #{$purple};
+  --color-gold: #{$gold};
+}
+
 .color-red {
   color: $red;
 }

@@ -18,11 +18,7 @@ class ResponseRatePresenter
   end
 
   def color
-    # Problem: the color (either $gold or $purple) is determined by the scss variable, but the
-    # percentage is decided by the presenter. Therefore the class style must be generated
-    # within this file and not the scss file.
-    # TODO: Fix this.
-    percentage > 75 ? '#49416D' : '#FFC857'
+    percentage > 75 ? 'purple' : 'gold'
   end
 
   private
