@@ -17,9 +17,10 @@ RSpec.describe Dese::ThreeBOne do
   let(:i1_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_1_masscore.csv') }
   let(:i2_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_1_advcoursecomprate.csv') }
   let(:i3_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_1_ap.csv') }
+  let(:i4_filepath) { Rails.root.join('tmp', 'spec', 'dese', '3B_1_student_courses_ratio.csv') }
 
   let(:filepaths) do
-    [i1_filepath, i2_filepath, i3_filepath]
+    [i1_filepath, i2_filepath, i3_filepath, i4_filepath]
   end
   before do
     FileUtils.mkdir_p 'tmp/spec/dese'
@@ -27,6 +28,13 @@ RSpec.describe Dese::ThreeBOne do
 
   before :each do
     academic_years
+  end
+
+  context 'a-curv-i5' do
+    it 'creates a csv file with the scraped data' do
+      Dese::ThreeBOne.new(filepaths:).run_all
+      expect(i4_filepath).to exist
+    end
   end
 
   xcontext 'Creating a new Scraper' do

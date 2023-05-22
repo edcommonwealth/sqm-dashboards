@@ -4,14 +4,6 @@ module Dese
 
     Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
                                :calculation)
-    def reverse_score(likert_score:)
-      return nil unless likert_score.present?
-
-      likert_score = 1 if likert_score < 1
-      likert_score = 5 if likert_score > 5
-      (likert_score - 6).abs
-    end
-
     def run
       academic_years = AcademicYear.all.order(range: :DESC)
       academic_years.each do |academic_year|
