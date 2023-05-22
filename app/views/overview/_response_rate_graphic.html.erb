@@ -26,7 +26,7 @@
   position: absolute;
   border-radius: 50%;
   inset: 0;
-  background: conic-gradient(<%= response_rate_presenter.color %> calc(<%= response_rate_presenter.percentage %>*1%),#0000 0);
+  background: conic-gradient(var(--color-<%= response_rate_presenter.color %>) calc(<%= response_rate_presenter.percentage %>*1%),#0000 0);
 }
 </style>
 
