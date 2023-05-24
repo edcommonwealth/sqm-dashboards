@@ -14,6 +14,8 @@ class ResponseRatePresenter
   end
 
   def percentage
+    return 0 if respondents_count.zero?
+
     cap_at_100(actual_count.to_f / respondents_count.to_f * 100).round
   end
 
@@ -33,9 +35,30 @@ class ResponseRatePresenter
   end
 
   def respondents_count
-    respondents = Respondent.find_by(school:, academic_year:)
-    count = respondents.total_students if focus == :student
+    return 0 if respondents.nil?
+
+    count = enrollment if focus == :student
     count = respondents.total_teachers if focus == :teacher
     count
+  end
+
+  def enrollment
+    SurveyItemResponse.where(school:, academic_year:, grade: grades,
+                             survey_item: SurveyItem.student_survey_items)
+                      .select(:grade)
+                      .distinct
+                      .pluck(:grade)
+                      .reject(&:nil?)
+                      .map do |grade|
+      respondents.counts_by_grade[grade]
+    end.sum.to_f
+  end
+
+  def respondents
+    Respondent.find_by(school:, academic_year:)
+  end
+
+  def grades
+    respondents.counts_by_grade.keys
   end
 end
