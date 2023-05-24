@@ -210,248 +210,37 @@ namespace :one_off do
     sufficient_response_rate = ResponseRate.where(id: sufficient_response_rate)
     sufficient_response_rate.update_all(teacher_response_rate: 100, meets_teacher_threshold: true)
   end
-  desc "Generate CSV report of teacher survey item responses"
-  task teacher_survey_questions_csv: :environment do
-    headers = ['School ID', 'Academic Year', 'Survey Item','Prmpt', 'Count','Percentage_diff']
-    output_rows = []
-    counts={}
-    avg=0
-    School.all.each do |sc|
-      AcademicYear.all.each do |ay|
-        sum=0
-        nof_si=0
-        threshold = Respondent.where(school: sc, academic_year: ay).pluck(:total_teachers)
-        SurveyItem.teacher_survey_items.all.each do |si|
-          c = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).group(:school_id).count
-           if c.any?
-            counts[[sc.id, ay.id, si.id]] = c
-            sum+=c.values.first
-            nof_si+=1
-          end
-        end 
-        
-          
-          avg = sum.to_f/ nof_si
-        counts.each do |key, value|
-          if key[0] == sc.id && key[1] == ay.id
-            count = value.values.first
-            percentage_diff = ((count-avg) / avg) * 100
-            counts[key] = { count: count, percentage_diff: percentage_diff } 
-        end
-      end
-    end  end
-    
-    counts.each do |key, value|
-      output_rows << [School.where(id:key[0]).pluck(:name) , AcademicYear.where(id:key[1]).pluck(:range) , SurveyItem.where(id:key[2]).pluck(:survey_item_id), SurveyItem.where(id:key[2]).pluck(:prompt), value[:count], value[:percentage_diff]]
-    end
-    
-    file = File.new('teacher_survey_questions.csv', 'w')
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-    
-    file.close
-    puts "CSV report of teacher survey item responses with removed stray responses.csv"
-  end
+  
 
-  desc "Generate CSV report of regular survey item responses"
-  task regular_survey_questions_csv: :environment do
-    headers = ['School ID', 'Academic Year', 'Survey Item','Prompt', 'Count','Percentage_diff']
-    output_rows = []
-    counts={}
-    avg=0
-    temp=0
-    count_response_grades_not_in_grades=0
-    School.all.each do |sc|
-      AcademicYear.all.each do |ay|
-        if Respondent.where(school: sc,academic_year:ay).any?
-      grades_count=Respondent.where(school:sc,academic_year:ay).first.counts_by_grade
-      grades= grades_count.keys
-      else 
-       grades=[]
-      end
-        sum=0
-        nof_si=0
-        threshold=0
-        threshold = Respondent.where(school: sc, academic_year: ay).pluck(:total_students)
-        SurveyItem.where.not(on_short_form:true).where.not("survey_items.survey_item_id LIKE '%-%-es%'").where.not("survey_items.survey_item_id LIKE 't-%'").all.each do |si|
-          c = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).group(:school_id).count
-          response_grades = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).pluck(:grade)
-          t = response_grades.count { |grade| !grades.include?(grade) }
-          count_response_grades_not_in_grades+=t
-          response_grades=[]
-           if c.any?
-            c[c.keys.first] = c.values.first - t
-          end
+desc "Generate CSV report of teacher survey item responses"
+task teacher_survey_questions_csv: :environment do
+  survey_items = SurveyItem.teacher_survey_items.all
+  SkippedQuestionsLoader.new(survey_items).generate('teacher_survey_items')
+  puts "CSV report of teacher survey item responses with removed stray responses is generated"
+end
+desc "Generate CSV report of regular survey item responses"
+task regular_survey_questions_csv: :environment do
+  survey_items = SurveyItem.where.not(on_short_form:true)
+                           .where.not("survey_items.survey_item_id LIKE '%-%-es%'")
+                           .where.not("survey_items.survey_item_id LIKE 't-%'")
+                           .all
+  SkippedQuestionsLoader.new(survey_items).generate('regular_survey_items')
+  puts "CSV report of regular survey item responses with removed stray responses is generated"
+end
 
-           if threshold.any?
-          if c.any? && (c.values.first >= 10 || c.values.first > threshold.first/4)
-            counts[[sc.id, ay.id, si.id]] = c
-            sum+=c.values.first
-            nof_si+=1
-          end
-        end 
-        end
+desc "Generate CSV report of short survey item responses"
+task short_survey_questions_csv: :environment do
+  survey_items = SurveyItem.short_form_survey_items.all
+  SkippedQuestionsLoader.new(survey_items).generate('short_form_survey_items')
+  puts "CSV report of short survey item responses with removed stray responses is generated"
+end
 
-          
-          avg = sum.to_f/ nof_si
-        counts.each do |key, value|
-          if key[0] == sc.id && key[1] == ay.id
-            count = value.values.first
-            percentage_diff = ((count-avg) / avg) * 100
-            counts[key] = { count: count, percentage_diff: percentage_diff } 
-        end
-      end
-    end  end 
-    
-    counts.each do |key, value|
-      output_rows << [School.where(id:key[0]).pluck(:name) , AcademicYear.where(id:key[1]).pluck(:range) , SurveyItem.where(id:key[2]).pluck(:survey_item_id), SurveyItem.where(id:key[2]).pluck(:prompt), value[:count], value[:percentage_diff]]
-    end
-    
-    file = File.new('regular_survey_questions.csv', 'w')
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-    
-    file.close
-    puts "CSV report of regular survey item responses with removed stray responses.csv"
-  end
-
-  desc "Generate CSV report of short survey item responses"
-  task short_survey_questions_csv: :environment do
-    headers = ['School ID', 'Academic Year', 'Survey Item','Prompt', 'Count','Percentage_diff']
-    output_rows = []
-    counts={}
-    avg=0
-    temp=0
-    count_response_grades_not_in_grades=0
-    School.all.each do |sc|
-      AcademicYear.all.each do |ay|
-        if Respondent.where(school: sc,academic_year:ay).any?
-      grades_count=Respondent.where(school:sc,academic_year:ay).first.counts_by_grade
-      grades= grades_count.keys
-      else 
-       grades=[]
-      end
-        sum=0
-        nof_si=0
-        threshold=0
-        threshold = Respondent.where(school: sc, academic_year: ay).pluck(:total_students)
-        SurveyItem.short_form_items.all.each do |si|
-          c = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).group(:school_id).count
-          response_grades = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).pluck(:grade)
-          t = response_grades.count { |grade| !grades.include?(grade) }
-          count_response_grades_not_in_grades+=t
-          response_grades=[]
-           if c.any?
-            c[c.keys.first] = c.values.first - t
-          end
-
-           if threshold.any?
-          if c.any? && (c.values.first >= 10 || c.values.first > threshold.first/4)
-            counts[[sc.id, ay.id, si.id]] = c
-            sum+=c.values.first
-            nof_si+=1
-          end
-        end 
-        end
-
-          
-          avg = sum.to_f/ nof_si
-        counts.each do |key, value|
-          if key[0] == sc.id && key[1] == ay.id
-            count = value.values.first
-            percentage_diff = ((count-avg) / avg) * 100
-            counts[key] = { count: count, percentage_diff: percentage_diff } 
-        end
-      end
-    end  end 
-    
-    counts.each do |key, value|
-      output_rows << [School.where(id:key[0]).pluck(:name) , AcademicYear.where(id:key[1]).pluck(:range) , SurveyItem.where(id:key[2]).pluck(:survey_item_id), SurveyItem.where(id:key[2]).pluck(:prompt), value[:count], value[:percentage_diff]]
-    end
-    
-    file = File.new('short_survey_questions.csv', 'w')
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-    
-    file.close
-    puts "CSV report of short survey item responses with removed stray responses.csv"
-  end
-
-
-    desc "Generate CSV report of early_education_surveysitem responses"
-  task early_education_survey_questions_csv: :environment do
-    headers = ['School ID', 'Academic Year', 'Survey Item','Prompt', 'Count','Percentage_diff']
-    output_rows = []
-    counts={}
-    avg=0
-    temp=0
-    count_response_grades_not_in_grades=0
-    School.all.each do |sc|
-      AcademicYear.all.each do |ay|
-        if Respondent.where(school: sc,academic_year:ay).any?
-      grades_count=Respondent.where(school:sc,academic_year:ay).first.counts_by_grade
-      grades= grades_count.keys
-      else 
-       grades=[]
-      end
-        sum=0
-        nof_si=0
-        threshold=0
-        threshold = Respondent.where(school: sc, academic_year: ay).pluck(:total_students)
-        SurveyItem.early_education_surveys.all.each do |si|
-          c = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).group(:school_id).count
-          response_grades = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).pluck(:grade)
-          t = response_grades.count { |grade| !grades.include?(grade) }
-          count_response_grades_not_in_grades+=t
-          response_grades=[]
-           if c.any?
-            c[c.keys.first] = c.values.first - t
-          end
-
-           if threshold.any?
-          if c.any? && (c.values.first >= 10 || c.values.first > threshold.first/4)
-            counts[[sc.id, ay.id, si.id]] = c
-            sum+=c.values.first
-            nof_si+=1
-          end
-        end 
-        end
-
-          
-          avg = sum.to_f/ nof_si
-        counts.each do |key, value|
-          if key[0] == sc.id && key[1] == ay.id
-            count = value.values.first
-            percentage_diff = ((count-avg) / avg) * 100
-            counts[key] = { count: count, percentage_diff: percentage_diff } 
-        end
-      end
-     end end
-    
-    counts.each do |key, value|
-      output_rows << [School.where(id:key[0]).pluck(:name) , AcademicYear.where(id:key[1]).pluck(:range) , SurveyItem.where(id:key[2]).pluck(:survey_item_id), SurveyItem.where(id:key[2]).pluck(:prompt), value[:count], value[:percentage_diff]]
-    end
-    
-    file = File.new('early_education_surveys_questions.csv', 'w')
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-    
-    file.close
-    puts "CSV report of early_education_surveys items with removed stray responses.csv"
-  end
-
+desc "Generate CSV report of early_education_surveys item responses"
+task early_education_survey_questions_csv: :environment do
+  survey_items = SurveyItem.early_education_survey_items.all
+  SkippedQuestionsLoader.new(survey_items).generate('early_education_survey_items')
+  puts "CSV report of early education survey item responses with removed stray responses is generated"
+end
 
   desc "Generate CSV report of survey item responses"
   task stray_responses: :environment do
