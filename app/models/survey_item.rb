@@ -66,6 +66,38 @@ class SurveyItem < ActiveRecord::Base
     Summary.new(survey_item_id, prompt, true)
   end
 
+  def self.counts_by_survey_item(school:, academic_year:, survey_items:)
+    @counts_by_survey_item ||= Hash.new do |memo, (school, academic_year, survey_items)|
+      respondents = Respondent.find_by(school:, academic_year:)
+      next {} if respondents.nil?
+
+      grades = respondents.counts_by_grade.keys
+      threshold = 10
+      memo[[school, academic_year, survey_items]] =
+        SurveyItemResponse.where(school:, academic_year:, survey_item: survey_items, grade: grades)
+                          .group(:survey_item_id)
+                          .having("count(*) >= #{threshold}")
+                          .count
+    end
+    @counts_by_survey_item[[school, academic_year, survey_items]]
+  end
+
+  def self.average_count(school:, academic_year:, survey_items:)
+    @average_count ||= Hash.new do |memo, (school, academic_year, survey_items)|
+      memo[[school, academic_year, survey_items]] =
+        counts_by_survey_item(school:, academic_year:, survey_items:).values.average
+    end
+    @average_count[[school, academic_year, survey_items]]
+  end
+
+  def self.difference_from_mean(school:, academic_year:, survey_items:, survey_item_id:)
+    count = counts_by_survey_item(school:, academic_year:, survey_items:)[survey_item_id]
+    average = average_count(school:, academic_year:, survey_items:)
+    return nil if average.nil? || average.zero? || count.nil? || count.zero?
+
+    ((count - average) / average) * 100
+  end
+
   def self.survey_type(survey_item_ids:)
     survey_item_ids = survey_item_ids.to_set
     return :short_form if survey_item_ids.subset? short_form_survey_items.map(&:survey_item_id).to_set
