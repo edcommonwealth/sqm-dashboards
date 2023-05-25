@@ -140,7 +140,6 @@ describe 'District Admin', js: true do
     district_admin_sees_schools_change
 
     go_to_different_district(different_district)
-    page.driver.basic_authorize(different_district.short_name, "#{different_district.short_name}!")
     district_admin_sees_district_change
 
     go_to_different_year(ay_2019_20)
@@ -184,6 +183,7 @@ def go_to_different_school_in_same_district(school)
 end
 
 def go_to_different_district(district)
+  page.driver.basic_authorize(different_district.short_name, "#{different_district.short_name}!")
   select district.name, from: 'select-district'
 end
 
