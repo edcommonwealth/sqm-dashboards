@@ -117,7 +117,7 @@ class SurveyItemValues
     valid_duration? && valid_progress? && valid_grade? && valid_sd?
   end
 
-  def survey_type
+  def respondent_type
     return :teacher if headers
                        .filter(&:present?)
                        .filter { |header| header.start_with? 't-' }.count > 0
@@ -125,10 +125,20 @@ class SurveyItemValues
     :student
   end
 
+  def survey_type
+    survey_item_ids = headers
+                      .filter(&:present?)
+                      .filter { |header| header.start_with?('t-', 's-') }
+
+    SurveyItem.survey_type(survey_item_ids:)
+  end
+
   def valid_duration?
     return duration >= 300 if survey_type == :teacher
+    return duration >= 240 if survey_type == :standard
+    return duration >= 100 if survey_type == :short_form
 
-    duration >= 240
+    true
   end
 
   def valid_progress?
@@ -138,7 +148,7 @@ class SurveyItemValues
   def valid_grade?
     return true if grade.nil?
 
-    return true if survey_type == :teacher
+    return true if respondent_type == :teacher
 
     respondents = Respondent.where(school:, academic_year:).first
     if respondents.present? && respondents.counts_by_grade[grade].present?
