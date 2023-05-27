@@ -195,4 +195,16 @@ namespace :one_off do
     end
     Rails.cache.clear
   end
+
+  desc 'change dese id of Minot Forest Elementary School'
+  task change_dese_id: :environment do
+    school = School.find_by_name 'Minot Forest Elementary School'
+    school.dese_id = 310_001_799
+    school.save
+
+    school = School.find_by_name 'Wareham Elementary School'
+    school.slug = school.name.parameterize
+    school.dese_id = 310_001_7
+    school.save
+  end
 end
