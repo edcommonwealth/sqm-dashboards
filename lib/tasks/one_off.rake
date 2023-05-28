@@ -163,12 +163,9 @@ namespace :one_off do
     end
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset(academic_years:)
-    puts "=====================> Completed loading #{ResponseRate.count} response rates"
-
     puts 'Resetting race scores'
-    RaceScoreLoader.reset(fast_processing: false, academic_years:)
+    RaceScoreLoader.reset(fast_processing: true, academic_years:, schools: District.find_by_name('Wareham').schools,
+                          academic_years:)
     puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     District.all.each do |district|
