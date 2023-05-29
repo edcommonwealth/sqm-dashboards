@@ -4,19 +4,15 @@ require 'csv'
 
 class StaffingLoader
   def self.load_data(filepath:)
-    schools = []
     respondents = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = StaffingRowValues.new(row:)
       next unless row.school.present? && row.academic_year.present?
 
-      schools << row.school
-
       respondents << create_staffing_entry(row:)
     end
 
     Respondent.import respondents, batch_size: 1000, on_duplicate_key_update: [:total_teachers]
-    Respondent.where.not(school: schools).destroy_all
   end
 
   def self.clone_previous_year_data

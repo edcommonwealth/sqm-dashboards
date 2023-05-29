@@ -7,4 +7,6 @@ seeder.seed_districts_and_schools Rails.root.join('data', 'master_list_of_school
 seeder.seed_sqm_framework Rails.root.join('data', 'sqm_framework.csv')
 seeder.seed_demographics Rails.root.join('data', 'demographics.csv')
 seeder.seed_enrollment Rails.root.join('data', 'enrollment', 'enrollment.csv')
+seeder.seed_enrollment Rails.root.join('data', 'enrollment', 'nj_enrollment.csv')
 seeder.seed_staffing Rails.root.join('data', 'staffing', 'staffing.csv')
+seeder.seed_staffing Rails.root.join('data', 'staffing', 'nj_staffing.csv')

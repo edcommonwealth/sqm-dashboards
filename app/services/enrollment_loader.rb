@@ -4,14 +4,10 @@ require 'csv'
 
 class EnrollmentLoader
   def self.load_data(filepath:)
-    schools = []
     enrollments = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = EnrollmentRowValues.new(row:)
-
       next unless row.school.present? && row.academic_year.present?
-
-      schools << row.school
 
       enrollments << create_enrollment_entry(row:)
     end
@@ -19,8 +15,6 @@ class EnrollmentLoader
     # It's possible that instead of updating all columns on duplicate key, we could just update the student columns and leave total_teachers alone. Right now enrollment data loads before staffing data so it works correctly.
     Respondent.import enrollments, batch_size: 1000,
                                    on_duplicate_key_update: %i[pk k one two three four five six seven eight nine ten eleven twelve total_students]
-
-    Respondent.where.not(school: schools).destroy_all
   end
 
   private
@@ -126,6 +120,6 @@ class EnrollmentRowValues
   end
 
   def total_students
-    row['Total'].gsub(',', '').to_i
+    row['Total'].delete(',').to_i
   end
 end
