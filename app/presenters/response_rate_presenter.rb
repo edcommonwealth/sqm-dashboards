@@ -27,6 +27,10 @@ class ResponseRatePresenter
     percentage > 75 ? '#49416D' : '#FFC857'
   end
 
+  def hover_message
+    "Percentages based on #{ actual_count } out of #{ respondents_count.round } #{ focus }s completing at least 25% of the survey."
+  end
+
   private
 
   def cap_at_100(value)
