@@ -85,7 +85,12 @@ RSpec.describe SurveyItemValues, type: :model do
     it 'returns the recorded date' do
       row = { 'RecordedDate' => '2017-01-01' }
       values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-      expect(values.response_date).to eq Date.parse('2017-01-01')
+      expect(values.recorded_date).to eq Date.parse('2017-01-01')
+
+      headers = ['Recorded Date']
+      row = { 'Recorded Date' => '2017-01-02' }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.recorded_date).to eq Date.parse('2017-01-02')
     end
   end
 
