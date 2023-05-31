@@ -1,4 +1,10 @@
-<div class="overall-response-rate-container">
+<div 
+  class="overall-response-rate-container"
+  data-bs-toggle="popover" 
+  data-bs-trigger="hover focus" 
+  data-bs-content="<%= response_rate_presenter.hover_message %>"
+  data-bs-placement="top"
+>
   <div>Response Rates as of <%= response_rate_presenter.date.to_date.strftime("%m/%d/%y") %> </div>
   <div style="display: flex; justify-content:space-between; width: 100px;">
   <div><%= response_rate_presenter.focus.capitalize %> </div>
