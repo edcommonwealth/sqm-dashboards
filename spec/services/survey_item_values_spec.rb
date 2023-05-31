@@ -80,7 +80,8 @@ RSpec.describe SurveyItemValues, type: :model do
     end
     (survey_item_ids << common_headers).flatten
   end
-  context '.response_date' do
+
+  context '.recorded_date' do
     it 'returns the recorded date' do
       row = { 'RecordedDate' => '2017-01-01' }
       values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
@@ -160,7 +161,6 @@ RSpec.describe SurveyItemValues, type: :model do
       end
     end
   end
-
   context '.valid_duration' do
     context 'when duration is valid' do
       it 'returns true' do
