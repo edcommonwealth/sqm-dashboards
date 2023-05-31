@@ -102,7 +102,7 @@ RSpec.describe Cleaner do
           filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
             headers: standard_survey_items, data:
           )
-          expect(filename).to eq 'District1.standard.2022-23.csv'
+          expect(filename).to eq 'district1.standard.2022-23.csv'
         end
 
         context 'when the file is based on short form survey items' do
@@ -114,7 +114,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: short_form_survey_items, data:
             )
-            expect(filename).to eq 'District1.short_form.2022-23.csv'
+            expect(filename).to eq 'district1.short_form.2022-23.csv'
           end
         end
 
@@ -127,7 +127,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:
             )
-            expect(filename).to eq 'District1.early_education.2022-23.csv'
+            expect(filename).to eq 'district1.early_education.2022-23.csv'
           end
         end
         context 'when the file is based on teacher survey items' do
@@ -139,7 +139,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:
             )
-            expect(filename).to eq 'District1.teacher.2022-23.csv'
+            expect(filename).to eq 'district1.teacher.2022-23.csv'
           end
         end
 
@@ -153,7 +153,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:
             )
-            expect(filename).to eq 'District1.District2.teacher.2022-23.csv'
+            expect(filename).to eq 'district1.district2.teacher.2022-23.csv'
           end
         end
       end
