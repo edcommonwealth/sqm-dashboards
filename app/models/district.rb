@@ -14,4 +14,8 @@ class District < ApplicationRecord
   before_save do
     self.slug ||= name.parameterize
   end
+
+  def short_name
+    name.split(' ').first.downcase
+  end
 end
