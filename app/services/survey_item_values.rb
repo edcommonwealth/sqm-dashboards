@@ -125,6 +125,14 @@ class SurveyItemValues
     :student
   end
 
+  def survey_type
+    survey_item_ids = headers
+                      .filter(&:present?)
+                      .filter { |header| header.start_with?('t-', 's-') }
+
+    SurveyItem.survey_type(survey_item_ids:)
+  end
+
   def valid_duration?
     return true if duration.nil? || duration == '' || duration.downcase == 'n/a' || duration.downcase == 'na'
 
@@ -161,6 +169,8 @@ class SurveyItemValues
   end
 
   def valid_sd?
+    return true if survey_type == :early_education
+
     survey_item_headers = headers.filter(&:present?).filter { |header| header.start_with?('s-', 't-') }
     likert_scores = []
     survey_item_headers.each do |header|
