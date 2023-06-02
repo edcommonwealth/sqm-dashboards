@@ -110,7 +110,7 @@ class SurveyItemValues
   end
 
   def duration
-    @duration ||= value_from(pattern: /Duration|Duration \(in seconds\)|Duration\.\.\(in\.seconds\)/i).to_i
+    @duration ||= value_from(pattern: /Duration|Duration \(in seconds\)|Duration\.\.\(in\.seconds\)/i)
   end
 
   def valid?
@@ -134,15 +134,22 @@ class SurveyItemValues
   end
 
   def valid_duration?
-    return duration >= 300 if survey_type == :teacher
-    return duration >= 240 if survey_type == :standard
-    return duration >= 100 if survey_type == :short_form
+    return true if duration.nil? || duration == '' || duration.downcase == 'n/a' || duration.downcase == 'na'
+
+    span_in_seconds = duration.to_i
+    return span_in_seconds >= 300 if survey_type == :teacher
+    return span_in_seconds >= 240 if survey_type == :standard
+    return span_in_seconds >= 100 if survey_type == :short_form
 
     true
   end
 
   def valid_progress?
-    row['Progress'].to_i >= 25
+    progress = row['Progress']
+    return true if progress.nil? || progress == '' || progress.downcase == 'n/a' || progress.downcase == 'na'
+
+    progress = progress.to_i
+    progress.to_i >= 25
   end
 
   def valid_grade?

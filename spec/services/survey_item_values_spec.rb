@@ -178,6 +178,27 @@ RSpec.describe SurveyItemValues, type: :model do
         values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '300' }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
+
+        headers = short_form_survey_items
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '100' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_duration?).to eq true
+
+        # When duration is blank or N/A or NA, we don't have enough information to kick out the row as invalid so we keep it in
+        headers = short_form_survey_items
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_duration?).to eq true
+
+        headers = short_form_survey_items
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => 'N/A' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_duration?).to eq true
+
+        headers = short_form_survey_items
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => 'NA' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_duration?).to eq true
       end
     end
 
@@ -205,6 +226,22 @@ RSpec.describe SurveyItemValues, type: :model do
       it 'returns true' do
         headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
         values = SurveyItemValues.new(row: { 'Progress' => '25' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_progress?).to eq true
+
+        # When progress is blank or N/A or NA, we don't have enough information to kick out the row as invalid so we keep it in
+        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
+        values = SurveyItemValues.new(row: { 'Progress' => '' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_progress?).to eq true
+
+        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
+        values = SurveyItemValues.new(row: { 'Progress' => 'N/A' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_progress?).to eq true
+
+        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
+        values = SurveyItemValues.new(row: { 'Progress' => 'NA' }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_progress?).to eq true
       end
