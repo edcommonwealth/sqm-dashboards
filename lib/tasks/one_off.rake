@@ -5,10 +5,10 @@ namespace :one_off do
 
     qualtrics_schools = {}
 
-    csv_file = Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    csv_file = Rails.root.join("data", "master_list_of_schools_and_districts.csv")
     CSV.parse(File.read(csv_file), headers: true) do |row|
-      district_id = row['District Code'].to_i
-      school_id = row['School Code'].to_i
+      district_id = row["District Code"].to_i
+      school_id = row["School Code"].to_i
 
       if qualtrics_schools[[district_id, school_id]].present?
         puts "Duplicate entry row #{row}"
@@ -24,14 +24,14 @@ namespace :one_off do
       end
 
       if school.nil?
-        school_name = csv_row['School Name'].strip
+        school_name = csv_row["School Name"].strip
         puts "Could not find school '#{school_name}' with district id: #{district_id}, school id: #{school_id}"
-        potential_school_ids = School.where('name like ?', "%#{school_name}%").map(&:id)
+        potential_school_ids = School.where("name like ?", "%#{school_name}%").map(&:id)
         puts "Potential ID matches: #{potential_school_ids}" if potential_school_ids.present?
         next
       end
 
-      school.update!(dese_id: csv_row['DESE School ID'])
+      school.update!(dese_id: csv_row["DESE School ID"])
       updated_schools << school.id
     end
 
@@ -40,63 +40,63 @@ namespace :one_off do
     end
   end
 
-  desc 'load a single file'
+  desc "load a single file"
   task load_single_file: :environment do
-    filepath = Rails.root.join('data', 'survey_responses',
-                               '2021-22_revere_somerville_wareham_student_survey_responses.csv')
+    filepath = Rails.root.join("data", "survey_responses",
+      "2021-22_revere_somerville_wareham_student_survey_responses.csv")
     puts "=====================> Loading data from csv at path: #{filepath}"
     SurveyResponsesDataLoader.load_data(filepath:)
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-    puts 'Resetting response rates'
+    puts "Resetting response rates"
     ResponseRateLoader.reset
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
-  desc 'load butler results for 2021-22'
+  desc "load butler results for 2021-22"
   task load_butler: :environment do
-    ['2022-23_butler_student_survey_responses.csv',
-     '2022-23_butler_teacher_survey_responses.csv'].each do |filepath|
-      filepath = Rails.root.join('data', 'survey_responses', filepath)
+    ["2022-23_butler_student_survey_responses.csv",
+      "2022-23_butler_teacher_survey_responses.csv"].each do |filepath|
+      filepath = Rails.root.join("data", "survey_responses", filepath)
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
     end
-    puts 'Resetting response rates'
+    puts "Resetting response rates"
     ResponseRateLoader.reset
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
-  desc 'load winchester results for 2021-22'
+  desc "load winchester results for 2021-22"
   task load_winchester: :environment do
-    ['2021-22_winchester_student_survey_responses.csv',
-     '2021-22_winchester_teacher_survey_responses.csv'].each do |filepath|
-      filepath = Rails.root.join('data', 'survey_responses', filepath)
+    ["2021-22_winchester_student_survey_responses.csv",
+      "2021-22_winchester_teacher_survey_responses.csv"].each do |filepath|
+      filepath = Rails.root.join("data", "survey_responses", filepath)
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
     end
-    puts 'Resetting response rates'
+    puts "Resetting response rates"
     ResponseRateLoader.reset
     puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
-  desc 'load students'
+  desc "load students"
   task load_students: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '2021-22_*student*.csv')).each do |file|
+    Dir.glob(Rails.root.join("data", "survey_responses", "2021-22_*student*.csv")).each do |file|
       puts "=====================> Loading student data from csv at path: #{file}"
       StudentLoader.load_data filepath: file
     end
     puts "=====================> Completed loading #{Student.count} survey responses"
   end
 
-  desc 'reset race score calculations'
+  desc "reset race score calculations"
   task reset_race_scores_2021: :environment do
-    puts 'Resetting race scores'
-    academic_years = [AcademicYear.find_by_range('2021-22')]
+    puts "Resetting race scores"
+    academic_years = [AcademicYear.find_by_range("2021-22")]
     RaceScoreLoader.reset(academic_years:, fast_processing: true)
     Rails.cache.clear
     puts "=====================> Completed loading #{RaceScore.count} race scores"
   end
 
-  desc 'list scales that have no survey responses'
+  desc "list scales that have no survey responses"
   task list_scales_that_lack_survey_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
       Scale.all.map do |scale|
@@ -104,17 +104,17 @@ namespace :one_off do
       end
     end
 
-    output = output.map { |year| year.reject { |scale| scale[2] > 0 || scale[1].starts_with?('a-') } }
+    output = output.map { |year| year.reject { |scale| scale[2] > 0 || scale[1].starts_with?("a-") } }
     pp output
   end
 
-  desc 'list survey_items that have no survey responses by district'
+  desc "list survey_items that have no survey responses by district"
   task list_survey_items_that_lack_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
       District.all.map do |district|
         SurveyItem.all.map do |survey_item|
           [academic_year.range, survey_item.survey_item_id,
-           survey_item.survey_item_responses.joins(:school).where("school.district": district, academic_year:).count, district.name]
+            survey_item.survey_item_responses.joins(:school).where("school.district": district, academic_year:).count, district.name]
         end
       end
     end
@@ -122,14 +122,14 @@ namespace :one_off do
     output = output.map do |year|
       year.map do |district|
         district.reject do |survey_item|
-          survey_item[2] > 0 || survey_item[1].starts_with?('a-')
+          survey_item[2] > 0 || survey_item[1].starts_with?("a-")
         end
       end
     end
     pp output
   end
 
-  desc 'list the most recent admin data values'
+  desc "list the most recent admin data values"
   task list_recent_admin_data_values: :environment do
     range = 4.weeks.ago..1.second.ago
     values = AdminDataValue.where(updated_at: range).group(:admin_data_item).count.map do |item|
@@ -138,7 +138,7 @@ namespace :one_off do
     puts values
   end
 
-  desc 'delete survey item responses for 2016-2018'
+  desc "delete survey item responses for 2016-2018"
   task delete_survey_responses_2016_18: :environment do
     academic_years = AcademicYear.where(range: %w[2016-17 2017-18])
     response_count = SurveyItemResponse.where(academic_year: academic_years).count
@@ -146,13 +146,13 @@ namespace :one_off do
     puts "Deleted #{response_count} survey item responses"
   end
 
-  desc 'load survey responses for 2022-23'
+  desc "load survey responses for 2022-23"
   task load_survey_responses_2022_23: :environment do
     survey_item_response_count = SurveyItemResponse.count
-    academic_year = AcademicYear.find_by_range '2022-23'
+    academic_year = AcademicYear.find_by_range "2022-23"
     academic_years = [academic_year]
     student_count = Student.count
-    path = '/data/survey_responses/2022_23'
+    path = "/data/survey_responses/2022_23"
     Sftp::Directory.open(path:) do |file|
       SurveyResponsesDataLoader.from_file(file:)
     end
@@ -163,25 +163,24 @@ namespace :one_off do
     end
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
-    puts 'Resetting race scores'
-    RaceScoreLoader.reset(fast_processing: true, academic_years:, schools: District.find_by_name('Wareham').schools,
-                          academic_years:)
+    puts "Resetting race scores"
+    RaceScoreLoader.reset(fast_processing: true, academic_years:, schools: District.find_by_name("Wareham").schools)
     puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     District.all.each do |district|
       num_of_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
-                                                                             "schools.district": district).pluck(:response_id).uniq.count
+        "schools.district": district).pluck(:response_id).uniq.count
       teacher_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
-                                                                              survey_item: SurveyItem.where('survey_item_id like ? ', 't-%'), "schools.district": district).pluck(:response_id).uniq.count
+        survey_item: SurveyItem.where("survey_item_id like ? ", "t-%"), "schools.district": district).pluck(:response_id).uniq.count
       student_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
-                                                                              survey_item: SurveyItem.where('survey_item_id like ? ', 's-%'), "schools.district": district).pluck(:response_id).uniq.count
+        survey_item: SurveyItem.where("survey_item_id like ? ", "s-%"), "schools.district": district).pluck(:response_id).uniq.count
 
       response_count = SurveyItemResponse.joins(school: :district).where(academic_year:,
-                                                                         "schools.district": district).count
+        "schools.district": district).count
       student_response_count = SurveyItemResponse.joins(school: :district).joins(:survey_item).where(academic_year:,
-                                                                                                     survey_item: SurveyItem.where('survey_item_id like ? ', 's-%'), "schools.district": district).count
+        survey_item: SurveyItem.where("survey_item_id like ? ", "s-%"), "schools.district": district).count
       teacher_response_count = SurveyItemResponse.joins(school: :district).joins(:survey_item).where(academic_year:,
-                                                                                                     survey_item: SurveyItem.where('survey_item_id like ? ', 't-%'), "schools.district": district).count
+        survey_item: SurveyItem.where("survey_item_id like ? ", "t-%"), "schools.district": district).count
       puts "#{district.name} has #{num_of_respondents} respondents"
       puts "#{district.name} has #{teacher_respondents} teacher respondents"
       puts "#{district.name} has #{student_respondents} student respondents"
@@ -193,13 +192,13 @@ namespace :one_off do
     Rails.cache.clear
   end
 
-  desc 'change dese id of Minot Forest Elementary School'
+  desc "change dese id of Minot Forest Elementary School"
   task change_dese_id: :environment do
-    school = School.find_by_name 'Minot Forest Elementary School'
+    school = School.find_by_name "Minot Forest Elementary School"
     school.dese_id = 310_001_799
     school.save
 
-    school = School.find_by_name 'Wareham Elementary School'
+    school = School.find_by_name "Wareham Elementary School"
     school.slug = school.name.parameterize
     school.dese_id = 310_001_7
     school.save
