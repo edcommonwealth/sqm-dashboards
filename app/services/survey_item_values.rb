@@ -169,6 +169,8 @@ class SurveyItemValues
   end
 
   def valid_sd?
+    return true if survey_type == :early_education
+
     survey_item_headers = headers.filter(&:present?).filter { |header| header.start_with?('s-', 't-') }
     likert_scores = []
     survey_item_headers.each do |header|
