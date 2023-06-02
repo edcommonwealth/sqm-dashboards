@@ -51,7 +51,7 @@ class SurveyItemValues
   def dese_id
     @dese_id ||= begin
       dese_id = nil
-      dese_headers = ['DESE ID', 'Dese ID', 'DeseId', 'DeseID', 'School', 'school']
+      dese_headers = ["DESE ID", "Dese ID", "DeseId", "DeseID", "School", "school"]
       school_headers = headers.select { |header| /School-\s\w/.match(header) }
       dese_headers << school_headers
       dese_headers.flatten.each do |header|
@@ -110,7 +110,7 @@ class SurveyItemValues
   end
 
   def duration
-    @duration ||= value_from(pattern: /Duration|Duration \(in seconds\)|Duration\.\.\(in\.seconds\)/i).to_i
+    @duration ||= value_from(pattern: /Duration|Duration \(in seconds\)|Duration\.\.\(in\.seconds\)/i)
   end
 
   def valid?
@@ -119,30 +119,37 @@ class SurveyItemValues
 
   def respondent_type
     return :teacher if headers
-                       .filter(&:present?)
-                       .filter { |header| header.start_with? 't-' }.count > 0
+      .filter(&:present?)
+      .filter { |header| header.start_with? "t-" }.count > 0
 
     :student
   end
 
   def survey_type
     survey_item_ids = headers
-                      .filter(&:present?)
-                      .filter { |header| header.start_with?('t-', 's-') }
+      .filter(&:present?)
+      .filter { |header| header.start_with?("t-", "s-") }
 
     SurveyItem.survey_type(survey_item_ids:)
   end
 
   def valid_duration?
-    return duration >= 300 if survey_type == :teacher
-    return duration >= 240 if survey_type == :standard
-    return duration >= 100 if survey_type == :short_form
+    return true if duration.nil? || duration == "" || duration.downcase == "n/a" || duration.downcase == "na"
+
+    span_in_seconds = duration.to_i
+    return span_in_seconds >= 300 if survey_type == :teacher
+    return span_in_seconds >= 240 if survey_type == :standard
+    return span_in_seconds >= 100 if survey_type == :short_form
 
     true
   end
 
   def valid_progress?
-    row['Progress'].to_i >= 25
+    progress = row["Progress"]
+    return true if progress.nil? || progress == "" || progress.downcase == "n/a" || progress.downcase == "na"
+
+    progress = progress.to_i
+    progress.to_i >= 25
   end
 
   def valid_grade?
@@ -162,7 +169,7 @@ class SurveyItemValues
   end
 
   def valid_sd?
-    survey_item_headers = headers.filter(&:present?).filter { |header| header.start_with?('s-', 't-') }
+    survey_item_headers = headers.filter(&:present?).filter { |header| header.start_with?("s-", "t-") }
     likert_scores = []
     survey_item_headers.each do |header|
       likert_scores << likert_score(survey_item_id: header).to_i
@@ -180,9 +187,9 @@ class SurveyItemValues
   private
 
   def copy_likert_scores_from_variant_survey_items
-    headers.filter(&:present?).filter { |header| header.end_with? '-1' }.each do |header|
+    headers.filter(&:present?).filter { |header| header.end_with? "-1" }.each do |header|
       likert_score = row[header]
-      main_item = header.gsub('-1', '')
+      main_item = header.gsub("-1", "")
       row[main_item] = likert_score if likert_score.present?
     end
   end
@@ -192,7 +199,7 @@ module RowMonkeyPatches
   def remove_unwanted_columns
     to_h.filter do |key, _value|
       key.present?
-    end.reject { |key, _value| key.start_with? 'Q' }.reject { |key, _value| key.end_with? '-1' }.values
+    end.reject { |key, _value| key.start_with? "Q" }.reject { |key, _value| key.end_with? "-1" }.values
   end
 end
 
