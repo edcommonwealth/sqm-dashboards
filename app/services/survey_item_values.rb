@@ -117,7 +117,7 @@ class SurveyItemValues
     valid_duration? && valid_progress? && valid_grade? && valid_sd?
   end
 
-  def survey_type
+  def respondent_type
     return :teacher if headers
                        .filter(&:present?)
                        .filter { |header| header.start_with? 't-' }.count > 0

@@ -1,15 +1,71 @@
+require 'csv'
+
 namespace :data do
   desc 'load survey responses'
   task load_survey_responses: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    path = '/data/survey_responses/clean/'
+    Sftp::Directory.open(path:) do |file|
+      SurveyResponsesDataLoader.from_file(file:)
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
 
     puts 'Resetting response rates'
     ResponseRateLoader.reset
     puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false)
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+
+    Rails.cache.clear
+  end
+
+  desc 'seed only lowell'
+  task seed_only_lowell: :environment do
+    seeder = Seeder.new rules: [Rule::SeedOnlyLowell]
+
+    seeder.seed_academic_years '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23'
+    seeder.seed_districts_and_schools Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_surveys Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_respondents Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    seeder.seed_sqm_framework Rails.root.join('data', 'sqm_framework.csv')
+    seeder.seed_demographics Rails.root.join('data', 'demographics.csv')
+  end
+
+  desc 'load survey responses for lowell schools'
+  task load_survey_responses_for_lowell: :environment do
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    path = '/data/survey_responses/clean/'
+    Sftp::Directory.open(path:) do |file|
+      SurveyResponsesDataLoader.from_file(file:)
+    end
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
+
+    Sftp::Directory.open(path:) do |file|
+      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
+
+    puts 'Resetting race scores'
+    RaceScoreLoader.reset(fast_processing: false)
+    puts "=====================> Completed loading #{RaceScore.count} race scores"
+
+    Rails.cache.clear
+  end
+
+  desc 'load students for lowell'
+  task load_students_for_lowell: :environment do
+    SurveyItemResponse.update_all(student_id: nil)
+    StudentRace.delete_all
+    Student.delete_all
+
+    Sftp::Directory.open(path: '/data/survey_responses/clean/') do |file|
+      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts 'Resetting race scores'
     RaceScoreLoader.reset(fast_processing: false)
@@ -152,12 +208,12 @@ namespace :data do
 
   desc 'load admin_data'
   task load_admin_data: :environment do
-    AdminDataValue.delete_all
+    original_count = AdminDataValue.count
     Dir.glob(Rails.root.join('data', 'admin_data', 'dese', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
       Dese::Loader.load_data filepath:
     end
-    puts "=====================> Completed loading #{AdminDataValue.count} survey responses"
+    puts "=====================> Completed loading #{AdminDataValue.count - original_count} admin data values"
   end
 
   desc 'load students'

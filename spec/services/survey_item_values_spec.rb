@@ -27,6 +27,60 @@ RSpec.describe SurveyItemValues, type: :model do
     create(:academic_year, range: '2022-23')
   end
 
+  let(:common_headers) do
+    ['Recorded Date', 'DeseID', 'ResponseID', 'Duration (in seconds)', 'Gender', 'Grade']
+  end
+
+  let(:standard_survey_items) do
+    survey_item_ids = %w[s-peff-q1 s-peff-q2 s-peff-q3 s-peff-q4 s-peff-q5 s-peff-q6 s-phys-q1 s-phys-q2 s-phys-q3 s-phys-q4
+                         s-emsa-q1 s-emsa-q2 s-emsa-q3 s-sbel-q1 s-sbel-q2 s-sbel-q3 s-sbel-q4 s-sbel-q5 s-tint-q1 s-tint-q2
+                         s-tint-q3 s-tint-q4 s-tint-q5 s-vale-q1 s-vale-q2 s-vale-q3 s-vale-q4 s-acpr-q1 s-acpr-q2 s-acpr-q3
+                         s-acpr-q4 s-sust-q1 s-sust-q2 s-cure-q1 s-cure-q2 s-cure-q3 s-cure-q4 s-sten-q1 s-sten-q2 s-sten-q3
+                         s-sper-q1 s-sper-q2 s-sper-q3 s-sper-q4 s-civp-q1 s-civp-q2 s-civp-q3 s-civp-q4 s-grit-q1 s-grit-q2
+                         s-grit-q3 s-grit-q4 s-grmi-q1 s-grmi-q2 s-grmi-q3 s-grmi-q4 s-expa-q1 s-appa-q1 s-appa-q2 s-appa-q3
+                         s-acst-q1 s-acst-q2 s-acst-q3 s-poaf-q1 s-poaf-q2 s-poaf-q3 s-poaf-q4]
+    survey_item_ids.map do |survey_item_id|
+      create(:survey_item, survey_item_id:)
+    end
+    (survey_item_ids << common_headers).flatten
+  end
+
+  let(:short_form_survey_items) do
+    survey_item_ids = [create(:survey_item, survey_item_id: 's-phys-q1', on_short_form: true),
+                       create(:survey_item, survey_item_id: 's-phys-q2', on_short_form: true),
+                       create(:survey_item, survey_item_id: 's-phys-q3',
+                                            on_short_form: true)].map(&:survey_item_id)
+    survey_item_ids.map do |survey_item_id|
+      create(:survey_item, survey_item_id:)
+    end
+    (survey_item_ids << common_headers).flatten
+  end
+
+  let(:early_education_survey_items) do
+    survey_item_ids = [create(:survey_item, survey_item_id: 's-emsa-es1'),
+                       create(:survey_item, survey_item_id: 's-emsa-es2'),
+                       create(:survey_item, survey_item_id: 's-emsa-es3')].map(&:survey_item_id)
+    survey_item_ids.map do |survey_item_id|
+      create(:survey_item, survey_item_id:)
+    end
+    (survey_item_ids << common_headers).flatten
+  end
+
+  let(:teacher_survey_items) do
+    survey_item_ids = %w[t-prep-q1 t-prep-q2 t-prep-q3 t-ieff-q1 t-ieff-q2 t-ieff-q3 t-ieff-q4 t-pcom-q1 t-pcom-q2 t-pcom-q3
+                         t-pcom-q4 t-pcom-q5 t-inle-q1 t-inle-q2 t-inle-q3 t-prtr-q1 t-prtr-q2 t-prtr-q3 t-coll-q1 t-coll-q2
+                         t-coll-q3 t-qupd-q1 t-qupd-q2 t-qupd-q3 t-qupd-q4 t-pvic-q1 t-pvic-q2 t-pvic-q3 t-psup-q1 t-psup-q2
+                         t-psup-q3 t-psup-q4 t-acch-q1 t-acch-q2 t-acch-q3 t-reso-q1 t-reso-q2 t-reso-q3 t-reso-q4 t-reso-q5
+                         t-sust-q1 t-sust-q2 t-sust-q3 t-sust-q4 t-curv-q1 t-curv-q2 t-curv-q3 t-curv-q4 t-cure-q1 t-cure-q2
+                         t-cure-q3 t-cure-q4 t-peng-q1 t-peng-q2 t-peng-q3 t-peng-q4 t-ceng-q1 t-ceng-q2 t-ceng-q3 t-ceng-q4
+                         t-sach-q1 t-sach-q2 t-sach-q3 t-psol-q1 t-psol-q2 t-psol-q3 t-expa-q2 t-expa-q3 t-phya-q2 t-phya-q3]
+
+    survey_item_ids.map do |survey_item_id|
+      create(:survey_item, survey_item_id:)
+    end
+    (survey_item_ids << common_headers).flatten
+  end
+
   context '.recorded_date' do
     it 'returns the recorded date' do
       row = { 'RecordedDate' => '2017-01-01' }
@@ -43,18 +97,11 @@ RSpec.describe SurveyItemValues, type: :model do
   context '.school' do
     it 'returns the school that maps to the dese id provided' do
       attleboro
-      headers = ['Dese ID']
       row = { 'Dese ID' => '1234' }
       values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
       expect(values.school).to eq attleboro
 
-      headers = ['School']
-      row = { 'School' => '1234' }
-      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-      expect(values.school).to eq attleboro
-
-      headers = ['School- Attleboro']
-      row = { 'School- Attleboro' => '1234' }
+      row = { 'DeseID' => '1234' }
       values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
       expect(values.school).to eq attleboro
     end
@@ -67,7 +114,6 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.grade).to eq 1
     end
   end
-
   context '.gender' do
     it 'returns the grade that maps to the grade provided' do
       row = { 'Gender' => '1' }
@@ -76,40 +122,60 @@ RSpec.describe SurveyItemValues, type: :model do
     end
   end
 
-  context '.dese_id' do
-    it 'returns the dese id for the id provided' do
-      headers = ['Dese ID']
-      row = { 'Dese ID' => '11' }
-      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-      expect(values.dese_id).to eq 11
-      headers = ['School']
-      row = { 'School' => '22' }
-      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-      expect(values.dese_id).to eq 22
+  context '.respondent_type' do
+    it 'reads header to find the survey type' do
+      headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
+      values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+      expect(values.respondent_type).to eq :student
+
+      headers = %w[t-sbel-q5 t-phys-q2]
+      values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+      expect(values.respondent_type).to eq :teacher
     end
   end
 
   context '.survey_type' do
-    it 'reads header to find the survey type' do
-      headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-      values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
-      expect(values.survey_type).to eq :student
+    context 'when survey type is standard form' do
+      it 'returns the survey type' do
+        headers = standard_survey_items
+        values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+        expect(values.survey_type).to eq :standard
+      end
+    end
+    context 'when survey type is teacher form' do
+      it 'returns the survey type' do
+        headers = teacher_survey_items
+        values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+        expect(values.survey_type).to eq :teacher
+      end
+    end
 
-      headers = %w[t-sbel-q5 t-phys-q2]
-      values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
-      expect(values.survey_type).to eq :teacher
+    context 'when survey type is short form' do
+      it 'returns the survey type' do
+        headers = short_form_survey_items
+        values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+        expect(values.survey_type).to eq :short_form
+      end
+    end
+
+    context 'when survey type is early education' do
+      it 'returns the survey type' do
+        headers = early_education_survey_items
+        values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:)
+        expect(values.survey_type).to eq :early_education
+      end
     end
   end
 
   context '.valid_duration' do
     context 'when duration is valid' do
       it 'returns true' do
-        headers = ['s-sbel-q5', 's-phys-q2', 'RecordedDate', 'Duration (in seconds)']
-        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '240' }, headers:, genders:, survey_items:,
+        headers = standard_survey_items
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '240', 'Gender' => 'Male' }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
 
-        headers = ['t-sbel-q5', 't-phys-q2', 'Duration (in seconds)']
+        headers = teacher_survey_items
         values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '300' }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
@@ -139,13 +205,17 @@ RSpec.describe SurveyItemValues, type: :model do
 
     context 'when duration is invalid' do
       it 'returns false' do
-        headers = ['s-sbel-q5', 's-phys-q2', 'RecordedDate', 'Duration (in seconds)']
+        headers = standard_survey_items
         values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '239' }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq false
 
-        headers = ['t-sbel-q5', 't-phys-q2', 'Duration (in seconds)']
+        headers = teacher_survey_items
         values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '299' }, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.valid_duration?).to eq false
+        headers = short_form_survey_items
+        values = SurveyItemValues.new(row: { 'Duration (in seconds)' => '99' }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq false
       end
@@ -188,7 +258,7 @@ RSpec.describe SurveyItemValues, type: :model do
     end
   end
 
-  xcontext '.valid_grade?' do
+  context '.valid_grade?' do
     context 'when grade is valid' do
       before :each do
         attleboro
@@ -201,7 +271,7 @@ RSpec.describe SurveyItemValues, type: :model do
 
         expect(values.valid_grade?).to eq true
       end
-      xit 'returns true for teachers' do
+      it 'returns true for teachers' do
         headers = %w[t-sbel-q5 t-phys-q2 grade RecordedDate]
         values = SurveyItemValues.new(row: { 'RecordedDate' => recorded_date, 'Dese ID' => '1234' }, headers:, genders:, survey_items:,
                                       schools:)
@@ -209,7 +279,7 @@ RSpec.describe SurveyItemValues, type: :model do
       end
     end
 
-    xcontext 'when grade is invalid' do
+    context 'when grade is invalid' do
       before :each do
         attleboro
         attleboro_respondents
@@ -242,13 +312,13 @@ RSpec.describe SurveyItemValues, type: :model do
     context 'when the standard deviation is invalid' do
       it 'returns false for student questions' do
         headers = %w[s-sbel-q5 s-phys-q1 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { 'RecordedDate' => recorded_date, 'Dese ID' => '1234', 's-sbel-q5' => '1', 's-phys-q2' => '', 's-phys-q3' => '1' }, headers:, genders:, survey_items:,
+        values = SurveyItemValues.new(row: { 'RecordedDate' => recorded_date, 'Dese ID' => '1234', 's-sbel-q5' => '1', 's-phys-q2' => '', 's-phys-q2' => '1' }, headers:, genders:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_sd?).to eq false
       end
       it 'returns false for teacher questions' do
         headers = %w[t-sbel-q5 t-phys-q1 t-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { 'RecordedDate' => recorded_date, 'Dese ID' => '1234', 't-sbel-q5' => '1', 't-phys-q2' => '', 't-phys-q3' => '1' }, headers:, genders:, survey_items:,
+        values = SurveyItemValues.new(row: { 'RecordedDate' => recorded_date, 'Dese ID' => '1234', 't-sbel-q5' => '1', 't-phys-q2' => '', 't-phys-q2' => '1' }, headers:, genders:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_sd?).to eq false
       end
