@@ -152,12 +152,12 @@ namespace :data do
 
   desc 'load admin_data'
   task load_admin_data: :environment do
-    AdminDataValue.delete_all
+    original_count = AdminDataValue.count
     Dir.glob(Rails.root.join('data', 'admin_data', 'dese', '*.csv')).each do |filepath|
       puts "=====================> Loading data from csv at path: #{filepath}"
       Dese::Loader.load_data filepath:
     end
-    puts "=====================> Completed loading #{AdminDataValue.count} survey responses"
+    puts "=====================> Completed loading #{AdminDataValue.count - original_count} admin data values"
   end
 
   desc 'load students'
