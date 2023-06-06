@@ -4,7 +4,7 @@ class SurveyResponsesDataLoader
   def self.load_data(filepath:, rules: [Rule::NoRule])
     File.open(filepath) do |file|
       headers = file.first
-      headers_array = headers.split(',')
+      headers_array = CSV.parse(headers).first
       genders_hash = genders
       all_survey_items = survey_items(headers:)
 
@@ -20,7 +20,7 @@ class SurveyResponsesDataLoader
 
   def self.from_file(file:, rules: [])
     headers = file.gets
-    headers_array = headers.split(',')
+    headers_array = CSV.parse(headers).first
     genders_hash = genders
     all_survey_items = survey_items(headers:)
 
@@ -98,9 +98,9 @@ class SurveyResponsesDataLoader
   end
 
   def self.get_survey_item_ids_from_headers(headers:)
-    headers.split(',')
-           .filter(&:present?)
-           .filter { |header| header.start_with? 't-', 's-' }
+    CSV.parse(headers).first
+       .filter(&:present?)
+       .filter { |header| header.start_with? 't-', 's-' }
   end
 
   private_class_method :process_row
