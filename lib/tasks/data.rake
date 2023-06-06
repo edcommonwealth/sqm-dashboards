@@ -85,54 +85,6 @@ namespace :data do
     districts.each { |district| district.delete }
   end
 
-  task load_survey_responses_21_22: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*2021-22*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-  end
-
-  task load_survey_responses_20_21: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*2020-21*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-  end
-
-  task load_survey_responses_19_20: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*2019-20*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-  end
-
-  task load_survey_responses_18_19: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*2018-19*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-  end
-
-  task load_survey_responses_17_18: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*2017-18*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-  end
-
-  task load_survey_responses_16_17: :environment do
-    Dir.glob(Rails.root.join('data', 'survey_responses', '*2016-17*.csv')).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
-  end
-
   desc 'reset response rate values'
   task reset_response_rates: :environment do
     puts 'Resetting response rates'
