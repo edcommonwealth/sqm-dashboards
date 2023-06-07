@@ -43,9 +43,11 @@ class Cleaner
           end
         end
 
-        filename = filename(headers:, data:)
-        write_csv(data: clean_csv, output_filepath:, filename:)
-        write_csv(data: log_csv, output_filepath: log_filepath, prefix: "removed.", filename:)
+        unless data.empty?
+          filename = filename(headers:, data:)
+          write_csv(data: clean_csv, output_filepath:, filename:)
+          write_csv(data: log_csv, output_filepath: log_filepath, prefix: "removed.", filename:)
+        end
       end
     end
   end
