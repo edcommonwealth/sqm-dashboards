@@ -2,7 +2,17 @@
 
 class StudentResponseRateCalculator < ResponseRateCalculator
   def raw_response_rate
-    rates_by_grade.length.positive? ? rates_by_grade.average : 0
+    rates_by_grade.values.length.positive? ? weighted_average : 0
+  end
+
+  def weighted_average
+    num_possible_responses = 0.0
+    rates_by_grade.keys.map do |grade|
+      num_possible_responses += enrollment_by_grade[grade]
+    end
+    rates_by_grade.map do |grade, rate|
+      rate * (enrollment_by_grade[grade] / num_possible_responses)
+    end.sum
   end
 
   def rates_by_grade
@@ -15,16 +25,20 @@ class StudentResponseRateCalculator < ResponseRateCalculator
         next nil
       end
 
-      cap_at_one_hundred(actual_response_count_for_grade / count_of_survey_items_with_sufficient_responses / num_of_students_in_grade * 100)
-    end.compact
+      [grade, actual_response_count_for_grade / count_of_survey_items_with_sufficient_responses / num_of_students_in_grade * 100]
+    end.compact.to_h
   end
 
   def enrollment_by_grade
     @enrollment_by_grade ||= respondents.counts_by_grade
   end
 
+  def total_enrollment
+    respondents.counts_by_grade.sum
+  end
+
   def survey_items_have_sufficient_responses?
-    rates_by_grade.length.positive?
+    rates_by_grade.values.length.positive?
   end
 
   def survey_items_with_sufficient_responses(grade:)
