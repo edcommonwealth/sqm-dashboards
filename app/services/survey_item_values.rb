@@ -128,6 +128,7 @@ class SurveyItemValues
   def survey_type
     survey_item_ids = headers
                       .filter(&:present?)
+                      .reject { |header| header.end_with?('-1') }
                       .filter { |header| header.start_with?('t-', 's-') }
 
     SurveyItem.survey_type(survey_item_ids:)
