@@ -159,6 +159,36 @@ describe ResponseRateCalculator, type: :model do
         end
       end
 
+      context 'when two grades have different numbers of students' do
+        before do
+          create(:respondent, school:, academic_year:, total_students: 60, one: 40, two: 20)
+          create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                 school:, grade: 1) # 50%
+          create_list(:survey_item_response, 15, survey_item: sufficient_student_survey_item_2, academic_year:,
+                                                 school:, grade: 2) # 75%
+        end
+        it 'weights the average response rate by the number of students in each grade' do
+          expect(StudentResponseRateCalculator.new(subcategory:, school:,
+                                                   academic_year:).rate).to be_within(0.01).of(58.333333)
+        end
+      end
+
+      context 'when three grades have different numbers of students' do
+        before do
+          create(:respondent, school:, academic_year:, total_students: 120, one: 40, two: 20, three: 60)
+          create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_1, academic_year:,
+                                                 school:, grade: 1) # 50%
+          create_list(:survey_item_response, 15, survey_item: sufficient_student_survey_item_2, academic_year:,
+                                                 school:, grade: 2) # 75%
+          create_list(:survey_item_response, 15, survey_item: sufficient_student_survey_item_2, academic_year:,
+                                                 school:, grade: 3) # 25%
+        end
+        it 'weights the average response rate by the number of students in each grade' do
+          expect(StudentResponseRateCalculator.new(subcategory:, school:,
+                                                   academic_year:).rate).to be_within(0.01).of(41.6666)
+        end
+      end
+
       context 'when one grade gets surveyed but another does not, the grade that does not get surveyed is not counted' do
         before do
           create(:respondent, school:, academic_year:, total_students: 20, one: 20, two: 20)
