@@ -2,12 +2,13 @@ module Report
   class Subcategory
     def self.create_report(schools: School.all, academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: 'subcategories.csv')
       data = []
-      data << ['School', 'Academic Year', 'Subcategory', 'Student Score', 'Student Zone', 'Teacher Score',
+      data << ['District', 'School', 'School Code', 'Academic Year', 'Grades', 'Subcategory', 'Student Score', 'Student Zone', 'Teacher Score',
                'Teacher Zone', 'Admin Score', 'Admin Zone', 'All Score (Average)', 'All Score Zone']
       schools.each do |school|
         academic_years.each do |academic_year|
           subcategories.each do |subcategory|
-            next if Respondent.where(school:, academic_year:).empty?
+            respondents = Respondent.find_by(school:, academic_year:)
+            next if respondents.nil?
 
             response_rate = subcategory.response_rate(school:, academic_year:)
             next unless response_rate.meets_student_threshold? || response_rate.meets_teacher_threshold?
@@ -16,8 +17,14 @@ module Report
             zone = subcategory.zone(school:, academic_year:).type.to_s.capitalize
 
             row = [response_rate, subcategory, school, academic_year]
-            data << [school.name,
+
+            all_grades = respondents.counts_by_grade.keys
+            grades = "#{all_grades.first}-#{all_grades.last}"
+            data << [school.district.name,
+                     school.name,
+                     school.dese_id,
                      academic_year.range,
+                     grades,
                      subcategory.subcategory_id,
                      student_score(row:),
                      student_zone(row:),
