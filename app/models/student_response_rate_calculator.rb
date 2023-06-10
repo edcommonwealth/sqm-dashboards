@@ -42,15 +42,18 @@ class StudentResponseRateCalculator < ResponseRateCalculator
   end
 
   def survey_items_with_sufficient_responses(grade:)
-    threshold = 10
-    quarter_of_grade = enrollment_by_grade[grade] / 4
-    threshold = threshold > quarter_of_grade ? quarter_of_grade : threshold
-    SurveyItem.joins('inner join survey_item_responses on  survey_item_responses.survey_item_id = survey_items.id')
-              .student_survey_items
-              .where("survey_item_responses.school": school, "survey_item_responses.academic_year": academic_year, "survey_item_responses.grade": grade, "survey_item_responses.survey_item_id": subcategory.survey_items.student_survey_items)
-              .group('survey_items.id')
-              .having("count(*) >= #{threshold}")
-              .count
+    @survey_items_with_sufficient_responses ||= Hash.new do |memo, grade|
+      threshold = 10
+      quarter_of_grade = enrollment_by_grade[grade] / 4
+      threshold = threshold > quarter_of_grade ? quarter_of_grade : threshold
+      memo[grade] = SurveyItem.joins('inner join survey_item_responses on  survey_item_responses.survey_item_id = survey_items.id')
+                              .student_survey_items
+                              .where("survey_item_responses.school": school, "survey_item_responses.academic_year": academic_year, "survey_item_responses.grade": grade, "survey_item_responses.survey_item_id": subcategory.survey_items.student_survey_items)
+                              .group('survey_items.id')
+                              .having("count(*) >= #{threshold}")
+                              .count
+    end
+    @survey_items_with_sufficient_responses[grade]
   end
 
   def survey_item_count(grade:)
