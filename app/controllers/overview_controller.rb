@@ -8,9 +8,9 @@ class OverviewController < SqmApplicationController
     @variance_chart_row_presenters = measures.map(&method(:presenter_for_measure))
     @category_presenters = Category.sorted.map { |category| CategoryPresenter.new(category:) }
     @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
-      academic_year: @academic_year)
+                                                                 academic_year: @academic_year)
     @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
-      academic_year: @academic_year)
+                                                                 academic_year: @academic_year)
   end
 
   private
@@ -29,7 +29,7 @@ class OverviewController < SqmApplicationController
   end
 
   def measures
-    @measures ||= Measure.all.includes(%i[scales admin_data_items category subcategory])
+    @measures ||= Measure.all.includes(%i[scales admin_data_items category subcategory survey_items])
   end
 
   def subcategories
