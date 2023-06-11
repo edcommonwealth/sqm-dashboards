@@ -25,7 +25,7 @@ class OverviewController < SqmApplicationController
   end
 
   def measures
-    @measures ||= Measure.all.includes(%i[scales admin_data_items category subcategory])
+    @measures ||= Measure.all.includes(%i[scales admin_data_items category subcategory survey_items])
   end
 
   def subcategories
