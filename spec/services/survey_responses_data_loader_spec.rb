@@ -73,7 +73,7 @@ describe SurveyResponsesDataLoader do
     s_vale_q4
     s_acst_q1
     s_acst_q2
-    s_acst_q3 # ./spec/services/survey_responses_data_loader_spec.rb:163:in `block (4 levels) in <top (required)>'
+    s_acst_q3
     s_acst_q4
     s_emsa_q1
     s_emsa_q2
