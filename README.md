@@ -251,6 +251,13 @@ Or to load it for the lowell dashboard specifically
 bundle exec rake data:seed_only_lowell
 ```
 
+
+### Upload cleaned data to SFTP
+You can upload cleaned lowell data to the SFTP server with
+```bash
+bundle exec rake upload:lowell
+```
+
 ## Running tests
 
 ### Single threaded test execution
