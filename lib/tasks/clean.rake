@@ -5,7 +5,8 @@ namespace :clean do
     input_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'raw')
     output_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'clean')
     log_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'removed')
-    Cleaner.new(input_filepath:, output_filepath:, log_filepath:).clean
+    disaggregation_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'disaggregation')
+    Cleaner.new(input_filepath:, output_filepath:, log_filepath:, disaggregation_filepath:).clean
   end
 
   desc 'clean prepped data'
@@ -13,14 +14,16 @@ namespace :clean do
     input_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'prepped')
     output_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'prepped', 'clean')
     log_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'prepped', 'removed')
-    Cleaner.new(input_filepath:, output_filepath:, log_filepath:).clean
+    disaggregation_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'disaggregation')
+    Cleaner.new(input_filepath:, output_filepath:, log_filepath:, disaggregation_filepath:).clean
   end
   desc 'clean mciea data'
   task mciea: :environment do
     input_filepath = Rails.root.join('tmp', 'data', 'mciea_data', 'raw')
     output_filepath = Rails.root.join('tmp', 'data', 'mciea_data', 'clean')
     log_filepath = Rails.root.join('tmp', 'data', 'mciea_data', 'removed')
-    Cleaner.new(input_filepath:, output_filepath:, log_filepath:).clean
+    disaggregation_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'disaggregation')
+    Cleaner.new(input_filepath:, output_filepath:, log_filepath:, disaggregation_filepath:).clean
   end
 
   desc 'clean rpp data'
@@ -28,6 +31,7 @@ namespace :clean do
     input_filepath = Rails.root.join('tmp', 'data', 'rpp_data', 'raw')
     output_filepath = Rails.root.join('tmp', 'data', 'rpp_data', 'clean')
     log_filepath = Rails.root.join('tmp', 'data', 'rpp_data', 'removed')
-    Cleaner.new(input_filepath:, output_filepath:, log_filepath:).clean
+    disaggregation_filepath = Rails.root.join('tmp', 'data', 'ecp_data', 'disaggregation')
+    Cleaner.new(input_filepath:, output_filepath:, log_filepath:, disaggregation_filepath:).clean
   end
 end
