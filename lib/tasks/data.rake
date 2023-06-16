@@ -11,9 +11,10 @@ namespace :data do
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
 
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset
-    puts "=====================> Completed loading #{ResponseRate.count} survey responses"
+    Sftp::Directory.open(path:) do |file|
+      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts 'Resetting race scores'
     RaceScoreLoader.reset(fast_processing: false)
