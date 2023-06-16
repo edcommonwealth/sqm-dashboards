@@ -246,6 +246,11 @@ Then to load it, run the seeder:
 bundle exec rake db:seed
 ```
 
+Or load it remotely on heroku
+```bash
+heroku run:detached -a mciea-beta bundle exec rake db:seed
+```
+
 Or to load it for the lowell dashboard specifically
 ```bash
 bundle exec rake data:seed_only_lowell
