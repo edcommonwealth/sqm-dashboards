@@ -5,6 +5,9 @@ class Subcategory < ActiveRecord::Base
 
   has_many :measures
   has_many :survey_items, through: :measures
+  has_many :admin_data_items, through: :measures
+  has_many :survey_items, through: :measures
+  has_many :scales, through: :measures
 
   def score(school:, academic_year:)
     measures.map do |measure|
