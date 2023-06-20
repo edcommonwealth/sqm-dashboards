@@ -9,6 +9,7 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :survey_item, counter_cache: true
   belongs_to :student, foreign_key: :student_id, optional: true
   belongs_to :gender
+  belongs_to :income
 
   has_one :measure, through: :survey_item
 
@@ -30,5 +31,10 @@ class SurveyItemResponse < ActiveRecord::Base
   scope :averages_for_income, lambda { |survey_items, school, academic_year, income|
     SurveyItemResponse.where(survey_item: survey_items, school:,
                              academic_year:, income:, grade: school.grades(academic_year:)).group(:survey_item).average(:likert_score)
+  }
+
+  scope :averages_for_income, lambda { |survey_items, school, academic_year, income|
+    SurveyItemResponse.where(survey_item: survey_items, school:,
+                             academic_year:, income:).group(:survey_item).average(:likert_score)
   }
 end

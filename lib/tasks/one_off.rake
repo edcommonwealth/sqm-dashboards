@@ -43,7 +43,7 @@ namespace :one_off do
   desc "load a single file"
   task load_single_file: :environment do
     filepath = Rails.root.join("data", "survey_responses",
-      "2021-22_revere_somerville_wareham_student_survey_responses.csv")
+                               "2021-22_revere_somerville_wareham_student_survey_responses.csv")
     puts "=====================> Loading data from csv at path: #{filepath}"
     SurveyResponsesDataLoader.load_data(filepath:)
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
@@ -55,7 +55,7 @@ namespace :one_off do
   desc "load butler results for 2021-22"
   task load_butler: :environment do
     ["2022-23_butler_student_survey_responses.csv",
-      "2022-23_butler_teacher_survey_responses.csv"].each do |filepath|
+     "2022-23_butler_teacher_survey_responses.csv"].each do |filepath|
       filepath = Rails.root.join("data", "survey_responses", filepath)
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
@@ -68,7 +68,7 @@ namespace :one_off do
   desc "load winchester results for 2021-22"
   task load_winchester: :environment do
     ["2021-22_winchester_student_survey_responses.csv",
-      "2021-22_winchester_teacher_survey_responses.csv"].each do |filepath|
+     "2021-22_winchester_teacher_survey_responses.csv"].each do |filepath|
       filepath = Rails.root.join("data", "survey_responses", filepath)
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
@@ -114,7 +114,7 @@ namespace :one_off do
       District.all.map do |district|
         SurveyItem.all.map do |survey_item|
           [academic_year.range, survey_item.survey_item_id,
-            survey_item.survey_item_responses.joins(:school).where("school.district": district, academic_year:).count, district.name]
+           survey_item.survey_item_responses.joins(:school).where("school.district": district, academic_year:).count, district.name]
         end
       end
     end
@@ -164,23 +164,23 @@ namespace :one_off do
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     puts "Resetting race scores"
-    RaceScoreLoader.reset(fast_processing: true, academic_years:, schools: District.find_by_name("Wareham").schools)
+    RaceScoreLoader.reset(fast_processing: false, academic_years: [AcademicYear.find_by_range("2022-23")], schools:)
     puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     District.all.each do |district|
       num_of_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
-        "schools.district": district).pluck(:response_id).uniq.count
+                                                                             "schools.district": district).pluck(:response_id).uniq.count
       teacher_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
-        survey_item: SurveyItem.where("survey_item_id like ? ", "t-%"), "schools.district": district).pluck(:response_id).uniq.count
+                                                                              survey_item: SurveyItem.where("survey_item_id like ? ", "t-%"), "schools.district": district).pluck(:response_id).uniq.count
       student_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
-        survey_item: SurveyItem.where("survey_item_id like ? ", "s-%"), "schools.district": district).pluck(:response_id).uniq.count
+                                                                              survey_item: SurveyItem.where("survey_item_id like ? ", "s-%"), "schools.district": district).pluck(:response_id).uniq.count
 
       response_count = SurveyItemResponse.joins(school: :district).where(academic_year:,
-        "schools.district": district).count
+                                                                         "schools.district": district).count
       student_response_count = SurveyItemResponse.joins(school: :district).joins(:survey_item).where(academic_year:,
-        survey_item: SurveyItem.where("survey_item_id like ? ", "s-%"), "schools.district": district).count
+                                                                                                     survey_item: SurveyItem.where("survey_item_id like ? ", "s-%"), "schools.district": district).count
       teacher_response_count = SurveyItemResponse.joins(school: :district).joins(:survey_item).where(academic_year:,
-        survey_item: SurveyItem.where("survey_item_id like ? ", "t-%"), "schools.district": district).count
+                                                                                                     survey_item: SurveyItem.where("survey_item_id like ? ", "t-%"), "schools.district": district).count
       puts "#{district.name} has #{num_of_respondents} respondents"
       puts "#{district.name} has #{teacher_respondents} teacher respondents"
       puts "#{district.name} has #{student_respondents} student respondents"

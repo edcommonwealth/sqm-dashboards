@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_222503) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -75,6 +75,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
     t.string "designation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "incomes", force: :cascade do |t|
+    t.string "designation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_incomes_on_slug", unique: true
   end
 
   create_table "legacy_attempts", id: :serial, force: :cascade do |t|
@@ -297,21 +305,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
 
-  create_table "race_scores", force: :cascade do |t|
-    t.bigint "measure_id", null: false
-    t.bigint "school_id", null: false
-    t.bigint "academic_year_id", null: false
-    t.bigint "race_id", null: false
-    t.float "average"
-    t.boolean "meets_student_threshold"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["academic_year_id"], name: "index_race_scores_on_academic_year_id"
-    t.index ["measure_id"], name: "index_race_scores_on_measure_id"
-    t.index ["race_id"], name: "index_race_scores_on_race_id"
-    t.index ["school_id"], name: "index_race_scores_on_school_id"
-  end
-
   create_table "races", force: :cascade do |t|
     t.string "designation"
     t.integer "qualtrics_code"
@@ -445,8 +438,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
     t.integer "grade"
     t.bigint "gender_id"
     t.datetime "recorded_date"
+    t.bigint "income_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"
+    t.index ["income_id"], name: "index_survey_item_responses_on_income_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id", "survey_item_id"], name: "by_school_year_and_survey_item"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
@@ -480,10 +475,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"
   add_foreign_key "legacy_school_categories", "legacy_schools", column: "school_id"
   add_foreign_key "measures", "subcategories"
-  add_foreign_key "race_scores", "academic_years"
-  add_foreign_key "race_scores", "measures"
-  add_foreign_key "race_scores", "races"
-  add_foreign_key "race_scores", "schools"
   add_foreign_key "respondents", "academic_years"
   add_foreign_key "respondents", "schools"
   add_foreign_key "response_rates", "academic_years"
@@ -500,6 +491,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
   add_foreign_key "survey_item_responses", "genders"
+  add_foreign_key "survey_item_responses", "incomes"
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"
