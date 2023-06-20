@@ -12,7 +12,7 @@ class VarianceChartRowPresenter
     @meets_student_threshold = score.meets_student_threshold?
     @measure_name = @measure.name
     @measure_id = @measure.measure_id
-    @category = @measure.category
+    @category = @measure.subcategory.category
   end
 
   def sufficient_data?

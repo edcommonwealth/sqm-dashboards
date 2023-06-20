@@ -192,32 +192,14 @@ class Measure < ActiveRecord::Base
 
   def sufficient_student_data?(school:, academic_year:)
     return false unless includes_student_survey_items?
-    return false if no_student_responses_exist?(school:, academic_year:)
 
     subcategory.response_rate(school:, academic_year:).meets_student_threshold?
   end
 
   def sufficient_teacher_data?(school:, academic_year:)
     return false unless includes_teacher_survey_items?
-    return false if no_teacher_responses_exist?(school:, academic_year:)
 
     subcategory.response_rate(school:, academic_year:).meets_teacher_threshold?
-  end
-
-  def no_student_responses_exist?(school:, academic_year:)
-    @no_student_responses_exist ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] =
-        SurveyItemResponse.where(school:, academic_year:, survey_item: survey_items.student_survey_items).count.zero?
-    end
-    @no_student_responses_exist[[school, academic_year]]
-  end
-
-  def no_teacher_responses_exist?(school:, academic_year:)
-    @no_teacher_responses_exist ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] =
-        SurveyItemResponse.where(school:, academic_year:, survey_item: survey_items.teacher_survey_items).count.zero?
-    end
-    @no_teacher_responses_exist[[school, academic_year]]
   end
 
   def incalculable_score(school:, academic_year:)
