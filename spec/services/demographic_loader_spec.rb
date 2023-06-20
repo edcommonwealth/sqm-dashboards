@@ -13,6 +13,10 @@ describe DemographicLoader do
     }
   end
 
+  let(:incomes) do
+    ['Economically Disadvantaged – N', 'Economically Disadvantaged – Y', 'Unknown']
+  end
+
   before :each do
     DemographicLoader.load_data(filepath:)
   end
@@ -44,6 +48,13 @@ describe DemographicLoader do
         expect(Gender.find_by_qualtrics_code(value).designation).to eq key
         expect(Gender.find_by_designation(key)).not_to eq nil
         expect(Gender.find_by_designation(key).qualtrics_code).to eq value
+      end
+    end
+
+    it 'loads all the income designations' do
+      expect(Income.all.count).to eq 3
+      incomes.each do |income|
+        expect(Income.find_by_designation(income).designation).to eq income
       end
     end
   end

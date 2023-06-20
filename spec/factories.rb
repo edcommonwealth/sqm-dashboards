@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :income do
+    designation { "MyString" }
+  end
+
   factory :gender do
     qualtrics_code { 1 }
     designation { 'MyString' }

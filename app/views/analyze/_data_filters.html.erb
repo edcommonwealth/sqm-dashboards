@@ -1,7 +1,7 @@
 <h3 class="sub-header-4 mt-5">Data Filters</h3>
 <div class="bg-gray p-3" data-controller="analyze">
 
-  <% @sources.each do |source| %>
+  <% @presenter.sources.each do |source| %>
 
     <input type="radio"
            id="<%= source.slug %>"
@@ -9,7 +9,7 @@
            name="source"
            value="<%= base_url %>"
            data-action="click->analyze#refresh"
-           <%= source.slug == @source.slug ? "checked" : "" %>>
+           <%= source.slug == @presenter.source.slug ? "checked" : "" %>>
            <label for="<%= source.slug %>"><%= source.to_s %></label>
 
            <% source.slices.each do | slice |  %>
@@ -20,7 +20,7 @@
                       name="slice"
                       value="<%= base_url %>"
                       data-action="click->analyze#refresh"
-                      <%= slice.slug == @slice.slug ? "checked" : "" %>
+                      <%= slice.slug == @presenter.slice.slug ? "checked" : "" %>
                       <%= slice.slug == "all-data" ? "hidden" : "" %>>
 
                       <label for="<%= slice.slug %>"
@@ -34,8 +34,8 @@
 </div>
 
 <script>
-  window.source = "<%= @source.slug %>";
-  window.slice = "<%= @slice.slug %>";
-  window.group = "<%= @group.slug %>";
-  window.graph = "<%= @graph.slug %>";
+  window.source = "<%= @presenter.source.slug %>";
+  window.slice = "<%= @presenter.slice.slug %>";
+  window.group = "<%= @presenter.group.slug %>";
+  window.graph = "<%= @presenter.graph.slug %>";
 </script>

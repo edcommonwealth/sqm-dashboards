@@ -227,12 +227,12 @@ describe GroupedBarColumnPresenter do
       # it_behaves_like 'y_offset'
 
       context 'and the score is right at the approval low benchmark' do
-        it "where bar would normally have a height of 0, we inflate the height to be at least the minimum bar height of #{AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT}" do
-          expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT)
+        it "where bar would normally have a height of 0, we inflate the height to be at least the minimum bar height of #{Analyze::BarPresenter::MINIMUM_BAR_HEIGHT}" do
+          expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(Analyze::BarPresenter::MINIMUM_BAR_HEIGHT)
         end
 
-        it "where the bar would normally start at the approval low benchmark, it shifts up to accomodate it being grown to the minimum bar height of #{AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT}" do
-          expect(student_presenter.bars[year_index].y_offset).to be_within(0.01).of(analyze_zone_height * 2 - AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT)
+        it "where the bar would normally start at the approval low benchmark, it shifts up to accomodate it being grown to the minimum bar height of #{Analyze::BarPresenter::MINIMUM_BAR_HEIGHT}" do
+          expect(student_presenter.bars[year_index].y_offset).to be_within(0.01).of(analyze_zone_height * 2 - Analyze::BarPresenter::MINIMUM_BAR_HEIGHT)
         end
       end
     end
@@ -257,8 +257,8 @@ describe GroupedBarColumnPresenter do
                                                  academic_year:, likert_score: 4)
         end
 
-        it "it rounds to the the minimum bar height of #{AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT} " do
-          expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(AnalyzeBarPresenter::MINIMUM_BAR_HEIGHT)
+        it "it rounds to the the minimum bar height of #{Analyze::BarPresenter::MINIMUM_BAR_HEIGHT} " do
+          expect(student_presenter.bars[year_index].bar_height_percentage).to be_within(0.01).of(Analyze::BarPresenter::MINIMUM_BAR_HEIGHT)
         end
       end
     end
