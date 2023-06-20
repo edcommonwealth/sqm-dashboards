@@ -29,10 +29,10 @@ class OverviewController < SqmApplicationController
   end
 
   def measures
-    @measures ||= Measure.all.includes(%i[scales admin_data_items category subcategory survey_items])
+    @measures ||= subcategories.flat_map(&:measures)
   end
 
   def subcategories
-    @subcategories ||= Subcategory.all.includes(:measures)
+    @subcategories ||= Subcategory.all.includes(%i[measures admin_data_items category])
   end
 end
