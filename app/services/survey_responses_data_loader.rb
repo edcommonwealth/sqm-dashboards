@@ -7,12 +7,13 @@ class SurveyResponsesDataLoader
       headers_array = CSV.parse(headers).first
       genders = Gender.gender_hash
       schools = School.school_hash
+      incomes = Income.by_designation
       all_survey_items = survey_items(headers:)
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
           process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders:, survey_items: all_survey_items, schools:),
-                      rules:)
+                      rules:, incomes:)
         end
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
       end
@@ -24,6 +25,7 @@ class SurveyResponsesDataLoader
     headers_array = CSV.parse(headers).first
     genders = Gender.gender_hash
     schools = School.school_hash
+    incomes = Income.by_designation
     all_survey_items = survey_items(headers:)
 
     survey_item_responses = []
@@ -34,7 +36,7 @@ class SurveyResponsesDataLoader
 
       CSV.parse(line, headers:).map do |row|
         survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders:, survey_items: all_survey_items, schools:),
-                                             rules:)
+                                             rules:, incomes:)
       end
 
       row_count += 1
@@ -50,7 +52,7 @@ class SurveyResponsesDataLoader
 
   private
 
-  def self.process_row(row:, rules:)
+  def self.process_row(row:, rules:, incomes:)
     return unless row.dese_id?
     return unless row.school.present?
 
@@ -58,32 +60,32 @@ class SurveyResponsesDataLoader
       return if rule.new(row:).skip_row?
     end
 
-    # byebug if row.response_id == 'butler_student_survey_response_1'
-    process_survey_items(row:)
+    process_survey_items(row:, incomes:)
   end
 
-  def self.process_survey_items(row:)
+  def self.process_survey_items(row:, incomes:)
     row.survey_items.map do |survey_item|
       likert_score = row.likert_score(survey_item_id: survey_item.survey_item_id) || next
 
       unless likert_score.valid_likert_score?
-        puts "Response ID: #{row.response_id}, Likert score: #{likert_score} rejected" unless likert_score == 'NA'
+        puts "Response ID: #{row.response_id}, Likert score: #{likert_score} rejected" unless likert_score == "NA"
         next
       end
       response = row.survey_item_response(survey_item:)
-      create_or_update_response(survey_item_response: response, likert_score:, row:, survey_item:)
+      create_or_update_response(survey_item_response: response, likert_score:, row:, survey_item:, incomes:)
     end.compact
   end
 
-  def self.create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:)
+  def self.create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:, incomes:)
     gender = row.gender
     grade = row.grade
+    income = incomes[row.income]
     if survey_item_response.present?
-      survey_item_response.update!(likert_score:, grade:, gender:, recorded_date: row.recorded_date)
+      survey_item_response.update!(likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:)
       []
     else
       SurveyItemResponse.new(response_id: row.response_id, academic_year: row.academic_year, school: row.school, survey_item:,
-                             likert_score:, grade:, gender:, recorded_date: row.recorded_date)
+                             likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:)
     end
   end
 
@@ -94,7 +96,7 @@ class SurveyResponsesDataLoader
   def self.get_survey_item_ids_from_headers(headers:)
     CSV.parse(headers).first
        .filter(&:present?)
-       .filter { |header| header.start_with? 't-', 's-' }
+       .filter { |header| header.start_with? "t-", "s-" }
   end
 
   private_class_method :process_row

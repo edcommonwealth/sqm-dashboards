@@ -5,6 +5,7 @@ class DemographicLoader
     CSV.parse(File.read(filepath), headers: true) do |row|
       process_race(row:)
       process_gender(row:)
+      process_income(row:)
     end
   end
 
@@ -27,6 +28,13 @@ class DemographicLoader
 
     gender = ::Gender.find_or_create_by!(qualtrics_code:, designation:)
     gender.save
+  end
+
+  def self.process_income(row:)
+    designation = row['Income']
+    return unless designation
+
+    Income.find_or_create_by!(designation:)
   end
 end
 

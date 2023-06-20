@@ -10,7 +10,7 @@
     data-action="click->analyze#refresh"
     <% empty_dataset = empty_dataset?(measures: measures, school: school, academic_year: year) %>
     <% empty_survey_dataset = empty_survey_dataset?(measures: measures, school: school, academic_year: year)  %>
-    <% if @graph.slug == 'all-data' %>
+    <% if graph.slug == 'all-data' %>
       <%= empty_dataset ? "disabled" : "" %>
     <% else %>
       <%= empty_survey_dataset ? "disabled" : "" %>
@@ -18,13 +18,13 @@
     >
     <label class="px-3" for="<%= year.range %>"><%= year.range %></label><br>
     <div class="bg-color-blue px-3" style="width:20px;height:20px;background-color:<%= colors[index] %>;"></div>
-    <% if @graph.slug == 'all-data' && empty_dataset %>
+    <% if graph.slug == 'all-data' && empty_dataset %>
       <i class="fa-solid fa-circle-exclamation px-3"
         data-bs-toggle="popover" data-bs-placement="right"
         data-bs-content="No admin data OR teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD %>%">
       </i>
     <% end %>
-    <% if @graph.slug != 'all-data' && empty_survey_dataset %>
+    <% if graph.slug != 'all-data' && empty_survey_dataset %>
       <i class="fa-solid fa-circle-exclamation px-3"
         data-bs-toggle="popover" data-bs-placement="right"
         data-bs-content="Teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD %>%">

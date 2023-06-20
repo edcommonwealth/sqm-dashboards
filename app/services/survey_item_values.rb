@@ -93,6 +93,36 @@ class SurveyItemValues
     genders[gender_code]
   end
 
+  def lasid
+    @lasid ||= value_from(pattern: /LASID/i)
+  end
+
+  def raw_income
+    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income/i)
+    return @raw_income if @raw_income.present?
+
+    return "Unknown" unless disaggregation_data.present?
+
+    disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
+    return "Unknown" unless disaggregation.present?
+
+    @raw_income ||= disaggregation.income
+  end
+
+  def income
+    @income ||= value_from(pattern: /^Income$/i)
+    return @income if @income.present?
+
+    @income ||= case raw_income
+                in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
+                  "Economically Disadvantaged - Y"
+                in /Not\s*Eligible/i
+                  "Economically Disadvantaged - N"
+                else
+                  "Unknown"
+                end
+  end
+
   def value_from(pattern:)
     output = nil
     matches = headers.select do |header|
@@ -107,9 +137,9 @@ class SurveyItemValues
   def to_a
     copy_likert_scores_from_variant_survey_items
     headers.select(&:present?)
-      .reject { |key, _value| key.start_with? "Q" }
-      .reject { |key, _value| key.end_with? "-1" }
-      .map { |header| row[header] }
+           .reject { |key, _value| key.start_with? "Q" }
+           .reject { |key, _value| key.end_with? "-1" }
+           .map { |header| row[header] }
   end
 
   def duration
@@ -122,17 +152,17 @@ class SurveyItemValues
 
   def respondent_type
     return :teacher if headers
-      .filter(&:present?)
-      .filter { |header| header.start_with? "t-" }.count > 0
+                       .filter(&:present?)
+                       .filter { |header| header.start_with? "t-" }.count > 0
 
     :student
   end
 
   def survey_type
     survey_item_ids = headers
-      .filter(&:present?)
-      .reject { |header| header.end_with?("-1") }
-      .filter { |header| header.start_with?("t-", "s-") }
+                      .filter(&:present?)
+                      .reject { |header| header.end_with?("-1") }
+                      .filter { |header| header.start_with?("t-", "s-") }
 
     SurveyItem.survey_type(survey_item_ids:)
   end
