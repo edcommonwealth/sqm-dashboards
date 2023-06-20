@@ -27,10 +27,10 @@ module Analyze
         def bars
           @bars ||= yearly_scores.map.each_with_index do |yearly_score, index|
             year = yearly_score.year
-            AnalyzeBarPresenter.new(measure:, academic_year: year,
-                                    score: yearly_score.score,
-                                    x_position: bar_x(index),
-                                    color: bar_color(year))
+            Analyze::BarPresenter.new(measure:, academic_year: year,
+                                      score: yearly_score.score,
+                                      x_position: bar_x(index),
+                                      color: bar_color(year))
           end
         end
 

@@ -99,7 +99,9 @@ class SurveyItemValues
   end
 
   def raw_income
-    @raw_income ||= value_from(pattern: /Income|Low\s*Income/i)
+    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income/i)
+    return @raw_income if @raw_income.present?
+
     return 'Unknown' unless disaggregation_data.present?
 
     disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
@@ -109,6 +111,9 @@ class SurveyItemValues
   end
 
   def income
+    @income ||= value_from(pattern: /^Income$/i)
+    return @income if @income.present?
+
     @income ||= case raw_income
                 in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
                   'Economically Disadvantaged - Y'

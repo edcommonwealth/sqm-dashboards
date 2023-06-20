@@ -1,0 +1,17 @@
+<div class="d-flex align-items-center mx-5">
+  <input
+    id="<%= id %>"
+    class="m-3 <%= name  %>-checkbox form-check-input"
+    type="checkbox"
+    name="<%= name  %>-checkbox"
+    value="<%= base_url %>"
+    data-action="click->analyze#refresh"
+    <%= selected_items.include?(item)  ? "checked" : "" %>
+    <%= @presenter.graph.slug == 'students-and-teachers' || @presenter.source.slug == 'all-data' ? "disabled" : "" %>
+    <%= @presenter.group.slug == name ? "" : "hidden" %>>
+
+  <label for="<%= id %>"
+    <%= @presenter.group.slug ==  name ? "" : "hidden" %>>
+    <%= label_text %>
+  </label>
+</div>

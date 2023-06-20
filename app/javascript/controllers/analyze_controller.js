@@ -22,15 +22,16 @@ export default class extends Controller {
       "&graph=" +
       this.selected_graph(target) +
       "&races=" +
-      this.selected_races().join(",") +
+      this.selected_items("race").join(",") +
       "&genders=" +
-      this.selected_genders().join(",") +
+      this.selected_items("gender").join(",") +
+      "&incomes=" +
+      this.selected_items("income").join(",") +
       "&grades=" +
-      this.selected_grades().join(",");
+      this.selected_items("grade").join(",");
 
     this.go_to(url);
   }
-
 
   go_to(location) {
     window.location = location;
@@ -121,58 +122,34 @@ export default class extends Controller {
         return item.id;
       })[0];
 
+    const groups = new Map([
+      ['gender', 'students-by-gender'],
+      ['grade', 'students-by-grade'],
+      ['income', 'students-by-income'],
+      ['race', 'students-by-race']
+    ])
+
     if (target.name === 'slice' || target.name === 'group') {
       if (selected_slice === 'students-and-teachers') {
         return 'students-and-teachers';
-      } else if (this.selected_group() === 'race') {
-        return 'students-by-race';
-      } else if (this.selected_group() === 'gender') {
-        return 'students-by-gender';
-      } else if (this.selected_group() === 'grade') {
-        return 'students-by-grade';
       }
+      return groups.get(this.selected_group());
     }
 
     return window.graph;
 
   }
 
-  selected_races() {
-    let race_checkboxes = [...document.getElementsByName("race-checkbox")]
-    let races = race_checkboxes
+  selected_items(type) {
+    let checkboxes = [...document.getElementsByName(`${type}-checkbox`)]
+    let items = checkboxes
       .filter((item) => {
         return item.checked;
       })
       .map((item) => {
-        return item.id;
+        return item.id.replace(`${type}-`, '');
       });
 
-    return races;
-  }
-
-  selected_grades() {
-    let grade_checkboxes = [...document.getElementsByName("grade-checkbox")]
-    let grades = grade_checkboxes
-      .filter((item) => {
-        return item.checked;
-      })
-      .map((item) => {
-        return item.id.replace('grade-', '');
-      });
-
-    return grades;
-  }
-
-  selected_genders() {
-    let gender_checkboxes = [...document.getElementsByName("gender-checkbox")]
-    let genders = gender_checkboxes
-      .filter((item) => {
-        return item.checked;
-      })
-      .map((item) => {
-        return item.id.replace('gender-', '');
-      });
-
-    return genders;
+    return items;
   }
 }
