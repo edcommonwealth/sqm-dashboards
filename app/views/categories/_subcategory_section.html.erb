@@ -9,15 +9,33 @@
       <div class="d-flex flex-column mx-7">
         <p class="body-large "><%= subcategory.description %></p>
         <div class="d-flex justify-content-start">
-          <div class="body-large text-center response-rate">
-            <p class="response-rate-percentage"><%= subcategory.admin_collection_rate.first %> / <%= subcategory.admin_collection_rate.last %></p>
-            <p>school data sources</p>
+          <div 
+            class="body-large text-center response-rate"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-content="The number of publicly available school data sources, often collected from the MA Department of Elementary and Secondary Education."
+            data-bs-placement="bottom"
+          >
+          <p class="response-rate-percentage"><%= subcategory.admin_collection_rate.first %> / <%= subcategory.admin_collection_rate.last %></p>
+            <p>school admin data sources</p>
           </div>
-          <div class="body-large mx-3 text-center response-rate">
+          <div 
+            class="body-large mx-3 text-center response-rate"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-content="The student survey response rate for this sub-category. This number differs from the overall response rate because each individual student receives 44 of 66 total questions, in order to avoid survey fatigue."
+            data-bs-placement="bottom"
+          >
             <p class="response-rate-percentage"><%= subcategory.student_response_rate %></p>
             <p>of students responded</p>
           </div>
-          <div class="body-large text-center response-rate">
+          <div 
+            class="body-large text-center response-rate"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-content="The teacher survey response rate for this sub-category. This number differs from the overall response rate because the survey includes skip logic to limit the number of questions for each individual survey respondent."
+            data-bs-placement="bottom"
+          >
             <p class="response-rate-percentage"><%= subcategory.teacher_response_rate %></p>
             <p>of teachers responded</p>
           </div>
