@@ -23,18 +23,6 @@ namespace :data do
     Rails.cache.clear
   end
 
-  desc 'seed only lowell'
-  task seed_only_lowell: :environment do
-    seeder = Seeder.new rules: [Rule::SeedOnlyLowell]
-
-    seeder.seed_academic_years '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23'
-    seeder.seed_districts_and_schools Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
-    seeder.seed_sqm_framework Rails.root.join('data', 'sqm_framework.csv')
-    seeder.seed_demographics Rails.root.join('data', 'demographics.csv')
-    seeder.seed_enrollment Rails.root.join('data', 'enrollment', 'enrollment.csv')
-    seeder.seed_staffing Rails.root.join('data', 'staffing', 'staffing.csv')
-  end
-
   desc 'load survey responses for lowell schools'
   task load_survey_responses_for_lowell: :environment do
     survey_item_response_count = SurveyItemResponse.count
@@ -75,18 +63,7 @@ namespace :data do
 
     Rails.cache.clear
   end
-
-  desc 'delete non-lowell schools and districts'
-  task delete_non_lowell: :environment do
-    schools = School.all.reject { |s| s.district.name == 'Lowell' }
-    ResponseRate.where(school: schools).delete_all
-    RaceScore.where(school: schools).delete_all
-    Respondent.where(school: schools).delete_all
-    schools.each { |school| school.delete }
-    districts = District.all.reject { |district| district.name == 'Lowell' }
-    districts.each { |district| district.delete }
-  end
-
+  
   desc 'reset response rate values'
   task reset_response_rates: :environment do
     puts 'Resetting response rates'
