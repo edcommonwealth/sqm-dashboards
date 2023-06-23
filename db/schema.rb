@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_10_165508) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_165508) do
 
   create_table "genders", force: :cascade do |t|
     t.integer "qualtrics_code"
+    t.string "designation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "incomes", force: :cascade do |t|
     t.string "designation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -444,8 +450,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_165508) do
     t.bigint "student_id"
     t.integer "grade"
     t.bigint "gender_id"
+    t.bigint "income_id"
+    t.datetime "recorded_date"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"
+    t.index ["income_id"], name: "index_survey_item_responses_on_income_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id", "survey_item_id"], name: "by_school_year_and_survey_item"
     t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
@@ -500,6 +509,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_165508) do
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
   add_foreign_key "survey_item_responses", "genders"
+  add_foreign_key "survey_item_responses", "incomes"
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"
