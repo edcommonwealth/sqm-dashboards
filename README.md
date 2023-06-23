@@ -48,13 +48,7 @@ bundle install
 bundle exec rake db:create db:schema:load db:seed
 ```
 
-Or if you only want to seed Lowell schools
-
-```bash
-bundle install
-bundle exec rake db:create db:schema:load
-bundle exec rake data:seed_only_lowell
-```
+In the Lowell branch, `db:seed` will only seed Lowell schools.
 
 Install the javascript dependencies
 
