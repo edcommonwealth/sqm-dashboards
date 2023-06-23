@@ -3,7 +3,7 @@ module Report
     def self.create_report(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: 'subcategories.csv')
       data = []
       mutex = Thread::Mutex.new
-      data << ['District', 'School', 'School Code', 'Academic Year', 'Grades', 'Subcategory', 'Student Score', 'Student Zone', 'Teacher Score',
+      data << ['District', 'School', 'School Code', 'Academic Year', 'Recorded Date Range', 'Grades', 'Subcategory', 'Student Score', 'Student Zone', 'Teacher Score',
                'Teacher Zone', 'Admin Score', 'Admin Zone', 'All Score (Average)', 'All Score Zone']
       pool_size = 2
       jobs = Queue.new
@@ -23,6 +23,12 @@ module Report
                 score = subcategory.score(school:, academic_year:)
                 zone = subcategory.zone(school:, academic_year:).type.to_s.capitalize
 
+                begin_date = SurveyItemResponse.where(school:,
+                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+                end_date = SurveyItemResponse.where(school:,
+                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+                date_range = "#{begin_date} - #{end_date}"
+
                 row = [response_rate, subcategory, school, academic_year]
 
                 all_grades = respondents.counts_by_grade.keys
@@ -32,6 +38,7 @@ module Report
                            school.name,
                            school.dese_id,
                            academic_year.range,
+                           date_range,
                            grades,
                            subcategory.subcategory_id,
                            student_score(row:),
