@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_10_165508) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_224103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -444,6 +444,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_165508) do
     t.bigint "student_id"
     t.integer "grade"
     t.bigint "gender_id"
+    t.datetime "recorded_date"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
