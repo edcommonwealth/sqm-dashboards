@@ -45,6 +45,18 @@ namespace :data do
     Rails.cache.clear
   end
 
+  desc 'delete non-lowell schools and districts'
+  task delete_non_lowell: :environment do
+    schools = School.all.reject { |s| s.district.name == 'Lowell' }
+    ResponseRate.where(school: schools).delete_all
+    RaceScore.where(school: schools).delete_all
+    Respondent.where(school: schools).delete_all
+    schools.each { |school| school.delete }
+    districts = District.all.reject { |district| district.name == 'Lowell' }
+    districts.each { |district| district.delete }
+  end
+
+
   desc 'load students for lowell'
   task load_students_for_lowell: :environment do
     student_count = Student.count
