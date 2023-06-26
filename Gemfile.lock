@@ -121,7 +121,6 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     date (3.3.3)
-    debug (1.7.1)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -459,7 +458,6 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   database_cleaner
-  debug
   devise
   ed25519
   erb_lint
