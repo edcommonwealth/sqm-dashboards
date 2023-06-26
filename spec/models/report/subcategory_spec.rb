@@ -22,13 +22,13 @@ RSpec.describe Report::Subcategory, type: :model do
     it 'creates a report for subcategories' do
       expect(Report::Subcategory.create_report).to be_a(Array)
       headers = Report::Subcategory.create_report.first
-      expect(headers).to eq(['District', 'School', 'School Code', 'Academic Year', 'Grades', 'Subcategory', 'Student Score',
+      expect(headers).to eq(['District', 'School', 'School Code', 'Academic Year', 'Recorded Date Range', 'Grades', 'Subcategory', 'Student Score',
                              'Student Zone', 'Teacher Score', 'Teacher Zone', 'Admin Score', 'Admin Zone', 'All Score (Average)', 'All Score Zone'])
     end
 
     it 'Adds information about the first school and first academic year to the report' do
       report = Report::Subcategory.create_report
-      report[1] in [district, school_name, school_code, academic_year, grades, subcategory_id, *]
+      report[1] in [district, school_name, school_code, academic_year, recorded_date_range, grades, subcategory_id, *]
       expect(school_name).to eq('Milford High')
       expect(academic_year).to eq('2018-2019')
       expect(subcategory_id).to eq('1A')
