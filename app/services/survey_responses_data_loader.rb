@@ -5,12 +5,13 @@ class SurveyResponsesDataLoader
     File.open(filepath) do |file|
       headers = file.first
       headers_array = CSV.parse(headers).first
-      genders_hash = genders
+      genders = Gender.gender_hash
+      schools = School.school_hash
       all_survey_items = survey_items(headers:)
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders: genders_hash, survey_items: all_survey_items, schools:),
+          process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders:, survey_items: all_survey_items, schools:),
                       rules:)
         end
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
@@ -21,7 +22,8 @@ class SurveyResponsesDataLoader
   def self.from_file(file:, rules: [])
     headers = file.gets
     headers_array = CSV.parse(headers).first
-    genders_hash = genders
+    genders = Gender.gender_hash
+    schools = School.school_hash
     all_survey_items = survey_items(headers:)
 
     survey_item_responses = []
@@ -31,7 +33,7 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders: genders_hash, survey_items: all_survey_items, schools:),
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders:, survey_items: all_survey_items, schools:),
                                              rules:)
       end
 
@@ -84,14 +86,6 @@ class SurveyResponsesDataLoader
     end
   end
 
-  def self.schools
-    School.school_hash
-  end
-
-  def self.genders
-    Gender.gender_hash
-  end
-
   def self.survey_items(headers:)
     SurveyItem.where(survey_item_id: get_survey_item_ids_from_headers(headers:))
   end
@@ -105,7 +99,6 @@ class SurveyResponsesDataLoader
   private_class_method :process_row
   private_class_method :process_survey_items
   private_class_method :create_or_update_response
-  private_class_method :genders
   private_class_method :survey_items
   private_class_method :get_survey_item_ids_from_headers
 end
