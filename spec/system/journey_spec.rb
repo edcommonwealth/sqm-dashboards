@@ -175,6 +175,7 @@ def go_to_school_overview_from_welcome_page(district, school)
   select school.name, from: 'school-dropdown'
   expect(page).to have_select('school', selected: 'Lee Elementary School')
 
+  expect(page).to have_xpath('//a[@class="mx-4 btn btn-secondary"]')
   click_on 'Go'
 end
 
