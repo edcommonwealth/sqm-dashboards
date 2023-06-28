@@ -20,7 +20,8 @@
     "bootstrap": "^5.1.3",
     "debounce": "^1.2.1",
     "esbuild": "^0.17.12",
-    "sass": "^1.43.4"
+    "sass": "^1.43.4",
+    "semver": "7.5.2"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
