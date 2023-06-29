@@ -239,6 +239,7 @@ GEM
     net-ssh (7.1.0)
     newrelic_rpm (9.0.0)
     nio4r (2.5.8)
+<<<<<<< HEAD
     nokogiri (1.14.2-arm64-darwin)
 =======
     net-ssh (7.0.1)
@@ -248,6 +249,8 @@ GEM
 >>>>>>> 151dbb2 (updated Nokogiri as part of security vulnerability and adding updated file Gemfile.lock)
       racc (~> 1.4)
 <<<<<<< HEAD
+=======
+>>>>>>> parent of ac03745 (added a rake task to output stray responses)
     nokogiri (1.14.2-x86_64-linux)
 =======
     nokogiri (1.15.2-x86_64-darwin)
@@ -454,7 +457,6 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
-  arm64-darwin-21
   x86_64-linux
 
 DEPENDENCIES

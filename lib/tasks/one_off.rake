@@ -192,7 +192,6 @@ namespace :one_off do
     Rails.cache.clear
   end
 
-<<<<<<< HEAD
   desc "change dese id of Minot Forest Elementary School"
   task change_dese_id: :environment do
     school = School.find_by_name "Minot Forest Elementary School"
@@ -204,57 +203,4 @@ namespace :one_off do
     school.dese_id = 310_001_7
     school.save
   end
-=======
-  desc 'delete errant response'
-  task delete_responses: :environment do
-    SurveyItemResponse.where(response_id: 'R_diYAw7qOj4W1UZ3').delete_all
-    SurveyItemResponse.where(response_id: 'R_27fKhVfyeKGMF5q').delete_all
-    SurveyItemResponse.where(response_id: 'R_2cjPX1Ngxr2Hc4c').delete_all
-  end
-
-
-
-
-  desc "Generate CSV report of survey item responses"
-  task stray_responses: :environment do
-    
-    headers = ['School ID', 'Academic Year', 'Survey Item', 'Count','SurveyItemResponse ids']
-
-    
-    output_rows = []
-    sir_ids=[]
-
-    
-      School.all.each do |sc|
-      AcademicYear.all.each do |ay|
-        SurveyItem.all.each do |si|
-          count = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).count
-          sir_ids= SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).pluck(:response_id) 
-
-          if count > 0 && count < 10
-
-            output_rows << [sc.name, ay.range, si.survey_item_id, count,sir_ids]
-          end
-        end
-      end
-    end
-
-    
-    file = File.new('stray_responses.csv', 'w')
-
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-
-    
-    file.close
-
-    puts "CSV report of survey item responses created in stray_responses.csv"
-  end
-
-
-
->>>>>>> c8dd899 (added a rake task to output stray responses)
 end
