@@ -17,14 +17,9 @@
     "babel-preset-es2015": "^6.24.1",
     "bootstrap": "^5.1.3",
     "debounce": "^1.2.1",
-<<<<<<< HEAD
-    "esbuild": "^0.13.6",
-    "sass": "^1.43.4"
-=======
     "esbuild": "^0.17.12",
     "sass": "^1.43.4",
     "semver": "7.5.2"
->>>>>>> eaef648 (upgraded semver to 7.5.2 and adding updated files package.json and yarn.lock)
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
