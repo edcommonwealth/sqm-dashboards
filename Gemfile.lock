@@ -235,17 +235,10 @@ GEM
       net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.3.3)
       net-protocol
-<<<<<<< HEAD
-    net-ssh (7.1.0)
-    newrelic_rpm (9.1.0)
-    nio4r (2.5.9)
-    nokogiri (1.14.2-arm64-darwin)
-=======
     net-ssh (7.0.1)
     newrelic_rpm (8.16.0)
     nio4r (2.5.8)
     nokogiri (1.15.2-arm64-darwin)
->>>>>>> 151dbb2 (updated Nokogiri as part of security vulnerability and adding updated file Gemfile.lock)
       racc (~> 1.4)
     nokogiri (1.15.2-x86_64-darwin)
       racc (~> 1.4)
