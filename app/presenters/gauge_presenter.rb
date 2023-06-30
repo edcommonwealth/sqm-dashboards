@@ -33,6 +33,19 @@ class GaugePresenter
     end
   end
 
+  def cutpoint_for(zone)
+    case zone
+    when :watch
+      @zones.watch_zone.low_benchmark.round(2)
+    when :growth
+      @zones.growth_zone.low_benchmark.round(2)
+    when :approval
+      @zones.approval_zone.low_benchmark.round(2)
+    when :ideal
+      @zones.ideal_zone.low_benchmark.round(2)
+    end
+  end
+
   attr_reader :score
 
   private
