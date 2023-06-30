@@ -1,8 +1,41 @@
 <div class="d-flex flex-column align-items-center position-relative">
   <% if ENV["SCORES"].present?  && ENV["SCORES"].upcase == "SHOW" %>
-    <p>Score is : <%= gauge.score  %> </p>
+    <p>
+      Score is: <%= gauge.score  %> 
+      <i 
+        class="fas fa-exclamation-circle px-2"
+        style="transform:rotate(180deg);"
+        data-bs-toggle="popover"
+        data-bs-title="Cut Points"
+        data-bs-content=
+        "
+          <div class=&quot;container&quot;>
+            <div class=&quot;row align-items-center&quot;>
+              <p class=&quot;col mb-1&quot;>Watch</p>
+              <p class=&quot;col mb-1 text-end&quot;><%= gauge.cutpoint_for(:watch) %></p>
+            </div>
+            <div class=&quot;row bg-color-gray-3 align-items-center&quot;>
+              <p class=&quot;col mb-1&quot;>Growth</p>
+              <p class=&quot;col mb-1 text-end&quot;><%= gauge.cutpoint_for(:growth) %></p>
+            </div>
+            <div class=&quot;row align-items-center&quot;>
+              <p class=&quot;col mb-1&quot;>Approval</p>
+              <p class=&quot;col mb-1 text-end&quot;><%= gauge.cutpoint_for(:approval) %></p>
+            </div>
+            <div class=&quot;row bg-color-gray-3 align-items-center&quot;>
+              <p class=&quot;col mb-1&quot;>Ideal</p>
+              <p class=&quot;col mb-1 text-end&quot;><%= gauge.cutpoint_for(:ideal) %></p>
+            </div>
+          </div>
+        "
+      ></i>
+    </p>
+    
   <% end %>
-
+<div class="d-flex align-items-end">
+<% if gauge_class == "gauge-graph-lg" %>
+<h3 class="px-4 mb-n1">1</h3>
+<% end %>
 <svg
   viewBox="<%= viewbox.x %> <%= viewbox.y %> <%= viewbox.width %> <%= viewbox.height %>"
   class="<%= gauge_class %>"
@@ -55,5 +88,10 @@
     />
   <% end %>
 </svg>
+
+<% if gauge_class == "gauge-graph-lg" %>
+<h3 class="px-4">5</h3>
+<% end %>
+</div>
 <span class="gauge-title <%= font_class %> fill-black"><%= gauge.title %></span>
 </div>

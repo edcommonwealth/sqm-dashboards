@@ -27,6 +27,6 @@ export function initializePopovers() {
   document
     .querySelectorAll('[data-bs-toggle="popover"]')
     .forEach((popoverElement) => {
-      new Popover(popoverElement, { trigger: "hover focus" });
+      new Popover(popoverElement, { trigger: "hover focus", html: true });
     });
 }
