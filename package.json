@@ -6,10 +6,10 @@
   },
   "private": "true",
   "dependencies": {
-    "@babel/core": "^7.0.0-0",
-    "@babel/helper-compilation-targets": "7.20.7",
-    "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "7.20.7",
-    "@babel/preset-env": "^7.20.2",
+    "@babel/core": "^7.22.8",
+    "@babel/helper-compilation-targets": "^7.22.6",
+    "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "^7.22.5",
+    "@babel/preset-env": "^7.22.7",
     "@fortawesome/fontawesome-free": "^6.0.0-beta3",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.1.1",
@@ -31,7 +31,7 @@
     "watch:all": "yarn watch:css & yarn build --watch"
   },
   "devDependencies": {
-    "jest": "^27.2.5",
+    "jest": "^29.6.1",
     "markdownlint": "^0.25.1",
     "prettier": "2.7.1"
   },
