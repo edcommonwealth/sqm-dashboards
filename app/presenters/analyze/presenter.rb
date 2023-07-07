@@ -79,12 +79,12 @@ module Analyze
         gender_params = params[:genders]
         return genders unless gender_params
 
-        gender_params.split(",").map { |gender| Gender.find_by_designation(gender) }.compact
+        gender_params.split(",").sort.map { |gender| Gender.find_by_designation(gender) }.compact
       end
     end
 
     def genders
-      @genders ||= Gender.all
+      @genders ||= Gender.all.order(designation: :ASC)
     end
 
     def groups

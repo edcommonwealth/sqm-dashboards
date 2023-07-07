@@ -9,11 +9,11 @@ module Analyze
       end
 
       def to_s
-        'Students by Gender'
+        "Students by Gender"
       end
 
       def slug
-        'students-by-gender'
+        "students-by-gender"
       end
 
       def columns
@@ -21,6 +21,7 @@ module Analyze
           genders.each do |gender|
             array << column_for_gender_code(code: gender.qualtrics_code)
           end
+          array.sort_by!(&:to_s)
           array << Analyze::Graph::Column::AllStudent
         end
       end
