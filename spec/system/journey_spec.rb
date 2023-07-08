@@ -57,7 +57,7 @@ describe "District Admin", js: true do
     respondent.save
   end
 
-  before do
+  before :each do
     Rails.application.load_seed
 
     respondents
@@ -100,10 +100,6 @@ describe "District Admin", js: true do
     end
 
     SurveyItemResponse.import survey_item_responses
-  end
-
-  after do
-    DatabaseCleaner.clean
   end
 
   it "navigates through the site" do
@@ -191,8 +187,6 @@ end
 def go_to_different_year(year)
   select year.formatted_range, from: "select-academic-year"
 end
-
-def got_to_analyze_page; end
 
 def district_admin_sees_schools_change
   expected_path = "/districts/#{school_in_same_district.district.slug}/schools/#{school_in_same_district.slug}/browse/teachers-and-leadership?year=#{ay_2021_22.range}"
