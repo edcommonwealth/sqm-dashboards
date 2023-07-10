@@ -54,7 +54,6 @@ gem "stimulus-rails"
 
 gem "watir"
 
-gem "selenium-webdriver", "~> 4.4"
 gem "net-sftp"
 gem "ed25519"
 gem "bcrypt_pbkdf"
@@ -91,7 +90,7 @@ group :development do
 end
 
 group "test" do
-  gem "apparition", github: "twalpole/apparition", ref: "ca86be4d54af835d531dbcd2b86e7b2c77f85f34"
+  gem "cuprite"
   gem "capybara"
   gem "database_cleaner"
   gem "launchy"
