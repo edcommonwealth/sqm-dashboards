@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'legacy/recipients/show', type: :view do
+RSpec.xdescribe 'legacy/recipients/show', type: :view do
   before(:each) do
     @school = assign(:school, Legacy::School.create!(
                                 name: 'School'

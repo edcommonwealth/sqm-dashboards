@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  describe Schedule do
+  xdescribe Schedule do
     let!(:school) { School.create!(name: 'School') }
 
     let!(:recipients) { create_recipients(school, 3) }

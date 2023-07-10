@@ -1,5 +1,3 @@
-require 'twilio-ruby'
-
 module Legacy
   class Attempt < ApplicationRecord
     belongs_to :schedule

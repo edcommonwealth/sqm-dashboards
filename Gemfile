@@ -40,8 +40,6 @@ gem 'devise'
 
 gem 'omniauth'
 
-gem 'twilio-ruby', '~> 4.11.1'
-
 gem 'activerecord-import'
 
 gem 'jsbundling-rails'
@@ -54,7 +52,6 @@ gem 'stimulus-rails'
 
 gem 'watir'
 
-gem 'selenium-webdriver', '~> 4.4'
 gem 'net-sftp'
 gem 'ed25519'
 gem 'bcrypt_pbkdf'
@@ -64,6 +61,8 @@ gem 'standard_deviation'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'cypress-rails'
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'parallel_tests'
   gem 'rack-mini-profiler'
@@ -87,11 +86,10 @@ group :development do
   gem 'seed_dump'
   gem 'solargraph-reek'
   gem 'spring'
-  gem 'web-console'
 end
 
 group 'test' do
-  gem 'apparition', github: 'twalpole/apparition', ref: 'ca86be4d54af835d531dbcd2b86e7b2c77f85f34'
+  gem 'cuprite'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'

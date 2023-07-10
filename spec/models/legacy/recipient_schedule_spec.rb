@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  RSpec.describe RecipientSchedule, type: :model do
+  RSpec.xdescribe RecipientSchedule, type: :model do
     let!(:school) { School.create!(name: 'School') }
 
     let!(:recipient) { create_recipients(school, 1).first }

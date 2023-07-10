@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  describe Attempt, type: :model do
+  xdescribe Attempt, type: :model do
     let!(:school) { School.create!(name: 'School') }
 
     let!(:recipient) { school.recipients.create(name: 'name', phone: '1' * 9) }

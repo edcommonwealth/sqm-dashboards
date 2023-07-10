@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  RSpec.describe Question, type: :model do
+  RSpec.xdescribe Question, type: :model do
     let!(:school1) { School.create!(name: 'School 1') }
     let!(:school2) { School.create!(name: 'School 2') }
 

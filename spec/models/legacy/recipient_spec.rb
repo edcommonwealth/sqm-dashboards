@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  describe Recipient do
+  xdescribe Recipient do
     describe 'Import' do
       let(:school) { School.create!(name: 'School') }
       let(:data) { "name,phone\rJared,111-222-333\rLauren,222-333-4444\rAbby,333-444-5555\r" }

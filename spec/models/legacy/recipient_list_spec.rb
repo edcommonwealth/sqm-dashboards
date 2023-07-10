@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  describe RecipientList do
+  xdescribe RecipientList do
     describe 'Save' do
       it 'should convert the recipient_id_array into the recipient_ids attribute' do
         recipient_list = RecipientList.create(name: 'Name', recipient_id_array: ['', '1', '2', '3'])

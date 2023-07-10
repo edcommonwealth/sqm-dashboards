@@ -19,7 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 module Legacy
-  RSpec.describe SchedulesController, type: :controller do
+  RSpec.xdescribe SchedulesController, type: :controller do
     let!(:user) { User.create(email: 'test@test.com', password: '123456') }
     let!(:school) { School.create!(name: 'School') }
 

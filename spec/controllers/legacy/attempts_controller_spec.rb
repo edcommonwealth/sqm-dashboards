@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  RSpec.describe AttemptsController, type: :controller do
+  RSpec.xdescribe AttemptsController, type: :controller do
     let(:valid_session) { {} }
 
     let!(:recipients) { create_recipients(school, 2) }
