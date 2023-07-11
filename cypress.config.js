@@ -9,7 +9,7 @@ module.exports = defineConfig({
         /* ... */
       })
     },
-    supportFile: false
+    supportFile: false,
   },
   screenshotsFolder: "tmp/cypress_screenshots",
   videosFolder: "tmp/cypress_videos",
