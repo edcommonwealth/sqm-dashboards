@@ -108,6 +108,9 @@ GEM
     cuprite (0.14.3)
       capybara (~> 3.0)
       ferrum (~> 0.13.0)
+    cypress-rails (0.6.0)
+      puma (>= 3.8.0)
+      railties (>= 5.2.0)
     database_cleaner (2.0.2)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.1.0)
@@ -123,6 +126,10 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     e2mmap (0.1.0)
     ed25519 (1.3.0)
     em-websocket (0.5.3)
@@ -194,7 +201,6 @@ GEM
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
     json (2.6.3)
-    jwt (1.5.6)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -414,10 +420,6 @@ GEM
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
-    twilio-ruby (4.11.1)
-      builder (>= 2.1.2)
-      jwt (~> 1.0)
-      multi_json (>= 1.3.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
@@ -459,8 +461,10 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   cuprite
+  cypress-rails
   database_cleaner
   devise
+  dotenv-rails
   ed25519
   erb_lint
   erblint-github
@@ -500,7 +504,6 @@ DEPENDENCIES
   stimulus-rails
   timecop
   turbo-rails
-  twilio-ruby (~> 4.11.1)
   tzinfo-data
   uglifier (>= 1.3.0)
   watir
