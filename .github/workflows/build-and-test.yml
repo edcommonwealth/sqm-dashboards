@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main-switch-to-cypress ]
 
 jobs:
   test:
@@ -48,3 +48,5 @@ jobs:
         run: yarn install
       - name: Run javascript tests
         run: yarn test
+      - name: Run Cypress tests
+        run: bundle exec rake cypress:run
