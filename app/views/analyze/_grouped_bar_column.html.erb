@@ -1,14 +1,16 @@
 <g class="grouped-bar-column" data-for-measure-id="<%= column.measure.measure_id %>">
 <% score_label_y = [5, 10, 15, 5, 10, 15 ] %>
   <% column.bars.each_with_index do |bar, index| %>
-    <rect data-for-academic-year="<%= bar.academic_year.range %>" x="<%= bar.x_position %>%" y="<%= bar.y_offset %>%" width="<%= column.bar_width %>%" height="<%= bar.bar_height_percentage %>%" fill="<%= bar.color %>" />
+    <% if column.sufficient_data?(index)   %>
+      <rect data-for-academic-year="<%= bar.academic_year.range %>" x="<%= bar.x_position %>%" y="<%= bar.y_offset %>%" width="<%= column.bar_width %>%" height="<%= bar.bar_height_percentage %>%" fill="<%= bar.color %>" />
 
-    <% if ENV["SCORES"].present?  && ENV["SCORES"].upcase == "SHOW" %>
-      <text x="<%= bar.x_position + (column.bar_width * 0.5) %>%" y="<%= score_label_y[index] %>%" text-anchor="middle" dominant-baseline="middle">
-        <%= bar.average %>
-      </text>
+      <% if ENV["SCORES"].present?  && ENV["SCORES"].upcase == "SHOW" %>
+        <text x="<%= bar.x_position + (column.bar_width * 0.5) %>%" y="<%= score_label_y[index] %>%" text-anchor="middle" dominant-baseline="middle">
+          <%= bar.average %>
+        </text>
+      <% end %>
     <% end %>
-  <% end %>
+<% end %>
 
   <line x1="<%= column.column_start_x %>%" y1="0" x2="<%= column.column_start_x %>%" y2="85%" stroke="grey" stroke-width="1" stroke-dasharray="5,2" />
       <% words = column.label.split("\s") %>

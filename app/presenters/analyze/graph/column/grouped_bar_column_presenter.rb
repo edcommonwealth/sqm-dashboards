@@ -35,11 +35,7 @@ module Analyze
         end
 
         def label
-          'All Data'
-        end
-
-        def basis
-          ''
+          "All Data"
         end
 
         def show_irrelevancy_message?
@@ -106,11 +102,23 @@ module Analyze
         end
 
         def basis
-          'student surveys'
+          "student surveys"
         end
 
         def insufficiency_message
-          ['survey response', 'rate below 25%']
+          ["survey response", "rate below 25%"]
+        end
+
+        # TODO: figure out why this doesn't work
+        def sufficient_data?(year_index)
+          case basis
+          when "student"
+            score(year_index).meets_student_threshold
+          when "teacher"
+            score(year_index).meets_teacher_threshold
+          else
+            true
+          end
         end
 
         private

@@ -25,16 +25,20 @@ module Analyze
 
             Score.new(average:,
                       meets_teacher_threshold: false,
-                      meets_student_threshold: true,
+                      meets_student_threshold:,
                       meets_admin_data_threshold: false)
           end
 
           def sufficient_student_responses?(academic_year:)
+            sufficient_overall_responses = measure.subcategory.response_rate(school:,
+                                                                             academic_year:).meets_student_threshold
             yearly_counts = SurveyItemResponse.where(school:, academic_year:,
                                                      income:, survey_item: measure.student_survey_items).group(:income).select(:response_id).distinct(:response_id).count
-            yearly_counts.any? do |count|
+            more_than_ten_respondents = yearly_counts.any? do |count|
               count[1] >= 10
             end
+
+            sufficient_overall_responses && more_than_ten_respondents
           end
         end
       end

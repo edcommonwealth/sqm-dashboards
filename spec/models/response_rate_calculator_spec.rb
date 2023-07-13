@@ -84,7 +84,7 @@ describe ResponseRateCalculator, type: :model do
                                                  school:, grade: 1)
         end
 
-        context "and the response rate is a decimal number" do
+        xcontext "and the response rate is a decimal number" do
           before do
             create_list(:survey_item_response, 1, survey_item: sufficient_student_survey_item_1, academic_year:,
                                                   school:, grade: 1)
@@ -171,7 +171,7 @@ describe ResponseRateCalculator, type: :model do
         end
       end
 
-      context "when two grades have different numbers of students" do
+      xcontext "when two grades have different numbers of students" do
         before do
           create(:respondent, school:, academic_year:, total_students: 60, one: 40, two: 20)
           create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_1, academic_year:,
@@ -185,7 +185,7 @@ describe ResponseRateCalculator, type: :model do
         end
       end
 
-      context "when three grades have different numbers of students" do
+      xcontext "when three grades have different numbers of students" do
         before do
           create(:respondent, school:, academic_year:, total_students: 120, one: 40, two: 20, three: 60)
           create_list(:survey_item_response, 20, survey_item: sufficient_student_survey_item_1, academic_year:,

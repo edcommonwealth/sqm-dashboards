@@ -18,7 +18,7 @@ class ResponseRateCalculator
 
     return 0 unless total_possible_responses.positive?
 
-    cap_at_one_hundred(raw_response_rate).round
+    cap_at_one_hundred(raw_response_rate)
   end
 
   def meets_student_threshold?

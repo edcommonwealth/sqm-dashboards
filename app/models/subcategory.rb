@@ -33,24 +33,6 @@ class Subcategory < ActiveRecord::Base
     end.remove_blanks.average
   end
 
-  def student_score(school:, academic_year:)
-    measures.map do |measure|
-      measure.student_score(school:, academic_year:).average
-    end.compact.average
-  end
-
-  def teacher_score(school:, academic_year:)
-    measures.map do |measure|
-      measure.teacher_score(school:, academic_year:).average
-    end.compact.average
-  end
-
-  def admin_score(school:, academic_year:)
-    measures.map do |measure|
-      measure.admin_score(school:, academic_year:).average
-    end.compact.average
-  end
-
   def response_rate(school:, academic_year:)
     @response_rate ||= Hash.new do |memo, (school, academic_year)|
       student = StudentResponseRateCalculator.new(subcategory: self, school:, academic_year:)
