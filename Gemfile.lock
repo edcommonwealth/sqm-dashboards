@@ -82,7 +82,6 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     brakeman (5.4.1)
@@ -431,11 +430,6 @@ GEM
     watir (7.2.2)
       regexp_parser (>= 1.2, < 3)
       selenium-webdriver (~> 4.2)
-    web-console (4.2.0)
-      actionview (>= 6.0.0)
-      activemodel (>= 6.0.0)
-      bindex (>= 0.4.0)
-      railties (>= 6.0.0)
     webrick (1.8.1)
     websocket (1.2.9)
     websocket-driver (0.7.5)
@@ -507,7 +501,6 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   watir
-  web-console
 
 RUBY VERSION
    ruby 3.2.1p31

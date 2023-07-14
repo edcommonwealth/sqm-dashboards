@@ -86,7 +86,6 @@ group :development do
   gem "seed_dump"
   gem "solargraph-reek"
   gem "spring"
-  gem "web-console"
 end
 
 group "test" do
