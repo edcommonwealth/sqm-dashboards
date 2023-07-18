@@ -80,7 +80,7 @@ group :development do
   gem "guard-rspec", require: false
   gem "guard-livereload", "~> 2.5", require: false
   gem "rack-livereload"
-  gem "listen", "~> 3.0.5"
+  gem "listen", "~> 3.8.0"
   gem "nested_scaffold"
   # gem 'reek', require: false
   gem "rubocop", require: false
