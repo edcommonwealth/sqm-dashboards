@@ -28,8 +28,9 @@ describe('navigates the site', () => {
     cy.get("#school-dropdown").children("option[selected='selected']").should('have.text', 'Abraham Lincoln Elementary School')
     cy.get("a[href='/districts/lowell/schools/abraham-lincoln-elementary-school/overview?year=2023-24']")
 
-    cy.contains('Go').click()
-
+    cy.get('#schools').within(($schools) => {
+      cy.contains('Go').click()
+    })
     cy.url().should('include', '/districts/lowell/schools/abraham-lincoln-elementary-school/overview?year=2023-24')
   })
 
