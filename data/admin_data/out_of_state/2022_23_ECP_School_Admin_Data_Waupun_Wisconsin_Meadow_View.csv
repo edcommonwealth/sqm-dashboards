@@ -1,0 +1,34 @@
+Information Requested,Academic Year,School ID,Raw Score,Data Unit,Item  ID,Reverse Scored,HS only ,Admin Data Benchmark (Absolute),Benchmark Formula,Likert Score
+Total number of teachers employeed in school,2022-23,160,25.1,number,NA,,,,,
+Total number of students enrolled in school,2022-23,160,247,number,NA,,,NA,NA,
+Average daily attendance,2022-23,160,96.92,number,a-vale-i2,,,90,(4*raw)/benchmark,4.307555556
+Chronic absence rate,2022-23,160,6.17,number,a-vale-i1,X,,10,(benchmark - raw score) + benchmark) * 4 / benchmark,5.532
+Student to art teacher ratio,2022-23,160,0.5,ratio,a-sust-i4,X,,500,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),4.048
+Student to instructional support staff ratio,2022-23,160,19,ratio,a-sust-i3,X,,43.4,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),6.801843318
+Student to mental health counselor ratio,2022-23,160,1,ratio,a-sust-i2,X,,250,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),4.048
+Student to guidance counselor ratio (HS only),2022-23,160,,ratio,a-sust-i1,X,,250,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),n/a
+Average class size,2022-23,160,20,number,a-reso-i1,X,,20,(benchmark - raw score) + benchmark) * 4 / benchmark,4
+Percent of students enrolled in at least 1 arts course,2022-23,160,100,number,a-picp-i1,,,77.5,(4*raw)/benchmark,5.161290323
+Percent of students suspended for 10+ days,2022-23,160,0,percent,a-phys-i3,X,,1,(benchmark - raw score) + benchmark) * 4 / benchmark,8
+Percent of students suspended,2022-23,160,3.16,percent,a-phys-i1,X,,5.27,(benchmark - raw score) + benchmark) * 4 / benchmark,5.601518027
+Medical staff to student ratio (schoolwide),2022-23,160,1,ratio,a-phya-i1,X,,750,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),6.682666667
+% Teachers of Color,2022-23,160,0,percentage,a-pcom-i3,,,12.8,(4*raw)/benchmark,0
+Percent teachers with 10+ days absent,2022-23,160,42,percentage,a-pcom-i2,X,,28,(benchmark - raw score) + benchmark) * 4 / benchmark,2
+Percent teacher returning (including retirement),2022-23,160,97,percentage,a-pcom-i1,,,85,(4*raw)/benchmark,4.564705882
+9th grade passing rate,2022-23,160,,percentage,a-ovpe-i1,,X,75.8,(4*raw)/benchmark,0
+Percentage teachers teaching in area of licensure,2022-23,160,100,percentage,a-exp-i3,,,95,(4*raw)/benchmark,4.210526316
+Percentage teachers National Board certified,2022-23,160,0,percentage,a-exp-i2,,,10,(4*raw)/benchmark,0
+Percentage teachers with 3+ years of experience,2022-23,160,60,percentage,a-exp-i1,,,80,(4*raw)/benchmark,3
+5-year graduation rate (HS only),2022-23,160,,percentage,a-degr-i3,,X,85,(4*raw)/benchmark,0
+Percent students retained in a grade,2022-23,160,0,percentage,a-degr-i2,X,,2,(benchmark - raw score) + benchmark) * 4 / benchmark,8
+4-year on-time graduation rate (HS only),2022-23,160,,percentage,a-degr-i1,,X,80,(4*raw)/benchmark,0
+Student to number of electives ratio (completely free choice) (HS only),2022-23,160,,ratio,a-curv-i6,X,X,2,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),n/a
+Student to number of courses ratio (HS only),2022-23,160,,ratio,a-curv-i5,X,X,5,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),n/a
+Percent students of color completing advanced coursework (HS only),2022-23,160,,percentage,a-curv-i4,,X,36.4,(4*raw)/benchmark,0
+Percent AP test takers scoring 3 or higher (HS only),2022-23,160,,percentage,a-curv-i3,,X,20,(4*raw)/benchmark,0
+Percent juniors and seniors enrolled in one AP (HS only),2022-23,160,,percentage,a-curv-i2,,X,30,(4*raw)/benchmark,0
+Percent graduates completing MassCORE (HS only),2022-23,160,,percentage,a-curv-i1,,X,90,(4*raw)/benchmark,0
+"for all schools with a % teachers of color less than 5, they will receive a 1 on our Likert scale. We decided to set 5% as a ""floor"" because even in a school that is 100% white, there should still be teachers of color. If a school has greater than or equal to 5%, then the formula is: (% teachers of color/% students of color) * (4/0.25)",2022-23,160,0,ratio,a-cure-i1,,,0.26,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),1
+Student to career-technical education courses (HS only),2022-23,160,,ratio,a-cppm-i2,X,X,5,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),n/a
+Student to co-curricular activities ratio (HS only),2022-23,160,,ratio,a-cocu-i1,X,X,57,((benchmark - (number_of_students / raw score)) + benchmark)* 4 / benchmark),n/a
+Placement in college or career (HS only),2022-23,160,,percentage,a-cgpr-i1,,X,65.6,(4*raw)/benchmark,0
