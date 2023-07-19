@@ -1,5 +1,3 @@
-require 'twilio-ruby'
-
 module Legacy
   class Attempt < ApplicationRecord
     belongs_to :schedule
@@ -16,14 +14,14 @@ module Legacy
     scope :for_student, ->(student) { where(student_id: student.id) }
     scope :for_category, ->(category) { joins(:question).merge(Question.for_category(category)) }
     scope :for_school, ->(school) { joins(:recipient).merge(Legacy::Recipient.for_school(school)) }
-    scope :with_answer, -> { where('answer_index is not null or open_response_id is not null') }
-    scope :with_no_answer, -> { where('answer_index is null and open_response_id is null') }
+    scope :with_answer, -> { where("answer_index is not null or open_response_id is not null") }
+    scope :with_no_answer, -> { where("answer_index is null and open_response_id is null") }
     scope :not_yet_responded, -> { where(responded_at: nil) }
     scope :last_sent, -> { order(sent_at: :desc) }
-    scope :created_in, ->(year) { where('extract(year from legacy_attempts.created_at) = ?', year) }
+    scope :created_in, ->(year) { where("extract(year from legacy_attempts.created_at) = ?", year) }
 
     def messages
-      child_specific = student.present? ? " (for #{student.name})" : ''
+      child_specific = student.present? ? " (for #{student.name})" : ""
 
       cancel_text = "\nSkip question: skip\nStop all questions: stop"
 
@@ -34,8 +32,8 @@ module Legacy
     end
 
     def send_message
-      twilio_number = ENV['TWILIO_NUMBER']
-      client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+      twilio_number = ENV["TWILIO_NUMBER"]
+      client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
 
       sids = []
       messages.each do |message|
@@ -46,12 +44,12 @@ module Legacy
         ).sid
       end
 
-      update(sent_at: Time.new, twilio_sid: sids.join(','))
+      update(sent_at: Time.new, twilio_sid: sids.join(","))
       recipient.update(phone: client.messages.get(sids.last).to)
     end
 
     def response
-      return 'No Answer Yet' if answer_index.blank?
+      return "No Answer Yet" if answer_index.blank?
 
       question.options[answer_index_with_reverse - 1]
     end
@@ -75,7 +73,7 @@ module Legacy
     private
 
     def update_school_categories
-      return if ENV['BULK_PROCESS']
+      return if ENV["BULK_PROCESS"]
 
       school_category = SchoolCategory.for(recipient.school, question.category).first
       if school_category.nil?
@@ -85,7 +83,7 @@ module Legacy
     end
 
     def update_counts
-      return if ENV['BULK_PROCESS']
+      return if ENV["BULK_PROCESS"]
 
       recipient.update_counts
     end
