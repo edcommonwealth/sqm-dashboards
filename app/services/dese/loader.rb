@@ -4,14 +4,7 @@ module Dese
       admin_data_values = []
       CSV.parse(File.read(filepath), headers: true) do |row|
         score = likert_score(row:)
-        unless valid_likert_score(likert_score: score)
-          # school = School.find_by_dese_id(row['DESE ID']) || School.new(name: 'School not in consortium',
-          #                                                               dese_id: row['DESE ID'])
-          # puts "Invalid score: #{score}
-          # for school: #{school.name}
-          # admin data item #{admin_data_item(row:)} "
-          next
-        end
+        next unless valid_likert_score(likert_score: score)
 
         admin_data_values << create_admin_data_value(row:, score:)
       end
@@ -27,12 +20,7 @@ module Dese
 
     def self.likert_score(row:)
       likert_score = (row["Likert Score"] || row["LikertScore"] || row["Likert_Score"]).to_f
-      round_up_to_one(likert_score:)
-    end
-
-    def self.round_up_to_one(likert_score:)
-      likert_score = 1 if likert_score.positive? && likert_score < 1
-      likert_score
+      likert_score.round_up_to_one.round_down_to_five
     end
 
     def self.ay(row:)
@@ -73,7 +61,6 @@ module Dese
 
     private_class_method :valid_likert_score
     private_class_method :likert_score
-    private_class_method :round_up_to_one
     private_class_method :ay
     private_class_method :dese_id
     private_class_method :admin_data_item

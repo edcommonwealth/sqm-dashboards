@@ -7,7 +7,6 @@ class AdminDataLoader
     admin_data_values = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       score = likert_score(row:)
-      byebug
       unless valid_likert_score(likert_score: score)
         puts "Invalid score: #{score}
         for school: #{School.find_by_dese_id(row['DESE ID']).name}
@@ -58,7 +57,6 @@ class AdminDataLoader
     admin_data_value = AdminDataValue.find_or_initialize_by(school: School.find_by_dese_id(dese_id(row:).to_i),
                                                             academic_year: AcademicYear.find_by_range(ay(row:)),
                                                             admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item(row:)))
-    byebug
     return nil if admin_data_value.likert_score == score
 
     admin_data_value.likert_score = score
