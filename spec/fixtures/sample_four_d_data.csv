@@ -17,7 +17,7 @@ Assabet Valley Regional Vocational Technical - Assabet Valley Vocational High Sc
 Athol-Royalston - Athol High,6150505,13,14.5,0,21.7,11.6,0,37.7,0,0,1.4,69,5.25333333333333,5,a-cgpr-i1,2020-21
 Atlantis Charter (District) - Atlantis Charter School,4910550,19,38.1,0,22.6,0,4.8,8.3,2.4,0,4.8,84,4.94933333333333,4.95,a-cgpr-i1,2020-21
 Attleboro - Attleboro Community Academy,160515,0,1.9,0,20.4,14.8,1.9,55.6,5.6,0,0,54,5.04533333333333,5,a-cgpr-i1,2020-21
-Attleboro - Attleboro High,160505,27,28.3,0,18,1.3,0,20.3,3.6,0.3,1.3,389,5.06133333333333,5,a-cgpr-i1,2020-21
+Attleboro - Attleboro High,160505,27,28.3,0,18,1.3,0,20.3,3.6,0.3,1.3,389,6.06133333333333,6.06133333333333,a-cgpr-i1,2020-21
 Auburn - Auburn Senior High,170505,24.4,48.1,0,10,3.1,0,11.9,1.9,0,0.6,160,5.2,5,a-cgpr-i1,2020-21
 Avon - Avon Middle High School,180510,26.3,42.1,0,18.4,0,0,7.9,2.6,0,2.6,38,5.05066666666667,5,a-cgpr-i1,2020-21
 Ayer Shirley School District - Ayer Shirley Regional High School,6160505,26.6,38,0,10.1,1.3,0,6.3,8.9,0,8.9,79,4.38933333333333,4.39,a-cgpr-i1,2020-21
@@ -413,7 +413,7 @@ Assabet Valley Regional Vocational Technical - Assabet Valley Vocational High Sc
 Athol-Royalston - Athol High,6150505,14.1,15.4,0,30.8,5.1,1.3,25.6,5.1,1.3,1.3,78,4.92266666666667,4.92,a-cgpr-i1,2019-20
 Atlantis Charter (District) - Atlantis Charter School,4910550,25.9,37.9,0,27.6,0,0,6.9,1.7,0,0,58,5.24266666666667,5,a-cgpr-i1,2019-20
 Attleboro - Attleboro Community Academy,160515,0,3,0,27.3,12.1,3,45.5,0,9.1,0,33,4.848,4.85,a-cgpr-i1,2019-20
-Attleboro - Attleboro High,160505,30.9,29.4,0,18.6,3.1,0.3,13.4,3.1,0.8,0.5,388,5.104,5,a-cgpr-i1,2019-20
+Attleboro - Attleboro High,160505,30.9,29.4,0,18.6,3.1,0.3,13.4,3.1,0.8,0.5,388,0.1,0.1,a-cgpr-i1,2019-20
 Auburn - Auburn Senior High,170505,27.4,33.5,0.6,15.1,1.7,0,9.5,2.8,0,9.5,179,4.68266666666667,4.68,a-cgpr-i1,2019-20
 Avon - Avon Middle High School,180510,23.4,46.8,0,10.6,2.1,0,12.8,0,0,4.3,47,5.104,5,a-cgpr-i1,2019-20
 Ayer Shirley School District - Ayer Shirley Regional High School,6160505,27,40,0,13,2,0,9,2,3,4,100,4.85333333333333,4.85,a-cgpr-i1,2019-20
@@ -1206,7 +1206,7 @@ Assabet Valley Regional Vocational Technical - Assabet Valley Vocational High Sc
 Athol-Royalston - Athol High,6150505,17.4,14,0,34.9,5.8,0,16.3,3.5,5.8,2.3,86,4.71466666666667,4.71,a-cgpr-i1,2017-18
 Atlantis Charter (District) - Atlantis Charter School,4910550,13.2,44.7,0,42.1,0,0,0,0,0,0,38,5.33333333333333,5,a-cgpr-i1,2017-18
 Attleboro - Attleboro Community Academy,160515,0,2,0,28,4,2,52,0,4,8,50,4.69333333333333,4.69,a-cgpr-i1,2017-18
-Attleboro - Attleboro High,160505,29.6,31.8,0.3,19.5,3.3,0,9,5.2,0.8,0.5,365,4.98666666666667,4.99,a-cgpr-i1,2017-18
+Attleboro - Attleboro High,160505,29.6,31.8,0.3,19.5,3.3,0,9,5.2,0.8,0.5,365,0,0,a-cgpr-i1,2017-18
 Auburn - Auburn Senior High,170505,20.4,42.6,0.6,24.7,1.9,0,6.2,3.7,0,0,162,5.14133333333333,5,a-cgpr-i1,2017-18
 Avon - Avon Middle High School,180510,25,47.2,0,16.7,5.6,0,5.6,0,0,0,36,5.33866666666667,5,a-cgpr-i1,2017-18
 Ayer Shirley School District - Ayer Shirley Regional High School,6160505,16.5,48.2,0,20,2.4,0,10.6,1.2,0,1.2,85,5.21066666666667,5,a-cgpr-i1,2017-18
@@ -1602,7 +1602,7 @@ Ashland - Ashland High,140505,33.5,50.5,0,8.8,1.6,,4.9,0,0,0.5,182,5.296,5,a-cgp
 Assabet Valley Regional Vocational Technical - Assabet Valley Vocational High School,8010605,15.7,19.5,0.4,15.3,6.1,,39.8,2.7,0,0.4,261,5.16266666666667,5,a-cgpr-i1,2016-17
 Athol-Royalston - Athol High,6150505,19.4,11.9,1.5,46.3,4.5,,11.9,3,1.5,0,67,5.09333333333333,5,a-cgpr-i1,2016-17
 Attleboro - Attleboro Community Academy,160515,0,0,3.3,30,6.7,,36.7,6.7,6.7,10,30,4.09066666666667,4.09,a-cgpr-i1,2016-17
-Attleboro - Attleboro High,160505,26.7,31.1,0,21.3,1.6,,12,5.4,0.3,1.6,367,4.944,4.94,a-cgpr-i1,2016-17
+Attleboro - Attleboro High,160505,26.7,31.1,0,21.3,1.6,,12,5.4,0.3,1.6,367,,,a-cgpr-i1,2016-17
 Auburn - Auburn Senior High,170505,35.1,42.4,0,11.9,0.7,,7.9,2,0,0,151,5.22666666666667,5,a-cgpr-i1,2016-17
 Avon - Avon Middle High School,180510,20.8,54.2,0,4.2,12.5,,2.1,0,4.2,2.1,48,5.00266666666667,5,a-cgpr-i1,2016-17
 Ayer Shirley School District - Ayer Shirley Regional High School,6160505,20.3,36.7,0,25.3,0,,7.6,2.5,0,7.6,79,4.79466666666667,4.79,a-cgpr-i1,2016-17
