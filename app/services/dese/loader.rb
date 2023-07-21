@@ -26,7 +26,7 @@ module Dese
     end
 
     def self.likert_score(row:)
-      likert_score = (row['Likert Score'] || row['LikertScore'] || row['Likert_Score']).to_f
+      likert_score = (row["Likert Score"] || row["LikertScore"] || row["Likert_Score"]).to_f
       round_up_to_one(likert_score:)
     end
 
@@ -36,15 +36,15 @@ module Dese
     end
 
     def self.ay(row:)
-      row['Academic Year'] || row['AcademicYear']
+      row["Academic Year"] || row["AcademicYear"]
     end
 
     def self.dese_id(row:)
-      row['DESE ID'] || row['Dese ID'] || row['Dese Id']
+      row["DESE ID"] || row["Dese ID"] || row["Dese Id"] || row["School ID"]
     end
 
     def self.admin_data_item(row:)
-      row['Admin Data Item'] || row['Item ID'] || row['Item Id']
+      row["Admin Data Item"] || row["Item ID"] || row["Item Id"] || row["Item  ID"]
     end
 
     def self.create_admin_data_value(row:, score:)

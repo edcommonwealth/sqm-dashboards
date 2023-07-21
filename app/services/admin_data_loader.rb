@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class AdminDataLoader
   def self.load_data(filepath:)
     admin_data_values = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       score = likert_score(row:)
+      byebug
       unless valid_likert_score(likert_score: score)
         puts "Invalid score: #{score}
         for school: #{School.find_by_dese_id(row['DESE ID']).name}
@@ -26,7 +27,7 @@ class AdminDataLoader
   end
 
   def self.likert_score(row:)
-    likert_score = (row['LikertScore'] || row['Likert Score'] || row['Likert_Score']).to_f
+    likert_score = (row["LikertScore"] || row["Likert Score"] || row["Likert_Score"]).to_f
     likert_score = round_up_to_one(likert_score:)
     round_down_to_five(likert_score:)
   end
@@ -42,21 +43,22 @@ class AdminDataLoader
   end
 
   def self.ay(row:)
-    row['Academic Year'] || row['AcademicYear']
+    row["Academic Year"] || row["AcademicYear"]
   end
 
   def self.dese_id(row:)
-    row['DESE ID'] || row['Dese ID'] || row['Dese Id']
+    row["DESE ID"] || row["Dese ID"] || row["Dese Id"] || row["School ID"]
   end
 
   def self.admin_data_item(row:)
-    row['Item ID'] || row['Item Id']
+    row["Item ID"] || row["Item Id"] || row["Item  ID"]
   end
 
   def self.create_admin_data_value(row:, score:)
     admin_data_value = AdminDataValue.find_or_initialize_by(school: School.find_by_dese_id(dese_id(row:).to_i),
                                                             academic_year: AcademicYear.find_by_range(ay(row:)),
                                                             admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item(row:)))
+    byebug
     return nil if admin_data_value.likert_score == score
 
     admin_data_value.likert_score = score
