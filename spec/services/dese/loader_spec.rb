@@ -1,20 +1,20 @@
-require 'rails_helper'
+require "rails_helper"
 RSpec.describe Dese::Loader do
-  let(:path_to_admin_data) { Rails.root.join('spec', 'fixtures', 'sample_four_d_data.csv') }
+  let(:path_to_admin_data) { Rails.root.join("spec", "fixtures", "sample_four_d_data.csv") }
 
-  let(:ay_2022_23) { create(:academic_year, range: '2022-23') }
-  let(:ay_2021_22) { create(:academic_year, range: '2021-22') }
-  let(:ay_2020_21) { create(:academic_year, range: '2020-21') }
-  let(:ay_2019_20) { create(:academic_year, range: '2019-20') }
-  let(:ay_2018_19) { create(:academic_year, range: '2018-19') }
-  let(:ay_2017_18) { create(:academic_year, range: '2017-18') }
-  let(:ay_2016_17) { create(:academic_year, range: '2016-17') }
-  let(:four_d) { create(:admin_data_item, admin_data_item_id: 'a-cgpr-i1') }
-  let(:attleboro)  { create(:school, dese_id: 160_505) }
+  let(:ay_2022_23) { create(:academic_year, range: "2022-23") }
+  let(:ay_2021_22) { create(:academic_year, range: "2021-22") }
+  let(:ay_2020_21) { create(:academic_year, range: "2020-21") }
+  let(:ay_2019_20) { create(:academic_year, range: "2019-20") }
+  let(:ay_2018_19) { create(:academic_year, range: "2018-19") }
+  let(:ay_2017_18) { create(:academic_year, range: "2017-18") }
+  let(:ay_2016_17) { create(:academic_year, range: "2016-17") }
+  let(:four_d) { create(:admin_data_item, admin_data_item_id: "a-cgpr-i1") }
+  let(:attleboro) { create(:school, dese_id: 160_505) }
   let(:winchester) { create(:school, dese_id: 3_440_505) }
-  let(:milford)    { create(:school, dese_id: 1_850_505) }
-  let(:seacoast)   { create(:school, dese_id: 2_480_520) }
-  let(:next_wave)  { create(:school, dese_id: 2_740_510) }
+  let(:milford) { create(:school, dese_id: 1_850_505) }
+  let(:seacoast) { create(:school, dese_id: 2_480_520) }
+  let(:next_wave) { create(:school, dese_id: 2_740_510) }
 
   before :each do
     ay_2022_23
@@ -35,12 +35,12 @@ RSpec.describe Dese::Loader do
   after :each do
     # DatabaseCleaner.clean
   end
-  context 'when running the loader' do
+  context "when running the loader" do
     before :each do
       Dese::Loader.load_data filepath: path_to_admin_data
     end
 
-    it 'load the correct admin data values' do
+    it "load the correct admin data values" do
       expect(AdminDataValue.find_by(school: winchester, admin_data_item: four_d,
                                     academic_year: ay_2016_17).likert_score).to eq 5
       expect(AdminDataValue.find_by(school: attleboro, admin_data_item: four_d,
@@ -53,14 +53,31 @@ RSpec.describe Dese::Loader do
                                     academic_year: ay_2020_21).likert_score).to eq 4.8
     end
 
-    it 'loads the correct number of items' do
-      expect(AdminDataValue.count).to eq 25
+    it "loads the correct number of items" do
+      expect(AdminDataValue.count).to eq 23
     end
 
-    it 'is idempotent' do
+    it "cap maximum likert score to 5" do
+      expect(AdminDataValue.find_by(school: attleboro, admin_data_item: four_d,
+                                    academic_year: ay_2020_21).likert_score).to eq 5
+    end
+
+    it "any number between 0 and 1 is rounded to 1" do
+      expect(AdminDataValue.find_by(school: attleboro, admin_data_item: four_d,
+                                    academic_year: ay_2019_20).likert_score).to eq 1
+    end
+
+    it "ignores blank and zero values" do
+      expect(AdminDataValue.find_by(school: attleboro, admin_data_item: four_d,
+                                    academic_year: ay_2017_18)).to eq nil
+      expect(AdminDataValue.find_by(school: attleboro, admin_data_item: four_d,
+                                    academic_year: ay_2016_17)).to eq nil
+    end
+
+    it "is idempotent" do
       Dese::Loader.load_data filepath: path_to_admin_data
 
-      expect(AdminDataValue.count).to eq 25
+      expect(AdminDataValue.count).to eq 23
     end
   end
 end
