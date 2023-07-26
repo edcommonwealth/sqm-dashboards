@@ -6,8 +6,9 @@ module Analyze
       module RaceColumn
         class Multiracial < GroupedBarColumnPresenter
           include Analyze::Graph::Column::ScoreForRace
+          include Analyze::Graph::Column::RaceColumn::RaceCount
           def label
-            'Multiracial'
+            "Multiracial"
           end
 
           def show_irrelevancy_message?

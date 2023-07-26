@@ -5,7 +5,7 @@ module Analyze
     module Column
       class AllStudent < GroupedBarColumnPresenter
         def label
-          'All Students'
+          "All Students"
         end
 
         def show_irrelevancy_message?
@@ -22,6 +22,10 @@ module Analyze
 
         def score(year_index)
           measure.student_score(school:, academic_year: academic_years[year_index])
+        end
+
+        def type
+          :student
         end
       end
     end

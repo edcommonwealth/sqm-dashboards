@@ -5,11 +5,11 @@ module Analyze
     module Column
       class AllTeacher < GroupedBarColumnPresenter
         def label
-          'All Teachers'
+          "All Teachers"
         end
 
         def basis
-          'teacher surveys'
+          "teacher surveys"
         end
 
         def show_irrelevancy_message?
@@ -26,6 +26,15 @@ module Analyze
 
         def score(year_index)
           measure.teacher_score(school:, academic_year: academic_years[year_index])
+        end
+
+        def type
+          :teacher
+        end
+
+        def n_size(year_index)
+          SurveyItemResponse.where(survey_item: measure.teacher_survey_items, school:,
+                                   academic_year: academic_years[year_index]).count
         end
       end
     end

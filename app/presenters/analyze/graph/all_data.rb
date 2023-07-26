@@ -5,11 +5,11 @@ module Analyze
     class AllData
       include Analyze::Graph::Column
       def to_s
-        'All Data'
+        "All Data"
       end
 
       def slug
-        'all-data'
+        "all-data"
       end
 
       def columns

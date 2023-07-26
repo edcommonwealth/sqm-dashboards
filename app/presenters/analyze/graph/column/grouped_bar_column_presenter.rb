@@ -35,11 +35,11 @@ module Analyze
         end
 
         def label
-          'All Data'
+          "All Data"
         end
 
         def basis
-          ''
+          ""
         end
 
         def show_irrelevancy_message?
@@ -106,11 +106,43 @@ module Analyze
         end
 
         def basis
-          'student surveys'
+          "student surveys"
+        end
+
+        def type
+          :all_data
+        end
+
+        def show_popover?
+          %i[student teacher].include? type
+        end
+
+        def n_size(year_index)
+          SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades(year_index),
+                                   academic_year: academic_years[year_index]).select(:response_id).distinct.count
+        end
+
+        def popover_content(year_index)
+          "#{n_size(year_index)} #{type.to_s.capitalize}s"
         end
 
         def insufficiency_message
-          ['survey response', 'rate below 25%']
+          ["survey response", "rate below 25%"]
+        end
+
+        def sufficient_data?(year_index)
+          case basis
+          when "student"
+            score(year_index).meets_student_threshold
+          when "teacher"
+            score(year_index).meets_teacher_threshold
+          else
+            true
+          end
+        end
+
+        def grades(year_index)
+          Respondent.find_by(school:, academic_year: academic_years[year_index]).counts_by_grade.keys
         end
 
         private

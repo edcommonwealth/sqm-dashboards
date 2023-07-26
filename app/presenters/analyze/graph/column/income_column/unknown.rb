@@ -3,12 +3,12 @@
 module Analyze
   module Graph
     module Column
-      module RaceColumn
-        class Hispanic < GroupedBarColumnPresenter
-          include Analyze::Graph::Column::ScoreForRace
-          include Analyze::Graph::Column::RaceColumn::RaceCount
+      module IncomeColumn
+        class Unknown < GroupedBarColumnPresenter
+          include Analyze::Graph::Column::IncomeColumn::ScoreForIncome
+          include Analyze::Graph::Column::IncomeColumn::IncomeCount
           def label
-            "Hispanic"
+            "Unknown"
           end
 
           def show_irrelevancy_message?
@@ -19,8 +19,8 @@ module Analyze
             false
           end
 
-          def race
-            Race.find_by_qualtrics_code 4
+          def income
+            Income.find_by_designation "Unknown"
           end
         end
       end

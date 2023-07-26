@@ -12,4 +12,4 @@ Style/Documentation:
   Enabled: false
 
 Style/StringLiterals:
-  EnforcedStyle: single_quotes
+  EnforcedStyle: double_quotes
