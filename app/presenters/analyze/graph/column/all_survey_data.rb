@@ -5,7 +5,7 @@ module Analyze
     module Column
       class AllSurveyData < GroupedBarColumnPresenter
         def label
-          'Survey Data'
+          "Survey Data"
         end
 
         def show_irrelevancy_message?
@@ -22,6 +22,10 @@ module Analyze
 
         def score(year_index)
           combined_score(school:, academic_year: academic_years[year_index])
+        end
+
+        def type
+          :all_survey_data
         end
 
         private

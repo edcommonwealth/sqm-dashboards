@@ -29,6 +29,10 @@ module Analyze
         def score(year_index)
           measure.admin_score(school:, academic_year: academic_years[year_index])
         end
+
+        def type
+          :admin
+        end
       end
     end
   end

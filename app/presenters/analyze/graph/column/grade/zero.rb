@@ -6,12 +6,13 @@ module Analyze
       module Grade
         class Zero < GroupedBarColumnPresenter
           include Analyze::Graph::Column::Grade::ScoreForGrade
+          include Analyze::Graph::Column::Grade::GradeCount
           def label
-            'Kindergarten'
+            "Kindergarten"
           end
 
           def basis
-            'student'
+            "student"
           end
 
           def show_irrelevancy_message?

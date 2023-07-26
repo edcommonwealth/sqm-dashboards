@@ -6,8 +6,9 @@ module Analyze
       module RaceColumn
         class AmericanIndian < GroupedBarColumnPresenter
           include Analyze::Graph::Column::ScoreForRace
+          include Analyze::Graph::Column::RaceColumn::RaceCount
           def label
-            'American Indian'
+            "American Indian"
           end
 
           def show_irrelevancy_message?

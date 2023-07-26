@@ -6,8 +6,9 @@ module Analyze
       module RaceColumn
         class White < GroupedBarColumnPresenter
           include Analyze::Graph::Column::ScoreForRace
+          include Analyze::Graph::Column::RaceColumn::RaceCount
           def label
-            'White'
+            "White"
           end
 
           def show_irrelevancy_message?

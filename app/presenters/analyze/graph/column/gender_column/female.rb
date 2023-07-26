@@ -6,12 +6,13 @@ module Analyze
       module GenderColumn
         class Female < GroupedBarColumnPresenter
           include Analyze::Graph::Column::GenderColumn::ScoreForGender
+          include Analyze::Graph::Column::GenderColumn::GenderCount
           def label
-            'Female'
+            "Female"
           end
 
           def basis
-            'student'
+            "student"
           end
 
           def show_irrelevancy_message?
