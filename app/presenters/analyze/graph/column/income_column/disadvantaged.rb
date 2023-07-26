@@ -6,6 +6,7 @@ module Analyze
       module IncomeColumn
         class Disadvantaged < GroupedBarColumnPresenter
           include Analyze::Graph::Column::IncomeColumn::ScoreForIncome
+          include Analyze::Graph::Column::IncomeColumn::IncomeCount
           def label
             "Economically Disadvantaged"
           end

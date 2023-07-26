@@ -8,12 +8,13 @@ module Analyze
           attr_reader :sufficient_responses
 
           include Analyze::Graph::Column::Grade::ScoreForGrade
+          include Analyze::Graph::Column::Grade::GradeCount
           def label
-            'Grade 2'
+            "Grade 2"
           end
 
           def basis
-            'student'
+            "student"
           end
 
           def show_irrelevancy_message?

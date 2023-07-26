@@ -105,11 +105,27 @@ module Analyze
           "student surveys"
         end
 
+        def type
+          :all_data
+        end
+
+        def show_popover?
+          %i[student teacher].include? type
+        end
+
+        def n_size(year_index)
+          SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades(year_index),
+                                   academic_year: academic_years[year_index]).select(:response_id).distinct.count
+        end
+
+        def popover_content(year_index)
+          "#{n_size(year_index)} #{type.to_s.capitalize}s"
+        end
+
         def insufficiency_message
           ["survey response", "rate below 25%"]
         end
 
-        # TODO: figure out why this doesn't work
         def sufficient_data?(year_index)
           case basis
           when "student"
@@ -119,6 +135,10 @@ module Analyze
           else
             true
           end
+        end
+
+        def grades(year_index)
+          Respondent.find_by(school:, academic_year: academic_years[year_index]).counts_by_grade.keys
         end
 
         private
