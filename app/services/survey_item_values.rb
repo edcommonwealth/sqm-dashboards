@@ -52,7 +52,7 @@ class SurveyItemValues
   def dese_id
     @dese_id ||= begin
       dese_id = nil
-      dese_headers = ['DESE ID', 'Dese ID', 'DeseId', 'DeseID', 'School', 'school']
+      dese_headers = ["DESE ID", "Dese ID", "DeseId", "DeseID", "School", "school"]
       school_headers = headers.select { |header| /School-\s\w/.match(header) }
       dese_headers << school_headers
       dese_headers.flatten.each do |header|
@@ -102,26 +102,27 @@ class SurveyItemValues
     @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income/i)
     return @raw_income if @raw_income.present?
 
-    return 'Unknown' unless disaggregation_data.present?
+    return "Unknown" unless disaggregation_data.present?
 
     disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
-    return 'Unknown' unless disaggregation.present?
+    return "Unknown" unless disaggregation.present?
 
     @raw_income ||= disaggregation.income
   end
 
+  # TODO - rename these cases
   def income
     @income ||= value_from(pattern: /^Income$/i)
     return @income if @income.present?
 
     @income ||= case raw_income
-                in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
-                  'Economically Disadvantaged - Y'
-                in /Not\s*Eligible/i
-                  'Economically Disadvantaged - N'
-                else
-                  'Unknown'
-                end
+    in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
+      "Economically Disadvantaged - Y"
+    in /Not\s*Eligible/i
+      "Economically Disadvantaged - N"
+    else
+      "Unknown"
+    end
   end
 
   def value_from(pattern:)
@@ -137,12 +138,12 @@ class SurveyItemValues
 
   def to_a
     copy_likert_scores_from_variant_survey_items
-    row['Income'] = income
-    row['Raw Income'] = raw_income
+    row["Income"] = income
+    row["Raw Income"] = raw_income
     headers.select(&:present?)
-           .reject { |key, _value| key.start_with? 'Q' }
-           .reject { |key, _value| key.end_with? '-1' }
-           .map { |header| row[header] }
+      .reject { |key, _value| key.start_with? "Q" }
+      .reject { |key, _value| key.end_with? "-1" }
+      .map { |header| row[header] }
   end
 
   def duration
@@ -155,23 +156,23 @@ class SurveyItemValues
 
   def respondent_type
     return :teacher if headers
-                       .filter(&:present?)
-                       .filter { |header| header.start_with? 't-' }.count > 0
+      .filter(&:present?)
+      .filter { |header| header.start_with? "t-" }.count > 0
 
     :student
   end
 
   def survey_type
     survey_item_ids = headers
-                      .filter(&:present?)
-                      .reject { |header| header.end_with?('-1') }
-                      .filter { |header| header.start_with?('t-', 's-') }
+      .filter(&:present?)
+      .reject { |header| header.end_with?("-1") }
+      .filter { |header| header.start_with?("t-", "s-") }
 
     SurveyItem.survey_type(survey_item_ids:)
   end
 
   def valid_duration?
-    return true if duration.nil? || duration == '' || duration.downcase == 'n/a' || duration.downcase == 'na'
+    return true if duration.nil? || duration == "" || duration.downcase == "n/a" || duration.downcase == "na"
 
     span_in_seconds = duration.to_i
     return span_in_seconds >= 300 if survey_type == :teacher
@@ -182,8 +183,8 @@ class SurveyItemValues
   end
 
   def valid_progress?
-    progress = row['Progress']
-    return true if progress.nil? || progress == '' || progress.downcase == 'n/a' || progress.downcase == 'na'
+    progress = row["Progress"]
+    return true if progress.nil? || progress == "" || progress.downcase == "n/a" || progress.downcase == "na"
 
     progress = progress.to_i
     progress.to_i >= 25
@@ -208,7 +209,7 @@ class SurveyItemValues
   def valid_sd?
     return true if survey_type == :early_education
 
-    survey_item_headers = headers.filter(&:present?).filter { |header| header.start_with?('s-', 't-') }
+    survey_item_headers = headers.filter(&:present?).filter { |header| header.start_with?("s-", "t-") }
     likert_scores = []
     survey_item_headers.each do |header|
       likert_scores << likert_score(survey_item_id: header).to_i
@@ -226,9 +227,9 @@ class SurveyItemValues
   private
 
   def copy_likert_scores_from_variant_survey_items
-    headers.filter(&:present?).filter { |header| header.end_with? '-1' }.each do |header|
+    headers.filter(&:present?).filter { |header| header.end_with? "-1" }.each do |header|
       likert_score = row[header]
-      main_item = header.gsub('-1', '')
+      main_item = header.gsub("-1", "")
       row[main_item] = likert_score if likert_score.present?
     end
   end

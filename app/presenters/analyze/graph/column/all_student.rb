@@ -5,7 +5,7 @@ module Analyze
     module Column
       class AllStudent < GroupedBarColumnPresenter
         def label
-          "All Students"
+          %w[All Students]
         end
 
         def show_irrelevancy_message?

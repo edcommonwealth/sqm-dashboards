@@ -9,7 +9,7 @@ module Analyze
           include Analyze::Graph::Column::RaceColumn::RaceCount
 
           def label
-            "Middle Eastern"
+            %w[Middle Eastern]
           end
 
           def show_irrelevancy_message?

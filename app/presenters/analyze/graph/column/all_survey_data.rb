@@ -5,7 +5,7 @@ module Analyze
     module Column
       class AllSurveyData < GroupedBarColumnPresenter
         def label
-          "Survey Data"
+          %w[Survey Data]
         end
 
         def show_irrelevancy_message?

@@ -8,7 +8,7 @@ module Analyze
           include Analyze::Graph::Column::ScoreForRace
           include Analyze::Graph::Column::RaceColumn::RaceCount
           def label
-            "White"
+            %w[White]
           end
 
           def show_irrelevancy_message?

@@ -8,7 +8,7 @@ module Analyze
           include Analyze::Graph::Column::ScoreForRace
           include Analyze::Graph::Column::RaceColumn::RaceCount
           def label
-            "Asian"
+            %w[Asian]
           end
 
           def show_irrelevancy_message?
