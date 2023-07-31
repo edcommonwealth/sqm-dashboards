@@ -16,4 +16,15 @@ class Income < ApplicationRecord
       "Unknown"
     end
   end
+
+  def label
+    case designation
+    when "Economically Disadvantaged - Y"
+      "Economically Disadvantaged"
+    when "Economically Disadvantaged - N"
+      "Not Economically Disadvantaged"
+    when "Unknown"
+      "Unknown"
+    end
+  end
 end

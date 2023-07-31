@@ -38,10 +38,6 @@ module Analyze
           %w[All Data]
         end
 
-        def basis
-          ""
-        end
-
         def show_irrelevancy_message?
           false
         end

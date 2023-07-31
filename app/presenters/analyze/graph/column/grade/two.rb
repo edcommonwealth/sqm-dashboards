@@ -5,8 +5,6 @@ module Analyze
     module Column
       module Grade
         class Two < GroupedBarColumnPresenter
-          attr_reader :sufficient_responses
-
           include Analyze::Graph::Column::Grade::ScoreForGrade
           include Analyze::Graph::Column::Grade::GradeCount
           def label
