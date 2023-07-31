@@ -8,7 +8,7 @@ module Analyze
           include Analyze::Graph::Column::GenderColumn::ScoreForGender
           include Analyze::Graph::Column::GenderColumn::GenderCount
           def label
-            "Unknown"
+            %w[Unknown]
           end
 
           def basis

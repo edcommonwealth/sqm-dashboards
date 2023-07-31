@@ -110,7 +110,6 @@ class SurveyItemValues
     @raw_income ||= disaggregation.income
   end
 
-  # TODO: - rename these cases
   def income
     @income ||= value_from(pattern: /^Income$/i)
     return @income if @income.present?
@@ -234,4 +233,3 @@ class SurveyItemValues
     end
   end
 end
-

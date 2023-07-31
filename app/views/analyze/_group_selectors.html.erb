@@ -19,5 +19,5 @@
 <% end %>
 
 <% @presenter.incomes.each do |income| %>
-  <%= render(partial: "checkboxes", locals: {id: "income-#{income.slug}", item: income, selected_items: @presenter.selected_incomes, name: "income", label_text: income.designation})  %>
+  <%= render(partial: "checkboxes", locals: {id: "income-#{income.slug}", item: income, selected_items: @presenter.selected_incomes, name: "income", label_text: income.label})  %>
 <% end %>

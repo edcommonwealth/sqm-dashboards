@@ -4,4 +4,15 @@ class Income < ApplicationRecord
   include FriendlyId
 
   friendly_id :designation, use: [:slugged]
+
+  def label
+    case designation
+    when "Economically Disadvantaged - Y"
+      "Economically Disadvantaged"
+    when "Economically Disadvantaged - N"
+      "Not Economically Disadvantaged"
+    when "Unknown"
+      "Unknown"
+    end
+  end
 end

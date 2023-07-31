@@ -5,7 +5,7 @@ module Analyze
     module Column
       class AllTeacher < GroupedBarColumnPresenter
         def label
-          "All Teachers"
+          %w[All Teachers]
         end
 
         def basis

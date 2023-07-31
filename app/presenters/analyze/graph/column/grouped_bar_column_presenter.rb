@@ -39,7 +39,7 @@ module Analyze
         end
 
         def label
-          "All Data"
+          %w[All Data]
         end
 
         def basis
