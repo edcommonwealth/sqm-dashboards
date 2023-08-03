@@ -34,7 +34,7 @@ module Analyze
 
         def n_size(year_index)
           SurveyItemResponse.where(survey_item: measure.teacher_survey_items, school:,
-                                   academic_year: academic_years[year_index]).count
+            academic_year: academic_years[year_index]).select(:response_id).distinct.count
         end
       end
     end
