@@ -24,11 +24,11 @@ class SurveyItemResponse < ActiveRecord::Base
 
   scope :averages_for_gender, lambda { |survey_items, school, academic_year, gender|
     SurveyItemResponse.where(survey_item: survey_items, school:,
-                             academic_year:, gender:).group(:survey_item).average(:likert_score)
+                             academic_year:, gender:, grade: school.grades(academic_year:)).group(:survey_item).average(:likert_score)
   }
 
   scope :averages_for_income, lambda { |survey_items, school, academic_year, income|
     SurveyItemResponse.where(survey_item: survey_items, school:,
-                             academic_year:, income:).group(:survey_item).average(:likert_score)
+                             academic_year:, income:, grade: school.grades(academic_year:)).group(:survey_item).average(:likert_score)
   }
 end

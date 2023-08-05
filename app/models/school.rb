@@ -19,4 +19,8 @@ class School < ApplicationRecord
       .where(districts: { qualtrics_code: district_code })
       .find_by_qualtrics_code(school_code)
   end
+
+  def grades(academic_year:)
+    Respondent.find_by(school: self, academic_year:)&.counts_by_grade&.keys || (-1..12).to_a
+  end
 end
