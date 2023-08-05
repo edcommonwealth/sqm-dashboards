@@ -61,7 +61,7 @@ class RaceScoreLoader
     @grouped_responses ||= Hash.new do |memo, (school, academic_year, survey_items, race)|
       memo[[school, academic_year, survey_items, race]] =
         SurveyItemResponse.joins("JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id").where(
-          school:, academic_year:
+          school:, academic_year:, grade: school.grades(academic_year:)
         ).where("student_races.race_id": race.id).group(:survey_item_id).having("count(*) >= 10").average(:likert_score)
     end
 
