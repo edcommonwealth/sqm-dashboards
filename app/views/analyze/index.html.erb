@@ -13,7 +13,7 @@
     <%= render partial: "school_years", locals: {available_academic_years: @presenter.academic_years, selected_academic_years: @presenter.selected_academic_years, district: @district, school: @school, academic_year: @academic_year, category: @presenter.category, subcategory: @presenter.subcategory, measures: @presenter.measures, graph: @presenter.graph} %>
     <%= render partial: "data_filters", locals: {district: @district, school: @school, academic_year: @academic_year, category: @presenter.category, subcategory: @presenter.subcategory} %>
   </div>
-  <% cache [@presenter.subcategory, @school, @presenter.selected_academic_years,  @presenter.graph, @presenter.selected_races, @presenter.race_score_timestamp, @presenter.selected_grades, @presenter.grades, @presenter.selected_genders, @presenter.genders]  do %>
+  <% cache [@presenter.subcategory, @school, @presenter.selected_academic_years,  @presenter.graph, @presenter.selected_races,  @presenter.selected_grades, @presenter.grades, @presenter.selected_genders, @presenter.genders]  do %>
     <div class="bg-color-white flex-grow-1 col-9">
       <% @presenter.measures.each do  |measure| %>
         <section class="mb-6">

@@ -137,12 +137,6 @@ module Analyze
       end.keys
     end
 
-    def race_score_timestamp
-      score = RaceScore.where(school: @school,
-                              academic_year: @academic_year).order(updated_at: :DESC).first || Today.new
-      score.updated_at
-    end
-
     def incomes
       @incomes ||= Income.all
     end

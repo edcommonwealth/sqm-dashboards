@@ -20,6 +20,10 @@ module Analyze
           @number_of_columns = number_of_columns
         end
 
+        def academic_year_for_year_index(year_index)
+          academic_years[year_index]
+        end
+
         def score(year_index)
           measure.score(school:, academic_year: academic_years[year_index]) || 0
         end
