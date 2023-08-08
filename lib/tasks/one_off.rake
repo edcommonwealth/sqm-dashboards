@@ -87,15 +87,6 @@ namespace :one_off do
     puts "=====================> Completed loading #{Student.count} survey responses"
   end
 
-  desc "reset race score calculations"
-  task reset_race_scores_2021: :environment do
-    puts "Resetting race scores"
-    academic_years = [AcademicYear.find_by_range("2021-22")]
-    RaceScoreLoader.reset(academic_years:, fast_processing: true)
-    Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-  end
-
   desc "list scales that have no survey responses"
   task list_scales_that_lack_survey_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
@@ -162,10 +153,6 @@ namespace :one_off do
       StudentLoader.from_file(file:, rules: [])
     end
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
-
-    puts "Resetting race scores"
-    RaceScoreLoader.reset(fast_processing: false, academic_years: [AcademicYear.find_by_range("2022-23")], schools:)
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
 
     District.all.each do |district|
       num_of_respondents = SurveyItemResponse.joins(school: :district).where(academic_year:,
