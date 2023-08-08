@@ -88,7 +88,8 @@ module Analyze
     end
 
     def groups
-      @groups = [Analyze::Group::Gender.new, Analyze::Group::Grade.new, Analyze::Group::Income.new,
+      @groups = [Analyze::Group::Gender.new,
+                 Analyze::Group::Grade.new,
                  Analyze::Group::Race.new]
     end
 
