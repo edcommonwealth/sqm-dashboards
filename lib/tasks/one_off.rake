@@ -129,19 +129,10 @@ namespace :one_off do
     puts values
   end
 
-  desc "delete survey item responses for 2016-2018"
-  task delete_survey_responses_2016_18: :environment do
-    academic_years = AcademicYear.where(range: %w[2016-17 2017-18])
-    response_count = SurveyItemResponse.where(academic_year: academic_years).count
-    SurveyItemResponse.where(academic_year: academic_years).delete_all
-    puts "Deleted #{response_count} survey item responses"
-  end
-
   desc "load survey responses for 2022-23"
   task load_survey_responses_2022_23: :environment do
     survey_item_response_count = SurveyItemResponse.count
     academic_year = AcademicYear.find_by_range "2022-23"
-    academic_years = [academic_year]
     student_count = Student.count
     path = "/data/survey_responses/2022_23"
     Sftp::Directory.open(path:) do |file|
