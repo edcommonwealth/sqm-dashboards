@@ -5,12 +5,17 @@ class ResponseRatePresenter
     @focus = focus
     @academic_year = academic_year
     @school = school
-    @survey_items = SurveyItem.student_survey_items if focus == :student
+    if focus == :student
+      @survey_items = Measure.all.flat_map do |measure|
+        measure.student_survey_items_with_sufficient_responses(school:, academic_year:)
+      end
+    end
     @survey_items = SurveyItem.teacher_survey_items if focus == :teacher
   end
 
   def date
-    SurveyItemResponse.where(survey_item: survey_items, school:).order(updated_at: :DESC).first&.updated_at || Date.new
+    SurveyItemResponse.where(survey_item: survey_items, school:,
+                             academic_year:).order(recorded_date: :DESC).first&.recorded_date || Date.today
   end
 
   def percentage
@@ -20,11 +25,11 @@ class ResponseRatePresenter
   end
 
   def color
-    percentage > 75 ? 'purple' : 'gold'
+    percentage > 75 ? "purple" : "gold"
   end
 
   def hover_message
-    "Percentages based on #{ actual_count } out of #{ respondents_count.round } #{ focus }s completing at least 25% of the survey."
+    "Percentages based on #{actual_count} out of #{respondents_count.round} #{focus}s completing at least 25% of the survey."
   end
 
   private
