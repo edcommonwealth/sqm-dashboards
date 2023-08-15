@@ -11,28 +11,39 @@ describe ResponseRatePresenter do
                         total_teachers: 40)
   end
 
+  let(:today) { Date.today }
+  let(:yesterday) { Date.today - 1 }
+  let(:two_days_ago) { Date.today - 2 }
+  let(:three_days_ago) { Date.today - 3 }
   let(:student_survey_item) { create(:student_survey_item) }
   let(:teacher_survey_item) { create(:teacher_survey_item) }
   let(:oldest_student_survey_response) do
-    create(:survey_item_response, school:, academic_year:, survey_item: student_survey_item)
+    create(:survey_item_response, school:, academic_year:, survey_item: student_survey_item,
+                                  recorded_date: three_days_ago)
   end
   let(:newest_student_survey_response) do
-    create(:survey_item_response, school:, academic_year:, survey_item: student_survey_item)
+    create(:survey_item_response, school:, academic_year:, survey_item: student_survey_item, recorded_date: yesterday)
   end
   let(:oldest_teacher_survey_response) do
-    create(:survey_item_response, school:, academic_year:, survey_item: teacher_survey_item)
+    create(:survey_item_response, school:, academic_year:, survey_item: teacher_survey_item,
+                                  recorded_date: three_days_ago)
   end
   let(:newest_teacher_survey_response) do
-    create(:survey_item_response, school:, academic_year:, survey_item: teacher_survey_item)
+    create(:survey_item_response, school:, academic_year:, survey_item: teacher_survey_item, recorded_date: yesterday)
   end
 
   let(:wrong_student_survey_response) do
     create(:survey_item_response, school: wrong_school, academic_year: wrong_academic_year,
-                                  survey_item: student_survey_item)
+                                  survey_item: student_survey_item, recorded_date: two_days_ago)
   end
   let(:wrong_teacher_survey_response) do
     create(:survey_item_response, school: wrong_school, academic_year: wrong_academic_year,
-                                  survey_item: teacher_survey_item)
+                                  survey_item: teacher_survey_item, recorded_date: two_days_ago)
+  end
+
+  let(:filler_survey_item_responses_to_meet_sufficiency) do
+    create_list(:survey_item_response, 10, school:, academic_year:,
+                                           survey_item: student_survey_item, recorded_date: two_days_ago)
   end
 
   context ".date" do
@@ -42,11 +53,12 @@ describe ResponseRatePresenter do
         newest_student_survey_response
         wrong_student_survey_response
         wrong_teacher_survey_response
+        filler_survey_item_responses_to_meet_sufficiency
       end
 
       it "ignores all teacher items and only gets the modified date of the last student item" do
-        percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).date
-        expect(percentage).to eq(newest_student_survey_response.updated_at)
+        date = ResponseRatePresenter.new(focus: :student, academic_year:, school:).date
+        expect(date).to eq(newest_student_survey_response.recorded_date)
       end
     end
     context "when focus is teacher" do
@@ -58,8 +70,8 @@ describe ResponseRatePresenter do
       end
 
       it "ignores all student responses and only gets the modified date of the last teacher item" do
-        percentage = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).date
-        expect(percentage).to eq(newest_teacher_survey_response.updated_at)
+        date = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).date
+        expect(date).to eq(newest_teacher_survey_response.recorded_date)
       end
     end
   end
