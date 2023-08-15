@@ -3,11 +3,23 @@ class SurveyItemValues
 
   def initialize(row:, headers:, genders:, survey_items:, schools:, disaggregation_data: nil)
     @row = row
-    @headers = headers
+    @headers = include_all_headers(headers:)
     @genders = genders
     @survey_items = survey_items
     @schools = schools
     @disaggregation_data = disaggregation_data
+  end
+
+  # Some survey items have variants, i.e.  a survey item with an id of s-tint-q1 might have a variant that looks like s-tint-q1-1.  We must ensure that all variants in the form of s-tint-q1-1 have a matching pair.
+  # We don't ensure that ids in the form of s-tint-q1 have a matching pair because not all questions have variants
+  def include_all_headers(headers:)
+    alternates = headers.filter(&:present?)
+                        .filter { |header| header.end_with? "-1" }
+    alternates.each do |header|
+      main = header.sub(/-1\z/, "")
+      headers.push(main) unless headers.include?(main)
+    end
+    headers
   end
 
   def dese_id?
@@ -110,19 +122,19 @@ class SurveyItemValues
     @raw_income ||= disaggregation.income
   end
 
-  # TODO - rename these cases
+  # TODO: - rename these cases
   def income
     @income ||= value_from(pattern: /^Income$/i)
     return @income if @income.present?
 
     @income ||= case raw_income
-    in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
-      "Economically Disadvantaged - Y"
-    in /Not\s*Eligible/i
-      "Economically Disadvantaged - N"
-    else
-      "Unknown"
-    end
+                in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
+                  "Economically Disadvantaged - Y"
+                in /Not\s*Eligible/i
+                  "Economically Disadvantaged - N"
+                else
+                  "Unknown"
+                end
   end
 
   def value_from(pattern:)
@@ -141,9 +153,9 @@ class SurveyItemValues
     row["Income"] = income
     row["Raw Income"] = raw_income
     headers.select(&:present?)
-      .reject { |key, _value| key.start_with? "Q" }
-      .reject { |key, _value| key.end_with? "-1" }
-      .map { |header| row[header] }
+           .reject { |key, _value| key.start_with? "Q" }
+           .reject { |key, _value| key.end_with? "-1" }
+           .map { |header| row[header] }
   end
 
   def duration
@@ -156,17 +168,17 @@ class SurveyItemValues
 
   def respondent_type
     return :teacher if headers
-      .filter(&:present?)
-      .filter { |header| header.start_with? "t-" }.count > 0
+                       .filter(&:present?)
+                       .filter { |header| header.start_with? "t-" }.count > 0
 
     :student
   end
 
   def survey_type
     survey_item_ids = headers
-      .filter(&:present?)
-      .reject { |header| header.end_with?("-1") }
-      .filter { |header| header.start_with?("t-", "s-") }
+                      .filter(&:present?)
+                      .reject { |header| header.end_with?("-1") }
+                      .filter { |header| header.start_with?("t-", "s-") }
 
     SurveyItem.survey_type(survey_item_ids:)
   end
