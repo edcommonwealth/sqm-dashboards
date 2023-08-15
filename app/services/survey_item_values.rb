@@ -3,10 +3,22 @@ class SurveyItemValues
 
   def initialize(row:, headers:, genders:, survey_items:, schools:)
     @row = row
-    @headers = headers
+    @headers = include_all_headers(headers:)
     @genders = genders
     @survey_items = survey_items
     @schools = schools
+  end
+
+  # Some survey items have variants, i.e.  a survey item with an id of s-tint-q1 might have a variant that looks like s-tint-q1-1.  We must ensure that all variants in the form of s-tint-q1-1 have a matching pair.
+  # We don't ensure that ids in the form of s-tint-q1 have a matching pair because not all questions have variants
+  def include_all_headers(headers:)
+    alternates = headers.filter(&:present?)
+                        .filter { |header| header.end_with? "-1" }
+    alternates.each do |header|
+      main = header.sub(/-1\z/, "")
+      headers.push(main) unless headers.include?(main)
+    end
+    headers
   end
 
   def dese_id?
