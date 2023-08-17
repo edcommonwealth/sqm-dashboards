@@ -54,18 +54,12 @@ namespace :one_off do
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset(schools: [school],
-                             academic_years: [academic_year])
 
     Dir.glob(Rails.root.join('data', 'survey_responses',
                              '2022-23_stoklosa_student_survey_responses.csv')).each do |file|
       puts "=====================> Loading student data from csv at path: #{file}"
       StudentLoader.load_data filepath: file, rules: [Rule::SkipNonLowellSchools]
     end
-    puts 'Resetting race scores'
-    RaceScoreLoader.reset(fast_processing: true, schools: [school], academic_years: [academic_year])
-    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
   end
 
   desc 'load butler results for 2022-23'
@@ -76,18 +70,6 @@ namespace :one_off do
       puts "=====================> Loading data from csv at path: #{filepath}"
       SurveyResponsesDataLoader.load_data filepath:
     end
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset
-    puts "=====================> Completed recalculating #{ResponseRate.count} response rates"
-  end
-
-  desc 'reset race score calculations'
-  task reset_race_scores_2021: :environment do
-    puts 'Resetting race scores'
-    academic_years = [AcademicYear.find_by_range('2021-22')]
-    RaceScoreLoader.reset(academic_years:, fast_processing: true)
-    Rails.cache.clear
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
   end
 
   desc 'list scales that have no survey responses'
@@ -146,14 +128,6 @@ namespace :one_off do
     end
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
-    puts 'Resetting response rates'
-    ResponseRateLoader.reset
-    puts "=====================> Completed loading #{ResponseRate.count} response rates"
-
-    puts 'Resetting race scores'
-    RaceScoreLoader.reset(fast_processing: false)
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-
     Rails.cache.clear
   end
 
@@ -183,29 +157,9 @@ namespace :one_off do
     end
     puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
-    puts 'Resetting race scores'
-    RaceScoreLoader.reset(fast_processing: false, academic_years: [AcademicYear.find_by_range('2022-23')], schools:)
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-
     Rails.cache.clear
   end
 
-  desc 'set response rates for lee schools to 100'
-  task set_response_rates_for_lee: :environment do
-    lee = District.find_by(name: 'Lee Public Schools')
-    academic_year = AcademicYear.find_by_range('2022-23')
-    sufficient_response_rate = ResponseRate.where(academic_year:, school: lee.schools).select do |rate|
-      rate.student_response_rate > 0
-    end.map(&:id)
-    sufficient_response_rate = ResponseRate.where(id: sufficient_response_rate)
-    sufficient_response_rate.update_all(student_response_rate: 100, meets_student_threshold: true)
-
-    sufficient_response_rate = ResponseRate.where(academic_year:, school: lee.schools).select do |rate|
-      rate.teacher_response_rate > 0
-    end.map(&:id)
-    sufficient_response_rate = ResponseRate.where(id: sufficient_response_rate)
-    sufficient_response_rate.update_all(teacher_response_rate: 100, meets_teacher_threshold: true)
-  end
   desc "Generate CSV report of teacher survey item responses"
   task teacher_survey_questions_csv: :environment do
     headers = ['School ID', 'Academic Year', 'Survey Item', 'Count','Percentage_diff']
