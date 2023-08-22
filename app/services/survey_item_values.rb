@@ -119,7 +119,6 @@ class SurveyItemValues
     return @raw_income if @raw_income.present?
 
     return "Unknown" unless disaggregation_data.present?
-    byebug
 
     disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
     return "Unknown" unless disaggregation.present?

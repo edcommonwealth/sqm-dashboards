@@ -5,11 +5,17 @@ module Analyze
         module ScoreForGender
           def score(year_index)
             academic_year = academic_years[year_index]
+            meets_student_threshold = sufficient_student_responses?(academic_year:)
+            return Score::NIL_SCORE unless meets_student_threshold
+
             averages = SurveyItemResponse.averages_for_gender(measure.student_survey_items, school, academic_year,
                                                               gender)
             average = bubble_up_averages(averages:).round(2)
 
-            scorify(average:, meets_student_threshold: sufficient_student_responses?(academic_year:))
+            Score.new(average:,
+                      meets_teacher_threshold: false,
+                      meets_student_threshold:,
+                      meets_admin_data_threshold: false)
           end
 
           def bubble_up_averages(averages:)
@@ -20,25 +26,14 @@ module Analyze
             end.remove_blanks.average
           end
 
-          def scorify(average:, meets_student_threshold:)
-            return Score::NIL_SCORE unless meets_student_threshold
-
-            Score.new(average:,
-                      meets_teacher_threshold: false,
-                      meets_student_threshold:,
-                      meets_admin_data_threshold: false)
-          end
-
           def sufficient_student_responses?(academic_year:)
-            sufficient_overall_responses = measure.subcategory.response_rate(school:,
-                                                                             academic_year:).meets_student_threshold
+            return false unless measure.subcategory.response_rate(school:, academic_year:).meets_student_threshold?
+
             yearly_counts = SurveyItemResponse.where(school:, academic_year:,
                                                      gender:, survey_item: measure.student_survey_items).group(:gender).select(:response_id).distinct(:response_id).count
-            more_than_ten_respondents = yearly_counts.any? do |count|
+            yearly_counts.any? do |count|
               count[1] >= 10
             end
-
-            sufficient_overall_responses && more_than_ten_respondents
           end
         end
       end
