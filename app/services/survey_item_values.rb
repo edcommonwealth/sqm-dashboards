@@ -120,8 +120,6 @@ class SurveyItemValues
 
     return "Unknown" unless disaggregation_data.present?
 
-    byebug
-
     disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
     return "Unknown" unless disaggregation.present?
 
@@ -248,4 +246,3 @@ class SurveyItemValues
     end
   end
 end
-
