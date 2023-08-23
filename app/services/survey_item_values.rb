@@ -8,6 +8,10 @@ class SurveyItemValues
     @survey_items = survey_items
     @schools = schools
     @disaggregation_data = disaggregation_data
+
+    copy_likert_scores_from_variant_survey_items
+    row["Income"] = income
+    row["Raw Income"] = raw_income
   end
 
   # Some survey items have variants, i.e.  a survey item with an id of s-tint-q1 might have a variant that looks like s-tint-q1-1.  We must ensure that all variants in the form of s-tint-q1-1 have a matching pair.
@@ -115,6 +119,7 @@ class SurveyItemValues
     return @raw_income if @raw_income.present?
 
     return "Unknown" unless disaggregation_data.present?
+    byebug
 
     disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
     return "Unknown" unless disaggregation.present?
@@ -149,9 +154,6 @@ class SurveyItemValues
   end
 
   def to_a
-    copy_likert_scores_from_variant_survey_items
-    row["Income"] = income
-    row["Raw Income"] = raw_income
     headers.select(&:present?)
            .reject { |key, _value| key.start_with? "Q" }
            .reject { |key, _value| key.end_with? "-1" }
@@ -242,7 +244,7 @@ class SurveyItemValues
     headers.filter(&:present?).filter { |header| header.end_with? "-1" }.each do |header|
       likert_score = row[header]
       main_item = header.gsub("-1", "")
-      row[main_item] = likert_score if likert_score.present?
+      row[main_item] = likert_score if likert_score.present? && row[main_item].blank?
     end
   end
 end

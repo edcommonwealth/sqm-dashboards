@@ -1,4 +1,4 @@
-require 'fileutils'
+require "fileutils"
 class Cleaner
   attr_reader :input_filepath, :output_filepath, :log_filepath, :disaggregation_filepath
 
@@ -11,7 +11,7 @@ class Cleaner
   end
 
   def clean
-    Dir.glob(Rails.root.join(input_filepath, '*.csv')).each do |filepath|
+    Dir.glob(Rails.root.join(input_filepath, "*.csv")).each do |filepath|
       puts filepath
       File.open(filepath) do |file|
         processed_data = process_raw_file(file:, disaggregation_data:)
@@ -20,7 +20,7 @@ class Cleaner
 
         filename = filename(headers:, data:)
         write_csv(data: clean_csv, output_filepath:, filename:)
-        write_csv(data: log_csv, output_filepath: log_filepath, prefix: 'removed.', filename:)
+        write_csv(data: log_csv, output_filepath: log_filepath, prefix: "removed.", filename:)
       end
     end
   end
@@ -31,8 +31,8 @@ class Cleaner
 
   def filename(headers:, data:)
     survey_item_ids = headers.filter(&:present?).filter do |header|
-                        header.start_with?('s-', 't-')
-                      end.reject { |item| item.end_with? '-1' }
+                        header.start_with?("s-", "t-")
+                      end.reject { |item| item.end_with? "-1" }
     survey_type = SurveyItem.survey_type(survey_item_ids:)
     range = data.first.academic_year.range
 
@@ -40,7 +40,7 @@ class Cleaner
       row.district.short_name
     end.to_set.to_a
 
-    districts.join('.').to_s + '.' + survey_type.to_s + '.' + range + '.csv'
+    districts.join(".").to_s + "." + survey_type.to_s + "." + range + ".csv"
   end
 
   def process_raw_file(file:, disaggregation_data:)
@@ -48,10 +48,11 @@ class Cleaner
     log_csv = []
     data = []
 
-    headers = (CSV.parse(file.first).first << 'Raw Income') << 'Income'
-    filtered_headers = remove_unwanted_headers(headers:)
-    log_headers = (filtered_headers + ['Valid Duration?', 'Valid Progress?', 'Valid Grade?',
-                                       'Valid Standard Deviation?']).flatten
+    headers = (CSV.parse(file.first).first << "Raw Income") << "Income"
+    filtered_headers = include_all_headers(headers:)
+    filtered_headers = remove_unwanted_headers(headers: filtered_headers)
+    log_headers = (filtered_headers + ["Valid Duration?", "Valid Progress?", "Valid Grade?",
+                                       "Valid Standard Deviation?"]).flatten
 
     clean_csv << filtered_headers
     log_csv << log_headers
@@ -73,6 +74,16 @@ class Cleaner
 
   private
 
+  def include_all_headers(headers:)
+    alternates = headers.filter(&:present?)
+                        .filter { |header| header.end_with? "-1" }
+    alternates.each do |header|
+      main = header.sub(/-1\z/, "")
+      headers.push(main) unless headers.include?(main)
+    end
+    headers
+  end
+
   def initialize_directories
     create_ouput_directory
     create_log_directory
@@ -80,11 +91,11 @@ class Cleaner
 
   def remove_unwanted_headers(headers:)
     headers.to_set.to_a.compact.reject do |item|
-      item.start_with? 'Q'
-    end.reject { |item| item.end_with? '-1' }
+      item.start_with? "Q"
+    end.reject { |item| item.end_with? "-1" }
   end
 
-  def write_csv(data:, output_filepath:, filename:, prefix: '')
+  def write_csv(data:, output_filepath:, filename:, prefix: "")
     csv = CSV.generate do |csv|
       data.each do |row|
         csv << row
@@ -104,7 +115,7 @@ class Cleaner
   def survey_items(headers:)
     survey_item_ids = headers
                       .filter(&:present?)
-                      .filter { |header| header.start_with? 't-', 's-' }
+                      .filter { |header| header.start_with? "t-", "s-" }
     @survey_items ||= SurveyItem.where(survey_item_id: survey_item_ids)
   end
 
