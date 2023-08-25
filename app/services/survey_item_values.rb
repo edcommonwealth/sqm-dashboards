@@ -3,6 +3,8 @@ class SurveyItemValues
 
   def initialize(row:, headers:, genders:, survey_items:, schools:)
     @row = row
+    # Remove any newlines in headers
+    headers = headers.map { |item| item.delete("\n") if item.present? }
     @headers = include_all_headers(headers:)
     @genders = genders
     @survey_items = survey_items
@@ -12,6 +14,14 @@ class SurveyItemValues
     copy_likert_scores_from_variant_survey_items
     row["Income"] = income
     row["Raw Income"] = raw_income
+
+    copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
+    copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
+  end
+
+  def copy_data_to_main_column(main:, secondary:)
+    main_column = headers.find { |header| main.match(header) }
+    row[main_column] = value_from(pattern: secondary) if row[main_column].nil?
   end
 
   # Some survey items have variants, i.e.  a survey item with an id of s-tint-q1 might have a variant that looks like s-tint-q1-1.  We must ensure that all variants in the form of s-tint-q1-1 have a matching pair.
@@ -108,6 +118,14 @@ class SurveyItemValues
     gender_code = 4 if gender_code == 3
     gender_code = 99 if gender_code.zero?
     genders[gender_code]
+  end
+
+  def races
+    race_codes = value_from(pattern: /RACE/i)
+    race_codes ||= value_from(pattern: %r{What is your race/ethnicity?(Please select all that apply) - Selected Choice}i)
+    race_codes ||= value_from(pattern: /Race Secondary/i) || ""
+    race_codes = race_codes.split(",").map(&:to_i) || []
+    process_races(codes: race_codes)
   end
 
   def lasid
@@ -244,5 +262,31 @@ class SurveyItemValues
       main_item = header.gsub("-1", "")
       row[main_item] = likert_score if likert_score.present? && row[main_item].blank?
     end
+  end
+
+  def process_races(codes:)
+    races = codes.map do |code|
+      code = code.to_i
+      code = 99 if [6, 7].include?(code) || code.nil? || code.zero?
+      Race.find_by_qualtrics_code(code)
+    end.uniq
+    races = add_unknown_race_if_other_races_missing(races:)
+    races = remove_unknown_race_if_other_races_present(races:)
+    add_multiracial_designation(races:)
+  end
+
+  def remove_unknown_race_if_other_races_present(races:)
+    races.delete(Race.find_by_qualtrics_code(99)) if races.length > 1
+    races
+  end
+
+  def add_multiracial_designation(races:)
+    races << Race.find_by_qualtrics_code(100) if races.length > 1
+    races
+  end
+
+  def add_unknown_race_if_other_races_missing(races:)
+    races << Race.find_by_qualtrics_code(99) if races.length == 0
+    races
   end
 end
