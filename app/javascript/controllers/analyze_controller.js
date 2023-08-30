@@ -28,7 +28,9 @@ export default class extends Controller {
       "&incomes=" +
       this.selected_items("income").join(",") +
       "&grades=" +
-      this.selected_items("grade").join(",");
+      this.selected_items("grade").join(",") +
+      "&ells=" +
+      this.selected_items("ell").join(",");
 
     this.go_to(url);
   }
@@ -126,7 +128,8 @@ export default class extends Controller {
       ['gender', 'students-by-gender'],
       ['grade', 'students-by-grade'],
       ['income', 'students-by-income'],
-      ['race', 'students-by-race']
+      ['race', 'students-by-race'],
+      ['ell', 'students-by-ell'],
     ])
 
     if (target.name === 'slice' || target.name === 'group') {

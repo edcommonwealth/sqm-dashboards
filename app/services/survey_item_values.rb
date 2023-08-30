@@ -1,7 +1,7 @@
 class SurveyItemValues
-  attr_reader :row, :headers, :genders, :survey_items, :schools, :disaggregation_data
+  attr_reader :row, :headers, :genders, :survey_items, :schools
 
-  def initialize(row:, headers:, genders:, survey_items:, schools:, disaggregation_data: nil)
+  def initialize(row:, headers:, genders:, survey_items:, schools:)
     @row = row
     # Remove any newlines in headers
     headers = headers.map { |item| item.delete("\n") if item.present? }
@@ -9,11 +9,12 @@ class SurveyItemValues
     @genders = genders
     @survey_items = survey_items
     @schools = schools
-    @disaggregation_data = disaggregation_data
 
     copy_likert_scores_from_variant_survey_items
     row["Income"] = income
     row["Raw Income"] = raw_income
+    row["Raw ELL"] = raw_ell
+    row["ELL"] = ell
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
@@ -134,20 +135,9 @@ class SurveyItemValues
 
   def raw_income
     @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income/i)
-    return @raw_income if @raw_income.present?
-
-    return "Unknown" unless disaggregation_data.present?
-
-    disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
-    return "Unknown" unless disaggregation.present?
-
-    @raw_income ||= disaggregation.income
   end
 
   def income
-    @income ||= value_from(pattern: /^Income$/i)
-    return @income if @income.present?
-
     @income ||= case raw_income
                 in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
                   "Economically Disadvantaged - Y"
@@ -156,6 +146,21 @@ class SurveyItemValues
                 else
                   "Unknown"
                 end
+  end
+
+  def raw_ell
+    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL/i)
+  end
+
+  def ell
+    @ell ||= case raw_ell
+             in /lep student 1st year|LEP student not 1st year|EL Student First Year/i
+               "ELL"
+             in /Does not apply/i
+               "Not ELL"
+             else
+               "Unknown"
+             end
   end
 
   def value_from(pattern:)

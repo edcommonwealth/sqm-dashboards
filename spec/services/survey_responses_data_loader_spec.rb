@@ -54,6 +54,9 @@ describe SurveyResponsesDataLoader do
   let(:low_income) { create(:income, designation: "Economically Disadvantaged – Y") }
   let(:high_income) { create(:income, designation: "Economically Disadvantaged – N") }
   let(:unknown_income) { create(:income, designation: "Unknown") }
+  let(:yes_ell) { create(:ell, designation: "ELL") }
+  let(:not_ell) { create(:ell, designation: "Not ELL") }
+  let(:unknown_ell) { create(:ell, designation: "Unknown") }
 
   let(:setup) do
     ay_2020_21
@@ -92,6 +95,9 @@ describe SurveyResponsesDataLoader do
     low_income
     high_income
     unknown_income
+    yes_ell
+    not_ell
+    unknown_ell
   end
 
   before :each do
@@ -100,7 +106,7 @@ describe SurveyResponsesDataLoader do
 
   describe "loading teacher survey responses" do
     before do
-      SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
+      SurveyResponsesDataLoader.new.load_data filepath: path_to_teacher_responses
     end
 
     it "ensures teacher responses load correctly" do
@@ -116,7 +122,7 @@ describe SurveyResponsesDataLoader do
 
   describe "student survey responses" do
     before do
-      SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
+      SurveyResponsesDataLoader.new.load_data filepath: path_to_student_responses
     end
 
     it "ensures student responses load correctly" do
@@ -129,13 +135,14 @@ describe SurveyResponsesDataLoader do
       assigns_grade_level_to_responses
       assigns_gender_to_responses
       assigns_income_to_responses
+      assigns_ell_to_responses
       is_idempotent_for_students
     end
 
     context "when updating student survey responses from another csv file" do
       before :each do
-        SurveyResponsesDataLoader.load_data filepath: Rails.root.join("spec", "fixtures",
-                                                                      "secondary_test_2020-21_student_survey_responses.csv")
+        SurveyResponsesDataLoader.new.load_data filepath: Rails.root.join("spec", "fixtures",
+                                                                          "secondary_test_2020-21_student_survey_responses.csv")
       end
       it "updates the likert score to the score on the new csv file" do
         s_emsa_q1 = SurveyItem.find_by_survey_item_id "s-emsa-q1"
@@ -154,8 +161,8 @@ describe SurveyResponsesDataLoader do
   # figure out why this is failing
   describe "when using Lowell rules to skip rows in the csv file" do
     before :each do
-      SurveyResponsesDataLoader.load_data filepath: path_to_student_responses,
-                                          rules: [Rule::SkipNonLowellSchools]
+      SurveyResponsesDataLoader.new.load_data filepath: path_to_student_responses,
+                                              rules: [Rule::SkipNonLowellSchools]
     end
 
     it "rejects any non-lowell school" do
@@ -172,8 +179,8 @@ describe SurveyResponsesDataLoader do
 
     context "when loading 22-23 butler survey responses" do
       before :each do
-        SurveyResponsesDataLoader.load_data filepath: path_to_butler_student_responses,
-                                            rules: [Rule::SkipNonLowellSchools]
+        SurveyResponsesDataLoader.new.load_data filepath: path_to_butler_student_responses,
+                                                rules: [Rule::SkipNonLowellSchools]
       end
 
       it "loads all the responses for Butler" do
@@ -235,7 +242,7 @@ end
 def is_idempotent
   number_of_survey_item_responses = SurveyItemResponse.count
 
-  SurveyResponsesDataLoader.load_data filepath: path_to_teacher_responses
+  SurveyResponsesDataLoader.new.load_data filepath: path_to_teacher_responses
 
   expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
 end
@@ -281,7 +288,7 @@ end
 def is_idempotent_for_students
   number_of_survey_item_responses = SurveyItemResponse.count
 
-  SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
+  SurveyResponsesDataLoader.new.load_data filepath: path_to_student_responses
 
   expect(SurveyItemResponse.count).to eq number_of_survey_item_responses
 end
@@ -344,6 +351,21 @@ def assigns_income_to_responses
               "student_survey_response_7" => low_income }
 
   results.each do |key, value|
-    expect(SurveyItemResponse.where(response_id: key).first.income).to eq value
+    income = SurveyItemResponse.find_by_response_id(key).income
+    expect(income).to eq value
+  end
+end
+
+def assigns_ell_to_responses
+  results = { "student_survey_response_1" => not_ell,
+              "student_survey_response_3" => unknown_ell,
+              "student_survey_response_4" => yes_ell,
+              "student_survey_response_5" => yes_ell,
+              "student_survey_response_6" => unknown_ell,
+              "student_survey_response_7" => unknown_ell }
+
+  results.each do |key, value|
+    ell = SurveyItemResponse.find_by_response_id(key).ell
+    expect(ell).to eq value
   end
 end

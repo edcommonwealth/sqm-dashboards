@@ -1,20 +1,24 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe DemographicLoader do
-  let(:filepath) { 'spec/fixtures/sample_demographics.csv' }
+  let(:filepath) { "spec/fixtures/sample_demographics.csv" }
   let(:race_codes) do
-    { 'American Indian or Alaskan Native' => 1, 'Asian or Pacific Islander' => 2, 'Black or African American' => 3,
-      'Hispanic or Latinx' => 4, 'White or Caucasian' => 5, 'Race/Ethnicity Not Listed' => 99, 'Middle Eastern' => 8, 'Multiracial' => 100 }
+    { "American Indian or Alaskan Native" => 1, "Asian or Pacific Islander" => 2, "Black or African American" => 3,
+      "Hispanic or Latinx" => 4, "White or Caucasian" => 5, "Race/Ethnicity Not Listed" => 99, "Middle Eastern" => 8, "Multiracial" => 100 }
   end
 
   let(:gender_codes) do
     {
-      'Female' => 1, 'Male' => 2, 'Non-Binary' => 4, 'Unknown' => 99
+      "Female" => 1, "Male" => 2, "Non-Binary" => 4, "Unknown" => 99
     }
   end
 
   let(:incomes) do
-    ['Economically Disadvantaged – N', 'Economically Disadvantaged – Y', 'Unknown']
+    ["Economically Disadvantaged – N", "Economically Disadvantaged – Y", "Unknown"]
+  end
+
+  let(:ells) do
+    ["ELL", "Not ELL", "Unknown"]
   end
 
   before :each do
@@ -25,12 +29,12 @@ describe DemographicLoader do
     DatabaseCleaner.clean
   end
 
-  describe 'self.load_data' do
-    it 'does not load qualtrics categories for `prefer not to disclose` or `prefer to self-describe`' do
+  describe "self.load_data" do
+    it "does not load qualtrics categories for `prefer not to disclose` or `prefer to self-describe`" do
       expect(Race.find_by_qualtrics_code(6)).to be nil
     end
 
-    it 'loads all racial designations' do
+    it "loads all racial designations" do
       expect(Race.all.count).to eq 8
       race_codes.each do |key, value|
         expect(Race.find_by_qualtrics_code(value)).not_to eq nil
@@ -40,7 +44,7 @@ describe DemographicLoader do
       end
     end
 
-    it 'loads all gender designations' do
+    it "loads all gender designations" do
       expect(Gender.all.count).to eq 4
 
       gender_codes.each do |key, value|
@@ -51,10 +55,17 @@ describe DemographicLoader do
       end
     end
 
-    it 'loads all the income designations' do
+    it "loads all the income designations" do
       expect(Income.all.count).to eq 3
       incomes.each do |income|
         expect(Income.find_by_designation(income).designation).to eq income
+      end
+    end
+
+    it "loads all the ells designations" do
+      expect(Ell.all.count).to eq 3
+      ells.each do |ell|
+        expect(Ell.find_by_designation(ell).designation).to eq ell
       end
     end
   end

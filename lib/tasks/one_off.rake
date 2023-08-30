@@ -40,38 +40,6 @@ namespace :one_off do
     end
   end
 
-  desc 'load stoklosa results for 2022-23'
-  task load_stoklosa: :environment do
-    survey_item_response_count = SurveyItemResponse.count
-    school = School.find_by_dese_id(1_600_360)
-    academic_year = AcademicYear.find_by_range('2022-23')
-
-    ['2022-23_stoklosa_student_survey_responses.csv',
-     '2022-23_stoklosa_teacher_survey_responses.csv'].each do |filepath|
-      filepath = Rails.root.join('data', 'survey_responses', filepath)
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
-
-
-    Dir.glob(Rails.root.join('data', 'survey_responses',
-                             '2022-23_stoklosa_student_survey_responses.csv')).each do |file|
-      puts "=====================> Loading student data from csv at path: #{file}"
-      StudentLoader.load_data filepath: file, rules: [Rule::SkipNonLowellSchools]
-    end
-  end
-
-  desc 'load butler results for 2022-23'
-  task load_butler: :environment do
-    ['2022-23_butler_student_survey_responses.csv',
-     '2022-23_butler_teacher_survey_responses.csv'].each do |filepath|
-      filepath = Rails.root.join('data', 'survey_responses', filepath)
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      SurveyResponsesDataLoader.load_data filepath:
-    end
-  end
-
   desc 'list scales that have no survey responses'
   task list_scales_that_lack_survey_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
@@ -114,23 +82,6 @@ namespace :one_off do
     puts values
   end
 
-  desc 'load survey responses for lowell schools'
-  task load_survey_responses_for_lowell: :environment do
-    survey_item_response_count = SurveyItemResponse.count
-    student_count = Student.count
-    Sftp::Directory.open(path: '/test/survey_responses/') do |file|
-      SurveyResponsesDataLoader.from_file(file:)
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
-
-    Sftp::Directory.open(path: '/test/survey_responses/') do |file|
-      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
-    end
-    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
-
-    Rails.cache.clear
-  end
-
   desc 'delete 2022-23 survey responses'
   task delete_survey_responses_2022_23: :environment do
     response_count = SurveyItemResponse.all.count
@@ -148,7 +99,7 @@ namespace :one_off do
     schools = District.find_by_slug('maynard-public-schools').schools
 
     Sftp::Directory.open(path:) do |file|
-      SurveyResponsesDataLoader.from_file(file:)
+      SurveyResponsesDataLoader.new.from_file(file:)
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 

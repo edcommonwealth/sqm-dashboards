@@ -1,5 +1,6 @@
 class Income < ApplicationRecord
   scope :by_designation, -> { all.map { |income| [income.designation, income] }.to_h }
+  scope :by_slug, -> { all.map { |income| [income.slug, income] }.to_h }
 
   include FriendlyId
 

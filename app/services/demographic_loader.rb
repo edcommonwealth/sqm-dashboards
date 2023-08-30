@@ -6,12 +6,13 @@ class DemographicLoader
       process_race(row:)
       process_gender(row:)
       process_income(row:)
+      process_ell(row:)
     end
   end
 
   def self.process_race(row:)
-    qualtrics_code = row['Race Qualtrics Code'].to_i
-    designation = row['Race/Ethnicity']
+    qualtrics_code = row["Race Qualtrics Code"].to_i
+    designation = row["Race/Ethnicity"]
     return unless qualtrics_code && designation
 
     if qualtrics_code.between?(6, 7)
@@ -22,8 +23,8 @@ class DemographicLoader
   end
 
   def self.process_gender(row:)
-    qualtrics_code = row['Gender Qualtrics Code'].to_i
-    designation = row['Sex/Gender']
+    qualtrics_code = row["Gender Qualtrics Code"].to_i
+    designation = row["Sex/Gender"]
     return unless qualtrics_code && designation
 
     gender = ::Gender.find_or_create_by!(qualtrics_code:, designation:)
@@ -31,10 +32,17 @@ class DemographicLoader
   end
 
   def self.process_income(row:)
-    designation = row['Income']
+    designation = row["Income"]
     return unless designation
 
     Income.find_or_create_by!(designation:)
+  end
+
+  def self.process_ell(row:)
+    designation = row["ELL"]
+    return unless designation
+
+    Ell.find_or_create_by!(designation:)
   end
 end
 
@@ -50,7 +58,7 @@ end
 class UnknownRace
   def initialize(qualtrics_code:, designation:)
     unknown = Race.find_or_create_by!(qualtrics_code: 99)
-    unknown.designation = 'Race/Ethnicity Not Listed'
+    unknown.designation = "Race/Ethnicity Not Listed"
     unknown.slug = designation.parameterize
     unknown.save
   end
