@@ -1,13 +1,42 @@
 class SurveyItemValues
-  attr_reader :row, :headers, :genders, :survey_items, :schools, :disaggregation_data
+  attr_reader :row, :headers, :genders, :survey_items, :schools
 
-  def initialize(row:, headers:, genders:, survey_items:, schools:, disaggregation_data: nil)
+  def initialize(row:, headers:, genders:, survey_items:, schools:)
     @row = row
-    @headers = headers
+    # Remove any newlines in headers
+    headers = headers.map { |item| item.delete("\n") if item.present? }
+    @headers = include_all_headers(headers:)
     @genders = genders
     @survey_items = survey_items
     @schools = schools
-    @disaggregation_data = disaggregation_data
+
+    copy_likert_scores_from_variant_survey_items
+    row["Income"] = income
+    row["Raw Income"] = raw_income
+    row["Raw ELL"] = raw_ell
+    row["ELL"] = ell
+    row["Raw SpEd"] = raw_sped
+    row["SpEd"] = sped
+
+    copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
+    copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
+  end
+
+  def copy_data_to_main_column(main:, secondary:)
+    main_column = headers.find { |header| main.match(header) }
+    row[main_column] = value_from(pattern: secondary) if row[main_column].nil?
+  end
+
+  # Some survey items have variants, i.e.  a survey item with an id of s-tint-q1 might have a variant that looks like s-tint-q1-1.  We must ensure that all variants in the form of s-tint-q1-1 have a matching pair.
+  # We don't ensure that ids in the form of s-tint-q1 have a matching pair because not all questions have variants
+  def include_all_headers(headers:)
+    alternates = headers.filter(&:present?)
+                        .filter { |header| header.end_with? "-1" }
+    alternates.each do |header|
+      main = header.sub(/-1\z/, "")
+      headers.push(main) unless headers.include?(main)
+    end
+    headers
   end
 
   def dese_id?
@@ -94,26 +123,23 @@ class SurveyItemValues
     genders[gender_code]
   end
 
+  def races
+    race_codes = value_from(pattern: /RACE/i)
+    race_codes ||= value_from(pattern: %r{What is your race/ethnicity?(Please select all that apply) - Selected Choice}i)
+    race_codes ||= value_from(pattern: /Race Secondary/i) || ""
+    race_codes = race_codes.split(",").map(&:to_i) || []
+    process_races(codes: race_codes)
+  end
+
   def lasid
     @lasid ||= value_from(pattern: /LASID/i)
   end
 
   def raw_income
     @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income/i)
-    return @raw_income if @raw_income.present?
-
-    return "Unknown" unless disaggregation_data.present?
-
-    disaggregation = disaggregation_data[[lasid, district.name, academic_year.range]]
-    return "Unknown" unless disaggregation.present?
-
-    @raw_income ||= disaggregation.income
   end
 
   def income
-    @income ||= value_from(pattern: /^Income$/i)
-    return @income if @income.present?
-
     @income ||= case raw_income
                 in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
                   "Economically Disadvantaged - Y"
@@ -122,6 +148,36 @@ class SurveyItemValues
                 else
                   "Unknown"
                 end
+  end
+
+  def raw_ell
+    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL/i)
+  end
+
+  def ell
+    @ell ||= case raw_ell
+             in /lep student 1st year|LEP student not 1st year|EL Student First Year/i
+               "ELL"
+             in /Does not apply/i
+               "Not ELL"
+             else
+               "Unknown"
+             end
+  end
+
+  def raw_sped
+    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd/i)
+  end
+
+  def sped
+    @sped ||= case raw_sped
+              in /active/i
+                "Special Education"
+              in /^NA$|^#NA$/i
+                "Unknown"
+              else
+                "Not Special Education"
+              end
   end
 
   def value_from(pattern:)
@@ -136,9 +192,6 @@ class SurveyItemValues
   end
 
   def to_a
-    copy_likert_scores_from_variant_survey_items
-    row["Income"] = income
-    row["Raw Income"] = raw_income
     headers.select(&:present?)
            .reject { |key, _value| key.start_with? "Q" }
            .reject { |key, _value| key.end_with? "-1" }
@@ -229,7 +282,34 @@ class SurveyItemValues
     headers.filter(&:present?).filter { |header| header.end_with? "-1" }.each do |header|
       likert_score = row[header]
       main_item = header.gsub("-1", "")
-      row[main_item] = likert_score if likert_score.present?
+      row[main_item] = likert_score if likert_score.present? && row[main_item].blank?
     end
   end
+
+  def process_races(codes:)
+    races = codes.map do |code|
+      code = code.to_i
+      code = 99 if [6, 7].include?(code) || code.nil? || code.zero?
+      Race.find_by_qualtrics_code(code)
+    end.uniq
+    races = add_unknown_race_if_other_races_missing(races:)
+    races = remove_unknown_race_if_other_races_present(races:)
+    add_multiracial_designation(races:)
+  end
+
+  def remove_unknown_race_if_other_races_present(races:)
+    races.delete(Race.find_by_qualtrics_code(99)) if races.length > 1
+    races
+  end
+
+  def add_multiracial_designation(races:)
+    races << Race.find_by_qualtrics_code(100) if races.length > 1
+    races
+  end
+
+  def add_unknown_race_if_other_races_missing(races:)
+    races << Race.find_by_qualtrics_code(99) if races.length == 0
+    races
+  end
 end
+

@@ -7,7 +7,7 @@ RSpec.describe SurveyItemValues, type: :model do
   end
   let(:genders) do
     create(:gender, qualtrics_code: 1)
-    Gender.gender_hash
+    Gender.by_qualtrics_code
   end
   let(:survey_items) { [] }
   let(:district) { create(:district, name: "Attleboro") }
@@ -164,79 +164,90 @@ RSpec.describe SurveyItemValues, type: :model do
   end
 
   context ".income" do
-    context "when no disaggregation data is provided" do
-      it "returns an empty string " do
-        disaggregation_data = {}
-        values = SurveyItemValues.new(row: {}, headers:, genders:, survey_items:, schools:, disaggregation_data:)
-        expect(values.income).to eq "Unknown"
-      end
+    before :each do
+      attleboro
+      ay_2022_23
     end
 
-    context "when disaggregation data is provided" do
-      before :each do
-        attleboro
-        ay_2022_23
-      end
+    it "translates Free Lunch to Economically Disadvantaged - Y" do
+      headers = ["LowIncome"]
+      row = { "LowIncome" => "Free Lunch" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.income).to eq "Economically Disadvantaged - Y"
+    end
 
-      it "translates Free Lunch to Economically Disadvantaged - Y" do
-        headers = ["District", "Academic Year", "LASID", "LowIncome"]
-        row = { "District" => "Attleboro", "AcademicYear" => "2022-23", "LASID" => "1", "LowIncome" => "Free Lunch" }
-        disaggregation_data = { %w[1 Attleboro 2022-23] => DisaggregationRow.new(row:, headers:) }
+    it "translates Reduced Lunch to Economically Disadvantaged - Y" do
+      headers = ["LowIncome"]
+      row = { "LowIncome" => "Reduced Lunch" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.income).to eq "Economically Disadvantaged - Y"
+    end
 
-        headers = ["LASID", "Dese Id", "RecordedDate"]
-        row = { "LASID" => "1", "DESE ID" => "1234", "RecordedDate" => "2023-1-1" }
-        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:,
-                                      disaggregation_data:)
-        expect(values.income).to eq "Economically Disadvantaged - Y"
-      end
+    it "translates LowIncome to Economically Disadvantaged - Y" do
+      headers = ["LowIncome"]
+      row = { "LowIncome" => "LowIncome" }
 
-      it "translates Reduced Lunch to Economically Disadvantaged - Y" do
-        headers = ["District", "Academic Year", "LASID", "LowIncome"]
-        row = { "District" => "Attleboro", "AcademicYear" => "2022-23", "LASID" => "1", "LowIncome" => "Reduced Lunch" }
-        disaggregation_data = { %w[1 Attleboro 2022-23] => DisaggregationRow.new(row:, headers:) }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.income).to eq "Economically Disadvantaged - Y"
+    end
 
-        headers = ["LASID", "Dese Id", "RecordedDate"]
-        row = { "LASID" => "1", "DESE ID" => "1234", "RecordedDate" => "2023-1-1" }
-        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:,
-                                      disaggregation_data:)
-        expect(values.income).to eq "Economically Disadvantaged - Y"
-      end
+    it "translates Not Eligible to Economically Disadvantaged - N" do
+      headers = ["LowIncome"]
+      row = { "LowIncome" => "Not Eligible" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.income).to eq "Economically Disadvantaged - N"
+    end
 
-      it "translates LowIncome to Economically Disadvantaged - Y" do
-        headers = ["District", "Academic Year", "LASID", "LowIncome"]
-        row = { "District" => "Attleboro", "AcademicYear" => "2022-23", "LASID" => "1", "LowIncome" => "LowIncome" }
-        disaggregation_data = { %w[1 Attleboro 2022-23] => DisaggregationRow.new(row:, headers:) }
+    it "translates blanks to Unknown" do
+      headers = ["LowIncome"]
+      row = { "LowIncome" => "" }
 
-        headers = ["LASID", "Dese Id", "RecordedDate"]
-        row = { "LASID" => "1", "DESE ID" => "1234", "RecordedDate" => "2023-1-1" }
-        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:,
-                                      disaggregation_data:)
-        expect(values.income).to eq "Economically Disadvantaged - Y"
-      end
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.income).to eq "Unknown"
+    end
+  end
 
-      it "translates Not Eligible to Economically Disadvantaged - N" do
-        headers = ["District", "Academic Year", "LASID", "LowIncome"]
-        row = { "District" => "Attleboro", "AcademicYear" => "2022-23", "LASID" => "1", "LowIncome" => "Not Eligible" }
-        disaggregation_data = { %w[1 Attleboro 2022-23] => DisaggregationRow.new(row:, headers:) }
+  context ".ell" do
+    before :each do
+      attleboro
+      ay_2022_23
+    end
 
-        headers = ["LASID", "Dese Id", "RecordedDate"]
-        row = { "LASID" => "1", "DESE ID" => "1234", "RecordedDate" => "2023-1-1" }
-        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:,
-                                      disaggregation_data:)
-        expect(values.income).to eq "Economically Disadvantaged - N"
-      end
+    it 'translates "LEP Student 1st Year" or "LEP Student Not 1st Year" into ELL' do
+      headers = ["Raw ELL"]
+      row = { "Raw ELL" => "LEP Student 1st Year" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.ell).to eq "ELL"
 
-      it "translates blanks to Unknown" do
-        headers = ["District", "Academic Year", "LASID", "LowIncome"]
-        row = { "District" => "Attleboro", "AcademicYear" => "2022-23", "LASID" => "1", "LowIncome" => "" }
-        disaggregation_data = { %w[1 Attleboro 2022-23] => DisaggregationRow.new(row:, headers:) }
+      row = { "Raw ELL" => "LEP Student Not 1st Year" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.ell).to eq "ELL"
 
-        headers = ["LASID", "Dese Id", "RecordedDate"]
-        row = { "LASID" => "1", "DESE ID" => "1234", "RecordedDate" => "2023-1-1" }
-        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:,
-                                      disaggregation_data:)
-        expect(values.income).to eq "Unknown"
-      end
+      row = { "Raw ELL" => "LEP Student Not 1st Year" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.ell).to eq "ELL"
+    end
+
+    it 'translates "Does not Apply" into "Not ELL"' do
+      headers = ["Raw ELL"]
+      row = { "Raw ELL" => "Does not apply" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.ell).to eq "Not ELL"
+
+      row = { "Raw ELL" => "Does Not APPLY" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.ell).to eq "Not ELL"
+    end
+
+    it 'tranlsates blanks into "Unknown"' do
+      headers = ["Raw ELL"]
+      row = { "Raw ELL" => "" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.ell).to eq "Unknown"
+
+      row = { "Raw ELL" => "Anything else" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.ell).to eq "Unknown"
     end
   end
 

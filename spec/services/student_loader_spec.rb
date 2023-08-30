@@ -88,7 +88,7 @@ describe StudentLoader do
   describe 'self.load_data' do
     context 'load student data for all schools' do
       before :each do
-        SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
+        SurveyResponsesDataLoader.new.load_data filepath: path_to_student_responses
         StudentLoader.load_data filepath: path_to_student_responses
       end
 
@@ -102,7 +102,7 @@ describe StudentLoader do
     # TODO: get this test to run correctly.  Since we are no longer seeding, we need to define schools, and districts; some Lowell, some not
     xcontext 'When using the rule to skip non Lowell schools' do
       before :each do
-        SurveyResponsesDataLoader.load_data filepath: path_to_student_responses
+        SurveyResponsesDataLoader.new.load_data filepath: path_to_student_responses
         StudentLoader.load_data filepath: path_to_student_responses, rules: [Rule::SkipNonLowellSchools]
       end
 

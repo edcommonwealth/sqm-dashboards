@@ -7,7 +7,7 @@ namespace :data do
     student_count = Student.count
     path = "/data/survey_responses/clean/"
     Sftp::Directory.open(path:) do |file|
-      SurveyResponsesDataLoader.from_file(file:)
+      SurveyResponsesDataLoader.new.from_file(file:)
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 

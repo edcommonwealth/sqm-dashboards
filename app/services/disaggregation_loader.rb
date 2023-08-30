@@ -28,3 +28,4 @@ class DisaggregationLoader
     FileUtils.mkdir_p(path)
   end
 end
+

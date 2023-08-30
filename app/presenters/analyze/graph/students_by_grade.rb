@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Analyze
   module Graph
     class StudentsByGrade
@@ -9,11 +11,11 @@ module Analyze
       end
 
       def to_s
-        'Students by Grade'
+        "Students by Grade"
       end
 
       def slug
-        'students-by-grade'
+        "students-by-grade"
       end
 
       def columns

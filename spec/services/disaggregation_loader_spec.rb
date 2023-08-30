@@ -13,16 +13,20 @@ RSpec.describe DisaggregationLoader do
       expect(data.values.first.lasid).to eq("1")
       expect(data.values.first.academic_year).to eq("2022-23")
       expect(data.values.first.district).to eq("Maynard Public Schools")
-      expect(data.values.first.income).to eq("Free Lunch")
 
       expect(data.values.last.lasid).to eq("500")
       expect(data.values.last.academic_year).to eq("2022-23")
       expect(data.values.last.district).to eq("Maynard Public Schools")
-      expect(data.values.last.income).to eq("Not Eligible")
+    end
 
-      expect(data[["1", "Maynard Public Schools", "2022-23"]].income).to eq("Free Lunch")
-      expect(data[["2", "Maynard Public Schools", "2022-23"]].income).to eq("Not Eligible")
-      expect(data[["3", "Maynard Public Schools", "2022-23"]].income).to eq("Reduced Lunch")
+    it "loads income data" do
+      data = DisaggregationLoader.new(path:).load
+      expect(data.values.first.raw_income).to eq("Free Lunch")
+      expect(data.values.last.raw_income).to eq("Not Eligible")
+
+      expect(data[["1", "Maynard Public Schools", "2022-23"]].raw_income).to eq("Free Lunch")
+      expect(data[["2", "Maynard Public Schools", "2022-23"]].raw_income).to eq("Not Eligible")
+      expect(data[["3", "Maynard Public Schools", "2022-23"]].raw_income).to eq("Reduced Lunch")
     end
   end
 
@@ -33,3 +37,4 @@ RSpec.describe DisaggregationLoader do
     end
   end
 end
+
