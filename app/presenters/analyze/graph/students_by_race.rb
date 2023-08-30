@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Analyze
   module Graph
     class StudentsByRace
@@ -8,11 +10,11 @@ module Analyze
       end
 
       def to_s
-        'Students by Race'
+        "Students by Race"
       end
 
       def slug
-        'students-by-race'
+        "students-by-race"
       end
 
       def columns
@@ -31,14 +33,14 @@ module Analyze
       end
 
       CFR = {
-        '1' => Analyze::Graph::Column::RaceColumn::AmericanIndian,
-        '2' => Analyze::Graph::Column::RaceColumn::Asian,
-        '3' => Analyze::Graph::Column::RaceColumn::Black,
-        '4' => Analyze::Graph::Column::RaceColumn::Hispanic,
-        '5' => Analyze::Graph::Column::RaceColumn::White,
-        '8' => Analyze::Graph::Column::RaceColumn::MiddleEastern,
-        '99' => Analyze::Graph::Column::RaceColumn::Unknown,
-        '100' => Analyze::Graph::Column::RaceColumn::Multiracial
+        "1" => Analyze::Graph::Column::RaceColumn::AmericanIndian,
+        "2" => Analyze::Graph::Column::RaceColumn::Asian,
+        "3" => Analyze::Graph::Column::RaceColumn::Black,
+        "4" => Analyze::Graph::Column::RaceColumn::Hispanic,
+        "5" => Analyze::Graph::Column::RaceColumn::White,
+        "8" => Analyze::Graph::Column::RaceColumn::MiddleEastern,
+        "99" => Analyze::Graph::Column::RaceColumn::Unknown,
+        "100" => Analyze::Graph::Column::RaceColumn::Multiracial
       }.freeze
     end
   end

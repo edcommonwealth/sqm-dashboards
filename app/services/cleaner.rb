@@ -1,6 +1,6 @@
 require "fileutils"
 class Cleaner
-  attr_reader :input_filepath, :output_filepath, :log_filepath, :clean_csv, :log_csv
+  attr_reader :input_filepath, :output_filepath, :log_filepath
 
   def initialize(input_filepath:, output_filepath:, log_filepath:)
     @input_filepath = input_filepath
@@ -9,18 +9,13 @@ class Cleaner
     initialize_directories
   end
 
-  def initialize_directories
-    create_ouput_directory
-    create_log_directory
-  end
-
   def clean
     Dir.glob(Rails.root.join(input_filepath, "*.csv")).each do |filepath|
       puts filepath
-      File.open(filepath) do |_file|
-        clean_csv = []
-        log_csv = []
-        data = []
+      File.open(filepath) do |file|
+        processed_data = process_raw_file(file:)
+        processed_data in [headers, clean_csv, log_csv, data]
+        return if data.empty?
 
         filename = filename(headers:, data:)
         write_csv(data: clean_csv, output_filepath:, filename:)
@@ -37,23 +32,22 @@ class Cleaner
     range = data.first.academic_year.range
 
     districts = data.map do |row|
-      row.district.name
+      row.district.short_name
     end.to_set.to_a
 
     districts.join(".").to_s + "." + survey_type.to_s + "." + range + ".csv"
   end
 
-  def process_raw_file(file:, disaggregation_data:)
+  def process_raw_file(file:)
     clean_csv = []
     log_csv = []
     data = []
 
-    headers = (CSV.parse(file.first).first << "Raw Income") << "Income"
+    headers = CSV.parse(file.first).first.push("Raw Income").push("Income").push("Raw ELL").push("ELL").push("Raw SpEd").push("SpEd")
     filtered_headers = include_all_headers(headers:)
     filtered_headers = remove_unwanted_headers(headers: filtered_headers)
     log_headers = (filtered_headers + ["Valid Duration?", "Valid Progress?", "Valid Grade?",
                                        "Valid Standard Deviation?"]).flatten
-
     clean_csv << filtered_headers
     log_csv << log_headers
 
@@ -62,7 +56,7 @@ class Cleaner
     file.lazy.each_slice(1000) do |lines|
       CSV.parse(lines.join, headers:).map do |row|
         values = SurveyItemValues.new(row:, headers:, genders:,
-                                      survey_items: all_survey_items, schools:, disaggregation_data:)
+                                      survey_items: all_survey_items, schools:)
         next unless values.valid_school?
 
         data << values
@@ -104,24 +98,12 @@ class Cleaner
     File.write(output_filepath.join(prefix + filename), csv)
   end
 
-  def process_row(row:)
-    clean_csv << row.to_csv
-    log_csv << row.to_csv
-  end
-
   def schools
     @schools ||= School.school_hash
   end
 
   def genders
-    @genders ||= begin
-      gender_hash = {}
-
-      Gender.all.each do |gender|
-        gender_hash[gender.qualtrics_code] = gender
-      end
-      gender_hash
-    end
+    @genders ||= Gender.by_qualtrics_code
   end
 
   def survey_items(headers:)
@@ -138,8 +120,5 @@ class Cleaner
   def create_log_directory
     FileUtils.mkdir_p log_filepath
   end
-
-  def create_file(path:, filename:)
-    FileUtils.touch path.join(filename)
-  end
 end
+

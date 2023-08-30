@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_630_215_110) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_12_223701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,14 @@ ActiveRecord::Schema[7.0].define(version: 20_230_630_215_110) do
     t.integer "qualtrics_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ells", force: :cascade do |t|
+    t.string "designation"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["designation"], name: "index_ells_on_designation", unique: true
   end
 
   create_table "genders", force: :cascade do |t|
@@ -352,7 +360,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_630_215_110) do
     t.integer "eleven"
     t.integer "twelve"
     t.index ["academic_year_id"], name: "index_respondents_on_academic_year_id"
-    t.index %w[school_id academic_year_id], name: "index_respondents_on_school_id_and_academic_year_id", unique: true
+    t.index ["school_id", "academic_year_id"], name: "index_respondents_on_school_id_and_academic_year_id", unique: true
   end
 
   create_table "response_rates", force: :cascade do |t|
@@ -366,7 +374,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_630_215_110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_response_rates_on_academic_year_id"
-    t.index %w[school_id subcategory_id], name: "index_response_rates_on_school_id_and_subcategory_id"
+    t.index ["school_id", "subcategory_id"], name: "index_response_rates_on_school_id_and_subcategory_id"
     t.index ["school_id"], name: "index_response_rates_on_school_id"
     t.index ["subcategory_id"], name: "index_response_rates_on_subcategory_id"
   end
@@ -419,7 +427,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_630_215_110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["race_id"], name: "index_student_races_on_race_id"
-    t.index %w[student_id race_id], name: "index_student_races_on_student_id_and_race_id"
+    t.index ["student_id", "race_id"], name: "index_student_races_on_student_id_and_race_id"
     t.index ["student_id"], name: "index_student_races_on_student_id"
   end
 
@@ -453,12 +461,16 @@ ActiveRecord::Schema[7.0].define(version: 20_230_630_215_110) do
     t.integer "grade"
     t.bigint "gender_id"
     t.datetime "recorded_date"
+    t.bigint "ell_id"
+    t.bigint "income_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
+    t.index ["ell_id"], name: "index_survey_item_responses_on_ell_id"
     t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"
+    t.index ["income_id"], name: "index_survey_item_responses_on_income_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
-    t.index %w[school_id academic_year_id survey_item_id], name: "by_school_year_and_survey_item"
-    t.index %w[school_id academic_year_id], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
-    t.index %w[school_id survey_item_id academic_year_id grade], name: "index_survey_responses_on_grade"
+    t.index ["school_id", "academic_year_id", "survey_item_id"], name: "by_school_year_and_survey_item"
+    t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
+    t.index ["school_id", "survey_item_id", "academic_year_id", "grade"], name: "index_survey_responses_on_grade"
     t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
     t.index ["student_id"], name: "index_survey_item_responses_on_student_id"
     t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id"
@@ -508,7 +520,9 @@ ActiveRecord::Schema[7.0].define(version: 20_230_630_215_110) do
   add_foreign_key "student_races", "students"
   add_foreign_key "subcategories", "categories"
   add_foreign_key "survey_item_responses", "academic_years"
+  add_foreign_key "survey_item_responses", "ells"
   add_foreign_key "survey_item_responses", "genders"
+  add_foreign_key "survey_item_responses", "incomes"
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"

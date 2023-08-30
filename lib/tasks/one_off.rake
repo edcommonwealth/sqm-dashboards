@@ -82,27 +82,6 @@ namespace :one_off do
     puts values
   end
 
-  desc "load survey responses for lowell schools"
-  task load_survey_responses_for_lowell: :environment do
-    survey_item_response_count = SurveyItemResponse.count
-    student_count = Student.count
-    Sftp::Directory.open(path: "/test/survey_responses/") do |file|
-      SurveyResponsesDataLoader.from_file(file:)
-    end
-    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
-
-    Sftp::Directory.open(path: "/test/survey_responses/") do |file|
-      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
-    end
-    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
-
-    puts "Resetting race scores"
-    RaceScoreLoader.reset(fast_processing: false)
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-
-    Rails.cache.clear
-  end
-
   desc "delete 2022-23 survey responses"
   task delete_survey_responses_2022_23: :environment do
     response_count = SurveyItemResponse.all.count
@@ -127,7 +106,7 @@ namespace :one_off do
     path = "/data/survey_responses/2022-23/"
 
     Sftp::Directory.open(path:) do |file|
-      SurveyResponsesDataLoader.from_file(file:)
+      SurveyResponsesDataLoader.new.from_file(file:)
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 

@@ -2,13 +2,18 @@ require "rails_helper"
 require "fileutils"
 
 RSpec.describe Cleaner do
-  let(:district) { create(:district, name: "District1") }
+  let(:district) { create(:district, name: "Maynard Public Schools") }
   let(:second_district) { create(:district, name: "District2") }
   let(:school) { create(:school, dese_id: 1_740_505, district:) }
-  let(:second_school) { create(:school, dese_id: 222_222, district: second_district) }
+  let(:second_school) { create(:school, dese_id: 1_740_305, district:) }
+  let(:third_school) { create(:school, dese_id: 222_222, district: second_district) }
 
   let(:academic_year) { create(:academic_year, range: "2022-23") }
-  let(:respondents) { create(:respondent, school:, academic_year:, nine: 40, ten: 40, eleven: 40, twelve: 40) }
+  let(:respondents) do
+    create(:respondent, school:, academic_year:, one: 0, nine: 40, ten: 40, eleven: 40, twelve: 40)
+    create(:respondent, school: second_school, academic_year:, one: 0, four: 40, five: 40, six: 40, seven: 40,
+                        eight: 40)
+  end
   let(:recorded_date) { "2023-04-01" }
   let(:input_filepath) do
     Rails.root.join("spec", "fixtures", "raw")
@@ -20,6 +25,10 @@ RSpec.describe Cleaner do
 
   let(:log_filepath) do
     Rails.root.join("tmp", "spec", "removed")
+  end
+
+  let(:path_to_sample_raw_file) do
+    File.open(Rails.root.join("spec", "fixtures", "raw", "sample_maynard_raw_student_survey.csv"))
   end
 
   let(:common_headers) do
@@ -71,6 +80,7 @@ RSpec.describe Cleaner do
   before :each do
     school
     second_school
+    third_school
     standard_survey_items
     short_form_survey_items
     early_education_survey_items
@@ -93,9 +103,9 @@ RSpec.describe Cleaner do
 
   context ".process_raw_file" do
     it "sorts data into valid and invalid csvs" do
-      cleaner = Cleaner.new(input_filepath:, output_filepath:, log_filepath:, disaggregation_filepath:)
+      cleaner = Cleaner.new(input_filepath:, output_filepath:, log_filepath:)
       processed_data = cleaner.process_raw_file(
-        file: path_to_sample_raw_file, disaggregation_data: cleaner.disaggregation_data
+        file: path_to_sample_raw_file
       )
       processed_data in [headers, clean_csv, log_csv, data]
 
@@ -122,22 +132,6 @@ RSpec.describe Cleaner do
       csv_contains_the_correct_rows(log_csv, invalid_rows)
       invalid_rows_are_rejected_for_the_correct_reasons(data)
     end
-
-    it "adds dissaggregation data to the cleaned file " do
-      cleaner = Cleaner.new(input_filepath:, output_filepath:, log_filepath:, disaggregation_filepath:)
-      processed_data = cleaner.process_raw_file(
-        file: path_to_sample_raw_file, disaggregation_data: cleaner.disaggregation_data
-      )
-      processed_data in [headers, clean_csv, log_csv, data]
-      index_of_income = clean_csv.first.index("Income")
-      expect(clean_csv.second[index_of_income]).to eq "Economically Disadvantaged - Y"
-
-      one_thousand = data.find { |row| row.response_id == "1000" }
-      expect(one_thousand.income).to eq "Economically Disadvantaged - Y"
-
-      one_thousand_one = data.find { |row| row.response_id == "1001" }
-      expect(one_thousand_one.income).to eq "Economically Disadvantaged - N"
-    end
   end
 
   context ".filename" do
@@ -151,7 +145,7 @@ RSpec.describe Cleaner do
           filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
             headers: standard_survey_items, data:
           )
-          expect(filename).to eq "District1.standard.2022-23.csv"
+          expect(filename).to eq "maynard.standard.2022-23.csv"
         end
 
         context "when the file is based on short form survey items" do
@@ -163,7 +157,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: short_form_survey_items, data:
             )
-            expect(filename).to eq "District1.short_form.2022-23.csv"
+            expect(filename).to eq "maynard.short_form.2022-23.csv"
           end
         end
 
@@ -176,7 +170,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:
             )
-            expect(filename).to eq "District1.early_education.2022-23.csv"
+            expect(filename).to eq "maynard.early_education.2022-23.csv"
           end
         end
         context "when the file is based on teacher survey items" do
@@ -188,7 +182,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:
             )
-            expect(filename).to eq "District1.teacher.2022-23.csv"
+            expect(filename).to eq "maynard.teacher.2022-23.csv"
           end
         end
 
@@ -202,7 +196,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:
             )
-            expect(filename).to eq "District1.District2.teacher.2022-23.csv"
+            expect(filename).to eq "maynard.district2.teacher.2022-23.csv"
           end
         end
       end
@@ -212,7 +206,7 @@ end
 
 def reads_headers_from_raw_csv(processed_data)
   processed_data in [headers, clean_csv, log_csv, data]
-  expect(headers.to_set.sort).to eq ["StartDate", "EndDate", "Status", "IPAddress", "Progress", "Duration (in seconds)",
+  expect(headers.to_set.sort).to eq ["StartDate", "EndDate",  "Status", "IPAddress", "Progress", "Duration (in seconds)",
                                      "Finished", "RecordedDate", "ResponseId", "District", "School",
                                      "LASID", "Gender", "Race", "What grade are you in?", "s-emsa-q1", "s-emsa-q2", "s-emsa-q3", "s-tint-q1",
                                      "s-tint-q2", "s-tint-q3", "s-tint-q4", "s-tint-q5", "s-acpr-q1", "s-acpr-q2",
@@ -225,7 +219,7 @@ def reads_headers_from_raw_csv(processed_data)
                                      "s-grit-q1", "s-grit-q2", "s-grit-q3", "s-grit-q4", "s-expa-q1", "s-poaf-q1", "s-poaf-q2", "s-poaf-q3",
                                      "s-poaf-q4", "s-tint-q1-1", "s-tint-q2-1", "s-tint-q3-1", "s-tint-q4-1", "s-tint-q5-1", "s-acpr-q1-1",
                                      "s-acpr-q2-1", "s-acpr-q3-1", "s-acpr-q4-1", "s-peff-q1-1", "s-peff-q2-1", "s-peff-q3-1", "s-peff-q4-1",
-                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income"].to_set.sort
+                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd"].to_set.sort
 end
 
 def invalid_rows_are_rejected_for_the_correct_reasons(data)
@@ -308,3 +302,4 @@ def csv_contains_the_correct_rows(csv, rows)
     expect(csv[index + 1][response_id]).to eq row
   end
 end
+

@@ -1,11 +1,11 @@
-Race Qualtrics Code,Race/Ethnicity,Gender Qualtrics Code,Sex/Gender,Income
-1,American Indian or Alaskan Native,2,Male,Economically Disadvantaged - N
-2,Asian or Pacific Islander,1,Female,Economically Disadvantaged - Y
-3,Black or African American,4,Non-Binary,Unknown
-4,Hispanic or Latinx,99,Unknown,
-5,White or Caucasian,,,
-6,Prefer not to disclose,,,
-7,Prefer to self-describe,,,
-8,Middle Eastern,,,
-99,Race/Ethnicity Not Listed,,,
-100,Multiracial,,,
+Race Qualtrics Code,Race/Ethnicity,Gender Qualtrics Code,Sex/Gender,Income,ELL
+1,American Indian or Alaskan Native,2,Male,Economically Disadvantaged - N,ELL
+2,Asian or Pacific Islander,1,Female,Economically Disadvantaged - Y,Not ELL
+3,Black or African American,4,Non-Binary,Unknown,Unknown
+4,Hispanic or Latinx,99,Unknown,,
+5,White or Caucasian,,,,
+6,Prefer not to disclose,,,,
+7,Prefer to self-describe,,,,
+8,Middle Eastern,,,,
+99,Race/Ethnicity Not Listed,,,,
+100,Multiracial,,,,

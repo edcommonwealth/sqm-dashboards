@@ -1,11 +1,15 @@
 FactoryBot.define do
   factory :income do
-    designation { "MyString" }
+    designation { "DefaultIncome" }
+  end
+
+  factory :ell do
+    designation { "DefaultEll" }
   end
 
   factory :gender do
     qualtrics_code { 1 }
-    designation { 'MyString' }
+    designation { "MyString" }
   end
 
   factory :race_score do
@@ -68,22 +72,22 @@ FactoryBot.define do
   end
 
   factory :academic_year do
-    range { '2050-51' }
+    range { "2050-51" }
     initialize_with { AcademicYear.find_or_initialize_by(range:) }
   end
 
-  factory :category, class: 'Category' do
+  factory :category, class: "Category" do
     name { "A #{rand} category" }
     category_id { rand.to_s }
-    description { 'A description of a category' }
+    description { "A description of a category" }
     slug { name.parameterize }
     sort_index { 1 }
   end
 
   factory :subcategory do
-    name { 'A subcategory' }
+    name { "A subcategory" }
     subcategory_id { rand.to_s }
-    description { 'A description of a subcategory' }
+    description { "A description of a subcategory" }
     category
 
     factory :subcategory_with_measures do
@@ -102,7 +106,7 @@ FactoryBot.define do
 
   factory :measure do
     measure_id { rand.to_s }
-    name { 'A Measure' }
+    name { "A Measure" }
     subcategory
     trait :with_student_survey_items do
       after(:create) do |measure|
@@ -136,7 +140,7 @@ FactoryBot.define do
 
   factory :survey_item do
     scale
-    prompt { 'What do YOU think?' }
+    prompt { "What do YOU think?" }
     factory :teacher_survey_item do
       survey_item_id { "t-#{rand}" }
       watch_low_benchmark { 2.0 }
