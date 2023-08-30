@@ -312,4 +312,3 @@ class SurveyItemValues
     races
   end
 end
-

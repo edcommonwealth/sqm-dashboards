@@ -370,3 +370,16 @@ def assigns_ell_to_responses
   end
 end
 
+def assigns_ell_to_responses
+  results = { "student_survey_response_1" => not_ell,
+              "student_survey_response_3" => unknown_ell,
+              "student_survey_response_4" => yes_ell,
+              "student_survey_response_5" => yes_ell,
+              "student_survey_response_6" => unknown_ell,
+              "student_survey_response_7" => unknown_ell }
+
+  results.each do |key, value|
+    ell = SurveyItemResponse.find_by_response_id(key).ell
+    expect(ell).to eq value
+  end
+end
