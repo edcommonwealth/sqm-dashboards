@@ -31,11 +31,9 @@ module Analyze
 
             yearly_counts = SurveyItemResponse.where(school:, academic_year:,
                                                      income:, survey_item: measure.student_survey_items).group(:income).select(:response_id).distinct(:response_id).count
-            more_than_ten_respondents = yearly_counts.any? do |count|
+            yearly_counts.any? do |count|
               count[1] >= 10
             end
-
-            sufficient_overall_responses && more_than_ten_respondents
           end
         end
       end
