@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.4"
+gem "rails", "~> 7.0.8"
 gem "sprockets-rails"
 
 gem "pg"
