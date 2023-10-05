@@ -3,12 +3,13 @@
 module Analyze
   module Graph
     module Column
-      module EllColumn
-        class NotEll < GroupedBarColumnPresenter
-          include Analyze::Graph::Column::EllColumn::ScoreForEll
-          include Analyze::Graph::Column::EllColumn::EllCount
+      module SpedColumn
+        class Unknown < GroupedBarColumnPresenter
+          include Analyze::Graph::Column::SpedColumn::ScoreForSped
+          include Analyze::Graph::Column::SpedColumn::SpedCount
+
           def label
-            ["Not ELL"]
+            %w[Unknown]
           end
 
           def basis
@@ -23,8 +24,8 @@ module Analyze
             false
           end
 
-          def ell
-            ::Ell.find_by_slug "not-ell"
+          def sped
+            ::Sped.find_by_slug "unknown"
           end
         end
       end

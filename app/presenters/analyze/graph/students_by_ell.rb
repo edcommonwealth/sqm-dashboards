@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-#
+
 module Analyze
   module Graph
     class StudentsByEll
-      include Analyze::Graph::Column::GenderColumn
+      include Analyze::Graph::Column::EllColumn
       attr_reader :ells
 
       def initialize(ells:)

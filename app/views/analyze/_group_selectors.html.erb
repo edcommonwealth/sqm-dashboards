@@ -25,3 +25,7 @@
 <% @presenter.ells.each do |ell| %>
   <%= render(partial: "checkboxes", locals: {id: "ell-#{ell.slug}", item: ell, selected_items: @presenter.selected_ells, name: "ell", label_text: ell.designation})  %>
 <% end %>
+
+<% @presenter.speds.each do |sped| %>
+  <%= render(partial: "checkboxes", locals: {id: "sped-#{sped.slug}", item: sped, selected_items: @presenter.selected_speds, name: "sped", label_text: sped.designation})  %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_912_223_701) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_04_211430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -406,6 +406,14 @@ ActiveRecord::Schema[7.0].define(version: 20_230_912_223_701) do
     t.index ["school_id"], name: "index_scores_on_school_id"
   end
 
+  create_table "speds", force: :cascade do |t|
+    t.string "designation"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["designation"], name: "index_speds_on_designation"
+  end
+
   create_table "student_races", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "race_id", null: false
@@ -448,14 +456,23 @@ ActiveRecord::Schema[7.0].define(version: 20_230_912_223_701) do
     t.datetime "recorded_date"
     t.bigint "income_id"
     t.bigint "ell_id"
+    t.bigint "sped_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["ell_id"], name: "index_survey_item_responses_on_ell_id"
     t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"
     t.index ["income_id"], name: "index_survey_item_responses_on_income_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
+<<<<<<< HEAD
     t.index %w[school_id academic_year_id survey_item_id], name: "by_school_year_and_survey_item"
     t.index %w[school_id academic_year_id], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
     t.index %w[school_id survey_item_id academic_year_id grade], name: "index_survey_responses_on_grade"
+=======
+    t.index ["school_id", "academic_year_id", "survey_item_id"], name: "by_school_year_and_survey_item"
+    t.index ["school_id", "academic_year_id"], name: "index_survey_item_responses_on_school_id_and_academic_year_id"
+    t.index ["school_id", "survey_item_id", "academic_year_id", "grade"], name: "index_survey_responses_on_grade"
+    t.index ["school_id"], name: "index_survey_item_responses_on_school_id"
+    t.index ["sped_id"], name: "index_survey_item_responses_on_sped_id"
+>>>>>>> 48e795f (feat: add special education disaggregation)
     t.index ["student_id"], name: "index_survey_item_responses_on_student_id"
     t.index ["survey_item_id"], name: "index_survey_item_responses_on_survey_item_id"
   end
@@ -504,6 +521,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_912_223_701) do
   add_foreign_key "survey_item_responses", "genders"
   add_foreign_key "survey_item_responses", "incomes"
   add_foreign_key "survey_item_responses", "schools"
+  add_foreign_key "survey_item_responses", "speds"
   add_foreign_key "survey_item_responses", "students"
   add_foreign_key "survey_item_responses", "survey_items"
   add_foreign_key "survey_items", "scales"

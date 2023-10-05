@@ -67,6 +67,19 @@ module Analyze
       end
     end
 
+    def speds
+      @speds ||= Sped.all.order(id: :ASC)
+    end
+
+    def selected_speds
+      @selected_speds ||= begin
+        sped_params = params[:speds]
+        return speds unless sped_params
+
+        sped_params.split(",").map { |sped| Sped.find_by_slug sped }.compact
+      end
+    end
+
     def graphs
       @graphs ||= [Analyze::Graph::AllData.new,
                    Analyze::Graph::StudentsAndTeachers.new,
@@ -74,7 +87,8 @@ module Analyze
                    Analyze::Graph::StudentsByGrade.new(grades: selected_grades),
                    Analyze::Graph::StudentsByGender.new(genders: selected_genders),
                    Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
-                   Analyze::Graph::StudentsByEll.new(ells: selected_ells)]
+                   Analyze::Graph::StudentsByEll.new(ells: selected_ells),
+                   Analyze::Graph::StudentsBySped.new(speds: selected_speds)]
     end
 
     def graph
@@ -107,7 +121,7 @@ module Analyze
 
     def groups
       @groups = [Analyze::Group::Ell.new, Analyze::Group::Gender.new, Analyze::Group::Grade.new, Analyze::Group::Income.new,
-                 Analyze::Group::Race.new]
+                 Analyze::Group::Race.new, Analyze::Group::Sped.new]
     end
 
     def group

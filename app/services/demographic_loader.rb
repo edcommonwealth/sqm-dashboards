@@ -7,8 +7,9 @@ class DemographicLoader
     CSV.parse(File.read(filepath), headers: true) do |row|
       process_race(row:)
       process_gender(row:)
-      process_income(row:)
-      process_ell(row:)
+      create_from_column(column: "Income", row:, model: Income)
+      create_from_column(column: "ELL", row:, model: Ell)
+      create_from_column(column: "Special Ed Status", row:, model: Sped)
     end
   end
 
@@ -33,18 +34,11 @@ class DemographicLoader
     gender.save
   end
 
-  def self.process_income(row:)
-    designation = row["Income"]
+  def self.create_from_column(column:, row:, model:)
+    designation = row[column]
     return unless designation
 
-    Income.find_or_create_by!(designation:)
-  end
-
-  def self.process_ell(row:)
-    designation = row["ELL"]
-    return unless designation
-
-    Ell.find_or_create_by!(designation:)
+    model.find_or_create_by!(designation:)
   end
 end
 
