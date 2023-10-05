@@ -251,6 +251,44 @@ RSpec.describe SurveyItemValues, type: :model do
     end
   end
 
+  context ".sped" do
+    before :each do
+      attleboro
+      ay_2022_23
+    end
+
+    it 'translates "active" into "Special Education"' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "active" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.sped).to eq "Special Education"
+    end
+
+    it 'translates "exited" into "Not Special Education"' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "exited" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.sped).to eq "Not Special Education"
+    end
+    it 'translates blanks into "Not Special Education' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.sped).to eq "Not Special Education"
+    end
+
+    it 'tranlsates NA into "Unknown"' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "NA" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.sped).to eq "Unknown"
+
+      row = { "Raw SpEd" => "#NA" }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.sped).to eq "Unknown"
+    end
+  end
+
   context ".valid_duration" do
     context "when duration is valid" do
       it "returns true" do

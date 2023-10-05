@@ -30,7 +30,9 @@ export default class extends Controller {
       "&grades=" +
       this.selected_items("grade").join(",") +
       "&ells=" +
-      this.selected_items("ell").join(",");
+      this.selected_items("ell").join(",") +
+      "&speds=" +
+      this.selected_items("sped").join(",");
 
     this.go_to(url);
   }
@@ -124,19 +126,11 @@ export default class extends Controller {
         return item.id;
       })[0];
 
-    const groups = new Map([
-      ['gender', 'students-by-gender'],
-      ['grade', 'students-by-grade'],
-      ['income', 'students-by-income'],
-      ['race', 'students-by-race'],
-      ['ell', 'students-by-ell'],
-    ])
-
     if (target.name === 'slice' || target.name === 'group') {
       if (selected_slice === 'students-and-teachers') {
         return 'students-and-teachers';
       }
-      return groups.get(this.selected_group());
+      return `students-by-${this.selected_group()}`;
     }
 
     return window.graph;

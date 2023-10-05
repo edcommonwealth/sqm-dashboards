@@ -62,6 +62,10 @@ class SurveyResponsesDataLoader
     @ells ||= Ell.by_designation
   end
 
+  def speds
+    @speds ||= Sped.by_designation
+  end
+
   def process_row(row:, rules:)
     return unless row.dese_id?
     return unless row.school.present?
@@ -91,12 +95,14 @@ class SurveyResponsesDataLoader
     grade = row.grade
     income = incomes[row.income.parameterize]
     ell = ells[row.ell]
+    sped = speds[row.sped]
     if survey_item_response.present?
-      survey_item_response.update!(likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:, ell:)
+      survey_item_response.update!(likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:, ell:,
+                                   sped:)
       []
     else
       SurveyItemResponse.new(response_id: row.response_id, academic_year: row.academic_year, school: row.school, survey_item:,
-                             likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:, ell:)
+                             likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:, ell:, sped:)
     end
   end
 
