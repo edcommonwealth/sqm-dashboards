@@ -219,7 +219,7 @@ def reads_headers_from_raw_csv(processed_data)
                                      "s-grit-q1", "s-grit-q2", "s-grit-q3", "s-grit-q4", "s-expa-q1", "s-poaf-q1", "s-poaf-q2", "s-poaf-q3",
                                      "s-poaf-q4", "s-tint-q1-1", "s-tint-q2-1", "s-tint-q3-1", "s-tint-q4-1", "s-tint-q5-1", "s-acpr-q1-1",
                                      "s-acpr-q2-1", "s-acpr-q3-1", "s-acpr-q4-1", "s-peff-q1-1", "s-peff-q2-1", "s-peff-q3-1", "s-peff-q4-1",
-                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income", "Raw ELL", "ELL"].to_set.sort
+                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd"].to_set.sort
 end
 
 def invalid_rows_are_rejected_for_the_correct_reasons(data)

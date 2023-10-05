@@ -21,6 +21,10 @@ describe DemographicLoader do
     ["ELL", "Not ELL", "Unknown"]
   end
 
+  let(:speds) do
+    ["Special Education", "Not Special Education", "Unknown"]
+  end
+
   before :each do
     DemographicLoader.load_data(filepath:)
   end
@@ -66,6 +70,13 @@ describe DemographicLoader do
       expect(Ell.all.count).to eq 3
       ells.each do |ell|
         expect(Ell.find_by_designation(ell).designation).to eq ell
+      end
+    end
+
+    it "load all the special ed designations" do
+      expect(Sped.all.count).to eq 3
+      speds.each do |sped|
+        expect(Sped.find_by_designation(sped).designation).to eq sped
       end
     end
   end

@@ -11,6 +11,7 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :gender
   belongs_to :income
   belongs_to :ell
+  belongs_to :sped
 
   has_one :measure, through: :survey_item
 
@@ -36,6 +37,11 @@ class SurveyItemResponse < ActiveRecord::Base
   scope :averages_for_ell, lambda { |survey_items, school, academic_year, ell|
     SurveyItemResponse.where(survey_item: survey_items, school:,
                              academic_year:, ell:, grade: school.grades(academic_year:)).group(:survey_item).having("count(*) >= 10").average(:likert_score)
+  }
+
+  scope :averages_for_sped, lambda { |survey_items, school, academic_year, sped|
+    SurveyItemResponse.where(survey_item: survey_items, school:,
+                             academic_year:, sped:, grade: school.grades(academic_year:)).group(:survey_item).having("count(*) >= 10").average(:likert_score)
   }
 
   scope :averages_for_race, lambda { |school, academic_year, race|

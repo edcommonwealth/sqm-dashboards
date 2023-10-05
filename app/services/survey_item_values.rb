@@ -15,6 +15,8 @@ class SurveyItemValues
     row["Raw Income"] = raw_income
     row["Raw ELL"] = raw_ell
     row["ELL"] = ell
+    row["Raw SpEd"] = raw_sped
+    row["SpEd"] = sped
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
@@ -161,6 +163,21 @@ class SurveyItemValues
              else
                "Unknown"
              end
+  end
+
+  def raw_sped
+    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd/i)
+  end
+
+  def sped
+    @sped ||= case raw_sped
+              in /active/i
+                "Special Education"
+              in /^NA$|^#NA$/i
+                "Unknown"
+              else
+                "Not Special Education"
+              end
   end
 
   def value_from(pattern:)
