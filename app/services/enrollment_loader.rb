@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class EnrollmentLoader
   def self.load_data(filepath:)
@@ -51,75 +51,75 @@ class EnrollmentRowValues
 
   def school
     @school ||= begin
-      dese_id = row['DESE ID'].try(:strip).to_i
+      dese_id = row["DESE ID"].try(:strip).to_i
       School.find_by_dese_id(dese_id)
     end
   end
 
   def academic_year
     @academic_year ||= begin
-      year = row['Academic Year']
+      year = row["Academic Year"]
       AcademicYear.find_by_range(year)
     end
   end
 
   def pk
-    row['PK'] || row['pk']
+    row["PK"] || row["pk"]
   end
 
   def k
-    row['K'] || row['k']
+    row["K"] || row["k"]
   end
 
   def one
-    row['1']
+    row["1"]
   end
 
   def two
-    row['2']
+    row["2"]
   end
 
   def three
-    row['3']
+    row["3"]
   end
 
   def four
-    row['4']
+    row["4"]
   end
 
   def five
-    row['5']
+    row["5"]
   end
 
   def six
-    row['6']
+    row["6"]
   end
 
   def seven
-    row['7']
+    row["7"]
   end
 
   def eight
-    row['8']
+    row["8"]
   end
 
   def nine
-    row['9']
+    row["9"]
   end
 
   def ten
-    row['10']
+    row["10"]
   end
 
   def eleven
-    row['11']
+    row["11"]
   end
 
   def twelve
-    row['12']
+    row["12"]
   end
 
   def total_students
-    row['Total'].delete(',').to_i
+    row["Total"].delete(",").to_i
   end
 end
