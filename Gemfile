@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.8"
+gem "rails", "~> 7.1.0"
 gem "sprockets-rails"
 
 gem "pg"
@@ -36,7 +36,7 @@ gem "friendly_id", "~> 5.1.0"
 
 gem "newrelic_rpm"
 
-gem "devise"
+gem "devise", git: "https://github.com/heartcombo/devise"
 
 gem "omniauth"
 
@@ -66,8 +66,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "parallel_tests"
   gem "rack-mini-profiler"
-  gem "rspec-rails", "~> 5.1.0"
-  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "rspec-rails", "~> 6.0.3"
 end
 
 group :development do

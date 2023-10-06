@@ -2,7 +2,7 @@ module Analyze
   module Group
     class Sped
       def name
-        "SpEd"
+        "Special Education"
       end
 
       def slug

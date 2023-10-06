@@ -1,12 +1,12 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe EnrollmentLoader do
-  let(:path_to_enrollment_data) { Rails.root.join('spec', 'fixtures', 'sample_enrollment_data.csv') }
-  let(:ay_2022_23) { create(:academic_year, range: '2022-23') }
+  let(:path_to_enrollment_data) { Rails.root.join("spec", "fixtures", "sample_enrollment_data.csv") }
+  let(:ay_2022_23) { create(:academic_year, range: "2022-23") }
 
-  let(:attleboro) { School.find_or_create_by(name: 'Attleboro', dese_id: 160_505) }
-  let(:beachmont) { School.find_or_create_by(name: 'Beachmont', dese_id: 2_480_013) }
-  let(:winchester) { School.find_or_create_by(name: 'Winchester', dese_id: 3_440_505) }
+  let(:attleboro) { create(:school, name: "Attleboro", dese_id: 160_505) }
+  let(:beachmont) { create(:school, name: "Beachmont", dese_id: 2_480_013) }
+  let(:winchester) { create(:school, name: "Winchester", dese_id: 3_440_505) }
   before :each do
     ay_2022_23
     attleboro
@@ -19,8 +19,8 @@ describe EnrollmentLoader do
     DatabaseCleaner.clean
   end
 
-  context 'self.load_data' do
-    it 'loads the correct enrollment numbers' do
+  context "self.load_data" do
+    it "loads the correct enrollment numbers" do
       academic_year = ay_2022_23
       expect(Respondent.find_by(school: attleboro, academic_year:).nine).to eq 506
       # expect(Respondent.find_by(school: attleboro, academic_year:).total_students).to eq 1844
