@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_12_223701) do
+ActiveRecord::Schema[7.1].define(version: 2023_09_12_223701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -461,8 +461,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_223701) do
     t.integer "grade"
     t.bigint "gender_id"
     t.datetime "recorded_date"
-    t.bigint "ell_id"
     t.bigint "income_id"
+    t.bigint "ell_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["ell_id"], name: "index_survey_item_responses_on_ell_id"
     t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"

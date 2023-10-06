@@ -8,9 +8,10 @@ class SurveyItemResponse < ActiveRecord::Base
   belongs_to :school
   belongs_to :survey_item, counter_cache: true
   belongs_to :student, foreign_key: :student_id, optional: true
-  belongs_to :gender
-  belongs_to :income
-  belongs_to :ell
+  belongs_to :gender, optional: true  belongs_to :gender, optional: true
+  belongs_to :income, optional: true
+  belongs_to :ell, optional: true
+  belongs_to :sped, optional: true
 
   has_one :measure, through: :survey_item
 
@@ -44,4 +45,5 @@ class SurveyItemResponse < ActiveRecord::Base
     ).where("student_races.race_id": race.id).group(:survey_item_id).having("count(*) >= 10").average(:likert_score)
   }
 end
+
 
