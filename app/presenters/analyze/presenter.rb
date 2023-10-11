@@ -181,5 +181,20 @@ module Analyze
         income_params.split(",").map { |income| Income.find_by_slug(income) }.compact
       end
     end
+
+    def cache_objects
+      [subcategory,
+       selected_academic_years,
+       graph,
+       selected_races,
+       selected_grades,
+       grades,
+       selected_genders,
+       genders,
+       selected_ells,
+       ells,
+       selected_speds,
+       speds]
+    end
   end
 end
