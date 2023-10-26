@@ -1,11 +1,11 @@
 GIT
   remote: https://github.com/heartcombo/devise
-  revision: 9064ecbf15bffc9ec70ec8ff4061a974e7621156
+  revision: e2242a95f3bb2e68ec0e9a064238ff7af6429545
   specs:
-    devise (4.9.2)
+    devise (4.9.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
+      railties (>= 6.0.0)
       responders
       warden (~> 1.2.3)
 
@@ -107,7 +107,7 @@ GEM
       msgpack (~> 1.2)
     brakeman (6.0.1)
     builder (3.2.4)
-    bullet (7.1.0)
+    bullet (7.1.2)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
@@ -159,7 +159,7 @@ GEM
       rainbow
       rubocop
       smart_properties
-    erblint-github (0.5.0)
+    erblint-github (0.5.1)
     erubi (1.12.0)
     eventmachine (1.2.7)
     execjs (2.9.1)
@@ -207,7 +207,7 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
-    irb (1.8.1)
+    irb (1.8.3)
       rdoc
       reline (>= 0.3.8)
     jaro_winkler (1.5.6)
@@ -251,7 +251,7 @@ GEM
     mutex_m (0.1.2)
     nenv (0.3.0)
     nested_scaffold (1.1.0)
-    net-imap (0.4.1)
+    net-imap (0.4.2)
       date
       net-protocol
     net-pop (0.1.2)
@@ -260,16 +260,16 @@ GEM
       timeout
     net-sftp (4.0.0)
       net-ssh (>= 5.0.0, < 8.0.0)
-    net-smtp (0.3.3)
+    net-smtp (0.4.0)
       net-protocol
     net-ssh (7.2.0)
     newrelic_rpm (9.5.0)
     nio4r (2.5.9)
-    nokogiri (1.15.3-arm64-darwin)
+    nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.3-x86_64-darwin)
+    nokogiri (1.15.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.3-x86_64-linux)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -280,7 +280,7 @@ GEM
       rack-protection
     orm_adapter (0.5.0)
     parallel (1.23.0)
-    parallel_tests (4.2.2)
+    parallel_tests (4.3.0)
       parallel
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -289,7 +289,7 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    psych (5.1.1)
+    psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
     puma (6.4.0)
@@ -327,7 +327,7 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.1.1)
+    rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -355,10 +355,10 @@ GEM
       kwalify (~> 0.7.0)
       parser (~> 3.2.0)
       rainbow (>= 2.0, < 4.0)
-    regexp_parser (2.8.1)
+    regexp_parser (2.8.2)
     reline (0.3.9)
       io-console (~> 0.5)
-    responders (3.1.0)
+    responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
     reverse_markdown (2.1.1)
@@ -385,19 +385,18 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.56.4)
-      base64 (~> 0.1.1)
+    rubocop (1.57.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.3)
+      parser (>= 3.2.2.4)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
       rubocop-ast (>= 1.28.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.29.0)
+    rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
@@ -405,7 +404,7 @@ GEM
     seed_dump (3.3.1)
       activerecord (>= 4)
       activesupport (>= 4)
-    selenium-webdriver (4.13.1)
+    selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -445,15 +444,15 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     standard_deviation (1.0.3)
-    stimulus-rails (1.2.2)
+    stimulus-rails (1.3.0)
       railties (>= 6.0.0)
     stringio (3.0.8)
     temple (0.10.3)
-    thor (1.2.2)
+    thor (1.3.0)
     tilt (2.3.0)
     timecop (0.9.8)
     timeout (0.4.0)
-    turbo-rails (1.4.0)
+    turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
