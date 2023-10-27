@@ -43,7 +43,7 @@ class Cleaner
     log_csv = []
     data = []
 
-    headers = CSV.parse(file.first).first.push("Raw Income").push("Income").push("Raw ELL").push("ELL").push("Raw SpEd").push("SpEd")
+    headers = CSV.parse(file.first).first.push("Raw Income").push("Income").push("Raw ELL").push("ELL").push("Raw SpEd").push("SpEd").push("Progress Count")
     filtered_headers = include_all_headers(headers:)
     filtered_headers = remove_unwanted_headers(headers: filtered_headers)
     log_headers = (filtered_headers + ["Valid Duration?", "Valid Progress?", "Valid Grade?",
