@@ -17,6 +17,7 @@ class SurveyItemValues
     row["ELL"] = ell
     row["Raw SpEd"] = raw_sped
     row["SpEd"] = sped
+    row["Progress Count"] = progress
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
@@ -234,12 +235,22 @@ class SurveyItemValues
     true
   end
 
-  def valid_progress?
-    progress = row["Progress"]
-    return true if progress.nil? || progress == "" || progress.downcase == "n/a" || progress.downcase == "na"
+  def progress
+    headers.filter(&:present?)
+           .reject { |header| header.end_with?("-1") }
+           .filter { |header| header.start_with?("t-", "s-") }
+           .reject { |header| row[header].nil? }.count
+  end
 
-    progress = progress.to_i
-    progress.to_i >= 25
+  def valid_progress?
+    return false if progress.nil?
+
+    return progress >= 12 if survey_type == :teacher
+    return progress >= 17 if survey_type == :standard
+    return progress >= 5 if survey_type == :short_form
+    return progress >= 5 if survey_type == :early_education
+
+    false
   end
 
   def valid_grade?

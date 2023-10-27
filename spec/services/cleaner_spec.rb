@@ -111,14 +111,14 @@ RSpec.describe Cleaner do
 
       reads_headers_from_raw_csv(processed_data)
 
-      valid_rows = %w[1000 1001 1004 1005 1008 1017 1018 1019 1020 1024 1025 1026
+      valid_rows = %w[1000 1001 1003 1004 1005 1008 1017 1018 1019 1020 1024 1026
                       1027 1028]
       valid_rows.each do |response_id|
         valid_row = data.find { |row| row.response_id == response_id }
         expect(valid_row.valid?).to eq true
       end
 
-      invalid_rows = %w[1002 1003 1006 1007 1009 1010 1011 1012 1013 1014 1015 1016 1021 1022 1023 1029 1030 1031 1032
+      invalid_rows = %w[1002 1006 1007 1009 1010 1011 1012 1013 1014 1015 1016 1021 1022 1023 1025 1029 1030 1031 1032
                         1033 1034]
       invalid_rows.each do |response_id|
         invalid_row = data.find { |row| row.response_id == response_id }
@@ -219,7 +219,7 @@ def reads_headers_from_raw_csv(processed_data)
                                      "s-grit-q1", "s-grit-q2", "s-grit-q3", "s-grit-q4", "s-expa-q1", "s-poaf-q1", "s-poaf-q2", "s-poaf-q3",
                                      "s-poaf-q4", "s-tint-q1-1", "s-tint-q2-1", "s-tint-q3-1", "s-tint-q4-1", "s-tint-q5-1", "s-acpr-q1-1",
                                      "s-acpr-q2-1", "s-acpr-q3-1", "s-acpr-q4-1", "s-peff-q1-1", "s-peff-q2-1", "s-peff-q3-1", "s-peff-q4-1",
-                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd"].to_set.sort
+                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count"].to_set.sort
 end
 
 def invalid_rows_are_rejected_for_the_correct_reasons(data)
@@ -230,7 +230,7 @@ def invalid_rows_are_rejected_for_the_correct_reasons(data)
   expect(one_thousand_two.valid_sd?).to eq true
 
   one_thousand_three = data.find { |row| row.response_id == "1003" }
-  expect(one_thousand_three.valid_progress?).to eq false
+  expect(one_thousand_three.valid_progress?).to eq true
   expect(one_thousand_three.valid_duration?).to eq true
   expect(one_thousand_three.valid_grade?).to eq true
   expect(one_thousand_three.valid_sd?).to eq true
@@ -284,13 +284,13 @@ def invalid_rows_are_rejected_for_the_correct_reasons(data)
   expect(one_thousand_twenty_three.valid_sd?).to eq true
 
   one_thousand_thirty_three = data.find { |row| row.response_id == "1033" }
-  expect(one_thousand_thirty_three.valid_progress?).to eq true
+  expect(one_thousand_thirty_three.valid_progress?).to eq false
   expect(one_thousand_thirty_three.valid_duration?).to eq true
   expect(one_thousand_thirty_three.valid_grade?).to eq true
   expect(one_thousand_thirty_three.valid_sd?).to eq false
 
   one_thousand_thirty_four = data.find { |row| row.response_id == "1034" }
-  expect(one_thousand_thirty_four.valid_progress?).to eq true
+  expect(one_thousand_thirty_four.valid_progress?).to eq false
   expect(one_thousand_thirty_four.valid_duration?).to eq true
   expect(one_thousand_thirty_four.valid_grade?).to eq true
   expect(one_thousand_thirty_four.valid_sd?).to eq false

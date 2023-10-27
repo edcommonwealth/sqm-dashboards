@@ -42,20 +42,27 @@ RSpec.describe SurveyItemValues, type: :model do
   end
 
   let(:short_form_survey_items) do
-    survey_item_ids = [create(:survey_item, survey_item_id: "s-phys-q1", on_short_form: true),
-                       create(:survey_item, survey_item_id: "s-phys-q2", on_short_form: true),
-                       create(:survey_item, survey_item_id: "s-phys-q3",
-                                            on_short_form: true)].map(&:survey_item_id)
+    survey_item_ids = %w[s-peff-q1 s-peff-q2 s-peff-q3 s-peff-q4 s-peff-q5 s-peff-q6 s-phys-q1 s-phys-q2 s-phys-q3 s-phys-q4
+                         s-emsa-q1 s-emsa-q2 s-emsa-q3 s-sbel-q1 s-sbel-q2 s-sbel-q3 s-sbel-q4 s-sbel-q5 s-tint-q1 s-tint-q2
+                         s-tint-q3 s-tint-q4 s-tint-q5 s-vale-q1 s-vale-q2 s-vale-q3 s-vale-q4 s-acpr-q1 s-acpr-q2 s-acpr-q3
+                         s-acpr-q4 s-sust-q1 s-sust-q2 s-cure-q1 s-cure-q2 s-cure-q3 s-cure-q4 s-sten-q1 s-sten-q2 s-sten-q3
+                         s-sper-q1 s-sper-q2 s-sper-q3 s-sper-q4 s-civp-q1 s-civp-q2 s-civp-q3 s-civp-q4 s-grit-q1 s-grit-q2
+                         s-grit-q3 s-grit-q4 s-grmi-q1 s-grmi-q2 s-grmi-q3 s-grmi-q4 s-expa-q1 s-appa-q1 s-appa-q2 s-appa-q3
+                         s-acst-q1 s-acst-q2 s-acst-q3 s-poaf-q1 s-poaf-q2 s-poaf-q3 s-poaf-q4 s-phys-q1 s-phys-q2 s-phys-q3]
     survey_item_ids.map do |survey_item_id|
-      create(:survey_item, survey_item_id:)
+      create(:survey_item, survey_item_id:, on_short_form: true)
     end
     (survey_item_ids << common_headers).flatten
   end
 
   let(:early_education_survey_items) do
-    survey_item_ids = [create(:survey_item, survey_item_id: "s-emsa-es1"),
-                       create(:survey_item, survey_item_id: "s-emsa-es2"),
-                       create(:survey_item, survey_item_id: "s-emsa-es3")].map(&:survey_item_id)
+    survey_item_ids = %w[s-peff-es1 s-peff-es2 s-peff-es3 s-peff-es4 s-peff-es5 s-peff-es6 s-phys-es1 s-phys-es2 s-phys-es3 s-phys-es4
+                         s-emsa-es1 s-emsa-es2 s-emsa-es3 s-sbel-es1 s-sbel-es2 s-sbel-es3 s-sbel-es4 s-sbel-es5 s-tint-es1 s-tint-es2
+                         s-tint-es3 s-tint-es4 s-tint-es5 s-vale-es1 s-vale-es2 s-vale-es3 s-vale-es4 s-acpr-es1 s-acpr-es2 s-acpr-es3
+                         s-acpr-es4 s-sust-es1 s-sust-es2 s-cure-es1 s-cure-es2 s-cure-es3 s-cure-es4 s-sten-es1 s-sten-es2 s-sten-es3
+                         s-sper-es1 s-sper-es2 s-sper-es3 s-sper-es4 s-civp-es1 s-civp-es2 s-civp-es3 s-civp-es4 s-grit-es1 s-grit-es2
+                         s-grit-es3 s-grit-es4 s-grmi-es1 s-grmi-es2 s-grmi-es3 s-grmi-es4 s-expa-es1 s-appa-es1 s-appa-es2 s-appa-es3
+                         s-acst-es1 s-acst-es2 s-acst-es3 s-poaf-es1 s-poaf-es2 s-poaf-es3 s-poaf-es4 s-phys-es1 s-phys-es2 s-phys-es3]
     survey_item_ids.map do |survey_item_id|
       create(:survey_item, survey_item_id:)
     end
@@ -344,37 +351,111 @@ RSpec.describe SurveyItemValues, type: :model do
     end
   end
 
+  context ".progress" do
+    it "returns the number of questions answered" do
+      headers = standard_survey_items
+      row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
+              "s-peff-q5" => 1, "s-peff-q6" => 1, "s-phys-q1" => 1, "s-phys-q2" => 1,
+              "s-phys-q3" => 1, "s-phys-q4" => 1 }
+      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+      expect(values.progress).to eq 10
+    end
+  end
+
   context ".valid_progress" do
     context "when progress is valid" do
-      it "returns true" do
-        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "Progress" => "25" }, headers:, genders:, survey_items:,
+      it "when there are 17 or more standard survey items valid_progress returns true" do
+        headers = standard_survey_items
+        row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
+                "s-peff-q5" => 1, "s-peff-q6" => 1, "s-phys-q1" => 1, "s-phys-q2" => 1,
+                "s-phys-q3" => 1, "s-phys-q4" => 1, "s-emsa-q1" => 1, "s-emsa-q2" => 1,
+                "s-emsa-q3" => 1, "s-sbel-q1" => 1, "s-sbel-q2" => 1, "s-sbel-q3" => 1,
+                "s-sbel-q4" => 1 }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
                                       schools:)
+        expect(values.progress).to eq 17
         expect(values.valid_progress?).to eq true
+      end
 
+      it "when there are 12 or more teacher survey items valid_progress returns true" do
         # When progress is blank or N/A or NA, we don't have enough information to kick out the row as invalid so we keep it in
-        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "Progress" => "" }, headers:, genders:, survey_items:,
-                                      schools:)
-        expect(values.valid_progress?).to eq true
+        headers = teacher_survey_items
 
-        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "Progress" => "N/A" }, headers:, genders:, survey_items:,
+        row = {
+          "t-pcom-q4" => 1, "t-pcom-q5" => 1, "t-inle-q1" => 1, "t-inle-q2" => 1,
+          "t-coll-q3" => 1, "t-qupd-q1" => 1, "t-qupd-q2" => 1, "t-qupd-q3" => 1,
+          "t-psup-q3" => 1, "t-psup-q4" => 1, "t-acch-q1" => 1, "t-acch-q2" => 1
+        }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
                                       schools:)
+        expect(values.progress).to eq 12
         expect(values.valid_progress?).to eq true
+      end
 
-        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "Progress" => "NA" }, headers:, genders:, survey_items:,
+      it "when there are 5 or more short form survey items valid_progress returns true" do
+        headers = short_form_survey_items
+        row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
+                "s-sbel-q4" => 1 }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
                                       schools:)
+        expect(values.progress).to eq 5
+        expect(values.valid_progress?).to eq true
+      end
+
+      it "when there are 5 or more early education survey items valid_progress returns true" do
+        headers = early_education_survey_items
+        row = { "s-peff-es1" => 1, "s-peff-es2" => 1, "s-peff-es3" => 1, "s-peff-es4" => 1,
+                "s-peff-es5" => 1 }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.progress).to eq 5
         expect(values.valid_progress?).to eq true
       end
     end
 
     context "when progress is invalid" do
-      it "returns false" do
-        headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "Progress" => "24" }, headers:, genders:, survey_items:,
+      it "when there are fewer than 17 standard survey items valid_progress returns true" do
+        headers = standard_survey_items
+        row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
+                "s-peff-q5" => 1, "s-peff-q6" => 1, "s-phys-q1" => 1, "s-phys-q2" => 1,
+                "s-phys-q3" => 1, "s-phys-q4" => 1, "s-emsa-q1" => 1, "s-emsa-q2" => 1,
+                "s-emsa-q3" => 1, "s-sbel-q1" => 1, "s-sbel-q2" => 1, "s-sbel-q3" => 1 }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
                                       schools:)
+        expect(values.progress).to eq 16
+        expect(values.valid_progress?).to eq false
+      end
+
+      it "when there are fewer than 12 teacher survey items valid_progress returns true" do
+        # When progress is blank or N/A or NA, we don't have enough information to kick out the row as invalid so we keep it in
+        headers = teacher_survey_items
+
+        row = {
+          "t-pcom-q4" => 1, "t-pcom-q5" => 1, "t-inle-q1" => 1, "t-inle-q2" => 1,
+          "t-coll-q3" => 1, "t-qupd-q1" => 1, "t-qupd-q2" => 1, "t-qupd-q3" => 1,
+          "t-psup-q3" => 1, "t-psup-q4" => 1, "t-acch-q1" => 1
+        }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.progress).to eq 11
+        expect(values.valid_progress?).to eq false
+      end
+
+      it "when there are fewer than 5 short form survey items valid_progress returns true" do
+        headers = short_form_survey_items
+        row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1 }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.progress).to eq 4
+        expect(values.valid_progress?).to eq false
+      end
+
+      it "when there are fewer than 5 early education survey items valid_progress returns true" do
+        headers = early_education_survey_items
+        row = { "s-peff-es1" => 1, "s-peff-es2" => 1, "s-peff-es3" => 1, "s-peff-es4" => 1 }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
+                                      schools:)
+        expect(values.progress).to eq 4
         expect(values.valid_progress?).to eq false
       end
     end
