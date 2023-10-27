@@ -5,7 +5,7 @@ module Analyze
     class AllData
       include Analyze::Graph::Column
       def to_s
-        "All Data"
+        %w[All Data]
       end
 
       def slug

@@ -8,7 +8,7 @@ module Analyze
           include Analyze::Graph::Column::Grade::ScoreForGrade
           include Analyze::Graph::Column::Grade::GradeCount
           def label
-            "Kindergarten"
+            %w[Kindergarten]
           end
 
           def basis

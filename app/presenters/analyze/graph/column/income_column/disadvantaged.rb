@@ -8,7 +8,7 @@ module Analyze
           include Analyze::Graph::Column::IncomeColumn::ScoreForIncome
           include Analyze::Graph::Column::IncomeColumn::IncomeCount
           def label
-            "Economically Disadvantaged"
+            %w[Economically Disadvantaged]
           end
 
           def show_irrelevancy_message?
