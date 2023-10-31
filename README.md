@@ -124,30 +124,43 @@ How to run the data loading task:
 
 ```bash
 # locally
-$ bundle exec rake data:load_survey_responses
+bundle exec rake data:load_survey_responses
 
 # on heroku staging environment
-$ heroku run:detached -a mciea-beta bundle exec rake data:load_survey_responses
+heroku run:detached -a mciea-beta bundle exec rake data:load_survey_responses
 
 # on heroku production environment
-$ heroku run:detached -a mciea-dashboard bundle exec rake data:load_survey_responses
+heroku run:detached -a mciea-dashboard bundle exec rake data:load_survey_responses
+```
+
+Or if you want to load data from a specific directory
+
+```bash
+# locally
+SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
+
+# on heroku staging environment
+heroku run:detached -a mciea-beta SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
+
+# on heroku production environment
+heroku run:detached -a mciea-dashboard SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
 ```
 
 Or if you only want to load data for Lowell
 
 ```bash
 # locally
-$ bundle exec rake data:load_survey_responses_for_lowell
+bundle exec rake data:load_survey_responses_for_lowell
 ```
 
 For convenience, you can use the following script for loading data on Heroku:
 
 ```bash
 # on heroku staging environment
-$ ./scripts/load_survey_responses_on_heroku beta
+./scripts/load_survey_responses_on_heroku beta
 
 # on heroku production environment
-$ ./scripts/load_survey_responses_on_heroku dashboard
+./scripts/load_survey_responses_on_heroku dashboard
 ```
 
 There is also an example one-off task to load a single csv at a time.
