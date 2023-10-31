@@ -19,6 +19,24 @@ namespace :data do
     Rails.cache.clear
   end
 
+  desc "load survey responses from a specific directory"
+  task load_survey_responses_from_path: :environment do
+    survey_item_response_count = SurveyItemResponse.count
+    student_count = Student.count
+    path = "#{ENV['SFTP_PATH']}"
+    Sftp::Directory.open(path:) do |file|
+      SurveyResponsesDataLoader.new.from_file(file:)
+    end
+    puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
+
+    Sftp::Directory.open(path:) do |file|
+      StudentLoader.from_file(file:, rules: [])
+    end
+    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
+
+    Rails.cache.clear
+  end
+
   desc "reset response rate values"
   task reset_response_rates: :environment do
     puts "Resetting response rates"
