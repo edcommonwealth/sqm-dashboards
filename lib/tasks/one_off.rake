@@ -5,10 +5,10 @@ namespace :one_off do
 
     qualtrics_schools = {}
 
-    csv_file = Rails.root.join('data', 'master_list_of_schools_and_districts.csv')
+    csv_file = Rails.root.join("data", "master_list_of_schools_and_districts.csv")
     CSV.parse(File.read(csv_file), headers: true) do |row|
-      district_id = row['District Code'].to_i
-      school_id = row['School Code'].to_i
+      district_id = row["District Code"].to_i
+      school_id = row["School Code"].to_i
 
       if qualtrics_schools[[district_id, school_id]].present?
         puts "Duplicate entry row #{row}"
@@ -24,14 +24,14 @@ namespace :one_off do
       end
 
       if school.nil?
-        school_name = csv_row['School Name'].strip
+        school_name = csv_row["School Name"].strip
         puts "Could not find school '#{school_name}' with district id: #{district_id}, school id: #{school_id}"
-        potential_school_ids = School.where('name like ?', "%#{school_name}%").map(&:id)
+        potential_school_ids = School.where("name like ?", "%#{school_name}%").map(&:id)
         puts "Potential ID matches: #{potential_school_ids}" if potential_school_ids.present?
         next
       end
 
-      school.update!(dese_id: csv_row['DESE School ID'])
+      school.update!(dese_id: csv_row["DESE School ID"])
       updated_schools << school.id
     end
 
@@ -40,7 +40,7 @@ namespace :one_off do
     end
   end
 
-  desc 'list scales that have no survey responses'
+  desc "list scales that have no survey responses"
   task list_scales_that_lack_survey_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
       Scale.all.map do |scale|
@@ -48,11 +48,11 @@ namespace :one_off do
       end
     end
 
-    output = output.map { |year| year.reject { |scale| scale[2] > 0 || scale[1].starts_with?('a-') } }
+    output = output.map { |year| year.reject { |scale| scale[2] > 0 || scale[1].starts_with?("a-") } }
     pp output
   end
 
-  desc 'list survey_items that have no survey responses by district'
+  desc "list survey_items that have no survey responses by district"
   task list_survey_items_that_lack_responses: :environment do
     output = AcademicYear.all.map do |academic_year|
       District.all.map do |district|
@@ -66,14 +66,14 @@ namespace :one_off do
     output = output.map do |year|
       year.map do |district|
         district.reject do |survey_item|
-          survey_item[2] > 0 || survey_item[1].starts_with?('a-')
+          survey_item[2] > 0 || survey_item[1].starts_with?("a-")
         end
       end
     end
     pp output
   end
 
-  desc 'list the most recent admin data values'
+  desc "list the most recent admin data values"
   task list_recent_admin_data_values: :environment do
     range = 4.weeks.ago..1.second.ago
     values = AdminDataValue.where(updated_at: range).group(:admin_data_item).count.map do |item|
@@ -82,240 +82,27 @@ namespace :one_off do
     puts values
   end
 
-  desc 'delete 2022-23 survey responses'
+  desc "delete 2022-23 survey responses"
   task delete_survey_responses_2022_23: :environment do
     response_count = SurveyItemResponse.all.count
-    SurveyItemResponse.where(academic_year: AcademicYear.find_by_range('2022-23')).delete_all
+    SurveyItemResponse.where(academic_year: AcademicYear.find_by_range("2022-23")).delete_all
 
     puts "=====================> Deleted #{response_count - SurveyItemResponse.all.count} survey responses"
     # should be somewhere near 295738
   end
 
-  desc 'load survey responses'
+  desc "load survey responses"
   task load_survey_responses: :environment do
     survey_item_response_count = SurveyItemResponse.count
     student_count = Student.count
-    path = '/data/survey_responses/clean/'
-    schools = District.find_by_slug('maynard-public-schools').schools
+    path = "/data/survey_responses/clean/"
+    schools = District.find_by_slug("maynard-public-schools").schools
 
     Sftp::Directory.open(path:) do |file|
       SurveyResponsesDataLoader.new.from_file(file:)
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
 
-    Sftp::Directory.open(path:) do |file|
-      StudentLoader.from_file(file:, rules: [])
-    end
-    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
-
     Rails.cache.clear
-  end
-
-  desc "Generate CSV report of teacher survey item responses"
-  task teacher_survey_questions_csv: :environment do
-    headers = ['School ID', 'Academic Year', 'Survey Item', 'Count','Percentage_diff']
-    output_rows = []
-    counts={}
-    avg=0
-    School.all.each do |sc|
-      AcademicYear.all.each do |ay|
-        sum=0
-        nof_si=0
-        threshold = Respondent.where(school: sc, academic_year: ay).pluck(:total_teachers)
-        SurveyItem.teacher_survey_items.all.each do |si|
-          c = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).group(:school_id).count
-          if c.any? && (c.values.first >= 10 || c.values.first > threshold/4)
-            counts[[sc.id, ay.id, si.id]] = c
-            sum+=c.values.first
-            nof_si+=1
-          end
-        end
-
-
-          avg = sum.to_f/ nof_si
-        counts.each do |key, value|
-          if key[0] == sc.id && key[1] == ay.id
-            count = value.values.first
-            percentage_diff = ((count-avg) / avg) * 100
-            counts[key] = { count: count, percentage_diff: percentage_diff }
-        end
-      end
-    end  end
-
-    counts.each do |key, value|
-      output_rows << [School.where(id:key[0]).pluck(:name) , AcademicYear.where(id:key[1]).pluck(:range) , SurveyItem.where(id:key[2]).pluck(:survey_item_id), SurveyItem.where(id:key[2]).pluck(:prompt), value[:count], value[:percentage_diff]]
-    end
-
-    file = File.new('teacher_survey_questions.csv', 'w')
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-
-    file.close
-    puts "CSV report of teacher survey item responses with removed stray responses.csv"
-  end
-
-
-  desc "Generate CSV report of short survey item responses"
-  task short_survey_questions_csv: :environment do
-    headers = ['School ID', 'Academic Year', 'Survey Item', 'Count','Percentage_diff']
-    output_rows = []
-    counts={}
-    avg=0
-    temp=0
-    count_response_grades_not_in_grades=0
-    School.all.each do |sc|
-      if Respondent.where(school: sc).any?
-      grades_count=Respondent.where(school:sc).first.counts_by_grade
-      grades= grades_count.keys
-      AcademicYear.all.each do |ay|
-        sum=0
-        nof_si=0
-        threshold=0
-        threshold = Respondent.where(school: sc, academic_year: ay).pluck(:total_students)
-        SurveyItem.short_form_items.all.each do |si|
-          c = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).group(:school_id).count
-          response_grades = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).pluck(:grade)
-          count_response_grades_not_in_grades = response_grades.count { |grade| !grades.include?(grade) }
-           if !count_response_grades_not_in_grades.nil? && c.any?
-            c[c.keys.first] = c.values.first - count_response_grades_not_in_grades
-          end
-
-           if threshold.any?
-          if c.any? && (c.values.first >= 10 || c.values.first > threshold.first/4)
-            counts[[sc.id, ay.id, si.id]] = c
-            sum+=c.values.first
-            nof_si+=1
-          end
-        end
-        end
-
-
-          avg = sum.to_f/ nof_si
-        counts.each do |key, value|
-          if key[0] == sc.id && key[1] == ay.id
-            count = value.values.first
-            percentage_diff = ((count-avg) / avg) * 100
-            counts[key] = { count: count, percentage_diff: percentage_diff }
-        end
-      end
-    end  end end
-
-    counts.each do |key, value|
-      output_rows << [School.where(id:key[0]).pluck(:name) , AcademicYear.where(id:key[1]).pluck(:range) , SurveyItem.where(id:key[2]).pluck(:survey_item_id), SurveyItem.where(id:key[2]).pluck(:prompt), value[:count], value[:percentage_diff]]
-    end
-
-    file = File.new('short_survey_questions.csv', 'w')
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-
-    file.close
-    puts "CSV report of short survey item responses with removed stray responses.csv"
-  end
-
-
-    desc "Generate CSV report of early_education_surveysitem responses"
-  task early_education_survey_questions_csv: :environment do
-    headers = ['School ID', 'Academic Year', 'Survey Item', 'Count','Percentage_diff']
-    output_rows = []
-    counts={}
-    avg=0
-    temp=0
-    count_response_grades_not_in_grades=0
-    School.all.each do |sc|
-      if Respondent.where(school: sc).any?
-      grades_count=Respondent.where(school:sc).first.counts_by_grade
-      grades= grades_count.keys
-      AcademicYear.all.each do |ay|
-        sum=0
-        nof_si=0
-        threshold=0
-        threshold = Respondent.where(school: sc, academic_year: ay).pluck(:total_students)
-        SurveyItem.early_education_surveys.all.each do |si|
-          c = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).group(:school_id).count
-          response_grades = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).pluck(:grade)
-          count_response_grades_not_in_grades = response_grades.count { |grade| !grades.include?(grade) }
-           if !count_response_grades_not_in_grades.nil? && c.any?
-            c[c.keys.first] = c.values.first - count_response_grades_not_in_grades
-          end
-
-           if threshold.any?
-          if c.any? && (c.values.first >= 10 || c.values.first > threshold.first/4)
-            counts[[sc.id, ay.id, si.id]] = c
-            sum+=c.values.first
-            nof_si+=1
-          end
-        end
-        end
-
-
-          avg = sum.to_f/ nof_si
-        counts.each do |key, value|
-          if key[0] == sc.id && key[1] == ay.id
-            count = value.values.first
-            percentage_diff = ((count-avg) / avg) * 100
-            counts[key] = { count: count, percentage_diff: percentage_diff }
-        end
-      end
-    end  end end
-
-    counts.each do |key, value|
-      output_rows << [School.where(id:key[0]).pluck(:name) , AcademicYear.where(id:key[1]).pluck(:range) , SurveyItem.where(id:key[2]).pluck(:survey_item_id), SurveyItem.where(id:key[2]).pluck(:prompt), value[:count], value[:percentage_diff]]
-    end
-
-    file = File.new('early_education_surveys_questions.csv', 'w')
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-
-    file.close
-    puts "CSV report of early_education_surveys items with removed stray responses.csv"
-  end
-
-
-  desc "Generate CSV report of survey item responses"
-  task stray_responses: :environment do
-
-    headers = ['School ID', 'Academic Year', 'Survey Item', 'Count','SurveyItemResponse ids']
-
-
-    output_rows = []
-    sir_ids=[]
-
-
-      School.all.each do |sc|
-      AcademicYear.all.each do |ay|
-        SurveyItem.all.each do |si|
-          count = SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).count
-          sir_ids= SurveyItemResponse.where(school: sc, academic_year: ay, survey_item: si).pluck(:response_id)
-
-          if count > 0 && count < 10
-
-            output_rows << [sc.name, ay.range, si.survey_item_id, count,sir_ids]
-          end
-        end
-      end
-    end
-
-
-    file = File.new('stray_responses.csv', 'w')
-
-    CSV.open(file, 'w', write_headers: true, headers: headers) do |csv|
-      output_rows.each do |row|
-        csv << row
-      end
-    end
-
-
-    file.close
-
-    puts "CSV report of survey item responses created in stray_responses.csv"
   end
 end
