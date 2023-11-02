@@ -51,12 +51,23 @@ describe SurveyResponsesDataLoader do
   let(:another_gender) { create(:gender, qualtrics_code: 3) }
   let(:non_binary) { create(:gender, qualtrics_code: 4) }
   let(:unknown_gender) { create(:gender, qualtrics_code: 99) }
+
   let(:low_income) { create(:income, designation: "Economically Disadvantaged – Y") }
   let(:high_income) { create(:income, designation: "Economically Disadvantaged – N") }
   let(:unknown_income) { create(:income, designation: "Unknown") }
+
   let(:yes_ell) { create(:ell, designation: "ELL") }
   let(:not_ell) { create(:ell, designation: "Not ELL") }
   let(:unknown_ell) { create(:ell, designation: "Unknown") }
+
+  let(:american_indian) { create(:race, qualtrics_code: 1) }
+  let(:asian)           { create(:race, qualtrics_code: 2) }
+  let(:black)           { create(:race, qualtrics_code: 3) }
+  let(:latinx)          { create(:race, qualtrics_code: 4) }
+  let(:white)           { create(:race, qualtrics_code: 5) }
+  let(:middle_eastern)  { create(:race, qualtrics_code: 8) }
+  let(:unknown_race)    { create(:race, qualtrics_code: 99) }
+  let(:multiracial)     { create(:race, qualtrics_code: 100) }
 
   let(:setup) do
     ay_2020_21
@@ -87,17 +98,29 @@ describe SurveyResponsesDataLoader do
     s_emsa_q1
     s_emsa_q2
     s_emsa_q3
+
     female
     male
     another_gender
     non_binary
     unknown_gender
+
     low_income
     high_income
     unknown_income
+
     yes_ell
     not_ell
     unknown_ell
+
+    american_indian
+    asian
+    black
+    latinx
+    white
+    middle_eastern
+    unknown_race
+    multiracial
   end
 
   before :each do

@@ -11,15 +11,6 @@ namespace :data do
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count} survey responses"
 
-    Sftp::Directory.open(path:) do |file|
-      StudentLoader.from_file(file:, rules: [Rule::SkipNonLowellSchools])
-    end
-    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
-
-    puts "Resetting race scores"
-    RaceScoreLoader.reset(fast_processing: false)
-    puts "=====================> Completed loading #{RaceScore.count} race scores"
-
     Rails.cache.clear
   end
 
@@ -32,11 +23,6 @@ namespace :data do
       SurveyResponsesDataLoader.new.from_file(file:)
     end
     puts "=====================> Completed loading #{SurveyItemResponse.count - survey_item_response_count} survey responses. #{SurveyItemResponse.count} total responses in the database"
-
-    Sftp::Directory.open(path:) do |file|
-      StudentLoader.from_file(file:, rules: [])
-    end
-    puts "=====================> Completed loading #{Student.count - student_count} students. #{Student.count} total students"
 
     Rails.cache.clear
   end
@@ -65,24 +51,6 @@ namespace :data do
       Dese::Loader.load_data filepath:
     end
     puts "=====================> Completed loading #{AdminDataValue.count - original_count} admin data values"
-  end
-
-  desc "load students"
-  task load_students: :environment do
-    SurveyItemResponse.update_all(student_id: nil)
-    StudentRace.delete_all
-    Student.delete_all
-    Dir.glob(Rails.root.join("data", "survey_responses", "*student*.csv")).each do |file|
-      puts "=====================> Loading student data from csv at path: #{file}"
-      StudentLoader.load_data filepath: file
-    end
-    puts "=====================> Completed loading #{Student.count} students"
-
-    puts "Resetting race scores"
-    RaceScoreLoader.reset(fast_processing: false)
-    puts "=====================> Completed loading #{RaceScore.count} survey responses"
-
-    Rails.cache.clear
   end
 
   desc "reset all cache counters"

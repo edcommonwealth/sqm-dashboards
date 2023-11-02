@@ -116,20 +116,24 @@ class SurveyItemValues
   end
 
   def gender
-    gender_code = value_from(pattern: /Gender|What is your gender?|What is your gender? - Selected Choice/i)
-    gender_code ||= 99
-    gender_code = gender_code.to_i
-    gender_code = 4 if gender_code == 3
-    gender_code = 99 if gender_code.zero?
-    genders[gender_code]
+    @gender ||= begin
+      gender_code = value_from(pattern: /Gender|What is your gender?|What is your gender? - Selected Choice/i)
+      gender_code ||= 99
+      gender_code = gender_code.to_i
+      gender_code = 4 if gender_code == 3
+      gender_code = 99 if gender_code.zero?
+      genders[gender_code]
+    end
   end
 
   def races
-    race_codes = value_from(pattern: /RACE/i)
-    race_codes ||= value_from(pattern: %r{What is your race/ethnicity?(Please select all that apply) - Selected Choice}i)
-    race_codes ||= value_from(pattern: /Race Secondary/i) || ""
-    race_codes = race_codes.split(",").map(&:to_i) || []
-    process_races(codes: race_codes)
+    @races ||= begin
+      race_codes = value_from(pattern: /RACE/i)
+      race_codes ||= value_from(pattern: %r{What is your race/ethnicity?(Please select all that apply) - Selected Choice}i)
+      race_codes ||= value_from(pattern: /Race Secondary/i) || ""
+      race_codes = race_codes.split(",").map(&:to_i) || []
+      process_races(codes: race_codes)
+    end
   end
 
   def lasid
