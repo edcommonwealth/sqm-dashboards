@@ -23,6 +23,7 @@ class SurveyResponsesDataLoader
     all_survey_items = survey_items(headers:)
 
     survey_item_responses = []
+    row_count = 0
     until file.eof?
       line = file.gets
       next unless line.present?
@@ -31,9 +32,16 @@ class SurveyResponsesDataLoader
         survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders:, survey_items: all_survey_items, schools:),
                                              rules:)
       end
+
+      row_count += 1
+      next unless row_count == 500
+
+      SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
+      survey_item_responses = []
+      row_count = 0
     end
 
-    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000, on_duplicate_key_update: :all
+    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
   end
 
   private
