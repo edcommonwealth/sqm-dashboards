@@ -2,7 +2,7 @@ module Legacy
   class School < ApplicationRecord
     has_many :schedules, dependent: :destroy
     has_many :recipient_lists, dependent: :destroy
-    belongs_to :district
+    belongs_to :district, optional: true
     has_many :recipients, dependent: :destroy
     has_many :school_categories, dependent: :destroy
     has_many :user_schools, dependent: :destroy

@@ -11,7 +11,7 @@ AggregatedResponses = Struct.new(
 
 module Legacy
   class Question < ApplicationRecord
-    belongs_to :category
+    belongs_to :category, optional: true
 
     has_many :attempts
 
@@ -28,7 +28,7 @@ module Legacy
     enum target_group: %i[unknown for_students for_teachers for_parents]
 
     def source
-      target_group.gsub('for_', '')
+      target_group.gsub("for_", "")
     end
 
     def options
@@ -69,7 +69,7 @@ module Legacy
     end
 
     def normalized_text
-      text.gsub('[science/math/English/social studies]', '')
+      text.gsub("[science/math/English/social studies]", "")
     end
   end
 end

@@ -1,14 +1,14 @@
 module Legacy
   class Category < ApplicationRecord
     has_many :questions
-    belongs_to :parent_category, class_name: 'Legacy::Category', foreign_key: :parent_category_id
-    has_many :child_categories, class_name: 'Legacy::Category', foreign_key: :parent_category_id
+    belongs_to :parent_category, class_name: "Legacy::Category", foreign_key: :parent_category_id, optional: true
+    has_many :child_categories, class_name: "Legacy::Category", foreign_key: :parent_category_id
     has_many :school_categories
 
     validates :name, presence: true
 
     scope :for_parent, ->(category = nil) { where(parent_category_id: category.try(:id)) }
-    scope :likert, -> { where('benchmark is null') }
+    scope :likert, -> { where("benchmark is null") }
 
     include FriendlyId
     friendly_id :name, use: [:slugged]
@@ -21,7 +21,7 @@ module Legacy
     end
 
     def root_identifier
-      path.first.name.downcase.gsub(/\s/, '-')
+      path.first.name.downcase.gsub(/\s/, "-")
     end
 
     def root_index
@@ -46,7 +46,7 @@ module Legacy
     def custom_zones
       return [] if zones.nil?
 
-      zones.split(',').map(&:to_f)
+      zones.split(",").map(&:to_f)
     end
 
     def zone_widths
@@ -83,11 +83,11 @@ module Legacy
         end
       end
 
-      if valid_child_categories > 0
-        average_zones = total_zones.map { |zone| zone / valid_child_categories }
-        puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones} | #{zone_widths}"
-        update(zones: average_zones.join(','))
-      end
+      return unless valid_child_categories > 0
+
+      average_zones = total_zones.map { |zone| zone / valid_child_categories }
+      puts "TOTAL: #{name} | #{total_zones} | #{valid_child_categories} | #{average_zones} | #{zone_widths}"
+      update(zones: average_zones.join(","))
     end
   end
 end
