@@ -43,7 +43,7 @@ class Cleaner
     log_csv = []
     data = []
 
-    headers = CSV.parse(file.first).first.push("Raw Income").push("Income").push("Raw ELL").push("ELL").push("Raw SpEd").push("SpEd").push("Progress Count")
+    headers = CSV.parse(file.first).first.push("Raw Income").push("Income").push("Raw ELL").push("ELL").push("Raw SpEd").push("SpEd").push("Progress Count").uniq
     filtered_headers = include_all_headers(headers:)
     filtered_headers = remove_unwanted_headers(headers: filtered_headers)
     log_headers = (filtered_headers + ["Valid Duration?", "Valid Progress?", "Valid Grade?",
@@ -70,7 +70,7 @@ class Cleaner
 
   def include_all_headers(headers:)
     alternates = headers.filter(&:present?)
-                        .filter { |header| header.end_with? "-1" }
+                        .filter {  |header| header.match? /^[st]-\w*-\w*-1$/i }
     alternates.each do |header|
       main = header.sub(/-1\z/, "")
       headers.push(main) unless headers.include?(main)
@@ -86,7 +86,7 @@ class Cleaner
   def remove_unwanted_headers(headers:)
     headers.to_set.to_a.compact.reject do |item|
       item.start_with? "Q"
-    end.reject { |item| item.end_with? "-1" }
+    end.reject {  |header| header.match? /^[st]-\w*-\w*-1$/i }
   end
 
   def write_csv(data:, output_filepath:, filename:, prefix: "")
