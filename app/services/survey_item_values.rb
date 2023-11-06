@@ -81,13 +81,9 @@ class SurveyItemValues
 
   def dese_id
     @dese_id ||= begin
-      dese_id = nil
-      dese_headers = ["DESE ID", "Dese ID", "DeseId", "DeseID", "School", "school"]
-      school_headers = headers.select { |header| /School-\s\w/.match(header) }
-      dese_headers << school_headers
-      dese_headers.flatten.each do |header|
-        dese_id ||= row[header]
-      end
+      dese_id = value_from(pattern: /Dese\s*ID/i)
+      dese_id ||= value_from(pattern: /^School$/i)
+      dese_id ||= value_from(pattern: /School-\s*\w/i)
 
       dese_id.to_i
     end

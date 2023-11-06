@@ -100,8 +100,8 @@ RSpec.describe SurveyItemValues, type: :model do
   context ".school" do
     it "returns the school that maps to the dese id provided" do
       attleboro
-      headers = ["Dese ID"]
-      row = { "Dese ID" => "1234" }
+      headers = ["DeseID"]
+      row = { "DeseID" => "1234" }
       values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
       expect(values.school).to eq attleboro
 
@@ -469,15 +469,15 @@ RSpec.describe SurveyItemValues, type: :model do
         attleboro_respondents
       end
       it "returns true for students" do
-        headers = %w[s-sbel-q5 s-phys-q2 grade RecordedDate]
-        values = SurveyItemValues.new(row: { "grade" => "9", "RecordedDate" => recorded_date, "Dese ID" => "1234" }, headers:, genders:, survey_items:,
+        headers = %w[s-sbel-q5 s-phys-q2 grade RecordedDate DeseID]
+        values = SurveyItemValues.new(row: { "grade" => "9", "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, genders:, survey_items:,
                                       schools:)
 
         expect(values.valid_grade?).to eq true
       end
       it "returns true for teachers" do
-        headers = %w[t-sbel-q5 t-phys-q2 grade RecordedDate]
-        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234" }, headers:, genders:, survey_items:,
+        headers = %w[t-sbel-q5 t-phys-q2 grade RecordedDate DeseID]
+        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.valid_grade?).to eq true
       end
@@ -489,8 +489,8 @@ RSpec.describe SurveyItemValues, type: :model do
         attleboro_respondents
       end
       it "returns false" do
-        headers = %w[s-sbel-q5 s-phys-q2 grade RecordedDate]
-        values = SurveyItemValues.new(row: { "grade" => "2", "RecordedDate" => recorded_date, "Dese ID" => "1234" }, headers:, genders:, survey_items:,
+        headers = %w[s-sbel-q5 s-phys-q2 grade RecordedDate DeseID]
+        values = SurveyItemValues.new(row: { "grade" => "2", "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, genders:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_grade?).to eq false
       end
