@@ -206,7 +206,7 @@ end
 
 def reads_headers_from_raw_csv(processed_data)
   processed_data in [headers, clean_csv, log_csv, data]
-  expect(headers.to_set.sort).to eq ["StartDate", "EndDate",  "Status", "IPAddress", "Progress", "Duration (in seconds)",
+  expect(headers.to_set.sort).to eq ["StartDate", "EndDate", "Status", "IPAddress", "Progress", "Duration (in seconds)",
                                      "Finished", "RecordedDate", "ResponseId", "District", "School",
                                      "LASID", "Gender", "Race", "What grade are you in?", "s-emsa-q1", "s-emsa-q2", "s-emsa-q3", "s-tint-q1",
                                      "s-tint-q2", "s-tint-q3", "s-tint-q4", "s-tint-q5", "s-acpr-q1", "s-acpr-q2",
