@@ -116,7 +116,7 @@ class SurveyItemValues
     @gender ||= begin
       gender_code ||= value_from(pattern: /^Gender$/i)
       gender_code ||= value_from(pattern: /What is your gender?|What is your gender? - Selected Choice/i)
-      gender_code ||= value_from(pattern: /Gender\s*-\s*Qcodes/i)
+      gender_code ||= value_from(pattern: /Gender-\s*Qcode/i)
       gender_code ||= value_from(pattern: /Gender/i)
       gender_code ||= 99
       gender_code = gender_code.to_i
