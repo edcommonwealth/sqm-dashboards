@@ -105,4 +105,12 @@ namespace :one_off do
 
     Rails.cache.clear
   end
+
+  desc "delete 2023-24 data"
+  task delete_2023_24_data: :environment do
+    academic_year = AcademicYear.find_by_range "2023-24"
+    SurveyItemResponse.where(academic_year:).delete_all
+    Respondent.where(academic_year:).delete_all
+    Rails.application.load_seed
+  end
 end
