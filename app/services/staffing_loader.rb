@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class StaffingLoader
   def self.load_data(filepath:)
@@ -28,6 +28,21 @@ class StaffingLoader
       Respondent.where(school:, academic_year: previous_year).each do |respondent|
         current_respondent = Respondent.find_or_initialize_by(school:, academic_year: current_year)
         current_respondent.total_teachers = respondent.total_teachers
+        current_respondent.pk = respondent.pk
+        current_respondent.k = respondent.k
+        current_respondent.one = respondent.one
+        current_respondent.two = respondent.two
+        current_respondent.three = respondent.three
+        current_respondent.four = respondent.four
+        current_respondent.five = respondent.five
+        current_respondent.six = respondent.six
+        current_respondent.seven = respondent.seven
+        current_respondent.eight = respondent.eight
+        current_respondent.nine = respondent.nine
+        current_respondent.ten = respondent.ten
+        current_respondent.eleven = respondent.eleven
+        current_respondent.twelve = respondent.twelve
+
         respondents << current_respondent
       end
     end
@@ -54,19 +69,19 @@ class StaffingRowValues
 
   def school
     @school ||= begin
-      dese_id = row['DESE ID'].strip.to_i
+      dese_id = row["DESE ID"].strip.to_i
       School.find_by_dese_id(dese_id)
     end
   end
 
   def academic_year
     @academic_year ||= begin
-      year = row['Academic Year']
+      year = row["Academic Year"]
       AcademicYear.find_by_range(year)
     end
   end
 
   def fte_count
-    row['FTE Count']
+    row["FTE Count"]
   end
 end
