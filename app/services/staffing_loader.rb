@@ -42,6 +42,7 @@ class StaffingLoader
         current_respondent.ten = respondent.ten
         current_respondent.eleven = respondent.eleven
         current_respondent.twelve = respondent.twelve
+        current_respondent.total_students = respondent.total_students
 
         respondents << current_respondent
       end
