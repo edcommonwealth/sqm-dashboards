@@ -18,6 +18,8 @@ class SurveyItemValues
     row["Raw SpEd"] = raw_sped
     row["SpEd"] = sped
     row["Progress Count"] = progress
+    row["Race"] ||= races.map { |race| race&.qualtrics_code }.join(",")
+    row["Gender"] ||= gender&.qualtrics_code
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
@@ -84,7 +86,6 @@ class SurveyItemValues
       dese_id = value_from(pattern: /Dese\s*ID/i)
       dese_id ||= value_from(pattern: /^School$/i)
       dese_id ||= value_from(pattern: /School-\s*\w/i)
-
       dese_id.to_i
     end
   end
@@ -113,21 +114,29 @@ class SurveyItemValues
 
   def gender
     @gender ||= begin
-      gender_code = value_from(pattern: /Gender|What is your gender?|What is your gender? - Selected Choice/i)
+      gender_code ||= value_from(pattern: /^Gender$/i)
+      gender_code ||= value_from(pattern: /What is your gender?|What is your gender? - Selected Choice/i)
+      gender_code ||= value_from(pattern: /Gender\s*-\s*Qcodes/i)
+      gender_code ||= value_from(pattern: /Gender/i)
       gender_code ||= 99
       gender_code = gender_code.to_i
       gender_code = 4 if gender_code == 3
       gender_code = 99 if gender_code.zero?
-      genders[gender_code]
+      genders[gender_code] if genders
     end
   end
 
   def races
     @races ||= begin
-      race_codes = value_from(pattern: /RACE/i)
+      race_codes = value_from(pattern: /^RACE$/i)
       race_codes ||= value_from(pattern: %r{What is your race/ethnicity?(Please select all that apply) - Selected Choice}i)
-      race_codes ||= value_from(pattern: /Race Secondary/i) || ""
+      race_codes ||= value_from(pattern: /Race Secondary/i)
+      race_codes ||= value_from(pattern: /Race\s*-\s*Qcodes/i)
+      race_codes ||= value_from(pattern: /RACE/i) || ""
+      hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
       race_codes = race_codes.split(",").map(&:to_i) || []
+      race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
+      race_codes = race_codes.push(4) if hispanic == "true"
       process_races(codes: race_codes)
     end
   end
