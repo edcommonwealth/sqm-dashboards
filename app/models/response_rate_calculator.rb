@@ -16,7 +16,7 @@ class ResponseRateCalculator
 
     return 0 unless survey_items_have_sufficient_responses?
 
-    return 0 unless total_possible_responses.positive?
+    return 0 unless total_possible_responses && total_possible_responses.positive?
 
     cap_at_one_hundred(raw_response_rate).round
   end
