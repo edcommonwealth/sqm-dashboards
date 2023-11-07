@@ -42,8 +42,12 @@ class Cleaner
     clean_csv = []
     log_csv = []
     data = []
-
-    headers = CSV.parse(file.first).first.to_set
+    headers = CSV.parse(file.first).first
+    duplicate_header = headers.detect { |header| headers.count(header) > 1 }
+    unless duplicate_header.nil?
+      puts "\n>>>>>>>>>>>>>>>>>>    Duplicate header found.  This will misalign column headings.  Please delete or rename the duplicate column: #{duplicate_header} \n>>>>>>>>>>>>>> \n"
+    end
+    headers = headers.to_set
     headers = headers.merge(Set.new(["Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count",
                                      "Race", "Gender"])).to_a
     filtered_headers = include_all_headers(headers:)
