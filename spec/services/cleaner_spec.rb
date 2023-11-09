@@ -31,6 +31,10 @@ RSpec.describe Cleaner do
     File.open(Rails.root.join("spec", "fixtures", "raw", "sample_maynard_raw_student_survey.csv"))
   end
 
+  let(:path_to_file_with_duplicate_headers) do
+    File.open(Rails.root.join("spec", "fixtures", "raw", "sample_file_with_duplicate_headers.csv"))
+  end
+
   let(:common_headers) do
     ["Recorded Date", "Dese ID", "ResponseID"]
   end
@@ -87,6 +91,13 @@ RSpec.describe Cleaner do
     teacher_survey_items
     academic_year
     respondents
+  end
+
+  context "When duplicate headers exist" do
+    it "outputs a message to stdout" do
+      output = capture_stdout { Cleaner.new(input_filepath:, output_filepath:, log_filepath:).clean }
+      expect(output).to match "\n>>>>>>>>>>>>>>>>>>    Duplicate header found.  This will misalign column headings.  Please delete or rename the duplicate column: StartDate \n>>>>>>>>>>>>>> \n"
+    end
   end
 
   context "Creating a new Cleaner" do
