@@ -19,6 +19,7 @@ class StaffingLoader
     Respondent.where.not(school: schools).destroy_all
   end
 
+  # Clones staffing and enrollment data from previous year
   def self.clone_previous_year_data
     years = AcademicYear.order(:range).last(2)
     previous_year = years.first
@@ -86,3 +87,4 @@ class StaffingRowValues
     row["FTE Count"]
   end
 end
+
