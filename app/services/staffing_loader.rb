@@ -15,6 +15,7 @@ class StaffingLoader
     Respondent.import respondents, batch_size: 1000, on_duplicate_key_update: [:total_teachers]
   end
 
+  # Clones staffing and enrollment data from previous year
   def self.clone_previous_year_data
     years = AcademicYear.order(:range).last(2)
     previous_year = years.first
@@ -66,3 +67,4 @@ class StaffingRowValues
     row['FTE Count']
   end
 end
+
