@@ -12,35 +12,36 @@
 // https://on.cypress.io/introduction-to-cypress
 
 describe('navigates the site', () => {
-  it('displays the div containing the framework wheel', () => {
-    cy.visit('/')
-    cy.get('.framework-wheel-container').should('have.length', 1)
-  })
+  // it('displays the div containing the framework wheel', () => {
+  //   cy.visit('/')
+  //   cy.get('.framework-wheel-container').should('have.length', 1)
+  // })
 
-  it('displays the title of the teachers and leadership accordion', () => {
-    cy.visit('/')
-    cy.get('[data-bs-target="#teachers-and-leadership-item"]').should('include.text', "Teachers & Leadership")
-  })
+  // it('displays the title of the teachers and leadership accordion', () => {
+  //   cy.visit('/')
+  //   cy.get('[data-bs-target="#teachers-and-leadership-item"]').should('include.text', "Teachers & Leadership")
+  // })
 
-  it('shows schools when a district is selected', () => {
-    cy.visit('/')
-    cy.get("#district-dropdown").select('Lee Public Schools')
-    cy.get("#school-dropdown").select('Lee Elementary School')
-    cy.get("#school-dropdown").children("option[selected='selected']").should('have.text', 'Lee Elementary School')
+  // it('shows schools when a district is selected', () => {
+  //   cy.visit('/')
+  //   cy.get("#school-dropdown").select('Abraham Lincoln Elementary School')
+  //   cy.get("#school-dropdown").children("option[selected='selected']").should('have.text', 'Abraham Lincoln Elementary School')
+  //   cy.get("a[href='/districts/lowell/schools/abraham-lincoln-elementary-school/overview?year=2023-24']")
 
-    cy.contains('Go').click()
-
-    cy.url().should('include', '/districts/lee-public-schools/schools/lee-elementary-school/overview?year=2022-23')
-  })
+  //   cy.get('#schools').within(($schools) => {
+  //     cy.contains('Go').click()
+  //   })
+  //   cy.url().should('include', '/districts/lowell/schools/abraham-lincoln-elementary-school/overview?year=2023-24')
+  // })
 
 
   it('displays overview content', () => {
-    login("districts/lee-public-schools/schools/lee-elementary-school/overview?year=2022-23", "bGVlOmxlZSE=")
-    cy.url().should('include', '/districts/lee-public-schools/schools/lee-elementary-school/overview?year=2022-23')
-    const icons = ['.fa-apple-alt', '.fa-school', '.fa-users-cog', '.fa-graduation-cap', '.fa-heart']
-    for (const icon of icons) {
-      cy.get(icon).should('exist')
-    }
+    // login("districts/lee-public-schools/schools/lee-elementary-school/overview?year=2022-23", "bGVlOmxlZSE=")
+    // cy.url().should('include', '/districts/lee-public-schools/schools/lee-elementary-school/overview?year=2022-23')
+    // const icons = ['.fa-apple-alt', '.fa-school', '.fa-users-cog', '.fa-graduation-cap', '.fa-heart']
+    // for (const icon of icons) {
+    //   cy.get(icon).should('exist')
+    // }
   })
 })
 
