@@ -9,10 +9,12 @@ class Gender < ApplicationRecord
       1
     when /Male|M|2/i
       2
-    when /Another\s*Gender|Gender Identity not listed above|3/i
-      4
+    when /Another\s*Gender|Gender Identity not listed above|3|7/i
+      3
     when /Non-Binary|N|4/i
       4
+    when /Prefer not to disclose|6/i
+      99
     when %r{^#*N/*A$}i
       nil
     else
