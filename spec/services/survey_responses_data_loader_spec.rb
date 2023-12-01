@@ -295,7 +295,7 @@ def assigns_gender_to_responses
               "student_survey_response_4" => non_binary,
               "student_survey_response_5" => non_binary,
               "student_survey_response_6" => unknown_gender,
-              "student_survey_response_7" => unknown_gender }
+              "student_survey_response_7" => non_binary }
 
   results.each do |key, value|
     expect(SurveyItemResponse.where(response_id: key).first.gender).to eq value
