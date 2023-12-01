@@ -4,7 +4,7 @@ require "fileutils"
 RSpec.describe Cleaner do
   let(:district) { create(:district, name: "Maynard Public Schools") }
   let(:second_district) { create(:district, name: "District2") }
-  let(:school) { create(:school, dese_id: 1_740_505, district:) }
+  let(:school) { create(:school, dese_id: 1_740_505, district:, name: "Maynard High School") }
   let(:second_school) { create(:school, dese_id: 1_740_305, district:) }
   let(:third_school) { create(:school, dese_id: 222_222, district: second_district) }
 
@@ -156,7 +156,7 @@ RSpec.describe Cleaner do
           filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
             headers: standard_survey_items, data:
           )
-          expect(filename).to eq "maynard.standard.2022-23.csv"
+          expect(filename).to eq "maynard.maynard-high-school.standard.2022-23.csv"
         end
 
         context "when the file is based on short form survey items" do
@@ -168,7 +168,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: short_form_survey_items, data:
             )
-            expect(filename).to eq "maynard.short_form.2022-23.csv"
+            expect(filename).to eq "maynard.maynard-high-school.short_form.2022-23.csv"
           end
         end
 
@@ -181,7 +181,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:
             )
-            expect(filename).to eq "maynard.early_education.2022-23.csv"
+            expect(filename).to eq "maynard.maynard-high-school.early_education.2022-23.csv"
           end
         end
         context "when the file is based on teacher survey items" do
@@ -193,7 +193,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:
             )
-            expect(filename).to eq "maynard.teacher.2022-23.csv"
+            expect(filename).to eq "maynard.maynard-high-school.teacher.2022-23.csv"
           end
         end
 

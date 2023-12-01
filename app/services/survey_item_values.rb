@@ -200,6 +200,9 @@ class SurveyItemValues
     matches.each do |match|
       output ||= row[match]
     end
+
+    return nil if output&.match?(%r{^#*N/*A}i) || output.blank?
+
     output
   end
 
