@@ -114,27 +114,30 @@ class SurveyItemValues
 
   def gender
     @gender ||= begin
+      gender_code ||= value_from(pattern: /Gender self report/i)
       gender_code ||= value_from(pattern: /^Gender$/i)
       gender_code ||= value_from(pattern: /What is your gender?|What is your gender? - Selected Choice/i)
-      gender_code ||= value_from(pattern: /Gender-\s*Qcode/i)
+      gender_code ||= value_from(pattern: /Gender - do not use/i)
       gender_code ||= value_from(pattern: /Gender/i)
-      gender_code ||= 99
-      gender_code = gender_code.to_i
-      gender_code = 4 if gender_code == 3
-      gender_code = 99 if gender_code.zero?
+      gender_code ||= value_from(pattern: /Gender-\s*SIS/i)
+      gender_code ||= value_from(pattern: /Gender-\s*Qcode/i)
+      gender_code = Gender.qualtrics_code_from(gender_code)
       genders[gender_code] if genders
     end
   end
 
   def races
     @races ||= begin
-      race_codes = value_from(pattern: /^RACE$/i)
+      hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
+      race_codes ||= value_from(pattern: /Race\s*self\s*report/i)
+      race_codes ||= value_from(pattern: /^RACE$/i)
       race_codes ||= value_from(pattern: %r{What is your race/ethnicity?(Please select all that apply) - Selected Choice}i)
       race_codes ||= value_from(pattern: /Race Secondary/i)
+      race_codes ||= value_from(pattern: /Race-\s*SIS/i)
       race_codes ||= value_from(pattern: /Race\s*-\s*Qcodes/i)
       race_codes ||= value_from(pattern: /RACE/i) || ""
-      hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
-      race_codes = race_codes.split(",").map(&:to_i) || []
+      race_codes ||= []
+      race_codes = race_codes.split(",").map { |race| Race.qualtrics_code_from(race) }.map(&:to_i)
       race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
       race_codes = race_codes.push(4) if hispanic == "true"
       process_races(codes: race_codes)
@@ -198,6 +201,9 @@ class SurveyItemValues
     matches.each do |match|
       output ||= row[match]
     end
+
+    return nil if output&.match?(%r{^#*N/*A}i) || output.blank?
+
     output
   end
 

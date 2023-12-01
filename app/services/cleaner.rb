@@ -35,7 +35,15 @@ class Cleaner
       row.district.short_name
     end.to_set.to_a
 
-    districts.join(".").to_s + "." + survey_type.to_s + "." + range + ".csv"
+    schools = data.map do |row|
+      row.school.name
+    end.to_set
+
+    # Only add school to filename when there's a single school
+    school_name = ""
+    school_name = schools.first.parameterize + "." if schools.length == 1
+
+    districts.join(".").to_s + "." + school_name + survey_type.to_s + "." + range + ".csv"
   end
 
   def process_raw_file(file:)
