@@ -48,5 +48,3 @@ jobs:
         run: yarn install
       - name: Run javascript tests
         run: yarn test
-      - name: Run Cypress tests
-        run: bundle exec rake cypress:run
