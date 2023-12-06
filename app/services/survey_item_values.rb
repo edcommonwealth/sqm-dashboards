@@ -153,14 +153,7 @@ class SurveyItemValues
   end
 
   def income
-    @income ||= case raw_income
-                in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
-                  "Economically Disadvantaged - Y"
-                in /Not\s*Eligible/i
-                  "Economically Disadvantaged - N"
-                else
-                  "Unknown"
-                end
+    @income ||= Income.to_designation(raw_income)
   end
 
   def raw_ell
@@ -168,14 +161,7 @@ class SurveyItemValues
   end
 
   def ell
-    @ell ||= case raw_ell
-             in /lep student 1st year|LEP student not 1st year|EL Student First Year/i
-               "ELL"
-             in /Does not apply/i
-               "Not ELL"
-             else
-               "Unknown"
-             end
+    @ell ||= Ell.to_designation(raw_ell)
   end
 
   def raw_sped
@@ -183,14 +169,7 @@ class SurveyItemValues
   end
 
   def sped
-    @sped ||= case raw_sped
-              in /active/i
-                "Special Education"
-              in /^NA$|^#NA$/i
-                "Unknown"
-              else
-                "Not Special Education"
-              end
+    @sped ||= Sped.to_designation(raw_sped)
   end
 
   def value_from(pattern:)
