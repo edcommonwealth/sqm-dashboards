@@ -415,15 +415,14 @@ RSpec.describe SurveyItemValues, type: :model do
     end
 
     context "when progress is invalid" do
-      it "when there are fewer than 17 standard survey items valid_progress returns true" do
+      it "when there are fewer than 11 standard survey items valid_progress returns true" do
         headers = standard_survey_items
         row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
                 "s-peff-q5" => 1, "s-peff-q6" => 1, "s-phys-q1" => 1, "s-phys-q2" => 1,
-                "s-phys-q3" => 1, "s-phys-q4" => 1, "s-emsa-q1" => 1, "s-emsa-q2" => 1,
-                "s-emsa-q3" => 1, "s-sbel-q1" => 1, "s-sbel-q2" => 1, "s-sbel-q3" => 1 }
+                "s-emsa-q3" => 1, "s-sbel-q1" => 1}
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
                                       schools:)
-        expect(values.progress).to eq 16
+        expect(values.progress).to eq 10
         expect(values.valid_progress?).to eq false
       end
 

@@ -238,7 +238,7 @@ class SurveyItemValues
     return false if progress.nil?
 
     return progress >= 12 if survey_type == :teacher
-    return progress >= 17 if survey_type == :standard
+    return progress >= 11 if survey_type == :standard
     return progress >= 5 if survey_type == :short_form
     return progress >= 5 if survey_type == :early_education
 
