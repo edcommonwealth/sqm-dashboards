@@ -17,14 +17,13 @@ class Income < ApplicationRecord
     end
   end
 
+  LABELS = {
+    "Economically Disadvantaged - Y" => "Economically Disadvantaged",
+    "Economically Disadvantaged - N" => "Not Economically Disadvantaged",
+    "Unknown" => "Unknown"
+  }
+
   def label
-    case designation
-    when "Economically Disadvantaged - Y"
-      "Economically Disadvantaged"
-    when "Economically Disadvantaged - N"
-      "Not Economically Disadvantaged"
-    when "Unknown"
-      "Unknown"
-    end
+    LABELS[designation]
   end
 end
