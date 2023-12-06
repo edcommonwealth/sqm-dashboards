@@ -6,17 +6,6 @@ class Income < ApplicationRecord
 
   friendly_id :designation, use: [:slugged]
 
-  def label
-    case designation
-    when "Economically Disadvantaged - Y"
-      "Economically Disadvantaged"
-    when "Economically Disadvantaged - N"
-      "Not Economically Disadvantaged"
-    when "Unknown"
-      "Unknown"
-    end
-  end
-
   def self.to_designation(income)
     case income
     in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income|Reduced\s*price\s*lunch/i
@@ -26,5 +15,15 @@ class Income < ApplicationRecord
     else
       "Unknown"
     end
+  end
+
+  LABELS = {
+    "Economically Disadvantaged - Y" => "Economically Disadvantaged",
+    "Economically Disadvantaged - N" => "Not Economically Disadvantaged",
+    "Unknown" => "Unknown"
+  }
+
+  def label
+    LABELS[designation]
   end
 end
