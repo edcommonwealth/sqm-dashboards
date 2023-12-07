@@ -87,4 +87,3 @@ class StaffingRowValues
     row["FTE Count"]
   end
 end
-
