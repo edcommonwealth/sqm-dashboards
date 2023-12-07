@@ -39,6 +39,35 @@ class EnrollmentLoader
     respondent
   end
 
+  def self.clone_previous_year_data
+    years = AcademicYear.order(:range).last(2)
+    previous_year = years.first
+    current_year = years.last
+    respondents = []
+    School.all.each do |school|
+      Respondent.where(school:, academic_year: previous_year).each do |respondent|
+        current_respondent = Respondent.find_or_initialize_by(school:, academic_year: current_year)
+        current_respondent.pk = respondent.pk
+        current_respondent.k = respondent.k
+        current_respondent.one = respondent.one
+        current_respondent.two = respondent.two
+        current_respondent.three = respondent.three
+        current_respondent.four = respondent.four
+        current_respondent.five = respondent.five
+        current_respondent.six = respondent.six
+        current_respondent.seven = respondent.seven
+        current_respondent.eight = respondent.eight
+        current_respondent.nine = respondent.nine
+        current_respondent.ten = respondent.ten
+        current_respondent.eleven = respondent.eleven
+        current_respondent.twelve = respondent.twelve
+        current_respondent.total_students = respondent.total_students
+        respondents << current_respondent
+      end
+    end
+    Respondent.import respondents, batch_size: 1000, on_duplicate_key_update: [:total_teachers]
+  end
+
   private_class_method :create_enrollment_entry
 end
 

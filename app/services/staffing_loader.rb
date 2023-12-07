@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class StaffingLoader
   def self.load_data(filepath:)
@@ -51,20 +51,19 @@ class StaffingRowValues
 
   def school
     @school ||= begin
-      dese_id = row['DESE ID'].strip.to_i
+      dese_id = row["DESE ID"].strip.to_i
       School.find_by_dese_id(dese_id)
     end
   end
 
   def academic_year
     @academic_year ||= begin
-      year = row['Academic Year']
+      year = row["Academic Year"]
       AcademicYear.find_by_range(year)
     end
   end
 
   def fte_count
-    row['FTE Count']
+    row["FTE Count"]
   end
 end
-
