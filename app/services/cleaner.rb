@@ -50,8 +50,14 @@ class Cleaner
     clean_csv = []
     log_csv = []
     data = []
-
-    headers = CSV.parse(file.first).first.push("Raw Income").push("Income").push("Raw ELL").push("ELL").push("Raw SpEd").push("SpEd").push("Progress Count").uniq
+    headers = CSV.parse(file.first).first
+    duplicate_header = headers.detect { |header| headers.count(header) > 1 }
+    unless duplicate_header.nil?
+      puts "\n>>>>>>>>>>>>>>>>>>    Duplicate header found.  This will misalign column headings.  Please delete or rename the duplicate column: #{duplicate_header} \n>>>>>>>>>>>>>> \n"
+    end
+    headers = headers.to_set
+    headers = headers.merge(Set.new(["Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count",
+                                     "Race", "Gender"])).to_a
     filtered_headers = include_all_headers(headers:)
     filtered_headers = remove_unwanted_headers(headers: filtered_headers)
     log_headers = (filtered_headers + ["Valid Duration?", "Valid Progress?", "Valid Grade?",
@@ -78,7 +84,7 @@ class Cleaner
 
   def include_all_headers(headers:)
     alternates = headers.filter(&:present?)
-                        .filter {  |header| header.match? /^[st]-\w*-\w*-1$/i }
+                        .filter { |header| header.match?(/^[st]-\w*-\w*-1$/i) }
     alternates.each do |header|
       main = header.sub(/-1\z/, "")
       headers.push(main) unless headers.include?(main)
@@ -94,7 +100,7 @@ class Cleaner
   def remove_unwanted_headers(headers:)
     headers.to_set.to_a.compact.reject do |item|
       item.start_with? "Q"
-    end.reject {  |header| header.match? /^[st]-\w*-\w*-1$/i }
+    end.reject { |header| header.match?(/^[st]-\w*-\w*-1$/i) }
   end
 
   def write_csv(data:, output_filepath:, filename:, prefix: "")
