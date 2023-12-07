@@ -137,7 +137,12 @@ class SurveyItemValues
       race_codes ||= value_from(pattern: /Race\s*-\s*Qcodes/i)
       race_codes ||= value_from(pattern: /RACE/i) || ""
       race_codes ||= []
-      race_codes = race_codes.split(",").map { |race| Race.qualtrics_code_from(race) }.map(&:to_i)
+      race_codes = race_codes.split(",")
+                             .map do |word|
+                     word.split("and")
+                   end.flatten
+                      .reject(&:blank?)
+                      .map { |race| Race.qualtrics_code_from(race) }.map(&:to_i)
       race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
       race_codes = race_codes.push(4) if hispanic == "true"
       process_races(codes: race_codes)
