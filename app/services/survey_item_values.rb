@@ -18,6 +18,8 @@ class SurveyItemValues
     row["Raw SpEd"] = raw_sped
     row["SpEd"] = sped
     row["Progress Count"] = progress
+    row["Race"] ||= races.map { |race| race&.qualtrics_code }.join(",")
+    row["Gender"] ||= gender&.qualtrics_code
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
