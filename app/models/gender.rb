@@ -5,9 +5,9 @@ class Gender < ApplicationRecord
 
   def self.qualtrics_code_from(word)
     case word
-    when /Female|F|1/i
+    when /Female|^F|1/i
       1
-    when /Male|M|2/i
+    when /Male|^M|2/i
       2
     when /Another\s*Gender|Gender Identity not listed above|3|7/i
       4 # We categorize any self reported gender as non-binary
