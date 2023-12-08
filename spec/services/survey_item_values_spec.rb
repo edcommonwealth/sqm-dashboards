@@ -7,8 +7,25 @@ RSpec.describe SurveyItemValues, type: :model do
   end
   let(:genders) do
     create(:gender, qualtrics_code: 1)
+    create(:gender, qualtrics_code: 2)
+    create(:gender, qualtrics_code: 4)
+    create(:gender, qualtrics_code: 99)
     Gender.by_qualtrics_code
   end
+
+  let(:races) do
+    create(:race, qualtrics_code: 1)
+    create(:race, qualtrics_code: 2)
+    create(:race, qualtrics_code: 3)
+    create(:race, qualtrics_code: 4)
+    create(:race, qualtrics_code: 5)
+    create(:race, qualtrics_code: 6)
+    create(:race, qualtrics_code: 7)
+    create(:race, qualtrics_code: 8)
+    create(:race, qualtrics_code: 99)
+    Race.by_qualtrics_code
+  end
+
   let(:survey_items) { [] }
   let(:district) { create(:district, name: "Attleboro") }
   let(:attleboro) do
@@ -117,11 +134,248 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.grade).to eq 1
     end
   end
+
   context ".gender" do
-    it "returns the grade that maps to the grade provided" do
-      row = { "Gender" => "1" }
-      values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-      expect(values.gender.qualtrics_code).to eq 1
+    context "when the gender is female" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Gender" => "1" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 1
+
+        row = { "Gender" => "Female" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 1
+
+        row = { "Gender" => "F" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 1
+      end
+    end
+
+    context "when the gender is male" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Gender" => "2" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 2
+
+        row = { "Gender" => "Male" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 2
+
+        row = { "Gender" => "M" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 2
+      end
+    end
+
+    context "when the gender is non-binary" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Gender" => "4" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 4
+
+        row = { "Gender" => "N - Non-Binary" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 4
+
+        row = { "Gender" => "N" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 4
+      end
+    end
+
+    context "when the gender is not known" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Gender" => "N/A" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 99
+
+        row = { "Gender" => "NA" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 99
+
+        row = { "Gender" => "#N/A" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 99
+
+        row = { "Gender" => "#NA" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 99
+
+        row = { "Gender" => "Prefer not to disclose" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 99
+
+        row = { "Gender" => "" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.gender.qualtrics_code).to eq 99
+      end
+    end
+  end
+
+  context ".races" do
+    before do
+      races
+    end
+
+    context "when the race is Native American" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "1" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [1]
+
+        row = { "Race" => "Native American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [1]
+
+        row = { "Race" => "American Indian or Alaskan Native" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [1]
+      end
+    end
+
+    context "when the race is Asian" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "2" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+
+        row = { "Race" => "Asian" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+
+        row = { "Race" => "Pacific Islander" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+
+        row = { "Race" => "Pacific Island or Hawaiian Native" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+      end
+    end
+
+    context "when the race is Black" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "3" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [3]
+
+        row = { "Race" => "Black" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [3]
+
+        row = { "Race" => "African American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [3]
+      end
+    end
+
+    context "when the race is Hispanic" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "4" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [4]
+
+        row = { "Race" => "Hispanic" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [4]
+
+        row = { "Race" => "Latinx" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [4]
+      end
+    end
+
+    context "when the race is White" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "5" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [5]
+
+        row = { "Race" => "White" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [5]
+
+        row = { "Race" => "Caucasian" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [5]
+      end
+    end
+
+    context "when the race is not disclosed" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "6" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+
+        row = { "Race" => "Prefer not to disclose" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+      end
+    end
+
+    context "when the race is not disclosed" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "6" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+
+        row = { "Race" => "Prefer not to disclose" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+      end
+    end
+
+    context "when the race is self described" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "7" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+
+        row = { "Race" => "Prefer to self-describe" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+      end
+    end
+
+    context "when the race is Middle Eastern" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "8" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [8]
+
+        row = { "Race" => "Middle Eastern" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [8]
+
+        row = { "Race" => "North African" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [8]
+      end
+    end
+
+    context "when the race is unknown" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "NA" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+
+        row = { "Race" => "#N/A" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+
+        row = { "Race" => "n/a" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+
+        row = { "Race" => "#na" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+
+        row = { "Race" => "" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+      end
     end
   end
 
