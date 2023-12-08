@@ -118,10 +118,10 @@ class SurveyItemValues
       gender_code ||= value_from(pattern: /Gender self report/i)
       gender_code ||= value_from(pattern: /^Gender$/i)
       gender_code ||= value_from(pattern: /What is your gender?|What is your gender? - Selected Choice/i)
-      gender_code ||= value_from(pattern: /Gender - do not use/i)
-      gender_code ||= value_from(pattern: /Gender/i)
       gender_code ||= value_from(pattern: /Gender-\s*SIS/i)
       gender_code ||= value_from(pattern: /Gender-\s*Qcode/i)
+      gender_code ||= value_from(pattern: /Gender - do not use/i)
+      gender_code ||= value_from(pattern: /Gender/i)
       gender_code = Gender.qualtrics_code_from(gender_code)
       genders[gender_code] if genders
     end
@@ -140,7 +140,7 @@ class SurveyItemValues
       race_codes ||= []
       race_codes = race_codes.split(",")
                              .map do |word|
-                     word.split("and")
+                     word.split(/\s+and\s+/i)
                    end.flatten
                       .reject(&:blank?)
                       .map { |race| Race.qualtrics_code_from(race) }.map(&:to_i)
@@ -155,7 +155,7 @@ class SurveyItemValues
   end
 
   def raw_income
-    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income/i)
+    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income|SES-\s*SIS/i)
   end
 
   def income
@@ -163,7 +163,7 @@ class SurveyItemValues
   end
 
   def raw_ell
-    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL/i)
+    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL|ELL-\s*SIS/i)
   end
 
   def ell
@@ -171,7 +171,7 @@ class SurveyItemValues
   end
 
   def raw_sped
-    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd/i)
+    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd|SpEd-\s*SIS/i)
   end
 
   def sped
@@ -183,11 +183,12 @@ class SurveyItemValues
     matches = headers.select do |header|
       pattern.match(header)
     end.map { |item| item.delete("\n") }
+
     matches.each do |match|
-      output ||= row[match]
+      output ||= row[match]&.strip
     end
 
-    return nil if output&.match?(%r{^#*N/*A}i) || output.blank?
+    return nil if output&.match?(%r{^#*N/*A$}i) || output.blank?
 
     output
   end
