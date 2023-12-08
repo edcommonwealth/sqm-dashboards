@@ -23,6 +23,7 @@ RSpec.describe SurveyItemValues, type: :model do
     create(:race, qualtrics_code: 7)
     create(:race, qualtrics_code: 8)
     create(:race, qualtrics_code: 99)
+    create(:race, qualtrics_code: 100)
     Race.by_qualtrics_code
   end
 
@@ -223,15 +224,15 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "1" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [1]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1]
 
         row = { "Race" => "Native American" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [1]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1]
 
         row = { "Race" => "American Indian or Alaskan Native" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [1]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1]
       end
     end
 
@@ -239,19 +240,19 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "2" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [2]
 
         row = { "Race" => "Asian" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [2]
 
         row = { "Race" => "Pacific Islander" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [2]
 
         row = { "Race" => "Pacific Island or Hawaiian Native" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [2]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [2]
       end
     end
 
@@ -259,15 +260,15 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "3" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [3]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [3]
 
         row = { "Race" => "Black" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [3]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [3]
 
         row = { "Race" => "African American" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [3]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [3]
       end
     end
 
@@ -275,15 +276,15 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "4" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [4]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [4]
 
         row = { "Race" => "Hispanic" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [4]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [4]
 
         row = { "Race" => "Latinx" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [4]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [4]
       end
     end
 
@@ -291,15 +292,15 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "5" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [5]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [5]
 
         row = { "Race" => "White" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [5]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [5]
 
         row = { "Race" => "Caucasian" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [5]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [5]
       end
     end
 
@@ -307,11 +308,11 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "6" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
 
         row = { "Race" => "Prefer not to disclose" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
       end
     end
 
@@ -319,11 +320,11 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "6" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
 
         row = { "Race" => "Prefer not to disclose" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
       end
     end
 
@@ -331,11 +332,11 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "7" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
 
         row = { "Race" => "Prefer to self-describe" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
       end
     end
 
@@ -343,15 +344,15 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "8" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [8]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [8]
 
         row = { "Race" => "Middle Eastern" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [8]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [8]
 
         row = { "Race" => "North African" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [8]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [8]
       end
     end
 
@@ -359,23 +360,65 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "NA" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
 
         row = { "Race" => "#N/A" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
 
         row = { "Race" => "n/a" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
 
         row = { "Race" => "#na" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
 
         row = { "Race" => "" }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
-        expect(values.races.map { |race| race&.qualtrics_code}).to eq [99]
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [99]
+      end
+    end
+
+    context "when there are multiple races" do
+      it "returns the gender that maps to the gender provided" do
+        row = { "Race" => "1,2,3" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1, 2, 3, 100]
+
+        row = { "Race" => "Alaskan Native, Pacific Islander, Black" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1, 2, 3, 100]
+
+        row = { "Race" => "American Indian or Alaskan Native, Asian, African American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1, 2, 3, 100]
+        row = { "Race" => "n/a" }
+
+        row = { "Race" => "American Indian or Alaskan Native, Asian and African American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1, 2, 3, 100]
+
+        row = { "Race" => "American Indian or Alaskan Native and Asian and African American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1, 2, 3, 100]
+
+        row = { "Race" => "American Indian or Alaskan Native and Asian, and African American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [1, 2, 3, 100]
+
+        row = { "Race" => "Asian, Caucasian and African American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [2, 5, 3, 100]
+
+        row = { "Race" => "Caucasian and Asian and African American" }
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [5, 2, 3, 100]
+
+        row = { "Race" => "Caucasian and Asian and African American", "HispanicLatino" => "true" }
+        headers.push("HispanicLatino")
+        values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
+        expect(values.races.map { |race| race&.qualtrics_code }).to eq [5, 2, 3, 4, 100]
       end
     end
   end
@@ -673,7 +716,7 @@ RSpec.describe SurveyItemValues, type: :model do
         headers = standard_survey_items
         row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
                 "s-peff-q5" => 1, "s-peff-q6" => 1, "s-phys-q1" => 1, "s-phys-q2" => 1,
-                "s-emsa-q3" => 1, "s-sbel-q1" => 1}
+                "s-emsa-q3" => 1, "s-sbel-q1" => 1 }
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 10

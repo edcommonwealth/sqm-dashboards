@@ -14,7 +14,7 @@ class Race < ApplicationRecord
     case word
     when /Native\s*American|American\s*Indian|Alaskan\s*Native|1/i
       1
-    when /^Asian|Pacific\s*Island|Hawaiian|2/i
+    when /\bAsian|Pacific\s*Island|Hawaiian|2/i
       2
     when /Black|African\s*American|3/i
       3
