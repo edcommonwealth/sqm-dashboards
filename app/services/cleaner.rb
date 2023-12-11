@@ -17,14 +17,15 @@ class Cleaner
         processed_data in [headers, clean_csv, log_csv, data]
         return if data.empty?
 
-        filename = filename(headers:, data:)
+        filename = filename(headers:, data:, filepath:)
         write_csv(data: clean_csv, output_filepath:, filename:)
         write_csv(data: log_csv, output_filepath: log_filepath, prefix: "removed.", filename:)
       end
     end
   end
 
-  def filename(headers:, data:)
+  def filename(headers:, data:, filepath:)
+    output = []
     survey_item_ids = headers.filter(&:present?).filter do |header|
                         header.start_with?("s-", "t-")
                       end.reject { |item| item.end_with? "-1" }
@@ -39,11 +40,18 @@ class Cleaner
       row.school.name
     end.to_set
 
-    # Only add school to filename when there's a single school
-    school_name = ""
-    school_name = schools.first.parameterize + "." if schools.length == 1
+    part = filepath&.match(/[\b\s_.]+(part|form)[\W*_](?<label>[\w\d])/i)&.named_captures&.[]("label")&.upcase
+    # byebug unless filepath.nil?
 
-    districts.join(".").to_s + "." + school_name + survey_type.to_s + "." + range + ".csv"
+    school_name = schools.first.parameterize
+
+    output << districts.join(".")
+    output << school_name if schools.length == 1
+    output << survey_type.to_s
+    output << "Part-" + part unless part.nil?
+    output << range
+    output << "csv"
+    output.join(".")
   end
 
   def process_raw_file(file:)
