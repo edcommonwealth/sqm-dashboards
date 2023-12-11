@@ -41,7 +41,6 @@ class Cleaner
     end.to_set
 
     part = filepath&.match(/[\b\s_.]+(part|form)[\W*_](?<label>[\w\d])/i)&.named_captures&.[]("label")&.upcase
-    # byebug unless filepath.nil?
 
     school_name = schools.first.parameterize
 
