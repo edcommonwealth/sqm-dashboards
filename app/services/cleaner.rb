@@ -17,14 +17,15 @@ class Cleaner
         processed_data in [headers, clean_csv, log_csv, data]
         return if data.empty?
 
-        filename = filename(headers:, data:)
+        filename = filename(headers:, data:, filepath:)
         write_csv(data: clean_csv, output_filepath:, filename:)
         write_csv(data: log_csv, output_filepath: log_filepath, prefix: "removed.", filename:)
       end
     end
   end
 
-  def filename(headers:, data:)
+  def filename(headers:, data:, filepath:)
+    output = []
     survey_item_ids = headers.filter(&:present?).filter do |header|
                         header.start_with?("s-", "t-")
                       end.reject { |item| item.end_with? "-1" }
@@ -35,15 +36,35 @@ class Cleaner
       row.district.short_name
     end.to_set.to_a
 
-    districts.join(".").to_s + "." + survey_type.to_s + "." + range + ".csv"
+    schools = data.map do |row|
+      row.school.name
+    end.to_set
+
+    part = filepath&.match(/[\b\s_.]+(part|form)[\W*_](?<label>[\w\d])/i)&.named_captures&.[]("label")&.upcase
+
+    school_name = schools.first.parameterize
+
+    output << districts.join(".")
+    output << school_name if schools.length == 1
+    output << survey_type.to_s
+    output << "Part-" + part unless part.nil?
+    output << range
+    output << "csv"
+    output.join(".")
   end
 
   def process_raw_file(file:)
     clean_csv = []
     log_csv = []
     data = []
-
-    headers = CSV.parse(file.first).first.push("Raw Income").push("Income").push("Raw ELL").push("ELL").push("Raw SpEd").push("SpEd").push("Progress Count")
+    headers = CSV.parse(file.first).first
+    duplicate_header = headers.detect { |header| headers.count(header) > 1 }
+    unless duplicate_header.nil?
+      puts "\n>>>>>>>>>>>>>>>>>>    Duplicate header found.  This will misalign column headings.  Please delete or rename the duplicate column: #{duplicate_header} \n>>>>>>>>>>>>>> \n"
+    end
+    headers = headers.to_set
+    headers = headers.merge(Set.new(["Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count",
+                                     "Race", "Gender"])).to_a
     filtered_headers = include_all_headers(headers:)
     filtered_headers = remove_unwanted_headers(headers: filtered_headers)
     log_headers = (filtered_headers + ["Valid Duration?", "Valid Progress?", "Valid Grade?",
@@ -70,7 +91,7 @@ class Cleaner
 
   def include_all_headers(headers:)
     alternates = headers.filter(&:present?)
-                        .filter { |header| header.end_with? "-1" }
+                        .filter { |header| header.match?(/^[st]-\w*-\w*-1$/i) }
     alternates.each do |header|
       main = header.sub(/-1\z/, "")
       headers.push(main) unless headers.include?(main)
@@ -86,7 +107,7 @@ class Cleaner
   def remove_unwanted_headers(headers:)
     headers.to_set.to_a.compact.reject do |item|
       item.start_with? "Q"
-    end.reject { |item| item.end_with? "-1" }
+    end.reject { |header| header.match?(/^[st]-\w*-\w*-1$/i) }
   end
 
   def write_csv(data:, output_filepath:, filename:, prefix: "")
@@ -121,4 +142,3 @@ class Cleaner
     FileUtils.mkdir_p log_filepath
   end
 end
-

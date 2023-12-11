@@ -4,7 +4,7 @@ require "fileutils"
 RSpec.describe Cleaner do
   let(:district) { create(:district, name: "Maynard Public Schools") }
   let(:second_district) { create(:district, name: "District2") }
-  let(:school) { create(:school, dese_id: 1_740_505, district:) }
+  let(:school) { create(:school, dese_id: 1_740_505, district:, name: "Maynard High School") }
   let(:second_school) { create(:school, dese_id: 1_740_305, district:) }
   let(:third_school) { create(:school, dese_id: 222_222, district: second_district) }
 
@@ -31,8 +31,12 @@ RSpec.describe Cleaner do
     File.open(Rails.root.join("spec", "fixtures", "raw", "sample_maynard_raw_student_survey.csv"))
   end
 
+  let(:path_to_file_with_duplicate_headers) do
+    File.open(Rails.root.join("spec", "fixtures", "raw", "sample_file_with_duplicate_headers.csv"))
+  end
+
   let(:common_headers) do
-    ["Recorded Date", "DeseID", "ResponseID"]
+    ["Recorded Date", "Dese ID", "ResponseID"]
   end
 
   let(:standard_survey_items) do
@@ -89,6 +93,13 @@ RSpec.describe Cleaner do
     respondents
   end
 
+  context "When duplicate headers exist" do
+    it "outputs a message to stdout" do
+      output = capture_stdout { Cleaner.new(input_filepath:, output_filepath:, log_filepath:).clean }
+      expect(output).to match "\n>>>>>>>>>>>>>>>>>>    Duplicate header found.  This will misalign column headings.  Please delete or rename the duplicate column: StartDate \n>>>>>>>>>>>>>> \n"
+    end
+  end
+
   context "Creating a new Cleaner" do
     it "creates a directory for the clean data" do
       Cleaner.new(input_filepath:, output_filepath:, log_filepath:).clean
@@ -143,9 +154,9 @@ RSpec.describe Cleaner do
           data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: standard_survey_items, genders: nil, survey_items:,
                                        schools: School.school_hash)]
           filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
-            headers: standard_survey_items, data:
+            headers: standard_survey_items, data:, filepath: nil
           )
-          expect(filename).to eq "maynard.standard.2022-23.csv"
+          expect(filename).to eq "maynard.maynard-high-school.standard.2022-23.csv"
         end
 
         context "when the file is based on short form survey items" do
@@ -155,9 +166,9 @@ RSpec.describe Cleaner do
             data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: short_form_survey_items, genders: nil, survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
-              headers: short_form_survey_items, data:
+              headers: short_form_survey_items, data:, filepath: nil
             )
-            expect(filename).to eq "maynard.short_form.2022-23.csv"
+            expect(filename).to eq "maynard.maynard-high-school.short_form.2022-23.csv"
           end
         end
 
@@ -168,9 +179,9 @@ RSpec.describe Cleaner do
             data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
-              headers: early_education_survey_items, data:
+              headers: early_education_survey_items, data:, filepath: nil
             )
-            expect(filename).to eq "maynard.early_education.2022-23.csv"
+            expect(filename).to eq "maynard.maynard-high-school.early_education.2022-23.csv"
           end
         end
         context "when the file is based on teacher survey items" do
@@ -180,9 +191,9 @@ RSpec.describe Cleaner do
             data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: teacher_survey_items, genders: nil, survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
-              headers: teacher_survey_items, data:
+              headers: teacher_survey_items, data:, filepath: nil
             )
-            expect(filename).to eq "maynard.teacher.2022-23.csv"
+            expect(filename).to eq "maynard.maynard-high-school.teacher.2022-23.csv"
           end
         end
 
@@ -194,9 +205,58 @@ RSpec.describe Cleaner do
                     SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "222_222" },
                                          headers: teacher_survey_items, genders: nil, survey_items:, schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
-              headers: teacher_survey_items, data:
+              headers: teacher_survey_items, data:, filepath: nil
             )
             expect(filename).to eq "maynard.district2.teacher.2022-23.csv"
+          end
+        end
+
+        context "when the file name includes the words 'part'" do
+          it "adds the part to the filename" do
+            survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
+
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+                                         schools: School.school_hash)]
+            filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
+              headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form a.2022-23.csv"
+            )
+            expect(filename).to eq "maynard.maynard-high-school.early_education.Part-A.2022-23.csv"
+          end
+        end
+        context "when the file name includes the words 'form'" do
+          it "adds the part to the filename" do
+            survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
+
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+                                         schools: School.school_hash)]
+            filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
+              headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form f.2022-23.csv"
+            )
+            expect(filename).to eq "maynard.maynard-high-school.early_education.Part-F.2022-23.csv"
+          end
+        end
+        context "when the file name includes the words 'form'" do
+          it "adds the part to the filename" do
+            survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
+
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+                                         schools: School.school_hash)]
+            filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
+              headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form_f.2022-23.csv"
+            )
+            expect(filename).to eq "maynard.maynard-high-school.early_education.Part-F.2022-23.csv"
+          end
+        end
+        context "when the file name includes the words 'form'" do
+          it "adds the part to the filename" do
+            survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
+
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+                                         schools: School.school_hash)]
+            filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
+              headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form&f.2022-23.csv"
+            )
+            expect(filename).to eq "maynard.maynard-high-school.early_education.Part-F.2022-23.csv"
           end
         end
       end
@@ -206,7 +266,7 @@ end
 
 def reads_headers_from_raw_csv(processed_data)
   processed_data in [headers, clean_csv, log_csv, data]
-  expect(headers.to_set.sort).to eq ["StartDate", "EndDate",  "Status", "IPAddress", "Progress", "Duration (in seconds)",
+  expect(headers.to_set.sort).to eq ["StartDate", "EndDate", "Status", "IPAddress", "Progress", "Duration (in seconds)",
                                      "Finished", "RecordedDate", "ResponseId", "District", "School",
                                      "LASID", "Gender", "Race", "What grade are you in?", "s-emsa-q1", "s-emsa-q2", "s-emsa-q3", "s-tint-q1",
                                      "s-tint-q2", "s-tint-q3", "s-tint-q4", "s-tint-q5", "s-acpr-q1", "s-acpr-q2",
