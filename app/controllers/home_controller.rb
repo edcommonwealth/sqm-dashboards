@@ -52,6 +52,6 @@ class HomeController < ApplicationController
       end
     end
 
-    academic_year.range || AcademicYear.order("range DESC").first.range
+    academic_year&.range || AcademicYear.order("range DESC").first.range
   end
 end
