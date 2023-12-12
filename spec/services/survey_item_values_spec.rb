@@ -415,8 +415,9 @@ RSpec.describe SurveyItemValues, type: :model do
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
         expect(values.races.map { |race| race&.qualtrics_code }).to eq [5, 2, 3, 100]
 
-        row = { "Race" => "Caucasian and Asian and African American", "HispanicLatino" => "true" }
+        row = { "Race- SIS" => "Caucasian and Asian and African American", "HispanicLatino" => "true" }
         headers.push("HispanicLatino")
+        headers.push("Race- SIS")
         values = SurveyItemValues.new(row:, headers:, genders:, survey_items:, schools:)
         expect(values.races.map { |race| race&.qualtrics_code }).to eq [5, 2, 3, 4, 100]
       end
