@@ -128,13 +128,12 @@ class SurveyItemValues
 
   def races
     @races ||= begin
-      hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
-      race_codes ||= value_from(pattern: /Race\s*self\s*report/i)
+      race_codes ||= self_report = value_from(pattern: /Race\s*self\s*report/i)
       race_codes ||= value_from(pattern: /^RACE$/i)
       race_codes ||= value_from(pattern: %r{What is your race/ethnicity?(Please select all that apply) - Selected Choice}i)
       race_codes ||= value_from(pattern: /Race Secondary/i)
-      race_codes ||= value_from(pattern: /Race-\s*SIS/i)
-      race_codes ||= value_from(pattern: /Race\s*-\s*Qcodes/i)
+      race_codes ||= sis ||= value_from(pattern: /Race-\s*SIS/i)
+      race_codes ||= sis ||= value_from(pattern: /Race\s*-\s*Qcodes/i)
       race_codes ||= value_from(pattern: /RACE/i) || ""
       race_codes ||= []
       race_codes = race_codes.split(",")
@@ -143,8 +142,14 @@ class SurveyItemValues
                    end.flatten
                       .reject(&:blank?)
                       .map { |race| Race.qualtrics_code_from(race) }.map(&:to_i)
-      race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
-      race_codes = race_codes.push(4) if hispanic == "true"
+
+      # Only check the secondary hispanic column if we don't have self reported data and are relying on SIS data
+      if self_report.nil? && sis.present?
+        hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
+        race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
+        race_codes = race_codes.push(4) if hispanic == "true"
+      end
+
       process_races(codes: race_codes)
     end
   end
