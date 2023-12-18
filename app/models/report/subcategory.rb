@@ -31,7 +31,7 @@ module Report
 
                 row = [response_rate, subcategory, school, academic_year]
 
-                all_grades = respondents.counts_by_grade.keys
+                all_grades = respondents.enrollment_by_grade.keys
                 grades = "#{all_grades.first}-#{all_grades.last}"
                 mutex.synchronize do
                   data << [school.district.name,

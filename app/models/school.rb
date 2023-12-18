@@ -21,6 +21,6 @@ class School < ApplicationRecord
   end
 
   def grades(academic_year:)
-    Respondent.find_by(school: self, academic_year:)&.counts_by_grade&.keys || (-1..12).to_a
+    Respondent.find_by(school: self, academic_year:)&.enrollment_by_grade&.keys || (-1..12).to_a
   end
 end

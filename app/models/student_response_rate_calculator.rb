@@ -30,11 +30,11 @@ class StudentResponseRateCalculator < ResponseRateCalculator
   end
 
   def enrollment_by_grade
-    @enrollment_by_grade ||= respondents.counts_by_grade
+    @enrollment_by_grade ||= respondents.enrollment_by_grade
   end
 
   def total_enrollment
-    respondents.counts_by_grade.sum
+    respondents.enrollment_by_grade.sum
   end
 
   def survey_items_have_sufficient_responses?
