@@ -86,7 +86,7 @@ class ResponseRatePresenter
                       .pluck(:grade)
                       .reject(&:nil?)
                       .map do |grade|
-      respondents.counts_by_grade[grade]
+      respondents.enrollment_by_grade[grade]
     end.sum.to_f
   end
 
@@ -95,6 +95,6 @@ class ResponseRatePresenter
   end
 
   def grades
-    respondents.counts_by_grade.keys
+    respondents.enrollment_by_grade.keys
   end
 end

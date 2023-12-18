@@ -146,7 +146,7 @@ module Analyze
         end
 
         def grades(year_index)
-          Respondent.find_by(school:, academic_year: academic_years[year_index]).counts_by_grade.keys
+          Respondent.find_by(school:, academic_year: academic_years[year_index]).enrollment_by_grade.keys
         end
 
         private
