@@ -264,8 +264,8 @@ class SurveyItemValues
     return true if respondent_type == :teacher
 
     respondents = Respondent.where(school:, academic_year:).first
-    if respondents.present? && respondents.counts_by_grade[grade].present?
-      enrollment = respondents.counts_by_grade[grade]
+    if respondents.present? && respondents.enrollment_by_grade[grade].present?
+      enrollment = respondents.enrollment_by_grade[grade]
     end
     return false if enrollment.nil?
 
