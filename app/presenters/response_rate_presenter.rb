@@ -39,8 +39,35 @@ class ResponseRatePresenter
   end
 
   def actual_count
+    if focus == :teacher
+      response_count_for_survey_items(survey_items:)
+    else
+      non_early_ed_items = survey_items - SurveyItem.early_education_survey_items
+      non_early_ed_count = response_count_for_survey_items(survey_items: non_early_ed_items)
+
+      early_ed_items = survey_items & SurveyItem.early_education_survey_items
+      early_ed_count = SurveyItemResponse.where(school:, academic_year:,
+                                                survey_item: early_ed_items)
+                                         .group(:survey_item)
+                                         .select(:response_id)
+                                         .distinct
+                                         .count
+                                         .reduce(0) do |largest, row|
+        count = row[1]
+        if count > largest
+          count
+        else
+          largest
+        end
+      end
+
+      non_early_ed_count + early_ed_count
+    end
+  end
+
+  def response_count_for_survey_items(survey_items:)
     SurveyItemResponse.where(school:, academic_year:,
-                             survey_item: survey_items).select(:response_id).distinct.count
+                             survey_item: survey_items).select(:response_id).distinct.count || 0
   end
 
   def respondents_count
