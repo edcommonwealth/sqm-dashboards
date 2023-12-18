@@ -15,7 +15,7 @@ class ResponseRatePresenter
 
   def date
     SurveyItemResponse.where(survey_item: survey_items, school:,
-                             academic_year:).order(recorded_date: :DESC).first&.recorded_date || Date.today
+                             academic_year:).order(recorded_date: :DESC).first&.recorded_date
   end
 
   def percentage
@@ -28,7 +28,15 @@ class ResponseRatePresenter
     percentage > 75 ? "purple" : "gold"
   end
 
+  def date_message
+    return "" if date.nil?
+
+    "Response rate as of #{date.to_date.strftime('%m/%d/%y')}"
+  end
+
   def hover_message
+    return "" if date.nil?
+
     "Percentages based on #{actual_count} out of #{respondents_count.round} #{focus}s completing at least 25% of the survey."
   end
 
