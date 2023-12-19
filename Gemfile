@@ -61,7 +61,6 @@ gem "standard_deviation"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platform: :mri
-  gem "cypress-rails"
   gem "dotenv-rails"
   gem "factory_bot_rails"
   gem "parallel_tests"

@@ -31,8 +31,6 @@
     "watch:all": "yarn watch:css & yarn build --watch"
   },
   "devDependencies": {
-    "cypress": "^12.17.1",
-    "@cypress/request": "^3.0.0",
     "eslint-plugin-cypress": "^2.13.3",
     "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
