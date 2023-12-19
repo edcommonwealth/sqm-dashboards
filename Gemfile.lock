@@ -130,9 +130,6 @@ GEM
     cuprite (0.15)
       capybara (~> 3.0)
       ferrum (~> 0.14.0)
-    cypress-rails (0.6.1)
-      puma (>= 3.8.0)
-      railties (>= 5.2.0)
     database_cleaner (2.0.2)
       database_cleaner-active_record (>= 2, < 3)
     database_cleaner-active_record (2.1.0)
@@ -494,7 +491,6 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   cuprite
-  cypress-rails
   database_cleaner
   devise!
   dotenv-rails
