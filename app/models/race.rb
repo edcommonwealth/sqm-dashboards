@@ -8,8 +8,6 @@ class Race < ApplicationRecord
     all.map { |race| [race.qualtrics_code, race] }.to_h
   }
 
-  # TODO: look for alaska native
-  # Todo: split up possibilities by first a comma and then the word and
   def self.qualtrics_code_from(word)
     case word
     when /Native\s*American|American\s*Indian|Alaskan\s*Native|1/i
