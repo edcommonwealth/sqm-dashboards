@@ -85,9 +85,7 @@ class SurveyResponsesDataLoader
     student = Student.find_or_create_by(response_id: row.response_id, lasid: row.lasid)
     student.races.delete_all
     tmp_races = row.races.map do |race| races[race] end
-    tmp_races.each do |race|
-      student.races << race
-    end
+    student.races += tmp_races
 
     row.survey_items.map do |survey_item|
       likert_score = row.likert_score(survey_item_id: survey_item.survey_item_id) || next
