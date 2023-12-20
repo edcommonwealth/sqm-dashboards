@@ -9,7 +9,7 @@ class SurveyResponsesDataLoader
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders:, survey_items: all_survey_items, schools:),
+          process_row(row: SurveyItemValues.new(row:, headers: headers_array,  survey_items: all_survey_items, schools:),
                       rules:)
         end
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
@@ -29,7 +29,7 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, genders:, survey_items: all_survey_items, schools:),
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array,  survey_items: all_survey_items, schools:),
                                              rules:)
       end
 
@@ -90,8 +90,8 @@ class SurveyResponsesDataLoader
     end.compact
   end
 
-  def create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:)
-    gender = row.gender
+  def create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:, student:)
+    gender = genders[row.gender]
     grade = row.grade
     income = incomes[row.income.parameterize]
     ell = ells[row.ell]

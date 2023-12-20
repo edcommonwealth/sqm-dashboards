@@ -151,7 +151,7 @@ RSpec.describe Cleaner do
         it "adds the survey type as standard to the filename" do
           survey_items = SurveyItem.where(survey_item_id: standard_survey_items)
 
-          data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: standard_survey_items, genders: nil, survey_items:,
+          data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: standard_survey_items,  survey_items:,
                                        schools: School.school_hash)]
           filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
             headers: standard_survey_items, data:, filepath: nil
@@ -163,7 +163,7 @@ RSpec.describe Cleaner do
           it "adds the survey type as short form to the filename" do
             survey_items = SurveyItem.where(survey_item_id: short_form_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: short_form_survey_items, genders: nil, survey_items:,
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: short_form_survey_items,  survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: short_form_survey_items, data:, filepath: nil
@@ -176,7 +176,7 @@ RSpec.describe Cleaner do
           it "adds the survey type as early education to the filename" do
             survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items,  survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:, filepath: nil
@@ -188,7 +188,7 @@ RSpec.describe Cleaner do
           it "adds the survey type as teacher to the filename" do
             survey_items = SurveyItem.where(survey_item_id: teacher_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: teacher_survey_items, genders: nil, survey_items:,
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: teacher_survey_items,  survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:, filepath: nil
@@ -201,9 +201,9 @@ RSpec.describe Cleaner do
           it "adds all districts to the filename" do
             survey_items = SurveyItem.where(survey_item_id: teacher_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: teacher_survey_items, genders: nil, survey_items:, schools: School.school_hash),
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: teacher_survey_items,  survey_items:, schools: School.school_hash),
                     SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "222_222" },
-                                         headers: teacher_survey_items, genders: nil, survey_items:, schools: School.school_hash)]
+                                         headers: teacher_survey_items,  survey_items:, schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:, filepath: nil
             )
@@ -215,7 +215,7 @@ RSpec.describe Cleaner do
           it "adds the part to the filename" do
             survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items,  survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form a.2022-23.csv"
@@ -227,7 +227,7 @@ RSpec.describe Cleaner do
           it "adds the part to the filename" do
             survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items,  survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form f.2022-23.csv"
@@ -239,7 +239,7 @@ RSpec.describe Cleaner do
           it "adds the part to the filename" do
             survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items,  survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form_f.2022-23.csv"
@@ -251,7 +251,7 @@ RSpec.describe Cleaner do
           it "adds the part to the filename" do
             survey_items = SurveyItem.where(survey_item_id: early_education_survey_items)
 
-            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items, genders: nil, survey_items:,
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: early_education_survey_items,  survey_items:,
                                          schools: School.school_hash)]
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: early_education_survey_items, data:, filepath: "/data/survey_responses/maynard early ed_ form&f.2022-23.csv"

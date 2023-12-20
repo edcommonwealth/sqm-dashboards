@@ -76,7 +76,7 @@ class Cleaner
 
     file.lazy.each_slice(1000) do |lines|
       CSV.parse(lines.join, headers:).map do |row|
-        values = SurveyItemValues.new(row:, headers:, genders:,
+        values = SurveyItemValues.new(row:, headers:,
                                       survey_items: all_survey_items, schools:)
         next unless values.valid_school?
 
