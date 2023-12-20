@@ -1,5 +1,5 @@
 class SurveyItemValues
-  attr_reader :row, :headers,  :survey_items, :schools
+  attr_reader :row, :headers, :survey_items, :schools
 
   def initialize(row:, headers:, survey_items:, schools:)
     @row = row
@@ -17,7 +17,7 @@ class SurveyItemValues
     row["Raw SpEd"] = raw_sped
     row["SpEd"] = sped
     row["Progress Count"] = progress
-    row["Race"] ||= races.map { |race| race&.qualtrics_code }.join(",")
+    row["Race"] ||= races.join(",")
     row["Gender"] ||= gender
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
@@ -139,6 +139,8 @@ class SurveyItemValues
       race_codes ||= sis ||= value_from(pattern: /Race\s*-\s*Qcodes/i)
       race_codes ||= value_from(pattern: /RACE/i) || ""
       race_codes ||= []
+
+      
       race_codes = race_codes.split(",")
                              .map do |word|
                      word.split(/\s+and\s+/i)
@@ -328,27 +330,27 @@ class SurveyItemValues
 
   def process_races(codes:)
     races = codes.map do |code|
-      code = code.to_i
       code = 99 if [6, 7].include?(code) || code.nil? || code.zero?
-      Race.find_by_qualtrics_code(code)
+      code
     end.uniq
+
     races = add_unknown_race_if_other_races_missing(races:)
     races = remove_unknown_race_if_other_races_present(races:)
     add_multiracial_designation(races:)
   end
 
   def remove_unknown_race_if_other_races_present(races:)
-    races.delete(Race.find_by_qualtrics_code(99)) if races.length > 1
+    races.delete(99) if races.length > 1
     races
   end
 
   def add_multiracial_designation(races:)
-    races << Race.find_by_qualtrics_code(100) if races.length > 1
+    races << 100 if races.length > 1
     races
   end
 
   def add_unknown_race_if_other_races_missing(races:)
-    races << Race.find_by_qualtrics_code(99) if races.length == 0
+    races << 99 if races.length == 0
     races
   end
 end

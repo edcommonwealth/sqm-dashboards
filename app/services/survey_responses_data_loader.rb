@@ -9,7 +9,7 @@ class SurveyResponsesDataLoader
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row(row: SurveyItemValues.new(row:, headers: headers_array,  survey_items: all_survey_items, schools:),
+          process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:),
                       rules:)
         end
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
@@ -29,7 +29,7 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array,  survey_items: all_survey_items, schools:),
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:),
                                              rules:)
       end
 
@@ -52,6 +52,10 @@ class SurveyResponsesDataLoader
 
   def genders
     @genders = Gender.by_qualtrics_code
+  end
+
+  def races
+    @races = Race.by_qualtrics_code
   end
 
   def incomes
@@ -78,6 +82,13 @@ class SurveyResponsesDataLoader
   end
 
   def process_survey_items(row:)
+    student = Student.find_or_create_by(response_id: row.response_id, lasid: row.lasid)
+    student.races.delete_all
+    tmp_races = row.races.map do |race| races[race] end
+    tmp_races.each do |race|
+      student.races << race
+    end
+
     row.survey_items.map do |survey_item|
       likert_score = row.likert_score(survey_item_id: survey_item.survey_item_id) || next
 
