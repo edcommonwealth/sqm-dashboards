@@ -354,11 +354,11 @@ def assigns_ell_to_responses
 end
 
 def assigns_races_to_students
-  results = {  #"student_survey_response_1" => [american_indian],
-              # "student_survey_response_3" => [asian, black, latinx, multiracial],
-              # "student_survey_response_4" => [unknown_race],
-              # "student_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
-              # "student_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
+  results = {  "student_survey_response_1" => [american_indian],
+               "student_survey_response_3" => [asian, black, latinx, multiracial],
+               "student_survey_response_4" => [unknown_race],
+               "student_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
+               "student_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
               "student_survey_response_7" => [white] }
 
   results.each do |key, value|
