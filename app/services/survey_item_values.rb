@@ -1,12 +1,11 @@
 class SurveyItemValues
-  attr_reader :row, :headers, :genders, :survey_items, :schools
+  attr_reader :row, :headers,  :survey_items, :schools
 
-  def initialize(row:, headers:, genders:, survey_items:, schools:)
+  def initialize(row:, headers:, survey_items:, schools:)
     @row = row
     # Remove any newlines in headers
     headers = headers.map { |item| item.delete("\n") if item.present? }
     @headers = include_all_headers(headers:)
-    @genders = genders
     @survey_items = survey_items
     @schools = schools
 
@@ -19,7 +18,7 @@ class SurveyItemValues
     row["SpEd"] = sped
     row["Progress Count"] = progress
     row["Race"] ||= races.map { |race| race&.qualtrics_code }.join(",")
-    row["Gender"] ||= gender&.qualtrics_code
+    row["Gender"] ||= gender
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
@@ -121,8 +120,7 @@ class SurveyItemValues
       gender_code ||= value_from(pattern: /Gender-\s*Qcode/i)
       gender_code ||= value_from(pattern: /Gender - do not use/i)
       gender_code ||= value_from(pattern: /Gender/i)
-      gender_code = Gender.qualtrics_code_from(gender_code)
-      genders[gender_code] if genders
+      Gender.qualtrics_code_from(gender_code)
     end
   end
 
