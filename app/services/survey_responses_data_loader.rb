@@ -12,7 +12,7 @@ class SurveyResponsesDataLoader
           process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:),
                       rules:)
         end
-        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500
+        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
       end
     end
   end
@@ -34,14 +34,14 @@ class SurveyResponsesDataLoader
       end
 
       row_count += 1
-      next unless row_count == 1000
+      next unless row_count == 500
 
-      SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
+      SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
       survey_item_responses = []
       row_count = 0
     end
 
-    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 1000
+    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
   end
 
   private
@@ -95,7 +95,7 @@ class SurveyResponsesDataLoader
         next
       end
       response = row.survey_item_response(survey_item:)
-      create_or_update_response(survey_item_response: response, likert_score:, row:, survey_item:)
+      create_or_update_response(survey_item_response: response, likert_score:, row:, survey_item:, student:)
     end.compact
   end
 
@@ -105,13 +105,20 @@ class SurveyResponsesDataLoader
     income = incomes[row.income.parameterize]
     ell = ells[row.ell]
     sped = speds[row.sped]
+
     if survey_item_response.present?
-      survey_item_response.update!(likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:, ell:,
-                                   sped:)
-      []
+      survey_item_response.likert_score = likert_score
+      survey_item_response.grade = grade
+      survey_item_response.gender = gender
+      survey_item_response.recorded_date = row.recorded_date
+      survey_item_response.income = income
+      survey_item_response.ell = ell
+      survey_item_response.sped = sped
+      survey_item_response.student = student
+      survey_item_response
     else
       SurveyItemResponse.new(response_id: row.response_id, academic_year: row.academic_year, school: row.school, survey_item:,
-                             likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:, ell:, sped:)
+                             likert_score:, grade:, gender:, recorded_date: row.recorded_date, income:, ell:, sped:, student:)
     end
   end
 
@@ -133,4 +140,3 @@ module StringMonkeyPatches
 end
 
 String.include StringMonkeyPatches
-

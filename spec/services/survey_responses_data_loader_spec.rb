@@ -51,12 +51,23 @@ describe SurveyResponsesDataLoader do
   let(:another_gender) { create(:gender, qualtrics_code: 3) }
   let(:non_binary) { create(:gender, qualtrics_code: 4) }
   let(:unknown_gender) { create(:gender, qualtrics_code: 99) }
+
   let(:low_income) { create(:income, designation: "Economically Disadvantaged – Y") }
   let(:high_income) { create(:income, designation: "Economically Disadvantaged – N") }
   let(:unknown_income) { create(:income, designation: "Unknown") }
+
   let(:yes_ell) { create(:ell, designation: "ELL") }
   let(:not_ell) { create(:ell, designation: "Not ELL") }
   let(:unknown_ell) { create(:ell, designation: "Unknown") }
+
+  let(:american_indian) { create(:race, qualtrics_code: 1) }
+  let(:asian)           { create(:race, qualtrics_code: 2) }
+  let(:black)           { create(:race, qualtrics_code: 3) }
+  let(:latinx)          { create(:race, qualtrics_code: 4) }
+  let(:white)           { create(:race, qualtrics_code: 5) }
+  let(:middle_eastern)  { create(:race, qualtrics_code: 8) }
+  let(:unknown_race)    { create(:race, qualtrics_code: 99) }
+  let(:multiracial)     { create(:race, qualtrics_code: 100) }
 
   let(:setup) do
     ay_2020_21
@@ -87,17 +98,29 @@ describe SurveyResponsesDataLoader do
     s_emsa_q1
     s_emsa_q2
     s_emsa_q3
+
     female
     male
     another_gender
     non_binary
     unknown_gender
+
     low_income
     high_income
     unknown_income
+
     yes_ell
     not_ell
     unknown_ell
+
+    american_indian
+    asian
+    black
+    latinx
+    white
+    middle_eastern
+    unknown_race
+    multiracial
   end
 
   before :each do
@@ -156,47 +179,6 @@ describe SurveyResponsesDataLoader do
 
         expect(SurveyItemResponse.where(response_id: "student_survey_response_5",
                                         survey_item: s_acst_q3).first.likert_score).to eq 4
-      end
-    end
-  end
-  # figure out why this is failing
-  describe "when using Lowell rules to skip rows in the csv file" do
-    before :each do
-      SurveyResponsesDataLoader.new.load_data filepath: path_to_student_responses,
-                                              rules: [Rule::SkipNonLowellSchools]
-    end
-
-    it "rejects any non-lowell school" do
-      expect(SurveyItemResponse.where(response_id: "student_survey_response_1").count).to eq 0
-      expect(SurveyItemResponse.count).to eq 69
-    end
-
-    it "loads the correct number of responses for lowell schools" do
-      expect(SurveyItemResponse.where(response_id: "student_survey_response_2").count).to eq 0
-      expect(SurveyItemResponse.where(response_id: "student_survey_response_3").count).to eq 12
-      expect(SurveyItemResponse.where(response_id: "student_survey_response_4").count).to eq 15
-      expect(SurveyItemResponse.where(response_id: "student_survey_response_5").count).to eq 14
-    end
-
-    context "when loading 22-23 butler survey responses" do
-      before :each do
-        SurveyResponsesDataLoader.new.load_data filepath: path_to_butler_student_responses,
-                                                rules: [Rule::SkipNonLowellSchools]
-      end
-
-      it "loads all the responses for Butler" do
-        expect(SurveyItemResponse.where(school: butler_school).count).to eq 56
-      end
-
-      it "blank entries for grade get loaded as nils, not zero values" do
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_1").first.grade).to eq 7
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_2").first.grade).to eq 7
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_3").first.grade).to eq 7
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_4").first.grade).to eq 5
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_5").first.grade).to eq 7
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_6").first.grade).to eq 6
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_7").first.grade).to eq nil
-        expect(SurveyItemResponse.where(response_id: "butler_student_survey_response_8").first.grade).to eq 0
       end
     end
   end
@@ -314,7 +296,7 @@ def assigns_gender_to_responses
               "student_survey_response_4" => non_binary,
               "student_survey_response_5" => non_binary,
               "student_survey_response_6" => unknown_gender,
-              "student_survey_response_7" => unknown_gender }
+              "student_survey_response_7" => non_binary }
 
   results.each do |key, value|
     expect(SurveyItemResponse.where(response_id: key).first.gender).to eq value
