@@ -159,6 +159,7 @@ describe SurveyResponsesDataLoader do
       assigns_gender_to_responses
       assigns_income_to_responses
       assigns_ell_to_responses
+      assigns_races_to_students
       is_idempotent_for_students
     end
 
@@ -349,5 +350,20 @@ def assigns_ell_to_responses
   results.each do |key, value|
     ell = SurveyItemResponse.find_by_response_id(key).ell
     expect(ell).to eq value
+  end
+end
+
+def assigns_races_to_students
+  results = {  #"student_survey_response_1" => [american_indian],
+              # "student_survey_response_3" => [asian, black, latinx, multiracial],
+              # "student_survey_response_4" => [unknown_race],
+              # "student_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
+              # "student_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
+              "student_survey_response_7" => [white] }
+
+  results.each do |key, value|
+    race = SurveyItemResponse.find_by_response_id(key).student.races.to_a
+    qualtrics = race.map(&:qualtrics_code)
+    expect(race).to eq value
   end
 end
