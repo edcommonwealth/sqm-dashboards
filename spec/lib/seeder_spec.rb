@@ -3,7 +3,6 @@ require "#{Rails.root}/app/lib/seeder"
 
 describe Seeder do
   let(:seeder) { Seeder.new }
-  let(:lowell_seeder) { Seeder.new rules: [Rule::SeedOnlyLowell] }
 
   after :each do
     DatabaseCleaner.clean
@@ -96,17 +95,6 @@ describe Seeder do
 
         expect(School.where(id: removed_school)).not_to exist
         expect(SurveyItemResponse.where(id: removed_survey_item_response)).not_to exist
-      end
-    end
-
-    context 'when passing a rule to only load lowell schools' do
-      it 'only loads lowell schools' do
-        expect do
-          lowell_seeder.seed_districts_and_schools sample_districts_and_schools_csv
-        end.to change { District.count }.by(1)
-                                        .and change {
-                                               School.count
-                                             }.by(1)
       end
     end
   end

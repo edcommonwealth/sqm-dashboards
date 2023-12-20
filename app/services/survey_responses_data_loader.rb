@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveyResponsesDataLoader
-  def load_data(filepath:, rules: [Rule::NoRule])
+  def load_data(filepath:)
     File.open(filepath) do |file|
       headers = file.first
       headers_array = CSV.parse(headers).first
@@ -9,15 +9,14 @@ class SurveyResponsesDataLoader
 
       file.lazy.each_slice(500) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:),
-                      rules:)
+          process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:))
         end
         SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
       end
     end
   end
 
-  def from_file(file:, rules: [])
+  def from_file(file:)
     headers = file.gets
     headers_array = CSV.parse(headers).first
     all_survey_items = survey_items(headers:)
@@ -29,8 +28,7 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:),
-                                             rules:)
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:))
       end
 
       row_count += 1
@@ -70,13 +68,9 @@ class SurveyResponsesDataLoader
     @speds ||= Sped.by_designation
   end
 
-  def process_row(row:, rules:)
+  def process_row(row:)
     return unless row.dese_id?
     return unless row.school.present?
-
-    rules.each do |rule|
-      return if rule.new(row:).skip_row?
-    end
 
     process_survey_items(row:)
   end
