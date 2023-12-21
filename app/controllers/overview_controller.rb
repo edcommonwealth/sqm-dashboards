@@ -37,6 +37,6 @@ class OverviewController < SqmApplicationController
   end
 
   def categories
-    @categories ||= Category.sorted.includes(%i[measures scales admin_data_items subcategories])
+    @categories ||= Category.sorted.includes(%i[measures admin_data_items subcategories])
   end
 end
