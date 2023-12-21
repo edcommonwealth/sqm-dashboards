@@ -15,10 +15,6 @@ class District < ApplicationRecord
     self.slug ||= name.parameterize
   end
 
-  def self.boston
-    District.find_by_name('Boston')
-  end
-
   def short_name
     name.split(" ").first.downcase
   end
