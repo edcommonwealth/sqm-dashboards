@@ -155,7 +155,7 @@ class SurveyItemValues
         race_codes = race_codes.push(4) if hispanic == "true"
       end
 
-      process_races(codes: race_codes)
+     Race.normalize_race_list(race_codes)
     end
   end
 
@@ -326,31 +326,5 @@ class SurveyItemValues
       main_item = header.gsub("-1", "")
       row[main_item] = likert_score if likert_score.present? && row[main_item].blank?
     end
-  end
-
-  def process_races(codes:)
-    races = codes.map do |code|
-      code = 99 if [6, 7].include?(code) || code.nil? || code.zero?
-      code
-    end.uniq
-
-    races = add_unknown_race_if_other_races_missing(races:)
-    races = remove_unknown_race_if_other_races_present(races:)
-    add_multiracial_designation(races:)
-  end
-
-  def remove_unknown_race_if_other_races_present(races:)
-    races.delete(99) if races.length > 1
-    races
-  end
-
-  def add_multiracial_designation(races:)
-    races << 100 if races.length > 1
-    races
-  end
-
-  def add_unknown_race_if_other_races_missing(races:)
-    races << 99 if races.length == 0
-    races
   end
 end
