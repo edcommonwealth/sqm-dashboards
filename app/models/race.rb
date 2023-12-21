@@ -32,4 +32,18 @@ class Race < ApplicationRecord
       99
     end
   end
+
+def self.normalize_race_list(codes)
+    # if anyone selects not to disclose their race or prefers to self-describe, categorize that as unknown race
+    races = codes.map do |code|
+      code = 99 if [6, 7].include?(code) || code.nil? || code.zero?
+      code
+    end.uniq
+
+    races.delete(99) if races.length > 1 #remove unkown race if other races present
+    races << 100 if races.length > 1 # add multiracial designation if multiple races present
+    races << 99 if races.length == 0 # add unknown race if other races missing
+    races
+  end
+
 end
