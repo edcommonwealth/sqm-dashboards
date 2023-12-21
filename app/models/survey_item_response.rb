@@ -16,8 +16,7 @@ class SurveyItemResponse < ActiveRecord::Base
   has_one :measure, through: :survey_item
 
   scope :exclude_boston, lambda {
-                           boston = District.find_by_name("Boston")
-                           where.not(school: boston.schools) if boston.present?
+    includes(school: :district).where.not("district.name": "Boston")
                          }
 
   scope :averages_for_grade, lambda { |survey_items, school, academic_year, grade|
