@@ -33,7 +33,7 @@ class SurveyItemValues
   # We don't ensure that ids in the form of s-tint-q1 have a matching pair because not all questions have variants
   def include_all_headers(headers:)
     alternates = headers.filter(&:present?)
-                        .filter { |header| header.end_with? "-1" }
+                        .filter { |header| header.match?(/^[st]-\w*-\w*-1$/i) }
     alternates.each do |header|
       main = header.sub(/-1\z/, "")
       headers.push(main) unless headers.include?(main)
@@ -82,13 +82,9 @@ class SurveyItemValues
 
   def dese_id
     @dese_id ||= begin
-      dese_id = nil
-      dese_headers = ["DESE ID", "Dese ID", "DeseId", "DeseID", "School", "school"]
-      school_headers = headers.select { |header| /School-\s\w/.match(header) }
-      dese_headers << school_headers
-      dese_headers.flatten.each do |header|
-        dese_id ||= row[header]
-      end
+      dese_id = value_from(pattern: /Dese\s*ID/i)
+      dese_id ||= value_from(pattern: /^School$/i)
+      dese_id ||= value_from(pattern: /School-\s*\w/i)
 
       dese_id.to_i
     end
@@ -140,7 +136,7 @@ class SurveyItemValues
       race_codes ||= value_from(pattern: /RACE/i) || ""
       race_codes ||= []
 
-      
+
       race_codes = race_codes.split(",")
                              .map do |word|
                      word.split(/\s+and\s+/i)
@@ -168,14 +164,7 @@ class SurveyItemValues
   end
 
   def income
-    @income ||= case raw_income
-                in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income/i
-                  "Economically Disadvantaged - Y"
-                in /Not\s*Eligible/i
-                  "Economically Disadvantaged - N"
-                else
-                  "Unknown"
-                end
+    @income ||= Income.to_designation(raw_income)
   end
 
   def raw_ell
@@ -183,14 +172,7 @@ class SurveyItemValues
   end
 
   def ell
-    @ell ||= case raw_ell
-             in /lep student 1st year|LEP student not 1st year|EL Student First Year/i
-               "ELL"
-             in /Does not apply/i
-               "Not ELL"
-             else
-               "Unknown"
-             end
+    @ell ||= Ell.to_designation(raw_ell)
   end
 
   def raw_sped
@@ -198,14 +180,7 @@ class SurveyItemValues
   end
 
   def sped
-    @sped ||= case raw_sped
-              in /active/i
-                "Special Education"
-              in /^NA$|^#NA$/i
-                "Unknown"
-              else
-                "Not Special Education"
-              end
+    @sped ||= Sped.to_designation(raw_sped)
   end
 
   def value_from(pattern:)
@@ -223,11 +198,14 @@ class SurveyItemValues
     output
   end
 
+  def sanitized_headers
+    @sanitized_headers ||= headers.select(&:present?)
+                                  .reject { |key, _value| key.start_with? "Q" }
+                                  .reject { |key, _value| key.match?(/^[st]-\w*-\w*-1$/i) }
+  end
+
   def to_a
-    headers.select(&:present?)
-           .reject { |key, _value| key.start_with? "Q" }
-           .reject { |key, _value| key.end_with? "-1" }
-           .map { |header| row[header] }
+    sanitized_headers.map { |header| row[header] }
   end
 
   def duration
@@ -247,12 +225,11 @@ class SurveyItemValues
   end
 
   def survey_type
-    survey_item_ids = headers
-                      .filter(&:present?)
-                      .reject { |header| header.end_with?("-1") }
-                      .filter { |header| header.start_with?("t-", "s-") }
+    @survey_type ||= SurveyItem.survey_type(survey_item_ids:)
+  end
 
-    SurveyItem.survey_type(survey_item_ids:)
+  def survey_item_ids
+    @survey_item_ids ||= sanitized_headers.filter { |header| header.start_with?("t-", "s-") }
   end
 
   def valid_duration?
@@ -267,17 +244,14 @@ class SurveyItemValues
   end
 
   def progress
-    headers.filter(&:present?)
-           .reject { |header| header.end_with?("-1") }
-           .filter { |header| header.start_with?("t-", "s-") }
-           .reject { |header| row[header].nil? }.count
+    survey_item_ids.reject { |header| row[header].nil? }.count
   end
 
   def valid_progress?
     return false if progress.nil?
 
     return progress >= 12 if survey_type == :teacher
-    return progress >= 17 if survey_type == :standard
+    return progress >= 11 if survey_type == :standard
     return progress >= 5 if survey_type == :short_form
     return progress >= 5 if survey_type == :early_education
 
