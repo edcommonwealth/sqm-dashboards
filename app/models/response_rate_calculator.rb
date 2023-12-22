@@ -39,7 +39,11 @@ class ResponseRateCalculator
     response_count / survey_item_count.to_f
   end
 
+  def respondents
+    @respondents ||= Respondent.find_by(school:, academic_year:)
+  end
+
   def population_data_unavailable?
-    Respondent.where(school: @school, academic_year: @academic_year).count.zero?
+    @population_data_unavailable ||= respondents.nil?
   end
 end
