@@ -170,18 +170,6 @@ class Measure < ActiveRecord::Base
     @collect_survey_item_average[[survey_items, school, academic_year]]
   end
 
-  def collect_admin_scale_average(admin_data_items:, school:, academic_year:)
-    @collect_admin_scale_average ||= Hash.new do |memo, (admin_data_items, school, academic_year)|
-      memo[[admin_data_items, school, academic_year]] = begin
-        admin_values = AdminDataValue.where(school:, academic_year:, admin_data_item: admin_data_items)
-        admin_values.map do |admin_value|
-          admin_value.likert_score if admin_value.present?
-        end
-      end
-    end
-    @collect_admin_scale_average[[admin_data_items, school, academic_year]]
-  end
-
   def grouped_responses(school:, academic_year:)
     @grouped_responses ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] =
@@ -239,7 +227,7 @@ class Measure < ActiveRecord::Base
 
   def admin_data_averages(school:, academic_year:)
     @admin_data_averages ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] = collect_admin_scale_average(admin_data_items:, school:, academic_year:)
+      memo[[school, academic_year]] = AdminDataValue.where(school:, academic_year:, admin_data_item: admin_data_items).pluck(:likert_score)
     end
     @admin_data_averages[[school, academic_year]]
   end
