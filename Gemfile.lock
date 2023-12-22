@@ -485,13 +485,13 @@ DEPENDENCIES
   nested_scaffold
   net-sftp
   newrelic_rpm
-  nokogiri (>= 1.13.4)
+  nokogiri
   parallel_tests
   pg
-  puma (>= 5.6.4)
+  puma (>= 6.4.0)
   rack-livereload
   rack-mini-profiler
-  rails (~> 7.1.0)
+  rails (~> 7.1.2)
   rails-controller-testing
   rspec-rails (~> 6.0.3)
   rubocop
