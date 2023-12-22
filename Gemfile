@@ -7,13 +7,13 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 7.1.2"
 gem "sprockets-rails"
 
 gem "pg"
 
 # Use Puma as the app server
-gem "puma", ">= 5.6.4"
+gem "puma", ">= 6.4.0"
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", ">= 1.3.0"
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -26,7 +26,7 @@ gem "redis", "~> 3.0"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem "nokogiri", ">= 1.13.4"
+gem "nokogiri"
 
 gem "bootsnap", require: false
 
