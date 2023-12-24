@@ -16,7 +16,7 @@ class SurveyItemResponse < ActiveRecord::Base
   has_one :measure, through: :survey_item
 
   scope :exclude_boston, lambda {
-    includes(school: :district).where.not("district.name": "Boston")
+                           includes(school: :district).where.not("district.name": "Boston")
                          }
 
   scope :averages_for_grade, lambda { |survey_items, school, academic_year, grade|
@@ -49,4 +49,12 @@ class SurveyItemResponse < ActiveRecord::Base
       school:, academic_year:, grade: school.grades(academic_year:)
     ).where("student_races.race_id": race.id).group(:survey_item_id).having("count(*) >= 10").average(:likert_score)
   }
+
+  def self.grouped_responses(school:, academic_year:)
+    @grouped_responses ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] =
+        SurveyItemResponse.where(school:, academic_year:).group(:survey_item_id).average(:likert_score)
+    end
+    @grouped_responses[[school, academic_year]]
+  end
 end
