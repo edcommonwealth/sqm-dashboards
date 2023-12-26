@@ -52,9 +52,9 @@ gem "stimulus-rails"
 
 gem "watir"
 
-gem "net-sftp"
-gem "ed25519"
 gem "bcrypt_pbkdf"
+gem "ed25519"
+gem "net-sftp"
 
 gem "standard_deviation"
 
@@ -75,11 +75,11 @@ group :development do
   gem "erb_lint", require: false
   gem "erblint-github"
   gem "guard"
-  gem "guard-rspec", require: false
   gem "guard-livereload", "~> 2.5", require: false
-  gem "rack-livereload"
+  gem "guard-rspec", require: false
   gem "listen", "~> 3.8.0"
   gem "nested_scaffold"
+  gem "rack-livereload"
   # gem 'reek', require: false
   gem "rubocop", require: false
   gem "seed_dump"
@@ -88,8 +88,8 @@ group :development do
 end
 
 group "test" do
-  gem "cuprite"
   gem "capybara"
+  gem "cuprite"
   gem "database_cleaner"
   gem "launchy"
   gem "rails-controller-testing"
