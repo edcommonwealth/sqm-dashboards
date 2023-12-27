@@ -49,7 +49,7 @@ class StudentResponseRateCalculator < ResponseRateCalculator
         value < threshold
       end
 
-      ssi = @subcategory.survey_items.student_survey_items.map(&:id)
+      ssi = @subcategory.student_survey_items.map(&:id)
       grade_array = Array.new(ssi.length, grade)
 
       memo[grade] = si.slice(*grade_array.zip(ssi))
