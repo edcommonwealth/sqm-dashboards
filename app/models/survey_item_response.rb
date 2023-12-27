@@ -57,4 +57,16 @@ class SurveyItemResponse < ActiveRecord::Base
     end
     @grouped_responses[[school, academic_year]]
   end
+
+  def self.teacher_survey_items_with_sufficient_responses(school:, academic_year:)
+    @teacher_survey_items_with_sufficient_responses ||= Hash.new do |memo, (school, academic_year)|
+      hash = SurveyItem.joins("inner join survey_item_responses on  survey_item_responses.survey_item_id = survey_items.id")
+                       .teacher_survey_items
+                       .where("survey_item_responses.school": school, "survey_item_responses.academic_year": academic_year)
+                       .group("survey_items.id")
+                       .having("count(*) > 0").count
+      memo[[school, academic_year]] = hash
+    end
+    @teacher_survey_items_with_sufficient_responses[[school, academic_year]]
+  end
 end

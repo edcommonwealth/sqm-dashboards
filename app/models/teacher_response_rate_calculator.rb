@@ -10,15 +10,19 @@ class TeacherResponseRateCalculator < ResponseRateCalculator
   end
 
   def survey_items_with_sufficient_responses
-    SurveyItem.joins("inner join survey_item_responses on  survey_item_responses.survey_item_id = survey_items.id")
-              .teacher_survey_items
-              .where("survey_item_responses.school": school, "survey_item_responses.academic_year": academic_year, "survey_item_responses.survey_item_id": @subcategory.survey_items.teacher_survey_items)
-              .group("survey_items.id")
-              .having("count(*) >= 0").count
+    @survey_items_with_sufficient_responses ||= {}.tap do |hash|
+      @subcategory.survey_items.teacher_survey_items.map do |survey_item|
+        si = SurveyItemResponse.teacher_survey_items_with_sufficient_responses(school:, academic_year:)
+        count = si[survey_item.id]
+        next unless count
+
+        hash[survey_item.id] = count
+      end
+    end
   end
 
   def response_count
-    @response_count ||= survey_items_with_sufficient_responses.values.sum
+    @response_count ||= survey_items_with_sufficient_responses&.values&.sum
   end
 
   def total_possible_responses
