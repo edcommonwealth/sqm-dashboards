@@ -81,6 +81,9 @@ group :development do
   gem "nested_scaffold"
   gem "rack-livereload"
   # gem 'reek', require: false
+  gem "dexter"
+  gem "pghero"
+  gem "pg_query", ">= 2"
   gem "rubocop", require: false
   gem "seed_dump"
   gem "solargraph-reek"
