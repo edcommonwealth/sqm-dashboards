@@ -70,13 +70,12 @@ class SurveyItemResponse < ActiveRecord::Base
     @teacher_survey_items_with_sufficient_responses[[school, academic_year]]
   end
 
-  def self.student_survey_items_with_sufficient_responses_by_grade(school:, academic_year:, threshold:)
+  def self.student_survey_items_with_sufficient_responses_by_grade(school:, academic_year:)
     @student_survey_items_with_sufficient_responses_by_grade ||= Hash.new do |memo, (school, academic_year)|
       hash = SurveyItem.joins("inner join survey_item_responses on  survey_item_responses.survey_item_id = survey_items.id")
                        .student_survey_items
                        .where("survey_item_responses.school": school, "survey_item_responses.academic_year": academic_year)
                        .group(:grade, :id)
-                       .having("count(*) >= #{threshold}")
                        .count
       memo[[school, academic_year]] = hash
     end

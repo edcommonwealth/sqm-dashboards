@@ -43,8 +43,12 @@ class StudentResponseRateCalculator < ResponseRateCalculator
       quarter_of_grade = enrollment_by_grade[grade] / 4
       threshold = threshold > quarter_of_grade ? quarter_of_grade : threshold
 
-      si = SurveyItemResponse.student_survey_items_with_sufficient_responses_by_grade(school:, academic_year:,
-                                                                                      threshold:)
+      si = SurveyItemResponse.student_survey_items_with_sufficient_responses_by_grade(school:,
+                                                                                      academic_year:)
+      si = si.reject do |_key, value|
+        value < threshold
+      end
+
       ssi = @subcategory.survey_items.student_survey_items.map(&:id)
       grade_array = Array.new(ssi.length, grade)
 
