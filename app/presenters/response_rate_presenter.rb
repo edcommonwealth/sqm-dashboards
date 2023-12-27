@@ -99,7 +99,7 @@ class ResponseRatePresenter
   end
 
   def respondents
-    Respondent.find_by(school:, academic_year:)
+    @respondents ||= Respondent.by_school_and_year(school:, academic_year:)
   end
 
   def grades
