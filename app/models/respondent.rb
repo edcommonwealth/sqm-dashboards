@@ -16,4 +16,12 @@ class Respondent < ApplicationRecord
       end
     end
   end
+
+  def self.by_school_and_year(school:, academic_year:)
+    @by_school_and_year ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = Respondent.find_by(school:, academic_year:)
+    end
+
+    @by_school_and_year[[school, academic_year]]
+  end
 end

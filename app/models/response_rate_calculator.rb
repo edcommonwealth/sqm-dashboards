@@ -40,7 +40,7 @@ class ResponseRateCalculator
   end
 
   def respondents
-    @respondents ||= Respondent.find_by(school:, academic_year:)
+    @respondents ||= Respondent.by_school_and_year(school:, academic_year:)
   end
 
   def population_data_unavailable?
