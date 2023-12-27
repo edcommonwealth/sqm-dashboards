@@ -109,4 +109,12 @@ class Subcategory < ActiveRecord::Base
     Zones.new(watch_low_benchmark:, growth_low_benchmark:,
               approval_low_benchmark:, ideal_low_benchmark:).zone_for_score(score)
   end
+
+  def student_survey_items
+    @student_survey_items ||= survey_items.student_survey_items
+  end
+
+  def teacher_survey_items
+    @teacher_survey_items ||= survey_items.teacher_survey_items
+  end
 end
