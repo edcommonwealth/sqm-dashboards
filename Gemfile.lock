@@ -137,6 +137,8 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     date (3.3.4)
+    dexter (0.1.0)
+      trollop
     diff-lcs (1.5.0)
     docile (1.4.0)
     dotenv (2.8.1)
@@ -177,6 +179,7 @@ GEM
       activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (3.25.1)
     guard (2.18.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -283,6 +286,10 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
+    pg_query (5.0.0)
+      google-protobuf (>= 3.22.3)
+    pghero (3.4.0)
+      activerecord (>= 6)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -449,6 +456,7 @@ GEM
     tilt (2.3.0)
     timecop (0.9.8)
     timeout (0.4.1)
+    trollop (2.9.10)
     turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -490,6 +498,7 @@ DEPENDENCIES
   cuprite
   database_cleaner
   devise!
+  dexter
   dotenv-rails
   ed25519
   erb_lint
@@ -509,8 +518,11 @@ DEPENDENCIES
   net-sftp
   newrelic_rpm
   nokogiri
+  omniauth
   parallel_tests
   pg
+  pg_query (>= 2)
+  pghero
   puma (>= 6.4.0)
   rack-livereload
   rack-mini-profiler
