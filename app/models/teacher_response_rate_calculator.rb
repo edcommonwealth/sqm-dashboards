@@ -10,15 +10,9 @@ class TeacherResponseRateCalculator < ResponseRateCalculator
   end
 
   def survey_items_with_sufficient_responses
-    @survey_items_with_sufficient_responses ||= {}.tap do |hash|
-      @subcategory.survey_items.teacher_survey_items.map do |survey_item|
-        si = SurveyItemResponse.teacher_survey_items_with_sufficient_responses(school:, academic_year:)
-        count = si[survey_item.id]
-        next unless count
-
-        hash[survey_item.id] = count
-      end
-    end
+    @survey_items_with_sufficient_responses ||= SurveyItemResponse.teacher_survey_items_with_sufficient_responses(
+      school:, academic_year:
+    ).slice(*@subcategory.survey_items.teacher_survey_items.map(&:id))
   end
 
   def response_count
