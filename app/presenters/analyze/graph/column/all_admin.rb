@@ -5,11 +5,11 @@ module Analyze
     module Column
       class AllAdmin < GroupedBarColumnPresenter
         def label
-          %w[All Admin]
+          %w[School Data]
         end
 
         def basis
-          "admin data"
+          "school data"
         end
 
         def show_irrelevancy_message?
