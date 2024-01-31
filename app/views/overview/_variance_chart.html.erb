@@ -2,9 +2,9 @@
 <% not_displayed_presenters = presenters - displayed_presenters %>
 
 <% if displayed_presenters.none? %>
-<p class="caption mb-5">Note: No measures can be displayed due to limited availability of school admin data and/or low survey response rates.</p>
+<p class="caption mb-5">Note: No measures can be displayed due to limited availability of school data and/or low survey response rates.</p>
 <% elsif not_displayed_presenters.present? %>
-<p class="caption mb-5">Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: <%= not_displayed_presenters.map(&:measure_name).join('; ') %>.</p>
+<p class="caption mb-5">Note: The following measures are not displayed due to limited availability of school data and/or low survey response rates: <%= not_displayed_presenters.map(&:measure_name).join('; ') %>.</p>
 <% end %>
 
 <svg width="100%" height=<%= graph_height(displayed_presenters.size) %> xmlns="http://www.w3.org/2000/svg">

@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 include VarianceHelper
 
-describe 'overview/index' do
+describe "overview/index" do
   subject { Nokogiri::HTML(rendered) }
 
   let(:support_for_teaching) do
-    measure = create(:measure, name: 'Support For Teaching Development & Growth', measure_id: '1')
+    measure = create(:measure, name: "Support For Teaching Development & Growth", measure_id: "1")
     scale = create(:scale, measure:)
     create(:student_survey_item,
            scale:,
@@ -17,7 +17,7 @@ describe 'overview/index' do
   end
 
   let(:effective_leadership) do
-    measure = create(:measure, name: 'Effective Leadership', measure_id: '2')
+    measure = create(:measure, name: "Effective Leadership", measure_id: "2")
     scale = create(:scale, measure:)
     create(:teacher_survey_item,
            scale:,
@@ -29,7 +29,7 @@ describe 'overview/index' do
   end
 
   let(:professional_qualifications) do
-    measure = create(:measure, name: 'Professional Qualifications', measure_id: '3')
+    measure = create(:measure, name: "Professional Qualifications", measure_id: "3")
     scale = create(:scale, measure:)
     create(:admin_data_item,
            scale:,
@@ -59,7 +59,7 @@ describe 'overview/index' do
     render
   end
 
-  context 'when some presenters have a nil score' do
+  context "when some presenters have a nil score" do
     let(:variance_chart_row_presenters) do
       [
         VarianceChartRowPresenter.new(measure: support_for_teaching, score: Score.new),
@@ -68,24 +68,24 @@ describe 'overview/index' do
       ]
     end
 
-    it 'displays a note detailing which measures have insufficient responses for the given school & academic year' do
-      expect(rendered).to match %r{Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates: Support For Teaching Development &amp; Growth; Professional Qualifications.}
+    it "displays a note detailing which measures have insufficient responses for the given school & academic year" do
+      expect(rendered).to match %r{Note: The following measures are not displayed due to limited availability of school data and/or low survey response rates: Support For Teaching Development &amp; Growth; Professional Qualifications.}
     end
 
-    it 'displays a variance row and label only those presenters for which the score is not nil' do
-      displayed_variance_rows = subject.css('[data-for-measure-id]')
+    it "displays a variance row and label only those presenters for which the score is not nil" do
+      displayed_variance_rows = subject.css("[data-for-measure-id]")
       expect(displayed_variance_rows.count).to eq 1
-      expect(displayed_variance_rows.first.attribute('data-for-measure-id').value).to eq '2'
+      expect(displayed_variance_rows.first.attribute("data-for-measure-id").value).to eq "2"
 
-      displayed_variance_labels = subject.css('[data-variance-row-label]')
+      displayed_variance_labels = subject.css("[data-variance-row-label]")
       expect(displayed_variance_labels.count).to eq 1
-      expect(displayed_variance_labels.first.inner_text).to include 'Effective Leadership'
+      expect(displayed_variance_labels.first.inner_text).to include "Effective Leadership"
     end
   end
 
-  context 'when all the presenters have a non-nil score' do
+  context "when all the presenters have a non-nil score" do
     let(:variance_chart_row_presenters) do
-      measure = create(:measure, name: 'Display Me', measure_id: 'display-me')
+      measure = create(:measure, name: "Display Me", measure_id: "display-me")
       scale = create(:scale, measure:)
       create(:student_survey_item,
              scale:,
@@ -99,18 +99,18 @@ describe 'overview/index' do
       ]
     end
 
-    it 'does not display a note detailing which measures have insufficient responses for the given school & academic year' do
-      expect(rendered).not_to match %r{Note: The following measures are not displayed due to limited availability of school admin data and/or low survey response rates}
+    it "does not display a note detailing which measures have insufficient responses for the given school & academic year" do
+      expect(rendered).not_to match %r{Note: The following measures are not displayed due to limited availability of school data and/or low survey response rates}
     end
 
-    it 'displays a variance row for each presenter' do
-      displayed_variance_rows = subject.css('[data-for-measure-id]')
+    it "displays a variance row for each presenter" do
+      displayed_variance_rows = subject.css("[data-for-measure-id]")
       expect(displayed_variance_rows.count).to eq 1
-      expect(displayed_variance_rows.first.attribute('data-for-measure-id').value).to eq 'display-me'
+      expect(displayed_variance_rows.first.attribute("data-for-measure-id").value).to eq "display-me"
 
-      displayed_variance_labels = subject.css('[data-variance-row-label]')
+      displayed_variance_labels = subject.css("[data-variance-row-label]")
       expect(displayed_variance_labels.count).to eq 1
-      expect(displayed_variance_labels.first.inner_text).to include 'Display Me'
+      expect(displayed_variance_labels.first.inner_text).to include "Display Me"
     end
   end
 end
