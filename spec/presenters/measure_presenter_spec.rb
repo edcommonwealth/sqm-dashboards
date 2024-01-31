@@ -26,9 +26,9 @@ describe MeasurePresenter do
       survey_item2 = create(:teacher_survey_item, scale: teacher_scale, prompt: "Another teacher survey item prompt")
 
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item1,
-        academic_year:, school:, likert_score: 1)
+                                                                                         academic_year:, school:, likert_score: 1)
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item: survey_item2,
-        academic_year:, school:, likert_score: 5)
+                                                                                         academic_year:, school:, likert_score: 5)
     end
 
     it "creates a gauge presenter that presents the average likert score" do
@@ -61,7 +61,7 @@ describe MeasurePresenter do
 
       second_data_item_presenter = measure_presenter.data_item_presenters[1]
       expect(second_data_item_presenter.id).to eq "admin-data-items-measure-id"
-      expect(second_data_item_presenter.title).to eq "School Data"
+      expect(second_data_item_presenter.title).to eq "School data"
       expect(second_data_item_presenter.data_item_accordion_id).to eq "data-item-accordion-measure-id"
     end
   end
@@ -72,9 +72,9 @@ describe MeasurePresenter do
       student_survey_item = create(:student_survey_item, scale: student_scale)
 
       create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD,
-        survey_item: teacher_survey_item, academic_year:, school:)
+                  survey_item: teacher_survey_item, academic_year:, school:)
       create_list(:survey_item_response, SurveyItemResponse::STUDENT_RESPONSE_THRESHOLD - 1,
-        survey_item: student_survey_item, academic_year:, school:)
+                  survey_item: student_survey_item, academic_year:, school:)
     end
 
     it "tracks which parts of the data are sufficient" do
@@ -104,7 +104,7 @@ describe MeasurePresenter do
         presenter.title == "Student survey"
       end
       admin_data_item_presenter = measure_presenter.data_item_presenters.find do |presenter|
-        presenter.title == "School Data"
+        presenter.title == "School data"
       end
       expect(teacher_data_item_presenter.reason_for_insufficiency).to eq "low response rate"
       expect(student_data_item_presenter.reason_for_insufficiency).to eq "low response rate"
