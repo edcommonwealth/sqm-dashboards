@@ -8,9 +8,9 @@ class Income < ApplicationRecord
 
   def self.to_designation(income)
     case income
-    in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income|Reduced\s*price\s*lunch/i
+    in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income|Reduced\s*price\s*lunch|true/i
       "Economically Disadvantaged - Y"
-    in /Not\s*Eligible/i
+    in /Not\s*Eligible|false/i
       "Economically Disadvantaged - N"
     else
       "Unknown"
