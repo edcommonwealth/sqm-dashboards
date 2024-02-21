@@ -6,12 +6,12 @@ class Ell < ApplicationRecord
   friendly_id :designation, use: [:slugged]
   def self.to_designation(ell)
     case ell
-    in /lep student 1st year|LEP student not 1st year|EL Student First Year|LEP\s*student/i
+    in /lep student 1st year|LEP student not 1st year|EL Student First Year|LEP\s*student|true/i
       "ELL"
-    in /Does not apply/i
-      "Not ELL"
-    else
+    in /^NA$|^#NA$/i
       "Unknown"
+    else
+      "Not ELL"
     end
   end
 end
