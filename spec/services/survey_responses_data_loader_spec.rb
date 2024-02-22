@@ -341,11 +341,11 @@ end
 
 def assigns_ell_to_responses
   results = { "student_survey_response_1" => not_ell,
-              "student_survey_response_3" => unknown_ell,
+              "student_survey_response_3" => not_ell,
               "student_survey_response_4" => yes_ell,
               "student_survey_response_5" => yes_ell,
-              "student_survey_response_6" => unknown_ell,
-              "student_survey_response_7" => unknown_ell }
+              "student_survey_response_6" => not_ell,
+              "student_survey_response_7" => not_ell }
 
   results.each do |key, value|
     ell = SurveyItemResponse.find_by_response_id(key).ell
@@ -357,9 +357,11 @@ def assigns_races_to_students
   results = {  "student_survey_response_1" => [american_indian],
                "student_survey_response_3" => [asian, black, latinx, multiracial],
                "student_survey_response_4" => [unknown_race],
-               "student_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
-               "student_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern, multiracial],
-              "student_survey_response_7" => [white] }
+               "student_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern,
+                                               multiracial],
+               "student_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern,
+                                               multiracial],
+               "student_survey_response_7" => [white] }
 
   results.each do |key, value|
     race = SurveyItemResponse.find_by_response_id(key).student.races.to_a

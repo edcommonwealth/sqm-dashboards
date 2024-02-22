@@ -105,12 +105,12 @@ RSpec.describe SurveyItemValues, type: :model do
   context ".recorded_date" do
     it "returns the recorded date" do
       row = { "RecordedDate" => "2017-01-01" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.recorded_date).to eq Date.parse("2017-01-01")
 
       headers = ["Recorded Date"]
       row = { "Recorded Date" => "2017-01-02" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.recorded_date).to eq Date.parse("2017-01-02")
     end
   end
@@ -120,11 +120,11 @@ RSpec.describe SurveyItemValues, type: :model do
       attleboro
       headers = ["DeseID"]
       row = { "DeseID" => "1234" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.school).to eq attleboro
 
       row = { "DeseID" => "1234" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.school).to eq attleboro
     end
   end
@@ -132,7 +132,7 @@ RSpec.describe SurveyItemValues, type: :model do
   context ".grade" do
     it "returns the grade that maps to the grade provided" do
       row = { "Grade" => "1" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.grade).to eq 1
     end
   end
@@ -141,15 +141,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the gender is female" do
       it "returns the gender that maps to the gender provided" do
         row = { "Gender" => "1" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 1
 
         row = { "Gender" => "Female" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 1
 
         row = { "Gender" => "F" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 1
       end
     end
@@ -157,15 +157,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the gender is male" do
       it "returns the gender that maps to the gender provided" do
         row = { "Gender" => "2" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 2
 
         row = { "Gender" => "Male" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 2
 
         row = { "Gender" => "M" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 2
       end
     end
@@ -173,15 +173,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the gender is non-binary" do
       it "returns the gender that maps to the gender provided" do
         row = { "Gender" => "4" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 4
 
         row = { "Gender" => "N - Non-Binary" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 4
 
         row = { "Gender" => "N" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 4
       end
     end
@@ -189,27 +189,27 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the gender is not known" do
       it "returns the gender that maps to the gender provided" do
         row = { "Gender" => "N/A" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 99
 
         row = { "Gender" => "NA" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 99
 
         row = { "Gender" => "#N/A" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 99
 
         row = { "Gender" => "#NA" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 99
 
         row = { "Gender" => "Prefer not to disclose" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 99
 
         row = { "Gender" => "" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.gender).to eq 99
       end
     end
@@ -223,15 +223,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is Native American" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "1" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1]
 
         row = { "Race" => "Native American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1]
 
         row = { "Race" => "American Indian or Alaskan Native" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1]
       end
     end
@@ -239,19 +239,19 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is Asian" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "2" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [2]
 
         row = { "Race" => "Asian" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [2]
 
         row = { "Race" => "Pacific Islander" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [2]
 
         row = { "Race" => "Pacific Island or Hawaiian Native" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [2]
       end
     end
@@ -259,15 +259,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is Black" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "3" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [3]
 
         row = { "Race" => "Black" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [3]
 
         row = { "Race" => "African American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [3]
       end
     end
@@ -275,15 +275,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is Hispanic" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "4" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [4]
 
         row = { "Race" => "Hispanic" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [4]
 
         row = { "Race" => "Latinx" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [4]
       end
     end
@@ -291,15 +291,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is White" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "5" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [5]
 
         row = { "Race" => "White" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [5]
 
         row = { "Race" => "Caucasian" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [5]
       end
     end
@@ -307,11 +307,11 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is not disclosed" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "6" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
 
         row = { "Race" => "Prefer not to disclose" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
       end
     end
@@ -319,11 +319,11 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is not disclosed" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "6" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
 
         row = { "Race" => "Prefer not to disclose" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
       end
     end
@@ -331,11 +331,11 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is self described" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "7" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
 
         row = { "Race" => "Prefer to self-describe" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
       end
     end
@@ -343,15 +343,15 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is Middle Eastern" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "8" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [8]
 
         row = { "Race" => "Middle Eastern" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [8]
 
         row = { "Race" => "North African" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [8]
       end
     end
@@ -359,23 +359,23 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the race is unknown" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "NA" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
 
         row = { "Race" => "#N/A" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
 
         row = { "Race" => "n/a" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
 
         row = { "Race" => "#na" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
 
         row = { "Race" => "" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [99]
       end
     end
@@ -383,42 +383,42 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when there are multiple races" do
       it "returns the gender that maps to the gender provided" do
         row = { "Race" => "1,2,3" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1, 2, 3, 100]
 
         row = { "Race" => "Alaskan Native, Pacific Islander, Black" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1, 2, 3, 100]
 
         row = { "Race" => "American Indian or Alaskan Native, Asian, African American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1, 2, 3, 100]
         row = { "Race" => "n/a" }
 
         row = { "Race" => "American Indian or Alaskan Native, Asian and African American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1, 2, 3, 100]
 
         row = { "Race" => "American Indian or Alaskan Native and Asian and African American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1, 2, 3, 100]
 
         row = { "Race" => "American Indian or Alaskan Native and Asian, and African American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [1, 2, 3, 100]
 
         row = { "Race" => "Asian, Caucasian and African American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [2, 5, 3, 100]
 
         row = { "Race" => "Caucasian and Asian and African American" }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [5, 2, 3, 100]
 
         row = { "Race- SIS" => "Caucasian and Asian and African American", "HispanicLatino" => "true" }
         headers.push("HispanicLatino")
         headers.push("Race- SIS")
-        values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
         expect(values.races).to eq [5, 2, 3, 4, 100]
       end
     end
@@ -427,11 +427,11 @@ RSpec.describe SurveyItemValues, type: :model do
   context ".respondent_type" do
     it "reads header to find the survey type" do
       headers = %w[s-sbel-q5 s-phys-q2 RecordedDate]
-      values = SurveyItemValues.new(row: {}, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:)
       expect(values.respondent_type).to eq :student
 
       headers = %w[t-sbel-q5 t-phys-q2]
-      values = SurveyItemValues.new(row: {}, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:)
       expect(values.respondent_type).to eq :teacher
     end
   end
@@ -440,14 +440,14 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when survey type is standard form" do
       it "returns the survey type" do
         headers = standard_survey_items
-        values = SurveyItemValues.new(row: {}, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:)
         expect(values.survey_type).to eq :standard
       end
     end
     context "when survey type is teacher form" do
       it "returns the survey type" do
         headers = teacher_survey_items
-        values = SurveyItemValues.new(row: {}, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:)
         expect(values.survey_type).to eq :teacher
       end
     end
@@ -455,7 +455,7 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when survey type is short form" do
       it "returns the survey type" do
         headers = short_form_survey_items
-        values = SurveyItemValues.new(row: {}, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:)
         expect(values.survey_type).to eq :short_form
       end
     end
@@ -463,7 +463,7 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when survey type is early education" do
       it "returns the survey type" do
         headers = early_education_survey_items
-        values = SurveyItemValues.new(row: {}, headers:,  survey_items:, schools:)
+        values = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:)
         expect(values.survey_type).to eq :early_education
       end
     end
@@ -478,14 +478,14 @@ RSpec.describe SurveyItemValues, type: :model do
     it "translates Free Lunch to Economically Disadvantaged - Y" do
       headers = ["LowIncome"]
       row = { "LowIncome" => "Free Lunch" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.income).to eq "Economically Disadvantaged - Y"
     end
 
     it "translates Reduced Lunch to Economically Disadvantaged - Y" do
       headers = ["LowIncome"]
       row = { "LowIncome" => "Reduced Lunch" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.income).to eq "Economically Disadvantaged - Y"
     end
 
@@ -493,14 +493,14 @@ RSpec.describe SurveyItemValues, type: :model do
       headers = ["LowIncome"]
       row = { "LowIncome" => "LowIncome" }
 
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.income).to eq "Economically Disadvantaged - Y"
     end
 
     it "translates Not Eligible to Economically Disadvantaged - N" do
       headers = ["LowIncome"]
       row = { "LowIncome" => "Not Eligible" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.income).to eq "Economically Disadvantaged - N"
     end
 
@@ -508,7 +508,7 @@ RSpec.describe SurveyItemValues, type: :model do
       headers = ["LowIncome"]
       row = { "LowIncome" => "" }
 
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.income).to eq "Unknown"
     end
   end
@@ -522,38 +522,38 @@ RSpec.describe SurveyItemValues, type: :model do
     it 'translates "LEP Student 1st Year" or "LEP Student Not 1st Year" into ELL' do
       headers = ["Raw ELL"]
       row = { "Raw ELL" => "LEP Student 1st Year" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "ELL"
 
       row = { "Raw ELL" => "LEP Student Not 1st Year" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "ELL"
 
       row = { "Raw ELL" => "LEP Student Not 1st Year" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "ELL"
     end
 
     it 'translates "Does not Apply" into "Not ELL"' do
       headers = ["Raw ELL"]
       row = { "Raw ELL" => "Does not apply" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "Not ELL"
 
       row = { "Raw ELL" => "Does Not APPLY" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "Not ELL"
     end
 
-    it 'tranlsates blanks into "Unknown"' do
+    it 'tranlsates blanks into "Not Ell"' do
       headers = ["Raw ELL"]
       row = { "Raw ELL" => "" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
-      expect(values.ell).to eq "Unknown"
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "Not ELL"
 
       row = { "Raw ELL" => "Anything else" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
-      expect(values.ell).to eq "Unknown"
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "Not ELL"
     end
   end
 
@@ -566,31 +566,32 @@ RSpec.describe SurveyItemValues, type: :model do
     it 'translates "active" into "Special Education"' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "active" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.sped).to eq "Special Education"
     end
 
     it 'translates "exited" into "Not Special Education"' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "exited" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.sped).to eq "Not Special Education"
     end
+
     it 'translates blanks into "Not Special Education' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.sped).to eq "Not Special Education"
     end
 
     it 'tranlsates NA into "Not Special Education"' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "NA" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.sped).to eq "Not Special Education"
 
       row = { "Raw SpEd" => "#NA" }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.sped).to eq "Not Special Education"
     end
   end
@@ -599,33 +600,33 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when duration is valid" do
       it "returns true" do
         headers = standard_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "240", "Gender" => "Male" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "240", "Gender" => "Male" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
 
         headers = teacher_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "300" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "300" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
 
         headers = short_form_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "100" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "100" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
 
         # When duration is blank or N/A or NA, we don't have enough information to kick out the row as invalid so we keep it in
         headers = short_form_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
 
         headers = short_form_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "N/A" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "N/A" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
 
         headers = short_form_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "NA" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "NA" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq true
       end
@@ -634,16 +635,16 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when duration is invalid" do
       it "returns false" do
         headers = standard_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "239" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "239" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq false
 
         headers = teacher_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "299" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "299" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq false
         headers = short_form_survey_items
-        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "99" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "Duration (in seconds)" => "99" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_duration?).to eq false
       end
@@ -656,7 +657,7 @@ RSpec.describe SurveyItemValues, type: :model do
       row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
               "s-peff-q5" => 1, "s-peff-q6" => 1, "s-phys-q1" => 1, "s-phys-q2" => 1,
               "s-phys-q3" => 1, "s-phys-q4" => 1 }
-      values = SurveyItemValues.new(row:, headers:,  survey_items:, schools:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.progress).to eq 10
     end
   end
@@ -670,7 +671,7 @@ RSpec.describe SurveyItemValues, type: :model do
                 "s-phys-q3" => 1, "s-phys-q4" => 1, "s-emsa-q1" => 1, "s-emsa-q2" => 1,
                 "s-emsa-q3" => 1, "s-sbel-q1" => 1, "s-sbel-q2" => 1, "s-sbel-q3" => 1,
                 "s-sbel-q4" => 1 }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 17
         expect(values.valid_progress?).to eq true
@@ -685,7 +686,7 @@ RSpec.describe SurveyItemValues, type: :model do
           "t-coll-q3" => 1, "t-qupd-q1" => 1, "t-qupd-q2" => 1, "t-qupd-q3" => 1,
           "t-psup-q3" => 1, "t-psup-q4" => 1, "t-acch-q1" => 1, "t-acch-q2" => 1
         }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 12
         expect(values.valid_progress?).to eq true
@@ -695,7 +696,7 @@ RSpec.describe SurveyItemValues, type: :model do
         headers = short_form_survey_items
         row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
                 "s-sbel-q4" => 1 }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 5
         expect(values.valid_progress?).to eq true
@@ -705,7 +706,7 @@ RSpec.describe SurveyItemValues, type: :model do
         headers = early_education_survey_items
         row = { "s-peff-es1" => 1, "s-peff-es2" => 1, "s-peff-es3" => 1, "s-peff-es4" => 1,
                 "s-peff-es5" => 1 }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 5
         expect(values.valid_progress?).to eq true
@@ -718,7 +719,7 @@ RSpec.describe SurveyItemValues, type: :model do
         row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1,
                 "s-peff-q5" => 1, "s-peff-q6" => 1, "s-phys-q1" => 1, "s-phys-q2" => 1,
                 "s-emsa-q3" => 1, "s-sbel-q1" => 1 }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 10
         expect(values.valid_progress?).to eq false
@@ -733,7 +734,7 @@ RSpec.describe SurveyItemValues, type: :model do
           "t-coll-q3" => 1, "t-qupd-q1" => 1, "t-qupd-q2" => 1, "t-qupd-q3" => 1,
           "t-psup-q3" => 1, "t-psup-q4" => 1, "t-acch-q1" => 1
         }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 11
         expect(values.valid_progress?).to eq false
@@ -742,7 +743,7 @@ RSpec.describe SurveyItemValues, type: :model do
       it "when there are fewer than 5 short form survey items valid_progress returns true" do
         headers = short_form_survey_items
         row = { "s-peff-q1" => 1, "s-peff-q2" => 1, "s-peff-q3" => 1, "s-peff-q4" => 1 }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 4
         expect(values.valid_progress?).to eq false
@@ -751,7 +752,7 @@ RSpec.describe SurveyItemValues, type: :model do
       it "when there are fewer than 5 early education survey items valid_progress returns true" do
         headers = early_education_survey_items
         row = { "s-peff-es1" => 1, "s-peff-es2" => 1, "s-peff-es3" => 1, "s-peff-es4" => 1 }
-        values = SurveyItemValues.new(row:, headers:,  survey_items:,
+        values = SurveyItemValues.new(row:, headers:, survey_items:,
                                       schools:)
         expect(values.progress).to eq 4
         expect(values.valid_progress?).to eq false
@@ -767,14 +768,14 @@ RSpec.describe SurveyItemValues, type: :model do
       end
       it "returns true for students" do
         headers = %w[s-sbel-q5 s-phys-q2 grade RecordedDate DeseID]
-        values = SurveyItemValues.new(row: { "grade" => "9", "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "grade" => "9", "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
                                       schools:)
 
         expect(values.valid_grade?).to eq true
       end
       it "returns true for teachers" do
         headers = %w[t-sbel-q5 t-phys-q2 grade RecordedDate DeseID]
-        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
                                       schools:)
         expect(values.valid_grade?).to eq true
       end
@@ -787,7 +788,7 @@ RSpec.describe SurveyItemValues, type: :model do
       end
       it "returns false" do
         headers = %w[s-sbel-q5 s-phys-q2 grade RecordedDate DeseID]
-        values = SurveyItemValues.new(row: { "grade" => "2", "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "grade" => "2", "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_grade?).to eq false
       end
@@ -798,13 +799,13 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the standard deviation is valid" do
       it "returns true for student questions" do
         headers = %w[s-sbel-q5 s-phys-q1 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "s-sbel-q5" => "1", "s-phys-q1" => "", "s-phys-q2" => "5" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "s-sbel-q5" => "1", "s-phys-q1" => "", "s-phys-q2" => "5" }, headers:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_sd?).to eq true
       end
       it "returns true for teacher questions" do
         headers = %w[t-sbel-q5 t-phys-q2]
-        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "t-sbel-q5" => "1", "t-phys-q2" => "5" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "t-sbel-q5" => "1", "t-phys-q2" => "5" }, headers:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_sd?).to eq true
       end
@@ -813,13 +814,13 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when the standard deviation is invalid" do
       it "returns false for student questions" do
         headers = %w[s-sbel-q5 s-phys-q1 s-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "s-sbel-q5" => "1", "s-phys-q2" => "1" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "s-sbel-q5" => "1", "s-phys-q2" => "1" }, headers:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_sd?).to eq false
       end
       it "returns false for teacher questions" do
         headers = %w[t-sbel-q5 t-phys-q1 t-phys-q2 RecordedDate]
-        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "t-sbel-q5" => "1", "t-phys-q2" => "1" }, headers:,  survey_items:,
+        values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "t-sbel-q5" => "1", "t-phys-q2" => "1" }, headers:, survey_items:,
                                       schools: School.school_hash)
         expect(values.valid_sd?).to eq false
       end
