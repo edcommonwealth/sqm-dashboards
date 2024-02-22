@@ -40,7 +40,7 @@ class Cleaner
       row.school.name
     end.to_set
 
-    part = filepath&.match(/[\b\s_.]+(part|form)[\W*_](?<label>[\w\d])/i)&.named_captures&.[]("label")&.upcase
+    part = filepath&.match(/[\b\s_.]+(part)[\W*_](?<label>[\w\d])/i)&.named_captures&.[]("label")&.upcase
 
     school_name = schools.first.parameterize
 
