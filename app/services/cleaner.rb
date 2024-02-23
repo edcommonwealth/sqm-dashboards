@@ -44,7 +44,7 @@ class Cleaner
 
     school_name = schools.first.parameterize
 
-    output << districts.join(".")
+    output << districts.sort.join(".")
     output << school_name if schools.length == 1
     output << survey_type.to_s
     output << "Part-" + part unless part.nil?
