@@ -144,6 +144,8 @@ Or if you want to load data from a specific directory
 ```bash
 # locally
 SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
+# You can also swap the order of the commands and environment variables
+bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/data/survey_responses/2022_23
 
 # on heroku staging environment
 heroku run:detached -a mciea-beta SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
