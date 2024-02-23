@@ -48,7 +48,13 @@ class SurveyItemValues
   def recorded_date
     @recorded_date ||= begin
       recorded_date = value_from(pattern: /Recorded\s*Date/i)
-      Date.parse(recorded_date)
+      puts recorded_date
+      date = nil
+      begin
+        date = Date.parse(recorded_date)
+      rescue StandardError => e
+        date = Date.strptime(recorded_date, "%m/%d/%Y")
+      end
     end
   end
 
@@ -136,7 +142,6 @@ class SurveyItemValues
       race_codes ||= value_from(pattern: /RACE/i) || ""
       race_codes ||= []
 
-      
       race_codes = race_codes.split(",")
                              .map do |word|
                      word.split(/\s+and\s+/i)
@@ -151,7 +156,7 @@ class SurveyItemValues
         race_codes = race_codes.push(4) if hispanic == "true"
       end
 
-     Race.normalize_race_list(race_codes)
+      Race.normalize_race_list(race_codes)
     end
   end
 
