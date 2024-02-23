@@ -207,7 +207,7 @@ RSpec.describe Cleaner do
             filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
               headers: teacher_survey_items, data:, filepath: nil
             )
-            expect(filename).to eq "maynard.district2.teacher.2022-23.csv"
+            expect(filename).to eq "district2.maynard.teacher.2022-23.csv"
           end
         end
 
