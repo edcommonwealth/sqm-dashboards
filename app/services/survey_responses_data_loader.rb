@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 class SurveyResponsesDataLoader
+  BATCH_SIZE = 200
   def load_data(filepath:)
     File.open(filepath) do |file|
       headers = file.first
       headers_array = CSV.parse(headers).first
       all_survey_items = survey_items(headers:)
 
-      file.lazy.each_slice(500) do |lines|
+      file.lazy.each_slice(BATCH_SIZE) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
           process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:))
         end
-        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
+        SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: BATCH_SIZE,
+                                                                         on_duplicate_key_update: :all
       end
     end
   end
@@ -28,18 +30,21 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:))
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array,
+                                                                       survey_items: all_survey_items, schools:))
       end
 
       row_count += 1
-      next unless row_count == 500
+      next unless row_count == BATCH_SIZE
 
-      SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
+      SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: BATCH_SIZE,
+                                                                       on_duplicate_key_update: :all
       survey_item_responses = []
       row_count = 0
     end
 
-    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: 500, on_duplicate_key_update: :all
+    SurveyItemResponse.import survey_item_responses.compact.flatten, batch_size: BATCH_SIZE,
+                                                                     on_duplicate_key_update: :all
   end
 
   private
@@ -78,7 +83,7 @@ class SurveyResponsesDataLoader
   def process_survey_items(row:)
     student = Student.find_or_create_by(response_id: row.response_id, lasid: row.lasid)
     student.races.delete_all
-    tmp_races = row.races.map do |race| races[race] end
+    tmp_races = row.races.map { |race| races[race] }
     student.races += tmp_races
 
     row.survey_items.map do |survey_item|
