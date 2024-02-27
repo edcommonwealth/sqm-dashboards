@@ -48,13 +48,11 @@ class SurveyItemValues
   def recorded_date
     @recorded_date ||= begin
       recorded_date = value_from(pattern: /Recorded\s*Date/i)
-      puts recorded_date
-      date = nil
-      begin
-        date = Date.parse(recorded_date)
-      rescue StandardError => e
-        date = Date.strptime(recorded_date, "%m/%d/%Y")
-      end
+      date = if recorded_date.include?("T")
+               Date.parse(recorded_date)
+             else
+               Date.strptime(recorded_date, "%m/%d/%Y")
+             end
     end
   end
 

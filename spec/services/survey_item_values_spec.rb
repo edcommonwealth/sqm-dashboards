@@ -36,7 +36,7 @@ RSpec.describe SurveyItemValues, type: :model do
     create(:respondent, school: attleboro, academic_year: ay_2022_23, nine: 40, ten: 40, eleven: 40, twelve: 40)
   end
   let(:schools) { School.school_hash }
-  let(:recorded_date) { "2023-04-01" }
+  let(:recorded_date) { "2023-04-01T12:12:12" }
   let(:ay_2022_23) do
     create(:academic_year, range: "2022-23")
   end
@@ -104,14 +104,14 @@ RSpec.describe SurveyItemValues, type: :model do
 
   context ".recorded_date" do
     it "returns the recorded date" do
-      row = { "RecordedDate" => "2017-01-01" }
+      row = { "RecordedDate" => "2017-01-01T12:12:121" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
-      expect(values.recorded_date).to eq Date.parse("2017-01-01")
+      expect(values.recorded_date).to eq Date.parse("2017-01-01T12:12:12")
 
       headers = ["Recorded Date"]
-      row = { "Recorded Date" => "2017-01-02" }
+      row = { "Recorded Date" => "2017-01-02T12:12:122" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
-      expect(values.recorded_date).to eq Date.parse("2017-01-02")
+      expect(values.recorded_date).to eq Date.parse("2017-01-02T12:12:12")
     end
   end
 
@@ -824,6 +824,29 @@ RSpec.describe SurveyItemValues, type: :model do
                                       schools: School.school_hash)
         expect(values.valid_sd?).to eq false
       end
+    end
+  end
+
+  context ".academic_year" do
+    before do
+      create(:academic_year, range: "2020-21")
+      create(:academic_year, range: "2021-22")
+    end
+
+    it "parses the date correctly when the date is in standard date format for google sheets" do
+      recorded_date = "1/10/2022 14:21:45"
+      values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
+                                    schools:)
+      ay_21_22 = AcademicYear.find_by_range "2021-22"
+      expect(values.academic_year).to eq ay_21_22
+    end
+
+    it "parses the date correctly when the date is in iso standard 8601" do
+      recorded_date = "2022-1-10T14:21:45"
+      values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
+                                    schools:)
+      ay_21_22 = AcademicYear.find_by_range "2021-22"
+      expect(values.academic_year).to eq ay_21_22
     end
   end
 end

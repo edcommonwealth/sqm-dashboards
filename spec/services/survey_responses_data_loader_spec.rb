@@ -316,10 +316,10 @@ def assigns_recorded_date_to_student_responses
 end
 
 def assigns_recorded_date_to_teacher_responses
-  results = { "teacher_survey_response_1" => "2020-10-16 11:09:03",
-              "teacher_survey_response_3" => "2020-12-06 8:36:52",
-              "teacher_survey_response_4" => "2020-12-06 8:51:25",
-              "teacher_survey_response_5" => "2020-12-06 8:55:58" }
+  results = { "teacher_survey_response_1" => "2020-10-16T11:09:03",
+              "teacher_survey_response_3" => "2020-12-06T8:36:52",
+              "teacher_survey_response_4" => "2020-12-06T8:51:25",
+              "teacher_survey_response_5" => "2020-12-06T8:55:58" }
   results.each do |key, value|
     expect(SurveyItemResponse.find_by_response_id(key).recorded_date).to eq Date.parse(value)
   end

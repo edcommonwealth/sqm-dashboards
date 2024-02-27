@@ -14,7 +14,8 @@ RSpec.describe Cleaner do
     create(:respondent, school: second_school, academic_year:, one: 0, four: 40, five: 40, six: 40, seven: 40,
                         eight: 40)
   end
-  let(:recorded_date) { "2023-04-01" }
+  let(:recorded_date) { "4/1/2023" }
+
   let(:input_filepath) do
     Rails.root.join("spec", "fixtures", "raw")
   end
