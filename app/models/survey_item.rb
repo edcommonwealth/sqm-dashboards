@@ -66,7 +66,7 @@ class SurveyItem < ActiveRecord::Base
   end
 
   def self.survey_type(survey_item_ids:)
-    survey_item_ids = survey_item_ids.reject { |id| id.ends_with?('-1') }.to_set
+    survey_item_ids = survey_item_ids.reject { |id| id.ends_with?("-1") }.to_set
     return :short_form if survey_item_ids.subset? short_form_survey_items.map(&:survey_item_id).to_set
     return :early_education if survey_item_ids.subset? early_education_survey_items.map(&:survey_item_id).to_set
     return :teacher if survey_item_ids.subset? teacher_survey_items.map(&:survey_item_id).to_set
