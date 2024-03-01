@@ -833,7 +833,7 @@ RSpec.describe SurveyItemValues, type: :model do
       create(:academic_year, range: "2021-22")
     end
 
-    it "parses the date correctly when the date is in standard date format for google sheets" do
+    it "parses the date correctly when the date is in standard date format for google sheets: 'MM/DD/YYYY HH:MM:SS'" do
       recorded_date = "1/10/2022 14:21:45"
       values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
                                     schools:)
@@ -841,8 +841,16 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.academic_year).to eq ay_21_22
     end
 
-    it "parses the date correctly when the date is in iso standard 8601" do
+    it "parses the date correctly when the date is in iso standard 8601 'YYYY-MM-DDTHH:MM:SS'" do
       recorded_date = "2022-1-10T14:21:45"
+      values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
+                                    schools:)
+      ay_21_22 = AcademicYear.find_by_range "2021-22"
+      expect(values.academic_year).to eq ay_21_22
+    end
+
+    it "parses the date correctly when the date is in the format of: 'YYYY-MM-DD HH:MM:SS'" do
+      recorded_date = "2022-01-10 14:21:45"
       values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
                                     schools:)
       ay_21_22 = AcademicYear.find_by_range "2021-22"
