@@ -132,6 +132,27 @@ class Measure < ActiveRecord::Base
     averages.average
   end
 
+  def zone(school:, academic_year:)
+    zone_for_score(score: score(school:, academic_year:))
+  end
+
+  def student_zone(school:, academic_year:)
+    zone_for_score(score: student_score(school:, academic_year:))
+  end
+
+  def teacher_zone(school:, academic_year:)
+    zone_for_score(score: teacher_score(school:, academic_year:))
+  end
+
+  def admin_zone(school:, academic_year:)
+    zone_for_score(score: admin_score(school:, academic_year:))
+  end
+
+  def zone_for_score(score:)
+    Zones.new(watch_low_benchmark:, growth_low_benchmark:,
+              approval_low_benchmark:, ideal_low_benchmark:).zone_for_score(score.average)
+  end
+
   private
 
   def any_admin_data_collected?(school:, academic_year:)
