@@ -34,6 +34,7 @@ module Analyze
       end
 
       CFR = {
+        -1 => PK,
         0 => Zero,
         1 => One,
         2 => Two,
@@ -51,3 +52,4 @@ module Analyze
     end
   end
 end
+
