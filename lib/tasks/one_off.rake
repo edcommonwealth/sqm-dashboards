@@ -40,4 +40,13 @@ namespace :one_off do
     school.dese_id = 310_001_7
     school.save
   end
+
+  desc "delete measures we don't want to show"
+  task delete_library_measure: :environment do
+    measure = Measure.find_by_measure_id("3B-iv")
+    # measure.scales.each { |scale| scale.survey_items.delete_all }
+    measure.scales.each { |scale| scale.survey_items.each { |survey_item| survey_item.delete } }
+    measure.scales.each { |scale| scale.delete }
+    measure.delete
+  end
 end
