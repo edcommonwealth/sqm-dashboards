@@ -95,7 +95,7 @@ class Seeder
         survey_item.approval_low_benchmark = approval_low if approval_low
         survey_item.ideal_low_benchmark = ideal_low if ideal_low
         survey_item.on_short_form = marked? on_short_form
-        survey_item.update! prompt: row["Question/item (22-23)"].strip
+        survey_item.update! prompt: row["Question/item (23-24)"].strip
       end
 
       active_admin = row["Active admin & survey items"]
