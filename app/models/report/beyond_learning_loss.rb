@@ -20,7 +20,14 @@ module Report
                 response_rate = scale.measure.subcategory.response_rate(school:, academic_year:)
                 next unless response_rate.meets_student_threshold? || response_rate.meets_teacher_threshold?
 
-                score = scale.score(school:, academic_year:)
+                score = if scale.scale_id.starts_with?("a-")
+                          AdminDataValue.where(admin_data_item: scale.admin_data_items, school:,
+                                               academic_year:).map do |item|
+                            item.likert_score
+                          end.average
+                        else
+                          scale.score(school:, academic_year:)
+                        end
 
                 begin_date = SurveyItemResponse.where(school:,
                                                       academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
