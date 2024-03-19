@@ -45,7 +45,9 @@ namespace :report do
 
       Report::Measure.create_report(filename: "measure_report.csv", measures:)
     end
+  end
 
+  namespace :scale do
     task bll: :environment do
       measure_ids = %w[
         2A-i
