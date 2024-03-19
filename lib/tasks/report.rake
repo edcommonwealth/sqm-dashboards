@@ -52,12 +52,9 @@ namespace :report do
       measure_ids = %w[
         2A-i
         2A-ii
-        2A-ii
-        2B-i
         2B-i
         2B-ii
         2C-i
-        2C-ii
         2C-ii
         4B-i
         5B-i
