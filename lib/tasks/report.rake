@@ -58,6 +58,8 @@ namespace :report do
         2C-ii
         4B-i
         5B-i
+        5B-ii
+        5D-i
       ]
 
       measures = measure_ids.map { |measure_id| Measure.find_by_measure_id(measure_id) }
