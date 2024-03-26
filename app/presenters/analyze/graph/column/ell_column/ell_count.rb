@@ -8,7 +8,7 @@ module Analyze
           end
 
           def n_size(year_index)
-            SurveyItemResponse.where(ell:, survey_item: measure.student_survey_items, school:, grade: grades(year_index),
+            SurveyItemResponse.where(ell:, survey_item: measure.student_survey_items, school:, grade: grades,
                                      academic_year: academic_years[year_index]).select(:response_id).distinct.count
           end
         end

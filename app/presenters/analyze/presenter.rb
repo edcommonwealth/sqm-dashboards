@@ -84,7 +84,7 @@ module Analyze
       @graphs ||= [Analyze::Graph::AllData.new,
                    Analyze::Graph::StudentsAndTeachers.new,
                    Analyze::Graph::StudentsByRace.new(races: selected_races),
-                   Analyze::Graph::StudentsByGrade.new(grades: selected_grades),
+                   Analyze::Graph::StudentsByGrade.new(grades:),
                    Analyze::Graph::StudentsByGender.new(genders: selected_genders),
                    Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
                    Analyze::Graph::StudentsByEll.new(ells: selected_ells),
@@ -159,7 +159,7 @@ module Analyze
     end
 
     def grades
-      @grades ||= SurveyItemResponse.where(school:, academic_year:)
+      @grades ||= SurveyItemResponse.where(school:, academic_year: academic_years)
                                     .where.not(grade: nil)
                                     .group(:grade)
                                     .select(:response_id)
