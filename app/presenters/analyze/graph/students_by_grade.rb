@@ -6,9 +6,9 @@ module Analyze
       include Analyze::Graph::Column::Grade
       attr_reader :grades
 
-      # def initialize(grades:)
-      #   @grades = grades
-      # end
+      def initialize(grades:)
+        @grades = grades
+      end
 
       def to_s
         "Students by Grade"
@@ -52,3 +52,4 @@ module Analyze
     end
   end
 end
+

@@ -259,7 +259,7 @@ describe Analyze::Presenter do
 
         params = { graph: "students-by-grade" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
-        expect(presenter.graph.to_s).to eq Analyze::Graph::StudentsByGrade.new.to_s
+        expect(presenter.graph.to_s).to eq Analyze::Graph::StudentsByGrade.new(grades: nil).to_s
 
         params = { graph: "students-by-gender" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
