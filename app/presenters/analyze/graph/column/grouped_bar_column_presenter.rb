@@ -122,7 +122,7 @@ module Analyze
         end
 
         def n_size(year_index)
-          SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades,
+          SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades(year_index),
                                    academic_year: academic_years[year_index]).select(:response_id).distinct.count
         end
 
@@ -145,8 +145,8 @@ module Analyze
           end
         end
 
-        def grades
-          Respondent.by_school_and_year(school:, academic_year: academic_years)&.enrollment_by_grade&.keys
+        def grades(year_index)
+          Respondent.by_school_and_year(school:, academic_year: academic_years[year_index]).enrollment_by_grade.keys
         end
 
         private
