@@ -113,4 +113,17 @@ namespace :one_off do
     Respondent.where(academic_year:).delete_all
     Rails.application.load_seed
   end
+
+  desc "delete last year of respondent data and reseed numbers"
+  task reseed_respondents: :environment do
+    Respondent.delete_all
+
+    seeder = Seeder.new
+    seeder.seed_enrollment Rails.root.join("data", "enrollment", "enrollment.csv")
+    seeder.seed_enrollment Rails.root.join("data", "enrollment", "nj_enrollment.csv")
+    seeder.seed_enrollment Rails.root.join("data", "enrollment", "wi_enrollment.csv")
+    seeder.seed_staffing Rails.root.join("data", "staffing", "staffing.csv")
+    seeder.seed_staffing Rails.root.join("data", "staffing", "nj_staffing.csv")
+    seeder.seed_staffing Rails.root.join("data", "staffing", "wi_staffing.csv")
+  end
 end
