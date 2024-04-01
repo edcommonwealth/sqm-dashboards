@@ -129,7 +129,7 @@ class Seeder
 
   def seed_staffing(csv_file)
     StaffingLoader.load_data(filepath: csv_file)
-    missing_staffing_for_current_year = Respondent.where(academic_year: AcademicYear.order(:range).last).count.zero?
+    missing_staffing_for_current_yea = Respondent.where(academic_year: AcademicYear.order(:range).last).group(:total_teachers).having("total_teachers > 0").count.count
 
     StaffingLoader.clone_previous_year_data if missing_staffing_for_current_year
   end
