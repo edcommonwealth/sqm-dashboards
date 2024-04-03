@@ -67,7 +67,10 @@ class SurveyItem < ActiveRecord::Base
   end
 
   def self.survey_type(survey_item_ids:)
+    # Ignore any survey item variants. Sometimes multiple versions of questions are ask targeting specific age brackets.  The questions relate to the same idea so we only show one variant of the question on the dashboard
     survey_item_ids = survey_item_ids.reject { |id| id.ends_with?("-1") }.to_set
+    # Ignore any library items. School leadership asked for these questions on the survey. They do not need to be shown on the dashboard.
+    survey_item_ids = survey_item_ids.reject { |id| id.include?("libr") || id.include?("libp") }.to_set
     return :short_form if survey_item_ids.subset? short_form_survey_items.map(&:survey_item_id).to_set
     return :early_education if survey_item_ids.subset? early_education_survey_items.map(&:survey_item_id).to_set
     return :teacher if survey_item_ids.subset? teacher_survey_items.map(&:survey_item_id).to_set
