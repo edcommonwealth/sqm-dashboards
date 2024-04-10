@@ -8,7 +8,7 @@ module Report
       # Convert they keys in this hash to a hash where the key is the grade
       # and the value is a set of sufficient survey IDs
       survey_ids_to_grades = Hash.new
-      SurveyItemResponse.student_survey_items_with_sufficient_responses_by_grade(
+      SurveyItemResponse.student_survey_items_with_responses_by_grade(
         school:,
         academic_year:
       ).each do |key, count|
