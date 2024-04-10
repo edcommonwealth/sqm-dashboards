@@ -70,4 +70,21 @@ namespace :report do
       Report::BeyondLearningLoss.create_report(filename: "bll_report.csv", scales:)
     end
   end
+
+  namespace :survey_item do
+    task :by_item, [:school, :academic_year] => :environment do |_, args|
+      school = School.find_by_name(args[:school])
+      academic_year = AcademicYear.find_by_range(args[:academic_year])
+      if school == nil
+        puts "Invalid school name"
+        bad = 1
+      end
+      if academic_year == nil
+        puts "Invalid academic year"
+        bad = 1
+      end
+      next if bad == 1
+      Report::SurveyItem.create_report(school: , academic_year:, filename: "survey_item_by_item_report.csv")
+    end
+  end
 end
