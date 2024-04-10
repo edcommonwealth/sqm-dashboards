@@ -85,8 +85,17 @@ module Report
       end
       FileUtils.mkdir_p Rails.root.join("tmp", "reports")
       filepath = Rails.root.join("tmp", "reports", filename)
-      Measure.write_csv(data:, filepath:)
+      write_csv(data:, filepath:)
       data
+    end
+
+    def self.write_csv(data:, filepath:)
+      csv = CSV.generate do |csv|
+        data.each do |row|
+          csv << row
+        end
+      end
+      File.write(filepath, csv)
     end
 
     def self.survey_item_info(survey_item:)
