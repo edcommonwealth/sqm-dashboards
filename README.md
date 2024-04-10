@@ -15,16 +15,34 @@ Live dashboard: [http://mciea-dashboard.herokuapp.com/districts/winchester/schoo
 
 ## Local development
 
-Install Postgres and running first.
+### Database
+This project uses PostgreSQL to store data.
 
-(MacOS, Optional), you can use Homebrew:
+Install Postgres and get it up and running first.
+
+#### Docker
+Postgres can be quickly and easily be installed using `docker run`
+
+Simply copy and past the following command into your machine running Docker:
+```
+docker run --name sqm-postgres -p 5432:5432 -e POSTGRES_PASSWORD=MySuperSecretPassword -e POSTGRES_HOST_AUTH_METHOD=trust -e POSTGRES_USER=$USER -v ~/postgres-data:/var/lib/postgresql/data --restart always -d postgres:13
+```
+Just change `MySuperSecretPassword` to the password you want to use with Postgres, and `~/postgres-data` to the folder where you want to store the database data.
+
+Then, confirm it is running using `docker ps`
+```
+$ docker ps
+│  CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+│  761a4dddbbc0   postgres:13   "docker-entrypoint.s…"   24 minutes ago   Up 22 minutes   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   sqm-postgres
+```
+#### (MacOS, Optional), you can use Homebrew:
 
 ```
 brew install postgres
 brew services start postgresql
 ```
 
-Linux:
+#### Linux:
 
 Install postgres. Known working version is version 13
 
@@ -48,14 +66,6 @@ bundle install
 bundle exec rake db:create db:schema:load db:seed
 ```
 
-Or if you only want to seed Lowell schools
-
-```bash
-bundle install
-bundle exec rake db:create db:schema:load
-bundle exec rake data:seed_only_lowell
-```
-
 Install the javascript dependencies
 
 ```bash
@@ -75,10 +85,6 @@ The seed file populates the following tables
 | SurveyItem  | This table has an attribute `prompt` that is the question asked                                                                                                             |
 
 SurveyItemResponses does not get populated at this stage.
-
-### Database
-
-Postgres
 
 ### Gems
 
@@ -105,14 +111,14 @@ Postgres
 
 None yet. Hoping to integrate with Powerschool and Aspen for school administrative data.
 
-### Javascript
+### JavaScript
 
 Esbuild is used as the javascript bundler. Scripts for esbuild are defined in package.json e.g. `yarn build`. This script will run if in development with `bin/dev`.
 The javascript testing library is jest. Manually run test with `yarn test`. Javascript tests will also run with `bundle exec rake`.
 
 Stimulus is installed. Create a stimulus controller with `./bin/rails generate stimulus [controller]`. If you create a stimulus controller manually, you can add it to `index.js` with the command `stimulus:manifest:update`.
 
-### css
+### CSS
 
 Bootstrap 5
 
@@ -123,10 +129,11 @@ SurveyItemResponses is the most important table to understand. SurveyItemRespons
 
 Some notes:
 
-- The data loading task assumes that the CSV files live in the `#{RAILS_ROOT}/data/survey_responses` directory
+- The data loading task assumes that the CSV files live in SFTP servers whose connection strings are stored in the environment
+- Data loading assumes the CSVs live in the the `/data/survey_responses/clean` directory. Usually, CSVs are actually stored in a further directory for each academic year.
 - The data loading task is idempotent, i.e. it can be run multiple times without duplicating previously-ingested data
 
-How to run the data loading task:
+How to run the data loading task at the default directory:
 
 ```bash
 # locally
@@ -143,22 +150,16 @@ Or if you want to load data from a specific directory
 
 ```bash
 # locally
-SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
+SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
+# You can also swap the order of the commands and environment variables
+bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/data/survey_responses/clean/2022_23
 
 # on heroku staging environment
-heroku run:detached -a mciea-beta SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
+heroku run:detached -a mciea-beta SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
 
 # on heroku production environment
-heroku run:detached -a mciea-dashboard SFTP_PATH=/data/survey_responses/2022_23 bundle exec rake data:load_survey_responses_from_path
+heroku run:detached -a mciea-dashboard SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
 ```
-
-Or if you only want to load data for Lowell
-
-```bash
-# locally
-bundle exec rake data:load_survey_responses_for_lowell
-```
-
 For convenience, you can use the following script for loading data on Heroku:
 
 ```bash
@@ -188,56 +189,40 @@ $ heroku run:detached -a mciea-beta bundle exec rake data:load_admin_data
 $ heroku run:detached -a mciea-dashboard bundle exec rake data:load_admin_data
 ```
 
-### Load Response Rates
+### Load enrollment and staffing data
 
-Many parts of the site rely on the response rate table being populated.  The response rate is taken into account when determining if there is sufficient data to show
+Enrollment and staffing numbers are taken from the DESE website.
 
+To scrape staffing data from dese:
 ```bash
-# locally
-$ bundle exec rake data:reset_response_rates
-
-# on heroku staging environment
-$ heroku run:detached -a mciea-beta bundle exec rake data:reset_response_rates
-
-# on heroku production environment
-$ heroku run:detached -a mciea-dashboard bundle exec rake data:reset_response_rates
+bundle exec rake scrape:staffing
 ```
 
-### Load Student demographic information
-
-Student demographic information is needed for the Analyze page disagregation
-
+To scrape enrollment data from dese:
 ```bash
-# locally
-$ bundle exec rake data:load_students
+bundle exec rake scrape:enrollment
+```
 
-# on heroku staging environment
-$ heroku run:detached -a mciea-beta bundle exec rake data:load_students
+Then to load it, run the seeder:
+```bash
+bundle exec rake db:seed
+```
 
-# on heroku production environment
-$ heroku run:detached -a mciea-dashboard bundle exec rake data:load_students
+Or load it remotely on heroku
+```bash
+heroku run:detached -a mciea-beta bundle exec rake db:seed
+```
+
+Or to load it for the lowell dashboard specifically
+```bash
+bundle exec rake data:seed_only_lowell
 ```
 
 
-Or if you only want to load students for Lowell schools
-
+### Upload cleaned data to SFTP
+You can upload cleaned lowell data to the SFTP server with
 ```bash
-# locally
-$ bundle exec rake data:load_students_for_lowell
-```
-
-### Load scores for each race
-For performance, the scores for an individual race must be precalculated.  Make sure to load response rates, and student demographic information before recaculating scores by race
-
-```bash
-# locally
-$ bundle exec rake data:reset_race_scores
-
-# on heroku staging environment
-$ heroku run:detached -a mciea-beta bundle exec rake data:reset_race_scores
-
-# on heroku production environment
-$ heroku run:detached -a mciea-dashboard bundle exec rake data:reset_race_scores
+bundle exec rake upload:lowell
 ```
 
 ## Running tests
