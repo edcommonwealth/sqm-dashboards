@@ -72,7 +72,7 @@ namespace :report do
   end
 
   namespace :survey_item do
-    task :by_item, [:school, :academic_year] => :environment do |_, args|
+    task :create, [:school, :academic_year] => :environment do |_, args|
       school = School.find_by_name(args[:school])
       academic_year = AcademicYear.find_by_range(args[:academic_year])
       if school == nil
@@ -84,7 +84,8 @@ namespace :report do
         bad = 1
       end
       next if bad == 1
-      Report::SurveyItem.create_report(school: , academic_year:, filename: "survey_item_by_item_report.csv")
+      Report::SurveyItem.create_item_report(school:, academic_year:)
+      Report::SurveyItem.create_grade_report(school:, academic_year:)
     end
   end
 end
