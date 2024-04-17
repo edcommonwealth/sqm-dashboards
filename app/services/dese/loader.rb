@@ -1,5 +1,8 @@
 module Dese
   class Loader
+    @memo = Hash.new
+    @hits = 0
+    @misses = 0
     def self.load_data(filepath:)
       admin_data_values = []
       CSV.parse(File.read(filepath), headers: true) do |row|
@@ -10,6 +13,7 @@ module Dese
       end
 
       AdminDataValue.import(admin_data_values.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
+      puts "Cache Hits: #{@hits}\nCache Misses: #{@misses}\n"
     end
 
     private
@@ -36,15 +40,37 @@ module Dese
     end
 
     def self.create_admin_data_value(row:, score:)
-      school = School.find_by_dese_id(dese_id(row:).to_i)
+      # get school from @memo, if not then add it to @memo
+      if @memo["school"+dese_id(row:)] == nil
+        @memo["school"+dese_id(row:)] = School.find_by_dese_id(dese_id(row:).to_i)
+        @misses += 1
+      else
+        @hits += 1
+      end
+      school = @memo["school"+dese_id(row:)]
+      # the same stuff again for admin data item
       admin_data_item_id = admin_data_item(row:)
+      if @memo["admin"+admin_data_item_id] == nil
+        @memo["admin"+admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
+        @misses += 1
+      else
+        @hits += 1
+      end
+      admin_data_item = @memo["admin"+admin_data_item_id]
+      # get academic year from @memo, if not add it to @memo
+      if @memo["year"+ay(row:)] == nil
+        @memo["year"+ay(row:)] ||= AcademicYear.find_by_range(ay(row:))
+        @misses += 1
+      else
+        @hits += 1
+      end
+      academic_year = @memo["year"+ay(row:)]
 
       return if school.nil?
       return if admin_data_item_id.nil? || admin_data_item_id.blank?
 
-      admin_data_value = AdminDataValue.find_by(academic_year: AcademicYear.find_by_range(ay(row:)),
-                                                school:,
-                                                admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item_id))
+      admin_data_value = AdminDataValue.find_by(academic_year:, school:, admin_data_item:)
+
       if admin_data_value.present?
         admin_data_value.likert_score = score
         admin_data_value.save
@@ -52,9 +78,9 @@ module Dese
       else
         AdminDataValue.new(
           likert_score: score,
-          academic_year: AcademicYear.find_by_range(ay(row:)),
+          academic_year:,
           school:,
-          admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item(row:))
+          admin_data_item:,
         )
       end
     end
