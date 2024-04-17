@@ -13,7 +13,7 @@ module Dese
       end
 
       AdminDataValue.import(admin_data_values.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
-      puts "Cache Hits: #{@hits}\nCache Misses: #{@misses}\n"
+      # puts "Cache Hits: #{@hits}\nCache Misses: #{@misses}\n"
     end
 
     private
@@ -41,29 +41,14 @@ module Dese
 
     def self.create_admin_data_value(row:, score:)
       # get school from @memo, if not then add it to @memo
-      if @memo["school"+dese_id(row:)] == nil
-        @memo["school"+dese_id(row:)] = School.find_by_dese_id(dese_id(row:).to_i)
-        @misses += 1
-      else
-        @hits += 1
-      end
+      @memo["school"+dese_id(row:)] ||= School.find_by_dese_id(dese_id(row:).to_i)
       school = @memo["school"+dese_id(row:)]
       # the same stuff again for admin data item
       admin_data_item_id = admin_data_item(row:)
-      if @memo["admin"+admin_data_item_id] == nil
-        @memo["admin"+admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
-        @misses += 1
-      else
-        @hits += 1
-      end
+      @memo["admin"+admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
       admin_data_item = @memo["admin"+admin_data_item_id]
       # get academic year from @memo, if not add it to @memo
-      if @memo["year"+ay(row:)] == nil
-        @memo["year"+ay(row:)] ||= AcademicYear.find_by_range(ay(row:))
-        @misses += 1
-      else
-        @hits += 1
-      end
+      @memo["year"+ay(row:)] ||= AcademicYear.find_by_range(ay(row:))
       academic_year = @memo["year"+ay(row:)]
 
       return if school.nil?
