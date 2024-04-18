@@ -1,13 +1,14 @@
 class SurveyItemValues
-  attr_reader :row, :headers, :survey_items, :schools
+  attr_reader :row, :headers, :survey_items, :schools, :academic_years
 
-  def initialize(row:, headers:, survey_items:, schools:)
+  def initialize(row:, headers:, survey_items:, schools:, academic_years: AcademicYear.all)
     @row = row
     # Remove any newlines in headers
     headers = headers.map { |item| item.delete("\n") if item.present? }
     @headers = include_all_headers(headers:)
     @survey_items = survey_items
     @schools = schools
+    @academic_years = academic_years
 
     copy_likert_scores_from_variant_survey_items
     row["Income"] = income
@@ -59,7 +60,10 @@ class SurveyItemValues
   end
 
   def academic_year
-    @academic_year ||= AcademicYear.find_by_date recorded_date
+    @academic_year ||= begin
+      range = AcademicYear.range_from_date(recorded_date, academic_years.map(&:range))
+      academic_years.find { |item| item.range == range }
+    end
   end
 
   def survey_item_response(survey_item:)

@@ -8,43 +8,27 @@ class StaffingLoader
     respondents = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = StaffingRowValues.new(row:)
-      next unless row.school.present? && row.academic_year.present?
+      next unless row.school.present? && row.academic_years.size.positive?
 
-      schools << row.school
-
-      respondents << create_staffing_entry(row:)
+      respondents.concat(create_staffing_entry(row:))
     end
 
     Respondent.import respondents, batch_size: 1000, on_duplicate_key_update: [:total_teachers]
     Respondent.where.not(school: schools).destroy_all
   end
 
-  # Clones staffing and enrollment data from previous year
   def self.clone_previous_year_data
-    years = AcademicYear.order(:range).last(2)
-    previous_year = years.first
-    current_year = years.last
     respondents = []
     School.all.each do |school|
-      Respondent.where(school:, academic_year: previous_year).each do |respondent|
-        current_respondent = Respondent.find_or_initialize_by(school:, academic_year: current_year)
-        current_respondent.total_teachers = respondent.total_teachers
-        current_respondent.pk = respondent.pk
-        current_respondent.k = respondent.k
-        current_respondent.one = respondent.one
-        current_respondent.two = respondent.two
-        current_respondent.three = respondent.three
-        current_respondent.four = respondent.four
-        current_respondent.five = respondent.five
-        current_respondent.six = respondent.six
-        current_respondent.seven = respondent.seven
-        current_respondent.eight = respondent.eight
-        current_respondent.nine = respondent.nine
-        current_respondent.ten = respondent.ten
-        current_respondent.eleven = respondent.eleven
-        current_respondent.twelve = respondent.twelve
-        current_respondent.total_students = respondent.total_students
+      academic_years_without_data(school:).each do |academic_year|
+        year_with_data = last_academic_year_with_data(school:)
+        respondent = Respondent.where(school:, academic_year: year_with_data).first
+        next if respondent.nil?
 
+        current_respondent = Respondent.find_or_initialize_by(school:, academic_year:)
+        if current_respondent.total_teachers.nil? || current_respondent.total_teachers.zero?
+          current_respondent.total_teachers = respondent.total_teachers
+        end
         respondents << current_respondent
       end
     end
@@ -54,11 +38,29 @@ class StaffingLoader
   private
 
   def self.create_staffing_entry(row:)
-    respondent = Respondent.find_or_initialize_by(school: row.school, academic_year: row.academic_year)
-    respondent.total_teachers = row.fte_count
-    respondent
+    row.academic_years.map do |academic_year|
+      respondent = Respondent.find_or_initialize_by(school: row.school, academic_year:)
+      respondent.total_teachers = row.fte_count
+      respondent
+    end
   end
 
+  def self.last_academic_year_with_data(school:)
+    AcademicYear.all.order(range: :DESC).find do |academic_year|
+      respondents = Respondent.find_by(school:, academic_year:)
+      respondents&.total_teachers&.positive?
+    end
+  end
+
+  def self.academic_years_without_data(school:)
+    AcademicYear.all.order(range: :DESC).select do |academic_year|
+      respondents = Respondent.find_by(school:, academic_year:)
+      respondents.nil? || respondents.total_teachers.nil? || respondents.total_teachers.zero?
+    end
+  end
+
+  private_class_method :last_academic_year_with_data
+  private_class_method :academic_years_without_data
   private_class_method :create_staffing_entry
 end
 
@@ -76,10 +78,10 @@ class StaffingRowValues
     end
   end
 
-  def academic_year
+  def academic_years
     @academic_year ||= begin
       year = row["Academic Year"]
-      AcademicYear.find_by_range(year)
+      AcademicYear.of_year(year)
     end
   end
 

@@ -126,4 +126,13 @@ namespace :one_off do
     seeder.seed_staffing Rails.root.join("data", "staffing", "nj_staffing.csv")
     seeder.seed_staffing Rails.root.join("data", "staffing", "wi_staffing.csv")
   end
+
+  desc "delete 2023-24 AcademicYear and all responses, admin data, enrollment numbers and staffing numbers"
+  task delete_2023_24: :environment do
+    academic_year = AcademicYear.find_by_range "2023-24"
+    AdminDataValue.where(academic_year:).delete_all
+    Respondent.where(academic_year:).delete_all
+    SurveyItemResponse.where(academic_year:).delete_all
+    academic_year.delete
+  end
 end
