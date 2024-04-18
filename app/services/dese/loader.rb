@@ -1,8 +1,6 @@
 module Dese
   class Loader
     @memo = Hash.new
-    @hits = 0
-    @misses = 0
     def self.load_data(filepath:)
       admin_data_values = []
       CSV.parse(File.read(filepath), headers: true) do |row|
@@ -13,7 +11,6 @@ module Dese
       end
 
       AdminDataValue.import(admin_data_values.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
-      # puts "Cache Hits: #{@hits}\nCache Misses: #{@misses}\n"
     end
 
     private
@@ -39,18 +36,25 @@ module Dese
       row["Admin Data Item"] || row["Item ID"] || row["Item Id"] || row["Item  ID"]
     end
 
-    def self.create_admin_data_value(row:, score:)
-      # get school from @memo, if not then add it to @memo
-      @memo["school"+dese_id(row:)] ||= School.find_by_dese_id(dese_id(row:).to_i)
-      school = @memo["school"+dese_id(row:)]
-      # the same stuff again for admin data item
-      admin_data_item_id = admin_data_item(row:)
+    # these three methods do the memoization
+    def self.find_school(dese_id:)
+      return @memo["school"+dese_id] if @memo.key? "school"+dese_id
+      @memo["school"+dese_id] ||= School.find_by_dese_id(dese_id.to_i)
+    end
+    def self.find_admin_data_item(admin_data_item_id:)
+      return @memo["admin"+admin_data_item_id] if @memo.key? "admin"+admin_data_item_id
       @memo["admin"+admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
-      admin_data_item = @memo["admin"+admin_data_item_id]
-      # get academic year from @memo, if not add it to @memo
-      @memo["year"+ay(row:)] ||= AcademicYear.find_by_range(ay(row:))
-      academic_year = @memo["year"+ay(row:)]
+    end
+    def self.find_ay(ay:)
+      return @memo["year"+ay] if @memo.key? "year"+ay
+      @memo["year"+ay] ||= AcademicYear.find_by_range(ay)
+    end
 
+    def self.create_admin_data_value(row:, score:)
+      school = find_school(dese_id: dese_id(row:))
+      admin_data_item_id = admin_data_item(row:)
+      admin_data_item = find_admin_data_item(admin_data_item_id:)
+      academic_year = find_ay(ay: ay(row:))
       return if school.nil?
       return if admin_data_item_id.nil? || admin_data_item_id.blank?
 
