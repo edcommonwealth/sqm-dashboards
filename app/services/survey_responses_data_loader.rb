@@ -10,7 +10,8 @@ class SurveyResponsesDataLoader
 
       file.lazy.each_slice(BATCH_SIZE) do |lines|
         survey_item_responses = CSV.parse(lines.join, headers:).map do |row|
-          process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:))
+          process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:,
+                                                academic_years:))
         end
 
         SurveyItemResponse.import(
@@ -34,8 +35,8 @@ class SurveyResponsesDataLoader
       next unless line.present?
 
       CSV.parse(line, headers:).map do |row|
-        survey_item_responses <<
-          process_row(row: SurveyItemValues.new(row:, headers: headers_array, survey_items: all_survey_items, schools:))
+        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array,
+                                                                       survey_items: all_survey_items, schools:, academic_years:))
       end
 
       row_count += 1
@@ -60,7 +61,7 @@ class SurveyResponsesDataLoader
   private
 
   def schools
-    @schools = School.school_by_dese_id
+    @schools = School.by_dese_id
   end
 
   def genders
@@ -83,6 +84,10 @@ class SurveyResponsesDataLoader
     @speds ||= Sped.by_designation
   end
 
+  def academic_years
+    @academic_years ||= AcademicYear.all
+  end
+
   def process_row(row:)
     return unless row.dese_id?
     return unless row.school.present?
@@ -93,11 +98,7 @@ class SurveyResponsesDataLoader
   def process_survey_items(row:)
     student = Student.find_or_create_by(response_id: row.response_id, lasid: row.lasid)
     student.races.delete_all
-
-    tmp_races = row.races.map do |race|
-      races[race]
-    end
-
+    tmp_races = row.races.map { |race| races[race] }
     student.races += tmp_races
 
     row

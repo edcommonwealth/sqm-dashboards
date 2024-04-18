@@ -5,8 +5,7 @@ namespace :report do
   end
 
   namespace :measure do
-    task :district, [:district, :ay] => :environment do |_, args|
-
+    task :district, %i[district ay] => :environment do |_, args|
       #  measure_ids = %w[
       #   1A-i
       #   1A-ii
@@ -46,11 +45,11 @@ namespace :report do
 
       district = District.find_by_name args[:district]
       academic_years = AcademicYear.where(range: args[:ay])
-      if district == nil
+      if district.nil?
         puts "Invalid district name"
         bad = true
       end
-      if academic_years == nil
+      if academic_years.nil?
         puts "Invalid academic year"
         bad = true
       end
@@ -60,7 +59,7 @@ namespace :report do
         schools: School.where(district:),
         academic_years:,
         # measures:,
-        filename: "measure_report_"+district.slug+".csv"
+        filename: "measure_report_" + district.slug + ".csv"
       )
     end
 
@@ -101,7 +100,7 @@ namespace :report do
         5D-ii
       ]
 
-      measures = measure_ids.map { |measure_id| Measure.find_by_measure_id(measure_id) }
+      measures = measure_ids.map { |measure_id| Measure.find_by_measure_id(measure_id) }.reject(&:nil?)
 
       Report::Measure.create_report(filename: "measure_report_attleboro.csv", measures:, schools:)
     end
@@ -131,42 +130,48 @@ namespace :report do
     end
   end
 
-   namespace :survey_item do
-    task :create, [:school, :academic_year] => :environment do |_, args|
+  namespace :survey_item do
+    task :create, %i[school academic_year] => :environment do |_, args|
       school = School.find_by_name(args[:school])
       academic_year = AcademicYear.find_by_range(args[:academic_year])
-      if school == nil
+      if school.nil?
         puts "Invalid school name"
         bad = 1
       end
-      if academic_year == nil
+      if academic_year.nil?
         puts "Invalid academic year"
         bad = 1
       end
       next if bad == 1
-      Report::SurveyItem.create_item_report(school:, academic_year:, filename: "survey_item_report_"+school.slug+"_"+academic_year.range+"_by_item.csv")
-      Report::SurveyItem.create_grade_report(school:, academic_year:, filename: "survey_item_report_"+school.slug+"_"+academic_year.range+"_by_grade.csv")
+
+      Report::SurveyItem.create_item_report(school:, academic_year:,
+                                            filename: "survey_item_report_" + school.slug + "_" + academic_year.range + "_by_item.csv")
+      Report::SurveyItem.create_grade_report(school:, academic_year:,
+                                             filename: "survey_item_report_" + school.slug + "_" + academic_year.range + "_by_grade.csv")
     end
   end
 
-   namespace :survey_item do
-     task :district, [:district, :academic_year] => :environment do |_, args|
-       district = District.find_by_name(args[:district])
-       if district == nil
-         puts "Invalid district name"
-         bad = 1
-       end
-       academic_year = AcademicYear.find_by_range(args[:academic_year])
-       if academic_year == nil
-         puts "Invalid academic year"
-         bad = 1
-       end
-       next if bad == 1
-       schools = district.schools
-       schools.each do |school|
-         Report::SurveyItem.create_item_report(school:, academic_year:, filename: "survey_item_report_"+school.slug+"_"+academic_year.range+"_by_item.csv")
-         Report::SurveyItem.create_grade_report(school:, academic_year:, filename: "survey_item_report_"+school.slug+"_"+academic_year.range+"_by_grade.csv")
-       end
-     end
-   end
+  namespace :survey_item do
+    task :district, %i[district academic_year] => :environment do |_, args|
+      district = District.find_by_name(args[:district])
+      if district.nil?
+        puts "Invalid district name"
+        bad = 1
+      end
+      academic_year = AcademicYear.find_by_range(args[:academic_year])
+      if academic_year.nil?
+        puts "Invalid academic year"
+        bad = 1
+      end
+      next if bad == 1
+
+      schools = district.schools
+      schools.each do |school|
+        Report::SurveyItem.create_item_report(school:, academic_year:,
+                                              filename: "survey_item_report_" + school.slug + "_" + academic_year.range + "_by_item.csv")
+        Report::SurveyItem.create_grade_report(school:, academic_year:,
+                                               filename: "survey_item_report_" + school.slug + "_" + academic_year.range + "_by_grade.csv")
+      end
+    end
+  end
 end
