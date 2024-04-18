@@ -48,7 +48,7 @@ class Cleaner
     output << school_name if schools.length == 1
     output << survey_type.to_s
     output << "Part-" + part unless part.nil?
-    output << range
+    output << range.parameterize
     output << "csv"
     output.join(".")
   end
@@ -77,7 +77,7 @@ class Cleaner
     file.lazy.each_slice(1000) do |lines|
       CSV.parse(lines.join, headers:).map do |row|
         values = SurveyItemValues.new(row:, headers:,
-                                      survey_items: all_survey_items, schools:)
+                                      survey_items: all_survey_items, schools:, academic_years:)
         next unless values.valid_school?
 
         data << values
@@ -88,6 +88,10 @@ class Cleaner
   end
 
   private
+
+  def academic_years
+    @academic_years ||= AcademicYear.all
+  end
 
   def include_all_headers(headers:)
     alternates = headers.filter(&:present?)
@@ -120,7 +124,7 @@ class Cleaner
   end
 
   def schools
-    @schools ||= School.school_by_dese_id
+    @schools ||= School.by_dese_id
   end
 
   def genders

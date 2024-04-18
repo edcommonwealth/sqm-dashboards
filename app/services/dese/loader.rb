@@ -1,15 +1,16 @@
 module Dese
   class Loader
-    @memo = Hash.new
+    @memo = {}
     def self.load_data(filepath:)
       admin_data_values = []
-      @memo = Hash.new
-      schools = School.school_by_dese_id
+      @memo = {}
+      schools = School.by_dese_id
       CSV.parse(File.read(filepath), headers: true) do |row|
         score = likert_score(row:)
         next unless valid_likert_score(likert_score: score)
 
-        admin_data_values << create_admin_data_value(row:, score:, schools:)
+        values = create_admin_data_value(row:, score:, schools:)
+        admin_data_values.concat(values) if values
       end
 
       AdminDataValue.import(admin_data_values.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
@@ -38,40 +39,47 @@ module Dese
       row["Admin Data Item"] || row["Item ID"] || row["Item Id"] || row["Item  ID"]
     end
 
-    # these three methods do the memoization
+    # these two methods do the memoization
     def self.find_admin_data_item(admin_data_item_id:)
       return @memo["admin" + admin_data_item_id] if @memo.key?("admin" + admin_data_item_id)
+
       @memo["admin" + admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
     end
 
-    def self.find_ay(ay:)
+    def self.find_ays(ay:)
       return @memo["year" + ay] if @memo.key?("year" + ay)
-      @memo["year" + ay] ||= AcademicYear.find_by_range(ay)
+
+      @memo["year" + ay] ||= AcademicYear.of_year(ay)
     end
 
     def self.create_admin_data_value(row:, score:, schools:)
       school = schools[dese_id(row:).to_i]
       admin_data_item_id = admin_data_item(row:)
       admin_data_item = find_admin_data_item(admin_data_item_id:)
-      academic_year = find_ay(ay: ay(row:))
+      academic_years = find_ays(ay: ay(row:))
 
       return if school.nil?
       return if admin_data_item_id.nil? || admin_data_item_id.blank?
+      return unless academic_years.size.positive?
 
-      admin_data_value = AdminDataValue.find_by(academic_year:, school:, admin_data_item:)
+      out = []
+      academic_years.each do |academic_year|
+        admin_data_value = AdminDataValue.find_by(academic_year:, school:, admin_data_item:)
 
-      if admin_data_value.present?
-        admin_data_value.likert_score = score
-        admin_data_value.save
-        nil
-      else
-        AdminDataValue.new(
-          likert_score: score,
-          academic_year:,
-          school:,
-          admin_data_item:
-        )
+        if admin_data_value.present?
+          admin_data_value.likert_score = score
+          admin_data_value.save
+          []
+        else
+          out << AdminDataValue.new(
+            likert_score: score,
+            academic_year:,
+            school:,
+            admin_data_item:
+          )
+        end
       end
+      out
     end
 
     private_class_method :valid_likert_score
