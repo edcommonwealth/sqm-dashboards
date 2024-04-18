@@ -28,15 +28,14 @@ namespace :data do
   desc "load admin_data"
   task load_admin_data: :environment do
     original_count = AdminDataValue.count
-    Dir.glob(Rails.root.join("data", "admin_data", "dese", "*.csv")).each do |filepath|
+    jobs = Queue.new
+    Dir.glob(Rails.root.join("data", "admin_data", "dese", "*.csv")).each { |filepath| jobs << filepath }
+    Dir.glob(Rails.root.join("data", "admin_data", "out_of_state", "*.csv")).each { |filepath| jobs << filepath }
+    while filepath = jobs.pop(true)
       puts "=====================> Loading data from csv at path: #{filepath}"
       Dese::Loader.load_data filepath:
     end
-
-    Dir.glob(Rails.root.join("data", "admin_data", "out_of_state", "*.csv")).each do |filepath|
-      puts "=====================> Loading data from csv at path: #{filepath}"
-      Dese::Loader.load_data filepath:
-    end
+    rescue ThreadError
     puts "=====================> Completed loading #{AdminDataValue.count - original_count} admin data values"
   end
 
