@@ -2,8 +2,10 @@ require "csv"
 
 module Dese
   class Loader
+    @memo = Hash.new
     def self.load_data(filepath:)
       admin_data_values = []
+      @memo = Hash.new
       CSV.parse(File.read(filepath), headers: true) do |row|
         score = likert_score(row:)
         next unless valid_likert_score(likert_score: score)
@@ -37,16 +39,31 @@ module Dese
       row["Admin Data Item"] || row["Item ID"] || row["Item Id"] || row["Item  ID"]
     end
 
+    # these three methods do the memoization
+    def self.find_school(dese_id:)
+      return @memo["school"+dese_id] if @memo.key? "school"+dese_id
+      @memo["school"+dese_id] ||= School.find_by_dese_id(dese_id.to_i)
+    end
+    def self.find_admin_data_item(admin_data_item_id:)
+      return @memo["admin"+admin_data_item_id] if @memo.key? "admin"+admin_data_item_id
+      @memo["admin"+admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
+    end
+    def self.find_ay(ay:)
+      return @memo["year"+ay] if @memo.key? "year"+ay
+      @memo["year"+ay] ||= AcademicYear.find_by_range(ay)
+    end
+
     def self.create_admin_data_value(row:, score:)
-      school = School.find_by_dese_id(dese_id(row:).to_i)
+      school = find_school(dese_id: dese_id(row:))
       admin_data_item_id = admin_data_item(row:)
+      admin_data_item = find_admin_data_item(admin_data_item_id:)
+      academic_year = find_ay(ay: ay(row:))
 
       return if school.nil?
       return if admin_data_item_id.nil? || admin_data_item_id.blank?
 
-      admin_data_value = AdminDataValue.find_by(academic_year: AcademicYear.find_by_range(ay(row:)),
-        school:,
-        admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item_id))
+      admin_data_value = AdminDataValue.find_by(academic_year:, school:, admin_data_item:)
+
       if admin_data_value.present?
         admin_data_value.likert_score = score
         admin_data_value.save
@@ -54,9 +71,9 @@ module Dese
       else
         AdminDataValue.new(
           likert_score: score,
-          academic_year: AcademicYear.find_by_range(ay(row:)),
+          academic_year:,
           school:,
-          admin_data_item: AdminDataItem.find_by_admin_data_item_id(admin_data_item(row:))
+          admin_data_item:,
         )
       end
     end
