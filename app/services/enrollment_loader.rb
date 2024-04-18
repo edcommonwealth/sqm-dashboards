@@ -8,51 +8,25 @@ class EnrollmentLoader
     enrollments = []
     CSV.parse(File.read(filepath), headers: true) do |row|
       row = EnrollmentRowValues.new(row:)
-
-      next unless row.school.present? && row.academic_year.present?
+      next unless row.school.present? && row.academic_years.size.positive?
 
       schools << row.school
 
       enrollments << create_enrollment_entry(row:)
     end
 
-    # It's possible that instead of updating all columns on duplicate key, we could just update the student columns and leave total_teachers alone. Right now enrollment data loads before staffing data so it works correctly.
-    Respondent.import enrollments, batch_size: 1000,
-                                   on_duplicate_key_update: %i[pk k one two three four five six seven eight nine ten eleven twelve total_students]
-
-    Respondent.where.not(school: schools).destroy_all
-  end
-
-  private
-
-  def self.create_enrollment_entry(row:)
-    respondent = Respondent.find_or_initialize_by(school: row.school, academic_year: row.academic_year)
-    respondent.pk = row.pk
-    respondent.k = row.k
-    respondent.one = row.one
-    respondent.two = row.two
-    respondent.three = row.three
-    respondent.four = row.four
-    respondent.five = row.five
-    respondent.six = row.six
-    respondent.seven = row.seven
-    respondent.eight = row.eight
-    respondent.nine = row.nine
-    respondent.ten = row.ten
-    respondent.eleven = row.eleven
-    respondent.twelve = row.twelve
-    respondent.total_students = row.total_students
-    respondent
+    Respondent.import enrollments.flatten, batch_size: 1000,
+                                           on_duplicate_key_update: %i[pk k one two three four five six seven eight nine ten eleven twelve total_students]
   end
 
   def self.clone_previous_year_data
-    years = AcademicYear.order(:range).last(2)
-    previous_year = years.first
-    current_year = years.last
     respondents = []
     School.all.each do |school|
-      Respondent.where(school:, academic_year: previous_year).each do |respondent|
-        current_respondent = Respondent.find_or_initialize_by(school:, academic_year: current_year)
+      academic_years_without_data(school:).each do |academic_year|
+        respondent = Respondent.where(school:, academic_year: last_academic_year_with_data(school:)).first
+        next if respondent.nil?
+
+        current_respondent = Respondent.find_or_initialize_by(school:, academic_year:)
         current_respondent.pk = respondent.pk
         current_respondent.k = respondent.k
         current_respondent.one = respondent.one
@@ -71,10 +45,54 @@ class EnrollmentLoader
         respondents << current_respondent
       end
     end
-    Respondent.import respondents, batch_size: 1000, on_duplicate_key_update: [:total_teachers]
+
+    Respondent.import respondents,
+                      batch_size: 1000, on_duplicate_key_ignore: true
+  end
+
+  private
+
+  def self.create_enrollment_entry(row:)
+    row.academic_years.map do |academic_year|
+      respondent = Respondent.find_or_initialize_by(school: row.school, academic_year:)
+      respondent.pk = row.pk
+      respondent.k = row.k
+      respondent.one = row.one
+      respondent.two = row.two
+      respondent.three = row.three
+      respondent.four = row.four
+      respondent.five = row.five
+      respondent.six = row.six
+      respondent.seven = row.seven
+      respondent.eight = row.eight
+      respondent.nine = row.nine
+      respondent.ten = row.ten
+      respondent.eleven = row.eleven
+      respondent.twelve = row.twelve
+      respondent.total_students = row.total_students
+      respondent
+    end
+  end
+
+  def self.last_academic_year_with_data(school:)
+    AcademicYear.all.order(range: :DESC).find do |academic_year|
+      Respondent.where(school:, academic_year:).any? do |respondent|
+        respondent.total_students.positive?
+      end
+    end
+  end
+
+  def self.academic_years_without_data(school:)
+    AcademicYear.all.order(range: :DESC).reject do |academic_year|
+      Respondent.where(school:, academic_year:).any? do |respondent|
+        respondent.total_students.positive?
+      end
+    end
   end
 
   private_class_method :create_enrollment_entry
+  private_class_method :last_academic_year_with_data
+  private_class_method :academic_years_without_data
 end
 
 class EnrollmentRowValues
@@ -91,10 +109,10 @@ class EnrollmentRowValues
     end
   end
 
-  def academic_year
-    @academic_year ||= begin
+  def academic_years
+    @academic_years ||= begin
       year = row["Academic Year"]
-      AcademicYear.find_by_range(year)
+      AcademicYear.of_year(year)
     end
   end
 

@@ -2,6 +2,8 @@ require "rails_helper"
 RSpec.describe Dese::Loader do
   let(:path_to_admin_data) { Rails.root.join("spec", "fixtures", "sample_four_d_data.csv") }
 
+  let(:ay_2023_24_fall) { create(:academic_year, range: "2023-24 Fall") }
+  let(:ay_2023_24_spring) { create(:academic_year, range: "2023-24 Spring") }
   let(:ay_2022_23) { create(:academic_year, range: "2022-23") }
   let(:ay_2021_22) { create(:academic_year, range: "2021-22") }
   let(:ay_2020_21) { create(:academic_year, range: "2020-21") }
@@ -17,6 +19,8 @@ RSpec.describe Dese::Loader do
   let(:next_wave) { create(:school, dese_id: 2_740_510) }
 
   before :each do
+    ay_2023_24_fall
+    ay_2023_24_spring
     ay_2022_23
     ay_2021_22
     ay_2020_21
@@ -32,9 +36,6 @@ RSpec.describe Dese::Loader do
     next_wave
   end
 
-  after :each do
-    # DatabaseCleaner.clean
-  end
   context "when running the loader" do
     before :each do
       Dese::Loader.load_data filepath: path_to_admin_data
@@ -53,8 +54,30 @@ RSpec.describe Dese::Loader do
                                     academic_year: ay_2020_21).likert_score).to eq 4.8
     end
 
+    it "loads admin data for years that are split into seasons" do
+      academic_year = ay_2023_24_fall
+      expect(AdminDataValue.find_by(school: winchester, admin_data_item: four_d,
+                                    academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: attleboro, admin_data_item: four_d,
+                                    academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: milford, admin_data_item: four_d, academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: seacoast, admin_data_item: four_d, academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: next_wave, admin_data_item: four_d,
+                                    academic_year:).likert_score).to eq 4.44
+
+      academic_year = ay_2023_24_spring
+      expect(AdminDataValue.find_by(school: winchester, admin_data_item: four_d,
+                                    academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: attleboro, admin_data_item: four_d,
+                                    academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: milford, admin_data_item: four_d, academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: seacoast, admin_data_item: four_d, academic_year:).likert_score).to eq 4.44
+      expect(AdminDataValue.find_by(school: next_wave, admin_data_item: four_d,
+                                    academic_year:).likert_score).to eq 4.44
+    end
+
     it "loads the correct number of items" do
-      expect(AdminDataValue.count).to eq 23
+      expect(AdminDataValue.count).to eq 33
     end
 
     it "cap maximum likert score to 5" do
@@ -77,7 +100,7 @@ RSpec.describe Dese::Loader do
     it "is idempotent" do
       Dese::Loader.load_data filepath: path_to_admin_data
 
-      expect(AdminDataValue.count).to eq 23
+      expect(AdminDataValue.count).to eq 33
     end
   end
 end
