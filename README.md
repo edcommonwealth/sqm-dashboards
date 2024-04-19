@@ -16,25 +16,31 @@ Live dashboard: [http://mciea-dashboard.herokuapp.com/districts/winchester/schoo
 ## Local development
 
 ### Database
+
 This project uses PostgreSQL to store data.
 
 Install Postgres and get it up and running first.
 
 #### Docker
+
 Postgres can be quickly and easily be installed using `docker run`
 
 Simply copy and past the following command into your machine running Docker:
+
 ```
 docker run --name sqm-postgres -p 5432:5432 -e POSTGRES_PASSWORD=MySuperSecretPassword -e POSTGRES_HOST_AUTH_METHOD=trust -e POSTGRES_USER=$USER -v ~/postgres-data:/var/lib/postgresql/data --restart always -d postgres:13
 ```
+
 Just change `MySuperSecretPassword` to the password you want to use with Postgres, and `~/postgres-data` to the folder where you want to store the database data.
 
 Then, confirm it is running using `docker ps`
+
 ```
 $ docker ps
 │  CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                       NAMES
 │  761a4dddbbc0   postgres:13   "docker-entrypoint.s…"   24 minutes ago   Up 22 minutes   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   sqm-postgres
 ```
+
 #### (MacOS, Optional), you can use Homebrew:
 
 ```
@@ -125,6 +131,7 @@ Bootstrap 5
 ## Loading Data
 
 ### Loading Survey Item Responses
+
 SurveyItemResponses is the most important table to understand. SurveyItemResponses is the data that will change year to year and makes up the majority of the database records. Roughly 500,000 SurveyItemResponses per year.
 
 Some notes:
@@ -160,6 +167,7 @@ heroku run:detached -a mciea-beta SFTP_PATH=/data/survey_responses/clean/2022_23
 # on heroku production environment
 heroku run:detached -a mciea-dashboard SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
 ```
+
 For convenience, you can use the following script for loading data on Heroku:
 
 ```bash
@@ -171,12 +179,14 @@ For convenience, you can use the following script for loading data on Heroku:
 ```
 
 There is also an example one-off task to load a single csv at a time.
+
 ```bash
 bundle exec rake one_off:load_2018_19_student_responses
 ```
 
 ### Loading Admin Data Values
-Loading admin data is similar to loading survey item responses.  Run the one of the following scripts to load admin data to a selected environment.
+
+Loading admin data is similar to loading survey item responses. Run the one of the following scripts to load admin data to a selected environment.
 
 ```bash
 # locally
@@ -194,36 +204,66 @@ $ heroku run:detached -a mciea-dashboard bundle exec rake data:load_admin_data
 Enrollment and staffing numbers are taken from the DESE website.
 
 To scrape staffing data from dese:
+
 ```bash
 bundle exec rake scrape:staffing
 ```
 
 To scrape enrollment data from dese:
+
 ```bash
 bundle exec rake scrape:enrollment
 ```
 
 Then to load it, run the seeder:
+
 ```bash
 bundle exec rake db:seed
 ```
 
 Or load it remotely on heroku
+
 ```bash
 heroku run:detached -a mciea-beta bundle exec rake db:seed
 ```
 
 Or to load it for the lowell dashboard specifically
+
 ```bash
 bundle exec rake data:seed_only_lowell
 ```
 
-
 ### Upload cleaned data to SFTP
+
 You can upload cleaned lowell data to the SFTP server with
+
 ```bash
 bundle exec rake upload:lowell
 ```
+
+## Generating reports
+
+Some reports can be generated automatically using `bundle exec rake`
+
+For example, to create a survey item report for one school, you can simply run:
+
+```bash
+bundle exec rake 'report:survey_item:create[Example School Name, 2023-24]'
+```
+
+Or for an entire district:
+
+```bash
+bundle exec rake 'report:survey_item:district[District Name, 2023-24]'
+```
+
+Other report generation tasks currently available include:
+
+- `report:measure:district[Example District]`
+- `report:measure:sqm`
+- `report:scale:bll`
+
+Reference `lib/tasks/report.rake` for the all report generation tasks currently available.
 
 ## Running tests
 
@@ -296,7 +336,6 @@ To add the heroku remote repository for beta run
 
 To add the heroku remote repository for production run
 `git remote add dashboard	https://git.heroku.com/mciea-dashboard.git `
-
 
 ## Continuous Integration
 
