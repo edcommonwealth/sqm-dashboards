@@ -35,7 +35,7 @@ RSpec.describe SurveyItemValues, type: :model do
   let(:attleboro_respondents) do
     create(:respondent, school: attleboro, academic_year: ay_2022_23, nine: 40, ten: 40, eleven: 40, twelve: 40)
   end
-  let(:schools) { School.school_hash }
+  let(:schools) { School.school_by_dese_id }
   let(:recorded_date) { "2023-04-01T12:12:12" }
   let(:ay_2022_23) do
     create(:academic_year, range: "2022-23")
@@ -789,7 +789,7 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns false" do
         headers = %w[s-sbel-q5 s-phys-q2 grade RecordedDate DeseID]
         values = SurveyItemValues.new(row: { "grade" => "2", "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
-                                      schools: School.school_hash)
+                                      schools: School.school_by_dese_id)
         expect(values.valid_grade?).to eq false
       end
     end
@@ -800,13 +800,13 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns true for student questions" do
         headers = %w[s-sbel-q5 s-phys-q1 s-phys-q2 RecordedDate]
         values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "s-sbel-q5" => "1", "s-phys-q1" => "", "s-phys-q2" => "5" }, headers:, survey_items:,
-                                      schools: School.school_hash)
+                                      schools: School.school_by_dese_id)
         expect(values.valid_sd?).to eq true
       end
       it "returns true for teacher questions" do
         headers = %w[t-sbel-q5 t-phys-q2]
         values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "t-sbel-q5" => "1", "t-phys-q2" => "5" }, headers:, survey_items:,
-                                      schools: School.school_hash)
+                                      schools: School.school_by_dese_id)
         expect(values.valid_sd?).to eq true
       end
     end
@@ -815,13 +815,13 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns false for student questions" do
         headers = %w[s-sbel-q5 s-phys-q1 s-phys-q2 RecordedDate]
         values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "s-sbel-q5" => "1", "s-phys-q2" => "1" }, headers:, survey_items:,
-                                      schools: School.school_hash)
+                                      schools: School.school_by_dese_id)
         expect(values.valid_sd?).to eq false
       end
       it "returns false for teacher questions" do
         headers = %w[t-sbel-q5 t-phys-q1 t-phys-q2 RecordedDate]
         values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "Dese ID" => "1234", "t-sbel-q5" => "1", "t-phys-q2" => "1" }, headers:, survey_items:,
-                                      schools: School.school_hash)
+                                      schools: School.school_by_dese_id)
         expect(values.valid_sd?).to eq false
       end
     end
