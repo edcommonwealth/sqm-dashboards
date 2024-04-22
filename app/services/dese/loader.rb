@@ -6,11 +6,12 @@ module Dese
     def self.load_data(filepath:)
       admin_data_values = []
       @memo = Hash.new
+      schools = School.school_by_dese_id
       CSV.parse(File.read(filepath), headers: true) do |row|
         score = likert_score(row:)
         next unless valid_likert_score(likert_score: score)
 
-        admin_data_values << create_admin_data_value(row:, score:)
+        admin_data_values << create_admin_data_value(row:, score:, schools:)
       end
 
       AdminDataValue.import(admin_data_values.flatten.compact, batch_size: 1_000, on_duplicate_key_update: :all)
@@ -40,21 +41,18 @@ module Dese
     end
 
     # these three methods do the memoization
-    def self.find_school(dese_id:)
-      return @memo["school"+dese_id] if @memo.key? "school"+dese_id
-      @memo["school"+dese_id] ||= School.find_by_dese_id(dese_id.to_i)
-    end
     def self.find_admin_data_item(admin_data_item_id:)
-      return @memo["admin"+admin_data_item_id] if @memo.key? "admin"+admin_data_item_id
-      @memo["admin"+admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
-    end
-    def self.find_ay(ay:)
-      return @memo["year"+ay] if @memo.key? "year"+ay
-      @memo["year"+ay] ||= AcademicYear.find_by_range(ay)
+      return @memo["admin" + admin_data_item_id] if @memo.key?("admin" + admin_data_item_id)
+      @memo["admin" + admin_data_item_id] ||= AdminDataItem.find_by_admin_data_item_id(admin_data_item_id)
     end
 
-    def self.create_admin_data_value(row:, score:)
-      school = find_school(dese_id: dese_id(row:))
+    def self.find_ay(ay:)
+      return @memo["year" + ay] if @memo.key?("year" + ay)
+      @memo["year" + ay] ||= AcademicYear.find_by_range(ay)
+    end
+
+    def self.create_admin_data_value(row:, score:, schools:)
+      school = schools[dese_id(row:).to_i]
       admin_data_item_id = admin_data_item(row:)
       admin_data_item = find_admin_data_item(admin_data_item_id:)
       academic_year = find_ay(ay: ay(row:))
@@ -73,7 +71,7 @@ module Dese
           likert_score: score,
           academic_year:,
           school:,
-          admin_data_item:,
+          admin_data_item:
         )
       end
     end
