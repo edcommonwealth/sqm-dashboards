@@ -282,7 +282,7 @@ GEM
     puma (6.4.0)
       nio4r (~> 2.0)
     racc (1.7.3)
-    rack (3.0.8)
+    rack (3.0.10)
     rack-livereload (0.5.1)
       rack
     rack-mini-profiler (3.3.0)
@@ -517,7 +517,7 @@ DEPENDENCIES
   watir
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.3.1p55
 
 BUNDLED WITH
    2.3.3
