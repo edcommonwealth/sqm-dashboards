@@ -67,6 +67,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Read survey results from sftp
 - add admin data for 3A-i and 3B-i
 - Fix bug where cultural responsiveness gives a false score of 1 when there is actually no data for that year
+- Add support for splitting up academic years into 'Fall' and 'Spring'
+   ```
+   bundle exec rake one_off:delete_2023_24
+   bundle exec rake db:seed
+   bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/data/survey_responses/clean/2023_24_Pre
+   bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/data/survey_responses/clean/2023_24_Post
+   ```
 
 ## [Unreleased]
 
