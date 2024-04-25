@@ -13,6 +13,7 @@ module Report
         academic_year:,
       ).each do |key,count|
         # key[1] is survey item id
+        next if key[0] == nil
         survey_items.add(key[1])
         sufficient_survey_items[key[0]].add(key[1]) if count >= 10
       end
