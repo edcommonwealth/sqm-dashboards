@@ -19,7 +19,7 @@ class ResponseRatePresenter
   end
 
   def percentage
-    return 0 if respondents_count.nil? || respondents_count.zero?
+    return 0 if respondents_count.zero?
 
     cap_at_100(actual_count.to_f / respondents_count.to_f * 100).round
   end

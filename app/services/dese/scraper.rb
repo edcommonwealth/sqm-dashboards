@@ -2,7 +2,7 @@ module Dese
   module Scraper
     DELAY = 20 # The dese site will block you if you hit it too many times in a short period of time
 
-    Prerequisites = Struct.new("Prerequisites", :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
+    Prerequisites = Struct.new('Prerequisites', :filepath, :url, :selectors, :submit_id, :admin_data_item_id,
                                :calculation)
     def reverse_score(likert_score:)
       return nil unless likert_score.present?
@@ -14,9 +14,6 @@ module Dese
 
     def run
       academic_years = AcademicYear.all.order(range: :DESC)
-                                   .map(&:range_without_season)
-                                   .uniq
-                                   .map { |range| AcademicYear.new(range:) }
       academic_years.each do |academic_year|
         prerequisites = yield academic_year
 
@@ -24,7 +21,7 @@ module Dese
                             selectors: prerequisites.selectors,
                             submit_id: prerequisites.submit_id)
         unless document.nil?
-          write_csv(document:, filepath: prerequisites.filepath, range: academic_year.range_without_season, id: prerequisites.admin_data_item_id,
+          write_csv(document:, filepath: prerequisites.filepath, range: academic_year.range, id: prerequisites.admin_data_item_id,
                     calculation: prerequisites.calculation)
         end
       end
@@ -49,26 +46,26 @@ module Dese
     end
 
     def write_headers(filepath:, headers:)
-      CSV.open(filepath, "w") do |csv|
+      CSV.open(filepath, 'w') do |csv|
         csv << headers
       end
     end
 
     def write_csv(document:, filepath:, range:, id:, calculation:)
-      table = document.css("tr")
-      headers = document.css(".sorting")
+      table = document.css('tr')
+      headers = document.css('.sorting')
       header_hash = headers.each_with_index.map { |header, index| [header.text, index] }.to_h
 
-      CSV.open(filepath, "a") do |csv|
+      CSV.open(filepath, 'a') do |csv|
         table.each do |row|
-          items = row.css("td").map(&:text)
+          items = row.css('td').map(&:text)
           dese_id = items[1].to_i
           next if dese_id.nil? || dese_id.zero?
 
           raw_likert_score = calculation.call(header_hash, items)
-          raw_likert_score ||= "NA"
+          raw_likert_score ||= 'NA'
           likert_score = raw_likert_score
-          if likert_score != "NA"
+          if likert_score != 'NA'
             likert_score = 5 if likert_score > 5
             likert_score = 1 if likert_score < 1
             likert_score = likert_score.round(2)

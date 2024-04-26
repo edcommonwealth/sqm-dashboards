@@ -8,7 +8,7 @@ class School < ApplicationRecord
   validates :name, presence: true
 
   scope :alphabetic, -> { order(name: :asc) }
-  scope :by_dese_id, -> { all.map { |school| [school.dese_id, school] }.to_h }
+  scope :school_by_dese_id, -> { all.map { |school| [school.dese_id, school] }.to_h }
 
   include FriendlyId
   friendly_id :name, use: [:slugged]
@@ -16,7 +16,7 @@ class School < ApplicationRecord
   def self.find_by_district_code_and_school_code(district_code, school_code)
     School
       .joins(:district)
-      .where(districts: { qualtrics_code: district_code })
+      .where(districts: {qualtrics_code: district_code})
       .find_by_qualtrics_code(school_code)
   end
 

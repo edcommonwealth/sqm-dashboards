@@ -122,14 +122,16 @@ class Seeder
 
   def seed_enrollment(csv_file)
     EnrollmentLoader.load_data(filepath: csv_file)
+    missing_enrollment_for_current_year = Respondent.where(academic_year: AcademicYear.order(:range).last).count.zero?
 
-    EnrollmentLoader.clone_previous_year_data
+    EnrollmentLoader.clone_previous_year_data if missing_enrollment_for_current_year
   end
 
   def seed_staffing(csv_file)
     StaffingLoader.load_data(filepath: csv_file)
+    missing_staffing_for_current_year = Respondent.where(academic_year: AcademicYear.order(:range).last).group(:total_teachers).having("total_teachers > 0").count.count.zero?
 
-    StaffingLoader.clone_previous_year_data
+    StaffingLoader.clone_previous_year_data if missing_staffing_for_current_year
   end
 
   private

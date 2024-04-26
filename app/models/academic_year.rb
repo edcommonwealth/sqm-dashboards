@@ -1,60 +1,41 @@
 # frozen_string_literal: true
 
-require "date"
-
 class AcademicYear < ActiveRecord::Base
-  scope :by_range, -> { all.map { |academic_year| [academic_year.range, academic_year] }.to_h }
-  scope :of_year, ->(range) { all.select { |ay| ay.range.start_with?(range) } }
-
-  def self.range_from_date(date, ranges)
+  def self.find_by_date(date)
     year = parse_year_range(date:)
-    range = ranges.find { |item| item.downcase == "#{year.start}-#{year.end.to_s[2, 3]} #{year.season.downcase}" }
-    range ||= ranges.find { |item| item.downcase == "#{year.start}-#{year.end.to_s[2, 3]}" }
-    range
+    range = "#{year.start}-#{year.end.to_s[2, 3]}"
+    academic_years[range]
   end
 
   def formatted_range
-    years = range.split("-").map(&:split).flatten
-    "#{years.first} – 20#{years.second} #{years[2]}".chomp
-  end
-
-  def range_without_season
-    range.scan(/[\d-]/).join
+    years = range.split('-')
+    "#{years.first} – 20#{years.second}"
   end
 
   private
 
   def self.parse_year_range(date:)
     year = date.year
-    ayr = if date.month > 6
-            AcademicYearRange.new(year, year + 1)
-          else
-            AcademicYearRange.new(year - 1, year)
-          end
-
-    ayr.season = if in_fall?(date, ayr)
-                   "Fall"
-                 else
-                   "Spring"
-                 end
-    ayr
+    if date.month > 6
+      AcademicYearRange.new(year, year + 1)
+    else
+      AcademicYearRange.new(year - 1, year)
+    end
   end
 
-  def self.in_fall?(date, ayr)
-    date.between?(Date.parse("#{ayr.start}-7-1"), last_sunday(2, ayr.end) - 1)
+  # This may cause problems if academic years get loaded from csv instead of the current method that requires a code change to the seeder script.  This is because a change in code will trigger a complete reload of the application whereas loading from csv does not.  This means if we change academic year to load from csv, the set of academic years will be stale when new years are added.
+  def self.academic_years
+    @@academic_years ||= AcademicYear.all.map { |academic_year| [academic_year.range, academic_year] }.to_h
   end
 
-  # returns a Date object being the last sunday of the given month/year
-  # month: integer between 1 and 12
-  def self.last_sunday(month, year)
-    # get the last day of the month
-    date = Date.new year, month, -1
-    # subtract number of days we are ahead of sunday
-    date -= date.wday
+  # Needed to reset the academic years when testing with specs that create the same academic year in a before :each block
+  def self.reset_academic_years
+    @@academic_years = nil
   end
 
-  private_class_method :in_fall?
+  private_class_method :academic_years
   private_class_method :parse_year_range
 end
 
-AcademicYearRange = Struct.new(:start, :end, :season)
+AcademicYearRange = Struct.new(:start, :end)
+
