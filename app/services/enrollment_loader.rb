@@ -77,7 +77,7 @@ class EnrollmentLoader
   def self.last_academic_year_with_data(school:)
     AcademicYear.all.order(range: :DESC).find do |academic_year|
       Respondent.where(school:, academic_year:).any? do |respondent|
-        respondent.total_students.positive?
+        respondent&.total_students&.positive?
       end
     end
   end
@@ -85,7 +85,7 @@ class EnrollmentLoader
   def self.academic_years_without_data(school:)
     AcademicYear.all.order(range: :DESC).reject do |academic_year|
       Respondent.where(school:, academic_year:).any? do |respondent|
-        respondent.total_students.positive?
+        respondent&.total_students&.positive?
       end
     end
   end
