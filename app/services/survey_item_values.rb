@@ -193,12 +193,12 @@ class SurveyItemValues
 
   def value_from(pattern:)
     output = nil
-    matches = headers.select do |header|
-      pattern.match(header)
-    end.map { |item| item.delete("\n") }
+    matches = headers
+              .select { |header| pattern.match(header) }
+              .map { |item| item.delete("\n") }
 
-    matches.each do |match|
-      output ||= row[match]&.strip
+    output = matches.find do |match|
+      row[match]&.strip == nil?
     end
 
     return nil if output&.match?(%r{^#*N/*A$}i) || output.blank?
