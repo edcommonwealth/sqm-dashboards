@@ -169,7 +169,7 @@ class SurveyItemValues
   end
 
   def raw_income
-    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income|SES-\s*SIS/i)
+    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income|SES-\s*SIS|EconDisadvantaged/i)
   end
 
   def income
@@ -185,7 +185,7 @@ class SurveyItemValues
   end
 
   def raw_sped
-    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd|SpEd-\s*SIS/i)
+    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd|SpEd-\s*SIS|SPED/i)
   end
 
   def sped

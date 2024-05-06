@@ -505,13 +505,34 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.income).to eq "Economically Disadvantaged - N"
     end
 
+    it "translates ones to Economically Disadvantaged - Y" do
+      headers = ["LowIncome"]
+      row = { "LowIncome" => "1" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      expect(values.income).to eq "Economically Disadvantaged - Y"
+    end
+
+    it "translates zeros to Economically Disadvantaged - N" do
+      headers = ["LowIncome"]
+      row = { "LowIncome" => "0" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      expect(values.income).to eq "Economically Disadvantaged - N"
+    end
+
     it "translates blanks to Unknown" do
       headers = ["LowIncome"]
       row = { "LowIncome" => "" }
-
-      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.income).to eq "Unknown"
     end
+
+    # NOTE: This will halt test runs too
+    # it "halts execution if there is a value it cannot parse" do
+    #   headers = ["LowIncome"]
+    #   row = { "LowIncome" => "ArbitraryUnknownValue" }
+    #   output = capture_stdout { SurveyItemValues.new(row:, headers:, survey_items:, schools:) }
+    #   expect(output).to match "ArbitraryUnknownValue is not a known value. Halting execution"
+    # end
   end
 
   context ".ell" do
@@ -530,8 +551,20 @@ RSpec.describe SurveyItemValues, type: :model do
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
       expect(values.ell).to eq "ELL"
 
-      row = { "Raw ELL" => "LEP Student Not 1st Year" }
-      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      row = { "Raw ELL" => "LEP Student, Not 1st Year" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "ELL"
+
+      row = { "Raw ELL" => "EL student, not 1st year" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "ELL"
+
+      row = { "Raw ELL" => "EL student, 1st year" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "ELL"
+
+      row = { "Raw ELL" => "EL - Early Child. or PK" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "ELL"
     end
 
@@ -546,16 +579,40 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.ell).to eq "Not ELL"
     end
 
-    it 'tranlsates blanks into "Not Ell"' do
+    it 'tranlsates zeros into "Not ELL"' do
+      headers = ["Raw ELL"]
+      row = { "Raw ELL" => "0" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "Not ELL"
+    end
+
+    it 'tranlsates NAs and blanks into "Not ELL"' do
       headers = ["Raw ELL"]
       row = { "Raw ELL" => "" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
       expect(values.ell).to eq "Not ELL"
 
-      row = { "Raw ELL" => "Anything else" }
-      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      row = { "Raw ELL" => "NA" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "Not ELL"
+
+      row = { "Raw ELL" => "#NA" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "Not ELL"
+
+      row = { "Raw ELL" => "#N/A" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "Not ELL"
     end
+
+    # NOTE: This will halt test runs too
+    # it "halts execution if there is a value it cannot parse" do
+    #   headers = ["Raw ELL"]
+    #   row = { "Raw ELL" => "ArbitraryUnknownValue" }
+
+    #   output = capture_stdout { SurveyItemValues.new(row:, headers:, survey_items:, schools:) }
+    #   expect(output).to match "ArbitraryUnknownValue is not a known value. Halting execution"
+    # end
   end
 
   context ".sped" do
@@ -569,6 +626,20 @@ RSpec.describe SurveyItemValues, type: :model do
       row = { "Raw SpEd" => "active" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
       expect(values.sped).to eq "Special Education"
+    end
+
+    it 'translates "A" into "Special Education"' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "A" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      expect(values.sped).to eq "Special Education"
+    end
+
+    it 'translates "I" into "Not Special Education"' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "I" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      expect(values.sped).to eq "Not Special Education"
     end
 
     it 'translates "exited" into "Not Special Education"' do
@@ -585,7 +656,7 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.sped).to eq "Not Special Education"
     end
 
-    it 'tranlsates NA into "Not Special Education"' do
+    it 'translates NA into "Not Special Education"' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "NA" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
@@ -595,6 +666,14 @@ RSpec.describe SurveyItemValues, type: :model do
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
       expect(values.sped).to eq "Not Special Education"
     end
+
+    # NOTE: This will halt test runs too
+    # it "halts execution if there is a value it cannot parse" do
+    #   headers = ["Raw SpEd"]
+    #   row = { "Raw SpEd" => "ArbitraryUnknownValue" }
+    #   output = capture_stdout { SurveyItemValues.new(row:, headers:, survey_items:, schools:) }
+    #   expect(output).to match "ArbitraryUnknownValue is not a known value. Halting execution"
+    # end
   end
 
   context ".valid_duration" do
