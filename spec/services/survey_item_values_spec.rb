@@ -628,6 +628,13 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.sped).to eq "Special Education"
     end
 
+    it 'translates "1" into "Special Education"' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "1" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      expect(values.sped).to eq "Special Education"
+    end
+
     it 'translates "A" into "Special Education"' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "A" }
@@ -638,6 +645,13 @@ RSpec.describe SurveyItemValues, type: :model do
     it 'translates "I" into "Not Special Education"' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "I" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      expect(values.sped).to eq "Not Special Education"
+    end
+
+    it 'translates "0" into "Not Special Education"' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "0" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
       expect(values.sped).to eq "Not Special Education"
     end
