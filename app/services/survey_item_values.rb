@@ -95,6 +95,7 @@ class SurveyItemValues
       dese_id = value_from(pattern: /Dese\s*ID/i)
       dese_id ||= value_from(pattern: /^School$/i)
       dese_id ||= value_from(pattern: /School-\s*\w/i)
+
       dese_id.to_i
     end
   end
@@ -168,7 +169,7 @@ class SurveyItemValues
   end
 
   def raw_income
-    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income|SES-\s*SIS/i)
+    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income|SES-\s*SIS|EconDisadvantaged/i)
   end
 
   def income
@@ -184,7 +185,7 @@ class SurveyItemValues
   end
 
   def raw_sped
-    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd|SpEd-\s*SIS/i)
+    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd|SpEd-\s*SIS|SPED/i)
   end
 
   def sped
@@ -193,12 +194,12 @@ class SurveyItemValues
 
   def value_from(pattern:)
     output = nil
-    matches = headers
-              .select { |header| pattern.match(header) }
-              .map { |item| item.delete("\n") }
+    matches = headers.select do |header|
+      pattern.match(header)
+    end.map { |item| item.delete("\n") }
 
-    output = matches.find do |match|
-      row[match]&.strip == nil?
+    matches.each do |match|
+      output ||= row[match]&.strip
     end
 
     return nil if output&.match?(%r{^#*N/*A$}i) || output.blank?
@@ -310,3 +311,4 @@ class SurveyItemValues
     end
   end
 end
+
