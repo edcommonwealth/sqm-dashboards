@@ -8,9 +8,9 @@ class Sped < ApplicationRecord
     return "Not Special Education" if sped.blank? || sped.nil?
 
     case sped
-    in /active|^A$|1/i
+    in /active|^A$|1|Special\s*Education/i
       "Special Education"
-    in /^I$|exited|0/i
+    in /^I$|exited|0|Not\s*Special\s*Education/i
       "Not Special Education"
     in /^NA$|^#NA$|Unknown/i
       "Unknown"
