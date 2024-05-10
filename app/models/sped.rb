@@ -5,13 +5,23 @@ class Sped < ApplicationRecord
 
   friendly_id :designation, use: [:slugged]
   def self.to_designation(sped)
+    return "Not Special Education" if sped.blank? || sped.nil?
+
     case sped
-    in /active/i
+    in /active|^A$|1|Special\s*Education/i
       "Special Education"
-    in /^NA$|^#NA$/i
+    in /^I$|exited|0|Not\s*Special\s*Education|Does\s*not\s*apply/i
+      "Not Special Education"
+    in /^NA$|^#NA$|Unknown/i
       "Unknown"
     else
-      "Not Special Education"
+      puts "************************************"
+      puts "********      ERROR       **********"
+      puts ""
+      puts "Error parsing Special Education column. '#{sped}' is not a known value. Halting execution"
+      puts ""
+      puts "************************************"
+      exit
     end
   end
 end
