@@ -45,15 +45,15 @@ class Measure < ActiveRecord::Base
   end
 
   def includes_teacher_survey_items?
-    @includes_teacher_survey_items ||= teacher_survey_items.any?
+    @includes_teacher_survey_items ||= teacher_survey_items.length.positive?
   end
 
   def includes_student_survey_items?
-    @includes_student_survey_items ||= student_survey_items.any?
+    @includes_student_survey_items ||= student_survey_items.length.positive?
   end
 
   def includes_admin_data_items?
-    @includes_admin_data_items ||= admin_data_items.any?
+    @includes_admin_data_items ||= admin_data_items.length.positive?
   end
 
   def score(school:, academic_year:)
