@@ -147,17 +147,17 @@ class SurveyItemValues
       race_codes ||= []
 
       race_codes = race_codes.split(",")
-                             .map do |word|
-                     word.split(/\s+and\s+/i)
-                   end.flatten
-                      .reject(&:blank?)
-                      .map { |race| Race.qualtrics_code_from(race) }.map(&:to_i)
+                             .map { |word| word.split(/\s+and\s+/i) }
+                             .flatten
+                             .reject(&:blank?)
+                             .map { |race| Race.qualtrics_code_from(race) }
+                             .map(&:to_i)
 
       # Only check the secondary hispanic column if we don't have self reported data and are relying on SIS data
       if self_report.nil? && sis.present?
         hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
         race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
-        race_codes = race_codes.push(4) if hispanic == "true"
+        race_codes = race_codes.push(4) if hispanic == "true" || hispanic == "1"
       end
 
       Race.normalize_race_list(race_codes)
@@ -201,8 +201,6 @@ class SurveyItemValues
     matches.each do |match|
       output ||= row[match]&.strip
     end
-
-    return nil if output&.match?(%r{^#*N/*A$}i) || output.blank?
 
     output
   end
