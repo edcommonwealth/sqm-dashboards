@@ -9,6 +9,8 @@ class Race < ApplicationRecord
   }
 
   def self.qualtrics_code_from(word)
+    return nil if word.blank?
+
     case word
     when /Native\s*American|American\s*Indian|Alaskan\s*Native|1/i
       1
