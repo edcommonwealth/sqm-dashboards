@@ -523,11 +523,11 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.income).to eq "Economically Disadvantaged - N"
     end
 
-    it "translates blanks to Unknown" do
+    it "translates blanks to 'Economically Disadvantaged - N'" do
       headers = ["LowIncome"]
       row = { "LowIncome" => "" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
-      expect(values.income).to eq "Unknown"
+      expect(values.income).to eq "Economically Disadvantaged - N"
     end
 
     # NOTE: This will halt test runs too

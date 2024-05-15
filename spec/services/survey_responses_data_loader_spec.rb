@@ -328,7 +328,7 @@ end
 def assigns_income_to_responses
   results = { "student_survey_response_1" => low_income,
               "student_survey_response_3" => low_income,
-              "student_survey_response_4" => unknown_income,
+              "student_survey_response_4" => high_income,
               "student_survey_response_5" => low_income,
               "student_survey_response_6" => high_income,
               "student_survey_response_7" => low_income }
@@ -349,8 +349,6 @@ def assigns_ell_to_responses
 
   results.each do |key, value|
     ell = SurveyItemResponse.find_by_response_id(key).ell
-    puts key
-    puts value
     expect(ell).to eq value
   end
 end
