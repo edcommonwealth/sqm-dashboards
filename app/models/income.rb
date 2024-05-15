@@ -7,7 +7,7 @@ class Income < ApplicationRecord
   friendly_id :designation, use: [:slugged]
 
   def self.to_designation(income)
-    return "Unknown" if income.blank? or income.nil?
+    return "Economically Disadvantaged - N" if income.blank? or income.nil?
 
     case income
     in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income|Reduced\s*price\s*lunch|true|1/i
