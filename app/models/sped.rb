@@ -12,7 +12,7 @@ class Sped < ApplicationRecord
       "Special Education"
     in /^I$|exited|0|^Not\s*Special\s*Education$|Does\s*not\s*apply|Referred|Ineligible/i
       "Not Special Education"
-    in %r{^#*N/*A$|Unknown|SpecialEdStatus}i
+    in %r{^#*N/*A$|Unknown|SpecialEdStatus|SPED}i
       "Unknown"
     else
       puts "************************************"
