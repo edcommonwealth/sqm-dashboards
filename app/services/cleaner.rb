@@ -78,7 +78,10 @@ class Cleaner
       CSV.parse(lines.join, headers:).map do |row|
         values = SurveyItemValues.new(row:, headers:,
                                       survey_items: all_survey_items, schools:, academic_years:)
-        next unless values.valid_school?
+        unless values.valid_school?
+          # puts "row #{values.response_id}: dese id :#{values.dese_id} : could not find school, skipping row for file #{file.path}"
+          next
+        end
 
         data << values
         values.valid? ? clean_csv << values.to_a : log_csv << (values.to_a << values.valid_duration?.to_s << values.valid_progress?.to_s << values.valid_grade?.to_s << values.valid_sd?.to_s)
