@@ -14,7 +14,7 @@ class Income < ApplicationRecord
       "Economically Disadvantaged - Y"
     in /Not\s*Eligible|false|0/i
       "Economically Disadvantaged - N"
-    in %r{^#*N/*A$|Unknown}i
+    in %r{^#*N/*A$|Unknown|Income}i
       "Unknown"
     else
       puts "************************************"
