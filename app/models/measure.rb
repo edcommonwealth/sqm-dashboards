@@ -135,22 +135,15 @@ class Measure < ActiveRecord::Base
   private
 
   def any_admin_data_collected?(school:, academic_year:)
-    @any_admin_data_collected ||= Hash.new do |memo, (school, academic_year)|
-      total_collected_admin_data_items =
-        admin_data_items.map do |admin_data_item|
-          admin_data_item.admin_data_values.where(school:, academic_year:).count
-        end.flatten.sum
-      memo[[school, academic_year]] = total_collected_admin_data_items.positive?
-    end
-    @any_admin_data_collected[[school, academic_year]]
+    total_collected_admin_data_items =
+      admin_data_items.map do |admin_data_item|
+        admin_data_item.admin_data_values.where(school:, academic_year:).count
+      end.flatten.sum
+    total_collected_admin_data_items.positive?
   end
 
   def sufficient_survey_responses?(school:, academic_year:)
-    @sufficient_survey_responses ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] =
-        sufficient_student_data?(school:, academic_year:) || sufficient_teacher_data?(school:, academic_year:)
-    end
-    @sufficient_survey_responses[[school, academic_year]]
+    sufficient_student_data?(school:, academic_year:) || sufficient_teacher_data?(school:, academic_year:)
   end
 
   def scorify(average:, school:, academic_year:)
@@ -161,13 +154,10 @@ class Measure < ActiveRecord::Base
   end
 
   def collect_survey_item_average(survey_items:, school:, academic_year:)
-    @collect_survey_item_average ||= Hash.new do |memo, (survey_items, school, academic_year)|
-      averages = survey_items.map do |survey_item|
-        SurveyItemResponse.grouped_responses(school:, academic_year:)[survey_item.id]
-      end.remove_blanks
-      memo[[survey_items, school, academic_year]] = averages.average || 0
-    end
-    @collect_survey_item_average[[survey_items, school, academic_year]]
+    averages = survey_items.map do |survey_item|
+      SurveyItemResponse.grouped_responses(school:, academic_year:)[survey_item.id]
+    end.remove_blanks
+    averages.average || 0
   end
 
   def sufficient_student_data?(school:, academic_year:)
@@ -183,13 +173,9 @@ class Measure < ActiveRecord::Base
   end
 
   def incalculable_score(school:, academic_year:)
-    @incalculable_score ||= Hash.new do |memo, (school, academic_year)|
-      lacks_sufficient_survey_data = !sufficient_student_data?(school:, academic_year:) &&
-                                     !sufficient_teacher_data?(school:, academic_year:)
-      memo[[school, academic_year]] = lacks_sufficient_survey_data && !includes_admin_data_items?
-    end
-
-    @incalculable_score[[school, academic_year]]
+    lacks_sufficient_survey_data = !sufficient_student_data?(school:, academic_year:) &&
+                                   !sufficient_teacher_data?(school:, academic_year:)
+    lacks_sufficient_survey_data && !includes_admin_data_items?
   end
 
   def collect_averages_for_teacher_student_and_admin_data(school:, academic_year:)
@@ -201,27 +187,15 @@ class Measure < ActiveRecord::Base
   end
 
   def teacher_average(school:, academic_year:)
-    @teacher_average ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] =
-        collect_survey_item_average(survey_items: teacher_survey_items, school:, academic_year:)
-    end
-
-    @teacher_average[[school, academic_year]]
+    collect_survey_item_average(survey_items: teacher_survey_items, school:, academic_year:)
   end
 
   def student_average(school:, academic_year:)
-    @student_average ||= Hash.new do |memo, (school, academic_year)|
-      survey_items = student_survey_items_with_sufficient_responses(school:, academic_year:)
-      memo[[school, academic_year]] = collect_survey_item_average(survey_items:, school:, academic_year:)
-    end
-    @student_average[[school, academic_year]]
+    survey_items = student_survey_items_with_sufficient_responses(school:, academic_year:)
+    collect_survey_item_average(survey_items:, school:, academic_year:)
   end
 
   def admin_data_averages(school:, academic_year:)
-    @admin_data_averages ||= Hash.new do |memo, (school, academic_year)|
-      memo[[school, academic_year]] =
-        AdminDataValue.where(school:, academic_year:, admin_data_item: admin_data_items).pluck(:likert_score)
-    end
-    @admin_data_averages[[school, academic_year]]
+    AdminDataValue.where(school:, academic_year:, admin_data_item: admin_data_items).pluck(:likert_score)
   end
 end
