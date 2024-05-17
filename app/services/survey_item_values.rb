@@ -157,7 +157,7 @@ class SurveyItemValues
       if self_report.nil? && sis.present?
         hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
         race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
-        race_codes = race_codes.push(4) if hispanic == "true" || hispanic == "1"
+        race_codes = race_codes.push(4) if %w[true 1].include?(hispanic)
       end
 
       Race.normalize_race_list(race_codes)
@@ -169,7 +169,7 @@ class SurveyItemValues
   end
 
   def raw_income
-    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income|SES-\s*SIS|EconDisadvantaged|Income\s*SIS/i)
+    @raw_income ||= value_from(pattern: /Low\s*Income|Raw\s*Income|SES-\s*SIS|EconDisadvantaged|Income\s*SIS|DirectCert/i)
   end
 
   def income
@@ -177,7 +177,7 @@ class SurveyItemValues
   end
 
   def raw_ell
-    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL|ELL-*\s*SIS/i)
+    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL|ELL-*\s*SIS|English Learner/i)
   end
 
   def ell
