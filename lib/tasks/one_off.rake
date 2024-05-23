@@ -148,7 +148,7 @@ namespace :one_off do
         nil_count = SurveyItemResponse.where(school:, academic_year:, grade: nil,
                                              survey_item: SurveyItem.student_survey_items).count
         percentage = ((nil_count / total) * 100).round(1)
-        puts "#{percentage}% nil grades for:  #{school.name}, #{academic_year.range}" if percentage > 1
+        puts "#{percentage}% nil grades for:  #{school.name}, #{academic_year.range}" if percentage > 10
       end
     end
   end
