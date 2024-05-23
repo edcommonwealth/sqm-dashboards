@@ -3,7 +3,7 @@ module Report
     def self.create_report(schools: School.all.includes(:district), academic_years: AcademicYear.all, measures: ::Measure.all, filename: "measure_report.csv")
       data = []
       mutex = Thread::Mutex.new
-      data << ["District", "School", "School Code", "Academic Year", "Recorded Date Range", "Grades", "Measure", "Student Score", "Student Zone", "Teacher Score",
+      data << ["Measure Name", "Measure ID", "District", "School", "School Code", "Academic Year", "Recorded Date Range", "Grades", "Student Score", "Student Zone", "Teacher Score",
                "Teacher Zone", "Admin Score", "Admin Zone", "All Score (Average)", "All Score Zone"]
       pool_size = 2
       jobs = Queue.new
@@ -34,13 +34,14 @@ module Report
                 all_grades = respondents.enrollment_by_grade.keys
                 grades = "#{all_grades.first}-#{all_grades.last}"
                 mutex.synchronize do
-                  data << [school.district.name,
+                  data << [measure.name,
+                           measure.measure_id,
+                           school.district.name,
                            school.name,
                            school.dese_id,
                            academic_year.range,
                            date_range,
                            grades,
-                           measure.measure_id,
                            student_score(row:),
                            student_zone(row:),
                            teacher_score(row:),
