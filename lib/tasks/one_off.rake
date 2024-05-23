@@ -147,10 +147,15 @@ namespace :one_off do
       School.all.each do |school|
         total = SurveyItemResponse.where(school:, academic_year:,
                                          survey_item: SurveyItem.student_survey_items).count.to_f
+
+        respondent_count = SurveyItemResponse.where(school:, academic_year:,
+                                                    survey_item: SurveyItem.student_survey_items).pluck(:response_id).uniq.count.to_f
         nil_count = SurveyItemResponse.where(school:, academic_year:, grade: nil,
                                              survey_item: SurveyItem.student_survey_items).count
         percentage = ((nil_count / total) * 100).round(1)
-        puts "#{percentage}% nil grades for:  #{school.name}, #{academic_year.range}" if percentage > 1
+        if percentage > 10
+          puts "#{percentage}% nil grades out of #{respondent_count} students responding for:  #{school.name}, #{academic_year.range}"
+        end
       end
     end
   end
