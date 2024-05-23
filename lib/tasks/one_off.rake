@@ -129,10 +129,15 @@ namespace :one_off do
 
   desc "delete 2023-24 AcademicYear and all responses, admin data, enrollment numbers and staffing numbers"
   task delete_2023_24: :environment do
-    academic_year = AcademicYear.find_by_range "2023-24"
-    AdminDataValue.where(academic_year:).delete_all
-    Respondent.where(academic_year:).delete_all
-    SurveyItemResponse.where(academic_year:).delete_all
-    academic_year.delete
+    academic_years = ["2023-24", "2023-24 Fall", "2023-24 Spring"]
+    academic_years.each do |ay|
+      academic_year = AcademicYear.find_by_range ay
+      next unless academic_year.present?
+
+      AdminDataValue.where(academic_year:).delete_all
+      Respondent.where(academic_year:).delete_all
+      SurveyItemResponse.where(academic_year:).delete_all
+      academic_year.delete
+    end
   end
 end
