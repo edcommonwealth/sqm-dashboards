@@ -4,8 +4,8 @@ EL student not 1st year,ELL,EL Student First Year,A,Special Education,Special Ed
 EL student 1st year,ELL,ELL- SIS,1,Special Education,SPED- SIS,LowIncome,Economically Disadvantaged – Y,SES- SIS
 "EL student, 1st year",ELL,DirectCert,Special Education,Special Education,SPED,Low Income,Economically Disadvantaged – Y,EconDisadvantaged
 EL - Early Child. or PK,ELL,ELL,Referred,Not Special Education,,Reduced price lunch,Economically Disadvantaged – Y,Income SIS
-1,ELL,,Ineligible,Not Special Education,,TRUE,Economically Disadvantaged – Y,SES 
-lep student 1st year,ELL,,I,Not Special Education,,1,Economically Disadvantaged – Y,
+1,ELL,English Learner,Ineligible,Not Special Education,,TRUE,Economically Disadvantaged – Y,SES 
+lep student 1st year,ELL,,I,Not Special Education,,1,Economically Disadvantaged – Y,DirectCert
 lep student not 1st year,ELL,,exited,Not Special Education,,Not Eligible,Economically Disadvantaged – N,
 LEP Not1stYr,ELL,,0,Not Special Education,,FALSE,Economically Disadvantaged – N,
 LEP1stYr US Sch,ELL,,Not Special Education,Not Special Education,,0,Economically Disadvantaged – N,
@@ -15,7 +15,7 @@ Does not apply,Not ELL,,Does not apply,Not Special Education,,[blanks],Economica
 3,Not ELL,,NA,Unknown,,N/A,Unknown,
 [blanks],Not ELL,,N/A,Unknown,,#N/A,Unknown,
 #NA,Unknown,,#N/A,Unknown,,Income,Unknown,
-NA,Unknown,,SPED,Unknown,,,,
-N/A,Unknown,,,,,,,
+NA,Unknown,,SPED,Unknown,,Yes,Economically Disadvantaged – Y,
+N/A,Unknown,,No special needs,Not Special Education,,No,Economically Disadvantaged – N,
 #N/A,Unknown,,,,,,,
 ELL,ELL,,,,,,,

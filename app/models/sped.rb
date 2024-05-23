@@ -10,7 +10,7 @@ class Sped < ApplicationRecord
     case sped
     in /active|^A$|1|^Special\s*Education$/i
       "Special Education"
-    in /^I$|exited|0|^Not\s*Special\s*Education$|Does\s*not\s*apply|Referred|Ineligible/i
+    in /^I$|exited|0|^Not\s*Special\s*Education$|Does\s*not\s*apply|Referred|Ineligible|^No\s*special\s*needs$/i
       "Not Special Education"
     in %r{^#*N/*A$|Unknown|SpecialEdStatus|SPED}i
       "Unknown"
