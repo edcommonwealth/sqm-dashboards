@@ -58,10 +58,25 @@ class Cleaner
     log_csv = []
     data = []
     headers = CSV.parse(file.first).first
+
+    # If this is a student survey
+    # Make sure it includes a 'Grade' header
+    student_survey_is_missing_grade_header = headers
+                                             .filter(&:present?)
+                                             .filter { |header| header.start_with? "s-" }.count > 0 && !headers.find do |header|
+                                                                                                         header.match?(/grade/i)
+                                                                                                       end
+    if student_survey_is_missing_grade_header
+      puts "could not find the Grade header.  Stopping execution"
+      exit
+    end
+
     duplicate_header = headers.detect { |header| headers.count(header) > 1 }
     unless duplicate_header.nil?
       puts "\n>>>>>>>>>>>>>>>>>>    Duplicate header found.  This will misalign column headings.  Please delete or rename the duplicate column: #{duplicate_header} \n>>>>>>>>>>>>>> \n"
+      exit
     end
+
     headers = headers.to_set
     headers = headers.merge(Set.new(["Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count",
                                      "Race", "Gender"])).to_a
