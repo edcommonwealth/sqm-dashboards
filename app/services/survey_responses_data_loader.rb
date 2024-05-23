@@ -61,15 +61,15 @@ class SurveyResponsesDataLoader
   private
 
   def schools
-    @schools = School.by_dese_id
+    @schools ||= School.by_dese_id
   end
 
   def genders
-    @genders = Gender.by_qualtrics_code
+    @genders ||= Gender.by_qualtrics_code
   end
 
   def races
-    @races = Race.by_qualtrics_code
+    @races ||= Race.by_qualtrics_code
   end
 
   def incomes
