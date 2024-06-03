@@ -127,6 +127,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.3.3)
       railties (>= 6.0.0)
+    csv (3.3.0)
     cuprite (0.15)
       capybara (~> 3.0)
       ferrum (~> 0.14.0)
@@ -253,15 +254,12 @@ GEM
     newrelic_rpm (9.6.0)
       base64
     nio4r (2.7.3)
-    nokogiri (1.16.5-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.5-x86_64-darwin)
-      racc (~> 1.4)
     nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    observer (0.1.2)
     orm_adapter (0.5.0)
     parallel (1.24.0)
     parallel_tests (4.3.0)
@@ -462,8 +460,6 @@ GEM
     zeitwerk (2.6.14)
 
 PLATFORMS
-  arm64-darwin-21
-  x86_64-darwin-20
   x86_64-linux
 
 DEPENDENCIES
@@ -475,6 +471,7 @@ DEPENDENCIES
   byebug
   capybara
   cssbundling-rails
+  csv (~> 3.3)
   cuprite
   database_cleaner
   devise!
@@ -495,6 +492,7 @@ DEPENDENCIES
   net-sftp
   newrelic_rpm
   nokogiri
+  observer (~> 0.1.2)
   parallel_tests
   pg
   pg_query (>= 2)
@@ -519,7 +517,7 @@ DEPENDENCIES
   watir
 
 RUBY VERSION
-   ruby 3.3.1p55
+   ruby 3.3.2p78
 
 BUNDLED WITH
-   2.3.3
+   2.5.11
