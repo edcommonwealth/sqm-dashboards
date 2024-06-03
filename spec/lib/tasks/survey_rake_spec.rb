@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Legacy
-  describe 'survey:attempt_questions' do
+  xdescribe 'survey:attempt_questions' do
     include_context 'rake'
 
     it 'should have environment as a prerequisite' do

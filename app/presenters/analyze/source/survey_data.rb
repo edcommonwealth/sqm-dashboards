@@ -2,6 +2,7 @@ module Analyze
   module Source
     class SurveyData
       attr_reader :slices
+      attr_accessor :graph
 
       include Analyze::Slice
 
@@ -10,11 +11,11 @@ module Analyze
       end
 
       def to_s
-        'Survey Data Only'
+        "Survey Data Only"
       end
 
       def slug
-        'survey-data-only'
+        "survey-data-only"
       end
     end
   end

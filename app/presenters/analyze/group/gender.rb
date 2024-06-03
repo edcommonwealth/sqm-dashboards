@@ -2,11 +2,15 @@ module Analyze
   module Group
     class Gender
       def name
-        'Gender'
+        "Gender"
       end
 
       def slug
-        'gender'
+        "gender"
+      end
+
+      def graph
+        Analyze::Graph::StudentsByGender.new(genders: nil)
       end
     end
   end

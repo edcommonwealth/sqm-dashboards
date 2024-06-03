@@ -36,11 +36,11 @@ describe Analyze::Presenter do
     end
     context "when a category is provided in the params hash" do
       it "returns the category with the given id" do
-        params = {category: "1"}
+        params = { category: "1" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.category).to eq category
 
-        params = {category: "2"}
+        params = { category: "2" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.category).to eq category_2
       end
@@ -56,7 +56,7 @@ describe Analyze::Presenter do
 
     context "when a category that doesnt exist in the database is passed" do
       it "returns the first category" do
-        params = {category: "4"}
+        params = { category: "4" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.category).to eq category
       end
@@ -82,11 +82,11 @@ describe Analyze::Presenter do
     end
     context "when a subcategory is provided in the params hash" do
       it "returns the subcategory with the given id" do
-        params = {subcategory: "1A"}
+        params = { subcategory: "1A" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.subcategory).to eq subcategory
 
-        params = {subcategory: "2A"}
+        params = { subcategory: "2A" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.subcategory).to eq subcategory_2
       end
@@ -102,7 +102,7 @@ describe Analyze::Presenter do
 
     context "when a subcategory that doesnt exist in the database is passed" do
       it "returns the first subcategory" do
-        params = {subcategory: "4A"}
+        params = { subcategory: "4A" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.subcategory).to eq subcategory
       end
@@ -117,7 +117,7 @@ describe Analyze::Presenter do
       wrong_subcategory
     end
     it "returns all subcategories for a given category" do
-      params = {category: "1"}
+      params = { category: "1" }
       presenter = Analyze::Presenter.new(params:, school:, academic_year:)
       expect(presenter.subcategories).to eq category.subcategories.all.order(:subcategory_id)
     end
@@ -131,7 +131,7 @@ describe Analyze::Presenter do
     end
 
     it "returns all measures for a given subcategory" do
-      params = {category: "1"}
+      params = { category: "1" }
       presenter = Analyze::Presenter.new(params:, school:, academic_year:)
       expect(presenter.measures).to eq category.subcategories.flat_map(&:measures)
     end
@@ -165,11 +165,11 @@ describe Analyze::Presenter do
     end
     context "when a single academic year is provided in the params hash" do
       it "returns the academic year with the given id" do
-        params = {academic_years: "2021-22"}
+        params = { academic_years: "2021-22" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_academic_years).to eq [AcademicYear.find_by_range("2021-22")]
 
-        params = {academic_years: "2022-23"}
+        params = { academic_years: "2022-23" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_academic_years).to eq [AcademicYear.find_by_range("2022-23")]
       end
@@ -177,10 +177,10 @@ describe Analyze::Presenter do
 
     context "when multiple academic years are provided in the params hash" do
       it "returns the academic year with the given ids" do
-        params = {academic_years: "2021-22,2022-23"}
+        params = { academic_year1: "2021-22", academic_year2: "2022-23" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_academic_years).to eq [AcademicYear.find_by_range("2021-22"),
-          AcademicYear.find_by_range("2022-23")]
+                                                         AcademicYear.find_by_range("2022-23")]
       end
     end
   end
@@ -215,11 +215,11 @@ describe Analyze::Presenter do
 
     context "when one race is provided in the params hash" do
       it "returns a single race with the given slug" do
-        params = {races: "white"}
+        params = { "race1-checkbox" => "white" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_races).to eq [Race.find_by_slug("white")]
 
-        params = {races: "black"}
+        params = { "race1-checkbox" => "black" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_races).to eq [Race.find_by_slug("black")]
       end
@@ -227,7 +227,8 @@ describe Analyze::Presenter do
 
     context "when multiple races are provided in the params hash" do
       it "returns multiple races with the given slugs" do
-        params = {races: "white,black"}
+        params = { "race1-checkbox" => "white",
+                   "race2-checkbox" => "black" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_races).to eq [Race.find_by_slug("white"), Race.find_by_slug("black")]
       end
@@ -245,23 +246,23 @@ describe Analyze::Presenter do
 
     context "when a graph is provided in the params hash" do
       it "returns the graph object with the given slug" do
-        params = {graph: "all_data"}
+        params = { graph: "all_data" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.graph.to_s).to eq Analyze::Graph::AllData.new.to_s
 
-        params = {graph: "students-and-teachers"}
+        params = { graph: "students-and-teachers" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.graph.to_s).to eq Analyze::Graph::StudentsAndTeachers.new.to_s
 
-        params = {graph: "students-by-race"}
+        params = { graph: "students-by-race" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.graph.to_s).to eq Analyze::Graph::StudentsByRace.new(races: nil).to_s
 
-        params = {graph: "students-by-grade"}
+        params = { graph: "students-by-grade" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.graph.to_s).to eq Analyze::Graph::StudentsByGrade.new(grades: nil).to_s
 
-        params = {graph: "students-by-gender"}
+        params = { graph: "students-by-gender" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.graph.to_s).to eq Analyze::Graph::StudentsByGender.new(genders: nil).to_s
       end
@@ -269,7 +270,7 @@ describe Analyze::Presenter do
 
     context "when a parameter that does not match a graph is provided" do
       it "returns the default(first) graph object" do
-        params = {graph: "invalid parameter"}
+        params = { graph: "invalid parameter" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.graph.to_s).to eq Analyze::Graph::AllData.new.to_s
       end
@@ -307,7 +308,7 @@ describe Analyze::Presenter do
 
     context "when no grades are provided in the params hash" do
       it "returns only the set of grades selected even if other grades have sufficient responses" do
-        params = {grades: "1,2,3"}
+        params = { "grade1-checkbox" => "1", "grade2-checkbox" => "2", "grade3-checkbox" => "3" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_grades).to eq [1, 2, 3]
       end
@@ -330,11 +331,11 @@ describe Analyze::Presenter do
 
     context "when a single gender is provided in the params hash" do
       it "returns the gender with the given designation" do
-        params = {genders: "female"}
+        params = { "gender1-checkbox" => "female" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_genders).to eq [Gender.find_by_designation("female")]
 
-        params = {genders: "male"}
+        params = { "gender1-checkbox" => "male" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_genders).to eq [Gender.find_by_designation("male")]
       end
@@ -342,10 +343,10 @@ describe Analyze::Presenter do
 
     context "when multiple genders are provided in the params hash" do
       it "returns multilple genders with the given designations" do
-        params = {genders: "female,male"}
+        params = { "gender1-checkbox" => "female", "gender2-checkbox" => "male" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.selected_genders).to eq [Gender.find_by_designation("female"),
-          Gender.find_by_designation("male")]
+                                                  Gender.find_by_designation("male")]
       end
     end
   end
@@ -374,19 +375,19 @@ describe Analyze::Presenter do
 
     context "when a group is provided in the params hash" do
       it "returns the group with the given slug" do
-        params = {group: "gender"}
+        params = { group: "gender" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "gender"
 
-        params = {group: "grade"}
+        params = { group: "grade" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "grade"
 
-        params = {group: "race"}
+        params = { group: "race" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "race"
 
-        params = {group: "income"}
+        params = { group: "income" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "income"
       end
@@ -394,7 +395,7 @@ describe Analyze::Presenter do
 
     context "when a parameter that does not match a group is provided" do
       it "returns the first item in the list of groups" do
-        params = {group: "invalid group"}
+        params = { group: "invalid group" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq presenter.groups.first.slug
       end
@@ -410,27 +411,47 @@ describe Analyze::Presenter do
       end
     end
 
-    context "when a slice is provided in the params hash" do
+    context "when the graph is all-data" do
       it "returns the slice with the given slug" do
-        params = {source: "survey-data-only", slice: "students-and-teachers"}
-        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
-        expect(presenter.slice.slug).to eq "students-and-teachers"
-      end
-    end
-
-    context "when a slice is provided but the source is left blank " do
-      it "returns the slice from the default source (all-data)" do
-        params = {slice: "students-and-teachers"}
+        params = { graph: "all-data" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.slice.slug).to eq "all-data"
       end
     end
 
-    context "when a parameter that does not match a slice is provided" do
-      it "it returns the first slice from the chosen source" do
-        params = {source: "survey-data-only", slice: "invalid-slice"}
+    context "when the graph is 'students-and-teachers'" do
+      it "returns the slice with the given slug" do
+        params = { graph: "students-and-teachers" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.slice.slug).to eq "students-and-teachers"
+      end
+    end
+
+    context "when the graph is of a disaggregation group" do
+      it "returns the slice with the given slug" do
+        params = { graph: "students-by-ell" }
+        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
+        expect(presenter.slice.slug).to eq "students-by-group"
+
+        params = { graph: "students-by-gender" }
+        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
+        expect(presenter.slice.slug).to eq "students-by-group"
+
+        params = { graph: "students-by-grade" }
+        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
+        expect(presenter.slice.slug).to eq "students-by-group"
+
+        params = { graph: "students-by-income" }
+        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
+        expect(presenter.slice.slug).to eq "students-by-group"
+
+        params = { graph: "students-by-race" }
+        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
+        expect(presenter.slice.slug).to eq "students-by-group"
+
+        params = { graph: "students-by-sped" }
+        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
+        expect(presenter.slice.slug).to eq "students-by-group"
       end
     end
   end
@@ -444,21 +465,21 @@ describe Analyze::Presenter do
       end
     end
 
-    context "when a source is provided in the params hash" do
+    context "when a graph is provided in the params hash" do
       it "returns the source with the given slug" do
-        params = {source: "all-data"}
+        params = { graph: "all-data" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.source.slug).to eq "all-data"
 
-        params = {source: "survey-data-only"}
+        params = { graph: "students-and-teachers" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.source.slug).to eq "survey-data-only"
       end
     end
 
-    context "when a parameter that does not match a source is provided" do
+    context "when a parameter that does not match a graph is provided" do
       it "returns the first item in the list of sources" do
-        params = {source: "invalid-source"}
+        params = { graph: "invalid-source" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.slice.slug).to eq "all-data"
       end

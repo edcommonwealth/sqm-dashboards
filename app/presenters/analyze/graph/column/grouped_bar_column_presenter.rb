@@ -117,13 +117,13 @@ module Analyze
           %i[student teacher].include? type
         end
 
-        def n_size(year_index)
+        def n_size(academic_year)
           SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades,
-                                   academic_year: academic_years[year_index]).select(:response_id).distinct.count
+                                   academic_year:).select(:response_id).distinct.count
         end
 
-        def popover_content(year_index)
-          "#{n_size(year_index)} #{type.to_s.capitalize}s"
+        def popover_content(academic_year)
+          "#{n_size(academic_year)} #{type.to_s.capitalize}s"
         end
 
         def insufficiency_message

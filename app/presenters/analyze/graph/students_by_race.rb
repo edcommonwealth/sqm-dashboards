@@ -26,6 +26,14 @@ module Analyze
         end
       end
 
+      def source
+        Analyze::Source::SurveyData.new(slices: nil)
+      end
+
+      def slice
+        Analyze::Slice::StudentsByGroup.new
+      end
+
       private
 
       def column_for_race_code(code:)

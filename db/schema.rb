@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_05_221835) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_07_205816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,7 +18,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_221835) do
     t.string "range", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["range"], name: "index_academic_years_on_range", unique: true
+    t.index ["slug"], name: "index_academic_years_on_slug", unique: true
   end
 
   create_table "admin_data_items", force: :cascade do |t|
@@ -319,6 +321,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_221835) do
     t.string "designation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_genders_on_slug", unique: true
   end
 
   create_table "incomes", force: :cascade do |t|

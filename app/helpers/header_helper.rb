@@ -11,7 +11,7 @@ module HeaderHelper
 
   def link_to_analyze(district:, school:, academic_year:)
     year = academic_year.range
-    "/districts/#{district.slug}/schools/#{school.slug}/analyze?year=#{year}&category=1&academic_years=#{year}"
+    "/districts/#{district.slug}/schools/#{school.slug}/analyze?category=1&academic_year-1=#{year}"
   end
 
   def district_url_for(district:, academic_year:)
@@ -35,7 +35,7 @@ module HeaderHelper
   end
 
   def link_weight(path:)
-    active?(path:) ? 'weight-700' : 'weight-400'
+    active?(path:) ? "weight-700" : "weight-400"
   end
 
   private
