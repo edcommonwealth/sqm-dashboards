@@ -104,3 +104,7 @@ end
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # gem "reline", "~> 0.3.2"
+
+gem "csv", "~> 3.3"
+
+gem "observer", "~> 0.1.2"
