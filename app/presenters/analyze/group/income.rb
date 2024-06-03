@@ -2,11 +2,15 @@ module Analyze
   module Group
     class Income
       def name
-        'Income'
+        "Income"
       end
 
       def slug
-        'income'
+        "income"
+      end
+
+      def graph
+        Analyze::Graph::StudentsByIncome.new(incomes: nil)
       end
     end
   end

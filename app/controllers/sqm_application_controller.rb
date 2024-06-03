@@ -12,8 +12,8 @@ class SqmApplicationController < ApplicationController
     @districts = District.all.order(:name)
     @school = School.find_by_slug(school_slug)
     @schools = School.includes([:district]).where(district: @district).order(:name)
-    @academic_year = AcademicYear.find_by_range params[:year]
-    @academic_years = AcademicYear.all.order(range: :desc)
+    @academic_year = AcademicYear.find_by_range params[:year] || AcademicYear.last
+    @academic_years = AcademicYear.all.order(range: :desc) || [AcademicYear.last]
   end
 
   def district_slug

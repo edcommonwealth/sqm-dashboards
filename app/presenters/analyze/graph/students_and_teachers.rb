@@ -5,15 +5,23 @@ module Analyze
     class StudentsAndTeachers
       include Analyze::Graph::Column
       def to_s
-        'Students & Teachers'
+        "Students & Teachers"
       end
 
       def slug
-        'students-and-teachers'
+        "students-and-teachers"
       end
 
       def columns
         [AllStudent, AllTeacher, AllSurveyData]
+      end
+
+      def source
+        Analyze::Source::SurveyData.new(slices: nil)
+      end
+
+      def slice
+        Analyze::Slice::StudentsAndTeachers.new
       end
     end
   end

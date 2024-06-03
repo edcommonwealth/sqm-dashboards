@@ -8,6 +8,10 @@ module Analyze
       def slug
         "ell"
       end
+
+      def graph
+        Analyze::Graph::StudentsByEll.new(ells: nil)
+      end
     end
   end
 end

@@ -32,9 +32,9 @@ module Analyze
           :teacher
         end
 
-        def n_size(year_index)
+        def n_size(academic_year)
           SurveyItemResponse.where(survey_item: measure.teacher_survey_items, school:,
-                                   academic_year: academic_years[year_index]).count
+                                   academic_year:).pluck(:response_id).uniq.count
         end
       end
     end

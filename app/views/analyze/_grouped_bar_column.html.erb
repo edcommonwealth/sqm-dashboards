@@ -5,7 +5,7 @@
       <% if column.show_popover? %>
         data-bs-toggle="popover"
         data-bs-placement="right"
-        data-bs-content="<%= column.popover_content(index) %>"
+        data-bs-content="<%= column.popover_content(bar.academic_year) %>"
       <% end %>
 
       data-for-academic-year="<%= bar.academic_year.range %>"

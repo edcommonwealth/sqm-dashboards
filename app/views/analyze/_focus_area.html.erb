@@ -1,14 +1,44 @@
-<h3 class="sub-header-4">Focus Area</h3>
-<p>Select a category & subcategory to analyze measure-level results</p>
-<select id="select-category" class="mx-3 form-select" data-id="category-dropdown" data-action="analyze#refresh">
-  <% categories.each do |category| %>
-    <option value="<%= analyze_category_link(district: district, school: school, academic_year: academic_year, category: category) %>" <%= category.id == @presenter.category.id ? "selected": "" %>><%= "#{category.category_id}: #{category.name}" %></option>
+
+  <h3 class="sub-header-4">Focus Area</h3>
+  <p>Select a category & subcategory to analyze measure-level results</p>
+
+<%= form_with(url: district_school_analyze_index_path,
+              method: :get,
+              data: {
+              turbo_frame: "results",
+              turbo_action: "advance",
+              controller: "analyze",
+              action: "input->analyze#submit"
+              }) do |f| %>
+
+  <%  params.reject{|key,_| key.start_with?("category") || key.start_with?("subcategory")}.each do |key, value|  %>
+    <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
   <% end %>
-</select>
-<select id="select-subcategory" class="mx-3 form-select mt-3" data-id="subcategory-dropdown" data-action="analyze#refresh">
-  <% subcategories.each do |subcategory| %>
-    <option value="<%= analyze_subcategory_link(district: district, school: school, academic_year: academic_year, category: category, subcategory: subcategory) %>" <%= subcategory.subcategory_id == @presenter.subcategory.subcategory_id ? "selected": "" %>>
-    <%= "#{subcategory.subcategory_id}: #{subcategory.name}" %>
-    </option>
+
+  <select id="select-category" class="mx-3 form-select" name="category" data-id="category-dropdown">
+    <% categories.each do |category| %>
+      <option value="<%= category.category_id %>" <%= category.category_id == @presenter.category.category_id ? "selected": "" %>><%= "#{category.category_id}: #{category.name}" %></option>
+    <% end %>
+  </select>
+<% end %>
+
+<%= form_with(url: district_school_analyze_index_path,
+              method: :get,
+              data: {
+              turbo_frame: "results",
+              turbo_action: "advance",
+              controller: "analyze",
+              action: "input->analyze#submit"
+              }) do |f| %>
+  <%  params.each do |key, value|  %>
+    <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
   <% end %>
-</select>
+
+  <select id="select-subcategory" class="mx-3 form-select mt-3" name="subcategory" data-id="subcategory-dropdown">
+    <% subcategories.each do |subcategory| %>
+      <option value="<%= subcategory.subcategory_id %>" <%= subcategory.subcategory_id == @presenter.subcategory.subcategory_id ? "selected": "" %>>
+      <%= "#{subcategory.subcategory_id}: #{subcategory.name}" %>
+      </option>
+    <% end %>
+  </select>
+<% end %>

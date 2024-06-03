@@ -1,13 +1,24 @@
+<%= form_with(url: district_school_analyze_index_path,
+                    method: :get,
+                    data: {
+                    turbo_frame: "results",
+                    turbo_action: "advance",
+                    controller: "form",
+                    action: "input->form#submit"
+                    }) do |f| %>
+                    <%  params.reject{|key,_| key.start_with?("academic_year")}.each do |key, value|  %>
+  <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
+<% end %>
+
 <h3 class="sub-header-4 mt-5">School Years</h3>
 <% available_academic_years.each_with_index do | year, index | %>
   <div class="d-flex justify-content-start align-items-center mt-1" data-controller="analyze">
     <input type="checkbox"
     class="form-check-input"
     id="<%= year.range %>"
-    name="year-checkbox"
-    value="<%= analyze_subcategory_link(district: district, school: school, academic_year: academic_year, category: category, subcategory: subcategory) %>"
+    name="academic_year-<%= index  %>"
+    value="<%= year.range %>"
     <%= selected_academic_years.include?(year)  ? "checked" : "" %>
-    data-action="click->analyze#refresh"
     <% empty_dataset = empty_dataset?(measures: measures, school: school, academic_year: year) %>
     <% empty_survey_dataset = empty_survey_dataset?(measures: measures, school: school, academic_year: year)  %>
     <% if graph.slug == 'all-data' %>
@@ -31,4 +42,5 @@
       </i>
     <% end %>
   </div>
+<% end %>
 <% end %>

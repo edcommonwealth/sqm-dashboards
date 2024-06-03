@@ -4,6 +4,7 @@ module Analyze
   module Graph
     class AllData
       include Analyze::Graph::Column
+
       def to_s
         %w[All Data]
       end
@@ -14,6 +15,14 @@ module Analyze
 
       def columns
         [AllStudent, AllTeacher, AllAdmin, GroupedBarColumnPresenter]
+      end
+
+      def source
+        Analyze::Source::AllData.new(slices: [slice])
+      end
+
+      def slice
+        Analyze::Slice::AllData.new
       end
     end
   end
