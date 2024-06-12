@@ -25,8 +25,8 @@ class Measure < ActiveRecord::Base
   end
 
   def student_survey_items_with_sufficient_responses(school:, academic_year:)
-    @student_survey_items_with_sufficient_responses ||=
-      SurveyItem.where(id: SurveyItem.joins('inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id')
+    @student_survey_items_with_sufficient_responses ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = SurveyItem.where(id: SurveyItem.joins("inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id")
                                       .student_survey_items
                                       .where("survey_item_responses.school": school,
                                              "survey_item_responses.academic_year": academic_year,
@@ -34,6 +34,8 @@ class Measure < ActiveRecord::Base
                                       .group('survey_items.id')
                                       .having('count(*) >= 10')
                                       .count.keys)
+    end
+    @student_survey_items_with_sufficient_responses[[school, academic_year]]
   end
 
   def teacher_scales
