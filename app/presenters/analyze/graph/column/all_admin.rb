@@ -26,8 +26,8 @@ module Analyze
           ["data not", "available"]
         end
 
-        def score(year_index)
-          measure.admin_score(school:, academic_year: academic_years[year_index])
+        def score(academic_year)
+          measure.admin_score(school:, academic_year:)
         end
 
         def type

@@ -14,7 +14,7 @@ module Analyze
       end
 
       def columns
-        [AllStudent, AllTeacher, AllAdmin, GroupedBarColumnPresenter]
+        [AllStudent, AllTeacher, AllAdmin, Analyze::Graph::Column::AllData]
       end
 
       def source
