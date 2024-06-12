@@ -13,8 +13,8 @@ module Analyze
         end
 
         def show_insufficient_data_message?
-          scores = academic_years.map do |year|
-            measure.score(school:, academic_year: year)
+          scores = academic_years.map do |academic_year|
+            measure.student_score(school:, academic_year:)
           end
 
           scores.none? { |score| score.meets_student_threshold? }
@@ -26,6 +26,11 @@ module Analyze
 
         def type
           :student
+        end
+
+        def n_size(academic_year)
+          SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades,
+                                   academic_year:).select(:response_id).distinct.count
         end
       end
     end

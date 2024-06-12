@@ -21,13 +21,13 @@ module Analyze
         end
 
         def bars
-          @bars ||= yearly_scores.map.each_with_index do |yearly_score, index|
-            year = yearly_score.year
-            Analyze::BarPresenter.new(measure:, academic_year: year,
-                                      score: yearly_score.score,
+          @bars ||= academic_years.map.with_index do |academic_year, index|
+            Analyze::BarPresenter.new(measure:, academic_year:,
+                                      score: score(academic_year),
                                       x_position: bar_x(index),
-                                      color: bar_color(year))
+                                      color: bar_color(academic_year))
           end.reject(&:blank?).select { |bar| bar.score.average&.positive? }
+          @bars
         end
 
         def label
@@ -47,6 +47,10 @@ module Analyze
         end
 
         def score(academic_year)
+          raise NotImplementedError
+        end
+
+        def n_size(academic_year)
           raise NotImplementedError
         end
 
@@ -111,13 +115,8 @@ module Analyze
           %i[student teacher].include? type
         end
 
-        def n_size(year_index)
-          SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades,
-                                   academic_year: academic_years[year_index]).select(:response_id).distinct.count
-        end
-
-        def popover_content(year_index)
-          "#{n_size(year_index)} #{type.to_s.capitalize}s"
+        def popover_content(academic_year)
+          "#{n_size(academic_year)} #{type.to_s.capitalize}s"
         end
 
         def insufficiency_message
@@ -130,12 +129,12 @@ module Analyze
 
         private
 
-        YearlyScore = Struct.new(:year, :score)
-        def yearly_scores
-          yearly_scores = academic_years.each.map do |year|
-            YearlyScore.new(year, score(year))
-          end.reject { |year| year.score.nil? || year.score.blank? }
-        end
+        # YearlyScore = Struct.new(:year, :score)
+        # def yearly_scores
+        #   @yearly_scores ||= academic_years.each.map do |year|
+        #     YearlyScore.new(year, score(year))
+        #   end.reject { |year| year.score.nil? || year.score.blank? }
+        # end
 
         def bar_color(year)
           @available_academic_years ||= AcademicYear.order(:range).all
@@ -144,7 +143,7 @@ module Analyze
 
         def bar_x(index)
           column_start_x + (index * bar_width * 1.2) +
-            ((column_end_x - column_start_x) - (yearly_scores.size * bar_width * 1.2)) / 2
+            ((column_end_x - column_start_x) - (academic_years.size * bar_width * 1.2)) / 2
         end
       end
     end
