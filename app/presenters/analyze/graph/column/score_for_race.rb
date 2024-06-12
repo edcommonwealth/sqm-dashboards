@@ -2,8 +2,7 @@ module Analyze
   module Graph
     module Column
       module ScoreForRace
-        def score(year_index)
-          academic_year = academic_years[year_index]
+        def score(academic_year)
           meets_student_threshold = sufficient_student_responses?(academic_year:)
           return Score::NIL_SCORE unless meets_student_threshold
 

@@ -20,14 +20,6 @@ module Analyze
           @number_of_columns = number_of_columns
         end
 
-        def academic_year_for_year_index(year_index)
-          academic_years[year_index]
-        end
-
-        def score(year_index)
-          measure.score(school:, academic_year: academic_years[year_index]) || 0
-        end
-
         def bars
           @bars ||= yearly_scores.map.each_with_index do |yearly_score, index|
             year = yearly_score.year
@@ -35,25 +27,31 @@ module Analyze
                                       score: yearly_score.score,
                                       x_position: bar_x(index),
                                       color: bar_color(year))
-          end
+          end.reject(&:blank?).select { |bar| bar.score.average&.positive? }
         end
 
         def label
-          %w[All Data]
+          raise NotImplementedError
         end
 
         def show_irrelevancy_message?
-          false
+          raise NotImplementedError
         end
 
         def show_insufficient_data_message?
-          scores = academic_years.map do |year|
-            measure.score(school:, academic_year: year)
-          end
+          raise NotImplementedError
+        end
 
-          scores.all? do |score|
-            !score.meets_teacher_threshold? && !score.meets_student_threshold? && !score.meets_admin_data_threshold?
-          end
+        def score(academic_year)
+          raise NotImplementedError
+        end
+
+        def basis
+          "student surveys"
+        end
+
+        def type
+          raise NotImplementedError
         end
 
         def column_midpoint
@@ -105,14 +103,6 @@ module Analyze
           number_of_columns
         end
 
-        def basis
-          "student surveys"
-        end
-
-        def type
-          :all_data
-        end
-
         def show_popover?
           %i[student teacher].include? type
         end
@@ -130,17 +120,6 @@ module Analyze
           ["survey response", "rate below 25%"]
         end
 
-        def sufficient_data?(year_index)
-          case basis
-          when "student"
-            score(year_index).meets_student_threshold
-          when "teacher"
-            score(year_index).meets_teacher_threshold
-          else
-            true
-          end
-        end
-
         def grades
           Respondent.by_school_and_year(school:, academic_year: academic_years)&.enrollment_by_grade&.keys
         end
@@ -149,12 +128,9 @@ module Analyze
 
         YearlyScore = Struct.new(:year, :score)
         def yearly_scores
-          yearly_scores = academic_years.each_with_index.map do |year, index|
-            YearlyScore.new(year, score(index))
-          end
-          yearly_scores.reject do |yearly_score|
-            yearly_score.score.blank?
-          end
+          yearly_scores = academic_years.each.map do |year|
+            YearlyScore.new(year, score(year))
+          end.reject { |year| year.score.nil? || year.score.blank? }
         end
 
         def bar_color(year)
