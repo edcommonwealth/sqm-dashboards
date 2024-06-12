@@ -20,8 +20,8 @@ module Analyze
           scores.all? { |score| !score.meets_student_threshold? && !score.meets_teacher_threshold? }
         end
 
-        def score(year_index)
-          combined_score(school:, academic_year: academic_years[year_index])
+        def score(academic_year)
+          combined_score(school:, academic_year:)
         end
 
         def type

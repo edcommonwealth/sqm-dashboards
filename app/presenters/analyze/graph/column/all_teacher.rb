@@ -24,8 +24,8 @@ module Analyze
           scores.all? { |score| !score.meets_teacher_threshold? }
         end
 
-        def score(year_index)
-          measure.teacher_score(school:, academic_year: academic_years[year_index])
+        def score(academic_year)
+          measure.teacher_score(school:, academic_year:)
         end
 
         def type
