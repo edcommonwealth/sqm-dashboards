@@ -5,44 +5,28 @@ namespace :report do
   end
 
   namespace :measure do
-    task :district, %i[district ay] => :environment do |_, args|
-      #  measure_ids = %w[
-      #   1A-i
-      #   1A-ii
-      #   1A-iii
-      #   1B-i
-      #   1B-ii
-      #   2A-i
-      #   2A-ii
-      #   2B-i
-      #   2B-ii
-      #   2C-i
-      #   2C-ii
-      #   3A-i
-      #   3A-ii
-      #   3B-i
-      #   3B-ii
-      #   3B-iii
-      #   3C-i
-      #   3C-ii
-      #   4A-i
-      #   4A-ii
-      #   4B-i
-      #   4B-ii
-      #   4C-i
-      #   4D-i
-      #   4D-ii
-      #   5A-i
-      #   5A-ii
-      #   5B-i
-      #   5B-ii
-      #   5C-i
-      #   5C-ii
-      #   5D-i
-      #   5D-ii
-      # ]
-      # measures = measure_ids.map { |measure_id| Measure.find_by_measure_id(measure_id) }
+    task :district_summary, %i[district ay] => :environment do |_, args|
+      district = District.find_by_name args[:district]
+      academic_years = AcademicYear.where(range: args[:ay])
 
+      if district.nil?
+        puts "Invalid district name"
+        bad = true
+      end
+      if academic_years.nil?
+        puts "Invalid academic year"
+        bad = true
+      end
+      next if bad
+
+      Report::MeasureSummary.create_report(
+        district:,
+        academic_years:,
+        filename: "measure_summary_" + district.slug + ".csv"
+      )
+    end
+
+    task :district, %i[district ay] => :environment do |_, args|
       district = District.find_by_name args[:district]
       academic_years = AcademicYear.where(range: args[:ay])
       if district.nil?
