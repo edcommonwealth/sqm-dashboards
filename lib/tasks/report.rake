@@ -135,8 +135,10 @@ namespace :report do
     end
   end
 
+  # Usage example
+  # bundle exec rake 'report:survey_item:district[Lee Public Schools, 2023-24 Fall, early_education]'
   namespace :survey_item do
-    task :district, %i[district academic_year] => :environment do |_, args|
+    task :district, %i[district academic_year survey_item_type] => :environment do |_, args|
       district = District.find_by_name(args[:district])
       if district.nil?
         puts "Invalid district name"
@@ -147,14 +149,33 @@ namespace :report do
         puts "Invalid academic year"
         bad = 1
       end
+
+      survey_item_type = args[:survey_item_type] || ""
+      use_student_survey_items = case survey_item_type
+                                 when "standard"
+                                   ::SurveyItem.standard_survey_items.pluck(:id)
+                                 when "short_form"
+                                   ::SurveyItem.short_form_survey_items.pluck(:id)
+                                 when "early_education"
+                                   ::SurveyItem.early_education_survey_items.pluck(:id)
+                                 else
+                                   ::SurveyItem.student_survey_items.pluck(:id)
+                                 end
+
       next if bad == 1
 
       schools = district.schools
+
       schools.each do |school|
+        filename_prefix = []
+        filename_prefix << "survey_item_report"
+        filename_prefix << survey_item_type unless survey_item_type.blank?
+        filename_prefix << school.slug
+        filename_prefix << academic_year.range
         Report::SurveyItem.create_item_report(school:, academic_year:,
-                                              filename: "survey_item_report_" + school.slug + "_" + academic_year.range + "_by_item.csv")
+                                              filename: filename_prefix.join("_") + "_by_item.csv", use_student_survey_items:)
         Report::SurveyItem.create_grade_report(school:, academic_year:,
-                                               filename: "survey_item_report_" + school.slug + "_" + academic_year.range + "_by_grade.csv")
+                                               filename: filename_prefix.join("_") + "_by_grade.csv", use_student_survey_items:)
       end
     end
   end
