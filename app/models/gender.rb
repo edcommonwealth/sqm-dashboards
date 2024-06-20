@@ -23,7 +23,13 @@ class Gender < ApplicationRecord
     when %r{^#*N/*A$}i
       99
     else
-      99
+      puts "************************************"
+      puts "********      ERROR       **********"
+      puts ""
+      puts "Error parsing Gender column.  '#{word}' is not a known value. Halting execution"
+      puts ""
+      puts "************************************"
+      exit
     end
   end
 end
