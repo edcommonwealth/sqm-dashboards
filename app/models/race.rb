@@ -20,7 +20,7 @@ class Race < ApplicationRecord
       3
     when /Hispanic|Latinx|4/i
       4
-    when /White|Caucasian|5/i
+    when /White|Caucasian|Caucasion|5/i
       5
     when /Prefer not to disclose|6/i
       6
@@ -31,7 +31,13 @@ class Race < ApplicationRecord
     when %r{^#*N/*A$}i
       nil
     else
-      99
+      puts "************************************"
+      puts "********      ERROR       **********"
+      puts ""
+      puts "Error parsing race column.  '#{word}' is not a known value. Halting execution"
+      puts ""
+      puts "************************************"
+      exit
     end
   end
 
