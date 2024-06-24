@@ -30,6 +30,8 @@ class Race < ApplicationRecord
       8
     when %r{^#*N/*A$}i
       nil
+    when /Unknown|99/i
+      99
     else
       puts "************************************"
       puts "********      ERROR       **********"
