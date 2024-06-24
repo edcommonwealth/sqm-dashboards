@@ -22,6 +22,8 @@ class Gender < ApplicationRecord
       99
     when %r{^#*N/*A$}i
       99
+    when /Unknown|99/i
+      99
     else
       puts "************************************"
       puts "********      ERROR       **********"
