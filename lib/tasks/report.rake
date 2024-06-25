@@ -114,6 +114,8 @@ namespace :report do
     end
   end
 
+  # Usage example
+  # bundle exec rake 'report:survey_item:create[Lee Elementary School, 2023-24 Fall]'
   namespace :survey_item do
     task :create, %i[school academic_year] => :environment do |_, args|
       school = School.find_by_name(args[:school])
