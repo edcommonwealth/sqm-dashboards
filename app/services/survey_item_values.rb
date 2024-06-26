@@ -177,7 +177,7 @@ class SurveyItemValues
   end
 
   def raw_ell
-    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL|ELL-*\s*SIS|English Learner/i)
+    @raw_ell ||= value_from(pattern: /EL Student First Year|Raw\s*ELL|ELL-*\s*SIS|English Learner|ELL Status- SIS/i)
   end
 
   def ell
