@@ -41,7 +41,6 @@ class Subcategory < ActiveRecord::Base
                                                        teacher_response_rate: teacher.rate, meets_student_threshold: student.meets_student_threshold?,
                                                        meets_teacher_threshold: teacher.meets_teacher_threshold?)
     end
-
     @response_rate[[school, academic_year]]
   end
 
