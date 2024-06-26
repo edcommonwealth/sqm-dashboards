@@ -579,6 +579,10 @@ RSpec.describe SurveyItemValues, type: :model do
       row = { "Raw ELL" => "EL - Early Child. or PK" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
       expect(values.ell).to eq "ELL"
+
+      row = { "Raw ELL" => "LEP Not 1st Year" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:)
+      expect(values.ell).to eq "ELL"
     end
 
     it 'translates "Does not Apply" into "Not ELL"' do
@@ -676,6 +680,13 @@ RSpec.describe SurveyItemValues, type: :model do
     it 'translates blanks into "Not Special Education' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "" }
+      values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+      expect(values.sped).to eq "Not Special Education"
+    end
+
+    it 'translates "not sped" into "Not Special Education' do
+      headers = ["Raw SpEd"]
+      row = { "Raw SpEd" => "Not SPED" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
       expect(values.sped).to eq "Not Special Education"
     end
