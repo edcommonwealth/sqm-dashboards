@@ -2,15 +2,15 @@ module Analyze
   module Slice
     class StudentsAndTeachers
       def to_s
-        'Students & Teachers'
+        "Students & Teachers"
       end
 
       def slug
-        'students-and-teachers'
+        "students-and-teachers"
       end
 
-      def graphs
-        [Analyze::Graph::StudentsAndTeachers.new]
+      def graph
+        Analyze::Graph::StudentsAndTeachers.new
       end
     end
   end

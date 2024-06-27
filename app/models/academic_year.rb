@@ -3,6 +3,9 @@
 require "date"
 
 class AcademicYear < ActiveRecord::Base
+  include FriendlyId
+  friendly_id :range, use: [:slugged]
+
   scope :by_range, -> { all.map { |academic_year| [academic_year.range, academic_year] }.to_h }
   scope :of_year, ->(range) { all.select { |ay| ay.range.start_with?(range) } }
 
@@ -58,3 +61,4 @@ class AcademicYear < ActiveRecord::Base
 end
 
 AcademicYearRange = Struct.new(:start, :end, :season)
+

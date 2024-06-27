@@ -5,7 +5,6 @@ module Analyze
     def initialize(params:, school:, academic_year:)
       @params = params
       @school = school
-      @academic_year = academic_year
     end
 
     def category
@@ -34,10 +33,16 @@ module Analyze
 
     def selected_academic_years
       @selected_academic_years ||= begin
-        year_params = params[:academic_years]
-        return [] unless year_params
+        array = []
 
-        year_params.split(",").map { |year| AcademicYear.find_by_range(year) }.compact
+        keys = params.keys.select { |key| key.start_with? "academic_year" }
+        keys.each do |key|
+          year_params = params[key]&.chomp
+          next if year_params.nil?
+
+          array << AcademicYear.find_by_range(year_params)
+        end
+        array
       end
     end
 
@@ -46,12 +51,7 @@ module Analyze
     end
 
     def selected_races
-      @selected_races ||= begin
-        race_params = params[:races]
-        return races unless race_params
-
-        race_params.split(",").map { |race| Race.find_by_slug race }.compact
-      end
+      @selected_races ||= selected_items(name: "race", list: races)
     end
 
     def ells
@@ -59,12 +59,15 @@ module Analyze
     end
 
     def selected_ells
-      @selected_ells ||= begin
-        ell_params = params[:ells]
-        return ells unless ell_params
+      @selected_ells ||= selected_items(name: "ell", list: ells)
+    end
 
-        ell_params.split(",").map { |ell| Ell.find_by_slug ell }.compact
-      end
+    def selected_items(name:, list:)
+      selected_params = params.select { |key, _| key.start_with?(name) && key.end_with?("checkbox") }
+      return list unless selected_params.keys.length.positive?
+
+      selected_params.values
+                     .map { |slug| list.find { |item| item.slug == slug } }
     end
 
     def speds
@@ -72,47 +75,20 @@ module Analyze
     end
 
     def selected_speds
-      @selected_speds ||= begin
-        sped_params = params[:speds]
-        return speds unless sped_params
-
-        sped_params.split(",").map { |sped| Sped.find_by_slug sped }.compact
-      end
-    end
-
-    def graphs
-      @graphs ||= [Analyze::Graph::AllData.new,
-                   Analyze::Graph::StudentsAndTeachers.new,
-                   Analyze::Graph::StudentsByRace.new(races: selected_races),
-                   Analyze::Graph::StudentsByGrade.new(grades:),
-                   Analyze::Graph::StudentsByGender.new(genders: selected_genders),
-                   Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
-                   Analyze::Graph::StudentsByEll.new(ells: selected_ells),
-                   Analyze::Graph::StudentsBySped.new(speds: selected_speds)]
-    end
-
-    def graph
-      @graph ||= graphs.reduce(graphs.first) do |acc, graph|
-        graph.slug == params[:graph] ? graph : acc
-      end
+      @selected_speds ||= selected_items(name: "sped", list: speds)
     end
 
     def selected_grades
       @selected_grades ||= begin
-        grade_params = params[:grades]
-        return grades unless grade_params
+        selected_params = params.select { |key, _| key.start_with?("grade") && key.end_with?("checkbox") }
+        return grades unless selected_params.keys.length.positive?
 
-        grade_params.split(",").map(&:to_i)
+        selected_params.values.map(&:to_i)
       end
     end
 
     def selected_genders
-      @selected_genders ||= begin
-        gender_params = params[:genders]
-        return genders unless gender_params
-
-        gender_params.split(",").sort.map { |gender| Gender.find_by_designation(gender) }.compact
-      end
+      @selected_genders ||= selected_items(name: "gender", list: genders)
     end
 
     def genders
@@ -131,31 +107,51 @@ module Analyze
     end
 
     def slice
-      @slice ||= slices.reduce(slices.first) do |acc, slice|
-        slice.slug == params[:slice] ? slice : acc
-      end
+      @slice ||= graph.slice || slices.first
     end
 
     def slices
-      source.slices
+      graphs.map { |graph| graph.slice }.uniq
     end
 
     def source
-      @source ||= sources.reduce(sources.first) do |acc, source|
-        source.slug == params[:source] ? source : acc
-      end
+      @source ||= graph&.source || sources.first
     end
 
     def sources
-      all_data_slices = [Analyze::Slice::AllData.new]
+      all_data_slice = Analyze::Slice::AllData.new
+      all_data_slice.graph = Analyze::Graph::AllData.new
+      all_data_slices = [all_data_slice]
+
       all_data_source = Analyze::Source::AllData.new(slices: all_data_slices)
+      all_data_source.graph = Analyze::Graph::AllData.new
 
       students_and_teachers = Analyze::Slice::StudentsAndTeachers.new
-      students_by_group = Analyze::Slice::StudentsByGroup.new(races:, grades:)
+      students_by_group = Analyze::Slice::StudentsByGroup.new
+      students_by_group.graph = Analyze::Graph::StudentsByEll.new(ells: selected_ells)
+
       survey_data_slices = [students_and_teachers, students_by_group]
       survey_data_source = Analyze::Source::SurveyData.new(slices: survey_data_slices)
+      survey_data_source.graph = Analyze::Graph::StudentsAndTeachers.new
 
       @sources = [all_data_source, survey_data_source]
+    end
+
+    def graphs
+      @graphs ||= [Analyze::Graph::AllData.new,
+                   Analyze::Graph::StudentsAndTeachers.new,
+                   Analyze::Graph::StudentsByRace.new(races: selected_races),
+                   Analyze::Graph::StudentsByGrade.new(grades: selected_grades),
+                   Analyze::Graph::StudentsByGender.new(genders: selected_genders),
+                   Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
+                   Analyze::Graph::StudentsByEll.new(ells: selected_ells),
+                   Analyze::Graph::StudentsBySped.new(speds: selected_speds)]
+    end
+
+    def graph
+      @graph ||= graphs.find do |graph|
+        graph.slug == params[:graph]
+      end || graphs.first
     end
 
     def grades
@@ -174,16 +170,12 @@ module Analyze
     end
 
     def selected_incomes
-      @selected_incomes ||= begin
-        income_params = params[:incomes]
-        return incomes unless income_params
-
-        income_params.split(",").map { |income| Income.find_by_slug(income) }.compact
-      end
+      @selected_incomes ||= selected_items(name: "income", list: incomes)
     end
 
     def cache_objects
-      [subcategory,
+      [category,
+       subcategory,
        selected_academic_years,
        graph,
        selected_races,

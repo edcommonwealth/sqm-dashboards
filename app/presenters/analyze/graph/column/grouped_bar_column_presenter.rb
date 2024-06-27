@@ -34,10 +34,6 @@ module Analyze
           raise NotImplementedError
         end
 
-        def basis
-          ""
-        end
-
         def show_irrelevancy_message?
           raise NotImplementedError
         end

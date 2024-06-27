@@ -2,11 +2,15 @@ module Analyze
   module Group
     class Race
       def name
-        'Race'
+        "Race"
       end
 
       def slug
-        'race'
+        "race"
+      end
+
+      def graph
+        Analyze::Graph::StudentsByRace.new(races: nil)
       end
     end
   end

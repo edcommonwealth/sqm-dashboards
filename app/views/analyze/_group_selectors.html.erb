@@ -1,31 +1,60 @@
-<select id="select-group" name="group" class="mx-4 form-select" data-id="group-dropdown" data-action="analyze#refresh">
-  <% @presenter.groups.each do |group| %>
-    <option id="<%= group.slug %>" name="group-option" value="<%= base_url %>" <%= group.slug == @presenter.group.slug ? "Selected": "" %>><%= group.name %> </option>
+<%= form_with(url: district_school_analyze_index_path,
+              method: :get,
+              data: {
+              turbo_frame: "results",
+              turbo_action: "advance",
+              controller: "analyze",
+              action: "input->analyze#submit"
+              }) do |f| %>
+
+  <%  params.reject{|key,_| key == "graph" || key.end_with?("checkbox")}.each do |key, value|  %>
+    <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
   <% end %>
-</select>
 
-<p class="sub-header-5 mx-4 mt-3 font-size-14"> Select a group </p>
+  <select id="select-group" name="graph" class="mx-4 form-select" data-id="group-dropdown">
+    <% @presenter.groups.each do |group| %>
+      <option id="<%= group.slug %>" value="<%= group.graph.slug %>" <%= group.graph.slug == @presenter.graph.slug ? "Selected": "" %>><%= group.name %> </option>
+    <% end %>
+  </select>
 
-<% @presenter.races.each do |race| %>
-  <%= render(partial: "checkboxes", locals: {id: "race-#{race.slug}", item: race, selected_items: @presenter.selected_races, name: "race", label_text: race.designation})  %>
+
+
+  <p class="sub-header-5 mx-4 mt-3 font-size-14"> Select a group </p>
+
+<% if @presenter.graph.slug == 'students-by-race'   %>
+  <% @presenter.races.each_with_index do |race, index| %>
+    <%= render(partial: "checkboxes", locals: {id: "race-#{}#{race.slug}", item: race.slug, selected_items: @presenter.selected_races.map(&:slug), name: "race", label_text: race.designation, index: index })%>
+  <% end %>
 <% end %>
 
-<% @presenter.grades.each do |grade| %>
-  <%= render(partial: "checkboxes", locals: {id: "grade-#{grade}", item: grade, selected_items: @presenter.selected_grades, name: "grade", label_text: grade})  %>
+<% if @presenter.graph.slug == 'students-by-grade'   %>
+  <% @presenter.grades.each_with_index do |grade, index| %>
+    <%= render(partial: "checkboxes", locals: {id: "grade-#{grade}", item: grade, selected_items: @presenter.selected_grades, name: "grade", label_text: grade, index: index }) %>
+  <% end %>
 <% end %>
 
-<% @presenter.genders.each do |gender| %>
-  <%= render(partial: "checkboxes", locals: {id: "gender-#{gender.designation}", item: gender, selected_items: @presenter.selected_genders, name: "gender", label_text: gender.designation})  %>
+<% if @presenter.graph.slug == 'students-by-gender'   %>
+  <% @presenter.genders.each_with_index do |gender, index| %>
+    <%= render(partial: "checkboxes", locals: {id: "gender-#{gender.designation}", item: gender.slug, selected_items: @presenter.selected_genders.map(&:slug), name: "gender", label_text: gender.designation, index: index }) %>
+  <% end %>
 <% end %>
 
-<% @presenter.incomes.each do |income| %>
-  <%= render(partial: "checkboxes", locals: {id: "income-#{income.slug}", item: income, selected_items: @presenter.selected_incomes, name: "income", label_text: income.label})  %>
+<% if @presenter.graph.slug == 'students-by-income'   %>
+  <% @presenter.incomes.each_with_index do |income, index| %>
+    <%= render(partial: "checkboxes", locals: {id: "income-#{income.slug}", item: income.slug, selected_items: @presenter.selected_incomes.map(&:slug), name: "income", label_text: income.label, index: index })%>
+  <% end %>
 <% end %>
 
-<% @presenter.ells.each do |ell| %>
-  <%= render(partial: "checkboxes", locals: {id: "ell-#{ell.slug}", item: ell, selected_items: @presenter.selected_ells, name: "ell", label_text: ell.designation})  %>
+<% if @presenter.graph.slug == 'students-by-ell'   %>
+  <% @presenter.ells.each_with_index do |ell, index| %>
+    <%= render(partial: "checkboxes", locals: {id: "ell-#{ell.slug}", item: ell.slug, selected_items: @presenter.selected_ells.map(&:slug), name: "ell", label_text: ell.designation, index: index}) %>
+  <% end %>
 <% end %>
 
-<% @presenter.speds.each do |sped| %>
-  <%= render(partial: "checkboxes", locals: {id: "sped-#{sped.slug}", item: sped, selected_items: @presenter.selected_speds, name: "sped", label_text: sped.designation})  %>
+<% if @presenter.graph.slug == 'students-by-sped'   %>
+  <% @presenter.speds.each_with_index do |sped, index| %>
+    <%= render(partial: "checkboxes", locals: {id: "sped-#{sped.slug}", item: sped.slug, selected_items: @presenter.selected_speds.map(&:slug), name: "sped", label_text: sped.designation, index: index})  %>
+  <% end %>
+<% end %>
+
 <% end %>

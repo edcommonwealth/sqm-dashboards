@@ -27,4 +27,3 @@ module Analyze
     end
   end
 end
-
