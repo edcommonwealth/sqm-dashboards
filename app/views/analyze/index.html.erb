@@ -1,4 +1,5 @@
 <%= turbo_frame_tag "results" do %>
+<meta name="turbo-visit-control" content="reload">
   <% content_for :title do %>
     <h1 class="sub-header-2 color-white m-0"> Analysis of <%= @school.name %> </h1>
   <% end %>
@@ -18,7 +19,7 @@
       <div class="bg-color-white flex-grow-1 col-9">
         <% @presenter.measures.each do  |measure| %>
           <section class="mb-6">
-            <%= link_to("MEASURE " + measure.measure_id.upcase, district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years.last.range, anchor: "#{measure.measure_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
+            <%= link_to("MEASURE " + measure.measure_id.upcase, district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.measure_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
             <h2> <%= measure.name %> </h2>
             <%= render partial: "grouped_bar_chart" , locals: { measure: measure} %>
           </section>
