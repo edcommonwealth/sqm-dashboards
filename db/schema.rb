@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema[7.1].define(version: 2024_06_07_205816) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "academic_years", id: :serial, force: :cascade do |t|
@@ -365,6 +364,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_205816) do
     t.datetime "updated_at", null: false
     t.index ["academic_year_id"], name: "index_response_rates_on_academic_year_id"
     t.index ["school_id", "subcategory_id"], name: "index_response_rates_on_school_id_and_subcategory_id"
+    t.index ["school_id"], name: "index_response_rates_on_school_id"
     t.index ["subcategory_id"], name: "index_response_rates_on_subcategory_id"
   end
 
@@ -456,8 +456,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_205816) do
     t.bigint "student_id"
     t.integer "grade"
     t.bigint "gender_id"
-    t.datetime "recorded_date"
     t.bigint "income_id"
+    t.datetime "recorded_date"
     t.bigint "ell_id"
     t.bigint "sped_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
