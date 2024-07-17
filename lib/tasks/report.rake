@@ -5,6 +5,8 @@ namespace :report do
   end
 
   namespace :measure do
+    # usage:
+    # bundle exec rake "report:measure:district_summary[Wareham, 2023-24]"
     task :district_summary, %i[district ay] => :environment do |_, args|
       district = District.find_by_name args[:district]
       academic_years = AcademicYear.where(range: args[:ay])
