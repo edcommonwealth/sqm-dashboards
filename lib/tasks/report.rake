@@ -183,4 +183,15 @@ namespace :report do
       end
     end
   end
+
+  # Usage example
+  # bundle exec rake "report:survey_item_response:create[Hampden-Wilbraham,2023-24 Spring]"
+  namespace :survey_item_response do
+    task :create, %i[district academic_year] => :environment do |_, args|
+      district = District.find_by_name(args[:district])
+      academic_years = AcademicYear.where(range: args[:academic_year])
+      filename = "survey_item_response.#{district.name}.#{academic_years.map(&:range).join('.')}.csv"
+      Report::SurveyItemResponse.create(schools: district.schools, academic_years:, filename:)
+    end
+  end
 end
