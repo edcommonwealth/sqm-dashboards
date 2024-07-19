@@ -38,7 +38,7 @@ module Report
                   info = responses.first
                   response_id = info.response_id
                   row << [response_id,
-                          info.student.races.map { |race| race.designation }.join("\n"),
+                          "#{info.student.races.map { |race| race.qualtrics_code }.join(',')}",
                           info.gender.designation,
                           info.grade,
                           info.school.name,
