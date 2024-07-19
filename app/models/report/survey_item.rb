@@ -8,7 +8,7 @@ module Report
       school.grades(academic_year:).each do |grade|
         sufficient_survey_items[grade] ||= Set.new
       end
-      SurveyItemResponse.student_survey_items_with_responses_by_grade(
+      ::SurveyItemResponse.student_survey_items_with_responses_by_grade(
         school:,
         academic_year:
       ).select do |key, _value|
@@ -93,7 +93,7 @@ module Report
       # Convert they keys in this hash to a hash where the key is the grade
       # and the value is a set of sufficient survey IDs
       survey_ids_to_grades = {}
-      SurveyItemResponse.student_survey_items_with_responses_by_grade(
+      ::SurveyItemResponse.student_survey_items_with_responses_by_grade(
         school:,
         academic_year:
       ).select do |key, _value|
@@ -159,7 +159,7 @@ module Report
         data << row
       end
       # Next up is teacher data
-      SurveyItemResponse.teacher_survey_items_with_sufficient_responses(school:, academic_year:).keys.each do |key| # each key is a survey item id
+      ::SurveyItemResponse.teacher_survey_items_with_sufficient_responses(school:, academic_year:).keys.each do |key| # each key is a survey item id
         row = []
         survey_item = ::SurveyItem.find_by_id(key)
         row.concat(survey_item_info(survey_item:))
