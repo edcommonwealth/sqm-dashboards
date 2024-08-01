@@ -1,6 +1,14 @@
 module Report
   class Subcategory
     def self.create_report(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: "subcategories.csv")
+      data = to_csv(schools:, academic_years:, subcategories:, filename:)
+      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
+      filepath = Rails.root.join("tmp", "reports", filename)
+      write_csv(data:, filepath:)
+      data
+    end
+
+    def self.to_csv(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: "subcategories.csv")
       data = []
       mutex = Thread::Mutex.new
       data << ["District", "School", "School Code", "Academic Year", "Recorded Date Range", "Grades", "Subcategory", "Student Score", "Student Zone", "Teacher Score",
@@ -24,9 +32,9 @@ module Report
                 zone = subcategory.zone(school:, academic_year:).type.to_s.capitalize
 
                 begin_date = ::SurveyItemResponse.where(school:,
-                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+                                                        academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
                 end_date = ::SurveyItemResponse.where(school:,
-                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
                 date_range = "#{begin_date} - #{end_date}"
 
                 row = [response_rate, subcategory, school, academic_year]
@@ -58,18 +66,15 @@ module Report
       end
 
       workers.each(&:join)
-      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
-      filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
-    end
 
-    def self.write_csv(data:, filepath:)
-      csv = CSV.generate do |csv|
+      CSV.generate do |csv|
         data.each do |row|
           csv << row
         end
       end
+    end
+
+    def self.write_csv(data:, filepath:)
       File.write(filepath, csv)
     end
 

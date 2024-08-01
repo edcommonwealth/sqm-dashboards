@@ -2,6 +2,14 @@
 module Report
   class SurveyItemResponse
     def self.create(schools:, academic_years:, filename:)
+      data = to_csv(schools:, academic_years:)
+      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
+      filepath = Rails.root.join("tmp", "reports", filename)
+      write_csv(data:, filepath:)
+      data
+    end
+
+    def self.to_csv(schools:, academic_years:)
       data = []
       data << ["Response ID", "Race", "Gender", "Grade", "School ID", "District", "Academic Year", "Student Physical Safety",
                "Student Emotional Safety", "Student Sense of Belonging", "Student-Teacher Relationships", "Valuing of Learning", "Academic Challenge", "Content Specialists & Support Staff", "Cultural Responsiveness", "Engagement In School", "Appreciation For Diversity", "Civic Participation", "Perseverance & Determination", "Growth Mindset", "Participation In Creative & Performing Arts", "Valuing Creative & Performing Arts", "Social & Emotional Health"]
@@ -69,10 +77,12 @@ module Report
       end
 
       workers.each(&:join)
-      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
-      filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
+
+      CSV.generate do |csv|
+        data.each do |row|
+          csv << row
+        end
+      end
     end
 
     def self.average_for_measure(measure_id, responses)
@@ -94,11 +104,6 @@ module Report
     end
 
     def self.write_csv(data:, filepath:)
-      csv = CSV.generate do |csv|
-        data.each do |row|
-          csv << row
-        end
-      end
       File.write(filepath, csv)
     end
 

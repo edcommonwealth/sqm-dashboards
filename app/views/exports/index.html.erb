@@ -1,0 +1,58 @@
+<h1>Exports page</h1>
+<%= turbo_frame_tag "results" do  %>
+  <%= form_with(action: exports_path,
+                method: :get,
+                data: {
+                  turbo_frame: "results",
+                  turbo_action: "advance",
+                  controller: "form",
+                  action: "input->form#submit"
+                }) do |f| %>
+
+                <h3 class="sub-header-4 mt-5">Report Type</h3>
+                <div>
+                  <select id="select-report" class="mx-3 mt-3 form-select" name="report" data-id="report-dropdown">
+                    <% @reports.each do |report| %>
+                      <option value="<%= report %>" <%= params[:report] == report ? "selected" : ""  %> ><%= "#{report}" %></option>
+                    <% end %>
+                  </select>
+                </div>
+
+                <h3 class="sub-header-4 mt-5">Report Type</h3>
+                <div class="mt-3">
+                  <input type="radio" id="by_district" name="school_group" value="district" <%= @schools_grouped_by == "district" ? "checked" : ""  %>>
+                  <label for="by_district">By District</label><br>
+                  <input type="radio" id="by_school" name="school_group" value="school" <%= @schools_grouped_by == "school" ? "checked" : ""  %>>
+                  <label for="by_school">By School</label><br>
+                </div>
+
+                <% if @schools_grouped_by == "district"  %>
+                  <h3 class="sub-header-4 mt-5">District</h3>
+                  <%= f.select(:district, @districts, selected: @selected_district_id )  %>
+                <% end %>
+
+
+                <% if @schools_grouped_by == "school"  %>
+                  <h3 class="sub-header-4 mt-5">School</h3>
+                  <%= f.select(:school, @schools.map(&:name), selected: @selected_school.name )  %>
+                <% end %>
+
+                <h3 class="sub-header-4 mt-5">School Years</h3>
+                <% @academic_years.each_with_index do | year, index | %>
+                  <div class="d-flex justify-content-start align-items-center mt-1" data-controller="analyze">
+                    <input type="checkbox"
+                    class="form-check-input"
+                    id="<%= year.range %>"
+                    name="academic_year-<%= index  %>"
+                    value="<%= year.range %>"
+                    <%= @selected_academic_years.include?(year.range)  ? "checked" : "" %>
+                    >
+
+                    <label class="px-3" for="<%= year.range %>"><%= year.range %></label><br>
+                  </div>
+                <% end %>
+
+                <%= link_to "Submit", exports_csv_path(format: :csv, params: params.to_enum.to_h ) , class: "btn btn-primary mt-5"%>
+              <% end %>
+            <% end %>
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html >
+<html lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <link href="https://fonts.googleapis.com/css?family=Bitter:400,600,700" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Cabin:400,600,700" rel="stylesheet" type="text/css"/>
+  <title>Exports</title>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+</head>
+
+<body>
+
+
+<div class="bg-color-light-blue">
+  <div class="container">
+    <div class="row">
+      <div class="col mt-7">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

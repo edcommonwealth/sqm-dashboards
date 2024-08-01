@@ -1,6 +1,14 @@
 module Report
   class Measure
     def self.create_report(schools: School.all.includes(:district), academic_years: AcademicYear.all, measures: ::Measure.all, filename: "measure_report.csv")
+      data = to_csv(schools, academic_years:, measures:)
+      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
+      filepath = Rails.root.join("tmp", "reports", filename)
+      write_csv(data:, filepath:)
+      data
+    end
+
+    def self.to_csv(schools:, academic_years:, measures:)
       data = []
       mutex = Thread::Mutex.new
       data << ["Measure Name", "Measure ID", "District", "School", "School Code", "Academic Year", "Recorded Date Range", "Grades", "Student Score", "Student Zone", "Teacher Score",
@@ -59,18 +67,15 @@ module Report
       end
 
       workers.each(&:join)
-      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
-      filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
-    end
 
-    def self.write_csv(data:, filepath:)
       csv = CSV.generate do |csv|
         data.each do |row|
           csv << row
         end
       end
+    end
+
+    def self.write_csv(data:, filepath:)
       File.write(filepath, csv)
     end
 
