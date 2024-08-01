@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get :reports, to: "reports#index"
   get "reports/gps", to: "gps#index"
+  get :exports, to: "exports#index"
+  get "exports/csv", to: "exports#show"
 
   get '/welcome', to: 'home#index'
   root to: 'legacy/welcome#index'

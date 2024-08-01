@@ -1,6 +1,14 @@
 module Report
   class MeasureSummary
-    def self.create_report(district:, academic_years: AcademicYear.all, measures: ::Measure.all.order(measure_id: :ASC), filename: "measure_summary.csv")
+    def self.create_report(schools:, academic_years: AcademicYear.all, measures: ::Measure.all.order(measure_id: :ASC), filename: "measure_summary.csv")
+      data = to_csv(schools:, academic_years:, measures:)
+      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
+      filepath = Rails.root.join("tmp", "reports", filename)
+      write_csv(data:, filepath:)
+      data
+    end
+
+    def self.to_csv(schools:, academic_years:, measures:)
       data = []
       mutex = Thread::Mutex.new
       data << ["Measure Name", "Measure ID", "District", "Academic Year", "Recorded Date Range", "Grades", "Student Score", "Student Zone", "Teacher Score",
@@ -15,7 +23,7 @@ module Report
             academic_years.each do |academic_year|
               all_grades = Set.new
 
-              respondents = Respondent.where(school: district.schools, academic_year:)
+              respondents = Respondent.where(school: schools, academic_year:)
               respondents.each do |respondent|
                 respondent.enrollment_by_grade.keys.each do |grade|
                   all_grades.add(grade)
@@ -24,12 +32,13 @@ module Report
               all_grades = all_grades.to_a
               grades = "#{all_grades.first}-#{all_grades.last}"
 
-              begin_date = SurveyItemResponse.where(school: district.schools,
-                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
-              end_date = SurveyItemResponse.where(school: district.schools,
-                                                  academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+              begin_date = ::SurveyItemResponse.where(school: schools,
+                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+              end_date = ::SurveyItemResponse.where(school: schools,
+                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
               date_range = "#{begin_date} - #{end_date}"
 
+              district = schools.first.district
               row = [measure, district, academic_year]
 
               mutex.synchronize do
@@ -55,18 +64,15 @@ module Report
       end
 
       workers.each(&:join)
-      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
-      filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
-    end
 
-    def self.write_csv(data:, filepath:)
-      csv = CSV.generate do |csv|
+      CSV.generate do |csv|
         data.each do |row|
           csv << row
         end
       end
+    end
+
+    def self.write_csv(data:, filepath:)
       File.write(filepath, csv)
     end
 
