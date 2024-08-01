@@ -1,6 +1,14 @@
 module Report
   class Measure
     def self.create_report(schools: School.all.includes(:district), academic_years: AcademicYear.all, measures: ::Measure.all, filename: "measure_report.csv")
+      data = to_csv(schools, academic_years:, measures:)
+      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
+      filepath = Rails.root.join("tmp", "reports", filename)
+      write_csv(data:, filepath:)
+      data
+    end
+
+    def self.to_csv(schools:, academic_years:, measures:)
       data = []
       mutex = Thread::Mutex.new
       data << ["Measure Name", "Measure ID", "District", "School", "School Code", "Academic Year", "Recorded Date Range", "Grades", "Student Score", "Student Zone", "Teacher Score",
@@ -23,10 +31,10 @@ module Report
                 score = measure.score(school:, academic_year:)
                 zone = measure.zone(school:, academic_year:).type.to_s.capitalize
 
-                begin_date = SurveyItemResponse.where(school:,
-                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
-                end_date = SurveyItemResponse.where(school:,
-                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+                begin_date = ::SurveyItemResponse.where(school:,
+                                                        academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+                end_date = ::SurveyItemResponse.where(school:,
+                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
                 date_range = "#{begin_date} - #{end_date}"
 
                 row = [response_rate, measure, school, academic_year]
@@ -59,18 +67,15 @@ module Report
       end
 
       workers.each(&:join)
-      FileUtils.mkdir_p Rails.root.join("tmp", "reports")
-      filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
-    end
 
-    def self.write_csv(data:, filepath:)
       csv = CSV.generate do |csv|
         data.each do |row|
           csv << row
         end
       end
+    end
+
+    def self.write_csv(data:, filepath:)
       File.write(filepath, csv)
     end
 

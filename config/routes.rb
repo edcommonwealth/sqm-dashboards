@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get :reports, to: "reports#index"
   get "reports/gps", to: "gps#index"
+  get :exports, to: "exports#index"
+  get "exports/csv", to: "exports#show"
 
   get "/welcome", to: "home#index"
   root to: "home#index"
