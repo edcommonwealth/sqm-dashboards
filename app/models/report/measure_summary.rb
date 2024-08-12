@@ -24,9 +24,9 @@ module Report
               all_grades = all_grades.to_a
               grades = "#{all_grades.first}-#{all_grades.last}"
 
-              begin_date = SurveyItemResponse.where(school: district.schools,
+              begin_date = ::SurveyItemResponse.where(school: district.schools,
                                                     academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
-              end_date = SurveyItemResponse.where(school: district.schools,
+              end_date = ::SurveyItemResponse.where(school: district.schools,
                                                   academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
               date_range = "#{begin_date} - #{end_date}"
 

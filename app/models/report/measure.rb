@@ -23,10 +23,10 @@ module Report
                 score = measure.score(school:, academic_year:)
                 zone = measure.zone(school:, academic_year:).type.to_s.capitalize
 
-                begin_date = SurveyItemResponse.where(school:,
-                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
-                end_date = SurveyItemResponse.where(school:,
-                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+                begin_date = ::SurveyItemResponse.where(school:,
+                                                        academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+                end_date = ::SurveyItemResponse.where(school:,
+                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
                 date_range = "#{begin_date} - #{end_date}"
 
                 row = [response_rate, measure, school, academic_year]
