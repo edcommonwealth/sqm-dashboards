@@ -3,18 +3,20 @@ class ExportsController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @districts = District.all.map { |district| [district.name, district.id] }
-    @selected_district_id ||= params[:district]&.to_i if params[:district].present?
-    @selected_district_id ||= @districts.first
-    @academic_years = AcademicYear.all.order(range: :ASC)
-    @selected_academic_years = params.select { |param| param.start_with?("academic_year") }.values
+    @presenter = ExportsPresenter.new(params:)
+    @districts = @presenter.districts
+    @selected_district_id = @presenter.selected_district_id
+    @academic_years = @presenter.academic_years
+    @selected_academic_years = @presenter.selected_academic_years
 
-    @schools = School.all.order(name: :ASC)
-    @selected_school ||= School.find_by_name(params[:school])
-    @selected_school ||= @schools.first
+    @schools = @presenter.schools
+    @selected_school = @presenter.selected_school
+
+    @schools_grouped_by = @presenter.schools_grouped_by
 
     @reports = reports.keys
-    @schools_grouped_by = params["school_group"]
+    @student_survey_types = student_survey_types.keys
+    @student_survey_type = params[:student_survey_type]
   end
 
   def show
@@ -33,7 +35,14 @@ class ExportsController < ApplicationController
           schools = [School.find_by_name(params["school"])]
         end
 
-        reports[params[:report]].call(schools, academic_years)
+        report = params[:report]
+
+        if report == "Survey Item - By Item"
+          use_student_survey_items = student_survey_types[params[:student_survey_type]]
+          reports[report].call(schools, academic_years, use_student_survey_items)
+        else
+          reports[report].call(schools, academic_years)
+        end
       end
     end
   end
@@ -63,9 +72,9 @@ class ExportsController < ApplicationController
                                   send_data data, disposition: "attachment",
                                                   filename: "beyond_learning_loss_#{Date.today}.csv"
                                 },
-      "Survey Item - By Item" => lambda { |schools, academic_years|
+      "Survey Item - By Item" => lambda { |schools, academic_years, use_student_survey_items|
                                    data = Report::SurveyItemByItem.to_csv(schools:, academic_years:,
-                                                                          use_student_survey_items: ::SurveyItem.student_survey_items.pluck(:id))
+                                                                          use_student_survey_items:)
                                    send_data data, disposition: "attachment",
                                                    filename: "survey_item_by_item_#{Date.today}.csv"
                                  },
@@ -79,6 +88,15 @@ class ExportsController < ApplicationController
         data = Report::SurveyItemResponse.to_csv(schools:, academic_years:)
         send_data data, disposition: "attachment", filename: "survey_item_response_#{Date.today}.csv"
       } }
+  end
+
+  def student_survey_types
+    {
+      "All Student Survey Items" => ::SurveyItem.student_survey_items.pluck(:id),
+      "Standard" => ::SurveyItem.standard_survey_items.pluck(:id),
+      "Short Form" => ::SurveyItem.short_form_survey_items.pluck(:id),
+      "Early Education" => ::SurveyItem.early_education_survey_items.pluck(:id)
+    }
   end
 
   def authenticate_admin
