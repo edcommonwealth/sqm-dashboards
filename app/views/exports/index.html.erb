@@ -18,13 +18,18 @@
                   </select>
                 </div>
 
-                <h3 class="sub-header-4 mt-5">Report Type</h3>
+                <h3 class="sub-header-4 mt-5">Grouped By</h3>
                 <div class="mt-3">
                   <input type="radio" id="by_district" name="school_group" value="district" <%= @schools_grouped_by == "district" ? "checked" : ""  %>>
-                  <label for="by_district">By District</label><br>
+                  <label for="by_district">District</label><br>
                   <input type="radio" id="by_school" name="school_group" value="school" <%= @schools_grouped_by == "school" ? "checked" : ""  %>>
-                  <label for="by_school">By School</label><br>
+                  <label for="by_school">School</label><br>
                 </div>
+
+                <% if @presenter.show_student_survey_types %>
+                  <h3 class="sub-header-4 mt-5">Student Survey Type</h3>
+                  <%= f.select(:student_survey_type, @student_survey_types, selected: @student_survey_type )  %>
+                <% end %>
 
                 <% if @schools_grouped_by == "district"  %>
                   <h3 class="sub-header-4 mt-5">District</h3>
