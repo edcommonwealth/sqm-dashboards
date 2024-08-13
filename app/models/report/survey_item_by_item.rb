@@ -1,11 +1,11 @@
 module Report
   class SurveyItemByItem
     def self.create_item_report(schools:, academic_years:, filename:, use_student_survey_items: ::SurveyItem.student_survey_items.pluck(:id))
-      data = to_csv(schools:, academic_years:, use_student_survey_items:)
+      csv = to_csv(schools:, academic_years:, use_student_survey_items:)
       FileUtils.mkdir_p Rails.root.join("tmp", "reports")
       filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
+      write_csv(csv:, filepath:)
+      csv
     end
 
     def self.to_csv(schools:, academic_years:, use_student_survey_items: ::SurveyItem.student_survey_items.pluck(:id))
@@ -63,6 +63,7 @@ module Report
         schools.each do |school|
           # for each survey item id
           survey_ids_to_grades.each do |id, school_grades|
+            school_grades = school_grades.reject(&:nil?)
             row = []
             survey_item = survey_item_for_id(id)
             row.concat(survey_item_info(survey_item:)) # fills prompt + categories
@@ -156,7 +157,7 @@ module Report
       @scales[scale_id]
     end
 
-    def self.write_csv(data:, filepath:)
+    def self.write_csv(csv:, filepath:)
       File.write(filepath, csv)
     end
 
