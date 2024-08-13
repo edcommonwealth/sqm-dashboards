@@ -1,12 +1,12 @@
 module Report
   class SurveyItemByGrade
     def self.create_grade_report(schools:, academic_years:, filename:, use_student_survey_items: ::SurveyItem.student_survey_items.pluck(:id))
-      data = to_csv(schools:, academic_years:, use_student_survey_items:)
+      csv = to_csv(schools:, academic_years:, use_student_survey_items:)
       # write out file
       FileUtils.mkdir_p Rails.root.join("tmp", "reports")
       filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
+      write_csv(csv:, filepath:)
+      csv
     end
 
     def self.to_csv(schools:, academic_years:, use_student_survey_items:)
@@ -108,7 +108,7 @@ module Report
       end
     end
 
-    def self.write_csv(data:, filepath:)
+    def self.write_csv(csv:, filepath:)
       File.write(filepath, csv)
     end
   end
