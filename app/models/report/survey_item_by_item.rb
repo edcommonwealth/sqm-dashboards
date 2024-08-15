@@ -16,12 +16,12 @@ module Report
       # Convert they keys in this hash to a hash where the key is the grade
       # and the value is a set of sufficient survey IDs
       survey_ids_to_grades = {}
-      ::SurveyItemResponse.student_survey_items_with_responses_by_grade(
-        school: schools,
-        academic_year: academic_years
-      ).select do |key, _value|
-        use_student_survey_items.include?(key[1])
-      end.each do |key, count|
+
+      sufficient_responses_by_grade_and_survey_item_id = ::SurveyItemResponse.where(school: schools, academic_year: academic_years, survey_item_id: use_student_survey_items).where.not(grade: nil).having("count(*) >= ?", 10).group(
+        :grade, :survey_item_id
+      ).count
+
+      sufficient_responses_by_grade_and_survey_item_id.each do |key, count|
         # key[1] is survey item ID
         # key[0] is grade
         survey_ids_to_grades[key[1]] ||= Set.new
@@ -39,13 +39,14 @@ module Report
         "Academic Year"
       ]
 
-      grades = ::SurveyItemResponse.where(school: schools,
-                                          academic_year: academic_years)
-                                   .where.not(grade: nil)
-                                   .pluck(:grade)
-                                   .reject { |grade| grade == -1 } # ignore preschool
-                                   .uniq
-                                   .sort
+      grades = []
+      schools.each do |school|
+        academic_years.each do |academic_year|
+          grades.concat(school.grades(academic_year:))
+        end
+      end
+      grades = grades.uniq.reject { |grade| grade == -1 }.reject(&:nil?) # remove preschool and nil grades
+
       grades.each do |value|
         if value == 0
           headers.append("Kindergarten")
@@ -62,7 +63,7 @@ module Report
       academic_years.each do |academic_year|
         schools.each do |school|
           # for each survey item id
-          survey_ids_to_grades.each do |id, school_grades|
+          survey_ids_to_grades.sort_by { |id, _value| ::SurveyItem.find(id).prompt }.each do |id, school_grades|
             school_grades = school_grades.reject(&:nil?)
             row = []
             survey_item = survey_item_for_id(id)
@@ -112,7 +113,11 @@ module Report
             data << row
           end
           # Next up is teacher data
-          ::SurveyItemResponse.teacher_survey_items_with_sufficient_responses(school:, academic_year:).keys.each do |key| # each key is a survey item id
+          # each key is a survey item id
+          ::SurveyItemResponse.teacher_survey_items_with_sufficient_responses(school:,
+                                                                              academic_year:).keys.sort_by do |id|
+            ::SurveyItem.find(id).prompt
+          end.each do |key|
             row = []
             survey_item = survey_item_for_id(key)
             row.concat(survey_item_info(survey_item:))
