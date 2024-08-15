@@ -14,19 +14,26 @@ module Report
       survey_items = Set.new
       # also get a map of grade->survey_id
       sufficient_survey_items = {}
-      grades = ::SurveyItemResponse.where(school: schools,
-                                          academic_year: academic_years).where.not(grade: nil).pluck(:grade).uniq.sort
+
+      grades = []
+      schools.each do |school|
+        academic_years.each do |academic_year|
+          grades.concat(school.grades(academic_year:))
+        end
+      end
+      grades = grades.uniq.reject { |grade| grade == -1 }.reject(&:nil?) # remove preschool and nil grades
+
       grades.each do |grade|
         sufficient_survey_items[grade] ||= Set.new
       end
 
-      ::SurveyItemResponse.student_survey_items_with_responses_by_grade(
-        school: schools,
-        academic_year: academic_years
-      ).select do |key, _value|
-        use_student_survey_items.include?(key[1])
-      end.each do |key, count|
+      sufficient_responses_by_grade_and_survey_item_id = ::SurveyItemResponse.where(school: schools, academic_year: academic_years, survey_item_id: use_student_survey_items).where.not(grade: nil).having("count(*) >= ?", 10).group(
+        :grade, :survey_item_id
+      ).count
+
+      sufficient_responses_by_grade_and_survey_item_id.each do |key, count|
         # key[1] is survey item id
+        # key[0] is grade
         next if key[0].nil?
 
         survey_items.add(key[1])
@@ -40,6 +47,7 @@ module Report
         "Grade",
         "Academic Year"
       ]
+      survey_items = survey_items.sort_by { |id| ::SurveyItem.find(id).prompt }
       survey_items.each do |survey_item_id|
         headers << ::SurveyItem.find_by_id(survey_item_id).prompt
       end
