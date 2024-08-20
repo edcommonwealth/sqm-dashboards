@@ -52,7 +52,9 @@ class Seeder
   def seed_sqm_framework(csv_file)
     admin_data_item_ids = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
-      category_id = row["Category ID"].strip
+      category_id = row["Category ID"]&.strip
+      next if category_id.nil?
+
       category = Category.find_or_create_by!(category_id:)
       category_slugs = {
         "1" => "teachers-and-leadership",
@@ -68,7 +70,9 @@ class Seeder
       subcategory = Subcategory.find_or_create_by!(subcategory_id:, category:)
       subcategory.update! name: row["Subcategory"].strip, description: row["Subcategory Description"].strip
 
-      measure_id = row["Measure ID"].strip
+      measure_id = row["Measure ID"]&.strip
+      next if measure_id.nil?
+
       measure_name = row["Measures"].try(:strip)
       watch_low = row["Item Watch Low"].try(:strip)
       growth_low = row["Item Growth Low"].try(:strip)
@@ -88,7 +92,8 @@ class Seeder
       scale_id = data_item_id.split("-")[0..1].join("-")
       scale = Scale.find_or_create_by!(scale_id:, measure:)
 
-      if %w[Teachers Students].include? row["Source"]
+      active_survey_item = row["Active admin & survey items"]
+      if %w[Teachers Students Parents].include? row["Source"] && %w[TRUE 1].include?(active_survey_item)
         survey_item = SurveyItem.where(survey_item_id: data_item_id, scale:).first_or_create
         survey_item.watch_low_benchmark = watch_low if watch_low
         survey_item.growth_low_benchmark = growth_low if growth_low
