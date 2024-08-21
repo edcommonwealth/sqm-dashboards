@@ -26,7 +26,18 @@ class ExportsController < ApplicationController
         year_params = params.select { |param| param.start_with?("academic_year") }.values
         academic_years = AcademicYear.where(range: year_params)
         group = params["school_group"]
-        schools = schools_for_group(group)
+
+        if group == "district"
+          district_id ||= params[:district]&.to_i if params[:district].present?
+          district = District.find(district_id) if district_id.present?
+          district ||= District.first
+          schools = district.schools
+        elsif group == "school"
+          schools = [School.find_by_name(params["school"])]
+        elsif group == "all"
+          schools = School.all
+        end
+
         report = params[:report]
 
         if ["Survey Item - By Item", "Survey Item - By Grade", "Survey Entries - by Measure"].include?(report)

@@ -14,10 +14,10 @@ describe Overview::VarianceChartRowPresenter do
     scale = create(:scale, measure:)
 
     create(:student_survey_item, scale:,
-      watch_low_benchmark:,
-      growth_low_benchmark:,
-      approval_low_benchmark:,
-      ideal_low_benchmark:)
+                                 watch_low_benchmark:,
+                                 growth_low_benchmark:,
+                                 approval_low_benchmark:,
+                                 ideal_low_benchmark:)
 
     measure
   end
@@ -138,19 +138,9 @@ describe Overview::VarianceChartRowPresenter do
   context "when a measure does not contain admin data items" do
     let(:score) { Score.new(average: nil, meets_teacher_threshold: false, meets_student_threshold: false) }
 
-<<<<<<< HEAD
-    it "it does not show a partial data indicator" do
-      presenter_without_admin_data = VarianceChartRowPresenter.new measure: measure_without_admin_data_items,
-        score: score
-||||||| parent of a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
-    it 'it does not show a partial data indicator' do
-      presenter_without_admin_data = VarianceChartRowPresenter.new measure: measure_without_admin_data_items,
-                                                                   score: score
-=======
     it "it does not show a partial data indicator" do
       presenter_without_admin_data = Overview::VarianceChartRowPresenter.new(measure: measure_without_admin_data_items,
                                                                              score:)
->>>>>>> a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
       expect(presenter_without_admin_data.show_partial_data_indicator?).to be false
     end
   end
@@ -167,29 +157,6 @@ describe Overview::VarianceChartRowPresenter do
         name: "Some Title"
       )
       scale_with_admin_data = create(:scale, measure: measure_with_admin_data)
-<<<<<<< HEAD
-      create :admin_data_item,
-        scale: scale_with_admin_data,
-        watch_low_benchmark: watch_low_benchmark,
-        growth_low_benchmark: growth_low_benchmark,
-        approval_low_benchmark: approval_low_benchmark,
-        ideal_low_benchmark: ideal_low_benchmark
-      admin_data_presenter = VarianceChartRowPresenter.new measure: measure_with_admin_data,
-        score: Score.new(
-          average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true
-        )
-||||||| parent of a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
-      create :admin_data_item,
-             scale: scale_with_admin_data,
-             watch_low_benchmark: watch_low_benchmark,
-             growth_low_benchmark: growth_low_benchmark,
-             approval_low_benchmark: approval_low_benchmark,
-             ideal_low_benchmark: ideal_low_benchmark
-      admin_data_presenter = VarianceChartRowPresenter.new measure: measure_with_admin_data,
-                                                           score: Score.new(
-                                                             average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true
-                                                           )
-=======
       create(:admin_data_item,
              scale: scale_with_admin_data,
              watch_low_benchmark:,
@@ -200,15 +167,8 @@ describe Overview::VarianceChartRowPresenter do
                                                                      score: Score.new(
                                                                        average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true
                                                                      )
->>>>>>> a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
       expect(admin_data_presenter.show_partial_data_indicator?).to be true
-<<<<<<< HEAD
-      expect(admin_data_presenter.partial_data_sources).to eq ["school data"]
-||||||| parent of a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
-      expect(admin_data_presenter.partial_data_sources).to eq ['administrative data']
-=======
       expect(admin_data_presenter.partial_data_sources).to eq ["administrative data"]
->>>>>>> a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
     end
   end
 
@@ -226,19 +186,9 @@ describe Overview::VarianceChartRowPresenter do
       end
     end
 
-<<<<<<< HEAD
-    context "when there are sufficient teacher survey item responses" do
-      let(:score) { Score.new(average: nil, meets_teacher_threshold: true, meets_student_threshold: true) }
-      it "does not show a partial data indicator" do
-||||||| parent of a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
-    context 'when there are sufficient teacher survey item responses' do
-      let(:score) { Score.new(average: nil, meets_teacher_threshold:  true, meets_student_threshold: true) }
-      it 'does not show a partial data indicator' do
-=======
     context "when there are sufficient teacher survey item responses" do
       let(:score) { Score.new(average: nil, meets_teacher_threshold:  true, meets_student_threshold: true) }
       it "does not show a partial data indicator" do
->>>>>>> a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
         expect(presenter.show_partial_data_indicator?).to be false
       end
     end
@@ -263,16 +213,8 @@ describe Overview::VarianceChartRowPresenter do
           create :admin_data_item, scale:
         end
 
-<<<<<<< HEAD
         it "returns the sources for partial results of administrative data and student survey results" do
           expect(presenter.partial_data_sources).to eq ["student survey results", "school data"]
-||||||| parent of a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
-        it 'returns the sources for partial results of administrative data and student survey results' do
-          expect(presenter.partial_data_sources).to eq ['student survey results', 'administrative data']
-=======
-        it "returns the sources for partial results of administrative data and student survey results" do
-          expect(presenter.partial_data_sources).to eq ["student survey results", "administrative data"]
->>>>>>> a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
         end
       end
     end
@@ -289,23 +231,6 @@ describe Overview::VarianceChartRowPresenter do
     it "selects a longer bar before a shorter bar for measures in the approval/ideal zones" do
       scale_with_student_survey_items = create(:scale, measure:)
       create(:student_survey_item,
-<<<<<<< HEAD
-        scale: scale_with_student_survey_items,
-        watch_low_benchmark:,
-        growth_low_benchmark:,
-        approval_low_benchmark:,
-        ideal_low_benchmark:)
-      approval_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true)
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 4.4, meets_teacher_threshold: true, meets_student_threshold: true)
-||||||| parent of a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
-             scale: scale_with_student_survey_items,
-             watch_low_benchmark:,
-             growth_low_benchmark:,
-             approval_low_benchmark:,
-             ideal_low_benchmark:)
-      approval_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 3.7, meets_teacher_threshold: true,meets_student_threshold: true)
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 4.4, meets_teacher_threshold: true, meets_student_threshold: true)
-=======
              scale: scale_with_student_survey_items,
              watch_low_benchmark:,
              growth_low_benchmark:,
@@ -319,20 +244,10 @@ describe Overview::VarianceChartRowPresenter do
                                                                 score: Score.new(
                                                                   average: 4.4, meets_teacher_threshold: true, meets_student_threshold: true
                                                                 )
->>>>>>> a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
       expect(ideal_presenter <=> approval_presenter).to be < 0
       expect([approval_presenter, ideal_presenter].sort).to eq [ideal_presenter, approval_presenter]
     end
 
-<<<<<<< HEAD
-    it "selects a warning bar below a ideal bar" do
-      warning_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 1.0, meets_teacher_threshold: true, meets_student_threshold: true)
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 5.0, meets_teacher_threshold: true, meets_student_threshold: true)
-||||||| parent of a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
-    it 'selects a warning bar below a ideal bar' do
-      warning_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 1.0, meets_teacher_threshold: true, meets_student_threshold: true)
-      ideal_presenter = VarianceChartRowPresenter.new measure: measure, score: Score.new(average: 5.0, meets_teacher_threshold: true, meets_student_threshold: true)
-=======
     it "selects a warning bar below a ideal bar" do
       warning_presenter = Overview::VarianceChartRowPresenter.new measure:,
                                                                   score: Score.new(
@@ -342,7 +257,6 @@ describe Overview::VarianceChartRowPresenter do
                                                                 score: Score.new(
                                                                   average: 5.0, meets_teacher_threshold: true, meets_student_threshold: true
                                                                 )
->>>>>>> a391acc (feat: Add parent button to overview page and alter 'School Quality Framework Indicators' section to show parent scales)
       expect(warning_presenter <=> ideal_presenter).to be > 0
       expect([warning_presenter, ideal_presenter].sort).to eq [ideal_presenter, warning_presenter]
     end
