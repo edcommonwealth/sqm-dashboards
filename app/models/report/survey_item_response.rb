@@ -1,15 +1,15 @@
 # Report::SurveyItemResponse.create(schools: District.find_by_name("Lee Public Schools").schools, academic_years: AcademicYear.where(range: "2023-24 Spring"), filename: "test.csv")
 module Report
   class SurveyItemResponse
-    def self.create(schools:, academic_years:, filename:)
-      data = to_csv(schools:, academic_years:)
+    def self.create(schools:, academic_years:, filename:, use_student_survey_items:)
+      data = to_csv(schools:, academic_years:, use_student_survey_items:)
       FileUtils.mkdir_p Rails.root.join("tmp", "reports")
       filepath = Rails.root.join("tmp", "reports", filename)
       write_csv(data:, filepath:)
       data
     end
 
-    def self.to_csv(schools:, academic_years:)
+    def self.to_csv(schools:, academic_years:, use_student_survey_items:)
       data = []
       data << ["Response ID", "Race", "Gender", "Grade", "School ID", "District", "Academic Year", "Student Physical Safety",
                "Student Emotional Safety", "Student Sense of Belonging", "Student-Teacher Relationships", "Valuing of Learning", "Academic Challenge", "Content Specialists & Support Staff", "Cultural Responsiveness", "Engagement In School", "Appreciation For Diversity", "Civic Participation", "Perseverance & Determination", "Growth Mindset", "Participation In Creative & Performing Arts", "Valuing Creative & Performing Arts", "Social & Emotional Health"]
@@ -18,6 +18,8 @@ module Report
       pool_size = 2
       jobs = Queue.new
       schools.each { |school| jobs << school }
+
+      use_student_survey_items = use_student_survey_items.to_set
 
       workers = pool_size.times.map do
         Thread.new do
@@ -42,6 +44,8 @@ module Report
 
               response_hash.each do |_key, responses|
                 mutex.synchronize do
+                  next unless responses.map(&:survey_item_id).to_set.subset?(use_student_survey_items)
+
                   row = []
                   info = responses.first
                   response_id = info.response_id

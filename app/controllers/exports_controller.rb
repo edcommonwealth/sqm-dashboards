@@ -37,7 +37,7 @@ class ExportsController < ApplicationController
 
         report = params[:report]
 
-        if report == "Survey Item - By Item"
+        if ["Survey Item - By Item", "Survey Item - By Grade", "Survey Item Response"].include?(report)
           use_student_survey_items = student_survey_types[params[:student_survey_type]]
           reports[report].call(schools, academic_years, use_student_survey_items)
         else
@@ -78,14 +78,15 @@ class ExportsController < ApplicationController
                                    send_data data, disposition: "attachment",
                                                    filename: "survey_item_by_item_#{Date.today}.csv"
                                  },
-      "Survey Item - By Grade" => lambda { |schools, academic_years|
+      "Survey Item - By Grade" => lambda { |schools, academic_years, use_student_survey_items|
                                     data = Report::SurveyItemByGrade.to_csv(schools:, academic_years:,
-                                                                            use_student_survey_items: ::SurveyItem.student_survey_items.pluck(:id))
+                                                                            use_student_survey_items:)
                                     send_data data,
                                               disposition: "attachment", filename: "survey_item_by_grade_#{Date.today}.csv"
                                   },
-      "Survey Item Response" => lambda { |schools, academic_years|
-        data = Report::SurveyItemResponse.to_csv(schools:, academic_years:)
+
+      "Survey Item Response" => lambda { |schools, academic_years, use_student_survey_items|
+        data = Report::SurveyItemResponse.to_csv(schools:, academic_years:, use_student_survey_items:)
         send_data data, disposition: "attachment", filename: "survey_item_response_#{Date.today}.csv"
       } }
   end
