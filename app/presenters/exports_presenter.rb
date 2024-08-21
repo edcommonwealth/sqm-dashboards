@@ -14,6 +14,7 @@ class ExportsPresenter
     @selected_school ||= @schools.first
 
     @schools_grouped_by = params["school_group"]
-    @show_student_survey_types = params[:report] == "Survey Item - By Item"
+    @show_student_survey_types = ["Survey Item - By Item", "Survey Item - By Grade",
+                                  "Survey Item Response"].include?(params[:report])
   end
 end
