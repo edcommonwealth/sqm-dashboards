@@ -37,7 +37,7 @@ describe Seeder do
       expect do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
       end.to change { District.count }.by(3)
-        .and change { School.count }.by(4)
+                                      .and change { School.count }.by(4)
 
       high_school = School.find_by_dese_id 160_505
       expect(high_school.name).to eq "Attleboro High School"
@@ -56,16 +56,16 @@ describe Seeder do
       let!(:removed_survey_item_response) { create(:survey_item_response, school: removed_school) }
       let!(:existing_school) do
         create(:school, name: "Sam Adams Elementary School", dese_id: 350_302, slug: "some-slug-for-sam-adams",
-          district: existing_district)
+                        district: existing_district)
       end
 
       it "only creates new districts and schools" do
         expect do
           seeder.seed_districts_and_schools sample_districts_and_schools_csv
         end.to change { District.count }.by(2)
-          .and change {
-                 School.count
-               }.by(2) # +2 for schools added from example csv, -1 for old school
+                                        .and change {
+                                               School.count
+                                             }.by(2) # +2 for schools added from example csv, -1 for old school
 
         new_district = District.find_by_name "Attleboro"
         expect(new_district.qualtrics_code).to eq 1
@@ -179,16 +179,16 @@ describe Seeder do
       expect do
         seeder.seed_sqm_framework sample_sqm_framework_csv
       end.to change { Category.count }.by(4)
-        .and change { Subcategory.count }.by(15)
-        .and change { Measure.count }.by(31).and change {
-                                                   Scale.count
-                                                 }.by(51)
-        .and change {
-               SurveyItem.count
-             }.by(136)
-        .and change {
-               AdminDataItem.count
-             }.by(30)
+                                      .and change { Subcategory.count }.by(15)
+                                                                       .and change { Measure.count }.by(31).and change {
+                                                                                                                  Scale.count
+                                                                                                                }.by(57)
+                                                                                                                 .and change {
+                                                                                                                        SurveyItem.count
+                                                                                                                      }.by(201)
+                                                                                                                       .and change {
+                                                                                                                              AdminDataItem.count
+                                                                                                                            }.by(30)
     end
 
     context "updates records to match given data" do

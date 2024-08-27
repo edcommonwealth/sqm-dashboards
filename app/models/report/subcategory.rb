@@ -1,11 +1,11 @@
 module Report
   class Subcategory
     def self.create_report(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: "subcategories.csv")
-      data = to_csv(schools:, academic_years:, subcategories:, filename:)
+      csv = to_csv(schools:, academic_years:, subcategories:, filename:)
       FileUtils.mkdir_p Rails.root.join("tmp", "reports")
       filepath = Rails.root.join("tmp", "reports", filename)
-      write_csv(data:, filepath:)
-      data
+      write_csv(csv:, filepath:)
+      csv
     end
 
     def self.to_csv(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: "subcategories.csv")
@@ -74,7 +74,7 @@ module Report
       end
     end
 
-    def self.write_csv(data:, filepath:)
+    def self.write_csv(csv:, filepath:)
       File.write(filepath, csv)
     end
 
