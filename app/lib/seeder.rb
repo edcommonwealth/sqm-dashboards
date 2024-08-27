@@ -52,8 +52,9 @@ class Seeder
   def seed_sqm_framework(csv_file)
     admin_data_item_ids = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
+      next if row["Source"] == "No source"
+
       category_id = row["Category ID"]&.strip
-      next if category_id.nil?
 
       category = Category.find_or_create_by!(category_id:)
       category_slugs = {
@@ -71,7 +72,6 @@ class Seeder
       subcategory.update! name: row["Subcategory"].strip, description: row["Subcategory Description"].strip
 
       measure_id = row["Measure ID"]&.strip
-      next if measure_id.nil?
 
       measure_name = row["Measures"].try(:strip)
       watch_low = row["Item Watch Low"].try(:strip)
@@ -81,19 +81,17 @@ class Seeder
       on_short_form = row["On Short Form?"].try(:strip)
       measure_description = row["Measure Description"].try(:strip)
 
-      next if row["Source"] == "No source"
-
       measure = Measure.find_or_create_by!(measure_id:, subcategory:)
       measure.name = measure_name
       measure.description = measure_description
       measure.save!
 
-      data_item_id = row["Survey Item ID"].strip
+      data_item_id = row["Survey Item ID"].downcase.strip
       scale_id = data_item_id.split("-")[0..1].join("-")
       scale = Scale.find_or_create_by!(scale_id:, measure:)
 
       active_survey_item = row["Active admin & survey items"]
-      if %w[Teachers Students Parents].include? row["Source"] && %w[TRUE 1].include?(active_survey_item)
+      if %w[Teachers Students Parents].include?(row["Source"]) && %w[TRUE 1].include?(active_survey_item)
         survey_item = SurveyItem.where(survey_item_id: data_item_id, scale:).first_or_create
         survey_item.watch_low_benchmark = watch_low if watch_low
         survey_item.growth_low_benchmark = growth_low if growth_low
@@ -116,7 +114,6 @@ class Seeder
         admin_data_item_ids << admin_data_item.id
       end
     end
-
     AdminDataValue.where.not(admin_data_item_id: admin_data_item_ids).delete_all
     AdminDataItem.where.not(id: admin_data_item_ids).delete_all
   end

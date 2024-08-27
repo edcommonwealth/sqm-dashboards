@@ -6,7 +6,8 @@ class Score < ApplicationRecord
   belongs_to :academic_year
   belongs_to :race
 
-  NIL_SCORE = Score.new(average: nil, meets_teacher_threshold: false, meets_student_threshold:  false, meets_admin_data_threshold: false)
+  NIL_SCORE = Score.new(average: nil, meets_teacher_threshold: false, meets_student_threshold: false,
+                        meets_admin_data_threshold: false)
 
   enum group: {
     all_students: 0,
