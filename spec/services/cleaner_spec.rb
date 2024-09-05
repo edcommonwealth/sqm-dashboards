@@ -36,6 +36,10 @@ RSpec.describe Cleaner do
     File.open(Rails.root.join("spec", "fixtures", "raw", "sample_file_with_duplicate_headers.csv"))
   end
 
+  let(:path_to_sample_raw_parent_file) do
+    File.open(Rails.root.join("spec", "fixtures", "raw", "sample_maynard_raw_parent_survey.csv"))
+  end
+
   let(:common_headers) do
     ["Recorded Date", "Dese ID", "ResponseID"]
   end
@@ -75,6 +79,51 @@ RSpec.describe Cleaner do
                           t-sust-q1 t-sust-q2 t-sust-q3 t-sust-q4 t-curv-q1 t-curv-q2 t-curv-q3 t-curv-q4 t-cure-q1 t-cure-q2
                           t-cure-q3 t-cure-q4 t-peng-q1 t-peng-q2 t-peng-q3 t-peng-q4 t-ceng-q1 t-ceng-q2 t-ceng-q3 t-ceng-q4
                           t-sach-q1 t-sach-q2 t-sach-q3 t-psol-q1 t-psol-q2 t-psol-q3 t-expa-q2 t-expa-q3 t-phya-q2 t-phya-q3] << common_headers).flatten
+
+    survey_item_ids.map do |survey_item_id|
+      create(:survey_item, survey_item_id:)
+    end
+    survey_item_ids
+  end
+
+  let(:parent_survey_items) do
+    survey_item_ids = (%w[
+      p-socx-q1
+      p-socx-q2
+      p-socx-q3
+      p-socx-q4
+      p-sosu-q1
+      p-sosu-q2
+      p-sosu-q3
+      p-sosu-q4
+      p-tcom-q1
+      p-tcom-q2
+      p-tcom-q3
+      p-comm-q1
+      p-comm-q2
+      p-comm-q3
+      p-comm-q4
+      p-valm-q1
+      p-valm-q2
+      p-valm-q3
+      p-valm-q4
+      p-acpr-q1
+      p-acpr-q2
+      p-acpr-q3
+      p-acpr-q4
+      p-scrp-q3
+      p-cure-q1
+      p-cure-q2
+      p-cure-q3
+      p-cure-q4
+      p-evnt-q1
+      p-evnt-q2
+      p-evnt-q3
+      p-evnt-q4
+      p-phys-q3
+      p-scrp-q1
+      p-scrp-q2
+    ] << common_headers).flatten
 
     survey_item_ids.map do |survey_item_id|
       create(:survey_item, survey_item_id:)
@@ -195,6 +244,19 @@ RSpec.describe Cleaner do
               headers: teacher_survey_items, data:, filepath: nil
             )
             expect(filename).to eq "maynard.maynard-high-school.teacher.2022-23.csv"
+          end
+        end
+
+        context "when the file is based on parent survey items" do
+          it "adds the survey type as parent to the filename" do
+            survey_items = SurveyItem.where(survey_item_id: parent_survey_items)
+
+            data = [SurveyItemValues.new(row: { "Recorded Date" => recorded_date, "Dese ID" => "1_740_505" }, headers: parent_survey_items, survey_items:,
+                                         schools: School.by_dese_id)]
+            filename = Cleaner.new(input_filepath:, output_filepath:, log_filepath:).filename(
+              headers: parent_survey_items, data:, filepath: nil
+            )
+            expect(filename).to eq "maynard.maynard-high-school.parent.2022-23.csv"
           end
         end
 

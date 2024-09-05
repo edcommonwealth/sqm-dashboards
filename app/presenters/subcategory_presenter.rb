@@ -43,11 +43,21 @@ class SubcategoryPresenter
 
   def measure_presenters
     @subcategory.measures.sort_by(&:measure_id).map do |measure|
-      MeasurePresenter.new(measure:, academic_year: @academic_year, school: @school)
-    end
+      out = [MeasurePresenter.new(measure:, academic_year: @academic_year, school: @school)]
+      if parent_gauges_have_displayable_score?(measure:)
+        out << ParentMeasurePresenter.new(measure:, academic_year: @academic_year,
+                                          school: @school)
+      end
+      out
+    end.flatten
   end
 
   private
+
+  def parent_gauges_have_displayable_score?(measure:)
+    measure.includes_parent_survey_items? && measure.parent_score(school: @school,
+                                                                  academic_year: @academic_year).average.positive?
+  end
 
   def admin_data_values_count
     @subcategory.measures.map do |measure|

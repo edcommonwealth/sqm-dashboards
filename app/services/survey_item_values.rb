@@ -208,7 +208,7 @@ class SurveyItemValues
   def sanitized_headers
     @sanitized_headers ||= headers.select(&:present?)
                                   .reject { |key, _value| key.start_with? "Q" }
-                                  .reject { |key, _value| key.match?(/^[st]-\w*-\w*-1$/i) }
+                                  .reject { |key, _value| key.match?(/^[stp]-\w*-\w*-1$/i) }
   end
 
   def to_a
@@ -228,6 +228,10 @@ class SurveyItemValues
                        .filter(&:present?)
                        .filter { |header| header.start_with? "t-" }.count > 0
 
+    return :parent if headers
+                      .filter(&:present?)
+                      .filter { |header| header.start_with? "p-" }.count > 0
+
     :student
   end
 
@@ -236,7 +240,7 @@ class SurveyItemValues
   end
 
   def survey_item_ids
-    @survey_item_ids ||= sanitized_headers.filter { |header| header.start_with?("t-", "s-") }
+    @survey_item_ids ||= sanitized_headers.filter { |header| header.start_with?("t-", "s-", "p-") }
   end
 
   def valid_duration?
@@ -246,6 +250,7 @@ class SurveyItemValues
     return span_in_seconds >= 300 if survey_type == :teacher
     return span_in_seconds >= 240 if survey_type == :standard
     return span_in_seconds >= 100 if survey_type == :short_form
+    return span_in_seconds >= 120 if survey_type == :parent
 
     true
   end
@@ -261,6 +266,7 @@ class SurveyItemValues
     return progress >= 11 if survey_type == :standard
     return progress >= 5 if survey_type == :short_form
     return progress >= 5 if survey_type == :early_education
+    return true if survey_type == :parent
 
     false
   end
@@ -269,6 +275,7 @@ class SurveyItemValues
     return true if grade.nil?
 
     return true if respondent_type == :teacher
+    return true if survey_type == :parent
 
     respondents = Respondent.where(school:, academic_year:).first
     if respondents.present? && respondents.enrollment_by_grade[grade].present?
@@ -283,6 +290,7 @@ class SurveyItemValues
 
   def valid_sd?
     return true if survey_type == :early_education
+    return true if survey_type == :parent
 
     survey_item_headers = headers.filter(&:present?).filter { |header| header.start_with?("s-", "t-") }
     likert_scores = []
