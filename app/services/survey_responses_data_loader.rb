@@ -161,7 +161,7 @@ class SurveyResponsesDataLoader
       .parse(headers)
       .first
       .filter(&:present?)
-      .filter { |header| header.start_with?("t-", "s-") }
+      .filter { |header| header.start_with?("t-", "s-", "p-") }
   end
 end
 
