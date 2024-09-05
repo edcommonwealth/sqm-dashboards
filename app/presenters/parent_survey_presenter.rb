@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class ParentSurveyPresenter < DataItemPresenter
-  attr_reader :survey_items, :scale_id
+  attr_reader :survey_items
 
-  def initialize(scale_id:, survey_items:, has_sufficient_data:, school:, academic_year:)
-    super(measure_id: scale_id, has_sufficient_data:, school:, academic_year:)
-    @scale_id = scale_id
+  def initialize(measure_id:, survey_items:, has_sufficient_data:, school:, academic_year:)
+    super(measure_id:, has_sufficient_data:, school:, academic_year:)
     @survey_items = survey_items
   end
 
@@ -14,7 +13,7 @@ class ParentSurveyPresenter < DataItemPresenter
   end
 
   def id
-    "parent-survey-items-#{scale_id}"
+    "parent-survey-items-#{measure_id}"
   end
 
   def reason_for_insufficiency
