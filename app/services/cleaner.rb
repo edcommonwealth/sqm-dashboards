@@ -27,7 +27,7 @@ class Cleaner
   def filename(headers:, data:, filepath:)
     output = []
     survey_item_ids = headers.filter(&:present?).filter do |header|
-                        header.start_with?("s-", "t-")
+                        header.start_with?("s-", "t-", "p-")
                       end.reject { |item| item.end_with? "-1" }
     survey_type = SurveyItem.survey_type(survey_item_ids:)
     range = data.first.academic_year.range
@@ -129,7 +129,7 @@ class Cleaner
   def remove_unwanted_headers(headers:)
     headers.to_set.to_a.compact.reject do |item|
       item.start_with? "Q"
-    end.reject { |header| header.match?(/^[st]-\w*-\w*-1$/i) }
+    end.reject { |header| header.match?(/^[stp]-\w*-\w*-1$/i) }
   end
 
   def write_csv(data:, output_filepath:, filename:, prefix: "")
@@ -152,7 +152,7 @@ class Cleaner
   def survey_items(headers:)
     survey_item_ids = headers
                       .filter(&:present?)
-                      .filter { |header| header.start_with? "t-", "s-" }
+                      .filter { |header| header.start_with? "t-", "s-", "p-" }
     @survey_items ||= SurveyItem.where(survey_item_id: survey_item_ids)
   end
 

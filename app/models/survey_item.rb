@@ -30,6 +30,9 @@ class SurveyItem < ActiveRecord::Base
   scope :early_education_survey_items, lambda {
     where("survey_items.survey_item_id LIKE '%-%-es%'")
   }
+  scope :parent_survey_items, lambda {
+    where("survey_items.survey_item_id LIKE 'p-%'")
+  }
 
   scope :survey_items_for_grade, lambda { |school, academic_year, grade|
     includes(:survey_item_responses)
@@ -74,6 +77,8 @@ class SurveyItem < ActiveRecord::Base
     return :early_education if survey_item_ids.subset? early_education_survey_items.map(&:survey_item_id).to_set
     return :teacher if survey_item_ids.subset? teacher_survey_items.map(&:survey_item_id).to_set
     return :standard if survey_item_ids.subset? standard_survey_items.map(&:survey_item_id).to_set
+
+    return :parent if parent_survey_items.count.positive?
 
     :unknown
   end

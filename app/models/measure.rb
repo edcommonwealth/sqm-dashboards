@@ -24,6 +24,10 @@ class Measure < ActiveRecord::Base
     @student_survey_items ||= survey_items.student_survey_items
   end
 
+  def parent_survey_items
+    @parent_survey_items ||= survey_items.parent_survey_items
+  end
+
   def student_survey_items_with_sufficient_responses(school:, academic_year:)
     @student_survey_items_with_sufficient_responses ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = SurveyItem.where(id: SurveyItem.joins("inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id")
@@ -57,6 +61,10 @@ class Measure < ActiveRecord::Base
 
   def includes_admin_data_items?
     @includes_admin_data_items ||= admin_data_items.length.positive?
+  end
+
+  def includes_parent_survey_items?
+    @includes_parent_survey_items ||= parent_survey_items.length.positive?
   end
 
   def score(school:, academic_year:)
@@ -101,6 +109,15 @@ class Measure < ActiveRecord::Base
     end
 
     @admin_score[[school, academic_year]]
+  end
+
+  def parent_score(school:, academic_year:)
+    @parent_score ||= Hash.new do |memo, (school, academic_year)|
+      average = parent_averages(school:, academic_year:).average.round(2)
+      memo[[school, academic_year]] = scorify(average:, school:, academic_year:)
+    end
+
+    @parent_score[[school, academic_year]]
   end
 
   def warning_low_benchmark
@@ -221,5 +238,10 @@ class Measure < ActiveRecord::Base
 
   def admin_data_averages(school:, academic_year:)
     AdminDataValue.where(school:, academic_year:, admin_data_item: admin_data_items).pluck(:likert_score)
+  end
+
+  def parent_averages(school:, academic_year:)
+    SurveyItemResponse.where(school:, academic_year:,
+                             survey_item_id: parent_survey_items).group(:survey_item).average(:likert_score).values
   end
 end
