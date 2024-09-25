@@ -25,6 +25,9 @@ class Scale < ApplicationRecord
   scope :student_scales, lambda {
     where("scale_id LIKE 's-%'")
   }
+  scope :parent_scales, lambda {
+    where("scale_id LIKE 'p-%'")
+  }
 
   private
 

@@ -89,6 +89,12 @@ class Seeder
       data_item_id = row["Survey Item ID"].downcase.strip
       scale_id = data_item_id.split("-")[0..1].join("-")
       scale = Scale.find_or_create_by!(scale_id:, measure:)
+      scale_name = row["Scale Name"]&.strip
+      scale_description = row["Scale Description"]&.strip
+      scale.name = scale_name
+      scale.description = scale_description
+
+      scale.save!
 
       active_survey_item = row["Active admin & survey items"]
       if %w[Teachers Students Parents].include?(row["Source"]) && %w[TRUE 1].include?(active_survey_item)
