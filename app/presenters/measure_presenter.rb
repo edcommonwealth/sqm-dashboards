@@ -7,17 +7,20 @@ class MeasurePresenter
     @measure = measure
     @academic_year = academic_year
     @school = school
-    @id = measure_id
     @name = measure.name
     @description = measure.description
   end
 
+  def title
+    "Measure #{measure_id}"
+  end
+
   def gauge_presenter
-    GaugePresenter.new(zones:, score: score_for_measure.average)
+    GaugePresenter.new(zones:, score: score.average)
   end
 
   def data_item_accordion_id
-    "data-item-accordion-#{@measure.measure_id}"
+    "data-item-accordion-#{measure_id}"
   end
 
   def data_item_presenters
@@ -28,14 +31,14 @@ class MeasurePresenter
     end
   end
 
+  def score
+    @score ||= @measure.score(school: @school, academic_year: @academic_year)
+  end
+
   private
 
   def admin_data_items
     measure.admin_data_items
-  end
-
-  def score_for_measure
-    @score ||= @measure.score(school: @school, academic_year: @academic_year)
   end
 
   def student_survey_items
@@ -52,17 +55,17 @@ class MeasurePresenter
 
   def student_survey_presenter
     StudentSurveyPresenter.new(measure_id:, survey_items: student_survey_items,
-                               has_sufficient_data: score_for_measure.meets_student_threshold?, school:, academic_year:)
+                               has_sufficient_data: score.meets_student_threshold?, school:, academic_year:)
   end
 
   def teacher_survey_presenter
     TeacherSurveyPresenter.new(measure_id:, survey_items: teacher_survey_items,
-                               has_sufficient_data: score_for_measure.meets_teacher_threshold?, school:, academic_year:)
+                               has_sufficient_data: score.meets_teacher_threshold?, school:, academic_year:)
   end
 
   def admin_data_presenter
     AdminDataPresenter.new(measure_id:,
-                           admin_data_items:, has_sufficient_data: score_for_measure.meets_admin_data_threshold?, school:, academic_year:)
+                           admin_data_items:, has_sufficient_data: score.meets_admin_data_threshold?, school:, academic_year:)
   end
 
   def zones

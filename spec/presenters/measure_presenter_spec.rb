@@ -13,7 +13,7 @@ describe MeasurePresenter do
   end
 
   it "returns the id of the measure" do
-    expect(measure_presenter.id).to eq "measure-id"
+    expect(measure_presenter.title).to eq "Measure measure-id"
   end
 
   it "has an id for use in the data item accordions" do
