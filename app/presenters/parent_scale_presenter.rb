@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class ParentScalePresenter
-  attr_reader :scale, :academic_year, :school, :name, :description, :id
+class ParentScalePresenter < MeasurePresenter
+  attr_reader :scale, :academic_year, :school, :name, :description
 
   def initialize(scale:, academic_year:, school:)
     @scale = scale
@@ -9,7 +9,6 @@ class ParentScalePresenter
     @school = school
     @name = scale.name
     @description = scale.description
-    @id = scale.scale_id
   end
 
   def title
