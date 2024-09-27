@@ -206,7 +206,15 @@ GEM
       activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.25.1)
+    google-protobuf (4.28.2-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.28.2-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.28.2-x86_64-linux)
+      bigdecimal
+      rake (>= 13)
     guard (2.18.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -247,6 +255,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    logger (1.6.1)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -292,6 +301,7 @@ GEM
       shellany (~> 0.0)
     observer (0.1.2)
     orm_adapter (0.5.0)
+    ostruct (0.6.0)
     parallel (1.24.0)
     parallel_tests (4.4.0)
       parallel
@@ -309,7 +319,7 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
-    puma (6.4.2)
+    puma (6.4.3)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.7)
@@ -521,11 +531,13 @@ DEPENDENCIES
   jsbundling-rails
   launchy
   listen (~> 3.8.0)
+  logger
   nested_scaffold
   net-sftp
   newrelic_rpm
   nokogiri
   observer (~> 0.1.2)
+  ostruct
   parallel_tests
   pg
   pg_query (>= 2)
