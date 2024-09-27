@@ -209,9 +209,6 @@ GEM
     google-protobuf (4.28.2-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.28.2-x86_64-darwin)
-      bigdecimal
-      rake (>= 13)
     google-protobuf (4.28.2-x86_64-linux)
       bigdecimal
       rake (>= 13)
@@ -536,6 +533,7 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   observer (~> 0.1.2)
+  omniauth
   ostruct
   parallel_tests
   pg
