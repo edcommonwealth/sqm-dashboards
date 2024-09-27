@@ -7,56 +7,33 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.1.3"
-gem "sprockets-rails"
-
-gem "pg"
-
-# Use Puma as the app server
-gem "puma", ">= 6.4.0"
-# Use Uglifier as compressor for JavaScript assets
-gem "uglifier", ">= 1.3.0"
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# Use jquery as the JavaScript library
-gem "jquery-rails"
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem "jbuilder", "~> 2.5"
-# Use Redis adapter to run Action Cable in production
-gem "redis", "~> 3.0"
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-gem "nokogiri"
-
-gem "bootsnap", require: false
-
-gem "haml"
-
-gem "friendly_id", "~> 5.1.0"
-
-gem "newrelic_rpm"
-
-gem "devise", git: "https://github.com/heartcombo/devise"
-
-gem "omniauth"
-
 gem "activerecord-import"
-
-gem "jsbundling-rails"
-
-gem "cssbundling-rails"
-
-gem "turbo-rails"
-
-gem "stimulus-rails"
-
-gem "watir"
-
 gem "bcrypt_pbkdf"
+gem "bootsnap", require: false
+gem "cssbundling-rails"
+gem "devise", git: "https://github.com/heartcombo/devise"
 gem "ed25519"
+gem "friendly_id", "~> 5.1.0"
+gem "haml"
+gem "jbuilder", "~> 2.5"
+gem "jquery-rails"
+gem "jsbundling-rails"
+gem "logger"
 gem "net-sftp"
-
+gem "newrelic_rpm"
+gem "nokogiri"
+gem "omniauth"
+gem "ostruct"
+gem "pg"
+gem "puma", ">= 6.4.0"
+gem "rails", "~> 7.1.3"
+gem "redis", "~> 3.0"
+gem "sprockets-rails"
 gem "standard_deviation"
+gem "stimulus-rails"
+gem "turbo-rails"
+gem "uglifier", ">= 1.3.0"
+gem "watir"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
