@@ -10,4 +10,5 @@ class Category < ActiveRecord::Base
   has_many :measures, through: :subcategories
   has_many :admin_data_items, through: :measures
   has_many :scales, through: :subcategories
+  has_many :survey_items, through: :scales
 end

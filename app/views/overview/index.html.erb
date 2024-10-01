@@ -3,98 +3,34 @@
   <select id="select-academic-year" class="form-select" name="academic-year">
     <%  @academic_years.each do |year| %>
       <option value="<%= district_school_overview_index_path(@district, @school,  {year: year.range}) %>" <%= @academic_year == year ? "selected" : nil %>><%= year.formatted_range %></option>
-      <% end %>
-    </select>
-  <% end  %>
-  <% cache do   %>
-    <svg class="d-none">
-      <symbol viewBox="0 0 24 24" id="warning-harvey-ball">
-        <circle cx="12" cy="12" r="11.5" fill="white" stroke="none" />
-        <path d="
-                        M 12 0
-                        A 12 12 0 0 1 24 12
-                        L 12 12
-                        L 12 0"
-            stroke="none"
-        />
-        <circle cx="12" cy="12" r="11.5" fill="none" />
-      </symbol>
-      <symbol viewBox="0 0 24 24" id="watch-harvey-ball">
-        <circle cx="12" cy="12" r="11.5" fill="white" stroke="none" />
-        <path d="
-                        M 12 0
-                        A 12 12 0 1 1 12 24
-                        L 12 12
-                        L 12 0"
-            stroke="none"
-        />
-        <circle cx="12" cy="12" r="11.5" fill="none" />
-      </symbol>
-      <symbol viewBox="0 0 24 24" id="growth-harvey-ball">
-        <circle cx="12" cy="12" r="11.5" fill="white" stroke="none" />
-        <path d="
-                        M 12 0
-                        A 12 12 0 1 1 0 12
-                        L 12 12
-                        L 12 0"
-            stroke="none"
-        />
-        <circle cx="12" cy="12" r="11.5" fill="none" />
-      </symbol>
-      <symbol viewBox="0 0 24 24" id="approval-harvey-ball">
-        <circle cx="12" cy="12" r="11.5" />
-        <path d="M19 8C19 8.28125 18.875 8.53125 18.6875 8.71875L10.6875 16.7188C10.5 16.9062 10.25 17 10 17C9.71875 17 9.46875 16.9062 9.28125 16.7188L5.28125 12.7188C5.09375 12.5312 5 12.2812 5 12C5 11.4375 5.4375 11 6 11C6.25 11 6.5 11.125 6.6875 11.3125L10 14.5938L17.2812 7.3125C17.4688 7.125 17.7188 7 18 7C18.5312 7 19 7.4375 19 8Z"
-            stroke-width=".5" stroke="white" fill="white" />
-      </symbol>
-      <symbol viewBox="0 0 24 24" id="ideal-harvey-ball">
-        <circle cx="12" cy="12" r="11.5" />
-        <path d="M9.28125 11.7188C9.46875 11.9062 9.71875 12 10 12C10.25 12 10.5 11.9062 10.6875 11.7188L15.6875 6.71875C15.875 6.53125 16 6.28125 16 6C16 5.4375 15.5312 5 15 5C14.7188 5 14.4688 5.125 14.2812 5.3125L10 9.59375L8.1875 7.8125C8 7.625 7.75 7.5 7.5 7.5C6.9375 7.5 6.5 7.9375 6.5 8.5C6.5 8.78125 6.59375 9.03125 6.78125 9.21875L9.28125 11.7188ZM19 10C19 9.4375 18.5312 9 18 9C17.7188 9 17.4688 9.125 17.2812 9.3125L10 16.5938L6.6875 13.3125C6.5 13.125 6.25 13 6 13C5.4375 13 5 13.4375 5 14C5 14.2812 5.09375 14.5312 5.28125 14.7188L9.28125 18.7188C9.46875 18.9062 9.71875 19 10 19C10.25 19 10.5 18.9062 10.6875 18.7188L18.6875 10.7188C18.875 10.5312 19 10.2812 19 10Z"
-            stroke-width=".5" stroke="white" fill="white" />
-      </symbol>
-      <symbol viewBox="0 0 24 24" id="insufficient_data-harvey-ball">
-        <circle cx="12" cy="12" r="11.5" />
-      </symbol>
-    </svg>
-  <% end  %>
-  <% cache [@school, @academic_year] do %>
-    <div class="card">
-      <div class="d-flex justify-content-between align-items-center">
-        <h2 class="sub-header-2">School Quality Framework Indicators</h2>
-        <div class="harvey-ball-legend">
-          <div class="font-size-14">Warning</div>
-          <svg class="ms-3 me-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-            <use class="harvey-ball harvey-ball--warning" xlink:href="#warning-harvey-ball"></use>
-          </svg>
-          <svg class="mx-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-            <use class="harvey-ball harvey-ball--watch" xlink:href="#watch-harvey-ball"></use>
-          </svg>
-          <svg class="mx-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-            <use class="harvey-ball harvey-ball--growth" xlink:href="#growth-harvey-ball"></use>
-          </svg>
-          <svg class="mx-1" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-            <use class="harvey-ball harvey-ball--approval" xlink:href="#approval-harvey-ball"></use>
-          </svg>
-          <svg class="ms-1 me-3" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-            <use class="harvey-ball harvey-ball--ideal" xlink:href="#ideal-harvey-ball"></use>
-          </svg>
-          <div class="font-size-14">Ideal</div>
-        </div>
-      </div>
-      <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
-
-      <div class="overall-response-rate-row">
-        <%= render partial: "response_rate", locals: {response_rate_presenter: @student_response_rate_presenter} %>
-        <%= render partial: "response_rate", locals: {response_rate_presenter: @teacher_response_rate_presenter} %>
-      </div>
-
-    </div>
-    <div class="card">
-      <h2 class="sub-header-2 mb-4">Distance From Benchmark</h2>
-      <%= render partial: "variance_chart", locals: { presenters: @variance_chart_row_presenters } %>
-    </div>
-    <% if @district == District.find_by_name("Boston")  %>
-      <%= render partial: 'layouts/boston_modal' %>
-    <% elsif @has_empty_dataset %>
-      <%= render partial: 'layouts/empty_dataset_modal' %>
     <% end %>
-  <% end  %>
+  </select>
+<% end  %>
+<% cache do   %>
+  <%= render partial: "svg_defs"  %>
+<% end  %>
+<% cache [@school, @academic_year] do %>
+  <div class="card">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="sub-header-2">School Quality Framework Indicators</h2>
+      <%= render partial: "harvey_ball_legend"  %>
+      <%= render partial: "student_parent_toggle"  %>
+    </div>
+    <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
+
+    <div class="overall-response-rate-row">
+      <%= render partial: "response_rate", locals: {response_rate_presenter: @student_response_rate_presenter} %>
+      <%= render partial: "response_rate", locals: {response_rate_presenter: @teacher_response_rate_presenter} %>
+    </div>
+
+  </div>
+  <div class="card">
+    <h2 class="sub-header-2 mb-4">Distance From Benchmark</h2>
+    <%= render partial: "variance_chart", locals: { presenters: @variance_chart_row_presenters } %>
+  </div>
+  <% if @district == District.find_by_name("Boston")  %>
+    <%= render partial: 'layouts/boston_modal' %>
+  <% elsif @has_empty_dataset %>
+    <%= render partial: 'layouts/empty_dataset_modal' %>
+  <% end %>
+<% end  %>
