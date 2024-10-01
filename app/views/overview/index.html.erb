@@ -9,7 +9,7 @@
 <% cache do   %>
   <%= render partial: "svg_defs"  %>
 <% end  %>
-<% cache [@school, @academic_year, @page.view] do %>
+<% cache [@school, @academic_year] do %>
   <div class="card">
     <div class="d-flex justify-content-between align-items-center">
       <h2 class="sub-header-2">School Quality Framework Indicators</h2>
@@ -18,12 +18,10 @@
     </div>
     <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
 
-<% if @page.show_response_rates  %>
     <div class="overall-response-rate-row">
       <%= render partial: "response_rate", locals: {response_rate_presenter: @student_response_rate_presenter} %>
       <%= render partial: "response_rate", locals: {response_rate_presenter: @teacher_response_rate_presenter} %>
     </div>
-  <% end %>
 
   </div>
   <div class="card">
