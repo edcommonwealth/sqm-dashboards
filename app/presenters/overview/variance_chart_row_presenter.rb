@@ -114,3 +114,4 @@ class Overview::VarianceChartRowPresenter
     zones.zone_for_score(@score)
   end
 end
+
