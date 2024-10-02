@@ -73,10 +73,10 @@ describe "overview/index" do
       assign :page,
              Overview::OverviewPresenter.new(params: { view: "student" }, school: @school,
                                              academic_year: @academic_year)
-      @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
-                                                                   academic_year: @academic_year)
-      @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
-                                                                   academic_year: @academic_year)
+      @student_response_rate_presenter = StudentResponseRatePresenter.new(school: @school,
+                                                                          academic_year: @academic_year)
+      @teacher_response_rate_presenter = TeacherResponseRatePresenter.new(school: @school,
+                                                                          academic_year: @academic_year)
 
       Respondent.create!(school: @school, academic_year: @academic_year, total_students: 40, total_teachers: 40)
       ResponseRate.create!(subcategory: Subcategory.first, school: @school, academic_year: @academic_year,
@@ -111,10 +111,10 @@ describe "overview/index" do
       assign :page,
              Overview::OverviewPresenter.new(params: { view: "student" }, school: @school,
                                              academic_year: @academic_year)
-      @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
-                                                                   academic_year: @academic_year)
-      @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
-                                                                   academic_year: @academic_year)
+      @student_response_rate_presenter = StudentResponseRatePresenter.new(school: @school,
+                                                                          academic_year: @academic_year)
+      @teacher_response_rate_presenter = TeacherResponseRatePresenter.new(school: @school,
+                                                                          academic_year: @academic_year)
 
       Respondent.create!(school: @school, academic_year: @academic_year, total_students: 40, total_teachers: 40)
       ResponseRate.create!(subcategory: Subcategory.first, school: @school, academic_year: @academic_year,
@@ -150,10 +150,10 @@ describe "overview/index" do
         assign :page,
                Overview::OverviewPresenter.new(params: { view: "student" }, school: @school,
                                                academic_year: @academic_year)
-        @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
-                                                                     academic_year: @academic_year)
-        @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
-                                                                     academic_year: @academic_year)
+        @student_response_rate_presenter = StudentResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
+        @teacher_response_rate_presenter = TeacherResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
 
         Respondent.create!(school: @school, academic_year: @academic_year, total_students: 40, total_teachers: 40)
         ResponseRate.create!(subcategory: Subcategory.first, school: @school, academic_year: @academic_year,
@@ -181,10 +181,10 @@ describe "overview/index" do
         assign :page,
                Overview::OverviewPresenter.new(params: { view: "student" }, school: @school,
                                                academic_year: @academic_year)
-        @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
-                                                                     academic_year: @academic_year)
-        @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
-                                                                     academic_year: @academic_year)
+        @student_response_rate_presenter = StudentResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
+        @teacher_response_rate_presenter = TeacherResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
 
         Respondent.create!(school: @school, academic_year: @academic_year, total_students: 40, total_teachers: 40)
         ResponseRate.create!(subcategory: Subcategory.first, school: @school, academic_year: @academic_year,
@@ -217,10 +217,12 @@ describe "overview/index" do
         assign :page,
                Overview::ParentOverviewPresenter.new(params: { view: "parent" }, school: @school,
                                                      academic_year: @academic_year)
-        @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
-                                                                     academic_year: @academic_year)
-        @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
-                                                                     academic_year: @academic_year)
+        @student_response_rate_presenter = StudentResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
+        @teacher_response_rate_presenter = TeacherResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
+        @parent_response_rate_presenter = ParentResponseRatePresenter.new(school: @school,
+                                                                          academic_year: @academic_year)
 
         Respondent.create!(school: @school, academic_year: @academic_year, total_students: 40, total_teachers: 40)
         ResponseRate.create!(subcategory: Subcategory.first, school: @school, academic_year: @academic_year,
@@ -229,7 +231,7 @@ describe "overview/index" do
         assign(:category_presenters, Category.all.map { |category| CategoryPresenter.new(category:) })
         render
       end
-      it "shows the view with the parent button active" do
+      it "shows the view with the parent button inactive" do
         expect(subject.css("input[id='parent_btn'][checked='checked']").count).to eq 0
         expect(subject.css("input[id='student_and_teacher_btn'][checked='checked']").count).to eq 0
       end
@@ -247,11 +249,12 @@ describe "overview/index" do
         assign :page,
                Overview::ParentOverviewPresenter.new(params: { view: "parent" }, school: @school,
                                                      academic_year: @academic_year)
-        @student_response_rate_presenter = ResponseRatePresenter.new(focus: :student, school: @school,
-                                                                     academic_year: @academic_year)
-        @teacher_response_rate_presenter = ResponseRatePresenter.new(focus: :teacher, school: @school,
-                                                                     academic_year: @academic_year)
-
+        @student_response_rate_presenter = StudentResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
+        @teacher_response_rate_presenter = TeacherResponseRatePresenter.new(school: @school,
+                                                                            academic_year: @academic_year)
+        @parent_response_rate_presenter = ParentResponseRatePresenter.new(school: @school,
+                                                                          academic_year: @academic_year)
         Respondent.create!(school: @school, academic_year: @academic_year, total_students: 40, total_teachers: 40)
         ResponseRate.create!(subcategory: Subcategory.first, school: @school, academic_year: @academic_year,
                              student_response_rate: 100, teacher_response_rate: 100, meets_student_threshold: true, meets_teacher_threshold: true)
@@ -271,3 +274,4 @@ describe "overview/index" do
     end
   end
 end
+

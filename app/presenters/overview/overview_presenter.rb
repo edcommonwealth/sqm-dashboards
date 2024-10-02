@@ -27,7 +27,7 @@ class Overview::OverviewPresenter
     "school-quality-frameworks"
   end
 
-  def show_response_rates
+  def show_student_response_rates
     view == "student"
   end
 
@@ -36,11 +36,15 @@ class Overview::OverviewPresenter
   end
 
   def student_response_rate_presenter
-    ResponseRatePresenter.new(focus: :student, school: @school, academic_year: @academic_year)
+    StudentResponseRatePresenter.new(school: @school, academic_year: @academic_year)
   end
 
   def teacher_response_rate_presenter
-    ResponseRatePresenter.new(focus: :teacher, school: @school, academic_year: @academic_year)
+    TeacherResponseRatePresenter.new(school: @school, academic_year: @academic_year)
+  end
+
+  def parent_response_rate_presenter
+    ParentResponseRatePresenter.new(school: @school, academic_year: @academic_year)
   end
 
   def presenter_for_measure(measure)

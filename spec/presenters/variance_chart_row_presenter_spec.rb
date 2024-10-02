@@ -262,3 +262,4 @@ describe Overview::VarianceChartRowPresenter do
     end
   end
 end
+

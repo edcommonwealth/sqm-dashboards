@@ -88,4 +88,3 @@ class CategoryPresenter
       '5': "heart" }
   end
 end
-
