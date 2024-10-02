@@ -54,6 +54,15 @@
   grid-template-rows:  repeat(4, max-content);
 }
 
+.school-quality-frameworks-parent {
+  display: grid;
+  row-gap: map-get($spacers, 4);
+  column-gap: map-get($spacers, 5);
+  grid-auto-flow: column;
+  grid-template-columns: 250px 250px 250px;
+  grid-template-rows:  repeat(4, max-content);
+}
+
 .zone-header {
   @extend .sub-header-4;
 }

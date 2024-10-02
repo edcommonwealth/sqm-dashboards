@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-class SubcategoryCardPresenter
-  attr_reader :name, :subcategory, :category, :subcategory_id
+class Overview::ScorecardPresenter
+  attr_reader :name, :construct, :category, :id
 
-  def initialize(subcategory:, zones:, score:)
-    @name = subcategory.name
-    @subcategory = subcategory
-    @category = subcategory.category
-    @subcategory_id = subcategory.subcategory_id
+  def initialize(construct:, zones:, score:, id:)
+    @name = construct.name
+    @category = construct.category
+    @id = id
     @zones = zones
     @score = score
   end
@@ -25,7 +24,7 @@ class SubcategoryCardPresenter
   end
 
   def to_model
-    subcategory
+    construct
   end
 
   private

@@ -45,6 +45,23 @@ class CategoryPresenter
     end
   end
 
+  def harvey_scorecard_presenters(school:, academic_year:)
+    @category.subcategories.map do |subcategory|
+      measures = subcategory.measures
+      zones = Zones.new(
+        watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
+        growth_low_benchmark: measures.map(&:growth_low_benchmark).average,
+        approval_low_benchmark: measures.map(&:approval_low_benchmark).average,
+        ideal_low_benchmark: measures.map(&:ideal_low_benchmark).average
+      )
+
+      Overview::ScorecardPresenter.new(construct: subcategory,
+                                       zones:,
+                                       score: subcategory.score(school:, academic_year:),
+                                       id: subcategory.subcategory_id)
+    end
+  end
+
   def to_model
     @category
   end
@@ -52,18 +69,18 @@ class CategoryPresenter
   private
 
   def colors
-    { 'Teachers & Leadership': 'blue',
-      'School Culture': 'red',
-      'Resources': 'black',
-      'Academic Learning': 'lime',
-      'Community & Wellbeing': 'teal' }
+    { '1': "blue",
+      '2': "red",
+      '3': "black",
+      '4': "lime",
+      '5': "teal" }
   end
 
   def classes
-    { 'Teachers & Leadership': 'apple-alt',
-      'School Culture': 'school',
-      'Resources': 'users-cog',
-      'Academic Learning': 'graduation-cap',
-      'Community & Wellbeing': 'heart' }
+    { '1': "apple-alt",
+      '2': "school",
+      '3': "users-cog",
+      '4': "graduation-cap",
+      '5': "heart" }
   end
 end

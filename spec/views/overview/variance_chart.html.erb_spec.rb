@@ -27,8 +27,8 @@ describe "overview/_variance_chart.html.erb" do
 
     before :each do
       presenters = [
-        VarianceChartRowPresenter.new(measure: lower_scoring_measure, score: Score.new(average: 1)),
-        VarianceChartRowPresenter.new(measure: higher_scoring_measure, score: Score.new(average: 5))
+        Overview::VarianceChartRowPresenter.new(measure: lower_scoring_measure, score: Score.new(average: 1)),
+        Overview::VarianceChartRowPresenter.new(measure: higher_scoring_measure, score: Score.new(average: 5))
       ]
 
       render partial: "variance_chart", locals: { presenters: }
@@ -53,8 +53,8 @@ describe "overview/_variance_chart.html.erb" do
       measure_lacking_score = create(:measure)
       another_measure_lacking_score = create(:measure)
       presenters = [
-        VarianceChartRowPresenter.new(measure: measure_lacking_score, score: Score.new(average: nil)),
-        VarianceChartRowPresenter.new(measure: another_measure_lacking_score, score: Score.new(average: nil))
+        Overview::VarianceChartRowPresenter.new(measure: measure_lacking_score, score: Score.new(average: nil)),
+        Overview::VarianceChartRowPresenter.new(measure: another_measure_lacking_score, score: Score.new(average: nil))
       ]
 
       render partial: "variance_chart", locals: { presenters: }
