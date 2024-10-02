@@ -16,10 +16,6 @@ class SubcategoryPresenter
     GaugePresenter.new(zones:, score: average_score)
   end
 
-  def subcategory_card_presenter
-    SubcategoryCardPresenter.new(subcategory: @subcategory, zones:, score: average_score)
-  end
-
   def average_score
     @average_score ||= @subcategory.score(school: @school, academic_year: @academic_year)
   end

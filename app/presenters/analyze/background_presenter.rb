@@ -1,4 +1,4 @@
-class BackgroundPresenter
+class Analyze::BackgroundPresenter
   include AnalyzeHelper
   attr_reader :num_of_columns
 

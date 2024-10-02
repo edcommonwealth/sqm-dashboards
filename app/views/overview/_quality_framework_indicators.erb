@@ -1,22 +1,24 @@
-<div class="mt-5 school-quality-frameworks">
-  <% category_presenters.each do |category_presenter| %>
-    <div class="text-center">
-      <i class="<%= category_presenter.icon_class %> <%= category_presenter.icon_color_class %> fa-2x"></i>
-    </div>
-    <div class="text-center">
-      <h3 class="sub-header-3">
-        <%= link_to [@district, @school, category_presenter, { year: @academic_year.range }] do %>
-          <%= category_presenter.name %>
-        <% end %>
-      </h3>
-    </div>
-
-    <p class="body-small text-center m-0"><%= category_presenter.short_description %></p>
-
-    <div class="subcategory-card">
-      <div class="subcategory-card__benchmark-list">
-        <%= render partial: 'subcategory_card', collection: category_presenter.subcategories(academic_year: @academic_year, school: @school).map(&:subcategory_card_presenter) %>
+<div class="d-flex justify-content-center">
+  <div class="mt-5   <%= @page.framework_indicator_class  %>">
+    <% category_presenters.each do |category_presenter| %>
+      <div class="text-center">
+        <i class="<%= category_presenter.icon_class %> <%= category_presenter.icon_color_class %> fa-2x"></i>
       </div>
-    </div>
-  <% end %>
+      <div class="text-center">
+        <h3 class="sub-header-3">
+          <%= link_to [@district, @school, category_presenter, { year: @academic_year.range }] do %>
+            <%= category_presenter.name %>
+          <% end %>
+        </h3>
+      </div>
+
+      <p class="body-small text-center m-0"><%= category_presenter.short_description %></p>
+
+      <div class="subcategory-card">
+        <div class="subcategory-card__benchmark-list">
+          <%= render partial: 'harvey_scorecard', collection: category_presenter.harvey_scorecard_presenters(school: @school, academic_year: @academic_year) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

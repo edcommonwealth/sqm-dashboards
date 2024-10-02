@@ -1,7 +1,10 @@
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-          <label class="btn btn-outline-primary" for="btnradio1">Students & Teachers</label>
-
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-          <label class="btn btn-outline-primary" for="btnradio2">Parents</label>
-        </div>
+<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+<%= link_to(district_school_overview_index_path(@district, @school, year: @academic_year.range, view: "student")) do %>
+  <input type="radio" class="btn-check" name="student_and_teacher_btn" id="student_and_teacher_btn" autocomplete="off" <%= @page.view == "student" ? "checked" : ""  %> >
+  <label class="btn btn-outline-primary" for="student_and_teacher_btn">Students & Teachers</label>
+<% end %>
+<%= link_to(district_school_overview_index_path(@district, @school, year: @academic_year.range, view: "parent")) do %>
+  <input type="radio" class="btn-check" name="parent_btn" id="parent_btn" autocomplete="off"  <%= @page.view == "parent" ? "checked" : ""  %> >
+  <label class="btn btn-outline-primary" for="parent_btn">Parents</label>
+<% end %>
+</div>

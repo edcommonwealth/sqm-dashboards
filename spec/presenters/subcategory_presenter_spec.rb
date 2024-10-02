@@ -85,16 +85,6 @@ describe SubcategoryPresenter do
     expect(subcategory_presenter.measure_presenters.count).to eq subcategory.measures.count
   end
 
-  context "When there are no measures populated with student or teacher surveys" do
-    let(:empty_subcategory) { create :subcategory }
-    let(:empty_subcategory_presenter) do
-      SubcategoryPresenter.new(subcategory: empty_subcategory, academic_year:, school:)
-    end
-    it "should make a subcategory presenter return insufficient data" do
-      expect(empty_subcategory_presenter.subcategory_card_presenter.insufficient_data?).to eq true
-    end
-  end
-
   def create_survey_item_responses_for_different_years_and_schools(survey_item)
     create_list(:survey_item_response, SurveyItemResponse::TEACHER_RESPONSE_THRESHOLD, survey_item:,
                                                                                        school: worst_school, likert_score: 1)
