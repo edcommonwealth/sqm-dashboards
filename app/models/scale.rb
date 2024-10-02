@@ -2,6 +2,7 @@
 
 class Scale < ApplicationRecord
   belongs_to :measure, counter_cache: true
+  has_one :category, through: :measure
   has_many :survey_items
   has_many :survey_item_responses, through: :survey_items
   has_many :admin_data_items
@@ -17,6 +18,18 @@ class Scale < ApplicationRecord
       end
     end
     @score[[school, academic_year]]
+  end
+
+  def parent_score(school:, academic_year:)
+    @parent_score ||= Hash.new do |memo, (school, academic_year)|
+      memo[[school, academic_year]] = begin
+        items = []
+        items << collect_survey_item_average(survey_items.parent_survey_items, school, academic_year)
+
+        items.remove_blanks.average
+      end
+    end
+    @parent_score[[school, academic_year]]
   end
 
   scope :teacher_scales, lambda {

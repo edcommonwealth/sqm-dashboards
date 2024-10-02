@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class VarianceChartRowPresenter
+class Overview::VarianceChartRowPresenter
   include Comparable
 
   attr_reader :score, :measure_name, :measure_id, :category
@@ -30,7 +30,7 @@ class VarianceChartRowPresenter
   def x_offset
     case zone.type
     when :ideal, :approval
-      '60%'
+      "60%"
     else
       "#{((0.6 - bar_width_percentage) * 100).abs.round(2)}%"
     end
@@ -57,9 +57,9 @@ class VarianceChartRowPresenter
 
   def partial_data_sources
     [].tap do |sources|
-      sources << 'teacher survey results' if @measure.includes_teacher_survey_items? && !@meets_teacher_threshold
-      sources << 'student survey results' if @measure.includes_student_survey_items? && !@meets_student_threshold
-      sources << 'school data' if @measure.includes_admin_data_items?
+      sources << "teacher survey results" if @measure.includes_teacher_survey_items? && !@meets_teacher_threshold
+      sources << "student survey results" if @measure.includes_student_survey_items? && !@meets_student_threshold
+      sources << "school data" if @measure.includes_admin_data_items?
     end
   end
 

@@ -1,7 +1,0 @@
-<div class="subcategory-card__benchmark-item">
-  <svg class="subcategory-card__circle" width="24" height="24" xmlns="http://www.w3.org/2000/svg" <%= "data-bs-toggle=popover" if subcategory_card.insufficient_data? %>  data-bs-placement="top" data-bs-content="This subcategory is not displayed due to limited availability of school data and/or low survey response rates.">
-    <use class="harvey-ball harvey-ball--<%= subcategory_card.color %>" xlink:href="#<%= subcategory_card.harvey_ball_icon %>"></use>
-  </svg>
-
-  <%= link_to(subcategory_card.name, district_school_category_path( @district, @school, subcategory_card.category, {year: @academic_year.range, anchor: "#{subcategory_card.subcategory_id}"})) %>
-</div>

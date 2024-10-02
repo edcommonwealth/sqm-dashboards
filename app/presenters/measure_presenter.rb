@@ -9,6 +9,7 @@ class MeasurePresenter
     @school = school
     @name = measure.name
     @description = measure.description
+    @id = measure.measure_id
   end
 
   def title
