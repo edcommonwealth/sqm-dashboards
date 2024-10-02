@@ -16,10 +16,6 @@ class MeasurePresenter
     "Measure #{measure_id}"
   end
 
-  def title
-    "Measure #{measure_id}"
-  end
-
   def gauge_presenter
     GaugePresenter.new(zones:, score: score.average)
   end
