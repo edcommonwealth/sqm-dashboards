@@ -9,7 +9,7 @@
 <% cache do   %>
   <%= render partial: "svg_defs"  %>
 <% end  %>
-<% cache [@school, @academic_year] do %>
+<% cache [@school, @academic_year, @page.view] do %>
   <div class="card">
     <div class="d-flex justify-content-between align-items-center">
       <h2 class="sub-header-2">School Quality Framework Indicators</h2>
