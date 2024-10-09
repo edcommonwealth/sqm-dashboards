@@ -34,7 +34,7 @@ class ParentScalePresenter
   def score
     @score ||= SurveyItemResponse.where(survey_item: scale.survey_items.parent_survey_items, school:,
                                         academic_year:)
-                                 .having("count(*) > 10")
+                                 .having("count(*) >= 10")
                                  .group(:survey_item)
                                  .average(:likert_score)
                                  .values.average
