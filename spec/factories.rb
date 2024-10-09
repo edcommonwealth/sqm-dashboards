@@ -136,6 +136,9 @@ FactoryBot.define do
     factory :admin_scale do
       scale_id { "a-#{rand}" }
     end
+    factory :parent_scale do
+      scale_id { "p-#{rand}" }
+    end
   end
 
   factory :survey_item do
@@ -157,6 +160,13 @@ FactoryBot.define do
     end
     factory :early_education_survey_item do
       survey_item_id { "s-#{rand}-es#{rand}" }
+      watch_low_benchmark { 2.0 }
+      growth_low_benchmark { 3.0 }
+      approval_low_benchmark { 4.0 }
+      ideal_low_benchmark { 4.5 }
+    end
+    factory :parent_survey_item do
+      survey_item_id { "p-#{rand}" }
       watch_low_benchmark { 2.0 }
       growth_low_benchmark { 3.0 }
       approval_low_benchmark { 4.0 }
