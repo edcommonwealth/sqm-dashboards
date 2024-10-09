@@ -66,6 +66,10 @@ class CategoryPresenter
     @category
   end
 
+  def show_parent_view?(school:, academic_year:)
+    subcategories(school:, academic_year:).any? { |subcategory| subcategory.show_scale_presenters? }
+  end
+
   private
 
   def colors

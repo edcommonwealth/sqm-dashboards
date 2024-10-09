@@ -14,7 +14,10 @@
     <div class="d-flex justify-content-between align-items-center">
       <h2 class="sub-header-2">School Quality Framework Indicators</h2>
       <%= render partial: "harvey_ball_legend"  %>
-      <%= render partial: "student_parent_toggle"  %>
+
+      <% if @category_presenters.any? {|category_presenter| category_presenter.show_parent_view?(school: @school, academic_year: @academic_year) }   %>
+        <%= render partial: "student_parent_toggle"  %>
+      <% end %>
     </div>
     <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
 
