@@ -274,4 +274,3 @@ describe "overview/index" do
     end
   end
 end
-
