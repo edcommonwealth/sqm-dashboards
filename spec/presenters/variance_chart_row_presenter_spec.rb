@@ -30,12 +30,12 @@ describe Overview::VarianceChartRowPresenter do
   end
 
   let(:presenter) do
-    Overview::VarianceChartRowPresenter.new measure:, score:
+    Overview::VarianceChartRowPresenter.new construct: measure, score:
   end
 
   shared_examples_for "measure_name" do
     it "returns the measure name" do
-      expect(presenter.measure_name).to eq "Some Title"
+      expect(presenter.construct_name).to eq "Some Title"
     end
   end
 
@@ -139,7 +139,7 @@ describe Overview::VarianceChartRowPresenter do
     let(:score) { Score.new(average: nil, meets_teacher_threshold: false, meets_student_threshold: false) }
 
     it "it does not show a partial data indicator" do
-      presenter_without_admin_data = Overview::VarianceChartRowPresenter.new(measure: measure_without_admin_data_items,
+      presenter_without_admin_data = Overview::VarianceChartRowPresenter.new(construct: measure_without_admin_data_items,
                                                                              score:)
       expect(presenter_without_admin_data.show_partial_data_indicator?).to be false
     end
@@ -163,7 +163,7 @@ describe Overview::VarianceChartRowPresenter do
              growth_low_benchmark:,
              approval_low_benchmark:,
              ideal_low_benchmark:)
-      admin_data_presenter = Overview::VarianceChartRowPresenter.new measure: measure_with_admin_data,
+      admin_data_presenter = Overview::VarianceChartRowPresenter.new construct: measure_with_admin_data,
                                                                      score: Score.new(
                                                                        average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true
                                                                      )
@@ -236,11 +236,11 @@ describe Overview::VarianceChartRowPresenter do
              growth_low_benchmark:,
              approval_low_benchmark:,
              ideal_low_benchmark:)
-      approval_presenter = Overview::VarianceChartRowPresenter.new measure:,
+      approval_presenter = Overview::VarianceChartRowPresenter.new construct: measure,
                                                                    score: Score.new(
                                                                      average: 3.7, meets_teacher_threshold: true, meets_student_threshold: true
                                                                    )
-      ideal_presenter = Overview::VarianceChartRowPresenter.new measure:,
+      ideal_presenter = Overview::VarianceChartRowPresenter.new construct: measure,
                                                                 score: Score.new(
                                                                   average: 4.4, meets_teacher_threshold: true, meets_student_threshold: true
                                                                 )
@@ -249,11 +249,11 @@ describe Overview::VarianceChartRowPresenter do
     end
 
     it "selects a warning bar below a ideal bar" do
-      warning_presenter = Overview::VarianceChartRowPresenter.new measure:,
+      warning_presenter = Overview::VarianceChartRowPresenter.new construct: measure,
                                                                   score: Score.new(
                                                                     average: 1.0, meets_teacher_threshold: true, meets_student_threshold: true
                                                                   )
-      ideal_presenter = Overview::VarianceChartRowPresenter.new measure:,
+      ideal_presenter = Overview::VarianceChartRowPresenter.new construct: measure,
                                                                 score: Score.new(
                                                                   average: 5.0, meets_teacher_threshold: true, meets_student_threshold: true
                                                                 )

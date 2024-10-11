@@ -50,16 +50,16 @@ describe "overview/index" do
            approval_low_benchmark: 3.5,
            ideal_low_benchmark: 4.5)
     [
-      Overview::VarianceChartRowPresenter.new(measure:,
+      Overview::VarianceChartRowPresenter.new(construct: measure,
                                               score: Score.new(average: rand))
     ]
   end
   context "when some presenters have a nil score" do
     let(:variance_chart_row_presenters) do
       [
-        Overview::VarianceChartRowPresenter.new(measure: support_for_teaching, score: Score.new),
-        Overview::VarianceChartRowPresenter.new(measure: effective_leadership, score: Score.new(average: rand)),
-        Overview::VarianceChartRowPresenter.new(measure: professional_qualifications, score: Score.new)
+        Overview::VarianceChartRowPresenter.new(construct: support_for_teaching, score: Score.new),
+        Overview::VarianceChartRowPresenter.new(construct: effective_leadership, score: Score.new(average: rand)),
+        Overview::VarianceChartRowPresenter.new(construct: professional_qualifications, score: Score.new)
       ]
     end
 
