@@ -3,16 +3,16 @@
 class Overview::VarianceChartRowPresenter
   include Comparable
 
-  attr_reader :score, :measure_name, :measure_id, :category
+  attr_reader :score, :construct_name, :construct_id, :category
 
-  def initialize(measure:, score:)
-    @measure = measure
+  def initialize(construct:, score:)
+    @construct = construct
     @score = score.average
     @meets_teacher_threshold = score.meets_teacher_threshold?
     @meets_student_threshold = score.meets_student_threshold?
-    @measure_name = @measure.name
-    @measure_id = @measure.measure_id
-    @category = @measure.subcategory.category
+    @construct_name = @construct.name
+    @construct_id = @construct.construct_id
+    @category = @construct.category
   end
 
   def sufficient_data?
@@ -106,11 +106,12 @@ class Overview::VarianceChartRowPresenter
 
   def zone
     zones = Zones.new(
-      watch_low_benchmark: @measure.watch_low_benchmark,
-      growth_low_benchmark: @measure.growth_low_benchmark,
-      approval_low_benchmark: @measure.approval_low_benchmark,
-      ideal_low_benchmark: @measure.ideal_low_benchmark
+      watch_low_benchmark: @construct.watch_low_benchmark,
+      growth_low_benchmark: @construct.growth_low_benchmark,
+      approval_low_benchmark: @construct.approval_low_benchmark,
+      ideal_low_benchmark: @construct.ideal_low_benchmark
     )
     zones.zone_for_score(@score)
   end
 end
+

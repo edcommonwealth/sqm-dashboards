@@ -42,6 +42,38 @@ class Scale < ApplicationRecord
     where("scale_id LIKE 'p-%'")
   }
 
+  def watch_low_benchmark
+    survey_items.first.watch_low_benchmark
+  end
+
+  def growth_low_benchmark
+    survey_items.first.growth_low_benchmark
+  end
+
+  def approval_low_benchmark
+    survey_items.first.approval_low_benchmark
+  end
+
+  def ideal_low_benchmark
+    survey_items.first.ideal_low_benchmark
+  end
+
+  def includes_teacher_survey_items?
+    survey_items.teacher_survey_items.length.positive?
+  end
+
+  def includes_student_survey_items?
+    survey_items.student_survey_items.length.positive?
+  end
+
+  def includes_admin_data_items?
+    admin_data_items.length.positive?
+  end
+
+  def construct_id
+    scale_id
+  end
+
   private
 
   def collect_survey_item_average(survey_items, school, academic_year)
