@@ -12,4 +12,21 @@ class Overview::ParentOverviewPresenter < Overview::OverviewPresenter
   def framework_indicator_class
     "school-quality-frameworks-parent"
   end
+
+  def variance_chart_row_presenters
+    scales.map(&method(:presenter_for_scale))
+  end
+
+  def scales
+    measures.flat_map { |measure| measure.scales.parent_scales }
+  end
+
+  private
+
+  def presenter_for_scale(scale)
+    score = scale.parent_score(school: @school, academic_year: @academic_year)
+    score = Score.new(average: score, meets_teacher_threshold: true, meets_student_threshold: true)
+
+    Overview::VarianceChartRowPresenter.new(construct: scale, score:)
+  end
 end

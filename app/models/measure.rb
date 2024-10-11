@@ -173,6 +173,10 @@ class Measure < ActiveRecord::Base
               approval_low_benchmark:, ideal_low_benchmark:).zone_for_score(score.average)
   end
 
+  def construct_id
+    measure_id
+  end
+
   private
 
   def any_admin_data_collected?(school:, academic_year:)
