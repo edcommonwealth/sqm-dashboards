@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :parent do
+    response_id { "MyString" }
+    number_of_children { 1 }
+  end
+
   factory :income do
     designation { "DefaultIncome" }
   end

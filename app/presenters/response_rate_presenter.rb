@@ -76,4 +76,3 @@ class ResponseRatePresenter
     respondents.enrollment_by_grade.keys
   end
 end
-

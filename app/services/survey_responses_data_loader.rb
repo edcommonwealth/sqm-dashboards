@@ -96,10 +96,20 @@ class SurveyResponsesDataLoader
   end
 
   def process_survey_items(row:)
-    student = Student.find_or_create_by(response_id: row.response_id, lasid: row.lasid)
-    student.races.delete_all
-    tmp_races = row.races.map { |race| races[race] }
-    student.races += tmp_races
+    student = nil
+    parent = nil
+    if row.respondent_type == :student
+      student = Student.find_or_create_by(response_id: row.response_id, lasid: row.lasid)
+      student.races.delete_all
+      tmp_races = row.races.map { |race| races[race] }
+      student.races += tmp_races
+    end
+
+    if row.respondent_type == :parent
+      parent = Parent.find_or_create_by(response_id: row.response_id)
+      parent.number_of_children = row.number_of_children
+      parent.save
+    end
 
     row
       .survey_items
@@ -112,12 +122,12 @@ class SurveyResponsesDataLoader
         end
 
         response = row.survey_item_response(survey_item:)
-        create_or_update_response(survey_item_response: response, likert_score:, row:, survey_item:, student:)
+        create_or_update_response(survey_item_response: response, likert_score:, row:, survey_item:, student:, parent:)
       end
       .compact
   end
 
-  def create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:, student:)
+  def create_or_update_response(survey_item_response:, likert_score:, row:, survey_item:, student:, parent:)
     gender = genders[row.gender]
     grade = row.grade
     income = incomes[row.income.parameterize]
@@ -133,6 +143,8 @@ class SurveyResponsesDataLoader
       survey_item_response.ell = ell
       survey_item_response.sped = sped
       survey_item_response.student = student
+      survey_item_response.parent = parent
+
       survey_item_response
     else
       SurveyItemResponse.new(
@@ -147,7 +159,8 @@ class SurveyResponsesDataLoader
         income:,
         ell:,
         sped:,
-        student:
+        student:,
+        parent:
       )
     end
   end
