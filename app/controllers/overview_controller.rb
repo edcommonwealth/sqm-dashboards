@@ -15,5 +15,6 @@ class OverviewController < SqmApplicationController
     @category_presenters = @page.category_presenters
     @student_response_rate_presenter = @page.student_response_rate_presenter
     @teacher_response_rate_presenter = @page.teacher_response_rate_presenter
+    @parent_response_rate_presenter = @page.parent_response_rate_presenter
   end
 end
