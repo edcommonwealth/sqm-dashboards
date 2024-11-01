@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_24_173209) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_31_205926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -316,6 +316,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_24_173209) do
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
 
+  create_table "parents", force: :cascade do |t|
+    t.string "response_id"
+    t.integer "number_of_children"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "race_scores", force: :cascade do |t|
     t.bigint "measure_id", null: false
     t.bigint "school_id", null: false
@@ -476,10 +483,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_24_173209) do
     t.bigint "income_id"
     t.bigint "ell_id"
     t.bigint "sped_id"
+    t.bigint "parent_id"
     t.index ["academic_year_id"], name: "index_survey_item_responses_on_academic_year_id"
     t.index ["ell_id"], name: "index_survey_item_responses_on_ell_id"
     t.index ["gender_id"], name: "index_survey_item_responses_on_gender_id"
     t.index ["income_id"], name: "index_survey_item_responses_on_income_id"
+    t.index ["parent_id"], name: "index_survey_item_responses_on_parent_id"
     t.index ["response_id"], name: "index_survey_item_responses_on_response_id"
     t.index ["school_id", "academic_year_id", "survey_item_id"], name: "by_school_year_and_survey_item"
     t.index ["school_id", "survey_item_id", "academic_year_id", "grade"], name: "index_survey_responses_on_grade"
@@ -535,6 +544,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_24_173209) do
   add_foreign_key "survey_item_responses", "ells"
   add_foreign_key "survey_item_responses", "genders"
   add_foreign_key "survey_item_responses", "incomes"
+  add_foreign_key "survey_item_responses", "parents"
   add_foreign_key "survey_item_responses", "schools"
   add_foreign_key "survey_item_responses", "speds"
   add_foreign_key "survey_item_responses", "students"

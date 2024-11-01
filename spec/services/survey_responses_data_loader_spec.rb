@@ -21,6 +21,27 @@ describe SurveyResponsesDataLoader do
                     district: lowell)
   end
 
+  let(:student_survey_items) do
+    ids = %w[ s-emsa-q1 s-emsa-q2 s-emsa-q3
+              s-tint-q1 s-tint-q2 s-tint-q4 s-tint-q5
+              s-acpr-q1 s-acpr-q2 s-acpr-q3 s-acpr-q4
+              s-cure-q3 s-cure-q4 s-sten-q2 s-sten-q3
+              s-sper-q1 s-sper-q2 s-sper-q3 s-sper-q4
+              s-civp-q1 s-civp-q2 s-civp-q3 s-civp-q4 s-grmi-q1
+              s-grmi-q4 s-appa-q1
+              s-appa-q2 s-peff-q1
+              s-peff-q2 s-peff-q3 s-peff-q4 s-peff-q5 s-peff-q6
+              s-sbel-q1 s-sbel-q2 s-sbel-q3 s-sbel-q4 s-sbel-q5
+              s-phys-q1 s-phys-q2 s-phys-q3 s-phys-q4
+              s-vale-q1 s-vale-q2 s-vale-q3 s-vale-q4
+              s-acst-q1 s-acst-q2 s-acst-q3 s-acst-q4 s-acst-q5
+              s-grit-q1 s-grit-q2 s-grit-q3 s-grit-q4]
+
+    ids.each do |id|
+      create(:survey_item, survey_item_id: id)
+    end
+  end
+
   let(:t_pcom_q3) { create(:survey_item, survey_item_id: "t-pcom-q3") }
   let(:t_pcom_q2) { create(:survey_item, survey_item_id: "t-pcom-q2") }
   let(:t_coll_q1) { create(:survey_item, survey_item_id: "t-coll-q1") }
@@ -29,22 +50,6 @@ describe SurveyResponsesDataLoader do
   let(:t_sach_q1) { create(:survey_item, survey_item_id: "t-sach-q1") }
   let(:t_sach_q2) { create(:survey_item, survey_item_id: "t-sach-q2") }
   let(:t_sach_q3) { create(:survey_item, survey_item_id: "t-sach-q3") }
-
-  let(:s_phys_q1) { create(:survey_item, survey_item_id: "s-phys-q1") }
-  let(:s_phys_q2) { create(:survey_item, survey_item_id: "s-phys-q2") }
-  let(:s_phys_q3) { create(:survey_item, survey_item_id: "s-phys-q3") }
-  let(:s_phys_q4) { create(:survey_item, survey_item_id: "s-phys-q4") }
-  let(:s_vale_q1) { create(:survey_item, survey_item_id: "s-phys-q1") }
-  let(:s_vale_q2) { create(:survey_item, survey_item_id: "s-phys-q2") }
-  let(:s_vale_q3) { create(:survey_item, survey_item_id: "s-phys-q3") }
-  let(:s_vale_q4) { create(:survey_item, survey_item_id: "s-phys-q4") }
-  let(:s_acst_q1) { create(:survey_item, survey_item_id: "s-acst-q1") }
-  let(:s_acst_q2) { create(:survey_item, survey_item_id: "s-acst-q2") }
-  let(:s_acst_q3) { create(:survey_item, survey_item_id: "s-acst-q3") }
-  let(:s_acst_q4) { create(:survey_item, survey_item_id: "s-acst-q4") }
-  let(:s_emsa_q1) { create(:survey_item, survey_item_id: "s-emsa-q1") }
-  let(:s_emsa_q2) { create(:survey_item, survey_item_id: "s-emsa-q2") }
-  let(:s_emsa_q3) { create(:survey_item, survey_item_id: "s-emsa-q3") }
 
   let(:female) { create(:gender, qualtrics_code: 1) }
   let(:male) { create(:gender, qualtrics_code: 2) }
@@ -83,21 +88,7 @@ describe SurveyResponsesDataLoader do
     t_sach_q1
     t_sach_q2
     t_sach_q3
-    s_phys_q1
-    s_phys_q2
-    s_phys_q3
-    s_phys_q4
-    s_vale_q1
-    s_vale_q2
-    s_vale_q3
-    s_vale_q4
-    s_acst_q1
-    s_acst_q2
-    s_acst_q3
-    s_acst_q4
-    s_emsa_q1
-    s_emsa_q2
-    s_emsa_q3
+    student_survey_items
 
     female
     male
@@ -170,6 +161,7 @@ describe SurveyResponsesDataLoader do
       end
       it "updates the likert score to the score on the new csv file" do
         s_emsa_q1 = SurveyItem.find_by_survey_item_id "s-emsa-q1"
+        s_acst_q3 = SurveyItem.find_by_survey_item_id "s-acst-q3"
         expect(SurveyItemResponse.where(response_id: "student_survey_response_3",
                                         survey_item: s_emsa_q1).first.likert_score).to eq 1
         expect(SurveyItemResponse.where(response_id: "student_survey_response_4",
@@ -241,17 +233,21 @@ end
 def loads_student_survey_item_response_values
   expect(SurveyItemResponse.where(response_id: "student_survey_response_1").count).to eq 3
   expect(SurveyItemResponse.where(response_id: "student_survey_response_2").count).to eq 0
-  expect(SurveyItemResponse.where(response_id: "student_survey_response_3").count).to eq 12
-  expect(SurveyItemResponse.where(response_id: "student_survey_response_4").count).to eq 15
-  expect(SurveyItemResponse.where(response_id: "student_survey_response_5").count).to eq 14
+  expect(SurveyItemResponse.where(response_id: "student_survey_response_3").count).to eq 30
+  expect(SurveyItemResponse.where(response_id: "student_survey_response_4").count).to eq 27
+  expect(SurveyItemResponse.where(response_id: "student_survey_response_5").count).to eq 30
 end
 
 def student_survey_item_response_count_matches_expected
+  s_phys_q1 = SurveyItem.where(survey_item_id: "s-phys-q1")
+  s_phys_q2 = SurveyItem.where(survey_item_id: "s-phys-q2")
   expect(SurveyItemResponse.where(survey_item: s_phys_q1).count).to eq 6
   expect(SurveyItemResponse.where(survey_item: s_phys_q2).count).to eq 5
 end
 
 def captures_likert_scores_for_student_survey_item_responses
+  s_phys_q1 = SurveyItem.where(survey_item_id: "s-phys-q1")
+  s_phys_q2 = SurveyItem.where(survey_item_id: "s-phys-q2")
   expect(SurveyItemResponse.where(response_id: "student_survey_response_1").where(survey_item: s_phys_q1).first.likert_score).to eq 3
   expect(SurveyItemResponse.where(response_id: "student_survey_response_1").where(survey_item: s_phys_q2)).to be_empty
 

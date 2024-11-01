@@ -67,11 +67,7 @@ class SurveyItemValues
   end
 
   def survey_item_response(survey_item:)
-    @survey_item_response ||= Hash.new do |memo, survey_item|
-      memo[survey_item] = survey_item_responses[[response_id, survey_item.id]]
-    end
-
-    @survey_item_response[survey_item]
+    survey_item_responses[[response_id, survey_item.id]]
   end
 
   def survey_item_responses
@@ -190,6 +186,10 @@ class SurveyItemValues
 
   def sped
     @sped ||= Sped.to_designation(raw_sped)
+  end
+
+  def number_of_children
+    @number_of_children ||= value_from(pattern: /Number\s*Of\s*Children/i).to_i
   end
 
   def value_from(pattern:)
