@@ -18,3 +18,4 @@ class TeacherResponseRatePresenter < ResponseRatePresenter
     "teacher"
   end
 end
+

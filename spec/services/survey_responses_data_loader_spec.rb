@@ -3,6 +3,7 @@ require "rails_helper"
 describe SurveyResponsesDataLoader do
   let(:path_to_teacher_responses) { Rails.root.join("spec", "fixtures", "test_2020-21_teacher_survey_responses.csv") }
   let(:path_to_student_responses) { Rails.root.join("spec", "fixtures", "test_2020-21_student_survey_responses.csv") }
+  let(:path_to_parent_responses) { Rails.root.join("spec", "fixtures", "test_2020-21_parent_survey_responses.csv") }
   let(:path_to_butler_student_responses) do
     Rails.root.join("spec", "fixtures", "test_2022-23_butler_student_survey_responses.csv")
   end
@@ -40,6 +41,54 @@ describe SurveyResponsesDataLoader do
     ids.each do |id|
       create(:survey_item, survey_item_id: id)
     end
+  end
+  let(:parent_survey_items) do
+    ids = %w[
+      p-socx-q1
+      p-socx-q2
+      p-socx-q3
+      p-socx-q4
+      p-sosu-q1
+      p-sosu-q2
+      p-sosu-q3
+      p-sosu-q4
+      p-tcom-q1
+      p-tcom-q2
+      p-tcom-q3
+      p-comm-q1
+      p-comm-q2
+      p-comm-q3
+      p-comm-q4
+      p-valm-q1
+      p-valm-q2
+      p-valm-q3
+      p-valm-q4
+      p-acpr-q1
+      p-acpr-q2
+      p-acpr-q3
+      p-acpr-q4
+    ]
+
+    ids.each do |id|
+      create(:survey_item, survey_item_id: id)
+    end
+  end
+
+  let(:vestigial_parent_ids) do
+    %w[
+      p-scrp-q3
+      p-cure-q1
+      p-cure-q2
+      p-cure-q3
+      p-cure-q4
+      p-evnt-q1
+      p-evnt-q2
+      p-evnt-q3
+      p-evnt-q4
+      p-phys-q3
+      p-scrp-q1
+      p-scrp-q2
+    ]
   end
 
   let(:t_pcom_q3) { create(:survey_item, survey_item_id: "t-pcom-q3") }
@@ -171,6 +220,41 @@ describe SurveyResponsesDataLoader do
 
         expect(SurveyItemResponse.where(response_id: "student_survey_response_5",
                                         survey_item: s_acst_q3).first.likert_score).to eq 4
+      end
+    end
+  end
+
+  describe "parent survey responses" do
+    before do
+      school
+      ay_2020_21
+      parent_survey_items
+      SurveyResponsesDataLoader.new.load_data filepath: path_to_parent_responses
+    end
+
+    it "adds only the surveyitems that exist in source of truth" do
+      si = (SurveyItemResponse.where(school:, response_id: "parent_survey_response_1").map do |response|
+        response.survey_item.survey_item_id
+      end)
+      response_ids = %w[
+        parent_survey_response_1
+        parent_survey_response_2
+        parent_survey_response_3
+        parent_survey_response_4
+        parent_survey_response_5
+        parent_survey_response_6
+      ]
+      response_ids.each do |id|
+        expect(SurveyItemResponse.where(response_id: id,
+                                        survey_item: SurveyItem.parent_survey_items).count).to eq 23
+      end
+
+      expect(SurveyItemResponse.where(response_id: "parent_survey_response_7").count).to eq 0
+    end
+
+    it "does not add surveyitems from questions that have been disabled" do
+      vestigial_parent_ids.each do |id|
+        expect(SurveyItemResponse.where(school:, survey_item: id).count).to eq 0
       end
     end
   end

@@ -47,10 +47,6 @@ class Overview::OverviewPresenter
     ParentResponseRatePresenter.new(school: @school, academic_year: @academic_year)
   end
 
-  def parent_response_rate_presenter
-    ResponseRatePresenter.new(focus: :parent, school: @school, academic_year: @academic_year)
-  end
-
   def presenter_for_measure(measure)
     score = measure.score(school: @school, academic_year: @academic_year)
 
