@@ -5,13 +5,6 @@ class ResponseRatePresenter
     @focus = focus
     @academic_year = academic_year
     @school = school
-    if focus == :student
-      @survey_items = Measure.all.flat_map do |measure|
-        measure.student_survey_items_with_sufficient_responses(school:, academic_year:)
-      end
-    end
-    @survey_items = SurveyItem.teacher_survey_items if focus == :teacher
-    @survey_items = SurveyItem.parent_survey_items if focus == :parent
   end
 
   def date
@@ -48,36 +41,7 @@ class ResponseRatePresenter
   end
 
   def actual_count
-    if focus == :teacher
-      response_count_for_survey_items(survey_items:)
-    elsif focus == :parent
-      SurveyItemResponse.includes(:parent).where(school:, academic_year:).where.not(parent_id: nil)
-                        .select(:parent_id)
-                        .distinct
-                        .map { |response| response.parent&.number_of_children }
-                        .compact.sum
-    else
-      non_early_ed_items = survey_items - SurveyItem.early_education_survey_items
-      non_early_ed_count = response_count_for_survey_items(survey_items: non_early_ed_items)
-
-      early_ed_items = survey_items & SurveyItem.early_education_survey_items
-      early_ed_count = SurveyItemResponse.where(school:, academic_year:,
-                                                survey_item: early_ed_items)
-                                         .group(:survey_item)
-                                         .select(:response_id)
-                                         .distinct
-                                         .count
-                                         .reduce(0) do |largest, row|
-        count = row[1]
-        if count > largest
-          count
-        else
-          largest
-        end
-      end
-
-      non_early_ed_count + early_ed_count
-    end
+    raise "please implement the method: actual_count"
   end
 
   def response_count_for_survey_items(survey_items:)
@@ -86,11 +50,7 @@ class ResponseRatePresenter
   end
 
   def respondents_count
-    return 0 if respondents.nil?
-
-    count = enrollment if focus == :student || focus == :parent
-    count = respondents.total_teachers if focus == :teacher
-    count
+    raise "please implement the method: respondents_count"
   end
 
   def enrollment
