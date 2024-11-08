@@ -3,8 +3,8 @@ class SurveyItemValues
 
   def initialize(row:, headers:, survey_items:, schools:, academic_years: AcademicYear.all)
     @row = row
-    # Remove any newlines in headers
-    headers = headers.map { |item| item.delete("\n") if item.present? }
+    # Remove any newlines in headers and
+    @headers = normalize_headers(headers:)
     @headers = include_all_headers(headers:)
     @survey_items = survey_items
     @schools = schools
@@ -23,6 +23,13 @@ class SurveyItemValues
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
+  end
+
+  def normalize_headers(headers:)
+    headers
+      .select(&:present?)
+      .map { |item| item.strip }
+      .map { |item| item.downcase if item.match(/[stp]-/i) }
   end
 
   def copy_data_to_main_column(main:, secondary:)
@@ -97,7 +104,7 @@ class SurveyItemValues
   end
 
   def likert_score(survey_item_id:)
-    row[survey_item_id] || row["#{survey_item_id}-1"]
+    row[survey_item_id] || row["#{survey_item_id}-1"] || value_from(pattern: /#{survey_item_id}/i)
   end
 
   def school
@@ -196,7 +203,7 @@ class SurveyItemValues
     output = nil
     matches = headers.select do |header|
       pattern.match(header)
-    end.map { |item| item.delete("\n") }
+    end
 
     matches.each do |match|
       output ||= row[match]&.strip

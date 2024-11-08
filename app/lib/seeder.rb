@@ -51,6 +51,7 @@ class Seeder
 
   def seed_sqm_framework(csv_file)
     admin_data_item_ids = []
+    survey_item_ids = []
     CSV.parse(File.read(csv_file), headers: true) do |row|
       next if row["Source"] == "No source"
 
@@ -105,6 +106,7 @@ class Seeder
         survey_item.ideal_low_benchmark = ideal_low if ideal_low
         survey_item.on_short_form = marked? on_short_form
         survey_item.update! prompt: row["Question/item (23-24)"].strip
+        survey_item_ids << survey_item.id
       end
 
       active_admin = row["Active admin & survey items"]
@@ -122,6 +124,7 @@ class Seeder
     end
     AdminDataValue.where.not(admin_data_item_id: admin_data_item_ids).delete_all
     AdminDataItem.where.not(id: admin_data_item_ids).delete_all
+    SurveyItem.where.not(id: survey_item_ids).delete_all
   end
 
   def seed_demographics(csv_file)

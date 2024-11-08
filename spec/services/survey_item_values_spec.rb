@@ -107,6 +107,14 @@ RSpec.describe SurveyItemValues, type: :model do
     (survey_item_ids << common_headers).flatten
   end
 
+  context ".normalize_headers" do
+    it "normalizes the headers to remove invisible newlines and lowercase survey item ids" do
+    headers = [ " p-tcom-q1\n",	" P-tcom-q2\r\n ", 	" P-tcom-q3 " ]
+    normalized_headers = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:, academic_years:).normalize_headers(headers:)
+    expect(normalized_headers).to eq  ["p-tcom-q1", "p-tcom-q2", "p-tcom-q3"]
+    end
+  end
+
   context ".recorded_date" do
     it "returns the recorded date" do
       row = { "RecordedDate" => "2017-01-01T12:12:121" }

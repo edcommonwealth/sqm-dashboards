@@ -22,3 +22,4 @@ class ParentResponseRatePresenter < ResponseRatePresenter
     "parent"
   end
 end
+
