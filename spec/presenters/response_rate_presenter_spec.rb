@@ -57,7 +57,7 @@ describe ResponseRatePresenter do
       end
 
       it "ignores all teacher items and only gets the modified date of the last student item" do
-        date = ResponseRatePresenter.new(focus: :student, academic_year:, school:).date
+        date = StudentResponseRatePresenter.new(academic_year:, school:).date
         expect(date).to eq(newest_student_survey_response.recorded_date)
       end
     end
@@ -70,7 +70,7 @@ describe ResponseRatePresenter do
       end
 
       it "ignores all student responses and only gets the modified date of the last teacher item" do
-        date = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).date
+        date = TeacherResponseRatePresenter.new(academic_year:, school:).date
         expect(date).to eq(newest_teacher_survey_response.recorded_date)
       end
     end
@@ -83,7 +83,7 @@ describe ResponseRatePresenter do
     end
     context "when no survey responses are found for a school" do
       it "returns a response rate of 0" do
-        percentage = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).percentage
+        percentage = TeacherResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(0)
       end
     end
@@ -95,7 +95,7 @@ describe ResponseRatePresenter do
       end
 
       it "returns a response rate of 100" do
-        percentage = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).percentage
+        percentage = TeacherResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(100)
       end
     end
@@ -107,7 +107,7 @@ describe ResponseRatePresenter do
       end
 
       it "returns a response rate of 100" do
-        percentage = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).percentage
+        percentage = TeacherResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(100)
       end
     end
@@ -119,7 +119,7 @@ describe ResponseRatePresenter do
       end
 
       it "returns a response rate of 75" do
-        percentage = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).percentage
+        percentage = TeacherResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(75)
       end
     end
@@ -130,7 +130,7 @@ describe ResponseRatePresenter do
       end
 
       it "returns a response rate of 25" do
-        percentage = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).percentage
+        percentage = TeacherResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(25)
       end
     end
@@ -141,7 +141,7 @@ describe ResponseRatePresenter do
       end
 
       it "its rounded to the nearest integer" do
-        percentage = ResponseRatePresenter.new(focus: :teacher, academic_year:, school:).percentage
+        percentage = TeacherResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(23)
       end
     end
@@ -153,7 +153,7 @@ describe ResponseRatePresenter do
       end
 
       it "returns a response rate of 100" do
-        percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+        percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(100)
       end
     end
@@ -164,7 +164,7 @@ describe ResponseRatePresenter do
       end
 
       it "returns a response rate of 50" do
-        percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+        percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
         expect(percentage).to eq(50)
       end
     end
@@ -185,7 +185,7 @@ describe ResponseRatePresenter do
                                                    survey_item: student_survey_item, grade: 1)
           end
           it "returns a response rate of 100" do
-            percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+            percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
             expect(percentage).to eq(100)
           end
         end
@@ -196,7 +196,7 @@ describe ResponseRatePresenter do
                                                    survey_item: student_survey_item, grade: 1)
           end
           it "returns a response rate of 50" do
-            percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+            percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
             expect(percentage).to eq(50)
           end
         end
@@ -211,7 +211,7 @@ describe ResponseRatePresenter do
                                                    survey_item: student_survey_item, grade: 2)
           end
           it "returns a response rate of 100" do
-            percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+            percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
             expect(percentage).to eq(100)
           end
         end
@@ -223,7 +223,7 @@ describe ResponseRatePresenter do
                                                    survey_item: student_survey_item, grade: 2)
           end
           it "returns a response rate of 75" do
-            percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+            percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
             expect(percentage).to eq(75)
           end
         end
@@ -235,7 +235,7 @@ describe ResponseRatePresenter do
                                                    survey_item: student_survey_item, grade: 2)
           end
           it "returns a response rate of 63 (rounded up from 62.5)" do
-            percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+            percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
             expect(percentage).to eq(63)
           end
         end
@@ -252,7 +252,7 @@ describe ResponseRatePresenter do
                                                    survey_item: student_survey_item, grade: 3)
           end
           it "returns a response rate of 100" do
-            percentage = ResponseRatePresenter.new(focus: :student, academic_year:, school:).percentage
+            percentage = StudentResponseRatePresenter.new(academic_year:, school:).percentage
             expect(percentage).to eq(100)
           end
         end

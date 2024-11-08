@@ -1,6 +1,6 @@
 class StudentResponseRatePresenter < ResponseRatePresenter
-  def initialize(focus:, academic_year:, school:)
-    super(focus:, academic_year:, school:)
+  def initialize(academic_year:, school:)
+    super(academic_year:, school:)
     @survey_items = Measure.all.flat_map do |measure|
       measure.student_survey_items_with_sufficient_responses(school:, academic_year:)
     end
@@ -34,5 +34,9 @@ class StudentResponseRatePresenter < ResponseRatePresenter
     return 0 if respondents.nil?
 
     enrollment
+  end
+
+  def focus
+    "student"
   end
 end

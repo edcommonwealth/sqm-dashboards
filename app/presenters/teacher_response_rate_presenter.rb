@@ -1,6 +1,6 @@
 class TeacherResponseRatePresenter < ResponseRatePresenter
-  def initialize(focus:, academic_year:, school:)
-    super(focus:, academic_year:, school:)
+  def initialize(academic_year:, school:)
+    super(academic_year:, school:)
     @survey_items = SurveyItem.teacher_survey_items
   end
 
@@ -12,5 +12,9 @@ class TeacherResponseRatePresenter < ResponseRatePresenter
     return 0 if respondents.nil?
 
     respondents.total_teachers
+  end
+
+  def focus
+    "teacher"
   end
 end

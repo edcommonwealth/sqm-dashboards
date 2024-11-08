@@ -36,15 +36,15 @@ class Overview::OverviewPresenter
   end
 
   def student_response_rate_presenter
-    StudentResponseRatePresenter.new(focus: :student, school: @school, academic_year: @academic_year)
+    StudentResponseRatePresenter.new(school: @school, academic_year: @academic_year)
   end
 
   def teacher_response_rate_presenter
-    TeacherResponseRatePresenter.new(focus: :teacher, school: @school, academic_year: @academic_year)
+    TeacherResponseRatePresenter.new(school: @school, academic_year: @academic_year)
   end
 
   def parent_response_rate_presenter
-    ParentResponseRatePresenter.new(focus: :parent, school: @school, academic_year: @academic_year)
+    ParentResponseRatePresenter.new(school: @school, academic_year: @academic_year)
   end
 
   def presenter_for_measure(measure)

@@ -1,8 +1,7 @@
 class ResponseRatePresenter
-  attr_reader :focus, :academic_year, :school, :survey_items
+  attr_reader :academic_year, :school, :survey_items
 
-  def initialize(focus:, academic_year:, school:)
-    @focus = focus
+  def initialize(academic_year:, school:)
     @academic_year = academic_year
     @school = school
   end
@@ -32,6 +31,10 @@ class ResponseRatePresenter
     return "" if date.nil?
 
     "Percentages based on #{actual_count} out of #{respondents_count.round} #{focus}s completing at least 25% of the survey."
+  end
+
+  def focus
+    raise "please implment method: focus"
   end
 
   private
