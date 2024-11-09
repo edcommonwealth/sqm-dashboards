@@ -1,7 +1,7 @@
 class ParentResponseRatePresenter < ResponseRatePresenter
   def initialize(academic_year:, school:)
     super(academic_year:, school:)
-    @survey_items = SurveyItem.parent_survey_items if focus == :parent
+    @survey_items = SurveyItem.parent_survey_items
   end
 
   def actual_count
