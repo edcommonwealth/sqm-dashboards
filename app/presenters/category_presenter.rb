@@ -26,12 +26,12 @@ class CategoryPresenter
   end
 
   def icon_class
-    icon_suffix = classes[name.to_sym]
+    icon_suffix = classes[id.to_sym]
     "fas fa-#{icon_suffix}"
   end
 
   def icon_color_class
-    color_suffix = colors[name.to_sym]
+    color_suffix = colors[id.to_sym]
     "color-#{color_suffix}"
   end
 
@@ -88,3 +88,4 @@ class CategoryPresenter
       '5': "heart" }
   end
 end
+
