@@ -249,3 +249,4 @@ class Measure < ActiveRecord::Base
                              survey_item_id: parent_survey_items).group(:survey_item).average(:likert_score).values
   end
 end
+
