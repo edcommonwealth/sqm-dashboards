@@ -90,3 +90,4 @@ class Scale < ApplicationRecord
     survey_items.student_survey_items
   end
 end
+
