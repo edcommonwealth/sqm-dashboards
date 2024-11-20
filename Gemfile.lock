@@ -468,7 +468,6 @@ GEM
       railties (>= 6.0.0)
     stringio (3.1.1)
     strscan (3.1.0)
-    temple (0.10.3)
     thor (1.3.2)
     tilt (2.3.0)
     timeout (0.4.1)
@@ -533,7 +532,6 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   observer (~> 0.1.2)
-  omniauth
   ostruct
   parallel_tests
   pg
