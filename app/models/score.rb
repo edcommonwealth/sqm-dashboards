@@ -9,13 +9,6 @@ class Score < ApplicationRecord
   NIL_SCORE = Score.new(average: nil, meets_teacher_threshold: false, meets_student_threshold: false,
                         meets_admin_data_threshold: false)
 
-  enum group: {
-    all_students: 0,
-    race: 1,
-    grade: 2,
-    gender: 3
-  }
-
   def in_zone?(zone:)
     return false if average.nil? || average.is_a?(Float) && average.nan?
 
