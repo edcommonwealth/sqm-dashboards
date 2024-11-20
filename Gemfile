@@ -26,14 +26,36 @@ gem "omniauth"
 gem "ostruct"
 gem "pg"
 gem "puma", ">= 6.4.0"
-gem "rails", "~> 7.1.3"
-gem "redis", "~> 3.0"
+gem "rails", "~> 8.0.0"
 gem "sprockets-rails"
 gem "standard_deviation"
 gem "stimulus-rails"
 gem "turbo-rails"
 gem "uglifier", ">= 1.3.0"
 gem "watir"
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem "brakeman"
+  # gem "bullet"
+  gem "dexter"
+  gem "erb_lint", require: false
+  gem "erblint-github"
+  gem "guard"
+  gem "guard-livereload", "~> 2.5", require: false
+  gem "guard-rspec", require: false
+  gem "listen", "~> 3.8.0"
+  gem "nested_scaffold"
+  gem "pghero"
+  gem "pg_query", ">= 2"
+  gem "rack-livereload"
+  gem "rubocop", require: false
+  gem "seed_dump"
+  gem "solargraph-reek"
+  gem "spring"
+  # gem "web-console"
+  # gem 'reek', require: false
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
