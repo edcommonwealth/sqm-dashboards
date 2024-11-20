@@ -23,7 +23,7 @@ gem "observer", "~> 0.1.2"
 gem "ostruct"
 gem "pg"
 gem "puma", ">= 6.4.0"
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 8.0.0"
 gem "sprockets-rails"
 gem "standard_deviation"
 gem "stimulus-rails"
@@ -33,7 +33,7 @@ gem "watir"
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "brakeman"
-  gem "bullet"
+  # gem "bullet"
   gem "dexter"
   gem "erb_lint", require: false
   gem "erblint-github"
