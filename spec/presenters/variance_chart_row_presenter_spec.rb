@@ -214,7 +214,7 @@ describe Overview::VarianceChartRowPresenter do
         end
 
         it "returns the sources for partial results of administrative data and student survey results" do
-          expect(presenter.partial_data_sources).to eq ["student survey results", "school data"]
+          expect(presenter.partial_data_sources).to eq ["student survey results", "administrative data"]
         end
       end
     end
@@ -262,4 +262,3 @@ describe Overview::VarianceChartRowPresenter do
     end
   end
 end
-

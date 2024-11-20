@@ -11,9 +11,9 @@
 
 <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
   <feComponentTransfer in=SourceAlpha>
-    <feFuncA type="table" tableValues="1 0" />
+    <feFuncA type="table" tableValues="1 0"/>
   </feComponentTransfer>
-  <feGaussianBlur stdDeviation="4" />
+  <feGaussianBlur stdDeviation="4"/>
   <feOffset dx="0" dy="0" result="offsetblur"/>
   <feFlood flood-color="rgb(62, 58, 56, 0.25)" result="color"/>
   <feComposite in2="offsetblur" operator="in"/>

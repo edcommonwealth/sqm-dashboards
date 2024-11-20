@@ -30,4 +30,3 @@ class Overview::ParentOverviewPresenter < Overview::OverviewPresenter
     Overview::VarianceChartRowPresenter.new(construct: scale, score:)
   end
 end
-

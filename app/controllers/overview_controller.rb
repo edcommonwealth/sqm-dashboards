@@ -18,4 +18,3 @@ class OverviewController < SqmApplicationController
     @parent_response_rate_presenter = @page.parent_response_rate_presenter
   end
 end
-

@@ -70,4 +70,3 @@ describe "overview/_variance_chart.html.erb" do
     end
   end
 end
-
