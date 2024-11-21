@@ -68,28 +68,6 @@ group :development, :test do
   gem "rspec-rails", "~> 6.0.3"
 end
 
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "brakeman"
-  gem "bullet"
-  gem "erb_lint", require: false
-  gem "erblint-github"
-  gem "guard"
-  gem "guard-livereload", "~> 2.5", require: false
-  gem "guard-rspec", require: false
-  gem "listen", "~> 3.8.0"
-  gem "nested_scaffold"
-  gem "rack-livereload"
-  # gem 'reek', require: false
-  gem "dexter"
-  gem "pghero"
-  gem "pg_query", ">= 2"
-  gem "rubocop", require: false
-  gem "seed_dump"
-  gem "solargraph-reek"
-  gem "spring"
-end
-
 group "test" do
   gem "capybara"
   gem "cuprite"

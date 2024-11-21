@@ -124,7 +124,6 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.3.3)
       railties (>= 6.0.0)
-    csv (3.3.0)
     cuprite (0.15)
       capybara (~> 3.0)
       ferrum (~> 0.14.0)
@@ -208,9 +207,9 @@ GEM
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
-    irb (1.11.0)
-      rdoc
-      reline (>= 0.3.8)
+    irb (1.14.1)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
     jaro_winkler (1.5.6)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -272,7 +271,6 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    observer (0.1.2)
     omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -293,7 +291,7 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    psych (5.1.2)
+    psych (5.2.0)
       stringio
     public_suffix (5.0.4)
     puma (6.4.3)
@@ -310,9 +308,8 @@ GEM
       rack (>= 3.0.0)
     rack-test (2.1.0)
       rack (>= 1.3)
-    rackup (2.1.0)
+    rackup (2.2.1)
       rack (>= 3)
-      webrick (~> 1.8)
     rails (8.0.0)
       actioncable (= 8.0.0)
       actionmailbox (= 8.0.0)
@@ -352,15 +349,14 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbs (2.8.4)
-    rdoc (6.7.0)
+    rdoc (6.8.1)
       psych (>= 4.0.0)
-    redis (3.3.5)
     reek (6.1.4)
       kwalify (~> 0.7.0)
       parser (~> 3.2.0)
       rainbow (>= 2.0, < 4.0)
     regexp_parser (2.8.3)
-    reline (0.3.9)
+    reline (0.5.11)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
@@ -450,7 +446,7 @@ GEM
     standard_deviation (1.0.3)
     stimulus-rails (1.3.0)
       railties (>= 6.0.0)
-    stringio (3.1.1)
+    stringio (3.1.2)
     temple (0.10.3)
     thor (1.3.2)
     tilt (2.3.0)
@@ -496,7 +492,6 @@ DEPENDENCIES
   byebug
   capybara
   cssbundling-rails
-  csv (~> 3.3)
   cuprite
   database_cleaner
   devise!
@@ -522,7 +517,6 @@ DEPENDENCIES
   net-sftp
   newrelic_rpm
   nokogiri
-  observer (~> 0.1.2)
   omniauth
   ostruct
   parallel_tests
@@ -534,8 +528,6 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 8.0.0)
   rails-controller-testing
-  redis (~> 3.0)
-  reline (~> 0.3.2)
   rspec-rails (~> 6.0.3)
   rubocop
   seed_dump
