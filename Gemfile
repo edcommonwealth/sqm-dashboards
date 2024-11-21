@@ -33,7 +33,7 @@ gem "watir"
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "brakeman"
-  # gem "bullet"
+gem "bullet", "~> 8.0"
   gem "dexter"
   gem "erb_lint", require: false
   gem "erblint-github"
@@ -77,3 +77,4 @@ end
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # gem "reline", "~> 0.3.2"
+
