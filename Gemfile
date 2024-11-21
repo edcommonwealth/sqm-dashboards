@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "3.3.5"
+ruby file: ".ruby-version"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -13,6 +13,7 @@ gem "cssbundling-rails"
 gem "csv", "~> 3.3"
 gem "devise", git: "https://github.com/heartcombo/devise"
 gem "ed25519"
+gem "foreman"
 gem "friendly_id", "~> 5.1.0"
 gem "jsbundling-rails"
 gem "logger"
@@ -23,7 +24,7 @@ gem "observer", "~> 0.1.2"
 gem "ostruct"
 gem "pg"
 gem "puma", ">= 6.4.0"
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 8.0.0"
 gem "sprockets-rails"
 gem "standard_deviation"
 gem "stimulus-rails"
@@ -33,7 +34,7 @@ gem "watir"
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "brakeman"
-  gem "bullet"
+  gem "bullet", "~> 8.0"
   gem "dexter"
   gem "erb_lint", require: false
   gem "erblint-github"
