@@ -37,7 +37,7 @@ gem "watir"
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "brakeman"
-  # gem "bullet"
+gem "bullet", "~> 8.0"
   gem "dexter"
   gem "erb_lint", require: false
   gem "erblint-github"
@@ -102,8 +102,5 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "reline", "~> 0.3.2"
+# gem "reline", "~> 0.3.2"
 
-gem "csv", "~> 3.3"
-
-gem "observer", "~> 0.1.2"
