@@ -13,6 +13,7 @@ gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "devise", git: "https://github.com/heartcombo/devise"
 gem "ed25519"
+gem "foreman"
 gem "friendly_id", "~> 5.1.0"
 gem "haml"
 gem "jbuilder", "~> 2.5"
@@ -37,7 +38,7 @@ gem "watir"
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "brakeman"
-gem "bullet", "~> 8.0"
+  gem "bullet", "~> 8.0"
   gem "dexter"
   gem "erb_lint", require: false
   gem "erblint-github"
@@ -103,4 +104,3 @@ end
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # gem "reline", "~> 0.3.2"
-
