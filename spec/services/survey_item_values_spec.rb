@@ -59,7 +59,12 @@ RSpec.describe SurveyItemValues, type: :model do
       s-grit-q3 s-grit-q4 s-grmi-q1 s-grmi-q2 s-grmi-q3 s-grmi-q4 s-expa-q1 s-appa-q1 s-appa-q2 s-appa-q3
       s-acst-q1 s-acst-q2 s-acst-q3 s-poaf-q1 s-poaf-q2 s-poaf-q3 s-poaf-q4]
     survey_item_ids.map do |survey_item_id|
-      create(:survey_item, survey_item_id:)
+      si = SurveyItem.find_by_survey_item_id(survey_item_id)
+      if si.nil?
+        create(:survey_item, survey_item_id:)
+      else
+        si
+      end
     end
     (survey_item_ids << common_headers).flatten
   end
@@ -73,7 +78,12 @@ RSpec.describe SurveyItemValues, type: :model do
       s-grit-q3 s-grit-q4 s-grmi-q1 s-grmi-q2 s-grmi-q3 s-grmi-q4 s-expa-q1 s-appa-q1 s-appa-q2 s-appa-q3
       s-acst-q1 s-acst-q2 s-acst-q3 s-poaf-q1 s-poaf-q2 s-poaf-q3 s-poaf-q4 s-phys-q1 s-phys-q2 s-phys-q3]
     survey_item_ids.map do |survey_item_id|
-      create(:survey_item, survey_item_id:, on_short_form: true)
+      si = SurveyItem.find_by_survey_item_id(survey_item_id)
+      if si.nil?
+        create(:survey_item, survey_item_id:, on_short_form: true)
+      else
+        si
+      end
     end
     (survey_item_ids << common_headers).flatten
   end
@@ -87,7 +97,12 @@ RSpec.describe SurveyItemValues, type: :model do
       s-grit-es3 s-grit-es4 s-grmi-es1 s-grmi-es2 s-grmi-es3 s-grmi-es4 s-expa-es1 s-appa-es1 s-appa-es2 s-appa-es3
       s-acst-es1 s-acst-es2 s-acst-es3 s-poaf-es1 s-poaf-es2 s-poaf-es3 s-poaf-es4 s-phys-es1 s-phys-es2 s-phys-es3]
     survey_item_ids.map do |survey_item_id|
-      create(:survey_item, survey_item_id:)
+      si = SurveyItem.find_by_survey_item_id(survey_item_id)
+      if si.nil?
+        create(:survey_item, survey_item_id:)
+      else
+        si
+      end
     end
     (survey_item_ids << common_headers).flatten
   end
@@ -102,16 +117,21 @@ RSpec.describe SurveyItemValues, type: :model do
       t-sach-q1 t-sach-q2 t-sach-q3 t-psol-q1 t-psol-q2 t-psol-q3 t-expa-q2 t-expa-q3 t-phya-q2 t-phya-q3]
 
     survey_item_ids.map do |survey_item_id|
-      create(:survey_item, survey_item_id:)
+      si = SurveyItem.find_by_survey_item_id(survey_item_id)
+      if si.nil?
+        create(:survey_item, survey_item_id:)
+      else
+        si
+      end
     end
     (survey_item_ids << common_headers).flatten
   end
 
   context ".normalize_headers" do
     it "normalizes the headers to remove invisible newlines and lowercase survey item ids" do
-    headers = [ " p-tcom-q1\n",	" P-tcom-q2\r\n ", 	" P-tcom-q3 " ]
-    normalized_headers = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:, academic_years:).normalize_headers(headers:)
-    expect(normalized_headers).to eq  ["p-tcom-q1", "p-tcom-q2", "p-tcom-q3"]
+      headers = [ " p-tcom-q1\n",	" P-tcom-q2\r\n ", 	" P-tcom-q3 " ]
+      normalized_headers = SurveyItemValues.new(row: {}, headers:, survey_items:, schools:, academic_years:).normalize_headers(headers:)
+      expect(normalized_headers).to eq  ["p-tcom-q1", "p-tcom-q2", "p-tcom-q3"]
     end
   end
 
@@ -720,35 +740,45 @@ RSpec.describe SurveyItemValues, type: :model do
   end
 
   context ".valid_duration" do
+    before :each do
+      DatabaseCleaner.clean
+    end
+
     context "when duration is valid" do
-      it "returns true" do
+      it "returns true for standard_survey_items" do
         headers = standard_survey_items
         values = SurveyItemValues.new(row: { "Duration (in seconds)" => "240", "Gender" => "Male" }, headers:, survey_items:,
           schools:, academic_years:)
         expect(values.valid_duration?).to eq true
+      end
 
+      it "returns true for teacher survey items" do
         headers = teacher_survey_items
         values = SurveyItemValues.new(row: { "Duration (in seconds)" => "300" }, headers:, survey_items:,
           schools:, academic_years:)
         expect(values.valid_duration?).to eq true
+      end
 
+      it "returns true for short form survey items" do
         headers = short_form_survey_items
         values = SurveyItemValues.new(row: { "Duration (in seconds)" => "100" }, headers:, survey_items:,
           schools:, academic_years:)
         expect(values.valid_duration?).to eq true
+      end
 
+      it "returns true when duration information is missing" do
         # When duration is blank or N/A or NA, we don't have enough information to kick out the row as invalid so we keep it in
         headers = short_form_survey_items
         values = SurveyItemValues.new(row: { "Duration (in seconds)" => "" }, headers:, survey_items:,
           schools:, academic_years:)
         expect(values.valid_duration?).to eq true
 
-        headers = short_form_survey_items
+        # headers = short_form_survey_items
         values = SurveyItemValues.new(row: { "Duration (in seconds)" => "N/A" }, headers:, survey_items:,
           schools:, academic_years:)
         expect(values.valid_duration?).to eq true
 
-        headers = short_form_survey_items
+        # headers = short_form_survey_items
         values = SurveyItemValues.new(row: { "Duration (in seconds)" => "NA" }, headers:, survey_items:,
           schools:, academic_years:)
         expect(values.valid_duration?).to eq true
