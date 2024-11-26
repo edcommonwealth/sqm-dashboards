@@ -75,6 +75,13 @@ namespace :one_off do
       academic_year.delete
     end
   end
+  desc "delete all student records incorrectly created by teacher responses"
+  task delete_errant_student_records: :environment do
+    wrong_response_ids = SurveyItemResponse.where(survey_item: SurveyItem.teacher_survey_items).pluck(:response_id).uniq
+    StudentRace.where(student: Student.where(response_id: wrong_response_ids)).delete_all
+    Student.where(response_id: wrong_response_ids).delete_all
+    SurveyItemResponse.where(response_id: wrong_response_ids).update_all(student_id: nil)
+  end
 
   desc "print out percentage of nil values for range"
   task nil_grades: :environment do
