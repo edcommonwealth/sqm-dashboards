@@ -7,6 +7,8 @@ class SurveyItem < ActiveRecord::Base
 
   has_many :survey_item_responses
 
+  validates :survey_item_id, uniqueness: true
+
   def score(school:, academic_year:)
     @score ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] =
