@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_31_205926) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_26_005312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -510,7 +510,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_31_205926) do
     t.boolean "on_short_form", default: false
     t.integer "survey_item_responses_count"
     t.index ["scale_id"], name: "index_survey_items_on_scale_id"
-    t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id"
+    t.index ["survey_item_id"], name: "index_survey_items_on_survey_item_id", unique: true
   end
 
   add_foreign_key "admin_data_items", "scales"
