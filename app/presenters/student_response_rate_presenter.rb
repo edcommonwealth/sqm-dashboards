@@ -18,14 +18,7 @@ class StudentResponseRatePresenter < ResponseRatePresenter
                                        .select(:response_id)
                                        .distinct
                                        .count
-                                       .reduce(0) do |largest, row|
-      count = row[1]
-      if count > largest
-        count
-      else
-        largest
-      end
-    end
+                                       .values.max || 0
 
     non_early_ed_count + early_ed_count
   end

@@ -40,11 +40,15 @@ class StudentResponseRateCalculator < ResponseRateCalculator
   def survey_items_with_sufficient_responses(grade:)
     @survey_items_with_sufficient_responses ||= Hash.new do |memo, grade|
       threshold = 10
-      quarter_of_grade = enrollment_by_grade[grade] / 4
+      quarter_of_grade = if enrollment_by_grade[grade].nil?
+                           10
+                         else
+                           enrollment_by_grade[grade] / 4.0
+                         end
       threshold = threshold > quarter_of_grade ? quarter_of_grade : threshold
 
       si = SurveyItemResponse.student_survey_items_with_responses_by_grade(school:,
-                                                                                      academic_year:)
+                                                                           academic_year:)
       si = si.reject do |_key, value|
         value < threshold
       end
