@@ -24,7 +24,7 @@ class ResponseRatePresenter
   def date_message
     return "" if date.nil?
 
-    "Response rate as of #{date.to_date.strftime('%m/%d/%y')}"
+    "Overall participation rate as of #{date.to_date.strftime('%m/%d/%y')}"
   end
 
   def hover_message
