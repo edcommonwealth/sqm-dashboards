@@ -25,19 +25,13 @@
             class="body-large mx-3 text-center response-rate"
             data-bs-toggle="popover"
             data-bs-trigger="hover focus"
-            data-bs-content="The student survey response rate for this sub-category. This number differs from the overall response rate because each individual student receives 44 of 67 total questions, in order to avoid survey fatigue."
+            data-bs-content="The student survey response rate for this sub-category. This number differs from the overall response rate because each individual student receives 44 of 67 total questions, in order to avoid survey fatigue. This number is also adjusted to reflect any instances where a student has decided to skip a survey question."
             data-bs-placement="bottom"
           >
             <p class="response-rate-percentage"><%= subcategory.student_response_rate %></p>
             <p>of students responded</p>
           </div>
-          <div
-            class="body-large text-center response-rate"
-            data-bs-toggle="popover"
-            data-bs-trigger="hover focus"
-            data-bs-content="The teacher survey response rate for this sub-category. This number differs from the overall response rate because the survey includes skip logic to limit the number of questions for each individual survey respondent."
-            data-bs-placement="bottom"
-          >
+          <div class="body-large text-center response-rate" >
             <p class="response-rate-percentage"><%= subcategory.teacher_response_rate %></p>
             <p>of teachers responded</p>
           </div>
