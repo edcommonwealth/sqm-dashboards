@@ -81,6 +81,12 @@ class ExportsController < ApplicationController
                                   send_data data, disposition: "attachment",
                                                   filename: "beyond_learning_loss_#{Date.today}.csv"
                                 },
+      "Beyond Learning Loss - Response Rate" => lambda { |schools, academic_years|
+                                                  data = Report::BeyondLearningLossSchoolResponseRates.to_csv(schools:,
+                                                                                                              academic_years:)
+                                                  send_data data, disposition: "attachment",
+                                                                  filename: "beyond_learning_loss_response_rate_#{Date.today}.csv"
+                                                },
       "Survey Item - By Item" => lambda { |schools, academic_years, use_student_survey_items|
                                    data = Report::SurveyItemByItem.to_csv(schools:, academic_years:,
                                                                           use_student_survey_items:)
