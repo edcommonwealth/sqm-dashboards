@@ -121,6 +121,7 @@ module Report
                                                        .values.max || 0
 
                   participation_count = non_early_ed_count + early_ed_count
+                  participation_count = 0 if participation_count < threshold
                   participation_rate = participation_count / respondent_count * 100
                   participation_rate = 0 if participation_rate.nil? || participation_rate.nan? || participation_rate < 5
 
