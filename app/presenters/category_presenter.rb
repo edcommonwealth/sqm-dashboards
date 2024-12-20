@@ -46,7 +46,7 @@ class CategoryPresenter
   end
 
   def harvey_scorecard_presenters(school:, academic_year:)
-    @category.subcategories.map do |subcategory|
+    @category.subcategories.sort_by(&:subcategory_id).map do |subcategory|
       measures = subcategory.measures
       zones = Zones.new(
         watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
