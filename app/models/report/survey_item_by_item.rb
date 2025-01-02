@@ -61,13 +61,13 @@ module Report
       data << headers
 
       survey_items_by_id = ::SurveyItem.by_id_includes_all
+
+      mutex = Thread::Mutex.new
+      pool_size = 2
+      jobs = Queue.new
+      schools.each { |school| jobs << school }
+
       academic_years.each do |academic_year|
-        mutex = Thread::Mutex.new
-
-        pool_size = 2
-        jobs = Queue.new
-        schools.each { |school| jobs << school }
-
         workers = pool_size.times.map do
           Thread.new do
             while school = jobs.pop(true)
@@ -108,8 +108,8 @@ module Report
                 row.concat(padding)
 
                 # filter out response rate at subcategory level <24.5% for school average
-                if ::StudentResponseRateCalculator.new(subcategory: survey_item.subcategory, school:,
-                                                       academic_year:).meets_student_threshold?
+                if response_rate(subcategory: survey_item.subcategory, school:,
+                                 academic_year:).meets_student_threshold?
                   row.append("#{survey_item.survey_item_responses.where(
                     # We allow the nil (unknown) grades in the school survey item average
                     # also filter less than 10 responses in the whole school
@@ -152,6 +152,15 @@ module Report
           csv << row
         end
       end
+    end
+
+    def self.response_rate(subcategory:, school:, academic_year:)
+      @response_rate ||= Hash.new do |memo, (subcategory, school, academic_year)|
+        memo[[subcategory, school, academic_year]] =
+          ::StudentResponseRateCalculator.new(subcategory:, school:, academic_year:)
+      end
+
+      @response_rate[[subcategory, school, academic_year]]
     end
 
     def self.write_csv(csv:, filepath:)
