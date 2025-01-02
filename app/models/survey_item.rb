@@ -4,10 +4,16 @@ class SurveyItem < ActiveRecord::Base
   belongs_to :scale, counter_cache: true
   has_one :measure, through: :scale
   has_one :subcategory, through: :measure
+  has_one :category, through: :subcategory
 
   has_many :survey_item_responses
 
   validates :survey_item_id, uniqueness: true
+  scope :by_id_includes_all, lambda {
+                               all.includes(%i[scale measure subcategory category]).map do |survey_item|
+                                 [survey_item.id, survey_item]
+                               end.to_h
+                             }
 
   def score(school:, academic_year:)
     @score ||= Hash.new do |memo, (school, academic_year)|
