@@ -57,6 +57,8 @@ module Dese
           dese_id = items[1].to_i
           next if dese_id.nil? || dese_id.zero?
 
+          # row = header_hash.keys.zip(items).to_h
+
           raw_likert_score = calculation.call(header_hash, items)
           raw_likert_score ||= "NA"
           likert_score = raw_likert_score
@@ -66,12 +68,17 @@ module Dese
             likert_score = likert_score.round(2)
           end
 
+          # school_level = row["School Code"][-3]
+          # ratio = row["Number of Students"].gsub(",", "").to_f / row["Total # of Classes"].gsub(",", "").to_f
+
           output = []
           output << raw_likert_score
           output << likert_score
           output << id
           output << range
           output << items
+          # output << school_level
+          # output << ratio
           output = output.flatten
           csv << output
         end
