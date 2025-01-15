@@ -30,4 +30,8 @@ class Respondent < ApplicationRecord
   def for_grade(grade)
     send(GRADE_SYMBOLS[grade])
   end
+
+  def total_educators
+    (total_teachers || 0) + (total_esp || 0)
+  end
 end

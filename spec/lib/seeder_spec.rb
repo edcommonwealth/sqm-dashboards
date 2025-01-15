@@ -142,6 +142,40 @@ describe Seeder do
   #   end
   # end
 
+  context "esp counts" do
+    context "when esp counts are loaded from a file" do
+      before :each do
+        create(:school, dese_id: 3_440_045, name: "Ambrose")
+        create(:school, dese_id: 3_440_005, name: "Lincoln")
+        create(:school, dese_id: 3_440_020, name: "Lynch")
+        create(:school, dese_id: 3_440_040, name: "Muraco")
+        create(:school, dese_id: 3_440_025, name: "VO")
+        create(:school, dese_id: 3_440_305, name:	"McCall Elementary")
+        create(:school, dese_id: 3_440_505, name: "WHS")
+        create(:school, dese_id: 1_850_505, name: "Milford")
+        create(:school, dese_id: 3_010_020, name:		"Tyngsborough Elemenatary")
+        create(:school, dese_id: 3_010_305, name:		"Tyngsborough Middle")
+        create(:school, dese_id: 3_010_505, name:		"Tyngsborough High")
+        create(:academic_year, range: "2024-25 Fall")
+        create(:academic_year, range: "2024-25 Spring")
+
+        seeder.seed_esp_counts(sample_esp_csv)
+      end
+
+      it "loads esp information into the database" do
+        fall = AcademicYear.find_by_range("2024-25 Fall")
+        spring = AcademicYear.find_by_range("2024-25 Spring")
+        ambrose = School.find_by_dese_id 3_440_045
+
+        respondents = Respondent.find_by(school: ambrose, academic_year: fall)
+        expect(respondents.total_esp).to eq 16
+
+        respondents = Respondent.find_by(school: ambrose, academic_year: spring)
+        expect(respondents.total_esp).to eq 16
+      end
+    end
+  end
+
   context "admin data items" do
     context "when deprecated admin items exist in the database" do
       before :each do
@@ -272,5 +306,9 @@ describe Seeder do
 
   def sample_sqm_framework_csv
     Rails.root.join("spec", "fixtures", "sample_sqm_framework.csv")
+  end
+
+  def sample_esp_csv
+    Rails.root.join("spec", "fixtures", "sample_esp_counts.csv")
   end
 end

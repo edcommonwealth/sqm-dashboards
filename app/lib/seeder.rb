@@ -143,6 +143,10 @@ class Seeder
     StaffingLoader.clone_previous_year_data
   end
 
+  def seed_esp_counts(esp_file)
+    EspLoader.load_data(filepath: esp_file)
+  end
+
   private
 
   def marked?(mark)
