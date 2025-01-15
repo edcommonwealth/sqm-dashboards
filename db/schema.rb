@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_26_005312) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_15_011457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -355,6 +355,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_26_005312) do
     t.integer "ten"
     t.integer "eleven"
     t.integer "twelve"
+    t.integer "total_esp"
     t.index ["academic_year_id"], name: "index_respondents_on_academic_year_id"
     t.index ["school_id", "academic_year_id"], name: "index_respondents_on_school_id_and_academic_year_id", unique: true
   end

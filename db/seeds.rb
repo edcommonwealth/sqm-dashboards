@@ -13,3 +13,4 @@ seeder.seed_enrollment Rails.root.join("data", "enrollment", "wi_enrollment.csv"
 seeder.seed_staffing Rails.root.join("data", "staffing", "staffing.csv")
 seeder.seed_staffing Rails.root.join("data", "staffing", "nj_staffing.csv")
 seeder.seed_staffing Rails.root.join("data", "staffing", "wi_staffing.csv")
+seeder.seed_esp_counts Rails.root.join("data", "staffing", "esp_counts.csv")

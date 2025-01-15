@@ -60,6 +60,7 @@ namespace :one_off do
     seeder.seed_staffing Rails.root.join("data", "staffing", "staffing.csv")
     seeder.seed_staffing Rails.root.join("data", "staffing", "nj_staffing.csv")
     seeder.seed_staffing Rails.root.join("data", "staffing", "wi_staffing.csv")
+    seeder.seed_esp_counts Rails.root.join("data", "staffing", "esp_counts.csv")
   end
 
   desc "delete 2023-24 AcademicYear and all responses, admin data, enrollment numbers and staffing numbers"
