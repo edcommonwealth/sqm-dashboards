@@ -11,7 +11,7 @@ class TeacherResponseRatePresenter < ResponseRatePresenter
   def respondents_count
     return 0 if respondents.nil?
 
-    respondents.total_teachers
+    respondents.total_educators
   end
 
   def focus
