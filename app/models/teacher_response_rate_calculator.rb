@@ -20,7 +20,7 @@ class TeacherResponseRateCalculator < ResponseRateCalculator
   end
 
   def total_possible_responses
-    @total_possible_responses ||= respondents.total_teachers
+    @total_possible_responses ||= respondents.total_educators
   end
 
   def raw_response_rate
