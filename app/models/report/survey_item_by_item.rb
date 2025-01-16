@@ -94,10 +94,12 @@ module Report
 
                   if school_grades.include?(grade)
                     # we already know grade has sufficient responses
-                    row.append("#{survey_item.survey_item_responses.where(school:, academic_year:,
-                                                                          grade:).average(:likert_score).to_f.round(2)}")
+                    score = survey_item.survey_item_responses.where(school:, academic_year:,
+                                                                    grade:).average(:likert_score).to_f.round(2)
+                    score = "" if score.zero?
+                    row.append("#{score}")
                   else
-                    row.append("N/A")
+                    row.append("")
                   end
                 end
 
@@ -110,13 +112,16 @@ module Report
                 # filter out response rate at subcategory level <24.5% for school average
                 if response_rate(subcategory: survey_item.subcategory, school:,
                                  academic_year:).meets_student_threshold?
-                  row.append("#{survey_item.survey_item_responses.where(
+                  all_student_score = survey_item.survey_item_responses.where(
                     # We allow the nil (unknown) grades in the school survey item average
                     # also filter less than 10 responses in the whole school
-                    'school_id = ? and academic_year_id = ? and (grade IS NULL or grade IN (?))', school.id, academic_year.id, school.grades(academic_year:)
-                  ).group('survey_item_id').having('count(*) >= 10').average(:likert_score).values[0].to_f.round(2)}")
+                    "school_id = ? and academic_year_id = ? and (grade IS NULL or grade IN (?))", school.id, academic_year.id, school.grades(academic_year:)
+                  ).group("survey_item_id").having("count(*) >= 10").average(:likert_score).values[0].to_f.round(2)
+
+                  all_student_score = "" if all_student_score.zero?
+                  row.append("#{all_student_score}")
                 else
-                  row.append("N/A")
+                  row.append("")
                 end
                 data << row
               end
@@ -136,8 +141,10 @@ module Report
                 padding = Array.new(grades.length + 1) { "" }
                 row.concat(padding)
                 # we already know that the survey item we are looking at has sufficient responses
-                row.append("#{survey_item.survey_item_responses.where(school:,
-                                                                      academic_year:).average(:likert_score).to_f.round(2)}")
+                all_teacher_score = survey_item.survey_item_responses.where(school:,
+                                                                            academic_year:).average(:likert_score).to_f.round(2)
+                all_teacher_score = "" if all_teacher_score.zero?
+                row.append("#{all_teacher_score}")
                 data << row
               end
             end
