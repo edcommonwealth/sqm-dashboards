@@ -1,4 +1,409 @@
 Raw likert calculation,Likert Score,Admin Data Item,Academic Year,School Name,DESE ID,# Grade Nine Students,# Passing All Courses,% Passing All Courses
+3.8821052631578947,3.88,a-ovpe-i1,2023-24,Abby Kelley Foster Charter Public (District)-Abby Kelley Foster Charter Public School,04450105,          90,          83,  92.2
+3.553684210526316,3.55,a-ovpe-i1,2023-24,Abington-Abington High,00010505,         147,         124,  84.4
+3.0357894736842104,3.04,a-ovpe-i1,2023-24,Academy Of the Pacific Rim Charter Public (District)-Academy Of the Pacific Rim Charter Public School,04120530,          68,          49,  72.1
+4.202105263157895,4.2,a-ovpe-i1,2023-24,Acton-Boxborough-Acton-Boxborough Regional High,06000505,         402,         401,  99.8
+3.957894736842105,3.96,a-ovpe-i1,2023-24,Advanced Math and Science Academy Charter (District)-Advanced Math and Science Academy Charter School,04300305,         151,         142,  94.0
+3.3642105263157895,3.36,a-ovpe-i1,2023-24,Agawam-Agawam High,00050505,         284,         227,  79.9
+3.2757894736842106,3.28,a-ovpe-i1,2023-24,Amesbury-Amesbury High,00070505,         135,         105,  77.8
+3.1578947368421053,3.16,a-ovpe-i1,2023-24,Amesbury-Amesbury Innovation High School,00070515,           8,           6,  75.0
+3.6842105263157894,3.68,a-ovpe-i1,2023-24,Amherst-Pelham-Amherst Regional High,06050505,         200,         175,  87.5
+4.138947368421053,4.14,a-ovpe-i1,2023-24,Andover-Andover High,00090505,         411,         404,  98.3
+2.555789473684211,2.56,a-ovpe-i1,2023-24,Argosy Collegiate Charter School (District)-Argosy Collegiate Charter School,35090305,          89,          54,  60.7
+3.995789473684211,4.0,a-ovpe-i1,2023-24,Arlington-Arlington High,00100505,         433,         411,  94.9
+4.00421052631579,4.0,a-ovpe-i1,2023-24,Ashburnham-Westminster-Oakmont Regional High School,06100505,         163,         155,  95.1
+3.9157894736842107,3.92,a-ovpe-i1,2023-24,Ashland-Ashland High,00140505,         228,         212,  93.0
+3.7726315789473683,3.77,a-ovpe-i1,2023-24,Assabet Valley Regional Vocational Technical-Assabet Valley Vocational High School,08010605,         308,         276,  89.6
+2.7199999999999998,2.72,a-ovpe-i1,2023-24,Athol-Royalston-Athol High,06150505,         113,          73,  64.6
+3.7010526315789476,3.7,a-ovpe-i1,2023-24,Atlantis Charter (District)-Atlantis Charter School,04910550,          66,          58,  87.9
+NA,NA,a-ovpe-i1,2023-24,Attleboro-Attleboro Community Academy,00160515,           5,"",""
+3.9073684210526314,3.91,a-ovpe-i1,2023-24,Attleboro-Attleboro High,00160505,         501,         465,  92.8
+NA,NA,a-ovpe-i1,2023-24,Attleboro-Attleboro Virtual Academy,00160705,           5,"",""
+3.9326315789473685,3.93,a-ovpe-i1,2023-24,Auburn-Auburn Senior High,00170505,         182,         170,  93.4
+2.8842105263157896,2.88,a-ovpe-i1,2023-24,Avon-Avon Middle High School,00180510,          54,          37,  68.5
+3.7431578947368425,3.74,a-ovpe-i1,2023-24,Ayer Shirley School District-Ayer Shirley Regional High School,06160505,          99,          88,  88.9
+3.208421052631579,3.21,a-ovpe-i1,2023-24,Barnstable-Barnstable High,00200505,         324,         247,  76.2
+3.2673684210526313,3.27,a-ovpe-i1,2023-24,Baystate Academy Charter Public School (District)-Baystate Academy Charter Public School,35020405,          58,          45,  77.6
+4.096842105263158,4.1,a-ovpe-i1,2023-24,Bedford-Bedford High,00230505,         224,         218,  97.3
+3.423157894736842,3.42,a-ovpe-i1,2023-24,Belchertown-Belchertown High,00240505,         139,         113,  81.3
+3.3642105263157895,3.36,a-ovpe-i1,2023-24,Bellingham-Bellingham High School,00250505,         164,         131,  79.9
+3.0063157894736845,3.01,a-ovpe-i1,2023-24,Bellingham-Keough Memorial Academy,00250510,           7,           5,  71.4
+3.995789473684211,4.0,a-ovpe-i1,2023-24,Belmont-Belmont High,00260505,         395,         375,  94.9
+3.0778947368421052,3.08,a-ovpe-i1,2023-24,Berkshire Arts and Technology Charter Public (District)-Berkshire Arts and Technology Charter Public School,04140305,          52,          38,  73.1
+3.8063157894736843,3.81,a-ovpe-i1,2023-24,Berkshire Hills-Monument Mt Regional High,06180505,          94,          85,  90.4
+3.8105263157894735,3.81,a-ovpe-i1,2023-24,Berlin-Boylston-Tahanto Regional High,06200505,          74,          67,  90.5
+3.473684210526316,3.47,a-ovpe-i1,2023-24,Beverly-Beverly High,00300505,         337,         278,  82.5
+3.6168421052631583,3.62,a-ovpe-i1,2023-24,Billerica-Billerica Memorial High School,00310505,         304,         261,  85.9
+4.0,4.0,a-ovpe-i1,2023-24,Blackstone Valley Regional Vocational Technical-Blackstone Valley,08050605,         321,         305,  95.0
+3.6210526315789475,3.62,a-ovpe-i1,2023-24,Blackstone-Millville-Blackstone Millville RHS,06220505,         107,          92,  86.0
+4.1010526315789475,4.1,a-ovpe-i1,2023-24,Blue Hills Regional Vocational Technical-Blue Hills Regional Vocational Technical,08060605,         233,         227,  97.4
+2.7031578947368424,2.7,a-ovpe-i1,2023-24,Boston Collegiate Charter (District)-Boston Collegiate Charter School,04490305,          95,          61,  64.2
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Boston Day and Evening Academy Charter (District)-Boston Day and Evening Academy Charter School,04240505,          59,          59, 100.0
+2.5473684210526315,2.55,a-ovpe-i1,2023-24,Boston Green Academy Horace Mann Charter School (District)-Boston Green Academy Horace Mann Charter School,04110305,          76,          46,  60.5
+4.0336842105263155,4.03,a-ovpe-i1,2023-24,Boston Preparatory Charter Public (District)-Boston Preparatory Charter Public School,04160305,         119,         114,  95.8
+1.9957894736842106,2.0,a-ovpe-i1,2023-24,Boston-Another Course To College,00350541,          57,          27,  47.4
+3.1157894736842104,3.12,a-ovpe-i1,2023-24,Boston-Boston Arts Academy,00350546,         123,          91,  74.0
+NA,NA,a-ovpe-i1,2023-24,Boston-Boston Collaborative High School,00350755,           4,"",""
+2.808421052631579,2.81,a-ovpe-i1,2023-24,Boston-Boston Community Leadership Academy,00350558,         108,          72,  66.7
+3.3978947368421055,3.4,a-ovpe-i1,2023-24,Boston-Boston International High School & Newcomers Academy,00350507,         238,         192,  80.7
+3.3557894736842107,3.36,a-ovpe-i1,2023-24,Boston-Boston Latin Academy,00350545,         305,         243,  79.7
+3.877894736842105,3.88,a-ovpe-i1,2023-24,Boston-Boston Latin School,00350560,         420,         387,  92.1
+2.816842105263158,2.82,a-ovpe-i1,2023-24,Boston-Brighton High School,00350505,         127,          85,  66.9
+1.7052631578947368,1.71,a-ovpe-i1,2023-24,Boston-Burke High School,00350525,          79,          32,  40.5
+NA,NA,a-ovpe-i1,2023-24,Boston-Carter School,00350036,           4,"",""
+1.511578947368421,1.51,a-ovpe-i1,2023-24,Boston-Charlestown High School,00350515,         142,          51,  35.9
+NA,NA,a-ovpe-i1,2023-24,Boston-Community Academy,00350518,           4,"",""
+1.8357894736842106,1.84,a-ovpe-i1,2023-24,Boston-Community Academy of Science and Health,00350581,          78,          34,  43.6
+1.713684210526316,1.71,a-ovpe-i1,2023-24,Boston-Dearborn 6-12 STEM Academy,00350074,          86,          35,  40.7
+3.6210526315789475,3.62,a-ovpe-i1,2023-24,Boston-East Boston High School,00350530,         228,         196,  86.0
+0.888421052631579,1,a-ovpe-i1,2023-24,Boston-English High School,00350535,         175,          37,  21.1
+2.042105263157895,2.04,a-ovpe-i1,2023-24,Boston-Excel High School,00350522,          68,          33,  48.5
+3.0610526315789475,3.06,a-ovpe-i1,2023-24,Boston-Fenway High School,00350540,          99,          72,  72.7
+0.5263157894736842,1,a-ovpe-i1,2023-24,Boston-Greater Egleston High School,00350543,           8,           1,  12.5
+2.3326315789473684,2.33,a-ovpe-i1,2023-24,Boston-Henderson K-12 Inclusion School Upper,00350426,          56,          31,  55.4
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Boston-Horace Mann School for the Deaf Hard of Hearing,00350750,          10,          10, 100.0
+3.667368421052631,3.67,a-ovpe-i1,2023-24,Boston-Lyon High School,00350655,          31,          27,  87.1
+2.3326315789473684,2.33,a-ovpe-i1,2023-24,Boston-Madison Park Technical Vocational High School,00350537,         269,         149,  55.4
+2.3621052631578947,2.36,a-ovpe-i1,2023-24,Boston-Margarita Muniz Academy,00350549,          82,          46,  56.1
+1.4021052631578945,1.4,a-ovpe-i1,2023-24,Boston-Melvin H. King South End Academy,00350363,          12,           4,  33.3
+3.389473684210526,3.39,a-ovpe-i1,2023-24,Boston-New Mission High School,00350542,         128,         103,  80.5
+3.4694736842105267,3.47,a-ovpe-i1,2023-24,Boston-O'Bryant School of Math & Science,00350575,         323,         266,  82.4
+3.5747368421052634,3.57,a-ovpe-i1,2023-24,Boston-Quincy Upper School,00350565,          53,          45,  84.9
+2.2526315789473683,2.25,a-ovpe-i1,2023-24,Boston-Snowden International High School,00350690,          99,          53,  53.5
+2.1052631578947367,2.11,a-ovpe-i1,2023-24,Boston-TechBoston Academy,00350657,         174,          87,  50.0
+3.642105263157895,3.64,a-ovpe-i1,2023-24,Bourne-Bourne High School,00360505,          74,          64,  86.5
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Braintree-Braintree High,00400505,         368,         368, 100.0
+3.7263157894736842,3.73,a-ovpe-i1,2023-24,Bridgewater-Raynham-Bridgewater-Raynham Regional,06250505,         331,         293,  88.5
+NA,NA,a-ovpe-i1,2023-24,Bridgewater-Raynham-Therapeutic Day School,06250415,           3,"",""
+3.8568421052631576,3.86,a-ovpe-i1,2023-24,Bristol County Agricultural-Bristol County Agricultural High,09100705,         167,         153,  91.6
+3.987368421052632,3.99,a-ovpe-i1,2023-24,Bristol-Plymouth Regional Vocational Technical-Bristol-Plymouth Vocational Technical,08100605,         356,         337,  94.7
+1.6757894736842105,1.68,a-ovpe-i1,2023-24,Brockton-Brockton High,00440505,"       1,127",         449,  39.8
+NA,NA,a-ovpe-i1,2023-24,Brockton-Brockton Virtual Learning Academy,00440705,          17,           0,    .0
+0.29894736842105263,1,a-ovpe-i1,2023-24,Brockton-Edison Day Academy,00440535,          28,           2,   7.1
+NA,NA,a-ovpe-i1,2023-24,Brockton-Edison Evening Academy,00440520,           4,"",""
+1.5789473684210527,1.58,a-ovpe-i1,2023-24,Brockton-Huntington Therapeutic Day School,00440400,           8,           3,  37.5
+4.008421052631579,4.01,a-ovpe-i1,2023-24,Brockton-PROMISE College and Career Academy,00440525,          63,          60,  95.2
+3.76,3.76,a-ovpe-i1,2023-24,Brooke Charter School (District)-Brooke Charter School,04280305,         140,         125,  89.3
+3.8610526315789473,3.86,a-ovpe-i1,2023-24,Brookline-Brookline High,00460505,         576,         528,  91.7
+4.046315789473684,4.05,a-ovpe-i1,2023-24,Burlington-Burlington High,00480505,         233,         224,  96.1
+3.6336842105263156,3.63,a-ovpe-i1,2023-24,Cambridge-Cambridge Rindge and Latin,00490506,         564,         487,  86.3
+3.9242105263157896,3.92,a-ovpe-i1,2023-24,Canton-Canton High,00500505,         234,         218,  93.2
+3.6336842105263156,3.63,a-ovpe-i1,2023-24,Cape Cod Regional Vocational Technical-Cape Cod Region Vocational Technical,08150605,         182,         157,  86.3
+3.890526315789474,3.89,a-ovpe-i1,2023-24,Carver-Carver Middle/High School,00520405,          92,          85,  92.4
+3.2421052631578946,3.24,a-ovpe-i1,2023-24,Central Berkshire-Wahconah Regional High,06350505,         122,          94,  77.0
+4.016842105263158,4.02,a-ovpe-i1,2023-24,Chelmsford-Chelmsford High,00560505,         366,         349,  95.4
+1.9410526315789474,1.94,a-ovpe-i1,2023-24,Chelsea-Chelsea High,00570505,         532,         245,  46.1
+NA,NA,a-ovpe-i1,2023-24,Chelsea-Chelsea Opportunity Academy,00570515,           5,"",""
+1.6842105263157894,1.68,a-ovpe-i1,2023-24,Chelsea-Chelsea Virtual Learning Academy,00570705,          10,           4,  40.0
+0.9010526315789473,1,a-ovpe-i1,2023-24,Chicopee-Chicopee Academy,00610021,          14,           3,  21.4
+3.4063157894736844,3.41,a-ovpe-i1,2023-24,Chicopee-Chicopee Comprehensive High School,00610510,         303,         245,  80.9
+2.791578947368421,2.79,a-ovpe-i1,2023-24,Chicopee-Chicopee High,00610505,         240,         159,  66.3
+2.2442105263157894,2.24,a-ovpe-i1,2023-24,City on a Hill Charter Public School (District)-City on a Hill Charter Public School,04370505,          45,          24,  53.3
+3.094736842105263,3.09,a-ovpe-i1,2023-24,Clinton-Clinton Senior High,00640505,         147,         108,  73.5
+1.945263157894737,1.95,a-ovpe-i1,2023-24,Codman Academy Charter Public (District)-Codman Academy Charter Public School,04380505,          26,          12,  46.2
+4.168421052631579,4.17,a-ovpe-i1,2023-24,Cohasset-Cohasset High School,00650505,          96,          95,  99.0
+3.5073684210526315,3.51,a-ovpe-i1,2023-24,Collegiate Charter School of Lowell (District)-Collegiate Charter School of Lowell,35030205,          96,          80,  83.3
+3.8989473684210525,3.9,a-ovpe-i1,2023-24,Community Charter School of Cambridge (District)-Community Charter School of Cambridge,04360305,          27,          25,  92.6
+4.181052631578948,4.18,a-ovpe-i1,2023-24,Concord-Carlisle-Concord Carlisle High,06400505,         275,         273,  99.3
+3.5199999999999996,3.52,a-ovpe-i1,2023-24,Danvers-Danvers High,00710505,         219,         183,  83.6
+3.4357894736842103,3.44,a-ovpe-i1,2023-24,Dartmouth-Dartmouth High,00720505,         223,         182,  81.6
+3.6042105263157893,3.6,a-ovpe-i1,2023-24,Dedham-Dedham High,00730505,         181,         155,  85.6
+2.353684210526316,2.35,a-ovpe-i1,2023-24,Dennis-Yarmouth-Dennis-Yarmouth Regional High,06450505,         177,          99,  55.9
+3.545263157894737,3.55,a-ovpe-i1,2023-24,Dighton-Rehoboth-Dighton-Rehoboth Regional High School,06500505,         139,         117,  84.2
+3.9157894736842107,3.92,a-ovpe-i1,2023-24,Douglas-Douglas High School,00770505,          71,          66,  93.0
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Dover-Sherborn-Dover-Sherborn Regional High,06550505,         140,         140, 100.0
+2.816842105263158,2.82,a-ovpe-i1,2023-24,Dracut-Dracut Senior High,00790505,         163,         109,  66.9
+3.094736842105263,3.09,a-ovpe-i1,2023-24,Dudley-Charlton Reg-Shepherd Hill Regional High,06580505,         268,         197,  73.5
+4.189473684210526,4.19,a-ovpe-i1,2023-24,Duxbury-Duxbury High,00820505,         183,         182,  99.5
+3.995789473684211,4.0,a-ovpe-i1,2023-24,East Bridgewater-East Bridgewater JR./SR. High School,00830505,         138,         131,  94.9
+3.9115789473684215,3.91,a-ovpe-i1,2023-24,East Longmeadow-East Longmeadow High,00870505,         184,         171,  92.9
+3.68,3.68,a-ovpe-i1,2023-24,Easthampton-Easthampton High,00860505,         103,          90,  87.4
+4.113684210526316,4.11,a-ovpe-i1,2023-24,Easton-Oliver Ames High,00880505,         260,         254,  97.7
+2.0842105263157893,2.08,a-ovpe-i1,2023-24,Edward M. Kennedy Academy for Health Careers: A Horace Mann Charter Public School (District)-Edward M. Kennedy Academy for Health Careers: A Horace Mann Charter Public School,04520505,          99,          49,  49.5
+3.8694736842105266,3.87,a-ovpe-i1,2023-24,Essex North Shore Agricultural and Technical School District-Essex North Shore Agricultural and Technical School,08170505,         471,         433,  91.9
+NA,NA,a-ovpe-i1,2023-24,Everett-Devens School,00930030,           2,"",""
+2.294736842105263,2.29,a-ovpe-i1,2023-24,Everett-Everett High,00930505,         609,         332,  54.5
+4.016842105263158,4.02,a-ovpe-i1,2023-24,Excel Academy Charter (District)-Excel Academy Charter School,04100205,         173,         165,  95.4
+3.2842105263157895,3.28,a-ovpe-i1,2023-24,Fairhaven-Fairhaven High,00940505,         141,         110,  78.0
+1.7852631578947369,1.79,a-ovpe-i1,2023-24,Fall River-B M C Durfee High,00950505,         637,         270,  42.4
+1.2042105263157896,1.2,a-ovpe-i1,2023-24,Fall River-Resiliency Preparatory Academy,00950525,          28,           8,  28.6
+3.608421052631579,3.61,a-ovpe-i1,2023-24,Fall River-Stone PK-12 School,00950340,           7,           6,  85.7
+3.4105263157894736,3.41,a-ovpe-i1,2023-24,Falmouth-Falmouth High,00960505,         195,         158,  81.0
+2.7115789473684213,2.71,a-ovpe-i1,2023-24,Fitchburg-Fitchburg High,00970505,         337,         217,  64.4
+2.1052631578947367,2.11,a-ovpe-i1,2023-24,Fitchburg-Goodrich Academy,00970510,          30,          15,  50.0
+3.6252631578947367,3.63,a-ovpe-i1,2023-24,Four Rivers Charter Public (District)-Four Rivers Charter Public School,04130505,          36,          31,  86.1
+3.4610526315789474,3.46,a-ovpe-i1,2023-24,Foxborough Regional Charter (District)-Foxborough Regional Charter School,04460550,          90,          74,  82.2
+3.6378947368421053,3.64,a-ovpe-i1,2023-24,Foxborough-Foxborough High,00990505,         176,         152,  86.4
+2.088421052631579,2.09,a-ovpe-i1,2023-24,Framingham-Framingham High School,01000515,         790,         392,  49.6
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Francis W. Parker Charter Essential (District)-Francis W. Parker Charter Essential School,04780505,          68,          68, 100.0
+4.105263157894737,4.11,a-ovpe-i1,2023-24,Franklin County Regional Vocational Technical-Franklin County Technical,08180605,         157,         153,  97.5
+4.096842105263158,4.1,a-ovpe-i1,2023-24,Franklin-Franklin High,01010505,         367,         357,  97.3
+3.768421052631579,3.77,a-ovpe-i1,2023-24,Freetown-Lakeville-Apponequet Regional High,06650505,         153,         137,  89.5
+3.6757894736842105,3.68,a-ovpe-i1,2023-24,Frontier-Frontier Regional,06700505,          71,          62,  87.3
+0.8421052631578947,1,a-ovpe-i1,2023-24,Gardner-Gardner Academy for Learning and Technology,01030515,          10,           2,  20.0
+2.846315789473684,2.85,a-ovpe-i1,2023-24,Gardner-Gardner High,01030505,         176,         119,  67.6
+3.642105263157895,3.64,a-ovpe-i1,2023-24,Gateway-Gateway Regional High,06720505,          52,          45,  86.5
+3.705263157894737,3.71,a-ovpe-i1,2023-24,Georgetown-Georgetown High School,01050505,          75,          66,  88.0
+2.543157894736842,2.54,a-ovpe-i1,2023-24,Gill-Montague-Turners Fall High,06740505,          48,          29,  60.4
+3.254736842105263,3.25,a-ovpe-i1,2023-24,Global Learning Charter Public (District)-Global Learning Charter Public School,04960305,          44,          34,  77.3
+2.8,2.8,a-ovpe-i1,2023-24,Gloucester-Gloucester High,01070505,         230,         153,  66.5
+3.789473684210526,3.79,a-ovpe-i1,2023-24,Grafton-Grafton High School,01100505,         261,         235,  90.0
+4.109473684210526,4.11,a-ovpe-i1,2023-24,Granby-Granby Jr Sr High School,01110505,          41,          40,  97.6
+1.8105263157894738,1.81,a-ovpe-i1,2023-24,Greater Commonwealth Virtual District-Greater Commonwealth Virtual School,39010900,         179,          77,  43.0
+3.83578947368421,3.84,a-ovpe-i1,2023-24,Greater Fall River Regional Vocational Technical-Diman Regional Vocational Technical High,08210605,         381,         347,  91.1
+3.6884210526315786,3.69,a-ovpe-i1,2023-24,Greater Lawrence Regional Vocational Technical-Gr Lawrence Regional Vocational Technical,08230605,         484,         424,  87.6
+4.029473684210527,4.03,a-ovpe-i1,2023-24,Greater Lowell Regional Vocational Technical-Gr Lowell Regional Vocational Technical,08280605,         580,         555,  95.7
+3.903157894736842,3.9,a-ovpe-i1,2023-24,Greater New Bedford Regional Vocational Technical-Gr New Bedford Vocational Technical,08250605,         572,         530,  92.7
+2.64,2.64,a-ovpe-i1,2023-24,Greenfield-Greenfield High,01140505,          83,          52,  62.7
+3.9789473684210526,3.98,a-ovpe-i1,2023-24,Groton-Dunstable-Groton Dunstable Regional,06730505,         182,         172,  94.5
+3.7263157894736842,3.73,a-ovpe-i1,2023-24,Hadley-Hopkins Academy,01170505,          26,          23,  88.5
+4.172631578947368,4.17,a-ovpe-i1,2023-24,Hamilton-Wenham-Hamilton-Wenham Regional High,06750505,         117,         116,  99.1
+3.583157894736842,3.58,a-ovpe-i1,2023-24,Hampden Charter School of Science East (District)-Hampden Charter School of Science East,04990305,          74,          63,  85.1
+3.309473684210526,3.31,a-ovpe-i1,2023-24,Hampden Charter School of Science West (District)-Hampden Charter School of Science West,35160305,          56,          44,  78.6
+3.734736842105263,3.73,a-ovpe-i1,2023-24,Hampden-Wilbraham-Minnechaug Regional High,06800505,         239,         212,  88.7
+4.054736842105263,4.05,a-ovpe-i1,2023-24,Hampshire-Hampshire Regional High,06830505,         107,         103,  96.3
+4.138947368421053,4.14,a-ovpe-i1,2023-24,Hanover-Hanover High,01220505,         176,         173,  98.3
+4.046315789473684,4.05,a-ovpe-i1,2023-24,Harvard-The Bromfield High School,01250505,          76,          73,  96.1
+3.9621052631578944,3.96,a-ovpe-i1,2023-24,Hatfield-Smith Academy,01270505,          17,          16,  94.1
+NA,NA,a-ovpe-i1,2023-24,Haverhill-Bartlett School and Assessment Center,01280073,           3,"",""
+1.8694736842105262,1.87,a-ovpe-i1,2023-24,Haverhill-Gateway Academy,01280515,          18,           8,  44.4
+1.1494736842105264,1.15,a-ovpe-i1,2023-24,Haverhill-Greenleaf Academy,01280033,          11,           3,  27.3
+2.5726315789473686,2.57,a-ovpe-i1,2023-24,Haverhill-Haverhill High,01280505,         555,         339,  61.1
+4.147368421052631,4.15,a-ovpe-i1,2023-24,Hingham-Hingham High,01310505,         264,         260,  98.5
+3.1157894736842104,3.12,a-ovpe-i1,2023-24,Holbrook-Holbrook Middle High School,01330505,          73,          54,  74.0
+4.1010526315789475,4.1,a-ovpe-i1,2023-24,Holliston-Holliston High,01360505,         195,         190,  97.4
+2.568421052631579,2.57,a-ovpe-i1,2023-24,Holyoke-Holyoke High,01370505,         362,         221,  61.0
+2.985263157894737,2.99,a-ovpe-i1,2023-24,Hoosac Valley Regional-Hoosac Valley High School,06030505,          55,          39,  70.9
+4.058947368421053,4.06,a-ovpe-i1,2023-24,Hopedale-Hopedale Jr Sr High,01380505,          83,          80,  96.4
+4.130526315789473,4.13,a-ovpe-i1,2023-24,Hopkinton-Hopkinton High,01390505,         310,         304,  98.1
+3.6042105263157893,3.6,a-ovpe-i1,2023-24,Hudson-Hudson High,01410505,         132,         113,  85.6
+4.130526315789473,4.13,a-ovpe-i1,2023-24,Hull-Hull High,01420505,          53,          52,  98.1
+3.1452631578947368,3.15,a-ovpe-i1,2023-24,Innovation Academy Charter (District)-Innovation Academy Charter School,04350305,          99,          74,  74.7
+4.016842105263158,4.02,a-ovpe-i1,2023-24,Ipswich-Ipswich High,01440505,         109,         104,  95.4
+4.012631578947368,4.01,a-ovpe-i1,2023-24,KIPP Academy Lynn Charter (District)-KIPP Academy Lynn Charter School,04290010,         127,         121,  95.3
+3.9747368421052633,3.97,a-ovpe-i1,2023-24,King Philip-King Philip Regional High,06900505,         269,         254,  94.4
+NA,NA,a-ovpe-i1,2023-24,Lawrence-High School Learning Center,01490536,           2,"",""
+2.3789473684210525,2.38,a-ovpe-i1,2023-24,Lawrence-Lawrence High School,01490515,         910,         514,  56.5
+NA,NA,a-ovpe-i1,2023-24,Lawrence-RISE Academy,01490615,           4,"",""
+0.4968421052631579,1,a-ovpe-i1,2023-24,Lawrence-School for Exceptional Studies,01490537,          17,           2,  11.8
+3.7431578947368425,3.74,a-ovpe-i1,2023-24,Lee-Lee Middle/High School,01500505,          54,          48,  88.9
+2.9936842105263155,2.99,a-ovpe-i1,2023-24,Leicester-Leicester High,01510505,          90,          64,  71.1
+4.0884210526315785,4.09,a-ovpe-i1,2023-24,Lenox-Lenox Memorial High,01520505,          68,          66,  97.1
+3.2336842105263157,3.23,a-ovpe-i1,2023-24,Leominster-Center For Technical Education Innovation,01530605,         302,         232,  76.8
+2.9473684210526314,2.95,a-ovpe-i1,2023-24,Leominster-Leominster Center for Excellence,01530515,          10,           7,  70.0
+3.317894736842105,3.32,a-ovpe-i1,2023-24,Leominster-Leominster High School,01530505,         170,         134,  78.8
+4.168421052631579,4.17,a-ovpe-i1,2023-24,Lexington-Lexington High,01550505,         608,         602,  99.0
+4.008421052631579,4.01,a-ovpe-i1,2023-24,Libertas Academy Charter School (District)-Libertas Academy Charter School,35140305,          83,          79,  95.2
+3.991578947368421,3.99,a-ovpe-i1,2023-24,Lincoln-Sudbury-Lincoln-Sudbury Regional High,06950505,         346,         328,  94.8
+3.9157894736842107,3.92,a-ovpe-i1,2023-24,Littleton-Littleton High School,01580505,         114,         106,  93.0
+4.063157894736842,4.06,a-ovpe-i1,2023-24,Longmeadow-Longmeadow High,01590505,         230,         222,  96.5
+0.3663157894736842,1,a-ovpe-i1,2023-24,Lowell Middlesex Academy Charter (District)-Lowell Middlesex Academy Charter School,04580505,          23,           2,   8.7
+NA,NA,a-ovpe-i1,2023-24,Lowell-Dr. Janice Adie Day School,01600605,           2,"",""
+1.4021052631578945,1.4,a-ovpe-i1,2023-24,Lowell-Leblanc Therapeutic Day School,01600320,           6,           2,  33.3
+1.8610526315789475,1.86,a-ovpe-i1,2023-24,Lowell-Lowell High,01600505,"       1,030",         455,  44.2
+NA,NA,a-ovpe-i1,2023-24,Lowell-The Career Academy,01600515,          19,           0,    .0
+3.1873684210526316,3.19,a-ovpe-i1,2023-24,Ludlow-Ludlow Senior High,01610505,         185,         140,  75.7
+3.7978947368421054,3.8,a-ovpe-i1,2023-24,Lunenburg-Lunenburg High,01620505,         123,         111,  90.2
+2.833684210526316,2.83,a-ovpe-i1,2023-24,Lynn-Classical High,01630505,         554,         373,  67.3
+0.9347368421052631,1,a-ovpe-i1,2023-24,Lynn-Fecteau-Leary Junior/Senior High School,01630525,           9,           2,  22.2
+3.014736842105263,3.01,a-ovpe-i1,2023-24,Lynn-Fredrick Douglass Collegiate Academy,01630575,          67,          48,  71.6
+2.463157894736842,2.46,a-ovpe-i1,2023-24,Lynn-Lynn English High,01630510,         523,         306,  58.5
+3.490526315789474,3.49,a-ovpe-i1,2023-24,Lynn-Lynn Vocational Technical Institute,01630605,         298,         247,  82.9
+4.067368421052631,4.07,a-ovpe-i1,2023-24,Lynnfield-Lynnfield High,01640505,         147,         142,  96.6
+2.488421052631579,2.49,a-ovpe-i1,2023-24,Malden-Malden High,01650505,         530,         313,  59.1
+4.172631578947368,4.17,a-ovpe-i1,2023-24,Manchester Essex Regional-Manchester Essex Regional High School,06980510,         106,         105,  99.1
+3.9663157894736845,3.97,a-ovpe-i1,2023-24,Mansfield-Mansfield High,01670505,         243,         229,  94.2
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Map Academy Charter School (District)-Map Academy Charter School,35170505,          53,          53, 100.0
+4.037894736842105,4.04,a-ovpe-i1,2023-24,Marblehead-Marblehead High,01680505,         219,         210,  95.9
+2.7747368421052636,2.77,a-ovpe-i1,2023-24,Marlborough-Marlborough High,01700505,         252,         166,  65.9
+4.07578947368421,4.08,a-ovpe-i1,2023-24,Marshfield-Marshfield High,01710505,         281,         272,  96.8
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Martha's Vineyard Charter Public School (District)-Martha's Vineyard Charter Public School,04660550,           8,           8, 100.0
+3.5242105263157897,3.52,a-ovpe-i1,2023-24,Martha's Vineyard-Martha's Vineyard Regional High,07000505,         203,         170,  83.7
+4.092631578947368,4.09,a-ovpe-i1,2023-24,Masconomet-Masconomet Regional High School,07050505,         249,         242,  97.2
+3.785263157894737,3.79,a-ovpe-i1,2023-24,Mashpee-Mashpee Middle-High School,01720505,         109,          98,  89.9
+3.2336842105263157,3.23,a-ovpe-i1,2023-24,Match Charter Public School (District)-Match Charter Public School,04690505,          99,          76,  76.8
+4.08,4.08,a-ovpe-i1,2023-24,Maynard-Maynard High,01740505,          64,          62,  96.9
+4.130526315789473,4.13,a-ovpe-i1,2023-24,Medfield-Medfield Senior High,01750505,         160,         157,  98.1
+3.414736842105263,3.41,a-ovpe-i1,2023-24,Medford-Medford High,01760505,         317,         257,  81.1
+3.983157894736842,3.98,a-ovpe-i1,2023-24,Medway-Medway High,01770505,         148,         140,  94.6
+4.092631578947368,4.09,a-ovpe-i1,2023-24,Melrose-Melrose High,01780505,         247,         240,  97.2
+3.9705263157894737,3.97,a-ovpe-i1,2023-24,Mendon-Upton-Nipmuc Regional High,07100510,         123,         116,  94.3
+3.1705263157894734,3.17,a-ovpe-i1,2023-24,Methuen-Methuen High,01810505,         430,         324,  75.3
+2.985263157894737,2.99,a-ovpe-i1,2023-24,Middleborough-Middleborough High,01820505,         220,         156,  70.9
+3.002105263157895,3.0,a-ovpe-i1,2023-24,Milford-Milford High,01850505,         366,         261,  71.3
+3.7936842105263158,3.79,a-ovpe-i1,2023-24,Millbury-Millbury Junior/Senior High,01860505,         142,         128,  90.1
+4.105263157894737,4.11,a-ovpe-i1,2023-24,Millis-Millis High School,01870505,          80,          78,  97.5
+4.109473684210526,4.11,a-ovpe-i1,2023-24,Milton-Milton High,01890505,         296,         289,  97.6
+3.642105263157895,3.64,a-ovpe-i1,2023-24,Minuteman Regional Vocational Technical-Minuteman Regional High,08300605,         170,         147,  86.5
+3.183157894736842,3.18,a-ovpe-i1,2023-24,Mohawk Trail-Mohawk Trail Regional School,07170505,          41,          31,  75.6
+3.334736842105263,3.33,a-ovpe-i1,2023-24,Monomoy Regional School District-Monomoy Regional High School,07120515,         144,         114,  79.2
+3.5073684210526315,3.51,a-ovpe-i1,2023-24,Monson-Monson High School,01910505,          48,          40,  83.3
+4.046315789473684,4.05,a-ovpe-i1,2023-24,Montachusett Regional Vocational Technical-Montachusett Regional Vocational Technical,08320605,         363,         349,  96.1
+3.545263157894737,3.55,a-ovpe-i1,2023-24,Mount Greylock-Mt Greylock Regional High,07150505,          95,          80,  84.2
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Mystic Valley Regional Charter (District)-Mystic Valley Regional Charter School,04700105,          89,          89, 100.0
+3.258947368421053,3.26,a-ovpe-i1,2023-24,Nantucket-Nantucket High,01970505,         164,         127,  77.4
+3.482105263157895,3.48,a-ovpe-i1,2023-24,Narragansett-Narragansett Regional High,07200505,         104,          86,  82.7
+3.7726315789473683,3.77,a-ovpe-i1,2023-24,Nashoba Valley Regional Vocational Technical-Nashoba Valley Technical High School,08520605,         211,         189,  89.6
+4.008421052631579,4.01,a-ovpe-i1,2023-24,Nashoba-Nashoba Regional,07250505,         207,         197,  95.2
+3.9705263157894737,3.97,a-ovpe-i1,2023-24,Natick-Natick High,01980505,         438,         413,  94.3
+3.6336842105263156,3.63,a-ovpe-i1,2023-24,Nauset-Nauset Regional High,06600505,         175,         151,  86.3
+4.130526315789473,4.13,a-ovpe-i1,2023-24,Needham-Needham High,01990505,         375,         368,  98.1
+2.185263157894737,2.19,a-ovpe-i1,2023-24,Neighborhood House Charter (District)-Neighborhood House Charter School,04440205,         108,          56,  51.9
+2.1389473684210527,2.14,a-ovpe-i1,2023-24,New Bedford-New Bedford High,02010505,         800,         406,  50.8
+1.1494736842105264,1.15,a-ovpe-i1,2023-24,New Bedford-Trinity Day Academy,02010510,          11,           3,  27.3
+2.1894736842105265,2.19,a-ovpe-i1,2023-24,New Bedford-Whaling City Junior/Senior High School,02010515,          25,          13,  52.0
+3.785263157894737,3.79,a-ovpe-i1,2023-24,New Heights Charter School of Brockton (District)-New Heights Charter School of Brockton,35130305,          99,          89,  89.9
+3.9073684210526314,3.91,a-ovpe-i1,2023-24,Newburyport-Newburyport High,02040505,         180,         167,  92.8
+4.063157894736842,4.06,a-ovpe-i1,2023-24,Newton-Newton North High,02070505,         537,         518,  96.5
+4.096842105263158,4.1,a-ovpe-i1,2023-24,Newton-Newton South High,02070510,         511,         497,  97.3
+3.903157894736842,3.9,a-ovpe-i1,2023-24,Norfolk County Agricultural-Norfolk County Agricultural,09150705,         151,         140,  92.7
+2.0294736842105263,2.03,a-ovpe-i1,2023-24,North Adams-Drury High,02090505,          83,          40,  48.2
+3.76421052631579,3.76,a-ovpe-i1,2023-24,North Andover-North Andover High,02110505,         358,         320,  89.4
+3.8989473684210525,3.9,a-ovpe-i1,2023-24,North Attleborough-North Attleboro High,02120505,         229,         212,  92.6
+1.9831578947368422,1.98,a-ovpe-i1,2023-24,North Brookfield-North Brookfield High,02150505,          17,           8,  47.1
+3.945263157894737,3.95,a-ovpe-i1,2023-24,North Middlesex-North Middlesex Regional,07350505,         175,         164,  93.7
+4.126315789473685,4.13,a-ovpe-i1,2023-24,North Reading-North Reading High,02170505,         150,         147,  98.0
+4.176842105263158,4.18,a-ovpe-i1,2023-24,Northampton-Northampton High,02100505,         243,         241,  99.2
+4.012631578947368,4.01,a-ovpe-i1,2023-24,Northampton-Smith Vocational Agricultural-Smith Vocational and Agricultural High,04060705,         150,         143,  95.3
+4.151578947368421,4.15,a-ovpe-i1,2023-24,Northboro-Southboro-Algonquin Regional High,07300505,         296,         292,  98.6
+3.3684210526315788,3.37,a-ovpe-i1,2023-24,Northbridge-Northbridge High,02140505,         125,         100,  80.0
+3.8400000000000003,3.84,a-ovpe-i1,2023-24,Northeast Metropolitan Regional Vocational Technical-Northeast Metro Regional Vocational,08530605,         365,         333,  91.2
+3.7178947368421054,3.72,a-ovpe-i1,2023-24,Northern Berkshire Regional Vocational Technical-Charles McCann Vocational Technical,08510605,         128,         113,  88.3
+3.6336842105263156,3.63,a-ovpe-i1,2023-24,Norton-Norton High,02180505,         168,         145,  86.3
+4.185263157894737,4.19,a-ovpe-i1,2023-24,Norwell-Norwell High,02190505,         154,         153,  99.4
+3.3936842105263154,3.39,a-ovpe-i1,2023-24,Norwood-Norwood High,02200505,         247,         199,  80.6
+4.181052631578948,4.18,a-ovpe-i1,2023-24,Old Colony Regional Vocational Technical-Old Colony Regional Vocational Technical,08550605,         141,         140,  99.3
+3.9157894736842107,3.92,a-ovpe-i1,2023-24,Old Rochester-Old Rochester Regional High,07400505,         158,         147,  93.0
+2.623157894736842,2.62,a-ovpe-i1,2023-24,Oxford-Oxford High,02260505,         106,          66,  62.3
+2.9810526315789474,2.98,a-ovpe-i1,2023-24,Palmer-Palmer High,02270505,          48,          34,  70.8
+3.6294736842105264,3.63,a-ovpe-i1,2023-24,Pathfinder Regional Vocational Technical-Pathfinder Vocational Technical,08600605,         167,         144,  86.2
+1.9663157894736842,1.97,a-ovpe-i1,2023-24,Peabody-Peabody Personalized Remote Education Program (Peabody P.R.E.P.),02290705,          15,           7,  46.7
+2.581052631578947,2.58,a-ovpe-i1,2023-24,Peabody-Peabody Veterans Memorial High,02290510,         362,         222,  61.3
+4.071578947368421,4.07,a-ovpe-i1,2023-24,Pembroke-Pembroke High School,02310505,         181,         175,  96.7
+4.008421052631579,4.01,a-ovpe-i1,2023-24,Pentucket-Pentucket Regional Sr High,07450505,         146,         139,  95.2
+NA,NA,a-ovpe-i1,2023-24,"Phoenix Academy Charter Public High School, Chelsea (District)-Phoenix Academy Charter Public High School, Chelsea",04930505,           2,"",""
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,"Phoenix Academy Public Charter High School, Lawrence (District)-Phoenix Academy Public Charter High School, Lawrence",35180505,          10,          10, 100.0
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,"Phoenix Academy Public Charter High School, Springfield (District)-Phoenix Academy Public Charter High School, Springfield",35080505,          27,          27, 100.0
+3.8694736842105266,3.87,a-ovpe-i1,2023-24,Pioneer Charter School of Science (District)-Pioneer Charter School of Science,04940205,          62,          57,  91.9
+3.5915789473684208,3.59,a-ovpe-i1,2023-24,Pioneer Charter School of Science II (District)-Pioneer Charter School of Science II,35060505,          68,          58,  85.3
+4.00421052631579,4.0,a-ovpe-i1,2023-24,Pioneer Valley Chinese Immersion Charter (District)-Pioneer Valley Chinese Immersion Charter School,04970205,          41,          39,  95.1
+3.5663157894736845,3.57,a-ovpe-i1,2023-24,Pioneer Valley Performing Arts Charter Public (District)-Pioneer Valley Performing Arts Charter Public School,04790505,          72,          61,  84.7
+4.2105263157894735,4.21,a-ovpe-i1,2023-24,Pioneer Valley-Pioneer Valley Regional,07500505,          30,          30, 100.0
+0.9347368421052631,1,a-ovpe-i1,2023-24,Pittsfield-Eagle Education Academy,02360525,           9,           2,  22.2
+2.8126315789473684,2.81,a-ovpe-i1,2023-24,Pittsfield-Pittsfield High,02360505,         202,         135,  66.8
+2.3410526315789473,2.34,a-ovpe-i1,2023-24,Pittsfield-Taconic High,02360510,         234,         130,  55.6
+3.1452631578947368,3.15,a-ovpe-i1,2023-24,Plymouth-Plymouth North High,02390505,         304,         227,  74.7
+3.642105263157895,3.64,a-ovpe-i1,2023-24,Plymouth-Plymouth South High,02390515,         251,         217,  86.5
+3.090526315789474,3.09,a-ovpe-i1,2023-24,Prospect Hill Academy Charter (District)-Prospect Hill Academy Charter School,04870550,          64,          47,  73.4
+2.905263157894737,2.91,a-ovpe-i1,2023-24,Quabbin-Quabbin Regional High School,07530505,         184,         127,  69.0
+3.482105263157895,3.48,a-ovpe-i1,2023-24,Quaboag Regional-Quaboag Regional High,07780505,          98,          81,  82.7
+3.7978947368421054,3.8,a-ovpe-i1,2023-24,Quincy-North Quincy High,02430510,         386,         348,  90.2
+3.149473684210526,3.15,a-ovpe-i1,2023-24,Quincy-Quincy High,02430505,         365,         273,  74.8
+2.543157894736842,2.54,a-ovpe-i1,2023-24,Ralph C Mahar-Ralph C Mahar Regional,07550505,          96,          58,  60.4
+2.7326315789473687,2.73,a-ovpe-i1,2023-24,Randolph-Randolph High,02440505,         188,         122,  64.9
+4.109473684210526,4.11,a-ovpe-i1,2023-24,Reading-Reading Memorial High,02460505,         292,         285,  97.6
+0.41263157894736846,1,a-ovpe-i1,2023-24,Revere-CityLab Innovation High School,02480520,          41,           4,   9.8
+1.8442105263157893,1.84,a-ovpe-i1,2023-24,Revere-Revere High,02480505,         612,         268,  43.8
+3.646315789473684,3.65,a-ovpe-i1,2023-24,Rising Tide Charter Public (District)-Rising Tide Charter Public School,04830305,          67,          58,  86.6
+3.195789473684211,3.2,a-ovpe-i1,2023-24,Rockland-Rockland Senior High,02510505,         174,         132,  75.9
+4.025263157894736,4.03,a-ovpe-i1,2023-24,Rockport-Rockport High,02520510,          68,          65,  95.6
+3.991578947368421,3.99,a-ovpe-i1,2023-24,Roxbury Preparatory Charter (District)-Roxbury Preparatory Charter School,04840505,         173,         164,  94.8
+4.096842105263158,4.1,a-ovpe-i1,2023-24,Salem Academy Charter (District)-Salem Academy Charter School,04850485,          75,          73,  97.3
+NA,NA,a-ovpe-i1,2023-24,Salem-New Liberty Innovation School,02580510,           7,           0,    .0
+1.8610526315789475,1.86,a-ovpe-i1,2023-24,Salem-Salem High,02580505,         265,         117,  44.2
+NA,NA,a-ovpe-i1,2023-24,Salem-Salem Prep High School,02580515,           2,"",""
+3.957894736842105,3.96,a-ovpe-i1,2023-24,Sandwich-Sandwich Middle High School,02610505,         116,         109,  94.0
+3.1073684210526316,3.11,a-ovpe-i1,2023-24,Saugus-Saugus High,02620505,         183,         135,  73.8
+3.953684210526316,3.95,a-ovpe-i1,2023-24,Scituate-Scituate High School,02640505,         181,         170,  93.9
+3.7431578947368425,3.74,a-ovpe-i1,2023-24,Seekonk-Seekonk High,02650505,         126,         112,  88.9
+4.067368421052631,4.07,a-ovpe-i1,2023-24,Sharon-Sharon High,02660505,         297,         287,  96.6
+3.928421052631579,3.93,a-ovpe-i1,2023-24,Shawsheen Valley Regional Vocational Technical-Shawsheen Valley Vocational Technical High School,08710605,         315,         294,  93.3
+3.928421052631579,3.93,a-ovpe-i1,2023-24,Shrewsbury-Shrewsbury High School,02710505,         490,         457,  93.3
+3.722105263157895,3.72,a-ovpe-i1,2023-24,Silver Lake-Silver Lake Regional High,07600505,         250,         221,  88.4
+3.8610526315789473,3.86,a-ovpe-i1,2023-24,Sizer School: A North Central Charter Essential (District)-Sizer School: A North Central Charter Essential School,04740505,          48,          44,  91.7
+3.258947368421053,3.26,a-ovpe-i1,2023-24,Somerset Berkley Regional School District-Somerset Berkley Regional High School,07630505,         226,         175,  77.4
+0.42105263157894735,1,a-ovpe-i1,2023-24,Somerville-Full Circle High School,02740510,          20,           2,  10.0
+3.305263157894737,3.31,a-ovpe-i1,2023-24,Somerville-Somerville High,02740505,         372,         292,  78.5
+3.5073684210526315,3.51,a-ovpe-i1,2023-24,South Hadley-South Hadley High,02780505,         132,         110,  83.3
+3.776842105263158,3.78,a-ovpe-i1,2023-24,South Middlesex Regional Vocational Technical-Joseph P Keefe Technical High School,08290605,         234,         210,  89.7
+3.776842105263158,3.78,a-ovpe-i1,2023-24,South Shore Charter Public (District)-South Shore Charter Public School,04880550,          87,          78,  89.7
+3.9115789473684215,3.91,a-ovpe-i1,2023-24,South Shore Regional Vocational Technical-South Shore Vocational Technical High,08730605,         170,         158,  92.9
+2.6315789473684212,2.63,a-ovpe-i1,2023-24,Southbridge-Southbridge Academy,02770525,           8,           5,  62.5
+3.002105263157895,3.0,a-ovpe-i1,2023-24,Southbridge-Southbridge High School,02770515,         122,          87,  71.3
+3.9242105263157896,3.92,a-ovpe-i1,2023-24,Southeastern Regional Vocational Technical-Southeastern Regional Vocational Technical,08720605,         413,         385,  93.2
+3.1073684210526316,3.11,a-ovpe-i1,2023-24,Southern Berkshire-Mt Everett Regional,07650505,          42,          31,  73.8
+3.4021052631578947,3.4,a-ovpe-i1,2023-24,Southern Worcester County Regional Vocational School District-Bay Path Regional Vocational Technical High School,08760605,         312,         252,  80.8
+3.785263157894737,3.79,a-ovpe-i1,2023-24,Southwick-Tolland-Granville Regional School District-Southwick Regional School,07660505,          99,          89,  89.9
+1.9831578947368422,1.98,a-ovpe-i1,2023-24,Spencer-E Brookfield-David Prouty High,07670505,          87,          41,  47.1
+2.7284210526315786,2.73,a-ovpe-i1,2023-24,Springfield International Charter (District)-Springfield International Charter School,04410505,         145,          94,  64.8
+3.027368421052632,3.03,a-ovpe-i1,2023-24,Springfield-Conservatory of the Arts,02810475,          32,          23,  71.9
+2.2442105263157894,2.24,a-ovpe-i1,2023-24,Springfield-Emergence Academy,02810318,          75,          40,  53.3
+2.1221052631578945,2.12,a-ovpe-i1,2023-24,Springfield-High School Of Commerce,02810510,         256,         129,  50.4
+3.1157894736842104,3.12,a-ovpe-i1,2023-24,Springfield-John J Duggan Academy,02810320,          73,          54,  74.0
+NA,NA,a-ovpe-i1,2023-24,Springfield-Liberty Preparatory Academy,02810560,           5,"",""
+2.968421052631579,2.97,a-ovpe-i1,2023-24,Springfield-Roger L. Putnam Vocational Technical Academy,02810620,         369,         260,  70.5
+1.713684210526316,1.71,a-ovpe-i1,2023-24,Springfield-Springfield Central High,02810500,         590,         240,  40.7
+0.9810526315789474,1,a-ovpe-i1,2023-24,Springfield-Springfield High School,02810570,          43,          10,  23.3
+1.7389473684210526,1.74,a-ovpe-i1,2023-24,Springfield-Springfield High School of Science and Technology,02810530,         305,         126,  41.3
+3.2757894736842106,3.28,a-ovpe-i1,2023-24,Springfield-Springfield International Academy at Sci-Tech,02810700,          27,          21,  77.8
+1.0905263157894736,1.09,a-ovpe-i1,2023-24,Springfield-Springfield Public Day High School,02810550,          27,           7,  25.9
+3.246315789473684,3.25,a-ovpe-i1,2023-24,Springfield-The Springfield Renaissance School an Expeditionary Learning School,02810205,          83,          64,  77.1
+1.3221052631578947,1.32,a-ovpe-i1,2023-24,Springfield-The Springfield Virtual School,02810705,          51,          16,  31.4
+4.016842105263158,4.02,a-ovpe-i1,2023-24,Stoneham-Stoneham High,02840505,         131,         125,  95.4
+2.778947368421053,2.78,a-ovpe-i1,2023-24,Stoughton-Stoughton High,02850505,         306,         202,  66.0
+4.130526315789473,4.13,a-ovpe-i1,2023-24,Sturgis Charter Public (District)-Sturgis Charter Public School,04890505,         216,         212,  98.1
+4.113684210526316,4.11,a-ovpe-i1,2023-24,Sutton-Sutton High School,02900510,          88,          86,  97.7
+3.877894736842105,3.88,a-ovpe-i1,2023-24,Swampscott-Swampscott High,02910505,         164,         151,  92.1
+3.5031578947368422,3.5,a-ovpe-i1,2023-24,Swansea-Joseph Case High,02920505,         143,         119,  83.2
+1.0610526315789472,1.06,a-ovpe-i1,2023-24,TEC Connections Academy Commonwealth Virtual School District-TEC Connections Academy Commonwealth Virtual School,39020900,         539,         136,  25.2
+3.7473684210526317,3.75,a-ovpe-i1,2023-24,Tantasqua-Tantasqua Regional Sr High,07700505,         146,         130,  89.0
+3.444210526315789,3.44,a-ovpe-i1,2023-24,Tantasqua-Tantasqua Regional Vocational,07700605,         148,         121,  81.8
+3.014736842105263,3.01,a-ovpe-i1,2023-24,Taunton-Taunton High,02930505,         549,         393,  71.6
+1.4021052631578945,1.4,a-ovpe-i1,2023-24,Taunton-Taunton Public Virtual Academy (TPVA),02930705,           9,           3,  33.3
+3.92,3.92,a-ovpe-i1,2023-24,Tewksbury-Tewksbury Memorial High,02950505,         175,         163,  93.1
+3.8147368421052628,3.81,a-ovpe-i1,2023-24,Tri-County Regional Vocational Technical-Tri-County Regional Vocational Technical,08780605,         255,         231,  90.6
+3.322105263157895,3.32,a-ovpe-i1,2023-24,Triton-Triton Regional High School,07730505,         123,          97,  78.9
+3.9494736842105262,3.95,a-ovpe-i1,2023-24,Tyngsborough-Tyngsborough High School,03010505,         113,         106,  93.8
+4.008421052631579,4.01,a-ovpe-i1,2023-24,Upper Cape Cod Regional Vocational Technical-Upper Cape Cod Vocational Technical,08790605,         228,         217,  95.2
+3.722105263157895,3.72,a-ovpe-i1,2023-24,Uxbridge-Uxbridge High,03040505,         129,         114,  88.4
+2.1473684210526316,2.15,a-ovpe-i1,2023-24,Veritas Preparatory Charter School (District)-Veritas Preparatory Charter School,04980405,         102,          52,  51.0
+3.9663157894736845,3.97,a-ovpe-i1,2023-24,Wachusett-Wachusett Regional High,07750505,         431,         406,  94.2
+3.76421052631579,3.76,a-ovpe-i1,2023-24,Wakefield-Wakefield Memorial High,03050505,         218,         195,  89.4
+3.7726315789473683,3.77,a-ovpe-i1,2023-24,Walpole-Walpole High,03070505,         212,         190,  89.6
+2.7621052631578946,2.76,a-ovpe-i1,2023-24,Waltham-Waltham Sr High,03080505,         479,         314,  65.6
+2.913684210526316,2.91,a-ovpe-i1,2023-24,Ware-Ware Junior/Senior High School,03090505,          78,          54,  69.2
+3.3684210526315788,3.37,a-ovpe-i1,2023-24,Wareham-Wareham Cooperative Alternative School,03100315,          10,           8,  80.0
+2.517894736842105,2.52,a-ovpe-i1,2023-24,Wareham-Wareham Senior High,03100505,         127,          76,  59.8
+3.2757894736842106,3.28,a-ovpe-i1,2023-24,Watertown-Watertown High,03140505,         185,         144,  77.8
+4.08,4.08,a-ovpe-i1,2023-24,Wayland-Wayland High School,03150505,         195,         189,  96.9
+2.349473684210526,2.35,a-ovpe-i1,2023-24,Webster-Bartlett High School,03160505,         129,          72,  55.8
+4.16,4.16,a-ovpe-i1,2023-24,Wellesley-Wellesley Sr High,03170505,         320,         316,  98.8
+3.4526315789473685,3.45,a-ovpe-i1,2023-24,West Boylston-West Boylston Junior/Senior High,03220505,          61,          50,  82.0
+3.8610526315789473,3.86,a-ovpe-i1,2023-24,West Bridgewater-West Bridgewater Junior/Senior,03230505,          96,          88,  91.7
+2.8547368421052632,2.85,a-ovpe-i1,2023-24,West Springfield-West Springfield High,03320505,         345,         234,  67.8
+4.0884210526315785,4.09,a-ovpe-i1,2023-24,Westborough-Westborough High,03210505,         279,         271,  97.1
+2.9894736842105263,2.99,a-ovpe-i1,2023-24,Westfield-Westfield High,03250505,         221,         157,  71.0
+4.122105263157895,4.12,a-ovpe-i1,2023-24,Westfield-Westfield Technical Academy,03250605,         142,         139,  97.9
+NA,NA,a-ovpe-i1,2023-24,Westfield-Westfield Virtual School,03250705,           5,"",""
+4.143157894736842,4.14,a-ovpe-i1,2023-24,Westford-Westford Academy,03260505,         369,         363,  98.4
+4.134736842105263,4.13,a-ovpe-i1,2023-24,Weston-Weston High,03300505,         166,         163,  98.2
+3.751578947368421,3.75,a-ovpe-i1,2023-24,Westport-Westport Middle-High School,03310515,         110,          98,  89.1
+4.172631578947368,4.17,a-ovpe-i1,2023-24,Westwood-Westwood High,03350505,         225,         223,  99.1
+2.997894736842105,3.0,a-ovpe-i1,2023-24,Weymouth-Weymouth High School,03360505,         468,         333,  71.2
+3.7431578947368425,3.74,a-ovpe-i1,2023-24,Whitman-Hanson-Whitman Hanson Regional,07800505,         243,         216,  88.9
+3.734736842105263,3.73,a-ovpe-i1,2023-24,Whittier Regional Vocational Technical-Whittier Regional Vocational,08850605,         336,         298,  88.7
+3.6757894736842105,3.68,a-ovpe-i1,2023-24,Wilmington-Wilmington High,03420505,         142,         124,  87.3
+2.96,2.96,a-ovpe-i1,2023-24,Winchendon-Murdock High School,03430515,          64,          45,  70.3
+4.16,4.16,a-ovpe-i1,2023-24,Winchester-Winchester High School,03440505,         337,         333,  98.8
+3.389473684210526,3.39,a-ovpe-i1,2023-24,Winthrop-Winthrop High School,03460505,         149,         120,  80.5
+3.541052631578947,3.54,a-ovpe-i1,2023-24,Woburn-Woburn High,03470505,         320,         269,  84.1
+2.6526315789473682,2.65,a-ovpe-i1,2023-24,Worcester-Burncoat Senior High,03480503,         289,         182,  63.0
+3.0652631578947367,3.07,a-ovpe-i1,2023-24,Worcester-Claremont Academy,03480350,          81,          59,  72.8
+2.985263157894737,2.99,a-ovpe-i1,2023-24,Worcester-Doherty Memorial High,03480512,         388,         275,  70.9
+2.3073684210526313,2.31,a-ovpe-i1,2023-24,Worcester-North High,03480515,         423,         232,  54.8
+3.141052631578947,3.14,a-ovpe-i1,2023-24,Worcester-South High Community,03480520,         477,         356,  74.6
+3.2126315789473683,3.21,a-ovpe-i1,2023-24,Worcester-University Pk Campus School,03480285,          38,          29,  76.3
+3.1073684210526316,3.11,a-ovpe-i1,2023-24,Worcester-Worcester Technical High,03480605,         367,         271,  73.8
 3.4063157894736844,3.41,a-ovpe-i1,2022-23,Abby Kelley Foster Charter Public (District)-Abby Kelley Foster Charter Public School,04450105,          89,          72,  80.9
 3.263157894736842,3.26,a-ovpe-i1,2022-23,Abington-Abington High,00010505,         138,         107,  77.5
 3.8821052631578947,3.88,a-ovpe-i1,2022-23,Academy Of the Pacific Rim Charter Public (District)-Academy Of the Pacific Rim Charter Public School,04120530,          64,          59,  92.2
