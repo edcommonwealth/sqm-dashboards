@@ -23,16 +23,16 @@ module Dese
     end
 
     def student_count(filepath:, dese_id:, year:)
-      @students ||= {}
-      if @students.count == 0
+      @student_count ||= {}
+      if @student_count.count == 0
         CSV.parse(File.read(filepath), headers: true).map do |row|
           academic_year = row['Academic Year']
-          school_id = row['DESE ID'].to_i
+          school_id = row['School Code'].to_i
           total = row['Total'].gsub(',', '').to_i
-          @students[[school_id, academic_year]] = total
+          @student_count[[school_id, academic_year]] = total
         end
       end
-      @students[[dese_id, year]]
+      @student_count[[dese_id, year]]
     end
   end
 end
