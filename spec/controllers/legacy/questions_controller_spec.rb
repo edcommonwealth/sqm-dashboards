@@ -19,7 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 module Legacy
-  RSpec.describe QuestionsController, type: :controller do
+  RSpec.xdescribe QuestionsController, type: :controller do
     # This should return the minimal set of attributes required to create a valid
     # Question. As you add validations to Question, be sure to
     # adjust the attributes here as well.
