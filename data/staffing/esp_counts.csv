@@ -1,12 +1,21 @@
-DESE ID,Academic Year,School Name,School Totals,
-3440045,2024-25,Ambrose,16,
-3440005,2024-25,Lincoln,11,
-3440020,2024-25,Lynch ,25,
-3440040,2024-25,Muraco,15,
-3440025,2024-25,VO,18,
-3440305,2024-25,McCall,14,
-3440505,2024-25,WHS,14,
-1850505,2024-25,Milford High School,18,
-3010020,2024-25,Tyngsborough Elementary School,29,
-3010305,2024-25,Tyngsborough Middle School,6,
-3010505,2024-25,Tyngsborough High School,2,
+DESE ID,Academic Year,School Name,School Totals
+3440045,2024-25,Ambrose,16
+3440005,2024-25,Lincoln,11
+3440020,2024-25,Lynch ,25
+3440040,2024-25,Muraco,15
+3440025,2024-25,VO,18
+3440305,2024-25,McCall,14
+3440505,2024-25,WHS,14
+1850505,2024-25,Milford High School,18
+3010020,2024-25,Tyngsborough Elementary School,29
+3010305,2024-25,Tyngsborough Middle School,6
+3010505,2024-25,Tyngsborough High School,2
+1500025,2024-25,Lee Elementary School,
+1500505,2024-25,Lee Middle/High School,
+7050405,2024-25,Masconomet Regional Middle School,23
+7050505,2024-25,Masconomet Regional High School,17
+7730020,2024-25,Newbury Elementary,38
+7730025,2024-25,Pine Grove,28
+7730015,2024-25,Salisbury Elementary,18
+7730405,2024-25,Triton Regional Middle School,11
+7730505,2024-25,Triton Regional High School,20
