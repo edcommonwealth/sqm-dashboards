@@ -2,7 +2,7 @@
   "name": "app",
   "description": "School quality framework",
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "private": "true",
   "dependencies": {
