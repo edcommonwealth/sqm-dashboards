@@ -21,6 +21,7 @@ module Dese
       browser.close
     end
 
+    # We don't need to check to see if this is a high school because the link only lists relevant schools
     def run_a_ovpe_i1(filepath:)
       run do |academic_year|
         admin_data_item_id = 'a-ovpe-i1'

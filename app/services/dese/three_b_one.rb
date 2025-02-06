@@ -10,7 +10,11 @@ module Dese
     def initialize(filepaths: [Rails.root.join("data", "admin_data", "dese", "3B_1_masscore.csv"),
                                Rails.root.join("data", "admin_data", "dese", "3B_1_advcoursecomprate.csv"),
                                Rails.root.join("data", "admin_data", "dese", "3B_1_ap.csv"),
-                               Rails.root.join("data", "admin_data", "dese", "3B_1_course_ratio.csv")])
+                               Rails.root.join("data", "admin_data", "dese", "3B_1_adv_courses.csv"),
+                               Rails.root.join("data", "admin_data", "dese", "3B_1_course_ratio.csv"),
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_enrollments_by_race.csv") ,
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_enrollments_by_grade.csv") ,
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_adv_courses_white_students.csv") ])
       @filepaths = filepaths
     end
 
@@ -37,6 +41,7 @@ module Dese
       run_a_curv_i3(filepath:)
 
       filepath = filepaths[3]
+      filepath = filepaths[4]
       headers = ["Raw likert calculation", "Likert Score", "Admin Data Item", "Academic Year", "School Name", "DESE ID",
                  "Total # of Classes", "Average Class Size", "Number of Students", "Female %", "Male %", "English Language Learner %", "Students with Disabilities %", "Low Income %"]
       write_headers(filepath:, headers:)
@@ -107,20 +112,18 @@ module Dese
                       'ctl00_ContentPlaceHolder1_ddYear' => range }
         submit_id = 'btnViewReport'
         calculation = lambda { |headers, items|
-          row = headers.keys.zip(items).to_h
-          dese_id = row['School Code'].to_i
-          is_hs = (row['School Name'] in /High School/i)
-          school = School.find_by(dese_id:)
-          is_hs = school.is_hs if school.present?
-          next 'NA' unless is_hs
+          school_id = items[headers["School Code"]].to_i
+          school_name = items[headers["School Name"]]
 
-          num_of_classes = row['Total # of Classes'].delete(',').to_f
-          num_of_students = student_count(filepath: Rails.root.join('data', 'admin_data', 'dese', 'enrollments.csv'),
-                                          dese_id:, year: academic_year.range) || 0
-          items << num_of_students
-          actual = num_of_students / num_of_classes
-          benchmark = 5
-          ((benchmark - actual) + benchmark) * 4 / benchmark if num_of_classes.present? && num_of_students.present?
+          return "NA" unless is_hs?(school_id:, school_name:)
+
+          classes_index = headers["Total # of Classes"]
+          num_classes = items[classes_index].gsub(",", "").to_f
+          students_index = headers["Number of Students"]
+          num_students = items[students_index].gsub(",", "").to_f
+          benchmark = 2.04
+
+          ((benchmark - (num_students / num_classes)) + benchmark) * 4 / benchmark
         }
         admin_data_item_id = 'a-curv-i5'
         Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)

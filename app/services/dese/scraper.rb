@@ -84,5 +84,10 @@ module Dese
         end
       end
     end
+
+    def is_hs?(school_id:, school_name:)
+      school_id = school_id.to_s
+      school_id[-3] == "5" || school_name =~ /\sHigh$|\sHigh\s/i
+    end
   end
 end
