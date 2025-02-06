@@ -39,6 +39,11 @@ module Dese
       run_a_curv_i3(filepath:)
 
       filepath = filepaths[3]
+      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
+                 '# Grade 11 and 12 Students', '# Students Completing Advanced', '% Students Completing Advanced', '% ELA', '% Math', '% Science and Technology', '% Computer and Information Science', '% History and Social Sciences', '% Arts', '% All Other Subjects', 'Ch 74 Secondary Cooperative Program']
+      write_headers(filepath:, headers:)
+      run_a_curv_i4(filepath:)
+
       filepath = filepaths[4]
       headers = ["Raw likert calculation", "Likert Score", "Admin Data Item", "Academic Year", "School Name", "DESE ID",
                  "Total # of Classes", "Average Class Size", "Number of Students", "Female %", "Male %", "English Language Learner %", "Students with Disabilities %", "Low Income %"]
@@ -48,6 +53,7 @@ module Dese
       browser.close
     end
 
+    # We don't need to check to see if this is a high school because the link only lists relevant schools
     def run_a_curv_i1(filepath:)
       run do |academic_year|
         url = "https://profiles.doe.mass.edu/statereport/masscore.aspx"
@@ -66,6 +72,7 @@ module Dese
       end
     end
 
+    # We don't need to check to see if this is a high school because the link only lists relevant schools
     def run_a_curv_i2(filepath:)
       run do |academic_year|
         url = "https://profiles.doe.mass.edu/statereport/advcoursecomprate.aspx"
@@ -84,6 +91,7 @@ module Dese
       end
     end
 
+    # We don't need to check to see if this is a high school because the link only lists relevant schools
     def run_a_curv_i3(filepath:)
       run do |academic_year|
         url = "https://profiles.doe.mass.edu/statereport/ap.aspx"
@@ -98,6 +106,137 @@ module Dese
           percent_score * 4 / benchmark if completed_index.present? && !items[completed_index] != ""
         }
         admin_data_item_id = "a-curv-i3"
+        Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
+      end
+    end
+
+    def scrape_enrollments_by_race(filepath:)
+      headers = ["Raw likert calculation", "Likert Score", "Admin Data Item", "Academic Year",  "School Name", "DESE ID",
+                 "American Indian or Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Multi-Race, Not Hispanic or Latino",
+                 "Native Hawaiian or Other Pacific Islander", "White", "Female",
+                 "Male", "Nonbinary"]
+      write_headers(filepath:, headers:)
+      run do |academic_year|
+        admin_data_item_id = ''
+        url = 'https://profiles.doe.mass.edu/statereport/enrollmentbyracegender.aspx'
+        range = "#{academic_year.range.split('-')[1].to_i + 2000}"
+        selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
+                      'ctl00_ContentPlaceHolder1_ddYear' => range }
+        submit_id = 'btnViewReport'
+        calculation = ->(_headers, _items) { 'NA' }
+        Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
+      end
+    end
+
+    def non_white_student_percentage
+      @non_white_student_percentage ||= {}
+      if @non_white_student_percentage.count == 0
+        CSV.parse(File.read(filepaths[5]), headers: true).map do |row|
+          academic_year = row['Academic Year']
+          school_id = row['DESE ID'].to_i
+          white = row['White'].gsub(',', '').to_i
+          @non_white_student_percentage[[school_id, academic_year]] = 100 - white
+        end
+      end
+      @non_white_student_percentage
+    end
+
+    def scrape_enrollments_by_grade(filepath:)
+      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
+                 'PK', 'K', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', 'SP', 'Total']
+      write_headers(filepath:, headers:)
+      run do |academic_year|
+        admin_data_item_id = ''
+        url = 'https://profiles.doe.mass.edu/statereport/enrollmentbygrade.aspx'
+        range = academic_year.range
+        selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
+                      'ctl00_ContentPlaceHolder1_ddYear' => range }
+        submit_id = 'btnViewReport'
+        calculation = ->(_headers, _items) { 'NA' }
+        Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
+      end
+    end
+
+    def eleventh_and_twelfth_grade_student_count
+      @eleventh_and_twelfth_grade_student_count ||= {}
+      if @eleventh_and_twelfth_grade_student_count.count == 0
+        CSV.parse(File.read(filepaths[6]), headers: true).map do |row|
+          academic_year = row['Academic Year']
+          school_id = row['DESE ID'].to_i
+          eleventh = row['11'].gsub(',', '').to_i
+          twelfth = row['12'].gsub(',', '').to_i
+          @eleventh_and_twelfth_grade_student_count[[school_id, academic_year]] = eleventh + twelfth
+        end
+      end
+      @eleventh_and_twelfth_grade_student_count
+    end
+
+    def scrape_advanced_courses_for_white_students(filepath:)
+      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
+                 '# Grade 11 and 12 Students', '# Students Completing Advanced', '% Students Completing Advanced', '% ELA', '% Math', '% Science and Technology', '% Computer and Information Science', '% History and Social Sciences', '% Arts', '% All Other Subjects', 'Ch 74 Secondary Cooperative Program']
+      write_headers(filepath:, headers:)
+
+      run do |academic_year|
+        url = "https://profiles.doe.mass.edu/statereport/advcoursecomprate.aspx"
+        range = "#{academic_year.range.split('-')[1].to_i + 2000}"
+        selectors = { "ctl00_ContentPlaceHolder1_ddReportType" => "School",
+                      "ctl00_ContentPlaceHolder1_ddYear" => range,
+                      "ctl00_ContentPlaceHolder1_ddSubgroup" => "White"}
+        submit_id = "btnViewReport"
+        calculation = lambda { |headers, items| 'NA' }
+        admin_data_item_id = "a-curv-i4"
+        Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
+      end
+    end
+
+    def white_students_in_advanced_courses
+      @white_students_in_advanced_courses ||= {}
+      if @white_students_in_advanced_courses  .count == 0
+        CSV.parse(File.read(filepaths[7]), headers: true).map do |row|
+          academic_year = row['Academic Year']
+          school_id = row['DESE ID'].to_i
+          total_num_students_in_adv_courses = row["# Grade 11 and 12 Students"].to_f
+          num_completing_adv_courses = row["# Students Completing Advanced"].to_f
+
+          @white_students_in_advanced_courses[[school_id, academic_year]] = total_num_students_in_adv_courses
+        end
+      end
+      @white_students_in_advanced_courses
+    end
+
+    # We don't need to check to see if this is a high school because the link only lists relevant schools
+    def run_a_curv_i4(filepath:)
+      scrape_enrollments_by_race(filepath: filepaths[5])
+      scrape_enrollments_by_grade(filepath: filepaths[6])
+      scrape_advanced_courses_for_white_students(filepath: filepaths[7])
+
+      run do |academic_year|
+        url = "https://profiles.doe.mass.edu/statereport/advcoursecomprate.aspx"
+        range = "#{academic_year.range.split('-')[1].to_i + 2000}"
+        selectors = { "ctl00_ContentPlaceHolder1_ddReportType" => "School",
+                      "ctl00_ContentPlaceHolder1_ddYear" => range }
+        submit_id = "btnViewReport"
+        calculation = lambda { |headers, items|
+          school_id_index = headers["School Code"]
+          school_id = items[school_id_index].to_i
+          school_name_index = headers["School Name"]
+          school_name = items[school_name_index]
+          year = academic_year.range
+
+          total_num_students_in_adv_index = headers["# Grade 11 and 12 Students"]
+          total_num_students_in_adv_courses = items[total_num_students_in_adv_index].to_f
+          return "NA" unless white_students_in_advanced_courses[[school_id, year]]
+          non_white_students_in_adv_courses = total_num_students_in_adv_courses - white_students_in_advanced_courses[[school_id, year]]
+          return "NA" unless eleventh_and_twelfth_grade_student_count[[school_id, year]]
+          count_of_students_in_eleventh_and_twelfth_grade = eleventh_and_twelfth_grade_student_count[[school_id, year]]
+          return "NA" unless non_white_student_percentage[[school_id, year]]
+          percentage_non_white = non_white_student_percentage[[school_id, year]]
+          enrollment_number_of_non_whites = percentage_non_white * count_of_students_in_eleventh_and_twelfth_grade
+          percent_non_white_taking_adv_courses = non_white_students_in_adv_courses / count_of_students_in_eleventh_and_twelfth_grade * 100
+          benchmark = 35
+          percent_non_white_taking_adv_courses * 4 / benchmark
+        }
+        admin_data_item_id = "a-curv-i4"
         Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
       end
     end
