@@ -8,7 +8,11 @@ module Dese
     def initialize(filepaths: [Rails.root.join("data", "admin_data", "dese", "3B_1_masscore.csv"),
                                Rails.root.join("data", "admin_data", "dese", "3B_1_advcoursecomprate.csv"),
                                Rails.root.join("data", "admin_data", "dese", "3B_1_ap.csv"),
-                               Rails.root.join("data", "admin_data", "dese", "3B_1_course_ratio.csv")])
+                               Rails.root.join("data", "admin_data", "dese", "3B_1_adv_courses.csv"),
+                               Rails.root.join("data", "admin_data", "dese", "3B_1_course_ratio.csv"),
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_enrollments_by_race.csv") ,
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_enrollments_by_grade.csv") ,
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_adv_courses_white_students.csv") ])
       @filepaths = filepaths
     end
 
@@ -35,6 +39,7 @@ module Dese
       run_a_curv_i3(filepath:)
 
       filepath = filepaths[3]
+      filepath = filepaths[4]
       headers = ["Raw likert calculation", "Likert Score", "Admin Data Item", "Academic Year", "School Name", "DESE ID",
                  "Total # of Classes", "Average Class Size", "Number of Students", "Female %", "Male %", "English Language Learner %", "Students with Disabilities %", "Low Income %"]
       write_headers(filepath:, headers:)
@@ -105,10 +110,10 @@ module Dese
                       "ctl00_ContentPlaceHolder1_ddYear" => range }
         submit_id = "btnViewReport"
         calculation = lambda { |headers, items|
-          dese_id = items[headers["School Code"]].to_i
-          school = School.find_by_dese_id(dese_id)
+          school_id = items[headers["School Code"]].to_i
+          school_name = items[headers["School Name"]]
 
-          return "NA" unless school.present? && school.is_hs?
+          return "NA" unless is_hs?(school_id:, school_name:)
 
           classes_index = headers["Total # of Classes"]
           num_classes = items[classes_index].gsub(",", "").to_f
