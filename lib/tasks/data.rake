@@ -1,6 +1,15 @@
 require "csv"
 
 namespace(:data) do
+  # locally
+  # bundle exec rake data:load_survey_responses
+
+  # on heroku staging environment
+  # heroku run:detached -a mciea-beta bundle exec rake data:load_survey_responses
+
+  # on heroku production environment
+  # heroku run:detached -a mciea-dashboard bundle exec rake data:load_survey_responses
+
   desc("load survey responses")
   task(load_survey_responses: :environment) do
     survey_item_response_count = SurveyItemResponse.count
@@ -16,6 +25,17 @@ namespace(:data) do
 
     Rails.cache.clear
   end
+
+  # Usage:
+  # SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
+  # You can also swap the order of the commands and environment variables
+  # bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/ecp/data/survey_responses/clean/2024_25
+
+  # on heroku staging environment
+  # heroku run:detached -a mciea-beta SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
+
+  # on heroku production environment
+  # heroku run:detached -a mciea-dashboard SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
 
   desc("load survey responses from a specific directory")
   task(load_survey_responses_from_path: :environment) do
@@ -33,21 +53,14 @@ namespace(:data) do
     Rails.cache.clear
   end
 
-  desc("reset response rate values")
-  task(reset_response_rates: :environment) do
-    puts("Resetting response rates")
-    ResponseRateLoader.reset
-    Rails.cache.clear
-    puts("=====================> Completed loading #{ResponseRate.count} survey responses")
-  end
+  # locally
+  # $ bundle exec rake data:load_admin_data
 
-  desc("reset race score calculations")
-  task(reset_race_scores: :environment) do
-    puts("Resetting race scores")
-    RaceScoreLoader.reset(fast_processing: false)
-    Rails.cache.clear
-    puts("=====================> Completed loading #{RaceScore.count} survey responses")
-  end
+  # on heroku staging environment
+  # $ heroku run:detached -a mciea-beta bundle exec rake data:load_admin_data
+
+  # on heroku production environment
+  # $ heroku run:detached -a mciea-dashboard bundle exec rake data:load_admin_data
 
   desc("load admin_data")
   task(load_admin_data: :environment) do
