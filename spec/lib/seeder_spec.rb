@@ -4,6 +4,16 @@ require "#{Rails.root}/app/lib/seeder"
 describe Seeder do
   let(:seeder) { Seeder.new }
 
+  let(:sample_districts_and_schools_csv) {Rails.root.join("spec", "fixtures", "sample_districts_and_schools.csv") }
+
+  let(:sample_sqm_framework_csv) {
+    Rails.root.join("spec", "fixtures", "sample_sqm_framework.csv")
+  }
+
+  let(:sample_esp_csv) {
+    Rails.root.join("spec", "fixtures", "sample_esp_counts.csv")
+  }
+
   after :each do
     DatabaseCleaner.clean
   end
@@ -37,7 +47,7 @@ describe Seeder do
       expect do
         seeder.seed_districts_and_schools sample_districts_and_schools_csv
       end.to change { District.count }.by(3)
-                                      .and change { School.count }.by(4)
+        .and change { School.count }.by(4)
 
       high_school = School.find_by_dese_id 160_505
       expect(high_school.name).to eq "Attleboro High School"
@@ -56,16 +66,16 @@ describe Seeder do
       let!(:removed_survey_item_response) { create(:survey_item_response, school: removed_school) }
       let!(:existing_school) do
         create(:school, name: "Sam Adams Elementary School", dese_id: 350_302, slug: "some-slug-for-sam-adams",
-                        district: existing_district)
+               district: existing_district)
       end
 
       it "only creates new districts and schools" do
         expect do
           seeder.seed_districts_and_schools sample_districts_and_schools_csv
         end.to change { District.count }.by(2)
-                                        .and change {
-                                               School.count
-                                             }.by(2) # +2 for schools added from example csv, -1 for old school
+          .and change {
+            School.count
+          }.by(2) # +2 for schools added from example csv, -1 for old school
 
         new_district = District.find_by_name "Attleboro"
         expect(new_district.qualtrics_code).to eq 1
@@ -177,6 +187,16 @@ describe Seeder do
   end
 
   context "admin data items" do
+    context "When seeding admin data items" do
+      before :each do
+        seeder.seed_sqm_framework sample_sqm_framework_csv
+      end
+
+      it "Selects the admin data item description from the latest year of data" do
+        expect(AdminDataItem.find_by_admin_data_item_id("a-exp-i1").description).to eq "Prompt from the latest year"
+      end
+    end
+
     context "when deprecated admin items exist in the database" do
       before :each do
         admin_data_item_1 = create(:admin_data_item, admin_data_item_id: "a-cppm-i1")
@@ -188,6 +208,7 @@ describe Seeder do
 
         seeder.seed_sqm_framework sample_sqm_framework_csv
       end
+
 
       it "removes the outdated admin items" do
         expect(AdminDataItem.count).to eq 31
@@ -213,16 +234,16 @@ describe Seeder do
       expect do
         seeder.seed_sqm_framework sample_sqm_framework_csv
       end.to change { Category.count }.by(4)
-                                      .and change { Subcategory.count }.by(15)
-                                                                       .and change { Measure.count }.by(31).and change {
-                                                                                                                  Scale.count
-                                                                                                                }.by(57)
-                                                                                                                 .and change {
-                                                                                                                        SurveyItem.count
-                                                                                                                      }.by(201)
-                                                                                                                       .and change {
-                                                                                                                              AdminDataItem.count
-                                                                                                                            }.by(30)
+        .and change { Subcategory.count }.by(15)
+        .and change { Measure.count }.by(31).and change {
+          Scale.count
+        }.by(57)
+          .and change {
+            SurveyItem.count
+          }.by(201)
+            .and change {
+              AdminDataItem.count
+            }.by(30)
     end
 
     context "updates records to match given data" do
@@ -296,19 +317,5 @@ describe Seeder do
         expect(hs_admin_data_item.hs_only_item).to be true
       end
     end
-  end
-
-  private
-
-  def sample_districts_and_schools_csv
-    Rails.root.join("spec", "fixtures", "sample_districts_and_schools.csv")
-  end
-
-  def sample_sqm_framework_csv
-    Rails.root.join("spec", "fixtures", "sample_sqm_framework.csv")
-  end
-
-  def sample_esp_csv
-    Rails.root.join("spec", "fixtures", "sample_esp_counts.csv")
   end
 end
