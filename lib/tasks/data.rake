@@ -83,6 +83,7 @@ namespace(:data) do
     workers.each(&:join)
 
     puts("=====================> Completed loading #{AdminDataValue.count - original_count} admin data values")
+    Rails.cache.clear
   end
 
   desc("reset all cache counters")
