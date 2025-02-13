@@ -116,7 +116,7 @@ class Seeder
         admin_data_item.growth_low_benchmark = growth_low if growth_low
         admin_data_item.approval_low_benchmark = approval_low if approval_low
         admin_data_item.ideal_low_benchmark = ideal_low if ideal_low
-        admin_data_item.description = row["Question/item (22-23)"]&.strip
+        admin_data_item.description = value_from(pattern: /^Question\/item\s\(.*\)/i ,  row:)
         admin_data_item.hs_only_item = marked? row["HS only admin item?"]
         admin_data_item.save!
         admin_data_item_ids << admin_data_item.id
@@ -148,6 +148,15 @@ class Seeder
   end
 
   private
+    def value_from(pattern:,  row:)
+      matches = row.headers.select do |header|
+      pattern.match(header)
+    end
+
+    # Sort in descending order so highest comes first
+    header = matches.sort {|x,y| y <=> x}.first
+    row[header]
+  end
 
   def marked?(mark)
     mark.present? ? mark.upcase.strip == "X" : false
