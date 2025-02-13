@@ -12,7 +12,10 @@ module Dese
                                Rails.root.join("data", "admin_data", "dese", "3B_1_course_ratio.csv"),
                                Rails.root.join("data" , "admin_data", "dese", "3B_1_enrollments_by_race.csv") ,
                                Rails.root.join("data" , "admin_data", "dese", "3B_1_enrollments_by_grade.csv") ,
-                               Rails.root.join("data" , "admin_data", "dese", "3B_1_adv_courses_white_students.csv") ])
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_adv_courses_white_students.csv"),
+                               Rails.root.join("data" , "admin_data", "dese", "3B_1_students_of_color_completion_rate.csv")
+
+    ])
       @filepaths = filepaths
     end
 
@@ -49,6 +52,12 @@ module Dese
                  "Total # of Classes", "Average Class Size", "Number of Students", "Female %", "Male %", "English Language Learner %", "Students with Disabilities %", "Low Income %"]
       write_headers(filepath:, headers:)
       run_a_curv_i5(filepath:)
+
+      filepath = filepaths[8]
+      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
+                 '# Grade 11 and 12 Students', '# Students Completing Advanced', '% Students Completing Advanced', '% ELA', '% Math', '% Science and Technology', '% Computer and Information Science', '% History and Social Sciences', '% Arts', '% All Other Subjects', 'Ch 74 Secondary Cooperative Program']
+      write_headers(filepath:, headers:)
+      run_a_curv_i7(filepath:)
 
       browser.close
     end
@@ -171,6 +180,7 @@ module Dese
       @eleventh_and_twelfth_grade_student_count
     end
 
+
     def scrape_advanced_courses_for_white_students(filepath:)
       headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
                  '# Grade 11 and 12 Students', '# Students Completing Advanced', '% Students Completing Advanced', '% ELA', '% Math', '% Science and Technology', '% Computer and Information Science', '% History and Social Sciences', '% Arts', '% All Other Subjects', 'Ch 74 Secondary Cooperative Program']
@@ -196,12 +206,25 @@ module Dese
           academic_year = row['Academic Year']
           school_id = row['DESE ID'].to_i
           total_num_students_in_adv_courses = row["# Grade 11 and 12 Students"].to_f
-          num_completing_adv_courses = row["# Students Completing Advanced"].to_f
 
           @white_students_in_advanced_courses[[school_id, academic_year]] = total_num_students_in_adv_courses
         end
       end
       @white_students_in_advanced_courses
+    end
+
+    def white_students_completing_advanced_courses
+      @white_students_completing_advanced_courses ||= {}
+      if @white_students_completing_advanced_courses  .count == 0
+        CSV.parse(File.read(filepaths[7]), headers: true).map do |row|
+          academic_year = row['Academic Year']
+          school_id = row['DESE ID'].to_i
+          num_completing_adv_courses = row["# Students Completing Advanced"].to_f
+
+          @white_students_completing_advanced_courses[[school_id, academic_year]] = num_completing_adv_courses
+        end
+      end
+      @white_students_completing_advanced_courses
     end
 
     # We don't need to check to see if this is a high school because the link only lists relevant schools
@@ -266,5 +289,42 @@ module Dese
         Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
       end
     end
+
+    # We don't need to check to see if this is a high school because the link only lists relevant schools
+    def run_a_curv_i7(filepath:)
+      scrape_advanced_courses_for_white_students(filepath: filepaths[7])
+
+      run do |academic_year|
+        url = "https://profiles.doe.mass.edu/statereport/advcoursecomprate.aspx"
+        range = "#{academic_year.range.split('-')[1].to_i + 2000}"
+        selectors = { "ctl00_ContentPlaceHolder1_ddReportType" => "School",
+                      "ctl00_ContentPlaceHolder1_ddYear" => range }
+        submit_id = "btnViewReport"
+        calculation = lambda { |headers, items|
+          school_id_index = headers["School Code"]
+          school_id = items[school_id_index].to_i
+          school_name_index = headers["School Name"]
+          school_name = items[school_name_index]
+          year = academic_year.range
+
+          total_num_students_in_adv_courses = items[headers["# Grade 11 and 12 Students"]].to_f
+          num_students_completing_adv_courses = items[headers["% Students Completing Advanced"]].to_f
+
+          return "NA" unless white_students_in_advanced_courses[[school_id, year]]
+          num_non_white_students_in_adv_courses = total_num_students_in_adv_courses - white_students_in_advanced_courses[[school_id, year]]
+
+          return "NA" unless white_students_completing_advanced_courses[[school_id, year]]
+          num_non_white_students_completing_adv_courses = num_students_completing_adv_courses - white_students_completing_advanced_courses[[school_id, year]]
+
+          percentage_non_white_completing_adv_courses = num_non_white_students_completing_adv_courses / num_non_white_students_in_adv_courses * 100
+
+          benchmark = 67.2
+          percentage_non_white_completing_adv_courses * 4 / benchmark
+        }
+        admin_data_item_id = "a-curv-i7"
+        Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
+      end
+    end
+
   end
 end
