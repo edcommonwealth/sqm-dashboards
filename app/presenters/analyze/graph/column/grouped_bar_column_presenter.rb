@@ -7,9 +7,9 @@ module Analyze
         include AnalyzeHelper
 
         attr_reader :measure_name, :measure_id, :category, :position, :measure, :school, :academic_years,
-                    :number_of_columns
+                    :number_of_columns, :config
 
-        def initialize(measure:, school:, academic_years:, position:, number_of_columns:)
+        def initialize(measure:, school:, academic_years:, position:, number_of_columns:, config:)
           @measure = measure
           @measure_name = @measure.name
           @measure_id = @measure.measure_id
@@ -18,12 +18,13 @@ module Analyze
           @academic_years = academic_years
           @position = position
           @number_of_columns = number_of_columns
+          @config = config
         end
 
         def bars
           @bars ||= academic_years.map.with_index do |academic_year, index|
             Analyze::BarPresenter.new(measure:, academic_year:,
-                                      score: score(academic_year),
+                                      score: score(academic_year:),
                                       x_position: bar_x(index),
                                       color: bar_color(academic_year))
           end.reject(&:blank?).select { |bar| bar.score.average&.positive? }
@@ -31,31 +32,43 @@ module Analyze
         end
 
         def label
-          raise NotImplementedError
+          config.label
         end
 
         def show_irrelevancy_message?
-          raise NotImplementedError
+          config.show_irrelevancy_message?(measure:)
         end
 
         def show_insufficient_data_message?
-          raise NotImplementedError
+          config.show_insufficient_data_message?(measure:, school:, academic_years:)
         end
 
-        def score(academic_year)
-          raise NotImplementedError
+        def score(academic_year:)
+          config.score(measure:, school:, academic_year:)
         end
 
-        def n_size(academic_year)
-          raise NotImplementedError
+        def n_size(academic_year:)
+          config.n_size(measure:, school:, academic_year:)
         end
 
         def basis
-          "student surveys"
+          config.basis
         end
 
         def type
-          raise NotImplementedError
+          config.type
+        end
+
+        def insufficiency_message
+          config.insufficiency_message
+        end
+
+        def show_popover?
+          %i[student teacher].include? type
+        end
+
+        def popover_content(academic_year)
+          "#{n_size(academic_year:)} #{type.to_s.capitalize}s"
         end
 
         def column_midpoint
@@ -107,30 +120,11 @@ module Analyze
           number_of_columns
         end
 
-        def show_popover?
-          %i[student teacher].include? type
-        end
-
-        def popover_content(academic_year)
-          "#{n_size(academic_year)} #{type.to_s.capitalize}s"
-        end
-
-        def insufficiency_message
-          ["survey response", "rate below 25%"]
-        end
-
         def grades
           Respondent.by_school_and_year(school:, academic_year: academic_years)&.enrollment_by_grade&.keys
         end
 
         private
-
-        # YearlyScore = Struct.new(:year, :score)
-        # def yearly_scores
-        #   @yearly_scores ||= academic_years.each.map do |year|
-        #     YearlyScore.new(year, score(year))
-        #   end.reject { |year| year.score.nil? || year.score.blank? }
-        # end
 
         def bar_color(year)
           @available_academic_years ||= AcademicYear.order(:range).all
