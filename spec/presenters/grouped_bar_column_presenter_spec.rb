@@ -63,18 +63,18 @@ describe GroupedBarColumnPresenter do
   end
 
   let(:student_presenter) do
-    Analyze::Graph::Column::AllStudent.new measure: measure_with_student_survey_items, school:, academic_years:,
-                                           position: 0, number_of_columns: 3
+    GroupedBarColumnPresenter.new measure: measure_with_student_survey_items, school:, academic_years:,
+                                  position: 0, number_of_columns: 3, config: Analyze::Graph::Column::AllStudent.new
   end
 
   let(:teacher_presenter) do
-    Analyze::Graph::Column::AllTeacher.new measure: measure_with_teacher_survey_items, school:, academic_years:,
-                                           position: 0, number_of_columns: 3
+    GroupedBarColumnPresenter.new measure: measure_with_teacher_survey_items, school:, academic_years:,
+                                  position: 0, number_of_columns: 3, config: Analyze::Graph::Column::AllTeacher.new
   end
 
   let(:all_data_presenter) do
-    Analyze::Graph::Column::AllData.new measure: measure_composed_of_student_and_teacher_items, school:, academic_years:,
-                                        position: 0, number_of_columns: 3
+    GroupedBarColumnPresenter.new measure: measure_composed_of_student_and_teacher_items, school:, academic_years:,
+                                  position: 0, number_of_columns: 3, config: Analyze::Graph::Column::AllData.new
   end
 
   before do
@@ -120,8 +120,8 @@ describe GroupedBarColumnPresenter do
     end
 
     it "returns a score that is an average of the likert scores " do
-      expect(all_data_presenter.score(academic_year).average).to eq 4.5
-      expect(all_data_presenter.score(another_academic_year).average).to eq nil
+      expect(all_data_presenter.score(academic_year:).average).to eq 4.5
+      expect(all_data_presenter.score(academic_year: another_academic_year).average).to eq nil
       expect(all_data_presenter.academic_years[0].range).to be academic_year.range
       expect(all_data_presenter.academic_years[1].range).to be another_academic_year.range
     end
@@ -133,8 +133,8 @@ describe GroupedBarColumnPresenter do
                                                                                            academic_year: another_academic_year, likert_score: 3)
       end
       it "returns independent scores for each year of data" do
-        expect(all_data_presenter.score(academic_year).average).to eq 4.5
-        expect(all_data_presenter.score(another_academic_year).average).to eq 4
+        expect(all_data_presenter.score(academic_year:).average).to eq 4.5
+        expect(all_data_presenter.score(academic_year: another_academic_year).average).to eq 4
       end
     end
   end
@@ -145,7 +145,7 @@ describe GroupedBarColumnPresenter do
       it_behaves_like "column_midpoint"
 
       it "returns an emty score" do
-        expect(student_presenter.score(academic_year).average).to eq nil
+        expect(student_presenter.score(academic_year:).average).to eq nil
       end
 
       it "shows the irrelevancy message " do

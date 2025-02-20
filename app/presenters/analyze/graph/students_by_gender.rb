@@ -3,7 +3,6 @@
 module Analyze
   module Graph
     class StudentsByGender
-      include Analyze::Graph::Column::GenderColumn
       attr_reader :genders
 
       def initialize(genders:)
@@ -21,10 +20,10 @@ module Analyze
       def columns
         [].tap do |array|
           genders.each do |gender|
-            array << column_for_gender_code(code: gender.qualtrics_code)
+            array << Analyze::Graph::Column::Gender.new(gender:)
           end
-          array.sort_by!(&:to_s)
-          array << Analyze::Graph::Column::AllStudent
+          array.sort_by!(&:label)
+          array << Analyze::Graph::Column::AllStudent.new
         end
       end
 
@@ -35,19 +34,6 @@ module Analyze
       def slice
         Analyze::Slice::StudentsByGroup.new
       end
-
-      private
-
-      def column_for_gender_code(code:)
-        CFR[code]
-      end
-
-      CFR = {
-        1 => Analyze::Graph::Column::GenderColumn::Female,
-        2 => Analyze::Graph::Column::GenderColumn::Male,
-        4 => Analyze::Graph::Column::GenderColumn::NonBinary,
-        99 => Analyze::Graph::Column::GenderColumn::Unknown
-      }.freeze
     end
   end
 end

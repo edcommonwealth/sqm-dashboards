@@ -20,9 +20,9 @@ module Analyze
       def columns
         [].tap do |array|
           races.each do |race|
-            array << column_for_race_code(code: race.qualtrics_code)
+            array << Analyze::Graph::Column::Race.new(race:)
           end
-          array << Analyze::Graph::Column::AllStudent
+          array << Analyze::Graph::Column::AllStudent.new
         end
       end
 
@@ -33,23 +33,6 @@ module Analyze
       def slice
         Analyze::Slice::StudentsByGroup.new
       end
-
-      private
-
-      def column_for_race_code(code:)
-        CFR[code.to_s]
-      end
-
-      CFR = {
-        "1" => Analyze::Graph::Column::RaceColumn::AmericanIndian,
-        "2" => Analyze::Graph::Column::RaceColumn::Asian,
-        "3" => Analyze::Graph::Column::RaceColumn::Black,
-        "4" => Analyze::Graph::Column::RaceColumn::Hispanic,
-        "5" => Analyze::Graph::Column::RaceColumn::White,
-        "8" => Analyze::Graph::Column::RaceColumn::MiddleEastern,
-        "99" => Analyze::Graph::Column::RaceColumn::Unknown,
-        "100" => Analyze::Graph::Column::RaceColumn::Multiracial
-      }.freeze
     end
   end
 end

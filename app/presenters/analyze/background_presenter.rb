@@ -19,7 +19,7 @@ class Analyze::BackgroundPresenter
   end
 
   def grouped_chart_column_width
-    graph_width / data_sources
+    graph_width / num_of_columns
   end
 
   def column_end_x(position)
@@ -36,9 +36,5 @@ class Analyze::BackgroundPresenter
 
   def zone_label_y(position)
     8.5 * (position + position - 1)
-  end
-
-  def data_sources
-    num_of_columns
   end
 end

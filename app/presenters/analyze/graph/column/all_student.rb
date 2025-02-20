@@ -3,16 +3,24 @@
 module Analyze
   module Graph
     module Column
-      class AllStudent < GroupedBarColumnPresenter
+      class AllStudent
         def label
-          %w[All Students]
+          ["All", "Students"]
         end
 
-        def show_irrelevancy_message?
+        def basis
+          "student surveys"
+        end
+
+        def insufficiency_message
+          ["survey response", "rate below 25%"]
+        end
+
+        def show_irrelevancy_message?(measure:)
           !measure.includes_student_survey_items?
         end
 
-        def show_insufficient_data_message?
+        def show_insufficient_data_message?(measure:, school:, academic_years:)
           scores = academic_years.map do |academic_year|
             measure.student_score(school:, academic_year:)
           end
@@ -20,7 +28,7 @@ module Analyze
           scores.none? { |score| score.meets_student_threshold? }
         end
 
-        def score(academic_year)
+        def score(measure:, school:, academic_year:)
           measure.student_score(school:, academic_year:)
         end
 
@@ -28,7 +36,8 @@ module Analyze
           :student
         end
 
-        def n_size(academic_year)
+        def n_size(measure:, school:, academic_year:)
+          grades = Respondent.by_school_and_year(school:, academic_year:)&.enrollment_by_grade&.keys
           SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades,
                                    academic_year:).select(:response_id).distinct.count
         end
