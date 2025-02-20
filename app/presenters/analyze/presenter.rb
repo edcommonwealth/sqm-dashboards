@@ -118,6 +118,20 @@ module Analyze
       @source ||= graph&.source || sources.first
     end
 
+    def show_secondary_graph?(measure:)
+      return false unless measure.includes_parent_survey_items?
+
+      graph.slug == "all-data"
+    end
+
+    def columns_for_measure(measure:)
+      return unless measure.includes_parent_survey_items?
+
+      measure.scales.parent_scales.map do |scale|
+        Analyze::Graph::Column::Parent::Scale.new(scale:)
+      end
+    end
+
     def sources
       all_data_slice = Analyze::Slice::AllData.new
       all_data_slice.graph = Analyze::Graph::AllData.new

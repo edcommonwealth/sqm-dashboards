@@ -48,7 +48,7 @@ class SurveyItemResponse < ActiveRecord::Base
   scope :averages_for_race, lambda { |school, academic_year, race|
     SurveyItemResponse.joins("JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id").where(
       school:, academic_year:, grade: school.grades(academic_year:)
-    ).where("student_races.race_id": race.id).group(:survey_item_id).having("count(*) >= 10").average(:likert_score)
+    ).where("student_races.race_id": race.id).group(:survey_item).having("count(*) >= 10").average(:likert_score)
   }
 
   def self.grouped_responses(school:, academic_year:)

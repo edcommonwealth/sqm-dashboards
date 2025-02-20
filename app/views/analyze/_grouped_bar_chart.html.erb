@@ -1,9 +1,9 @@
 <svg width="100%" height="<%= svg_height %>">
   <%= render partial: "graph_background", locals: {background: @background} %>
 
-  <% number_of_columns = @presenter.graph.columns.length %>
-  <% @presenter.graph.columns.each_with_index do |column, index| %>
-    <% p = column.new(measure: measure, school: @school, academic_years: @presenter.selected_academic_years, position: index , number_of_columns:) %>
+  <% number_of_columns = columns.length %>
+  <% columns.each_with_index do |config, index| %>
+    <% p = Analyze::Graph::Column::GroupedBarColumnPresenter.new(measure: measure, school: @school, academic_years: @presenter.selected_academic_years, position: index , number_of_columns:, config: config) %>
     <%= render partial: "grouped_bar_column", locals: {column: p} %>
   <% end %>
 </svg>
