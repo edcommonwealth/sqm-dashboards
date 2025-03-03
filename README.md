@@ -159,25 +159,25 @@ Or if you want to load data from a specific directory
 
 ```bash
 # locally
-SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
+SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
 # You can also swap the order of the commands and environment variables
-bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/data/survey_responses/clean/2022_23
+bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/ecp/data/survey_responses/clean/2024_25
 
 # on heroku staging environment
-heroku run:detached -a mciea-beta SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
+heroku run:detached -a ecp-sqm-dashboard SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
 
 # on heroku production environment
-heroku run:detached -a mciea-dashboard SFTP_PATH=/data/survey_responses/clean/2022_23 bundle exec rake data:load_survey_responses_from_path
+heroku run:detached -a ecp-sqm-dashboard SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
 ```
 
 For convenience, you can use the following script for loading data on Heroku:
 
 ```bash
 # on heroku staging environment
-./scripts/load_survey_responses_on_heroku beta
+./scripts/load_survey_responses_on_heroku ecp-sqm-beta
 
 # on heroku production environment
-./scripts/load_survey_responses_on_heroku dashboard
+./scripts/load_survey_responses_on_heroku ecp-sqm-dashboard
 ```
 
 There is also an example one-off task to load a single csv at a time.
