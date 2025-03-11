@@ -13,7 +13,7 @@ module Analyze
       end
 
       def columns
-        [AllStudent, AllTeacher, AllSurveyData]
+        [AllStudent.new, AllTeacher.new, AllSurveyData.new]
       end
 
       def source

@@ -1,16 +1,16 @@
 module Analyze
   module Graph
     module Column
-      class AllData < GroupedBarColumnPresenter
+      class AllData
         def label
           %w[All Data]
         end
 
-        def show_irrelevancy_message?
+        def show_irrelevancy_message?(measure:)
           false
         end
 
-        def show_insufficient_data_message?
+        def show_insufficient_data_message?(measure:, school:, academic_years:)
           scores = academic_years.map do |year|
             measure.score(school:, academic_year: year)
           end
@@ -20,7 +20,7 @@ module Analyze
           end
         end
 
-        def score(academic_year)
+        def score(measure:, school:, academic_year:)
           measure.score(school:, academic_year:) || 0
         end
 
@@ -32,7 +32,7 @@ module Analyze
           "student surveys"
         end
 
-        def n_size(academic_year)
+        def n_size(measure:, school:, academic_year:)
           SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades,
                                    academic_year:).select(:response_id).distinct.count
         end
