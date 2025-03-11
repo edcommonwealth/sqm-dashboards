@@ -1,6 +1,9 @@
 <section class="subcategory-section">
   <div id="<%= subcategory.id %>" class="p-7">
-    <p class="construct-id">Subcategory <%= subcategory.id %></p>
+    <%= link_to(district_school_analyze_index_path(@district, @school, { academic_year: @academic_year.range, category: subcategory.subcategory.category.category_id, subcategory: subcategory.id})) do %>
+      <p class="construct-id">Subcategory <%= subcategory.id %></p>
+    <% end %>
+
     <h2 class="sub-header-2 font-bitter mb-7"><%= subcategory.name %></h2>
 
     <div class="d-flex justify-content-between align-items-end">
@@ -17,8 +20,8 @@
             data-bs-trigger="hover focus"
             data-bs-content="The number of publicly available school data sources, often collected from the MA Department of Elementary and Secondary Education."
             data-bs-placement="bottom"
-          >
-          <p class="response-rate-percentage"><%= subcategory.admin_collection_rate.first %> / <%= subcategory.admin_collection_rate.last %></p>
+            >
+            <p class="response-rate-percentage"><%= subcategory.admin_collection_rate.first %> / <%= subcategory.admin_collection_rate.last %></p>
             <p>school data sources</p>
           </div>
           <div
@@ -27,7 +30,7 @@
             data-bs-trigger="hover focus"
             data-bs-content="The student survey response rate for this sub-category. This number differs from the overall response rate because each individual student receives 44 of 67 total questions, in order to avoid survey fatigue. This number is also adjusted to reflect any instances where a student has decided to skip a survey question."
             data-bs-placement="bottom"
-          >
+            >
             <p class="response-rate-percentage"><%= subcategory.student_response_rate %></p>
             <p>of students responded</p>
           </div>
@@ -52,10 +55,10 @@
   </div>
 
   <% if subcategory.show_scale_presenters?  %>
-  <div class="scale-card d-flex p-7">
-    <% subcategory.scale_presenters.each do |scale_presenter| %>
-      <%= render partial: "measures_section", locals: { measure_presenter: scale_presenter } %>
-    <% end %>
-  </div>
-<% end %>
+    <div class="scale-card d-flex p-7">
+      <% subcategory.scale_presenters.each do |scale_presenter| %>
+        <%= render partial: "measures_section", locals: { measure_presenter: scale_presenter } %>
+      <% end %>
+    </div>
+  <% end %>
 </section>
