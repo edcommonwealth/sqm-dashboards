@@ -64,7 +64,7 @@ module Analyze
         end
 
         def show_popover?
-          %i[student teacher].include? type
+          %i[student teacher parent].include? type
         end
 
         def popover_content(academic_year)

@@ -37,6 +37,10 @@ module Analyze
           def type
             :parent
           end
+
+          def n_size(measure:, school:, academic_year:)
+            SurveyItemResponse.where(survey_item: scale.survey_items.parent_survey_items, school:, academic_year:).select(:response_id).distinct.count
+          end
         end
       end
     end
