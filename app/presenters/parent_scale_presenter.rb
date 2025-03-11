@@ -40,6 +40,10 @@ class ParentScalePresenter
                                  .values.average
   end
 
+  def measure
+    scale.measure
+  end
+
   private
 
   def scale_id
