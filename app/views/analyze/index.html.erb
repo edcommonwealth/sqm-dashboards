@@ -19,7 +19,7 @@
       <div class="bg-color-white flex-grow-1 col-9">
 
         <% @presenter.measures.each do  |measure| %>
-          <section class="mb-6">
+          <section id="<%= measure.measure_id %>" class="mb-6">
             <%= link_to("MEASURE " + measure.measure_id.upcase, district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.measure_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
             <h2> <%= measure.name %> </h2>
             <%= render partial: "grouped_bar_chart" , locals: { measure: measure, columns: @presenter.graph.columns} %>
@@ -27,6 +27,9 @@
 
         <% if @presenter.show_secondary_graph?(measure:) %>
           <section class="mb-6">
+            <% measure.scales.parent_scales.each do | scale| %>
+              <label id="<%= scale.scale_id %>" hidden> </label>
+            <% end %>
             <%= link_to("Parent Survey", district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.measure_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
             <h2> <%= measure.subcategory.name %> </h2>
             <%= render partial: "grouped_bar_chart" , locals: { measure: measure, columns: @presenter.columns_for_measure(measure:)} %>
