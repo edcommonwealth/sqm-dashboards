@@ -18,7 +18,7 @@ module Dese
 
       filepath = filepaths[1]
       headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
-                 '<26 yrs (# )', '26-32 yrs (#)', '33-40 yrs (#)', '41-48 yrs (#)', '49-56 yrs (#)', '57-64 yrs (#)', 'Over 64 yrs (#)', 'FTE Count']
+                 '<26 yrs (# )', '26-32 yrs (#)', '33-40 yrs (#)', '41-48 yrs (#)', '49-56 yrs (#)', '57-64 yrs (#)', 'Over 64 yrs (#)', 'FTE Count', 'Student Count', 'Student to Nurse Ratio']
       write_headers(filepath:, headers:)
 
       run_a_phya_i1(filepath:)
@@ -46,8 +46,12 @@ module Dese
           dese_id = items[headers['School Code']].to_i
           num_of_students = student_count(filepath: filepaths[0], dese_id:, year: academic_year.range) || 0
           items << num_of_students
-          items << (num_of_students / nurse_count)
-          ((benchmark - (num_of_students / nurse_count)) + benchmark) * 4 / benchmark
+
+          return 0 if nurse_count == 0
+
+          student_to_nurse_ratio = num_of_students / nurse_count
+          items << student_to_nurse_ratio
+          ((benchmark - student_to_nurse_ratio) + benchmark) * 4 / benchmark
         }
         Prerequisites.new(filepath, url, selectors, submit_id, admin_data_item_id, calculation)
       end

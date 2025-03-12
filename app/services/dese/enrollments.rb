@@ -7,7 +7,7 @@ module Dese
     attr_reader :filepaths
 
     def scrape_enrollments(filepath:)
-      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'DESE ID',
+      headers = ['Raw likert calculation', 'Likert Score', 'Admin Data Item', 'Academic Year', 'School Name', 'School Code',
                  'PK', 'K', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', 'SP', 'Total']
       write_headers(filepath:, headers:)
       run do |academic_year|
