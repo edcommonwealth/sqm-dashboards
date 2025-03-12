@@ -21,10 +21,10 @@ module Dese
       run_teacher_demographics(filepath:)
 
       filepath = filepaths[1]
-      headers = ["Raw likert calculation", "Likert Score", "Admin Data Item", "Academic Year", "Non-White Teachers %", "Non-White Students %", "School Name", "DESE ID",
+      headers = ["Raw likert calculation", "Likert Score", "Admin Data Item", "Academic Year", "School Name", "DESE ID",
                  "African American", "Asian", "Hispanic", "White", "Native American",
                  "Native Hawaiian or Pacific Islander", "Multi-Race or Non-Hispanic", "Males",
-                 "Females", "Non-Binary", "Students of color (%)"]
+                 "Females", "Non-Binary", "Students of color (%)", "Non-White Teachers %", "Non-White Students %"]
       write_headers(filepath:, headers:)
       run_student_demographics(filepath:)
 
@@ -101,12 +101,12 @@ module Dese
           white_number = items[white_index].to_f
           dese_id = items[headers["School Code"]].to_i
           non_white_student_percentage = (100 - white_number).to_f
-          items.unshift(non_white_student_percentage)
+          items << non_white_student_percentage
           count_of_teachers = teacher_count(filepath: filepaths[0], dese_id:, year: academic_year.range)
           return "NA" if count_of_teachers == "NA"
 
           non_white_teacher_percentage = count_of_teachers.to_f
-          items.unshift(non_white_teacher_percentage)
+          items << non_white_teacher_percentage
 
           floor = 5
           benchmark = 0.25

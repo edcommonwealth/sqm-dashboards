@@ -67,7 +67,7 @@ module Dese
           num_of_students = student_count(filepath: filepaths[0], dese_id:, year: academic_year.range) || 0
           items << num_of_students
           benchmark = 250
-          if fte_index.present? && !items[fte_index] != ""
+          if fte_index.present? && num_of_guidance_counselors != 0
             result = ((benchmark - (num_of_students / num_of_guidance_counselors)) + benchmark) * 4 / benchmark
           end
           items << (num_of_students / num_of_guidance_counselors)
@@ -93,10 +93,9 @@ module Dese
           num_of_students = student_count(filepath: filepaths[0], dese_id:, year: academic_year.range) || 0
           items << num_of_students
           benchmark = 250
-          if fte_index.present? && !items[fte_index] != ""
+          if fte_index.present? && num_of_psychologists != 0
             result = ((benchmark - (num_of_students / num_of_psychologists)) + benchmark) * 4 / benchmark
           end
-
           items << (num_of_students / num_of_psychologists)
           result
         }
@@ -120,7 +119,7 @@ module Dese
           num_of_students = student_count(filepath: filepaths[0], dese_id:, year: academic_year.range) || 0
           items << num_of_students
           benchmark = 43.4
-          if fte_index.present? && !items[fte_index] != ""
+          if fte_index.present? && num_of_paraprofessionals != 0
             result = ((benchmark - (num_of_students / num_of_paraprofessionals)) + benchmark) * 4 / benchmark
           end
 
@@ -148,7 +147,7 @@ module Dese
           num_of_students = student_count(filepath: filepaths[0], dese_id:, year: academic_year.range) || 0
           items << num_of_students
           benchmark = 500
-          if num_of_art_teachers.present?
+          if num_of_art_teachers.present? && num_of_art_teachers != 0
             result = ((benchmark - (num_of_students / num_of_art_teachers)) + benchmark) * 4 / benchmark
           end
 
