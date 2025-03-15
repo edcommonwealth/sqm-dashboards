@@ -1,4 +1,4 @@
-<div id="<%= measure_presenter.id %>" class="measure-section mx-4">
+<div id="<%= id %>" class="measure-section mx-4">
   <p class="construct-id"><%= measure_presenter.title %></p>
     <%= link_to(district_school_analyze_index_path(@district, @school, { academic_year: @academic_year.range, category: measure_presenter.measure.subcategory.category.category_id, subcategory: measure_presenter.measure.subcategory.subcategory_id, anchor: measure_presenter.id}), class: "measure-description sub-header-4 mb-5") do %>
       <h3 class="measure-description sub-header-4 mb-5 "><%= measure_presenter.name %></h3>
