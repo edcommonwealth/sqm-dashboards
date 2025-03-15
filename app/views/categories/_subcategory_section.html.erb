@@ -46,14 +46,14 @@
   </div>
   <div class="measure-card d-flex p-7">
     <% subcategory.measure_presenters.each do |measure_presenter| %>
-      <%= render partial: "measures_section", locals: { measure_presenter: measure_presenter } %>
+      <%= render partial: "measures_section", locals: { measure_presenter: measure_presenter, id: measure_presenter.id } %>
     <% end %>
   </div>
 
   <% if subcategory.show_scale_presenters?  %>
     <div class="scale-card d-flex p-7">
       <% subcategory.scale_presenters.each do |scale_presenter| %>
-        <%= render partial: "measures_section", locals: { measure_presenter: scale_presenter } %>
+        <%= render partial: "measures_section", locals: { measure_presenter: scale_presenter, id: "#{scale_presenter.scale_id}" } %>
       <% end %>
     </div>
   <% end %>
