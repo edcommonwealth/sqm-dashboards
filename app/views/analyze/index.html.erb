@@ -27,10 +27,10 @@
 
         <% if @presenter.show_secondary_graph?(measure:) %>
           <section class="mb-6">
-            <% measure.scales.parent_scales.each do | scale| %>
-              <label id="<%= scale.scale_id %>" hidden> </label>
+            <% measure.scales.parent_scales.each do |scale| %>
+              <label id="<%= scale.scale_id %>" > </label>
             <% end %>
-            <%= link_to("Parent Survey", district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.measure_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
+            <%= link_to("Parent Survey", district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.scales.parent_scales.first.scale_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
             <h2> <%= measure.subcategory.name %> </h2>
             <%= render partial: "grouped_bar_chart" , locals: { measure: measure, columns: @presenter.columns_for_measure(measure:)} %>
           </section>

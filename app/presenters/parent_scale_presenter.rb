@@ -44,11 +44,11 @@ class ParentScalePresenter
     scale.measure
   end
 
-  private
-
   def scale_id
     scale.scale_id
   end
+
+  private
 
   def parent_survey_presenter
     ParentSurveyPresenter.new(scale_id:, survey_items: scale.survey_items.parent_survey_items,
