@@ -26,36 +26,38 @@
   <% end %>
 
 
+<% if source.slug != "all-data" %>
+  <%= form_with(url: district_school_analyze_index_path,
+                method: :get,
+                data: {
+                turbo_frame: "results",
+                turbo_action: "advance",
+                controller: "analyze",
+                action: "input->analyze#submit"
+                }) do |f| %>
 
-<%= form_with(url: district_school_analyze_index_path,
-              method: :get,
-              data: {
-              turbo_frame: "results",
-              turbo_action: "advance",
-              controller: "analyze",
-              action: "input->analyze#submit"
-              }) do |f| %>
+                <%  params.reject{|key,_| key == "graph"}.each do |key, value|  %>
+      <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
+    <% end %>
 
-              <%  params.reject{|key,_| key == "graph"}.each do |key, value|  %>
-    <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
-  <% end %>
+      <% @presenter.slices.each do | slice |  %>
+        <div class="mx-3">
+          <input type="radio"
+                id="<%= slice.slug %>"
+                class="form-check-input"
+                name="graph"
+                value="<%= slice.graph.slug %>"
+                <%= slice.slug == @presenter.slice.slug ? "checked" : "" %>
+                <%= slice.slug == "all-data" ? "hidden" : "" %>>
 
-    <% source.slices.each do | slice |  %>
-      <div class="mx-3">
-        <input type="radio"
-              id="<%= slice.slug %>"
-              class="form-check-input"
-              name="graph"
-              value="<%= slice.graph.slug %>"
-              <%= slice.slug == @presenter.slice.slug ? "checked" : "" %>
-              <%= slice.slug == "all-data" ? "hidden" : "" %>>
-
-        <label for="<%= slice.slug %>"
-          <%= slice.slug == "all-data" ? "hidden" : "" %>>
-          <%= slice.to_s %></label>
-      </div>
+          <label for="<%= slice.slug %>"
+            <%= slice.slug == "all-data" ? "hidden" : "" %>>
+            <%= slice.to_s %></label>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
+
   <%= render partial: "group_selectors" %>
 </div>

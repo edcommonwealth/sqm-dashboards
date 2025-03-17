@@ -2,14 +2,14 @@
 
 module Analyze
   module Graph
-    class StudentsAndTeachers
+    class StudentsAndTeachersAndParents
       include Analyze::Graph::Column
       def to_s
-        "Students & Teachers"
+        "Students & Teachers & Parents"
       end
 
       def slug
-        "students-and-teachers"
+        "students-and-teachers-and-parents"
       end
 
       def columns
@@ -21,7 +21,7 @@ module Analyze
       end
 
       def slice
-        Analyze::Slice::StudentsAndTeachers.new(graph: self)
+        Analyze::Slice::StudentsAndTeachersAndParents.new(graph: self)
       end
 
       def group
