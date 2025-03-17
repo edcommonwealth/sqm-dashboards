@@ -1,16 +1,8 @@
 module Analyze
   module Slice
-    class StudentsAndTeachers
-      def to_s
-        "Students & Teachers"
-      end
-
-      def slug
-        "students-and-teachers"
-      end
-
-      def graph
-        Analyze::Graph::StudentsAndTeachers.new
+    class StudentsAndTeachers < Base
+      def initialize(graph:, label: "Students & Teachers", slug: "students-and-teachers")
+        super(label:, slug:, graph:)
       end
     end
   end

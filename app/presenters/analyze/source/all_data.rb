@@ -1,13 +1,11 @@
 module Analyze
   module Source
     class AllData
-      attr_reader :slices
-      attr_accessor :graph
+      attr_reader :slices, :graph
 
-      include Analyze::Slice
-
-      def initialize(slices:)
+      def initialize(slices:, graph:)
         @slices = slices
+        @graph = graph
       end
 
       def to_s

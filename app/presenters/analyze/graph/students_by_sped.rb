@@ -27,11 +27,15 @@ module Analyze
       end
 
       def source
-        Analyze::Source::SurveyData.new(slices: nil)
+        Analyze::Source::SurveyData.new(slices: nil, graph: self)
       end
 
       def slice
-        Analyze::Slice::StudentsByGroup.new
+        Analyze::Slice::StudentsByGroup.new(graph: self)
+      end
+
+      def group
+        Analyze::Group::Base.new(name: "Special Education", slug: "sped", graph: self)
       end
     end
   end

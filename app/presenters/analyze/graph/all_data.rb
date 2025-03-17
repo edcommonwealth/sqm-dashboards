@@ -26,11 +26,15 @@ module Analyze
       end
 
       def source
-        Analyze::Source::AllData.new(slices: [slice])
+        Analyze::Source::AllData.new(slices: [slice], graph: self)
       end
 
       def slice
-        Analyze::Slice::AllData.new
+        Analyze::Slice::AllData.new(graph: self)
+      end
+
+      def group
+        Analyze::Group::Base.new(name: nil, slug: nil, graph: nil)
       end
 
       def show_irrelevancy_message?(measure:)
