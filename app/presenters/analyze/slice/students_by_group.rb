@@ -1,14 +1,8 @@
 module Analyze
   module Slice
-    class StudentsByGroup
-      attr_accessor :graph
-
-      def to_s
-        "Students by Group"
-      end
-
-      def slug
-        "students-by-group"
+    class StudentsByGroup < Base
+      def initialize(graph:, label: "Students by Group", slug: "students-by-group")
+        super(label:, slug:, graph:)
       end
     end
   end

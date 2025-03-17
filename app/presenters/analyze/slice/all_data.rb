@@ -1,14 +1,8 @@
 module Analyze
   module Slice
-    class AllData
-      attr_accessor :graph
-
-      def to_s
-        "All Data"
-      end
-
-      def slug
-        "all-data"
+    class AllData < Base
+      def initialize(graph:, label: "All Data", slug: "all-data")
+        super(label:, slug:, graph:)
       end
     end
   end

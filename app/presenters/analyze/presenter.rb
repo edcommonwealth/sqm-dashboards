@@ -96,8 +96,10 @@ module Analyze
     end
 
     def groups
-      @groups = [Analyze::Group::Ell.new, Analyze::Group::Gender.new, Analyze::Group::Grade.new, Analyze::Group::Income.new,
-                 Analyze::Group::Race.new, Analyze::Group::Sped.new]
+      @groups = graphs.map(&:group)
+                      .reject { |group| group.name.nil? }
+                      .sort_by { |group| group.name }
+                      .uniq
     end
 
     def group
@@ -111,7 +113,13 @@ module Analyze
     end
 
     def slices
-      graphs.map { |graph| graph.slice }.uniq
+      @slices ||= begin
+        hash = {}
+        graphs.map(&:slice).each do |slice|
+          hash[slice.slug] = slice
+        end
+        hash.values
+      end
     end
 
     def source
@@ -121,7 +129,7 @@ module Analyze
     def show_secondary_graph?(measure:)
       return false unless measure.includes_parent_survey_items?
 
-      graph.slug == "all-data"
+      ["all-data", "students-and-teachers-and-parents"].include?(graph.slug)
     end
 
     def columns_for_measure(measure:)
@@ -133,33 +141,25 @@ module Analyze
     end
 
     def sources
-      all_data_slice = Analyze::Slice::AllData.new
-      all_data_slice.graph = Analyze::Graph::AllData.new
-      all_data_slices = [all_data_slice]
-
-      all_data_source = Analyze::Source::AllData.new(slices: all_data_slices)
-      all_data_source.graph = Analyze::Graph::AllData.new
-
-      students_and_teachers = Analyze::Slice::StudentsAndTeachers.new
-      students_by_group = Analyze::Slice::StudentsByGroup.new
-      students_by_group.graph = Analyze::Graph::StudentsByEll.new(ells: selected_ells)
-
-      survey_data_slices = [students_and_teachers, students_by_group]
-      survey_data_source = Analyze::Source::SurveyData.new(slices: survey_data_slices)
-      survey_data_source.graph = Analyze::Graph::StudentsAndTeachers.new
-
-      @sources = [all_data_source, survey_data_source]
+      @sources ||= begin
+        hash = {}
+        graphs.map(&:source).each do |source|
+          hash[source.slug] = source
+        end
+        hash.values
+      end
     end
 
     def graphs
       @graphs ||= [Analyze::Graph::AllData.new,
                    Analyze::Graph::StudentsAndTeachers.new,
+                   Analyze::Graph::StudentsAndTeachersAndParents.new,
                    Analyze::Graph::StudentsByRace.new(races: selected_races),
                    Analyze::Graph::StudentsByGrade.new(grades: selected_grades),
                    Analyze::Graph::StudentsByGender.new(genders: selected_genders),
                    Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
-                   Analyze::Graph::StudentsByEll.new(ells: selected_ells),
-                   Analyze::Graph::StudentsBySped.new(speds: selected_speds)]
+                   Analyze::Graph::StudentsBySped.new(speds: selected_speds),
+                   Analyze::Graph::StudentsByEll.new(ells: selected_ells)]
     end
 
     def graph
