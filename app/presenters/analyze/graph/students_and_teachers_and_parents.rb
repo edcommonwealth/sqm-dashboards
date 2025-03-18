@@ -5,7 +5,7 @@ module Analyze
     class StudentsAndTeachersAndParents
       include Analyze::Graph::Column
       def to_s
-        "Students & Teachers & Parents"
+        "Students, Teachers & Parents"
       end
 
       def slug
