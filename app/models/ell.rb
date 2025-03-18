@@ -9,9 +9,9 @@ class Ell < ApplicationRecord
 
     ell = ell.delete(",")
     case ell
-    in /lep\s*student\s*1st\s*year|LEP\s*student\s*not\s*1st\s*year|EL\s*Student\s*First\s*Year|LEP\s*student|^EL\s+|true|1|^ELL$|^LEP\s*Not\s*1st\s*Year/i
+    in /lep\s*student\s*1st\s*year|LEP\s*student\s*not\s*1st\s*year|EL\s*Student\s*First\s*Year|LEP\s*student|^EL\s+|true|1|^ELL$|^LEP\s*Not\s*1st\s*Year|^Yes/i
       "ELL"
-    in /0|2|3|Does\s*not\s*apply/i
+    in /0|2|3|Does\s*not\s*apply|^No/i
       "Not ELL"
     in %r{^#*N/*A$|Unknown}i
       "Unknown"
