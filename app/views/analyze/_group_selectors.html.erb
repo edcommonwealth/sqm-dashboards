@@ -11,7 +11,7 @@
     <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
   <% end %>
 
-  <select id="select-group" name="graph" class="mx-4 form-select" data-id="group-dropdown">
+  <select id="select-group" name="graph" class="ms-3 form-select" data-id="group-dropdown">
     <% @presenter.groups.each do |group| %>
       <option id="<%= group.slug %>" value="<%= group.graph.slug %>" <%= group.graph.slug == @presenter.graph.slug ? "Selected": "" %>><%= group.name %> </option>
     <% end %>
