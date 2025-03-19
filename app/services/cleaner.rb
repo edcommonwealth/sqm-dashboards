@@ -61,12 +61,12 @@ class Cleaner
 
     # If this is a student survey
     # Make sure it includes a 'Grade' header
-    student_survey_is_missing_grade_header = headers
-                                             .filter(&:present?)
-                                             .filter { |header| header.start_with? "s-" }.count > 0 && !headers.find do |header|
-                                                                                                         header.match?(/grade/i)
-                                                                                                       end
-    if student_survey_is_missing_grade_header
+    is_student_survey = headers.filter(&:present?)
+                               .filter { |header| header.start_with? "s-" }
+                               .count > 0
+
+    has_grade_header = headers.filter(&:present?).find {|header| header.match?(/grade/i) }.present?
+    if is_student_survey && has_grade_header == false
       puts "could not find the Grade header.  Stopping execution"
       exit
     end
