@@ -41,18 +41,18 @@
     <% end %>
 
       <% @presenter.slices.each do | slice |  %>
-        <div class="mx-3">
-          <input type="radio"
-                id="<%= slice.slug %>"
-                class="form-check-input"
-                name="graph"
-                value="<%= slice.graph.slug %>"
-                <%= slice.slug == @presenter.slice.slug ? "checked" : "" %>
-                <%= slice.slug == "all-data" ? "hidden" : "" %>>
+        <div class="d-flex flex-row mx-3">
+            <input type="radio"
+                  id="<%= slice.slug %>"
+                  class="form-check-input me-2"
+                  name="graph"
+                  value="<%= slice.graph.slug %>"
+                  <%= slice.slug == @presenter.slice.slug ? "checked" : "" %>
+                  <%= slice.slug == "all-data" ? "hidden" : "" %>>
 
-          <label for="<%= slice.slug %>"
-            <%= slice.slug == "all-data" ? "hidden" : "" %>>
-            <%= slice.to_s %></label>
+            <label class="text-break" for="<%= slice.slug %>"
+              <%= slice.slug == "all-data" ? "hidden" : "" %>>
+              <%= slice.to_s %></label>
         </div>
       <% end %>
     <% end %>
