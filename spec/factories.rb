@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :housing do
+    designation { "MyString" }
+  end
+
   factory :parent do
     response_id { "MyString" }
     number_of_children { 1 }
