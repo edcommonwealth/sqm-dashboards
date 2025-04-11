@@ -1,12 +1,13 @@
 class Language < ApplicationRecord
   scope :by_designation, -> { all.map { |language| [language.designation, language] }.to_h }
-  has_many :parents, dependent: :nullify
+  has_many :parent_languages, dependent: :destroy
+  has_many :parents, through: :parent_languages, dependent: :nullify
 
   include FriendlyId
 
   friendly_id :designation, use: [:slugged]
   def self.to_designation(language)
-    return "Unknown" if language.blank?
+    return "Prefer not to disclose" if language.blank?
 
     case language
     in /^1$/i

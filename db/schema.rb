@@ -89,6 +89,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_185655) do
     t.index ["slug"], name: "index_genders_on_slug", unique: true
   end
 
+  create_table "housings", force: :cascade do |t|
+    t.string "designation"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "incomes", force: :cascade do |t|
     t.string "designation"
     t.datetime "created_at", null: false

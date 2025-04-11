@@ -99,24 +99,27 @@ class SurveyResponsesDataLoader
     @languages ||= Language.by_designation
   end
 
+  def housings
+    @housings ||= Housing.by_designation
+  end
+
   def process_survey_items(row:)
     student = nil
     parent = nil
     if row.respondent_type == :student
       student = Student.find_or_create_by(response_id: row.response_id, lasid: row.lasid)
       student.races.delete_all
-      tmp_races = row.races.map { |race| races[race] }
+      tmp_races = row.races.map { |race| races[race] }.reject(&:nil?)
       student.races += tmp_races
     end
 
     if row.respondent_type == :parent
       parent = Parent.find_or_create_by(response_id: row.response_id)
       parent.number_of_children = row.number_of_children
-      tmp_languages = row.languages.map { |language| languages[language] }
-      parent.housing_id = Housing.find_by(designation: row.housing).id
+      tmp_languages = row.languages.map { |language| languages[language] }.reject(&:nil?)
       parent.languages.delete_all
       parent.languages.concat(tmp_languages)
-      parent.housing = Housing.find_by(designation: row.housing)
+      parent.housing = housings[row.housing] if row.housing.present?
       parent.save
     end
 

@@ -1,5 +1,6 @@
 class Housing < ApplicationRecord
   has_many :parents, dependent: :nullify
+  scope :by_designation, -> { all.map { |housing| [housing.designation, housing] }.to_h }
 
   def self.to_designation(housing)
     return "Unknown" if housing.blank?

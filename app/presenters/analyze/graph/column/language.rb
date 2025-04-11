@@ -32,6 +32,8 @@ module Analyze
         end
 
         def score(measure:, school:, academic_year:)
+          return Score::NIL_SCORE if n_size(measure:, school:, academic_year:) < 10
+
           averages = SurveyItemResponse.averages_for_language(measure.parent_survey_items, school, academic_year,
                                                          designations)
           average = bubble_up_averages(measure:, averages:).round(2)

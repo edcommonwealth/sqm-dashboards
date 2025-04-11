@@ -23,6 +23,7 @@ module Analyze
           array << Analyze::Graph::Column::Language.new(languages: ENGLISH_LANGUAGES, label: ["English", "Speaking"])
           array << Analyze::Graph::Column::Language.new(languages: NON_ENGLISH_LANGUAGES, label: ["Non English", "Speaking"])
           array << Analyze::Graph::Column::Language.new(languages: UNKNOWN_LANGUAGES, label: ["Unknown"])
+          array << Analyze::Graph::Column::Language.new(languages: ALL_LANGUAGES, label: ["All", "Parents"])
         end
       end
 
@@ -31,11 +32,11 @@ module Analyze
       end
 
       def slice
-        Analyze::Slice::StudentsByGroup.new(graph: self)
+        Analyze::Slice::ParentsByGroup.new(graph: self)
       end
 
       def group
-        Analyze::Group::Base.new(name: "Special Education", slug: "sped", graph: self)
+        Analyze::Group::Base.new(name: "Language", slug: "language", graph: self)
       end
     end
   end

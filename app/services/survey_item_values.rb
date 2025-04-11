@@ -171,7 +171,7 @@ class SurveyItemValues
   end
 
   def lasid
-    @lasid ||= value_from(pattern: /LASID/i)
+    @lasid ||= value_from(pattern: /LASID/i) || ""
   end
 
   def raw_income
@@ -207,7 +207,7 @@ class SurveyItemValues
   end
 
   def raw_language
-    @raw_language ||= value_from(pattern: /^Language$/i)
+    @raw_language ||= value_from(pattern: /^Language$/i) || ""
   end
 
   def languages
@@ -234,6 +234,9 @@ class SurveyItemValues
       output ||= row[match]&.strip
     end
 
+    output = output.delete("\u0000") if output.present?
+    output = output.delete("\x00") if output.present?
+    output.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '') if output.present?
     output
   end
 
