@@ -22,6 +22,7 @@ class SurveyItemValues
     row["Gender"] ||= gender
     row["Raw Housing Status"] = raw_housing
     row["Housing Status"] = housing
+    row["Home Languages"] = languages.join(",")
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
@@ -161,7 +162,7 @@ class SurveyItemValues
       # Only check the secondary hispanic column if we don't have self reported data and are relying on SIS data
       if self_report.nil? && sis.present?
         hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
-        race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
+        race_codes = race_codes.reject { |code| code == 5 } if ["true", "1"].include?(hispanic) || race_codes.count == 1
         race_codes = race_codes.push(4) if %w[true 1].include?(hispanic)
       end
 
@@ -170,7 +171,7 @@ class SurveyItemValues
   end
 
   def lasid
-    @lasid ||= value_from(pattern: /LASID/i)
+    @lasid ||= value_from(pattern: /LASID/i) || ""
   end
 
   def raw_income
@@ -205,6 +206,20 @@ class SurveyItemValues
     @housing ||= Housing.to_designation(raw_housing)
   end
 
+  def raw_language
+    @raw_language ||= value_from(pattern: /^Language$/i) || ""
+  end
+
+  def languages
+    @languages ||= [].tap do |languages|
+      if raw_language.present?
+        raw_language.split(",").each do |item|
+          languages << Language.to_designation(item)
+        end
+      end
+    end
+  end
+
   def number_of_children
     @number_of_children ||= value_from(pattern: /Number\s*Of\s*Children/i).to_i
   end
@@ -219,6 +234,9 @@ class SurveyItemValues
       output ||= row[match]&.strip
     end
 
+    output = output.delete("\u0000") if output.present?
+    output = output.delete("\x00") if output.present?
+    output.encode!('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '') if output.present?
     output
   end
 

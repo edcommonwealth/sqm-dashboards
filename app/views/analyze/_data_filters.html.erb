@@ -1,32 +1,8 @@
 <h3 class="sub-header-4 mt-5">Data Filters</h3>
 <div class="bg-gray p-3">
 
-  <% @presenter.sources.each do |source| %>
-
-<%= form_with(url: district_school_analyze_index_path,
-              method: :get,
-              data: {
-              turbo_frame: "results",
-              turbo_action: "advance",
-              controller: "analyze",
-              action: "input->analyze#submit"
-              }) do |f| %>
-
-  <%  params.reject{|key,_| key == "graph"}.each do |key, value|  %>
-    <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
-  <% end %>
-    <input type="radio"
-           id="<%= source.slug %>"
-           class="form-check-input"
-           name="graph"
-           value="<%= source.graph.slug %>"
-           <%= source.slug == @presenter.source.slug ? "checked" : "" %>>
-    <label for="<%= source.slug %>"><%= source.to_s %></label>
-
-  <% end %>
-
-
-<% if source.slug != "all-data" %>
+<% @presenter.sources.each do |source| %>
+  <%# Source options; e.g. 'All Data' or 'Survey Data only' %>
   <%= form_with(url: district_school_analyze_index_path,
                 method: :get,
                 data: {
@@ -36,28 +12,52 @@
                 action: "input->analyze#submit"
                 }) do |f| %>
 
-                <%  params.reject{|key,_| key == "graph"}.each do |key, value|  %>
-      <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
-    <% end %>
+            <%  params.reject{|key,_| key == "graph"}.each do |key, value|  %>
+                <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
+            <% end %>
 
-      <% @presenter.slices.each do | slice |  %>
-        <div class="d-flex flex-row mx-3">
             <input type="radio"
-                  id="<%= slice.slug %>"
-                  class="form-check-input me-2"
-                  name="graph"
-                  value="<%= slice.graph.slug %>"
-                  <%= slice.slug == @presenter.slice.slug ? "checked" : "" %>
-                  <%= slice.slug == "all-data" ? "hidden" : "" %>>
+                   id="<%= source.slug %>"
+                   class="form-check-input"
+                   name="graph"
+                   value="<%= source.graph.slug %>"
+                   <%= source.slug == @presenter.source.slug ? "checked" : "" %>>
+            <label for="<%= source.slug %>"><%= source.to_s %></label>
+        <% end %>
 
-            <label class="text-break" for="<%= slice.slug %>"
-              <%= slice.slug == "all-data" ? "hidden" : "" %>>
-              <%= slice.to_s %></label>
-        </div>
+
+        <% if source.slug != "all-data" %>
+          <%= form_with(url: district_school_analyze_index_path,
+                        method: :get,
+                        data: {
+                        turbo_frame: "results",
+                        turbo_action: "advance",
+                        controller: "analyze",
+                        action: "input->analyze#submit"
+                        }) do |f| %>
+
+            <%  params.reject{|key,_| key == "graph"}.each do |key, value|  %>
+                  <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
+            <% end %>
+
+            <% @presenter.slices.each do | slice |  %>
+              <div class="d-flex flex-row mx-3">
+                  <input type="radio"
+                        id="<%= slice.slug %>"
+                        class="form-check-input me-2"
+                        name="graph"
+                        value="<%= slice.graph.slug %>"
+                        <%= slice.slug == @presenter.slice.slug ? "checked" : "" %>
+                        <%= slice.slug == "all-data" ? "hidden" : "" %>>
+
+                  <label class="text-break" for="<%= slice.slug %>"
+                    <%= slice.slug == "all-data" ? "hidden" : "" %>>
+                    <%= slice.to_s %></label>
+              </div>
+            <% end %>
       <% end %>
-    <% end %>
   <% end %>
 <% end %>
 
-  <%= render partial: "group_selectors" %>
+<%= render partial: "group_selectors" %>
 </div>

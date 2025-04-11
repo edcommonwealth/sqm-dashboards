@@ -414,7 +414,7 @@ RSpec.describe SurveyItemValues, type: :model do
     end
 
     context "when there are multiple races" do
-      it "returns the gender that maps to the gender provided" do
+      it "returns the race that maps to the race provided" do
         row = { "Race" => "1,2,3" }
         values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
         expect(values.races).to eq [1, 2, 3, 100]
@@ -452,7 +452,7 @@ RSpec.describe SurveyItemValues, type: :model do
         headers.push("HispanicLatino")
         headers.push("Race- SIS")
         values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
-        expect(values.races).to eq [5, 2, 3, 4, 100]
+        expect(values.races).to eq [2, 3, 4, 100]
       end
     end
   end
@@ -565,6 +565,22 @@ RSpec.describe SurveyItemValues, type: :model do
     #   output = capture_stdout { SurveyItemValues.new(row:, headers:, survey_items:, schools:) }
     #   expect(output).to match "ArbitraryUnknownValue is not a known value. Halting execution"
     # end
+  end
+
+  context ".language" do
+    before :each do
+      attleboro
+      ay_2022_23
+    end
+
+    it "validates the code matches the expectations defined in the demographic_glossary" do
+
+      list = read(demographic_filepath, "Language Value", "Language Type")
+
+      list.each do |target, result|
+        compare("Language", target, [result], :languages)
+      end
+    end
   end
 
   context ".ell" do

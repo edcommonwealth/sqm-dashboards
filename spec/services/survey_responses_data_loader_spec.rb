@@ -91,6 +91,12 @@ describe SurveyResponsesDataLoader do
     ]
   end
 
+  let(:housings) do
+    create(:housing, designation: "Own")
+    create(:housing, designation: "Rent")
+    create(:housing, designation: "Unknown")
+  end
+
   let(:t_pcom_q3) { create(:survey_item, survey_item_id: "t-pcom-q3") }
   let(:t_pcom_q2) { create(:survey_item, survey_item_id: "t-pcom-q2") }
   let(:t_coll_q1) { create(:survey_item, survey_item_id: "t-coll-q1") }
@@ -123,12 +129,20 @@ describe SurveyResponsesDataLoader do
   let(:unknown_race)    { create(:race, qualtrics_code: 99) }
   let(:multiracial)     { create(:race, qualtrics_code: 100) }
 
+  let(:languages){
+    create(:language, designation: "English")
+    create(:language, designation: "Spanish")
+    create(:language, designation: "Portuguese")
+    create(:language, designation: "Unknown")
+  }
+
   let(:setup) do
     ay_2020_21
     ay_2022_23
     school
     second_school
     butler_school
+    housings
     t_pcom_q3
     t_pcom_q2
     t_coll_q1
@@ -161,6 +175,8 @@ describe SurveyResponsesDataLoader do
     middle_eastern
     unknown_race
     multiracial
+
+    languages
   end
 
   before :each do

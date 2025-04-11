@@ -96,10 +96,14 @@ module Analyze
     end
 
     def groups
-      @groups = graphs.map(&:group)
-                      .reject { |group| group.name.nil? }
-                      .sort_by { |group| group.name }
-                      .uniq
+      @groups ||=
+        begin
+          first_char_of_class_name = graph.class.name.demodulize.first
+          graphs.select { |graph| graph.class.name.demodulize.first == first_char_of_class_name }.map(&:group)
+                .reject { |group| group.name.nil? }
+                .sort_by { |group| group.name }
+                .uniq
+        end
     end
 
     def group
@@ -159,7 +163,8 @@ module Analyze
                    Analyze::Graph::StudentsByGender.new(genders: selected_genders),
                    Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
                    Analyze::Graph::StudentsBySped.new(speds: selected_speds),
-                   Analyze::Graph::StudentsByEll.new(ells: selected_ells)]
+                   Analyze::Graph::StudentsByEll.new(ells: selected_ells),
+                   Analyze::Graph::ParentsByLanguage.new]
     end
 
     def graph

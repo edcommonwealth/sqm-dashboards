@@ -9,6 +9,7 @@ class DemographicLoader
       create_from_column(column: "ELL", row:, model: Ell)
       create_from_column(column: "Special Ed Status", row:, model: Sped)
       create_from_column(column: "Housing", row:, model: Housing)
+      create_from_column(column: "Language", row:, model: Language)
     end
   end
 

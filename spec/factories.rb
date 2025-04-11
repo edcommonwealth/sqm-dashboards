@@ -1,4 +1,13 @@
 FactoryBot.define do
+  factory :parent_language do
+    parent { nil }
+    language { nil }
+  end
+
+  factory :language do
+    designation { "MyString" }
+  end
+
   factory :housing do
     designation { "MyString" }
   end
