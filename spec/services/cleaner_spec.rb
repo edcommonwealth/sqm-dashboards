@@ -301,6 +301,7 @@ end
 
 def reads_headers_from_raw_csv(processed_data)
   processed_data in [headers, clean_csv, log_csv, data]
+
   expect(headers.to_set.sort).to eq ["StartDate", "EndDate", "Status", "IPAddress", "Progress", "Duration (in seconds)",
                                      "Finished", "RecordedDate", "ResponseId", "District", "School",
                                      "LASID", "Gender", "Race", "What grade are you in?",  "s-tint-q1",
@@ -314,7 +315,7 @@ def reads_headers_from_raw_csv(processed_data)
                                      "s-grit-q1", "s-grit-q2", "s-grit-q3", "s-grit-q4", "s-expa-q1", "s-poaf-q1", "s-poaf-q2", "s-poaf-q3",
                                      "s-poaf-q4", "s-tint-q1-1", "s-tint-q2-1", "s-tint-q3-1", "s-tint-q4-1", "s-tint-q5-1", "s-acpr-q1-1",
                                      "s-acpr-q2-1", "s-acpr-q3-1", "s-acpr-q4-1", "s-peff-q1-1", "s-peff-q2-1", "s-peff-q3-1", "s-peff-q4-1",
-                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count"].to_set.sort
+                                     "s-peff-q5-1", "s-peff-q6-1", "Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count", "Housing Status", "Raw Housing Status", "Home Language"].to_set.sort
 end
 
 def invalid_rows_are_rejected_for_the_correct_reasons(data)

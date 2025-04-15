@@ -108,6 +108,7 @@ class SurveyResponsesDataLoader
     if row.respondent_type == :parent
       parent = Parent.find_or_create_by(response_id: row.response_id)
       parent.number_of_children = row.number_of_children
+      parent.language = row.language
       parent.save
     end
 

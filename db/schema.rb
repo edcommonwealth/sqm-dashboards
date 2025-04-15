@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_15_011457) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_15_211114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -322,6 +322,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_15_011457) do
     t.integer "number_of_children"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "housing_id", null: false
+    t.bigint "language_id"
+    t.index ["housing_id"], name: "index_parents_on_housing_id"
+    t.index ["language_id"], name: "index_parents_on_language_id"
   end
 
   create_table "races", force: :cascade do |t|
@@ -510,6 +514,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_15_011457) do
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"
   add_foreign_key "legacy_school_categories", "legacy_schools", column: "school_id"
   add_foreign_key "measures", "subcategories"
+  add_foreign_key "parents", "housings"
+  add_foreign_key "parents", "languages"
   add_foreign_key "respondents", "academic_years"
   add_foreign_key "respondents", "schools"
   add_foreign_key "response_rates", "academic_years"
