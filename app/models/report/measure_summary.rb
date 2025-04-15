@@ -21,15 +21,11 @@ module Report
         Thread.new do
           while measure = jobs.pop(true)
             academic_years.each do |academic_year|
-              all_grades = Set.new
-
               respondents = Respondent.where(school: schools, academic_year:)
-              respondents.each do |respondent|
-                respondent.enrollment_by_grade.keys.each do |grade|
-                  all_grades.add(grade)
-                end
-              end
-              all_grades = all_grades.to_a
+
+              enrollment = respondents.map do | respondent| respondent.enrollment_by_grade.keys end.flatten.compact.uniq.sort
+              grades_with_responses = ::SurveyItemResponse.where(school: schools, academic_year:).where.not(grade: nil).pluck(:grade).uniq.sort
+              all_grades = (enrollment & grades_with_responses).sort
               grades = "#{all_grades.first}-#{all_grades.last}"
 
               begin_date = ::SurveyItemResponse.where(school: schools,
