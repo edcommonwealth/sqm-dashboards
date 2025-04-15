@@ -162,7 +162,7 @@ class SurveyItemValues
       # Only check the secondary hispanic column if we don't have self reported data and are relying on SIS data
       if self_report.nil? && sis.present?
         hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
-        race_codes = race_codes.reject { |code| code == 5 } if hispanic == "true" && race_codes.count == 1
+        race_codes = race_codes.reject { |code| code == 5 } if ["true", "1"].include?(hispanic) || race_codes.count == 1
         race_codes = race_codes.push(4) if %w[true 1].include?(hispanic)
       end
 

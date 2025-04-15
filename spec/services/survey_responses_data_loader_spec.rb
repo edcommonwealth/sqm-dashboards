@@ -91,6 +91,12 @@ describe SurveyResponsesDataLoader do
     ]
   end
 
+  let(:housings) do
+    create(:housing, designation: "Own")
+    create(:housing, designation: "Rent")
+    create(:housing, designation: "Unknown")
+  end
+
   let(:t_pcom_q3) { create(:survey_item, survey_item_id: "t-pcom-q3") }
   let(:t_pcom_q2) { create(:survey_item, survey_item_id: "t-pcom-q2") }
   let(:t_coll_q1) { create(:survey_item, survey_item_id: "t-coll-q1") }
@@ -136,6 +142,7 @@ describe SurveyResponsesDataLoader do
     school
     second_school
     butler_school
+    housings
     t_pcom_q3
     t_pcom_q2
     t_coll_q1

@@ -79,7 +79,7 @@ class Cleaner
 
     headers = headers.to_set
     headers = headers.merge(Set.new(["Raw Income", "Income", "Raw ELL", "ELL", "Raw SpEd", "SpEd", "Progress Count",
-                                     "Race", "Gender"])).to_a
+                                     "Race", "Gender", "Raw Housing Status", "Housing Status", "Home Language"])).to_a
     filtered_headers = include_all_headers(headers:)
     filtered_headers = remove_unwanted_headers(headers: filtered_headers)
     log_headers = (filtered_headers + ["Valid Duration?", "Valid Progress?", "Valid Grade?",

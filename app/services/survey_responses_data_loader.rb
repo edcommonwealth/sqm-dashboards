@@ -110,7 +110,8 @@ class SurveyResponsesDataLoader
     end
 
     if row.respondent_type == :parent
-      parent = Parent.find_or_create_by(response_id: row.response_id)
+      unknown_housing = Housing.find_by(designation: row.housing).id
+      parent = Parent.find_or_create_by(response_id: row.response_id, housing_id: unknown_housing)
       parent.number_of_children = row.number_of_children
       tmp_languages = row.languages.map { |language| languages[language] }
       parent.languages.concat(tmp_languages)
