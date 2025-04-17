@@ -719,15 +719,15 @@ RSpec.describe SurveyItemValues, type: :model do
       expect(values.sped).to eq "Not Special Education"
     end
 
-    it 'translates NA into "Not Special Education"' do
+    it 'translates NA into "Unknown"' do
       headers = ["Raw SpEd"]
       row = { "Raw SpEd" => "NA" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
-      expect(values.sped).to eq "Not Special Education"
+      expect(values.sped).to eq "Unknown"
 
       row = { "Raw SpEd" => "#NA" }
       values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
-      expect(values.sped).to eq "Not Special Education"
+      expect(values.sped).to eq "Unknown"
     end
 
     # NOTE: This will halt test runs too
