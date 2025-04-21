@@ -95,6 +95,10 @@ class SurveyResponsesDataLoader
     process_survey_items(row:)
   end
 
+  def languages
+    @languages ||= Language.by_designation
+  end
+
   def process_survey_items(row:)
     student = nil
     parent = nil
@@ -108,7 +112,9 @@ class SurveyResponsesDataLoader
     if row.respondent_type == :parent
       parent = Parent.find_or_create_by(response_id: row.response_id)
       parent.number_of_children = row.number_of_children
-      parent.language = row.language
+      tmp_languages = row.languages.map { |language| languages[language] }
+      parent.languages.concat(tmp_languages)
+      parent.housing = Housing.find_by(designation: row.housing)
       parent.save
     end
 

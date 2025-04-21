@@ -20,6 +20,9 @@ class SurveyItemValues
     row["Progress Count"] = progress
     row["Race"] ||= races.join(",")
     row["Gender"] ||= gender
+    row["Raw Housing Status"] = raw_housing
+    row["Housing Status"] = housing
+    row["Home Languages"] = languages.join(",")
 
     copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
     copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
@@ -193,6 +196,28 @@ class SurveyItemValues
 
   def sped
     @sped ||= Sped.to_designation(raw_sped)
+  end
+
+  def raw_housing
+    @raw_housing ||= value_from(pattern: /Housing/i)
+  end
+
+  def housing
+    @housing ||= Housing.to_designation(raw_housing)
+  end
+
+  def raw_language
+    @raw_language ||= value_from(pattern: /^Language$/i)
+  end
+
+  def languages
+    @languages ||= [].tap do |languages|
+      if raw_language.present?
+        raw_language.split(",").each do |item|
+          languages << Language.to_designation(item)
+        end
+      end
+    end
   end
 
   def number_of_children

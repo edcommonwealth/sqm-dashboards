@@ -52,8 +52,12 @@ class SurveyItemResponse < ActiveRecord::Base
   }
 
   scope :averages_for_language, lambda { |survey_items, school, academic_year, language|
-    SurveyItemResponse.where(survey_item: survey_items, school:,
-                             academic_year:, language:, grade: school.grades(academic_year:)).group(:survey_item).having("count(*) >= 10").average(:likert_score)
+    # SurveyItemResponse.where(survey_item: survey_items, school:,
+    #                          academic_year:, language:, grade: school.grades(academic_year:)).group(:survey_item).having("count(*) >= 10").average(:likert_score)
+    #
+    #
+    # Parent.joins(:languages).where(languages: {designation: "Spanish"})
+    # SurveyItemResponse.joins([parent: :languages]).where(languages: {designation: "English"}).first
   }
   def self.grouped_responses(school:, academic_year:)
     @grouped_responses ||= Hash.new do |memo, (school, academic_year)|

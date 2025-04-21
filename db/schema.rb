@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_15_211114) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_18_185655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -95,6 +95,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_211114) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.index ["slug"], name: "index_incomes_on_slug", unique: true
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "designation"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["designation"], name: "index_languages_on_designation"
   end
 
   create_table "legacy_attempts", id: :serial, force: :cascade do |t|
@@ -317,15 +325,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_211114) do
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
 
+  create_table "parent_languages", force: :cascade do |t|
+    t.bigint "parent_id", null: false
+    t.bigint "language_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_parent_languages_on_language_id"
+    t.index ["parent_id", "language_id"], name: "index_parent_languages_on_parent_id_and_language_id"
+    t.index ["parent_id"], name: "index_parent_languages_on_parent_id"
+  end
+
   create_table "parents", force: :cascade do |t|
     t.string "response_id"
     t.integer "number_of_children"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "housing_id", null: false
-    t.bigint "language_id"
+    t.bigint "housing_id"
     t.index ["housing_id"], name: "index_parents_on_housing_id"
-    t.index ["language_id"], name: "index_parents_on_language_id"
   end
 
   create_table "races", force: :cascade do |t|
@@ -514,8 +530,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_211114) do
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"
   add_foreign_key "legacy_school_categories", "legacy_schools", column: "school_id"
   add_foreign_key "measures", "subcategories"
+  add_foreign_key "parent_languages", "languages"
+  add_foreign_key "parent_languages", "parents"
   add_foreign_key "parents", "housings"
-  add_foreign_key "parents", "languages"
   add_foreign_key "respondents", "academic_years"
   add_foreign_key "respondents", "schools"
   add_foreign_key "response_rates", "academic_years"
