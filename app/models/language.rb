@@ -15,8 +15,10 @@ class Language < ApplicationRecord
       "Portuguese"
     in /^3$/i
       "Spanish"
-    in /^99$|^100$/i
-      "Unknown"
+    in /^99$/i
+      "Prefer not to disclose"
+    in /|^100$/i
+      "Prefer to self-describe"
     else
       puts "************************************"
       puts "********      ERROR       **********"
