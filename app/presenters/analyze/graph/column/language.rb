@@ -28,12 +28,13 @@ module Analyze
         end
 
         def n_size(measure:, school:, academic_year:)
-          SurveyItemResponse.joins([parent: :languages]).where(languages: { designation: designations }, school:, academic_year:).select(:parent_id).distinct.count
+          SurveyItemResponse.joins([parent: :languages]).where(languages: { designation: designations }, survey_item: measure.parent_survey_items, school:, academic_year:).select(:parent_id).distinct.count
         end
 
         def score(measure:, school:, academic_year:)
-          average = SurveyItemResponse.joins([parent: :languages]).where(languages: { designation: designations }, school:, academic_year:).average(:likert_score)
-
+          averages = SurveyItemResponse.averages_for_language(measure.parent_survey_items, school, academic_year,
+                                                         designations)
+          average = bubble_up_averages(measure:, averages:).round(2)
           Score.new(average:,
                     meets_teacher_threshold: false,
                     meets_student_threshold: true,
@@ -42,6 +43,14 @@ module Analyze
 
         def designations
           language.map(&:designation)
+        end
+
+        def bubble_up_averages(measure:, averages:)
+          measure.parent_scales.map do |scale|
+            scale.survey_items.map do |survey_item|
+              averages[survey_item]
+            end.remove_blanks.average
+          end.remove_blanks.average
         end
       end
     end

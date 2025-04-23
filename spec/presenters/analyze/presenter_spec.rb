@@ -366,38 +366,37 @@ describe Analyze::Presenter do
 
   context ".group" do
     context "when no parameters are provided" do
-      it "returns the first item in the list of groups" do
-        params = {}
-        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
-        expect(presenter.group.slug).to eq presenter.groups.first.slug
+      it "returns no groups when no params are defined" do
+        presenter = Analyze::Presenter.new(params: {}, school:, academic_year:)
+        expect(presenter.groups).to eq []
       end
     end
 
     context "when a group is provided in the params hash" do
       it "returns the group with the given slug" do
-        params = { group: "gender" }
+        params = { group: "gender", graph: "students-by-gender" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "gender"
 
-        params = { group: "grade" }
+        params = { group: "grade", graph: "students-by-grade" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "grade"
 
-        params = { group: "race" }
+        params = { group: "race", graph: "students-by-race" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "race"
 
-        params = { group: "income" }
+        params = { group: "income", graph: "students-by-income" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.group.slug).to eq "income"
       end
     end
 
     context "when a parameter that does not match a group is provided" do
-      it "returns the first item in the list of groups" do
-        params = { group: "invalid group" }
+      it "returns nil when invalid parameters are given" do
+        params = { group: "invalid group", graph: "invalid graph" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
-        expect(presenter.group.slug).to eq presenter.groups.first.slug
+        expect(presenter.group).to eq nil
       end
     end
   end

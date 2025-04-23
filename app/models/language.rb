@@ -9,7 +9,7 @@ class Language < ApplicationRecord
     return "Unknown" if language.blank?
 
     case language
-    in /^1$|^1[^0]/i
+    in /^1$/i
       "English"
     in /^2$/i
       "Portuguese"

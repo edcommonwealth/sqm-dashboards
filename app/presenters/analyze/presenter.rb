@@ -98,8 +98,8 @@ module Analyze
     def groups
       @groups ||=
         begin
-          selectable_groups = graph.class.name.demodulize.first(4)
-          graphs.select { |graph| graph.class.name.demodulize.first(4) == selectable_groups }.map(&:group)
+          first_char_of_class_name = graph.class.name.demodulize.first
+          graphs.select { |graph| graph.class.name.demodulize.first == first_char_of_class_name }.map(&:group)
                 .reject { |group| group.name.nil? }
                 .sort_by { |group| group.name }
                 .uniq

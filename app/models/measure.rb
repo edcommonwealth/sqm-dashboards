@@ -51,6 +51,10 @@ class Measure < ActiveRecord::Base
     @student_scales ||= scales.student_scales
   end
 
+  def parent_scales
+    @parent_scales ||= scales.parent_scales
+  end
+
   def includes_teacher_survey_items?
     @includes_teacher_survey_items ||= teacher_survey_items.length.positive?
   end
