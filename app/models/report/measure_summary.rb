@@ -20,21 +20,17 @@ module Report
       workers = pool_size.times.map do
         Thread.new do
           while measure = jobs.pop(true)
+            all_grades = Respondent.grades_that_responded_to_survey(academic_year: academic_years, school: schools)
+            grades = "#{all_grades.first}-#{all_grades.last}"
+            district = schools.first.district
+
             academic_years.each do |academic_year|
-              respondents = Respondent.where(school: schools, academic_year:)
-
-              enrollment = respondents.map do | respondent| respondent.enrollment_by_grade.keys end.flatten.compact.uniq.sort
-              grades_with_responses = ::SurveyItemResponse.where(school: schools, academic_year:).where.not(grade: nil).pluck(:grade).uniq.sort
-              all_grades = (enrollment & grades_with_responses).sort
-              grades = "#{all_grades.first}-#{all_grades.last}"
-
               begin_date = ::SurveyItemResponse.where(school: schools,
                                                       academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
               end_date = ::SurveyItemResponse.where(school: schools,
                                                     academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
               date_range = "#{begin_date} - #{end_date}"
 
-              district = schools.first.district
               row = [measure, district, academic_year]
 
               mutex.synchronize do
