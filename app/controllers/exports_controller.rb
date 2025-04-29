@@ -30,7 +30,7 @@ class ExportsController < ApplicationController
         report = params[:report]
 
         if ["Survey Item - By Item", "Survey Item - By Grade", "Survey Entries - by Measure"].include?(report)
-          use_student_survey_items = student_survey_types[params[:student_survey_type]]
+          use_student_survey_items = student_survey_types[params[:student_survey_type]] || ::SurveyItem.student_survey_items.pluck(:id)
           reports[report].call(schools, academic_years, use_student_survey_items)
         else
           reports[report].call(schools, academic_years)
@@ -88,8 +88,7 @@ class ExportsController < ApplicationController
                                                                   filename: "beyond_learning_loss_response_rate_#{Date.today}.csv"
                                                 },
       "Survey Item - By Item" => lambda { |schools, academic_years, use_student_survey_items|
-                                   data = Report::SurveyItemByItem.to_csv(schools:, academic_years:,
-                                                                          use_student_survey_items:)
+                                   data = Report::SurveyItemByItem.to_csv(schools:, academic_years:, use_student_survey_items:)
                                    send_data data, disposition: "attachment",
                                                    filename: "survey_item_by_item_#{Date.today}.csv"
                                  },

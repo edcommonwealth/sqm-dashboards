@@ -15,13 +15,7 @@ module Report
       # also get a map of grade->survey_id
       sufficient_survey_items = {}
 
-      grades = []
-      schools.each do |school|
-        academic_years.each do |academic_year|
-          grades.concat(school.grades(academic_year:))
-        end
-      end
-      grades = grades.uniq.reject { |grade| grade == -1 }.reject(&:nil?) # remove preschool and nil grades
+      grades = Respondent.grades_that_responded_to_survey(academic_year: academic_years, school: schools)
 
       grades.each do |grade|
         sufficient_survey_items[grade] ||= Set.new

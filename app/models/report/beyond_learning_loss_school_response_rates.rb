@@ -48,7 +48,8 @@ module Report
                                                     academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
               date_range = "#{begin_date} - #{end_date}"
 
-              all_grades = respondents.enrollment_by_grade.keys
+              all_grades = Respondent.grades_that_responded_to_survey(academic_year:, school:)
+
               grades = "#{all_grades.first}-#{all_grades.last}"
 
               mutex.synchronize do

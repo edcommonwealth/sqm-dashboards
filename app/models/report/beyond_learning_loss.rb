@@ -21,10 +21,18 @@ module Report
         Thread.new do
           while school = jobs.pop(true)
             academic_years.each do |academic_year|
-              scales.each do |scale|
-                respondents = Respondent.by_school_and_year(school:, academic_year:)
-                next if respondents.nil?
+              respondents = Respondent.by_school_and_year(school:, academic_year:)
+              next if respondents.nil?
 
+              begin_date = ::SurveyItemResponse.where(school:,
+                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+              end_date = ::SurveyItemResponse.where(school:,
+                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+              date_range = "#{begin_date} - #{end_date}"
+              all_grades = Respondent.grades_that_responded_to_survey(academic_year:, school:)
+              grades = "#{all_grades.first}-#{all_grades.last}"
+
+              scales.each do |scale|
                 response_rate = scale.measure.subcategory.response_rate(school:, academic_year:)
                 next unless response_rate.meets_student_threshold? || response_rate.meets_teacher_threshold?
 
@@ -37,16 +45,8 @@ module Report
                           scale.score(school:, academic_year:)
                         end
 
-                begin_date = ::SurveyItemResponse.where(school:,
-                                                        academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
-                end_date = ::SurveyItemResponse.where(school:,
-                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
-                date_range = "#{begin_date} - #{end_date}"
-
                 row = [response_rate, scale, school, academic_year]
 
-                all_grades = respondents.enrollment_by_grade.keys
-                grades = "#{all_grades.first}-#{all_grades.last}"
                 mutex.synchronize do
                   data << [school.district.name,
                            school.name,

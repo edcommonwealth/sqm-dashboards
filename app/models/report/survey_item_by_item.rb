@@ -39,13 +39,7 @@ module Report
         "Academic Year"
       ]
 
-      grades = []
-      schools.each do |school|
-        academic_years.each do |academic_year|
-          grades.concat(school.grades(academic_year:))
-        end
-      end
-      grades = grades.uniq.reject { |grade| grade == -1 }.reject(&:nil?) # remove preschool and nil grades
+      grades = Respondent.grades_that_responded_to_survey(academic_year: academic_years, school: schools)
 
       grades.each do |value|
         if value == 0

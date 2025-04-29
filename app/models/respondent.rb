@@ -34,4 +34,12 @@ class Respondent < ApplicationRecord
   def total_educators
     (total_teachers || 0) + (total_esp || 0)
   end
+
+  def self.grades_that_responded_to_survey(academic_year:, school:)
+    respondents = Respondent.where(school:, academic_year:)
+
+    enrollment = respondents.map { |respondent| respondent.enrollment_by_grade.keys }.flatten.compact.uniq.sort
+    grades_with_responses = ::SurveyItemResponse.where(school:, academic_year:).where.not(grade: nil).pluck(:grade).uniq.sort
+    (enrollment & grades_with_responses).sort
+  end
 end
