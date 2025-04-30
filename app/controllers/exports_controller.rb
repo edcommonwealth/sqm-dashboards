@@ -72,21 +72,6 @@ class ExportsController < ApplicationController
                                          send_data data, disposition: "attachment",
                                                          filename: "measure_detailed_#{Date.today}.csv"
                                        },
-      "Beyond Learning Loss" => lambda { |schools, academic_years|
-                                  measure_ids = %w[2A-i 2A-ii 2B-i 2B-ii 2C-i 2C-ii 4B-i 5B-i 5B-ii 5D-i]
-                                  scales = measure_ids.map do |measure_id|
-                                    Measure.find_by_measure_id(measure_id)
-                                  end.map(&:scales).flatten.compact
-                                  data = Report::BeyondLearningLoss.to_csv(schools:, academic_years:, scales:)
-                                  send_data data, disposition: "attachment",
-                                                  filename: "beyond_learning_loss_#{Date.today}.csv"
-                                },
-      "Beyond Learning Loss - Response Rate" => lambda { |schools, academic_years|
-                                                  data = Report::BeyondLearningLossSchoolResponseRates.to_csv(schools:,
-                                                                                                              academic_years:)
-                                                  send_data data, disposition: "attachment",
-                                                                  filename: "beyond_learning_loss_response_rate_#{Date.today}.csv"
-                                                },
       "Survey Item - By Item" => lambda { |schools, academic_years, use_student_survey_items|
                                    data = Report::SurveyItemByItem.to_csv(schools:, academic_years:, use_student_survey_items:)
                                    send_data data, disposition: "attachment",
