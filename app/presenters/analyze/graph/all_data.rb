@@ -4,7 +4,6 @@ module Analyze
   module Graph
     class AllData
       include Analyze::Graph::Column
-
       def label
         ["All", "Data"]
       end
@@ -37,13 +36,13 @@ module Analyze
         Analyze::Group::Base.new(name: nil, slug: nil, graph: nil)
       end
 
-      def show_irrelevancy_message?(measure:)
+      def show_irrelevancy_message?(construct:)
         false
       end
 
-      def show_insufficient_data_message?(measure:, school:, academic_years:)
+      def show_insufficient_data_message?(construct:, school:, academic_years:)
         scores = academic_years.map do |academic_year|
-          measure.score(school:, academic_year:)
+          construct.score(school:, academic_year:)
         end
 
         scores.none? { |score| score.meets_student_threshold? || score.meets_teacher_threshold? || score.meets_admin_data_threshold? }
@@ -53,8 +52,8 @@ module Analyze
         ["survey response", "rate below 25%"]
       end
 
-      def score(measure:, school:, academic_year:)
-        measure.score(school:, academic_year:)
+      def score(construct:, school:, academic_year:)
+        construct.score(school:, academic_year:)
       end
     end
   end

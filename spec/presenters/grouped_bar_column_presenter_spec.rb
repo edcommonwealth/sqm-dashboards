@@ -63,17 +63,17 @@ describe GroupedBarColumnPresenter do
   end
 
   let(:student_presenter) do
-    GroupedBarColumnPresenter.new measure: measure_with_student_survey_items, school:, academic_years:,
+    GroupedBarColumnPresenter.new construct: measure_with_student_survey_items, school:, academic_years:,
                                   position: 0, number_of_columns: 3, config: Analyze::Graph::Column::AllStudent.new
   end
 
   let(:teacher_presenter) do
-    GroupedBarColumnPresenter.new measure: measure_with_teacher_survey_items, school:, academic_years:,
+    GroupedBarColumnPresenter.new construct: measure_with_teacher_survey_items, school:, academic_years:,
                                   position: 0, number_of_columns: 3, config: Analyze::Graph::Column::AllTeacher.new
   end
 
   let(:all_data_presenter) do
-    GroupedBarColumnPresenter.new measure: measure_composed_of_student_and_teacher_items, school:, academic_years:,
+    GroupedBarColumnPresenter.new construct: measure_composed_of_student_and_teacher_items, school:, academic_years:,
                                   position: 0, number_of_columns: 3, config: Analyze::Graph::Column::AllData.new
   end
 
@@ -83,7 +83,7 @@ describe GroupedBarColumnPresenter do
 
   shared_examples_for "measure_name" do
     it "returns the measure name" do
-      expect(student_presenter.measure_name).to eq "Student measure"
+      expect(student_presenter.construct_name).to eq "Student measure"
     end
   end
 

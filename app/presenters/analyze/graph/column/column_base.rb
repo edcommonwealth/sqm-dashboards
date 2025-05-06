@@ -12,11 +12,11 @@ module Analyze
           raise NotImplementedError
         end
 
-        def show_irrelevancy_message?(measure:)
+        def show_irrelevancy_message?(construct:)
           raise NotImplementedError
         end
 
-        def show_insufficient_data_message?(measure:, school:, academic_years:)
+        def show_insufficient_data_message?(construct:, school:, academic_years:)
           raise NotImplementedError
         end
 
@@ -24,7 +24,7 @@ module Analyze
           raise NotImplementedError
         end
 
-        def score(measure:, school:, academic_year:)
+        def score(construct:, school:, academic_year:)
           raise NotImplementedError
         end
 
@@ -32,12 +32,12 @@ module Analyze
           raise NotImplementedError
         end
 
-        def n_size(measure:, school:, academic_year:)
+        def n_size(construct:, school:, academic_year:)
           raise NotImplementedError
         end
 
-        def bubble_up_averages(measure:, averages:)
-          measure.student_scales.map do |scale|
+        def bubble_up_averages(construct:, averages:)
+          construct.student_scales.map do |scale|
             scale.survey_items.map do |survey_item|
               averages[survey_item]
             end.remove_blanks.average

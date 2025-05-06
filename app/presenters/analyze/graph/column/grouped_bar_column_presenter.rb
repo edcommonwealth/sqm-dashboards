@@ -6,14 +6,14 @@ module Analyze
       class GroupedBarColumnPresenter
         include AnalyzeHelper
 
-        attr_reader :measure_name, :measure_id, :category, :position, :measure, :school, :academic_years,
+        attr_reader :construct_name, :construct_id, :category, :position, :construct, :school, :academic_years,
                     :number_of_columns, :config
 
-        def initialize(measure:, school:, academic_years:, position:, number_of_columns:, config:)
-          @measure = measure
-          @measure_name = @measure.name
-          @measure_id = @measure.measure_id
-          @category = @measure.subcategory.category
+        def initialize(school:, academic_years:, position:, number_of_columns:, config:, construct:)
+          @construct = construct
+          @construct_name = @construct&.name
+          @construct_id = @construct&.construct_id
+          @category = @construct&.subcategory&.category
           @school = school
           @academic_years = academic_years
           @position = position
@@ -23,7 +23,7 @@ module Analyze
 
         def bars
           @bars ||= academic_years.map.with_index do |academic_year, index|
-            Analyze::BarPresenter.new(measure:, academic_year:,
+            Analyze::BarPresenter.new(construct: construct, construct_id:, academic_year:,
                                       score: score(academic_year:),
                                       x_position: bar_x(index),
                                       color: bar_color(academic_year))
@@ -36,19 +36,19 @@ module Analyze
         end
 
         def show_irrelevancy_message?
-          config.show_irrelevancy_message?(measure:)
+          config.show_irrelevancy_message?(construct:) unless construct.nil?
         end
 
         def show_insufficient_data_message?
-          config.show_insufficient_data_message?(measure:, school:, academic_years:)
+          config.show_insufficient_data_message?(construct:, school:, academic_years:) unless construct.nil?
         end
 
         def score(academic_year:)
-          config.score(measure:, school:, academic_year:)
+          config.score(construct:, school:, academic_year:) unless construct.nil?
         end
 
         def n_size(academic_year:)
-          config.n_size(measure:, school:, academic_year:)
+          config.n_size(construct:, school:, academic_year:) unless construct.nil?
         end
 
         def basis

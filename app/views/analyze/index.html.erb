@@ -17,24 +17,33 @@
     </div>
     <% cache [@school, @presenter.cache_objects]  do %>
       <div class="bg-color-white flex-grow-1 col-9">
-
         <% @presenter.measures.each do  |measure| %>
-          <section id="<%= measure.measure_id %>" class="mb-6">
-            <%= link_to("MEASURE " + measure.measure_id.upcase, district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.measure_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
-            <h2> <%= measure.name %> </h2>
-            <%= render partial: "grouped_bar_chart" , locals: { measure: measure, columns: @presenter.graph.columns} %>
-          </section>
+            <section id="<%= measure.measure_id %>" class="mb-6">
+              <%= link_to("MEASURE " + measure.measure_id.upcase, district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.measure_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
+              <h2> <%= measure.name %> </h2>
+              <%= render partial: "grouped_bar_chart" , locals: { construct: measure,  columns: @presenter.measure_level_graph.columns} %>
+            </section>
 
-        <% if @presenter.show_secondary_graph?(measure:) %>
-          <section class="mb-6">
-            <%= link_to("Parent Survey", district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.scales.parent_scales.first.scale_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
-            <h2> <%= measure.subcategory.name %> </h2>
-            <% measure.scales.parent_scales.each do |scale| %>
-              <label id="<%= scale.scale_id %>" > </label>
+          <% if @presenter.show_secondary_graph?(measure:) %>
+            <section class="mb-6">
+              <%= link_to("Parent Survey", district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{measure.scales.parent_scales.first.scale_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
+              <h2> <%= measure.subcategory.name %> </h2>
+              <% measure.scales.parent_scales.each do |scale| %>
+                <label id="<%= scale.scale_id %>" > </label>
+              <% end %>
+              <%= render partial: "grouped_bar_chart" , locals: { construct: measure,  columns: @presenter.secondary_graph.columns(construct: measure)} %>
+            </section>
+          <% end %>
+
+          <% if @presenter.show_scale_level_graphs?(measure:) %>
+             <% measure.scales.parent_scales.each do |scale|   %>
+              <section id="<%= scale.scale_id %>" class="mb-6">
+                <%= link_to("scale " + scale.scale_id.upcase, district_school_category_path( @district, @school, @presenter.category, {year: @presenter.selected_academic_years&.last&.range , anchor: "#{scale.scale_id}"}), class: "construct-id", data: {turbo_frame: "_top"}) %>
+                <h2> <%= scale.name %> </h2>
+                <%= render partial: "grouped_bar_chart" , locals: {   construct: scale, columns: @presenter.scale_level_graph.columns} %>
+              </section>
             <% end %>
-            <%= render partial: "grouped_bar_chart" , locals: { measure: measure, columns: @presenter.columns_for_measure(measure:)} %>
-          </section>
-        <% end %>
+          <% end %>
 
         <% end %>
       </div>

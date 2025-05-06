@@ -12,13 +12,13 @@ module Analyze
           "survey data"
         end
 
-        def show_irrelevancy_message?(measure:)
-          !measure.includes_teacher_survey_items? || !measure.includes_student_survey_items? || !measure.includes_parent_survey_items?
+        def show_irrelevancy_message?(construct:)
+          !construct.includes_teacher_survey_items? || !construct.includes_student_survey_items? || !construct.includes_parent_survey_items?
         end
 
-        def show_insufficient_data_message?(measure:, school:, academic_years:)
+        def show_insufficient_data_message?(construct:, school:, academic_years:)
           scores = academic_years.map do |academic_year|
-            score(measure:, school:, academic_year:)
+            score(construct:, school:, academic_year:)
           end
 
           scores.all? { |score| !score.meets_student_threshold? && !score.meets_teacher_threshold? }
@@ -28,9 +28,9 @@ module Analyze
           ["survey response", "rate below 25%"]
         end
 
-        def score(measure:, school:, academic_year:)
-          teacher_score = measure.teacher_score(school:, academic_year:)
-          student_score = measure.student_score(school:, academic_year:)
+        def score(construct:, school:, academic_year:)
+          teacher_score = construct.teacher_score(school:, academic_year:)
+          student_score = construct.student_score(school:, academic_year:)
 
           averages = []
           averages << student_score.average unless student_score.average.nil?

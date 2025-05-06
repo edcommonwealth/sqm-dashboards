@@ -3,8 +3,6 @@
 module Analyze
   module Graph
     class ParentsByLanguage
-      attr_reader :speds
-
       ALL_LANGUAGES = Language.all
       ENGLISH_LANGUAGES = ALL_LANGUAGES.select { |language| language.designation == "English" }
       UNKNOWN_LANGUAGES = ALL_LANGUAGES.select { |language| language.designation == "Prefer not to disclose" }
@@ -20,10 +18,10 @@ module Analyze
 
       def columns
         [].tap do |array|
-          array << Analyze::Graph::Column::Language.new(languages: ENGLISH_LANGUAGES, label: ["English", "Speaking"])
-          array << Analyze::Graph::Column::Language.new(languages: NON_ENGLISH_LANGUAGES, label: ["Non English", "Speaking"])
-          array << Analyze::Graph::Column::Language.new(languages: UNKNOWN_LANGUAGES, label: ["Unknown"])
-          array << Analyze::Graph::Column::Language.new(languages: ALL_LANGUAGES, label: ["All", "Parents"])
+          array << Analyze::Graph::Column::Parent::Language.new(languages: ENGLISH_LANGUAGES, label: ["English", "Speaking"])
+          array << Analyze::Graph::Column::Parent::Language.new(languages: NON_ENGLISH_LANGUAGES, label: ["Non English", "Speaking"])
+          array << Analyze::Graph::Column::Parent::Language.new(languages: UNKNOWN_LANGUAGES, label: ["Unknown"])
+          array << Analyze::Graph::Column::Parent::Language.new(languages: ALL_LANGUAGES, label: ["All", "Parents"])
         end
       end
 

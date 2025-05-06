@@ -3,16 +3,16 @@
 module Analyze
   class BarPresenter
     include AnalyzeHelper
-    attr_reader :score, :x_position, :academic_year, :measure_id, :measure, :color
+    attr_reader :score, :x_position, :academic_year, :construct_id, :construct, :color
 
     MINIMUM_BAR_HEIGHT = 2
 
-    def initialize(measure:, academic_year:, score:, x_position:, color:)
+    def initialize(construct:, construct_id:, academic_year:, score:, x_position:, color:)
       @score = score
       @x_position = x_position
       @academic_year = academic_year
-      @measure = measure
-      @measure_id = measure.measure_id
+      @construct = construct
+      @construct_id = construct_id
       @color = color
     end
 
@@ -40,12 +40,13 @@ module Analyze
       (score.average - low_benchmark) / (zone.high_benchmark - low_benchmark)
     end
 
+    Zone = Struct.new(:low_benchmark, :high_benchmark, :type)
     def zone
       zones = Zones.new(
-        watch_low_benchmark: measure.watch_low_benchmark,
-        growth_low_benchmark: measure.growth_low_benchmark,
-        approval_low_benchmark: measure.approval_low_benchmark,
-        ideal_low_benchmark: measure.ideal_low_benchmark
+        watch_low_benchmark: construct.watch_low_benchmark,
+        growth_low_benchmark: construct.growth_low_benchmark,
+        approval_low_benchmark: construct.approval_low_benchmark,
+        ideal_low_benchmark: construct.ideal_low_benchmark
       )
       zones.zone_for_score(score.average)
     end

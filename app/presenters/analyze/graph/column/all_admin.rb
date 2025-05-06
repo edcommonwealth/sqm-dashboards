@@ -12,13 +12,13 @@ module Analyze
           "school data"
         end
 
-        def show_irrelevancy_message?(measure:)
-          !measure.includes_admin_data_items?
+        def show_irrelevancy_message?(construct:)
+          !construct.includes_admin_data_items?
         end
 
-        def show_insufficient_data_message?(measure:, school:, academic_years:)
+        def show_insufficient_data_message?(construct:, school:, academic_years:)
           !academic_years.any? do |year|
-            measure.sufficient_admin_data?(school:, academic_year: year)
+            construct.sufficient_admin_data?(school:, academic_year: year)
           end
         end
 
@@ -26,8 +26,8 @@ module Analyze
           ["data not", "available"]
         end
 
-        def score(measure:, school:, academic_year:)
-          measure.admin_score(school:, academic_year:)
+        def score(construct:, school:, academic_year:)
+          construct.admin_score(school:, academic_year:)
         end
 
         def type

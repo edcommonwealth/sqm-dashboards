@@ -15,7 +15,9 @@ describe Analyze::Presenter do
     create(:wrong_measure, measure_id: "99A", name: "wrong measure", subcategory: wrong_subcategory)
   end
   let(:scale) { create(:student_scale, measure:) }
+  let(:parent_scale) { create(:parent_scale, measure:) }
   let(:survey_item) { create(:student_survey_item, scale:) }
+  let(:parent_survey_item) { create(:parent_survey_item, scale: parent_scale) }
   let(:school) { create(:school) }
   let(:academic_year) { create(:academic_year) }
   let(:ay_2021_22) { create(:academic_year, range: "2021-22") }
@@ -423,6 +425,24 @@ describe Analyze::Presenter do
         params = { graph: "students-and-teachers" }
         presenter = Analyze::Presenter.new(params:, school:, academic_year:)
         expect(presenter.slice.slug).to eq "students-and-teachers"
+      end
+    end
+
+    context "when the graph is 'parents-by-language'" do
+      before :each do
+        parent_survey_item
+        parent_scale
+        measure
+      end
+      it "returns the slice with the given slug" do
+        params = { graph: "parents-by-language" }
+        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
+        expect(presenter.slice.slug).to eq "parents-by-group"
+        expect(presenter.requested_graphs).to eq "parents-by-language"
+        expect(presenter.show_secondary_graph?(measure:)).to eq false
+        expect(presenter.show_scale_level_graphs?(measure:)).to eq true
+        expect(presenter.secondary_graph.class.to_s).to eq "Analyze::Graph::AllParent"
+        expect(presenter.secondary_graph.slug).to eq "all-parent"
       end
     end
 

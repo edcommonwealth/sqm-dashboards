@@ -3,9 +3,18 @@
 class Scale < ApplicationRecord
   belongs_to :measure, counter_cache: true
   has_one :category, through: :measure
+  has_one :subcategory, through: :measure
   has_many :survey_items
   has_many :survey_item_responses, through: :survey_items
   has_many :admin_data_items
+
+  def construct_id
+    scale_id
+  end
+
+  def parent_survey_items
+    @parent_survey_items ||= survey_items.parent_survey_items
+  end
 
   def score(school:, academic_year:)
     @score ||= Hash.new do |memo, (school, academic_year)|

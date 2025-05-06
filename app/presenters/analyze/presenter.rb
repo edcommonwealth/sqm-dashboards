@@ -102,7 +102,7 @@ module Analyze
           graphs.select { |graph| graph.class.name.demodulize.first == first_char_of_class_name }.map(&:group)
                 .reject { |group| group.name.nil? }
                 .sort_by { |group| group.name }
-                .uniq
+                .uniq { |group| group.slug }
         end
     end
 
@@ -133,15 +133,13 @@ module Analyze
     def show_secondary_graph?(measure:)
       return false unless measure.includes_parent_survey_items?
 
-      ["all-data", "students-and-teachers-and-parents"].include?(graph.slug)
+      ["all-data", "students-and-teachers-and-parents"].include?(requested_graphs)
     end
 
-    def columns_for_measure(measure:)
-      return unless measure.includes_parent_survey_items?
+    def show_scale_level_graphs?(measure:)
+      return false unless measure.includes_parent_survey_items?
 
-      measure.scales.parent_scales.map do |scale|
-        Analyze::Graph::Column::Parent::Scale.new(scale:)
-      end
+      ["parents-by-language"].include?(requested_graphs)
     end
 
     def sources
@@ -154,23 +152,54 @@ module Analyze
       end
     end
 
+    def measure_level_graphs
+      @measure_level_graphs ||= { "all-data" => Analyze::Graph::AllData.new,
+                                  "students-and-teachers" => Analyze::Graph::StudentsAndTeachers.new,
+                                  "students-and-teachers-and-parents" => Analyze::Graph::StudentsAndTeachersAndParents.new,
+                                  "students-by-race" => Analyze::Graph::StudentsByRace.new(races: selected_races),
+                                  "students-by-grade" => Analyze::Graph::StudentsByGrade.new(grades: selected_grades),
+                                  "students-by-gender" => Analyze::Graph::StudentsByGender.new(genders: selected_genders),
+                                  "students-by-income" => Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
+                                  "students-by-sped" => Analyze::Graph::StudentsBySped.new(speds: selected_speds),
+                                  "students-by-ell" => Analyze::Graph::StudentsByEll.new(ells: selected_ells),
+                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
+    end
+
+    def scale_level_graphs
+      @scale_level_graphs ||= { "all-data" => nil,
+                                "students-and-teachers" => nil,
+                                "students-and-teachers-and-parents" => nil,
+                                "students-by-race" => nil,
+                                "students-by-grade" => nil,
+                                "students-by-gender" => nil,
+                                "students-by-income" => nil,
+                                "students-by-sped" => nil,
+                                "students-by-ell" => nil,
+                                "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
+    end
+
     def graphs
-      @graphs ||= [Analyze::Graph::AllData.new,
-                   Analyze::Graph::StudentsAndTeachers.new,
-                   Analyze::Graph::StudentsAndTeachersAndParents.new,
-                   Analyze::Graph::StudentsByRace.new(races: selected_races),
-                   Analyze::Graph::StudentsByGrade.new(grades: selected_grades),
-                   Analyze::Graph::StudentsByGender.new(genders: selected_genders),
-                   Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
-                   Analyze::Graph::StudentsBySped.new(speds: selected_speds),
-                   Analyze::Graph::StudentsByEll.new(ells: selected_ells),
-                   Analyze::Graph::ParentsByLanguage.new]
+      @graphs ||= measure_level_graphs.values
     end
 
     def graph
-      @graph ||= graphs.find do |graph|
-        graph.slug == params[:graph]
-      end || graphs.first
+      measure_level_graph
+    end
+
+    def requested_graphs
+      @requested_graphs ||= params[:graph] || "all-data"
+    end
+
+    def secondary_graph
+      @secondary_graph ||= Analyze::Graph::AllParent.new
+    end
+
+    def scale_level_graph
+      @scale_level_graph ||= scale_level_graphs[requested_graphs] || Analyze::Graph::ParentsByLanguageByScale.new
+    end
+
+    def measure_level_graph
+      @measure_level_graph ||= measure_level_graphs[requested_graphs] || Analyze::Graph::AllData.new
     end
 
     def grades
