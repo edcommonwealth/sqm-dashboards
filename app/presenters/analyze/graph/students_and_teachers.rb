@@ -4,6 +4,7 @@ module Analyze
   module Graph
     class StudentsAndTeachers
       include Analyze::Graph::Column
+
       def to_s
         "Students & Teachers"
       end

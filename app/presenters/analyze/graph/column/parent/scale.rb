@@ -17,11 +17,11 @@ module Analyze
             "parent data"
           end
 
-          def show_irrelevancy_message?(measure:)
+          def show_irrelevancy_message?(construct:)
             false
           end
 
-          def show_insufficient_data_message?(measure:, school:, academic_years:)
+          def show_insufficient_data_message?(construct:, school:, academic_years:)
             false
           end
 
@@ -29,7 +29,7 @@ module Analyze
             ["data not", "available"]
           end
 
-          def score(measure:, school:, academic_year:)
+          def score(construct:, school:, academic_year:)
             average = scale.parent_score(school:, academic_year:)
             Score.new(average:, meets_teacher_threshold: true, meets_student_threshold: true, meets_admin_data_threshold: true)
           end
@@ -38,7 +38,7 @@ module Analyze
             :parent
           end
 
-          def n_size(measure:, school:, academic_year:)
+          def n_size(construct:, school:, academic_year:)
             SurveyItemResponse.where(survey_item: scale.survey_items.parent_survey_items, school:, academic_year:).select(:response_id).distinct.count
           end
         end

@@ -3,16 +3,18 @@
 module Analyze
   module Graph
     class AllParent
-      def initialize(scales:)
-        @scales = scales
-      end
-
       def to_s
-        "All Data"
+        "All Parent"
       end
 
       def slug
-        "all-data"
+        "all-parent"
+      end
+
+      def columns(construct:)
+        construct.scales.parent_scales.map do |scale|
+          Analyze::Graph::Column::Parent::Scale.new(scale:)
+        end
       end
 
       def source

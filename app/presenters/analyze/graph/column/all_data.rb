@@ -6,13 +6,13 @@ module Analyze
           %w[All Data]
         end
 
-        def show_irrelevancy_message?(measure:)
+        def show_irrelevancy_message?(construct:)
           false
         end
 
-        def show_insufficient_data_message?(measure:, school:, academic_years:)
+        def show_insufficient_data_message?(construct:, school:, academic_years:)
           scores = academic_years.map do |year|
-            measure.score(school:, academic_year: year)
+            construct.score(school:, academic_year: year)
           end
 
           scores.none? do |score|
@@ -20,8 +20,8 @@ module Analyze
           end
         end
 
-        def score(measure:, school:, academic_year:)
-          measure.score(school:, academic_year:) || 0
+        def score(construct:, school:, academic_year:)
+          construct.score(school:, academic_year:) || 0
         end
 
         def type
@@ -32,8 +32,8 @@ module Analyze
           "student surveys"
         end
 
-        def n_size(measure:, school:, academic_year:)
-          SurveyItemResponse.where(survey_item: measure.student_survey_items, school:, grade: grades,
+        def n_size(construct:, school:, academic_year:)
+          SurveyItemResponse.where(survey_item: construct.student_survey_items, school:, grade: grades,
                                    academic_year:).select(:response_id).distinct.count
         end
       end

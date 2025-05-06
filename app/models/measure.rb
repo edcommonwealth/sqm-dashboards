@@ -8,6 +8,10 @@ class Measure < ActiveRecord::Base
   has_many :survey_items, through: :scales
   has_many :survey_item_responses, through: :survey_items
 
+  def construct_id
+    measure_id
+  end
+
   def none_meet_threshold?(school:, academic_year:)
     @none_meet_threshold ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = !sufficient_survey_responses?(school:, academic_year:)

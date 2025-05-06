@@ -19,11 +19,11 @@ module Analyze
           "student surveys"
         end
 
-        def show_irrelevancy_message?(measure:)
+        def show_irrelevancy_message?(construct:)
           false
         end
 
-        def show_insufficient_data_message?(measure:, school:, academic_years:)
+        def show_insufficient_data_message?(construct:, school:, academic_years:)
           false
         end
 
@@ -31,21 +31,21 @@ module Analyze
           :student
         end
 
-        def n_size(measure:, school:, academic_year:)
+        def n_size(construct:, school:, academic_year:)
           SurveyItemResponse.joins("JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id").where(
             school:, academic_year:,
-            survey_item: measure.student_survey_items
+            survey_item: construct.student_survey_items
           ).where("student_races.race_id": race.id).select(:response_id).distinct.count
         end
 
-        def score(measure:, school:, academic_year:)
-          meets_student_threshold = sufficient_student_responses?(measure:, school:, academic_year:)
+        def score(construct:, school:, academic_year:)
+          meets_student_threshold = sufficient_student_responses?(construct:, school:, academic_year:)
           return Score::NIL_SCORE unless meets_student_threshold
 
-          measure.student_survey_items
+          construct.student_survey_items
 
           averages = SurveyItemResponse.averages_for_race(school, academic_year, race)
-          average = bubble_up_averages(measure:, averages:).round(2)
+          average = bubble_up_averages(construct:, averages:).round(2)
 
           Score.new(average:,
                     meets_teacher_threshold: false,
@@ -53,8 +53,8 @@ module Analyze
                     meets_admin_data_threshold: false)
         end
 
-        def sufficient_student_responses?(measure:, school:, academic_year:)
-          return false unless measure.subcategory.response_rate(school:, academic_year:).meets_student_threshold?
+        def sufficient_student_responses?(construct:, school:, academic_year:)
+          return false unless construct.subcategory.response_rate(school:, academic_year:).meets_student_threshold?
 
           number_of_students_for_a_racial_group = SurveyItemResponse.joins("JOIN student_races on survey_item_responses.student_id = student_races.student_id JOIN students on students.id = student_races.student_id").where(
             school:, academic_year:

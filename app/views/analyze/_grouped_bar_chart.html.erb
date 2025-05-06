@@ -3,7 +3,7 @@
 
   <% number_of_columns = columns.length %>
   <% columns.each_with_index do |config, index| %>
-    <% p = Analyze::Graph::Column::GroupedBarColumnPresenter.new(measure: measure, school: @school, academic_years: @presenter.selected_academic_years, position: index , number_of_columns:, config: config) %>
+    <% p = Analyze::Graph::Column::GroupedBarColumnPresenter.new(construct:, school: @school, academic_years: @presenter.selected_academic_years, position: index , number_of_columns:, config: config) %>
     <%= render partial: "grouped_bar_column", locals: {column: p} %>
   <% end %>
 </svg>
