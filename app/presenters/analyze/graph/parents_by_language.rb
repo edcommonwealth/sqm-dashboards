@@ -18,10 +18,10 @@ module Analyze
 
       def columns
         [].tap do |array|
-          array << Analyze::Graph::Column::Parent::Language.new(languages: ENGLISH_LANGUAGES, label: ["English", "Speaking"])
-          array << Analyze::Graph::Column::Parent::Language.new(languages: NON_ENGLISH_LANGUAGES, label: ["Non English", "Speaking"])
-          array << Analyze::Graph::Column::Parent::Language.new(languages: UNKNOWN_LANGUAGES, label: ["Unknown"])
-          array << Analyze::Graph::Column::Parent::Language.new(languages: ALL_LANGUAGES, label: ["All", "Parents"])
+          array << Analyze::Graph::Column::Parent::Language.new(languages: ENGLISH_LANGUAGES, label: ["English", "Speaking"], show_irrelevancy_message: false)
+          array << Analyze::Graph::Column::Parent::Language.new(languages: NON_ENGLISH_LANGUAGES, label: ["Non English", "Speaking"], show_irrelevancy_message: false)
+          array << Analyze::Graph::Column::Parent::Language.new(languages: UNKNOWN_LANGUAGES, label: ["Unknown"], show_irrelevancy_message: false)
+          array << Analyze::Graph::Column::Parent::Language.new(languages: ALL_LANGUAGES, label: ["All", "Parents"], show_irrelevancy_message: nil)
         end
       end
 
