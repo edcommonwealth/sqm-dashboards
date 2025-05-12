@@ -28,6 +28,10 @@ module Analyze
       def group
         Analyze::Group::Base.new(name: nil, slug: nil, graph: nil)
       end
+
+      def show_irrelevancy_message?(construct:)
+        construct.survey_items.parent_items.count.zero?
+      end
     end
   end
 end

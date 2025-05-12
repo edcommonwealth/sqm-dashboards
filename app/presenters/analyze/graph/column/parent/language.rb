@@ -7,9 +7,10 @@ module Analyze
         class Language < ColumnBase
           attr_reader :language, :label
 
-          def initialize(languages:, label:)
+          def initialize(languages:, label:, show_irrelevancy_message:)
             @language = languages
             @label = label
+            @show_irrelevancy_message = show_irrelevancy_message
           end
 
           def basis
@@ -63,6 +64,12 @@ module Analyze
             construct.survey_items.map do |survey_item|
               averages[survey_item]
             end.remove_blanks.average
+          end
+
+          def show_irrelevancy_message?(construct:)
+            return false if @show_irrelevancy_message == false
+
+            construct.survey_items.parent_survey_items.count.zero?
           end
         end
       end
