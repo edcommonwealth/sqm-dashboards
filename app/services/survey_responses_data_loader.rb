@@ -30,6 +30,8 @@ class SurveyResponsesDataLoader
 
     survey_item_responses = []
     row_count = 0
+    batch_size = 100
+
     until file.eof?
       line = file.gets
       next unless line.present?
@@ -40,22 +42,15 @@ class SurveyResponsesDataLoader
       end
 
       row_count += 1
-      next unless row_count == BATCH_SIZE
+      next unless row_count == batch_size
 
-      SurveyItemResponse.import(
-        survey_item_responses.compact.flatten,
-        batch_size: BATCH_SIZE,
-        on_duplicate_key_update: :all
-      )
-      survey_item_responses = []
+      SurveyItemResponse.import(survey_item_responses.compact.flatten, batch_size:, on_duplicate_key_update: :all)
+      survey_item_responses = [] unless file.eof?
+      GC.start
       row_count = 0
     end
 
-    SurveyItemResponse.import(
-      survey_item_responses.compact.flatten,
-      batch_size: BATCH_SIZE,
-      on_duplicate_key_update: :all
-    )
+    SurveyItemResponse.import(survey_item_responses.compact.flatten, batch_size:, on_duplicate_key_update: :all)
   end
 
   private
