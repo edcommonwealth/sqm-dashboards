@@ -113,6 +113,11 @@ class SurveyResponsesDataLoader
       tmp_languages = row.languages.map { |language| languages[language] }.reject(&:nil?)
       parent.languages.delete_all
       parent.languages.concat(tmp_languages)
+
+      parent.races.delete_all
+      tmp_races = row.races_of_children.map { |race| races[race] }.reject(&:nil?)
+      parent.races.concat(tmp_races)
+
       parent.housing = housings[row.housing] if row.housing.present?
       parent.save
     end

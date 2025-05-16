@@ -120,14 +120,14 @@ describe SurveyResponsesDataLoader do
   let(:not_ell) { create(:ell, designation: "Not ELL") }
   let(:unknown_ell) { create(:ell, designation: "Unknown") }
 
-  let(:american_indian) { create(:race, qualtrics_code: 1) }
-  let(:asian)           { create(:race, qualtrics_code: 2) }
-  let(:black)           { create(:race, qualtrics_code: 3) }
-  let(:latinx)          { create(:race, qualtrics_code: 4) }
-  let(:white)           { create(:race, qualtrics_code: 5) }
-  let(:middle_eastern)  { create(:race, qualtrics_code: 8) }
-  let(:unknown_race)    { create(:race, qualtrics_code: 99) }
-  let(:multiracial)     { create(:race, qualtrics_code: 100) }
+  let(:american_indian) { create(:race, qualtrics_code: 1, designation: "American Indian or Alaskan Native") }
+  let(:asian)           { create(:race, qualtrics_code: 2, designation: "Asian or Pacific Islander") }
+  let(:black)           { create(:race, qualtrics_code: 3, designation: "Black or African American") }
+  let(:latinx)          { create(:race, qualtrics_code: 4, designation: "Hispanic or Latinx") }
+  let(:white)           { create(:race, qualtrics_code: 5, designation: "White or Caucasian") }
+  let(:middle_eastern)  { create(:race, qualtrics_code: 8, designation: "Middle Eastern") }
+  let(:unknown_race)    { create(:race, qualtrics_code: 99, designation: "Race/Ethnicity Not Listed") }
+  let(:multiracial)     { create(:race, qualtrics_code: 100, designation: "Multiracial") }
 
   let(:languages){
     create(:language, designation: "English")
@@ -265,13 +265,17 @@ describe SurveyResponsesDataLoader do
                                         survey_item: SurveyItem.parent_survey_items).count).to eq 23
       end
 
-      expect(SurveyItemResponse.where(response_id: "parent_survey_response_7").count).to eq 0
+      expect(SurveyItemResponse.where(response_id: "parent_survey_response_8").count).to eq 0
     end
 
     it "does not add surveyitems from questions that have been disabled" do
       vestigial_parent_ids.each do |id|
         expect(SurveyItemResponse.where(school:, survey_item: id).count).to eq 0
       end
+    end
+
+    it "loads the correct set of races for parents" do
+      assigns_races_to_parents
     end
   end
 end
@@ -462,6 +466,26 @@ def assigns_races_to_students
   results.each do |key, value|
     race = SurveyItemResponse.find_by_response_id(key).student.races.to_a
     qualtrics = race.map(&:qualtrics_code)
+    expect(race).to eq value
+  end
+end
+
+
+def assigns_races_to_parents
+  results = {
+               "parent_survey_response_1" => [american_indian],
+               "parent_survey_response_2" => [unknown_race],
+               "parent_survey_response_3" => [american_indian, latinx, white, multiracial],
+               "parent_survey_response_4" => [unknown_race],
+               "parent_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern,
+                                               multiracial],
+               "parent_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern,
+                                               multiracial],
+               "parent_survey_response_7" => [white] }
+
+  results.each do |key, value|
+    race = SurveyItemResponse.find_by_response_id(key).parent.races.to_a
+    qualtrics = race.map(&:qualtrics_code).sort
     expect(race).to eq value
   end
 end

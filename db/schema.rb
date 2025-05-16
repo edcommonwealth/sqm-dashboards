@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_18_185655) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_15_205734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -340,6 +340,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_185655) do
     t.index ["parent_id"], name: "index_parent_languages_on_parent_id"
   end
 
+  create_table "parent_races", force: :cascade do |t|
+    t.bigint "parent_id", null: false
+    t.bigint "race_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_parent_races_on_parent_id"
+    t.index ["race_id"], name: "index_parent_races_on_race_id"
+  end
+
   create_table "parents", force: :cascade do |t|
     t.string "response_id"
     t.integer "number_of_children"
@@ -536,6 +545,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_185655) do
   add_foreign_key "measures", "subcategories"
   add_foreign_key "parent_languages", "languages"
   add_foreign_key "parent_languages", "parents"
+  add_foreign_key "parent_races", "parents"
+  add_foreign_key "parent_races", "races"
   add_foreign_key "parents", "housings"
   add_foreign_key "respondents", "academic_years"
   add_foreign_key "respondents", "schools"

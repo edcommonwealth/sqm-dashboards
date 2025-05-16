@@ -11,21 +11,26 @@ class SurveyItemValues
     @academic_years = academic_years
 
     copy_likert_scores_from_variant_survey_items
-    row["Income"] = income
-    row["Raw Income"] = raw_income
-    row["Raw ELL"] = raw_ell
-    row["ELL"] = ell
-    row["Raw SpEd"] = raw_sped
-    row["SpEd"] = sped
-    row["Progress Count"] = progress
-    row["Race"] ||= races.join(",")
-    row["Gender"] ||= gender
+    if survey_type == :student
+      row["Income"] = income
+      row["Raw Income"] = raw_income
+      row["Raw ELL"] = raw_ell
+      row["ELL"] = ell
+      row["Raw SpEd"] = raw_sped
+      row["SpEd"] = sped
+      row["Progress Count"] = progress
+      row["Race"] ||= races.join(",")
+      row["Gender"] ||= gender
+      copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
+      copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
+    end
+
+    return unless survey_type == :parent
+
     row["Raw Housing Status"] = raw_housing
     row["Housing Status"] = housing
     row["Home Languages"] = languages.join(",")
-
-    copy_data_to_main_column(main: /Race/i, secondary: /Race Secondary|Race-1/i)
-    copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
+    row["Declared Races of Children from Parents"] = races_of_children.join(",")
   end
 
   def normalize_headers(headers:)
@@ -168,6 +173,21 @@ class SurveyItemValues
 
       Race.normalize_race_list(race_codes)
     end
+  end
+
+  def races_of_children
+    race_codes = []
+
+    matches = headers.select do |header|
+      header.match(/^Race$|^Race-\d+/i)
+    end
+
+    matches.each do |match|
+      row[match]&.split(",")&.each do |item|
+        race_codes << item&.strip&.to_i
+      end
+    end
+    Race.normalize_race_list(race_codes.sort)
   end
 
   def lasid

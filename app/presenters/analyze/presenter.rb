@@ -139,7 +139,7 @@ module Analyze
     def show_scale_level_graphs?(measure:)
       return false unless measure.includes_parent_survey_items?
 
-      ["parents-by-language"].include?(requested_graphs)
+      requested_graphs.starts_with? "parents-by"
     end
 
     def sources
@@ -162,7 +162,8 @@ module Analyze
                                   "students-by-income" => Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
                                   "students-by-sped" => Analyze::Graph::StudentsBySped.new(speds: selected_speds),
                                   "students-by-ell" => Analyze::Graph::StudentsByEll.new(ells: selected_ells),
-                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
+                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
+                                  "parents-by-race" => Analyze::Graph::ParentsByRace.new }
     end
 
     def scale_level_graphs
@@ -175,7 +176,8 @@ module Analyze
                                 "students-by-income" => nil,
                                 "students-by-sped" => nil,
                                 "students-by-ell" => nil,
-                                "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
+                                "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
+                                "parents-by-race" => Analyze::Graph::ParentsByRace.new }
     end
 
     def graphs
