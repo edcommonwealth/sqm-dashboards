@@ -40,6 +40,7 @@
                   <input type="hidden" id="year" name="<%= key  %>" value="<%= value %>">
             <% end %>
 
+            <%# Slices; e.g. 'Students & Teachers' or 'Students by Group' or 'Parents by Group' %>
             <% @presenter.slices.each do | slice |  %>
               <div class="d-flex flex-row mx-3">
                   <input type="radio"
@@ -53,6 +54,9 @@
                   <label class="text-break" for="<%= slice.slug %>"
                     <%= slice.slug == "all-data" ? "hidden" : "" %>>
                     <%= slice.to_s %></label>
+                    <% if slice.slug == "parents-by-group"  %>
+                       <i class='fa-solid fa-circle-question px-3' data-bs-toggle='popover' data-bs-placement='right' data-bs-content='This graph displays results from the parent survey organized by the demographics of their children, as opposed to the demographics of the parent. For example, the “male students” graph displays data from all parents who have male students in the selected school.'></i>
+                    <% end %>
               </div>
             <% end %>
       <% end %>
