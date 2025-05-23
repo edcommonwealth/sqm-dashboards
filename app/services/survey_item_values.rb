@@ -31,6 +31,7 @@ class SurveyItemValues
     row["Housing Status"] = housing
     row["Home Languages"] = languages.join(",")
     row["Declared Races of Children from Parents"] = races_of_children.join(",")
+    row["Declared Genders of Children from Parents"] = genders_of_children.join(",")
   end
 
   def normalize_headers(headers:)
@@ -144,6 +145,25 @@ class SurveyItemValues
       gender_code ||= value_from(pattern: /Gender/i)
       Gender.qualtrics_code_from(gender_code)
     end
+  end
+
+  def genders_of_children
+    @genders_of_children ||= [].tap do |gender_codes|
+      matches = headers.select do |header|
+        #         Explanation:
+        # ^: Start of the string.
+        # (?!.*text): Negative lookahead — ensures that the word text does not appear anywhere in the string.
+        # .*?: Lazily match any characters (to get to the word gender).
+        # gender: Match the word gender
+        header.match(/^(?!.*text).*?gender/i)
+      end
+
+      matches.each do |match|
+        code = row[match]&.strip
+        gender_codes << Gender.qualtrics_code_from(code).to_i unless code.nil?
+      end
+      gender_codes << 99 if gender_codes.empty?
+    end.uniq.sort
   end
 
   def races

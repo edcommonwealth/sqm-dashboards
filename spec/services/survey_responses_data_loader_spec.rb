@@ -129,12 +129,12 @@ describe SurveyResponsesDataLoader do
   let(:unknown_race)    { create(:race, qualtrics_code: 99, designation: "Race/Ethnicity Not Listed") }
   let(:multiracial)     { create(:race, qualtrics_code: 100, designation: "Multiracial") }
 
-  let(:languages){
+  let(:languages) do
     create(:language, designation: "English")
     create(:language, designation: "Spanish")
     create(:language, designation: "Portuguese")
     create(:language, designation: "Unknown")
-  }
+  end
 
   let(:setup) do
     ay_2020_21
@@ -276,6 +276,10 @@ describe SurveyResponsesDataLoader do
 
     it "loads the correct set of races for parents" do
       assigns_races_to_parents
+    end
+
+    it "loads the correct set of genders for parents" do
+      assigns_genders_to_parents
     end
   end
 end
@@ -470,22 +474,36 @@ def assigns_races_to_students
   end
 end
 
-
 def assigns_races_to_parents
   results = {
-               "parent_survey_response_1" => [american_indian],
-               "parent_survey_response_2" => [unknown_race],
-               "parent_survey_response_3" => [american_indian, latinx, white, multiracial],
-               "parent_survey_response_4" => [unknown_race],
-               "parent_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern,
-                                               multiracial],
-               "parent_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern,
-                                               multiracial],
-               "parent_survey_response_7" => [white] }
+    "parent_survey_response_1" => [american_indian],
+    "parent_survey_response_2" => [unknown_race],
+    "parent_survey_response_3" => [american_indian, latinx, white, multiracial],
+    "parent_survey_response_4" => [unknown_race],
+    "parent_survey_response_5" => [american_indian, asian, black, latinx, white, middle_eastern,
+                                   multiracial],
+    "parent_survey_response_6" => [american_indian, asian, black, latinx, white, middle_eastern,
+                                   multiracial],
+    "parent_survey_response_7" => [white]
+  }
 
   results.each do |key, value|
     race = SurveyItemResponse.find_by_response_id(key).parent.races.to_a
     qualtrics = race.map(&:qualtrics_code).sort
     expect(race).to eq value
+  end
+end
+
+def assigns_genders_to_parents
+  results = { "parent_survey_response_1" => [male],
+              "parent_survey_response_2" => [female],
+              "parent_survey_response_3" => [female, male],
+              "parent_survey_response_4" => [non_binary],
+              "parent_survey_response_5" => [male],
+              "parent_survey_response_6" => [unknown_gender] }
+  # "parent_survey_response_7" => [non_binary] }
+
+  results.each do |key, value|
+    expect(SurveyItemResponse.where(response_id: key).first.parent.genders).to eq value
   end
 end

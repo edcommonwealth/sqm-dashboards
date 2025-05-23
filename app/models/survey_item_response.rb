@@ -57,9 +57,18 @@ class SurveyItemResponse < ActiveRecord::Base
          else
            race.map(&:id)
          end
-    SurveyItemResponse.joins("JOIN parent_races on survey_item_responses.parent_id = parent_races.parent_id JOIN parents on parents.id = parent_races.parent_id").where(
-      school:, academic_year:, survey_item: survey_items
-    ).where("parent_races.race_id": id).group(:survey_item).having("count(*) >= 10").average(:likert_score)
+
+    SurveyItemResponse.joins([parent: :races]).where(races: { id: }, survey_item: survey_items, school:, academic_year:).group(:survey_item).having("count(*) >= 10").average(:likert_score)
+  }
+
+  scope :averages_for_parent_gender, lambda { |survey_items, school, academic_year, gender|
+    id = if gender.instance_of? ::Gender
+           gender.id
+         else
+           gender.map(&:id)
+         end
+
+    SurveyItemResponse.joins([parent: :genders]).where(genders: { id: }, survey_item: survey_items, school:, academic_year:).group(:survey_item).having("count(*) >= 10").where.not(parent: nil).average(:likert_score)
   }
 
   scope :averages_for_language, lambda { |survey_items, school, academic_year, designations|

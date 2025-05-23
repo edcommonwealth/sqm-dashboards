@@ -166,7 +166,8 @@ module Analyze
                                   "students-by-sped" => Analyze::Graph::StudentsBySped.new(speds: selected_speds),
                                   "students-by-ell" => Analyze::Graph::StudentsByEll.new(ells: selected_ells),
                                   "parents-by-race" => Analyze::Graph::ParentsByRace.new,
-                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
+                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
+                                  "parents-by-gender" => Analyze::Graph::ParentsByGender.new }
     end
 
     # The last item will per slice type will be selected as the default slice
@@ -183,7 +184,8 @@ module Analyze
                                 "students-by-sped" => nil,
                                 "students-by-ell" => nil,
                                 "parents-by-race" => Analyze::Graph::ParentsByRace.new,
-                                "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
+                                "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
+                                "parents-by-gender" => Analyze::Graph::ParentsByGender.new }
     end
 
     def graphs

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_15_205734) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_222834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -330,6 +330,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_205734) do
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
 
+  create_table "parent_genders", force: :cascade do |t|
+    t.bigint "parent_id", null: false
+    t.bigint "gender_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gender_id"], name: "index_parent_genders_on_gender_id"
+    t.index ["parent_id"], name: "index_parent_genders_on_parent_id"
+  end
+
   create_table "parent_languages", force: :cascade do |t|
     t.bigint "parent_id", null: false
     t.bigint "language_id", null: false
@@ -543,6 +552,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_205734) do
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"
   add_foreign_key "legacy_school_categories", "legacy_schools", column: "school_id"
   add_foreign_key "measures", "subcategories"
+  add_foreign_key "parent_genders", "genders"
+  add_foreign_key "parent_genders", "parents"
   add_foreign_key "parent_languages", "languages"
   add_foreign_key "parent_languages", "parents"
   add_foreign_key "parent_races", "parents"
