@@ -35,7 +35,7 @@ module Analyze
       end
 
       def group
-        Analyze::Group::Base.new(name: "Race", slug: "race", graph: self)
+        Analyze::Group::Base.new(name: "Student Race", slug: "student-race", graph: self)
       end
     end
   end

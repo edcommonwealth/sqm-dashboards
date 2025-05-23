@@ -152,6 +152,9 @@ module Analyze
       end
     end
 
+    # The last item will per slice type will be selected as the default slice
+    # parents-by-language is last of the parents-by-group slice so it will be picked by default when the 'parents-by-group' slice is selected
+    # students-by-ell is the last of the students-by-group slice so it will be selected by default
     def measure_level_graphs
       @measure_level_graphs ||= { "all-data" => Analyze::Graph::AllData.new,
                                   "students-and-teachers" => Analyze::Graph::StudentsAndTeachers.new,
@@ -162,10 +165,13 @@ module Analyze
                                   "students-by-income" => Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
                                   "students-by-sped" => Analyze::Graph::StudentsBySped.new(speds: selected_speds),
                                   "students-by-ell" => Analyze::Graph::StudentsByEll.new(ells: selected_ells),
-                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
-                                  "parents-by-race" => Analyze::Graph::ParentsByRace.new }
+                                  "parents-by-race" => Analyze::Graph::ParentsByRace.new,
+                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
     end
 
+    # The last item will per slice type will be selected as the default slice
+    # parents-by-language is last of the parents-by-group slice so it will be picked by default when the 'parents-by-group' slice is selected
+    # students-by-ell is the last of the students-by-group slice so it will be selected by default
     def scale_level_graphs
       @scale_level_graphs ||= { "all-data" => nil,
                                 "students-and-teachers" => nil,
@@ -176,8 +182,8 @@ module Analyze
                                 "students-by-income" => nil,
                                 "students-by-sped" => nil,
                                 "students-by-ell" => nil,
-                                "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
-                                "parents-by-race" => Analyze::Graph::ParentsByRace.new }
+                                "parents-by-race" => Analyze::Graph::ParentsByRace.new,
+                                "parents-by-language" => Analyze::Graph::ParentsByLanguage.new }
     end
 
     def graphs
