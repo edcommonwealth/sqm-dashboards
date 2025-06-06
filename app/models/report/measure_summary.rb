@@ -22,32 +22,32 @@ module Report
           while measure = jobs.pop(true)
             all_grades = Respondent.grades_that_responded_to_survey(academic_year: academic_years, school: schools)
             grades = "#{all_grades.first}-#{all_grades.last}"
-            district = schools.first.district
 
             academic_years.each do |academic_year|
-              begin_date = ::SurveyItemResponse.where(school: schools,
-                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
-              end_date = ::SurveyItemResponse.where(school: schools,
-                                                    academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
-              date_range = "#{begin_date} - #{end_date}"
+              schools.flat_map(&:district).uniq.each do |district|
+                selected_schools = district.schools
+                begin_date = ::SurveyItemResponse.where(school: selected_schools,
+                                                        academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+                end_date = ::SurveyItemResponse.where(school: selected_schools,
+                                                      academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+                date_range = "#{begin_date} - #{end_date}"
 
-              row = [measure, district, academic_year]
-
-              mutex.synchronize do
-                data << [measure.name,
-                         measure.measure_id,
-                         district.name,
-                         academic_year.range,
-                         date_range,
-                         grades,
-                         student_score(row:),
-                         student_zone(row:),
-                         teacher_score(row:),
-                         teacher_zone(row:),
-                         admin_score(row:),
-                         admin_zone(row:),
-                         all_data_score(row:),
-                         all_data_zone(row:)]
+                mutex.synchronize do
+                  data << [measure.name,
+                           measure.measure_id,
+                           district.name,
+                           academic_year.range,
+                           date_range,
+                           grades,
+                           student_score(measure:,  schools: selected_schools, academic_year:),
+                           student_zone(measure:,   schools: selected_schools, academic_year:),
+                           teacher_score(measure:,  schools: selected_schools, academic_year:),
+                           teacher_zone(measure:,   schools: selected_schools, academic_year:),
+                           admin_score(measure:,    schools: selected_schools, academic_year:),
+                           admin_zone(measure:,     schools: selected_schools, academic_year:),
+                           all_data_score(measure:, schools: selected_schools, academic_year:),
+                           all_data_zone(measure:,  schools: selected_schools, academic_year:)]
+                end
               end
             end
           end
@@ -68,18 +68,18 @@ module Report
       File.write(filepath, csv)
     end
 
-    def self.all_data_score(row:)
-      row in [ measure, district, academic_year]
-      score = district.schools.map do |school|
-        score = measure.score(school:, academic_year:).average
-      end.remove_blanks.average
-      score || "N/A"
+    def self.all_data_score(measure:, schools:, academic_year:)
+      @all_data_score ||= Hash.new do |memo, (measure, schools, academic_year)|
+        score = schools.map do |school|
+          score = measure.score(school:, academic_year:).average
+        end.remove_blanks.average
+        memo[[measure, schools, academic_year]] = score || "N/A"
+      end
+      @all_data_score[[measure, schools, academic_year]]
     end
 
-    def self.all_data_zone(row:)
-      row in [ measure, district, academic_year]
-
-      average = all_data_score(row:)
+    def self.all_data_zone(measure:, schools:, academic_year:)
+      average = all_data_score(measure:, schools:, academic_year:)
       score = Score.new(average:, meets_teacher_threshold: true, meets_student_threshold: true,
                         meets_admin_data_threshold: true)
       student_zone = measure.zone_for_score(score:).type.to_s
@@ -87,17 +87,18 @@ module Report
       student_zone || "N/A"
     end
 
-    def self.student_score(row:)
-      row in [ measure, district, academic_year]
-      student_score = district.schools.map do |school|
-        student_score = measure.student_score(school:, academic_year:).average
-      end.remove_blanks.average
-      student_score || "N/A"
+    def self.student_score(measure:, schools:, academic_year:)
+      @student_score ||= Hash.new do |memo, (measure, schools, academic_year)|
+        student_score = schools.map do |school|
+          student_score = measure.student_score(school:, academic_year:).average
+        end.remove_blanks.average
+        memo[[measure, schools, academic_year]] = student_score || "N/A"
+      end
+      @student_score[[measure, schools, academic_year]]
     end
 
-    def self.student_zone(row:)
-      row in [ measure, district, academic_year]
-      average = student_score(row:)
+    def self.student_zone(measure:, schools:, academic_year:)
+      average = student_score(measure:, schools:, academic_year:)
       score = Score.new(average:, meets_teacher_threshold: true, meets_student_threshold: true,
                         meets_admin_data_threshold: true)
       student_zone = measure.zone_for_score(score:).type.to_s
@@ -105,18 +106,19 @@ module Report
       student_zone || "N/A"
     end
 
-    def self.teacher_score(row:)
-      row in [ measure, district, academic_year]
-      teacher_score = district.schools.map do |school|
-        measure.teacher_score(school:, academic_year:).average
-      end.remove_blanks.average
+    def self.teacher_score(measure:, schools:, academic_year:)
+      @teacher_score ||= Hash.new do |memo, (measure, schools, academic_year)|
+        teacher_score = schools.map do |school|
+          measure.teacher_score(school:, academic_year:).average
+        end.remove_blanks.average
 
-      teacher_score || "N/A"
+        memo[[measure, schools, academic_year]] = teacher_score || "N/A"
+      end
+      @teacher_score[[measure, schools, academic_year]]
     end
 
-    def self.teacher_zone(row:)
-      row in [ measure, district, academic_year]
-      average = teacher_score(row:)
+    def self.teacher_zone(measure:, schools:, academic_year:)
+      average = teacher_score(measure:, schools:, academic_year:)
       score = Score.new(average:, meets_teacher_threshold: true, meets_student_threshold: true,
                         meets_admin_data_threshold: true)
       teacher_zone = measure.zone_for_score(score:).type.to_s
@@ -124,19 +126,20 @@ module Report
       teacher_zone || "N/A"
     end
 
-    def self.admin_score(row:)
-      row in [ measure, district, academic_year]
-      admin_score = district.schools.map do |school|
-        measure.admin_score(school:, academic_year:).average
-      end.remove_blanks.average
+    def self.admin_score(measure:, schools:, academic_year:)
+      @admin_score ||= Hash.new do |memo, (measure, schools, academic_year)|
+        admin_score = schools.map do |school|
+          measure.admin_score(school:, academic_year:).average
+        end.remove_blanks.average
 
-      admin_score = "N/A" unless admin_score.present? && admin_score >= 0
-      admin_score
+        admin_score = "N/A" unless admin_score.present? && admin_score >= 0
+        memo[[measure, schools, academic_year]] = admin_score
+      end
+      @admin_score[[measure, schools, academic_year]]
     end
 
-    def self.admin_zone(row:)
-      row in [ measure, district, academic_year]
-      average = admin_score(row:)
+    def self.admin_zone(measure:, schools:, academic_year:)
+      average = admin_score(measure:, schools:, academic_year:)
       score = Score.new(average:, meets_teacher_threshold: true, meets_student_threshold: true,
                         meets_admin_data_threshold: true)
 

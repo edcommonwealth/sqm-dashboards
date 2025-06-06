@@ -194,4 +194,12 @@ namespace :report do
       Report::SurveyItemResponse.create(schools: district.schools, academic_years:, filename:)
     end
   end
+
+  # Usage example
+  # bundle exec rake "report:exports:create"
+  namespace :exports do
+    task :create, %i[district academic_year] => :environment do |_, _args|
+      Report::Exports.create
+    end
+  end
 end
