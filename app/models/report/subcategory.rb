@@ -1,14 +1,14 @@
 module Report
   class Subcategory
     def self.create_report(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: "subcategories.csv")
-      csv = to_csv(schools:, academic_years:, subcategories:, filename:)
+      csv = to_csv(schools:, academic_years:, subcategories:)
       FileUtils.mkdir_p Rails.root.join("tmp", "reports")
       filepath = Rails.root.join("tmp", "reports", filename)
       write_csv(csv:, filepath:)
       csv
     end
 
-    def self.to_csv(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all, filename: "subcategories.csv")
+    def self.to_csv(schools: School.all.includes(:district), academic_years: AcademicYear.all, subcategories: ::Subcategory.all)
       data = []
       mutex = Thread::Mutex.new
       data << ["District", "School", "School Code", "Academic Year", "Recorded Date Range", "Grades", "Subcategory", "Student Score", "Student Zone", "Teacher Score",

@@ -9,11 +9,12 @@ module Report
       csv
     end
 
-    def self.to_csv(schools:, academic_years:, use_student_survey_items:)
+    def self.to_csv(schools:, academic_years:, use_student_survey_items: ::SurveyItem.student_survey_items.pluck(:id))
       # get list of survey items with sufficient responses
       survey_items = Set.new
       # also get a map of grade->survey_id
       sufficient_survey_items = {}
+      survey_items_by_id = ::SurveyItem.by_id_includes_all
 
       grades = Respondent.grades_that_responded_to_survey(academic_year: academic_years, school: schools)
 
@@ -41,9 +42,9 @@ module Report
         "Grade",
         "Academic Year"
       ]
-      survey_items = survey_items.sort_by { |id| ::SurveyItem.find(id).prompt }
+      survey_items = survey_items.sort_by { |id| survey_items_by_id[id].prompt }
       survey_items.each do |survey_item_id|
-        headers << ::SurveyItem.find_by_id(survey_item_id).prompt
+        headers << survey_items_by_id[survey_item_id].prompt
       end
       data = []
       data << headers
@@ -65,7 +66,8 @@ module Report
             end
             row << academic_year.range
             survey_items.each do |survey_item_id|
-              survey_item = ::SurveyItem.find_by_id survey_item_id
+              survey_item = survey_items_by_id[survey_item_id]
+              byebug if survey_item.nil?
               if sufficient_survey_items[grade].include? survey_item_id
                 row.append("#{survey_item.survey_item_responses.where(school:, academic_year:,
                                                                       grade:).average(:likert_score).to_f.round(2)}")
@@ -84,11 +86,10 @@ module Report
           row.append("All School")
           row.append(academic_year.range)
           survey_items.each do |survey_item_id|
-            survey_item = ::SurveyItem.find_by_id survey_item_id
+            survey_item = survey_items_by_id[survey_item_id]
+            byebug if survey_item.nil?
             # filter out response rate at subcategory level <24.5% for school average
-            scale = Scale.find_by_id(survey_item.scale_id)
-            measure = ::Measure.find_by_id(scale.measure_id)
-            subcategory = ::Subcategory.find_by_id(measure.subcategory_id)
+            subcategory = survey_item.scale.measure.subcategory
             if ::StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).meets_student_threshold?
               row.append("#{survey_item.survey_item_responses.where(
                 # We allow the nil (unknown) grades in the school survey item average

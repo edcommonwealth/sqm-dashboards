@@ -9,7 +9,7 @@ module Report
       data
     end
 
-    def self.to_csv(schools:, academic_years:, use_student_survey_items:)
+    def self.to_csv(schools:, academic_years:, use_student_survey_items: ::SurveyItem.student_survey_items.map(&:id))
       data = []
       data << ["Response ID", "Race", "Gender", "Grade", "School ID", "District", "Academic Year", "Student Physical Safety",
                "Student Emotional Safety", "Student Sense of Belonging", "Student-Teacher Relationships", "Valuing of Learning", "Academic Challenge", "Content Specialists & Support Staff", "Cultural Responsiveness", "Engagement In School", "Appreciation For Diversity", "Civic Participation", "Perseverance & Determination", "Growth Mindset", "Participation In Creative & Performing Arts", "Valuing Creative & Performing Arts", "Social & Emotional Health"]
