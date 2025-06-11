@@ -10,7 +10,7 @@ class SqmApplicationController < ApplicationController
   private
 
   def authenticate_district
-    authenticate(district_name, "#{district_name}!")
+    authenticate(@district.username, @district.password)
   end
 
   def district_name
@@ -35,6 +35,8 @@ class SqmApplicationController < ApplicationController
   end
 
   def authenticate(username, password)
+    return unless @district.login_required
+
     authenticate_or_request_with_http_basic do |u, p|
       u == username && p == password
     end

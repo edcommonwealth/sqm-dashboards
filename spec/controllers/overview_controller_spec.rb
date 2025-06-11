@@ -4,9 +4,13 @@ include VarianceHelper
 describe OverviewController, type: :controller do
   include BasicAuthHelper
   let(:school) { create(:school) }
-  let(:district) { create(:district) }
+  let(:district) { create(:district, username: 'maynard', password: 'maynard!', login_required: true) }
   let!(:categories) do
     [create(:category, name: 'Second', sort_index: 2), create(:category, name: 'First', sort_index: 1)]
+  end
+
+  before do
+    district
   end
 
   it 'fetches categories sorted by sort_index' do

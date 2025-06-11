@@ -147,6 +147,10 @@ class Seeder
     EspLoader.load_data(filepath: esp_file)
   end
 
+  def seed_district_credentials(file:)
+    CredentialsLoader.load_credentials(file:)
+  end
+
   private
     def value_from(pattern:,  row:)
       matches = row.headers.select do |header|

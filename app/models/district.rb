@@ -2,6 +2,7 @@
 
 class District < ApplicationRecord
   has_many :schools
+  encrypts :password
 
   validates :name, presence: true
 

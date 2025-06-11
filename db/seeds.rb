@@ -14,3 +14,7 @@ seeder.seed_staffing Rails.root.join("data", "staffing", "staffing.csv")
 seeder.seed_staffing Rails.root.join("data", "staffing", "nj_staffing.csv")
 seeder.seed_staffing Rails.root.join("data", "staffing", "wi_staffing.csv")
 seeder.seed_esp_counts Rails.root.join("data", "staffing", "esp_counts.csv")
+
+Sftp::File.open(filepath: "/ecp/district_credentials.csv") do |file|
+  seeder.seed_district_credentials file:
+end

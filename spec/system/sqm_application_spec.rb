@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "SQM Application" do
-  let(:district) { create(:district) }
+  let(:district) { create(:district, username: 'maynard', password: 'maynard!', login_required: true) }
   let(:school) { create(:school, district:) }
   let(:academic_year) { create(:academic_year) }
   let(:category) { create(:category) }
@@ -11,7 +11,7 @@ describe "SQM Application" do
 
   before :each do
     driven_by :rack_test
-    page.driver.browser.basic_authorize(username, password)
+    page.driver.browser.basic_authorize(district.username, district.password)
     create(:respondent, school:, academic_year:)
     ResponseRate.create!(subcategory:, school:, academic_year:,
                          student_response_rate: 0, teacher_response_rate: 0, meets_student_threshold: false, meets_teacher_threshold: false)
@@ -45,14 +45,6 @@ describe "SQM Application" do
   end
 
   private
-
-  def username
-    district.short_name
-  end
-
-  def password
-    "#{username}!"
-  end
 
   def overview_path
     district_school_overview_index_path(district, school, year: academic_year.range)
