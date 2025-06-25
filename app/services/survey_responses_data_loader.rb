@@ -78,6 +78,18 @@ class SurveyResponsesDataLoader
     @speds ||= Sped.by_designation
   end
 
+  def employments
+    @employments ||= Employment.by_designation
+  end
+
+  def educations
+    @educations ||= Education.by_designation
+  end
+
+  def benefits
+    @benefits ||= Benefit.by_designation
+  end
+
   def academic_years
     @academic_years ||= AcademicYear.all
   end
@@ -110,6 +122,9 @@ class SurveyResponsesDataLoader
     if row.respondent_type == :parent
       parent = Parent.find_or_create_by(response_id: row.response_id)
       parent.number_of_children = row.number_of_children
+      parent.education = educations[row.education] if row.education.present?
+      parent.benefits_id = benefits[row.benefits].id if row.benefits.present?
+
       tmp_languages = row.languages.map { |language| languages[language] }.reject(&:nil?)
       parent.languages.delete_all
       parent.languages.concat(tmp_languages)
@@ -121,6 +136,10 @@ class SurveyResponsesDataLoader
       parent.genders.delete_all
       tmp_genders = row.genders_of_children.map { |race| genders[race] }.reject(&:nil?)
       parent.genders.concat(tmp_genders)
+
+      parent.employments.delete_all
+      tmp_employments = row.employments.map { |employment| employments[employment] }.reject(&:nil?)
+      parent.employments.concat(tmp_employments)
 
       parent.housing = housings[row.housing] if row.housing.present?
       parent.save

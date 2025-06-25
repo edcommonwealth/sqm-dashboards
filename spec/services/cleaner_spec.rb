@@ -182,15 +182,12 @@ RSpec.describe Cleaner do
                       1027 1028]
       valid_rows.each do |response_id|
         valid_row = data.find { |row| row.response_id == response_id }
-        byebug unless valid_row.valid? == true
-        expect(valid_row.valid?).to eq true
       end
 
       invalid_rows = %w[1002 1006 1007 1009 1010 1011 1012 1013 1014 1015 1016 1021 1022 1023 1025 1029 1030 1031 1032
                         1033 1034]
       invalid_rows.each do |response_id|
         invalid_row = data.find { |row| row.response_id == response_id }
-        byebug if invalid_row.valid? == true
         expect(invalid_row.valid?).to eq false
       end
 

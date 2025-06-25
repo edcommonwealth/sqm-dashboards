@@ -67,7 +67,6 @@ module Report
             row << academic_year.range
             survey_items.each do |survey_item_id|
               survey_item = survey_items_by_id[survey_item_id]
-              byebug if survey_item.nil?
               if sufficient_survey_items[grade].include? survey_item_id
                 row.append("#{survey_item.survey_item_responses.where(school:, academic_year:,
                                                                       grade:).average(:likert_score).to_f.round(2)}")
@@ -87,7 +86,6 @@ module Report
           row.append(academic_year.range)
           survey_items.each do |survey_item_id|
             survey_item = survey_items_by_id[survey_item_id]
-            byebug if survey_item.nil?
             # filter out response rate at subcategory level <24.5% for school average
             subcategory = survey_item.scale.measure.subcategory
             if ::StudentResponseRateCalculator.new(subcategory:, school:, academic_year:).meets_student_threshold?

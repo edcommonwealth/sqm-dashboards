@@ -102,6 +102,24 @@ class SurveyItemValues
     @response_id ||= value_from(pattern: /Response\s*ID/i)
   end
 
+  def employments
+    e = value_from(pattern: /^Employment$/i)
+
+    return [] if e.nil? || e.empty?
+
+    e.split(",").map do |item|
+      Employment.to_designation(item.strip)
+    end
+  end
+
+  def education
+    Education.to_designation(value_from(pattern: /^Education$/i)&.strip)
+  end
+
+  def benefits
+    Benefit.to_designation(value_from(pattern: /^Benefits$/i)&.strip)
+  end
+
   def dese_id
     @dese_id ||= begin
       dese_id = value_from(pattern: /Dese\s*ID/i)

@@ -136,6 +136,48 @@ describe SurveyResponsesDataLoader do
     create(:language, designation: "Unknown")
   end
 
+  let(:education_list) do
+    designations = [
+      "No formal schooling completed",
+      "Some formal schooling",
+      "High school diploma or GED",
+      "Associates Degree",
+      "Bachelors Degree",
+      "Masters Degree",
+      "Professional Degree",
+      "Doctoral Degree",
+      "Unknown"
+    ]
+    designations.map do |designation|
+      create(:education, designation:)
+    end
+  end
+
+  let(:employment_list) do
+    designations = [
+      "Two adults with full-time employment",
+      "One adult with full-time employment",
+      "Two adults with part-time employment",
+      "One adult with part-time employment",
+      "No full-time or part-time employment",
+      "Unknown"
+    ]
+    designations.map do |designation|
+      create(:employment, designation:)
+    end
+  end
+
+  let(:benefit_list) do
+    designations = [
+      "Yes",
+      "No",
+      "Unknown"
+    ]
+    designations.map do |designation|
+      create(:benefit, designation:)
+    end
+  end
+
   let(:setup) do
     ay_2020_21
     ay_2022_23
@@ -177,6 +219,9 @@ describe SurveyResponsesDataLoader do
     multiracial
 
     languages
+    education_list
+    employment_list
+    benefit_list
   end
 
   before :each do
@@ -280,6 +325,20 @@ describe SurveyResponsesDataLoader do
 
     it "loads the correct set of genders for parents" do
       assigns_genders_to_parents
+    end
+
+    it "assigns the correct education for parents" do
+      results = { "parent_survey_response_1" => "No formal schooling completed",
+                  "parent_survey_response_2" => "Some formal schooling",
+                  "parent_survey_response_3" => "High school diploma or GED",
+                  "parent_survey_response_4" => "Associates Degree",
+                  "parent_survey_response_5" => "Bachelors Degree",
+                  "parent_survey_response_6" => "Unknown",
+                  "parent_survey_response_7" => "Unknown" }
+
+      results.each do |key, value|
+        expect(SurveyItemResponse.where(response_id: key).first.parent.education.designation).to eq value
+      end
     end
   end
 end

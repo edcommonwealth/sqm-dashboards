@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_11_182208) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_24_230522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_182208) do
     t.index ["school_id"], name: "index_admin_data_values_on_school_id"
   end
 
+  create_table "benefits", force: :cascade do |t|
+    t.string "designation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -77,12 +83,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_182208) do
     t.index ["slug"], name: "index_districts_on_slug", unique: true
   end
 
+  create_table "educations", force: :cascade do |t|
+    t.string "designation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ells", force: :cascade do |t|
     t.string "designation"
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["designation"], name: "index_ells_on_designation", unique: true
+  end
+
+  create_table "employments", force: :cascade do |t|
+    t.string "designation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "genders", force: :cascade do |t|
@@ -336,6 +354,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_182208) do
     t.index ["subcategory_id"], name: "index_measures_on_subcategory_id"
   end
 
+  create_table "parent_employments", force: :cascade do |t|
+    t.bigint "parent_id", null: false
+    t.bigint "employment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employment_id"], name: "index_parent_employments_on_employment_id"
+    t.index ["parent_id"], name: "index_parent_employments_on_parent_id"
+  end
+
   create_table "parent_genders", force: :cascade do |t|
     t.bigint "parent_id", null: false
     t.bigint "gender_id", null: false
@@ -370,6 +397,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_182208) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "housing_id"
+    t.bigint "education_id"
+    t.bigint "benefits_id"
+    t.index ["benefits_id"], name: "index_parents_on_benefits_id"
+    t.index ["education_id"], name: "index_parents_on_education_id"
     t.index ["housing_id"], name: "index_parents_on_housing_id"
   end
 
@@ -558,12 +589,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_11_182208) do
   add_foreign_key "legacy_school_categories", "legacy_categories", column: "category_id"
   add_foreign_key "legacy_school_categories", "legacy_schools", column: "school_id"
   add_foreign_key "measures", "subcategories"
+  add_foreign_key "parent_employments", "employments"
+  add_foreign_key "parent_employments", "parents"
   add_foreign_key "parent_genders", "genders"
   add_foreign_key "parent_genders", "parents"
   add_foreign_key "parent_languages", "languages"
   add_foreign_key "parent_languages", "parents"
   add_foreign_key "parent_races", "parents"
   add_foreign_key "parent_races", "races"
+  add_foreign_key "parents", "benefits", column: "benefits_id"
+  add_foreign_key "parents", "educations"
   add_foreign_key "parents", "housings"
   add_foreign_key "respondents", "academic_years"
   add_foreign_key "respondents", "schools"
