@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_24_230522) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_25_201425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -399,6 +399,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_24_230522) do
     t.bigint "housing_id"
     t.bigint "education_id"
     t.bigint "benefits_id"
+    t.integer "socio_economic_status"
     t.index ["benefits_id"], name: "index_parents_on_benefits_id"
     t.index ["education_id"], name: "index_parents_on_education_id"
     t.index ["housing_id"], name: "index_parents_on_housing_id"

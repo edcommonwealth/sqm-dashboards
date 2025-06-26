@@ -75,6 +75,10 @@ class SurveyItemResponse < ActiveRecord::Base
     SurveyItemResponse.joins([parent: :languages]).where(languages: { designation: designations }, survey_item: survey_items, school:, academic_year:).group(:survey_item).average(:likert_score)
   }
 
+  scope :averages_for_socio_economic_status, lambda { |survey_items, school, academic_year, socio_economic_status|
+    SurveyItemResponse.joins(:parent).where(parent: { socio_economic_status: }, survey_item: survey_items, school:, academic_year:).group(:survey_item).average(:likert_score)
+  }
+
   def self.grouped_responses(school:, academic_year:)
     @grouped_responses ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] =

@@ -27,7 +27,7 @@ class Education < ApplicationRecord
       puts "************************************"
       puts "********      ERROR       **********"
       puts ""
-      puts "Error parsing Income column. '#{education}' is not a known value. Halting execution"
+      puts "Error parsing Education column. '#{education}' is not a known value. Halting execution"
       puts ""
       puts "************************************"
       exit

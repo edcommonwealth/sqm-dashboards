@@ -5,23 +5,23 @@ class Employment < ApplicationRecord
     return "Unknown" if employment.blank? or employment.nil?
 
     case employment
-    in /^1$/i
+    in /^1$|^1100$/i
       "Two adults with full-time employment"
-    in /^2$/i
+    in /^2$|^2100$/i
       "One adult with full-time employment"
-    in /^3$/i
+    in /^3$|^3100$/i
       "Two adults with part-time employment"
-    in /^4$/i
+    in /^4$|^4100$/i
       "One adult with part-time employment"
-    in /^5$/i
+    in /^5$|^5100$/i
       "No full-time or part-time employment"
-    in /^99$|^100$/i
+    in /^99$|^100$|^99100$/i
       "Unknown"
     else
       puts "************************************"
       puts "********      ERROR       **********"
       puts ""
-      puts "Error parsing Income column. '#{employment}' is not a known value. Halting execution"
+      puts "Error parsing Employment column. '#{employment}' is not a known value. Halting execution"
       puts ""
       puts "************************************"
       exit

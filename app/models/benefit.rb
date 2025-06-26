@@ -17,7 +17,7 @@ class Benefit < ApplicationRecord
       puts "************************************"
       puts "********      ERROR       **********"
       puts ""
-      puts "Error parsing Income column. '#{benefits}' is not a known value. Halting execution"
+      puts "Error parsing benefits column. '#{benefits}' is not a known value. Halting execution"
       puts ""
       puts "************************************"
       exit

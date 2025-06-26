@@ -52,6 +52,13 @@ class SurveyResponsesDataLoader
     SurveyItemResponse.import(survey_item_responses.compact.flatten, batch_size:, on_duplicate_key_update: :all)
   end
 
+  def socio_economic_score(education, benefits, employment)
+    employment_points = employment.map(&:points).sum.clamp(0, 1)
+    ed_points = education&.points || 0
+    benefits_points = benefits&.points || 0
+    ed_points +  benefits_points + employment_points
+  end
+
   private
 
   def schools
@@ -141,7 +148,9 @@ class SurveyResponsesDataLoader
       tmp_employments = row.employments.map { |employment| employments[employment] }.reject(&:nil?)
       parent.employments.concat(tmp_employments)
 
+      parent.socio_economic_status = socio_economic_score(educations[row.education], benefits[row.benefits], tmp_employments)
       parent.housing = housings[row.housing] if row.housing.present?
+
       parent.save
     end
 
