@@ -19,6 +19,10 @@ class ParentResponseRatePresenter < ResponseRatePresenter
   end
 
   def focus
-    "parent"
+    "student"
+  end
+
+  def hover_message
+    "The number shown represents the percentage of students whose parents responded."
   end
 end
