@@ -187,8 +187,8 @@ class SurveyResponsesDataLoader
       survey_item_response.sped = sped
       survey_item_response.student = student
       survey_item_response.parent = parent
-
-      survey_item_response
+      survey_item_response.save
+      []
     else
       SurveyItemResponse.new(
         response_id: row.response_id,
