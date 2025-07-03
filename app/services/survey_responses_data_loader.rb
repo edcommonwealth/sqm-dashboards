@@ -43,7 +43,11 @@ class SurveyResponsesDataLoader
       row_count += 1
       next unless row_count == batch_size
 
-      SurveyItemResponse.import(survey_item_responses.compact.flatten, batch_size:, on_duplicate_key_update: :all)
+      survey_item_responses = survey_item_responses.compact.flatten.uniq do |response|
+        response.response_id
+      end
+
+      SurveyItemResponse.import(survey_item_responses, batch_size:, on_duplicate_key_update: :all)
       survey_item_responses = [] unless file.eof?
       GC.start
       row_count = 0
