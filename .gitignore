@@ -41,3 +41,5 @@ config/local_env.yml
 !/app/assets/builds/.keep
 public/assets/
 coverage
+
+.env

@@ -202,6 +202,7 @@ GEM
       concurrent-ruby (~> 1.1)
       webrick (~> 1.7)
       websocket-driver (~> 0.7)
+    ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
     ffi (1.17.2-x86_64-linux-musl)
     foreman (0.88.1)
@@ -210,6 +211,9 @@ GEM
       activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (4.31.1-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.31.1-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
@@ -295,6 +299,8 @@ GEM
     net-ssh (7.3.0)
     newrelic_rpm (9.19.0)
     nio4r (2.7.4)
+    nokogiri (1.18.8-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-musl)
@@ -544,6 +550,7 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-linux
   x86_64-linux-musl
 
