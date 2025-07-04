@@ -25,7 +25,7 @@ class Benefit < ApplicationRecord
   end
 
   def points
-    return 1 if designation == "Yes"
+    return 1 if designation == "No"
 
     0
   end

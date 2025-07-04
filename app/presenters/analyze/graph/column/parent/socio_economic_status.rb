@@ -7,7 +7,7 @@ module Analyze
         class SocioEconomicStatus < Base
           attr_reader :socio_economic_status, :label
 
-          def initialize(socio_economic_status:, label:, show_irrelevancy_message:)
+          def initialize(socio_economic_status:, label:, show_irrelevancy_message: false)
             @socio_economic_status = socio_economic_status
             @label = label
             @show_irrelevancy_message = show_irrelevancy_message

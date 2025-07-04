@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_30_181104) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_04_001027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -190,9 +190,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_181104) do
     t.datetime "updated_at", null: false
     t.bigint "housing_id"
     t.bigint "education_id"
-    t.bigint "benefits_id"
     t.integer "socio_economic_status"
-    t.index ["benefits_id"], name: "index_parents_on_benefits_id"
+    t.bigint "benefit_id"
+    t.index ["benefit_id"], name: "index_parents_on_benefit_id"
     t.index ["education_id"], name: "index_parents_on_education_id"
     t.index ["housing_id"], name: "index_parents_on_housing_id"
   end
@@ -386,7 +386,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_30_181104) do
   add_foreign_key "parent_languages", "parents"
   add_foreign_key "parent_races", "parents"
   add_foreign_key "parent_races", "races"
-  add_foreign_key "parents", "benefits", column: "benefits_id"
+  add_foreign_key "parents", "benefits"
   add_foreign_key "parents", "educations"
   add_foreign_key "parents", "housings"
   add_foreign_key "respondents", "academic_years"

@@ -344,28 +344,28 @@ describe SurveyResponsesDataLoader do
 
   describe ".socio_economic_score" do
     it "returns 0 when none of the rubrics meet the standard for higher advantage" do
-      score = SurveyResponsesDataLoader.new.socio_economic_score(Education.new(designation: "No formal schooling completed"), Benefit.new(designation: "No"), [Employment.new(designation: "No full-time or part-time employment")])
+      score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "No formal schooling completed"), Benefit.new(designation: "Yes"), [Employment.new(designation: "No full-time or part-time employment")])
       expect(score).to eq 0
 
-      score = SurveyResponsesDataLoader.new.socio_economic_score(Education.new(designation: "Unknown"), Benefit.new(designation: "Unknown"), [Employment.new(designation: "Unknown")])
+      score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Unknown"), Benefit.new(designation: "Unknown"), [Employment.new(designation: "Unknown")])
       expect(score).to eq 0
     end
 
     it "returns 1 when one of the rubrics meets the standard for higher advantage" do
-      score = SurveyResponsesDataLoader.new.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "No"), [Employment.new(designation: "No full-time or part-time employment")])
+      score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "Yes"), [Employment.new(designation: "No full-time or part-time employment")])
       expect(score).to eq 1
     end
 
     it "returns 2 when two of the rubrics meet the standard for higher advantage" do
-      score = SurveyResponsesDataLoader.new.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "Yes"), [Employment.new(designation: "No full-time or part-time employment")])
+      score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "No"), [Employment.new(designation: "No full-time or part-time employment")])
       expect(score).to eq 2
     end
 
     it "returns 3 when all three of the rubrics meet the standard for higher advantage" do
-      score = SurveyResponsesDataLoader.new.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "Yes"), [Employment.new(designation: "Two adults with full-time employment")])
+      score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "No"), [Employment.new(designation: "Two adults with full-time employment")])
       expect(score).to eq 3
 
-      score = SurveyResponsesDataLoader.new.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "Yes"), [Employment.new(designation: "One adult with full-time employment"), Employment.new(designation: "Two adults with full-time employment")])
+      score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "No"), [Employment.new(designation: "One adult with full-time employment"), Employment.new(designation: "Two adults with full-time employment")])
       expect(score).to eq 3
     end
   end
