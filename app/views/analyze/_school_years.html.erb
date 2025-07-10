@@ -21,8 +21,13 @@
     <%= selected_academic_years.include?(year)  ? "checked" : "" %>
     <% empty_dataset = empty_dataset?(measures: measures, school: school, academic_year: year) %>
     <% empty_survey_dataset = empty_survey_dataset?(measures: measures, school: school, academic_year: year)  %>
+    <% empty_parent_dataset = empty_parent_dataset?(measures: measures, school: school, academic_year: year)  %>
     <% if graph.slug == 'all-data' %>
       <%= empty_dataset ? "disabled" : "" %>
+    <% elsif graph.slug.starts_with?('parents-by') %>
+      <%= empty_parent_dataset ? "disabled" : "" %>
+    <% elsif graph.slug.starts_with?('students-and-teachers-and-parents') %>
+      <%= empty_parent_dataset && empty_survey_dataset ? "disabled" : "" %>
     <% else %>
       <%= empty_survey_dataset ? "disabled" : "" %>
     <% end %>
@@ -32,13 +37,22 @@
     <% if graph.slug == 'all-data' && empty_dataset %>
       <i class="fa-solid fa-circle-exclamation px-3"
         data-bs-toggle="popover" data-bs-placement="right"
-        data-bs-content="No admin data OR teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD %>%">
+        data-bs-content="No admin data OR teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD %>% OR no parent responses">
       </i>
-    <% end %>
-    <% if graph.slug != 'all-data' && empty_survey_dataset %>
+    <% elsif graph.slug == 'students-and-teachers-and-parents' &&  (empty_survey_dataset && empty_parent_dataset )%>
+      <i class="fa-solid fa-circle-exclamation px-3"
+        data-bs-toggle="popover" data-bs-placement="right"
+        data-bs-content="Teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD %>% OR no parent responses">
+      </i>
+    <% elsif graph.slug != 'students-and-teachers-and-parents' && graph.slug.starts_with?('student') && empty_survey_dataset %>
       <i class="fa-solid fa-circle-exclamation px-3"
         data-bs-toggle="popover" data-bs-placement="right"
         data-bs-content="Teacher and student survey response rates below <%= ResponseRateCalculator::TEACHER_RATE_THRESHOLD %>%">
+      </i>
+      <% elsif graph.slug.starts_with?('parent') && empty_parent_dataset %>
+      <i class="fa-solid fa-circle-exclamation px-3"
+        data-bs-toggle="popover" data-bs-placement="right"
+        data-bs-content="Insufficient parent survey responses">
       </i>
     <% end %>
   </div>

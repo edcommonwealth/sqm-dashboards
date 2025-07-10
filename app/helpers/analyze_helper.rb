@@ -46,7 +46,7 @@ module AnalyzeHelper
     @empty_dataset ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = measures.none? do |measure|
         response_rate = measure.subcategory.response_rate(school:, academic_year:)
-        response_rate.meets_student_threshold || response_rate.meets_teacher_threshold || measure.sufficient_admin_data?(school:, academic_year:)
+        response_rate.meets_student_threshold || response_rate.meets_teacher_threshold || measure.sufficient_admin_data?(school:, academic_year:) || SurveyItemResponse.where(school:, academic_year:, survey_item: measures.flat_map(&:parent_survey_items)).count > 10
       end
     end
 
@@ -63,8 +63,12 @@ module AnalyzeHelper
     @empty_survey_dataset[[school, academic_year]]
   end
 
+  def empty_parent_dataset?(measures:, school:, academic_year:)
+    SurveyItemResponse.where(school:, academic_year:, survey_item: measures.flat_map(&:parent_survey_items)).count < 10
+  end
+
   def base_url
     analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @presenter.category,
-                             subcategory: @presenter.subcategory)
+      subcategory: @presenter.subcategory)
   end
 end
