@@ -20,6 +20,7 @@ class SurveyResponsesDataLoader
         )
       end
     end
+    SocioEconomicCalculator.update_socio_economic_scores
   end
 
   def from_file(file:)
@@ -144,7 +145,6 @@ class SurveyResponsesDataLoader
       tmp_employments = row.employments.map { |employment| employments[employment] }.reject(&:nil?)
       parent.employments.concat(tmp_employments)
 
-      parent.socio_economic_status = SocioEconomicCalculator.socio_economic_score(educations[row.education], benefits[row.benefits], tmp_employments)
       parent.housing = housings[row.housing] if row.housing.present?
 
       parent.save
