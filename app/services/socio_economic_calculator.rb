@@ -1,12 +1,12 @@
 class SocioEconomicCalculator
   def self.update_socio_economic_scores
     parent_list = [].tap do |list|
-      Parent.all.each do |parent|
+      Parent.includes(:employments, :benefit, :education).all.each do |parent|
         parent.socio_economic_status = if has_all_socio_economic_data?(parent:)
-          socio_economic_score(parent.education, parent.benefit, parent.employments)
-        else
-          -1
-        end
+                                         socio_economic_score(parent.education, parent.benefit, parent.employments)
+                                       else
+                                         -1
+                                       end
 
         list << parent
       end
