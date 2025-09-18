@@ -45,7 +45,7 @@ class SurveyResponsesDataLoader
           row = process_row(row: SurveyItemValues.new(row:, headers: headers_array,
                                                       survey_items: all_survey_items, schools:, academic_years:))
 
-          survey_item_responses.concat(row)
+          survey_item_responses.concat(row) unless row.nil?
         end
 
         survey_item_responses = survey_item_responses.compact.flatten
