@@ -28,7 +28,6 @@ class SurveyResponsesDataLoader
     headers_array = CSV.parse(headers).first
     all_survey_items = survey_items(headers:)
 
-    survey_item_responses = []
     batch_size = 1000
 
     lines = []
@@ -38,23 +37,41 @@ class SurveyResponsesDataLoader
 
       lines << line
     end
+    slices = []
 
     lines.each_slice(batch_size) do |slice|
-      slice.each do |line|
-        CSV.parse(line, headers:).map do |row|
-          row = process_row(row: SurveyItemValues.new(row:, headers: headers_array,
-                                                      survey_items: all_survey_items, schools:, academic_years:))
+      slices << slice
+    end
 
-          survey_item_responses.concat(row) unless row.nil?
+    pool_size = 4
+    jobs = Queue.new
+    slices.each { |slice| jobs << slice }
+
+    workers = pool_size.times.map do
+      Thread.new do
+        while slice = jobs.pop(true)
+
+          slice.each do |line|
+            survey_item_responses = []
+            CSV.parse(line, headers:).map do |row|
+              row = process_row(row: SurveyItemValues.new(row:, headers: headers_array,
+                                                          survey_items: all_survey_items, schools:, academic_years:))
+
+              survey_item_responses.concat(row) unless row.nil?
+            end
+
+            survey_item_responses = survey_item_responses.compact.flatten
+
+            SurveyItemResponse.import(survey_item_responses, batch_size:, on_duplicate_key_update: :all)
+
+            survey_item_responses = []
+          end
         end
-
-        survey_item_responses = survey_item_responses.compact.flatten
-
-        SurveyItemResponse.import(survey_item_responses, batch_size:, on_duplicate_key_update: :all)
-
-        survey_item_responses = []
+      rescue ThreadError
       end
     end
+
+    workers.each(&:join)
 
     GC.start
   end
