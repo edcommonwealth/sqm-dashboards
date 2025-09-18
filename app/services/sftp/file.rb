@@ -6,7 +6,7 @@ module Sftp
     def self.open(filepath:, &block)
       sftp_url = ENV['SFTP_URL']
       uri = URI.parse(sftp_url)
-      Net::SFTP.start(uri.host, uri.user, password: uri.password) do |sftp|
+      Net::SFTP.start(uri.host, uri.user, password: uri.password, keepalive: true, keepalive_interval: 5) do |sftp|
         sftp.file.open(filepath, 'r', &block)
       end
     rescue Net::SFTP::StatusException => e
