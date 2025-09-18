@@ -29,32 +29,34 @@ class SurveyResponsesDataLoader
     all_survey_items = survey_items(headers:)
 
     survey_item_responses = []
-    row_count = 0
-    batch_size = 100
+    batch_size = 1000
 
+    lines = []
     until file.eof?
       line = file.gets
       next unless line.present?
 
-      CSV.parse(line, headers:).map do |row|
-        survey_item_responses << process_row(row: SurveyItemValues.new(row:, headers: headers_array,
-                                                                       survey_items: all_survey_items, schools:, academic_years:))
-      end
-
-      row_count += 1
-      next unless row_count == batch_size
-
-      survey_item_responses = survey_item_responses.compact.flatten.uniq do |response|
-        response.response_id
-      end
-
-      SurveyItemResponse.import(survey_item_responses, batch_size:, on_duplicate_key_update: :all)
-      survey_item_responses = [] unless file.eof?
-      GC.start
-      row_count = 0
+      lines << line
     end
 
-    SurveyItemResponse.import(survey_item_responses.compact.flatten, batch_size:, on_duplicate_key_update: :all)
+    lines.each_slice(batch_size) do |slice|
+      slice.each do |line|
+        CSV.parse(line, headers:).map do |row|
+          row = process_row(row: SurveyItemValues.new(row:, headers: headers_array,
+                                                      survey_items: all_survey_items, schools:, academic_years:))
+
+          survey_item_responses.concat(row)
+        end
+
+        survey_item_responses = survey_item_responses.compact.flatten
+
+        SurveyItemResponse.import(survey_item_responses, batch_size:, on_duplicate_key_update: :all)
+
+        survey_item_responses = []
+      end
+    end
+
+    GC.start
   end
 
   private
@@ -156,7 +158,7 @@ class SurveyResponsesDataLoader
         likert_score = row.likert_score(survey_item_id: survey_item.survey_item_id) || next
 
         unless likert_score.valid_likert_score?
-          puts("Response ID: #{row.response_id}, Likert score: #{likert_score} rejected") unless likert_score == "NA"
+          # puts("Response ID: #{row.response_id}, Likert score: #{likert_score} rejected") unless likert_score == "NA"
           next
         end
 
