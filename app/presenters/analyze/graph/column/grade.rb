@@ -11,7 +11,7 @@ module Analyze
         end
 
         def label
-          ["#{grade}"]
+          [grade.to_s]
         end
 
         def basis

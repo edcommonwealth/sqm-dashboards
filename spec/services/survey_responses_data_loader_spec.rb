@@ -368,16 +368,16 @@ describe SurveyResponsesDataLoader do
 
     it "returns -1 when any aspect of the data is unknown" do
       score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "Unknown"), [Employment.new(designation: "Two adults with full-time employment")])
-      expect(score).to eq -1
+      expect(score).to eq(-1)
 
       score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Associates Degree"), Benefit.new(designation: "No"), [Employment.new(designation: "Unknown")])
-      expect(score).to eq -1
+      expect(score).to eq(-1)
 
       score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Unknown"), Benefit.new(designation: "No"), [Employment.new(designation: "No full-time or part-time employment")])
-      expect(score).to eq -1
+      expect(score).to eq(-1)
 
       score = SocioEconomicCalculator.socio_economic_score(Education.new(designation: "Unknown"), Benefit.new(designation: "No"), [])
-      expect(score).to eq -1
+      expect(score).to eq(-1)
     end
   end
 end

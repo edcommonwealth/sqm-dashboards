@@ -69,6 +69,6 @@ module AnalyzeHelper
 
   def base_url
     analyze_subcategory_link(district: @district, school: @school, academic_year: @academic_year, category: @presenter.category,
-      subcategory: @presenter.subcategory)
+                             subcategory: @presenter.subcategory)
   end
 end

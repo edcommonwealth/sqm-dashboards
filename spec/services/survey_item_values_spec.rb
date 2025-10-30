@@ -462,7 +462,7 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns an unknown race" do
         row = {"Race-1" => ""}
 
-        row.keys.each do |key|
+        row.each_key do |key|
           headers << key
         end
 
@@ -475,7 +475,7 @@ RSpec.describe SurveyItemValues, type: :model do
       it "returns an unknown race" do
         row = {"Race-1" => "99", "Race-2" => "99", "Race-3" => "", "Race-4" => "nil"}
 
-        row.keys.each do |key|
+        row.each_key do |key|
           headers << key
         end
 
@@ -488,15 +488,15 @@ RSpec.describe SurveyItemValues, type: :model do
       context "for defined races" do
         it "returns the qualtrics code of that race" do
 
-          [1,2,3,4,5,8].each do |i|
-          row = {"Race-1" => "#{i}"}
+          [1, 2, 3, 4, 5, 8].each do |i|
+            row = {"Race-1" => i.to_s}
 
-          row.keys.each do |key|
-            headers << key
-          end
+            row.each_key do |key|
+              headers << key
+            end
 
-          values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
-          expect(values.races_of_children).to eq [i]
+            values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+            expect(values.races_of_children).to eq [i]
           end
         end
       end
@@ -506,7 +506,7 @@ RSpec.describe SurveyItemValues, type: :model do
 
           row = {"Race-1" => "6"}
 
-          row.keys.each do |key|
+          row.each_key do |key|
             headers << key
           end
 
@@ -515,7 +515,7 @@ RSpec.describe SurveyItemValues, type: :model do
 
           row = {"Race-1" => "7"}
 
-          row.keys.each do |key|
+          row.each_key do |key|
             headers << key
           end
 
@@ -530,14 +530,14 @@ RSpec.describe SurveyItemValues, type: :model do
     context "when there is more than one race defined" do
       it "returns the qualtrics code for the two races and the designation for multiracial(100)" do
 
-          row = {"Race-1" => "1", "Race-2" => "2","Race-3" => "3"}
+        row = {"Race-1" => "1", "Race-2" => "2", "Race-3" => "3"}
 
-          row.keys.each do |key|
-            headers << key
-          end
+        row.each_key do |key|
+          headers << key
+        end
 
-          values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
-          expect(values.races_of_children).to eq [1,2,3,100]
+        values = SurveyItemValues.new(row:, headers:, survey_items:, schools:, academic_years:)
+        expect(values.races_of_children).to eq [1, 2, 3, 100]
       end
 
     end

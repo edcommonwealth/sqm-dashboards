@@ -49,7 +49,7 @@ class SurveyResponsesDataLoader
 
     workers = pool_size.times.map do
       Thread.new do
-        while slice = jobs.pop(true)
+        while (slice = jobs.pop(true))
 
           slice.each do |line|
             survey_item_responses = []

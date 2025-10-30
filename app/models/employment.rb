@@ -2,7 +2,7 @@ class Employment < ApplicationRecord
   scope :by_designation, -> { all.map { |employment| [employment.designation, employment] }.to_h }
 
   def self.to_designation(employment)
-    return "Unknown" if employment.blank? or employment.nil?
+    return "Unknown" if employment.blank? || employment.nil?
 
     case employment
     in /^1$|^1100$/i

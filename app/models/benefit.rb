@@ -2,7 +2,7 @@ class Benefit < ApplicationRecord
   scope :by_designation, -> { all.map { |benefits| [benefits.designation, benefits] }.to_h }
 
   def self.to_designation(benefits)
-    return "Unknown" if benefits.blank? or benefits.nil?
+    return "Unknown" if benefits.blank? || benefits.nil?
 
     case benefits
     in /^1$/i

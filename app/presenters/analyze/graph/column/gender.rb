@@ -11,7 +11,7 @@ module Analyze
         end
 
         def label
-          ["#{gender.designation}"]
+          [gender.designation.to_s]
         end
 
         def basis

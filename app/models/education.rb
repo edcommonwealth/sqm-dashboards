@@ -2,7 +2,7 @@ class Education < ApplicationRecord
   scope :by_designation, -> { all.map { |education| [education.designation, education] }.to_h }
 
   def self.to_designation(education)
-    return "Unknown" if education.blank? or education.nil?
+    return "Unknown" if education.blank? || education.nil?
 
     case education
     in /^1$/i

@@ -39,14 +39,14 @@ namespace :upload do
 
               upload_filename = filename.split('sqm-dashboards')[1][1..]
               upload_directory = upload_filename.rpartition('/').first
-              tmp_dir = upload_directory + '/'
+              tmp_dir = "#{upload_directory}/"
               parent_dir = "/"
 
               while tmp_dir.include?('/')
                 first_dir = tmp_dir.split('/').first
                 sftp.mkdir!("#{parent_dir}#{first_dir}/") unless sftp.dir.entries(parent_dir).map(&:name).include?(first_dir)
 
-                parent_dir += first_dir + '/'
+                parent_dir += "#{first_dir}/"
                 tmp_dir = tmp_dir.split('/')[1..].join('/')
               end
               sftp.mkdir!("#{parent_dir}#{tmp_dir}/") unless sftp.dir.entries(parent_dir).map(&:name).include?(first_dir)

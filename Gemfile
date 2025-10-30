@@ -54,6 +54,7 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails'
   gem 'seed_dump'
+  gem 'solargraph'
   gem 'solargraph-reek'
   gem 'spring'
   # gem "web-console"
