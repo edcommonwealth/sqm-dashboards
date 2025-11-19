@@ -18,7 +18,7 @@ module Analyze
           array << Analyze::Graph::Column::Parent::SocioEconomicStatus.new(socio_economic_status: 3, label: ["High Advantage"], show_irrelevancy_message: false)
           array << Analyze::Graph::Column::Parent::SocioEconomicStatus.new(socio_economic_status: -1, label: ["Unknown"], show_irrelevancy_message: false)
 
-          array << Analyze::Graph::Column::Parent::SocioEconomicStatus.new(socio_economic_status: [0, 1, 2, 3, nil], label: ["All Students"], show_irrelevancy_message: true)
+          array << Analyze::Graph::Column::Parent::SocioEconomicStatus.new(socio_economic_status: [0, 1, 2, 3, nil], label: ["All Parents"], show_irrelevancy_message: true)
         end
       end
 

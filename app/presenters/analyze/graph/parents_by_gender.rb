@@ -22,7 +22,7 @@ module Analyze
 
             array << Analyze::Graph::Column::Parent::Gender.new(genders: gender, label:, show_irrelevancy_message: false)
           end
-          array << Analyze::Graph::Column::Parent::Gender.new(genders: Gender.all, label: ["All Parent"], show_irrelevancy_message: true)
+          array << Analyze::Graph::Column::Parent::Gender.new(genders: Gender.all, label: ["All Parents"], show_irrelevancy_message: true)
         end
       end
 

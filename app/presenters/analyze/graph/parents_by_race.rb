@@ -22,7 +22,7 @@ module Analyze
 
             array << Analyze::Graph::Column::Parent::Race.new(races: race, label:, show_irrelevancy_message: false)
           end
-          array << Analyze::Graph::Column::Parent::Race.new(races: Race.all, label: ["All Parent"], show_irrelevancy_message: true)
+          array << Analyze::Graph::Column::Parent::Race.new(races: Race.all, label: ["All", "Parents"], show_irrelevancy_message: true)
         end
       end
 
