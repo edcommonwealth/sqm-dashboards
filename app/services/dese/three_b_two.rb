@@ -42,22 +42,22 @@ module Dese
                       "ctl00_ContentPlaceHolder1_ddClassification" => "Teacher" }
         submit_id = "ctl00_ContentPlaceHolder1_btnViewReport"
         calculation = lambda { |headers, items|
-          african_american_index = headers["African American (%)"]
+          african_american_index = headers["Black or African American (%)"]
           african_american_number = items[african_american_index].to_f
 
           asian_index = headers["Asian (%)"]
           asian_number = items[asian_index].to_f
 
-          hispanic_index = headers["Hispanic (%)"]
+          hispanic_index = headers["Hispanic or Latino (%)"]
           hispanic_number = items[hispanic_index].to_f
 
-          native_american_index = headers["Native American (%)"]
+          native_american_index = headers["American Indian or Alaska Native (%)"]
           native_american_number = items[native_american_index].to_f
 
-          native_hawaiian_index = headers["Native Hawaiian, Pacific Islander (%)"]
+          native_hawaiian_index = headers["Native Hawaiian or Other Pacific Islander (%)"]
           native_hawaiian_number = items[native_hawaiian_index].to_f
 
-          multi_race_index = headers["Multi-Race,Non-Hispanic (%)"]
+          multi_race_index = headers["Multi-Race, Not Hispanic or Latino (%)"]
           multi_race_number = items[multi_race_index].to_f
 
           non_white_teachers = african_american_number + asian_number + hispanic_number + native_american_number + native_hawaiian_number + multi_race_number
