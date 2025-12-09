@@ -249,7 +249,7 @@ class SurveyItemValues
   end
 
   def raw_sped
-    @raw_sped ||= value_from(pattern: /Special\s*Ed\s*Status|Raw\s*SpEd|SpEd-\s*SIS|SPED/i)
+    @raw_sped ||= value_from(pattern: /\bSpecial\s*Ed\s*Status\b|\bRaw\s*SpEd\b|\bSpEd-\s*SIS\b|^SPED$/i)
   end
 
   def sped
