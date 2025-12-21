@@ -1,4 +1,4 @@
-Raw likert calculation,Likert Score,Admin Data Item,Academic Year,School Name,DESE ID,PK,K,1,2,3,4,5,6,7,8,9,10,11,12,SP,Total
+Raw likert calculation,Likert Score,Admin Data Item,Academic Year,School Name,School Code,PK,K,1,2,3,4,5,6,7,8,9,10,11,12,SP,Total
 NA,NA,"",2024-25,Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School,04450105,       0,     125,     123,     125,     127,     130,     128,     128,     111,     108,      80,      85,      80,      76,       0,"   1,426"
 NA,NA,"",2024-25,Abington - Abington Early Education Program,00010001,      82,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,      82
 NA,NA,"",2024-25,Abington - Abington High,00010505,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,     127,     138,     131,     128,       6,     530
@@ -1815,6 +1815,7 @@ NA,NA,"",2024-25,Worcester Cultural Academy Charter Public School (District) - W
 NA,NA,"",2024-25,Worthington - R. H. Conwell,03490010,      13,      10,       8,      13,       5,       9,      13,       5,       0,       0,       0,       0,       0,       0,       0,      76
 NA,NA,"",2024-25,Wrentham - Charles E Roderick,03500010,       0,       0,       0,       0,       0,     128,     119,     110,       0,       0,       0,       0,       0,       0,       0,     357
 NA,NA,"",2024-25,Wrentham - Delaney,03500003,      82,     122,     131,     125,     141,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,     601
+NA,NA,"",2024-25,Westfield - Westfield River Elementary School,03250045,"","","","","","","","","","","","","","","",       0
 NA,NA,"",2023-24,Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School,04450105,       0,     121,     119,     123,     128,     123,     124,     126,     115,     104,      90,      83,      78,      87,       0,"   1,421"
 NA,NA,"",2023-24,Abington - Abington Early Education Program,00010001,      78,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,      78
 NA,NA,"",2023-24,Abington - Abington High,00010505,       0,       0,       0,       0,       0,       0,       0,       0,       0,       0,     143,     135,     129,     146,       8,     561
