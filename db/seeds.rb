@@ -7,13 +7,25 @@ seeder.seed_academic_years "2016-17", "2017-18", "2018-19", "2019-20", "2020-21"
 seeder.seed_districts_and_schools Rails.root.join("data", "master_list_of_schools_and_districts.csv")
 seeder.seed_sqm_framework Rails.root.join("data", "sqm_framework.csv")
 seeder.seed_demographics Rails.root.join("data", "demographics.csv")
-seeder.seed_enrollment Rails.root.join("data", "enrollment", "enrollment.csv")
-seeder.seed_enrollment Rails.root.join("data", "enrollment", "nj_enrollment.csv")
-seeder.seed_enrollment Rails.root.join("data", "enrollment", "wi_enrollment.csv")
-seeder.seed_staffing Rails.root.join("data", "staffing", "staffing.csv")
-seeder.seed_staffing Rails.root.join("data", "staffing", "nj_staffing.csv")
-seeder.seed_staffing Rails.root.join("data", "staffing", "wi_staffing.csv")
-seeder.seed_esp_counts Rails.root.join("data", "staffing", "esp_counts.csv")
+# seeder.seed_enrollment Rails.root.join("data", "enrollment", "enrollment.csv")
+# seeder.seed_enrollment Rails.root.join("data", "enrollment", "nj_enrollment.csv")
+# seeder.seed_enrollment Rails.root.join("data", "enrollment", "wi_enrollment.csv")
+# seeder.seed_enrollment Rails.root.join("data", "enrollment", "virtual.csv")
+# seeder.seed_staffing Rails.root.join("data", "staffing", "staffing.csv")
+# seeder.seed_staffing Rails.root.join("data", "staffing", "nj_staffing.csv")
+# seeder.seed_staffing Rails.root.join("data", "staffing", "staffing_count", "wi_staffing.csv")
+# seeder.seed_esp_counts Rails.root.join("data", "staffing", "esp_counts", "esp_counts.csv")
+# seeder.seed_esp_counts Rails.root.join("data", "staffing", "virtual.csv")
+
+Dir.glob(Rails.root.join("data", "enrollment", "*")).each do |filepath|
+  seeder.seed_enrollment filepath
+end
+Dir.glob(Rails.root.join("data", "staffing", "staffing_count", "*")).each do |filepath|
+  seeder.seed_staffing filepath
+end
+Dir.glob(Rails.root.join("data", "staffing", "esp_count", "*")).each do |filepath|
+  seeder.seed_esp_counts filepath
+end
 
 Sftp::File.open(filepath: "/ecp/district_credentials.csv") do |file|
   seeder.seed_district_credentials file:
