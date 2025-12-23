@@ -1,3 +1,4 @@
+require "fileutils"
 namespace :report do
   desc "create a report of the scores for all subcategories"
   task subcategory: :environment do
@@ -202,11 +203,13 @@ namespace :report do
     end
   end
 
-  # Usage example
-  # bundle exec rake "report:exports:create"
   namespace :exports do
+    # Usage example
+    # bundle exec rake "report:exports:create"
     task :create, %i[district academic_year] => :environment do |_, _args|
-      Report::Exports.create
+      Report::Exports.create(districts: ::District.all, academic_years: ::AcademicYear.all, use_student_survey_items: ::SurveyItem.student_survey_items.map(&:id))
+      FileUtils.mkdir_p(Rails.root.join("tmp", "exports", "measure_by_grade"))
+      Report::MeasureByGrade.run(filepath: Rails.root.join("tmp", "exports", "measure_by_grade", "measure_by_grade.csv"))
     end
   end
 end

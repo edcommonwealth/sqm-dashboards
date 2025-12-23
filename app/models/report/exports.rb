@@ -1,10 +1,10 @@
 module Report
   class Exports
-    def self.create
-      academic_years = ::AcademicYear.all
-      districts = ::District.all
-      use_student_survey_items = ::SurveyItem.student_survey_items.map(&:id)
-      schools = ::School.all.includes(:district)
+    def self.create(districts: ::District.all, academic_years: ::AcademicYear.all, use_student_survey_items: ::SurveyItem.student_survey_items.map(&:id))
+      # academic_years = ::AcademicYear.all
+      # districts = ::District.all
+      # use_student_survey_items = ::SurveyItem.student_survey_items.map(&:id)
+      schools = districts.flat_map(&:schools)
 
       reports = {
         "Subcategory by School & District" => lambda { |schools, academic_years|
