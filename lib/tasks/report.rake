@@ -185,6 +185,13 @@ namespace :report do
   end
 
   # Usage example
+  # bundle exec rake "report:averages_by_grade"
+  task averages_by_grade: :environment do
+    FileUtils.mkdir_p(Rails.root.join("tmp", "exports", "measure_by_grade"))
+    Report::MeasureByGrade.run(filepath: Rails.root.join("tmp", "exports", "measure_by_grade", "measure_by_grade.csv"))
+  end
+
+  # Usage example
   # bundle exec rake "report:survey_item_response:create[Hampden-Wilbraham,2023-24 Spring]"
   namespace :survey_item_response do
     task :create, %i[district academic_year] => :environment do |_, args|
