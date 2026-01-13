@@ -220,12 +220,22 @@ namespace :report do
       academic_years = AcademicYear.where(range: args[:academic_year])
 
       schools.each do |school|
-        filename = "#{school.name}.#{academic_years.first.range}.survey_item_by_item.csv"
-        Report::SurveyItemByItem.create_item_report(schools: [school], academic_years:, filename:)
+        next unless ::SurveyItemResponse.where(school:, academic_year: academic_years.first).count > 100
+
+        year = academic_years.first.range
+        filename = "#{school.name}.#{year}.survey_item_by_item.csv"
+        csv = Report::SurveyItemByItem.to_csv(schools: [school], academic_years:)
+
+        FileUtils.mkdir_p Rails.root.join("tmp", "exports", "for_principles", "#{district.name}", "#{year}")
+        filepath = Rails.root.join("tmp", "exports", "for_principles", args[:district], year, filename)
+        File.write(filepath, csv)
 
         filename = "#{school.name}.#{academic_years.first.range}.survey_item_by_grade.csv"
         use_student_survey_items = ::SurveyItem.student_survey_items.map(&:id)
-        Report::SurveyItemByGrade.create_grade_report(schools: [school], academic_years:, filename:, use_student_survey_items:)
+        csv = Report::SurveyItemByGrade.to_csv(schools: [school], academic_years:, use_student_survey_items:)
+
+        filepath = Rails.root.join("tmp", "exports", "for_principles", args[:district], year, filename)
+        File.write(filepath, csv)
       end
     end
   end
