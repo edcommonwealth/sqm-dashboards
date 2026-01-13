@@ -211,5 +211,22 @@ namespace :report do
       FileUtils.mkdir_p(Rails.root.join("tmp", "exports", "measure_by_grade"))
       Report::MeasureByGrade.run(filepath: Rails.root.join("tmp", "exports", "measure_by_grade", "measure_by_grade.csv"))
     end
+
+    # Usage example
+    # bundle exec rake "report:exports:for_principles[Hampden-Wilbraham,2023-24 Spring]"
+    task :for_principles, %i[district academic_year] => :environment do |_, args|
+      district = District.find_by_name(args[:district])
+      schools = district.schools
+      academic_years = AcademicYear.where(range: args[:academic_year])
+
+      schools.each do |school|
+        filename = "#{school.name}.#{academic_years.first.range}.survey_item_by_item.csv"
+        Report::SurveyItemByItem.create_item_report(schools: [school], academic_years:, filename:)
+
+        filename = "#{school.name}.#{academic_years.first.range}.survey_item_by_grade.csv"
+        use_student_survey_items = ::SurveyItem.student_survey_items.map(&:id)
+        Report::SurveyItemByGrade.create_grade_report(schools: [school], academic_years:, filename:, use_student_survey_items:)
+      end
+    end
   end
 end
