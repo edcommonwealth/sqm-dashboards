@@ -16,57 +16,69 @@ module Report
       CSV.generate(headers: true) do |csv|
         csv << headers
         academic_years.each do |academic_year|
-          measures.each do |measure|
-            scores = schools.map do |school|
-              measure.score(school:, academic_year:).average
-            end.remove_blanks
+          puts "Processing: #{academic_year.range}"
+          pool_size = 8
+          jobs = Queue.new
+          measures.each { |measure| jobs << measure }
 
-            avg_score = scores.count.positive? ? scores.average : nil
-            avg_score = avg_score.round(2) unless avg_score.nil?
-            avg_score = "N/A" if avg_score.nil?
+          workers = pool_size.times.map do
+            Thread.new do
+              while measure = jobs.pop(true)
+                puts "Processing: #{measure.name}"
+                scores = schools.map do |school|
+                  measure.score(school:, academic_year:).average
+                end.remove_blanks
 
-            student_scores = schools.map do |school|
-              measure.student_score(school:, academic_year:).average
-            end.remove_blanks
+                avg_score = scores.count.positive? ? scores.average : nil
+                avg_score = avg_score.round(2) unless avg_score.nil?
+                avg_score = "N/A" if avg_score.nil?
 
-            student_avg = student_scores.count.positive? ? student_scores.average : nil
-            student_avg = student_avg.round(2) unless student_avg.nil?
-            student_avg = "N/A" if student_avg.nil?
+                student_scores = schools.map do |school|
+                  measure.student_score(school:, academic_year:).average
+                end.remove_blanks
 
-            tmp1 = [
-              measure.name,
-              measure.measure_id,
-              academic_year.range,
-              avg_score,
-              student_avg
-            ]
+                student_avg = student_scores.count.positive? ? student_scores.average : nil
+                student_avg = student_avg.round(2) unless student_avg.nil?
+                student_avg = "N/A" if student_avg.nil?
 
-            tmp2 = (0..12).to_a.map do |grade|
-              s_averages = schools.each.map do |school|
-                next unless StudentResponseRateCalculator.new(subcategory: measure.subcategory, school:, academic_year:).meets_student_threshold?
+                tmp1 = [
+                  measure.name,
+                  measure.measure_id,
+                  academic_year.range,
+                  avg_score,
+                  student_avg
+                ]
 
-                student_survey_items = ::SurveyItem.where(id: ::SurveyItem.joins("inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id")
-                                .student_survey_items
-                                .where("survey_item_responses.school": school,
-                                       "survey_item_responses.academic_year": academic_year,
-                                       "survey_item_responses.survey_item_id": measure.student_survey_items,
-                                       "survey_item_responses.grade": grade)
-                                .group("survey_items.id")
-                                .having("count(*) >= 10")
-                                .count.keys)
+                tmp2 = (0..12).to_a.map do |grade|
+                  s_averages = schools.each.map do |school|
+                    next unless StudentResponseRateCalculator.new(subcategory: measure.subcategory, school:, academic_year:).meets_student_threshold?
 
-                ::SurveyItemResponse.where(survey_item: student_survey_items, school:, academic_year:, grade:).average(:likert_score)
-              end.remove_blanks.average
+                    student_survey_items = ::SurveyItem.where(id: ::SurveyItem.joins("inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id")
+                                    .student_survey_items
+                                    .where("survey_item_responses.school": school,
+                                           "survey_item_responses.academic_year": academic_year,
+                                           "survey_item_responses.survey_item_id": measure.student_survey_items,
+                                           "survey_item_responses.grade": grade)
+                                    .group("survey_items.id")
+                                    .having("count(*) >= 10")
+                                    .count.keys)
 
-              if s_averages.positive?
-                s_averages.round(2)
-              else
-                "N/A"
+                    ::SurveyItemResponse.where(survey_item: student_survey_items, school:, academic_year:, grade:).average(:likert_score)
+                  end.remove_blanks.average
+
+                  if s_averages.positive?
+                    s_averages.round(2)
+                  else
+                    "N/A"
+                  end
+                end
+
+                csv << tmp1.concat(tmp2)
               end
+            rescue ThreadError
             end
-
-            csv << tmp1.concat(tmp2)
           end
+          workers.each(&:join)
         end
       end
     end
