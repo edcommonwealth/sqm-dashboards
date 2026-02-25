@@ -26,8 +26,9 @@ module Report
               while measure = jobs.pop(true)
                 puts "Processing: #{measure.name}"
                 scores = schools.map do |school|
-                  measure.score(school:, academic_year:).average
-                end.remove_blanks
+                  [measure.student_score(school:, academic_year:).average,
+                   measure.teacher_score(school:, academic_year:).average].remove_blanks.average
+                end.remove_blanks.reject { |score| score <= 1 }
 
                 avg_score = scores.count.positive? ? scores.average : nil
                 avg_score = avg_score.round(2) unless avg_score.nil?
@@ -88,7 +89,7 @@ module Report
     end
 
     def self.run(filepath: Rails.root.join("tmp", "exports", "measure_by_grade", "measure_by_grade.csv"))
-      data = to_csv(schools: ::School.all, academic_years: ::AcademicYear.all, measures: ::Measure.all)
+      data = to_csv(schools: ::School.all, academic_years: [::AcademicYear.find_by_range("2024-25")], measures: ::Measure.all)
       write_csv(data:, filepath:)
     end
   end

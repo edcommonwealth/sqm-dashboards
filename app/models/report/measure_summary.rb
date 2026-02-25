@@ -1,14 +1,14 @@
 module Report
   class MeasureSummary
-    def self.create_report(schools:, academic_years: AcademicYear.all, measures: ::Measure.all.order(measure_id: :ASC), filename: "measure_summary.csv")
-      data = to_csv(schools:, academic_years:, measures:)
+    def self.create_report(schools:, academic_years: AcademicYear.all, measures: ::Measure.all.order(measure_id: :ASC), filename: "measure_summary.csv", group: :by_district)
+      data = to_csv(schools:, academic_years:, measures:, group:)
       FileUtils.mkdir_p Rails.root.join("tmp", "reports")
       filepath = Rails.root.join("tmp", "reports", filename)
       write_csv(data:, filepath:)
       data
     end
 
-    def self.to_csv(schools:, academic_years:, measures:)
+    def self.to_csv(schools:, academic_years:, measures:, group: :by_district)
       data = []
       mutex = Thread::Mutex.new
       data << ["Measure Name", "Measure ID", "District", "Academic Year", "Recorded Date Range", "Grades", "Student Score", "Student Zone", "Teacher Score",
@@ -24,29 +24,54 @@ module Report
             grades = "#{all_grades.first}-#{all_grades.last}"
 
             academic_years.each do |academic_year|
-              schools.flat_map(&:district).uniq.each do |district|
-                selected_schools = district.schools
-                begin_date = ::SurveyItemResponse.where(school: selected_schools,
+              if group == :by_district
+                schools.flat_map(&:district).uniq.each do |district|
+                  selected_schools = district.schools
+                  begin_date = ::SurveyItemResponse.where(school: selected_schools,
+                                                          academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
+                  end_date = ::SurveyItemResponse.where(school: selected_schools,
+                                                        academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
+                  date_range = "#{begin_date} - #{end_date}"
+
+                  mutex.synchronize do
+                    data << [measure.name,
+                             measure.measure_id,
+                             district.name,
+                             academic_year.range,
+                             date_range,
+                             grades,
+                             student_score(measure:,  schools: selected_schools, academic_year:),
+                             student_zone(measure:,   schools: selected_schools, academic_year:),
+                             teacher_score(measure:,  schools: selected_schools, academic_year:),
+                             teacher_zone(measure:,   schools: selected_schools, academic_year:),
+                             admin_score(measure:,    schools: selected_schools, academic_year:),
+                             admin_zone(measure:,     schools: selected_schools, academic_year:),
+                             all_data_score(measure:, schools: selected_schools, academic_year:),
+                             all_data_zone(measure:,  schools: selected_schools, academic_year:)]
+                  end
+                end
+              elsif group == :all_schools
+                begin_date = ::SurveyItemResponse.where(school: schools,
                                                         academic_year:).where.not(recorded_date: nil).order(:recorded_date).first&.recorded_date&.to_date
-                end_date = ::SurveyItemResponse.where(school: selected_schools,
+                end_date = ::SurveyItemResponse.where(school: schools,
                                                       academic_year:).where.not(recorded_date: nil).order(:recorded_date).last&.recorded_date&.to_date
                 date_range = "#{begin_date} - #{end_date}"
 
                 mutex.synchronize do
                   data << [measure.name,
                            measure.measure_id,
-                           district.name,
+                           "All Districts",
                            academic_year.range,
                            date_range,
                            grades,
-                           student_score(measure:,  schools: selected_schools, academic_year:),
-                           student_zone(measure:,   schools: selected_schools, academic_year:),
-                           teacher_score(measure:,  schools: selected_schools, academic_year:),
-                           teacher_zone(measure:,   schools: selected_schools, academic_year:),
-                           admin_score(measure:,    schools: selected_schools, academic_year:),
-                           admin_zone(measure:,     schools: selected_schools, academic_year:),
-                           all_data_score(measure:, schools: selected_schools, academic_year:),
-                           all_data_zone(measure:,  schools: selected_schools, academic_year:)]
+                           student_score(measure:,  schools: schools, academic_year:),
+                           student_zone(measure:,   schools: schools, academic_year:),
+                           teacher_score(measure:,  schools: schools, academic_year:),
+                           teacher_zone(measure:,   schools: schools, academic_year:),
+                           admin_score(measure:,    schools: schools, academic_year:),
+                           admin_zone(measure:,     schools: schools, academic_year:),
+                           all_data_score(measure:, schools: schools, academic_year:),
+                           all_data_zone(measure:,  schools: schools, academic_year:)]
                 end
               end
             end
@@ -65,7 +90,7 @@ module Report
     end
 
     def self.write_csv(data:, filepath:)
-      File.write(filepath, csv)
+      File.write(filepath, data)
     end
 
     def self.all_data_score(measure:, schools:, academic_year:)
