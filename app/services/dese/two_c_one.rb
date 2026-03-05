@@ -30,10 +30,10 @@ module Dese
         admin_data_item_id = 'a-vale-i1'
         url = 'https://profiles.doe.mass.edu/statereport/attendance.aspx'
         range = case academic_year.range
-                when '2021-22', '2020-21'
-                  "#{academic_year.range} (End of year)"
-                else
+                when '2017-18', '2018-19', '2019-20'
                   academic_year.range
+                else
+                  "#{academic_year.range} (End of year)"
                 end
         selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
                       'ctl00_ContentPlaceHolder1_ddYear' => range }
@@ -55,10 +55,10 @@ module Dese
         admin_data_item_id = 'a-vale-i2'
         url = 'https://profiles.doe.mass.edu/statereport/attendance.aspx'
         range = case academic_year.range
-                when '2021-22', '2020-21'
-                  "#{academic_year.range} (End of year)"
-                else
+                when '2017-18', '2018-19', '2019-20'
                   academic_year.range
+                else
+                  "#{academic_year.range} (End of year)"
                 end
         selectors = { 'ctl00_ContentPlaceHolder1_ddReportType' => 'School',
                       'ctl00_ContentPlaceHolder1_ddYear' => range }
