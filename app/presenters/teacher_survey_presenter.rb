@@ -22,7 +22,7 @@ class TeacherSurveyPresenter < DataItemPresenter
 
   def descriptions_and_availability
     if @measure_id == '1B-i'
-      return [Summary.new('1B-i', 'Items available upon request to ECP',
+      return [Summary.new('1B-i', 'Items available upon request to MCIEA',
                           true)]
     end
 
