@@ -106,4 +106,17 @@ namespace :one_off do
       end
     end
   end
+
+  desc "remove two closed schools"
+  task delete_closed_schools: :environment do
+    ["Minot Forest Elementary School", "John William Decas Elementary School"].each do |school_name|
+      school = School.find_by_name school_name
+      next unless school.present?
+
+      Respondent.where(school:).delete_all
+      AdminDataValue.where(school:).delete_all
+      school.survey_item_responses.delete_all
+      school.delete
+    end
+  end
 end
