@@ -64,7 +64,7 @@ describe TeacherSurveyPresenter do
             academic_year:
           ).descriptions_and_availability
         ).to eq [
-          Summary.new('1B-i', 'Items available upon request to ECP', true)
+          Summary.new('1B-i', 'Items available upon request to MCIEA', true)
         ]
       end
     end
