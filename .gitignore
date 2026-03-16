@@ -25,6 +25,7 @@ config/local_env.yml
 
 .idea/
 .postgres/
+.gem/
 
 /config/master.key
 
