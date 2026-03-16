@@ -16,6 +16,8 @@
         chromium
         chromedriver
         postgresql
+        nodejs_24
+        yarn
       ];
 
       shellHook = ''
