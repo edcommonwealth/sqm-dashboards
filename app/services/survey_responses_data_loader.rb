@@ -32,7 +32,8 @@ class SurveyResponsesDataLoader
 
     lines = []
     until file.eof?
-      line = file.gets
+      line = file.gets.scrub
+      line = line.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
       next unless line.present?
 
       lines << line
