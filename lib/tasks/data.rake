@@ -68,6 +68,11 @@ namespace(:data) do
     Dir.glob(Rails.root.join("data", "admin_data", "dese", "*.csv")).each { |filepath| jobs << filepath }
     Dir.glob(Rails.root.join("data", "admin_data", "out_of_state", "*.csv")).each { |filepath| jobs << filepath }
 
+    lee_pre_load = AdminDataValue.where(school: School.find_by_name("Lee Middle/High School")).group(:academic_year).count.sort_by { |ay, _count| ay.range }.map { |ay, count| [ay.range, count] }
+
+    pre_count = AdminDataValue.group(:academic_year).count.map { |ay, count| [ay.range, count] }
+
+    pre_values = AdminDataValue.all.pluck(:id)
     workers = pool_size.times.map do
       Thread.new do
 
@@ -82,8 +87,25 @@ namespace(:data) do
 
     workers.each(&:join)
 
+    lee_post_load = AdminDataValue.where(school: School.find_by_name("Lee Middle/High School")).group(:academic_year).count.sort_by { |ay, _count| ay.range }.map { |ay, count| [ay.range, count] }
+
+    puts "=====================> Lee Middle/High School admin data values by academic year before load: #{lee_pre_load}"
+    puts "=====================> Lee Middle/High School admin data values by academic year after load: #{lee_post_load}"
+
+    puts("=====================> Admin data items by academic year")
+
+    post_count = AdminDataValue.group(:academic_year).count.map { |ay, count| [ay.range, count] }
+
+    puts("=====================> Admin data values by academic year before load: #{pre_count}")
+    puts("=====================> Admin data values by academic year after load: #{post_count}")
+    post_values = AdminDataValue.all.pluck(:id)
+    puts("======================> Loaded #{post_values.count - pre_values.count} new admin data value ids, #{post_values - pre_values} ")
+    puts "======================> Admin Data Items that changed: #{(post_values - pre_values).map { |id| AdminDataValue.find(id) }.map { |value| [value.academic_year.range, value.admin_data_item.admin_data_item_id] }.uniq}"
+
     puts("=====================> Completed loading #{AdminDataValue.count - original_count} admin data values")
+
     Rails.cache.clear
+
   end
 
   desc("reset all cache counters")

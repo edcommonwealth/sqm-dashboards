@@ -62,24 +62,11 @@ module Dese
       return if admin_data_item_id.nil? || admin_data_item_id.blank?
       return unless academic_years.size.positive?
 
-      out = []
-      academic_years.each do |academic_year|
-        admin_data_value = AdminDataValue.find_by(academic_year:, school:, admin_data_item:)
-
-        if admin_data_value.present?
-          admin_data_value.likert_score = score
-          admin_data_value.save
-          []
-        else
-          out << AdminDataValue.new(
-            likert_score: score,
-            academic_year:,
-            school:,
-            admin_data_item:
-          )
-        end
+      academic_years.map do |academic_year|
+        admin_data_value = AdminDataValue.find_or_create_by(academic_year:, school:, admin_data_item:)
+        admin_data_value.likert_score = score
+        admin_data_value
       end
-      out
     end
 
     private_class_method :valid_likert_score

@@ -1,4 +1,406 @@
 Raw likert calculation,Likert Score,Admin Data Item,Academic Year,School Name,DESE ID,# in Cohort,% Graduated,% Still in School,% Non-Grad Completers,% H.S. Equiv.,% Dropped Out,% Permanently Excluded
+5.0,5.0,a-degr-i1,2024-25,Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School,04450105,        76,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.62,4.62,a-degr-i1,2024-25,Abington - Abington High,00010505,       131,    92.4,     3.1,     0.0,     0.0,     4.6,     0.0
+4.885,4.89,a-degr-i1,2024-25,Academy Of the Pacific Rim Charter Public (District) - Academy Of the Pacific Rim Charter Public School,04120530,        43,    97.7,     0.0,     0.0,     0.0,     2.3,     0.0
+4.82,4.82,a-degr-i1,2024-25,Acton-Boxborough - Acton-Boxborough Regional High,06000505,       392,    96.4,     1.8,     0.0,     0.3,     1.5,     0.0
+5.0,5.0,a-degr-i1,2024-25,Advanced Math and Science Academy Charter (District) - Advanced Math and Science Academy Charter School,04300305,       125,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.68,4.68,a-degr-i1,2024-25,Agawam - Agawam High,00050505,       235,    93.6,     1.3,     0.0,     0.9,     4.3,     0.0
+4.275,4.28,a-degr-i1,2024-25,Amesbury - Amesbury High,00070505,       110,    85.5,    11.8,     0.0,     1.8,     0.9,     0.0
+4.12,4.12,a-degr-i1,2024-25,Amesbury - Amesbury Innovation High School,00070515,        17,    82.4,    11.8,     0.0,     5.9,     0.0,     0.0
+4.625,4.63,a-degr-i1,2024-25,Amherst-Pelham - Amherst Regional High,06050505,       200,    92.5,     4.5,     0.0,     0.5,     2.5,     0.0
+4.975,4.98,a-degr-i1,2024-25,Andover - Andover High,00090505,       402,    99.5,     0.2,     0.0,     0.0,     0.2,     0.0
+3.8899999999999997,3.89,a-degr-i1,2024-25,Argosy Collegiate Charter School (District) - Argosy Collegiate Charter School,35090305,        54,    77.8,    13.0,     0.0,     0.0,     5.6,     3.7
+4.91,4.91,a-degr-i1,2024-25,Arlington - Arlington High,00100505,       394,    98.2,     1.0,     0.0,     0.0,     0.5,     0.3
+4.9350000000000005,4.94,a-degr-i1,2024-25,Ashburnham-Westminster - Oakmont Regional High School,06100505,       151,    98.7,     1.3,     0.0,     0.0,     0.0,     0.0
+4.575,4.58,a-degr-i1,2024-25,Ashland - Ashland High,00140505,       223,    91.5,     0.9,     2.2,     0.4,     4.9,     0.0
+4.925,4.93,a-degr-i1,2024-25,Assabet Valley Regional Vocational Technical - Assabet Valley Vocational High School,08010605,       274,    98.5,     0.0,     0.0,     0.0,     1.5,     0.0
+4.154999999999999,4.15,a-degr-i1,2024-25,Athol-Royalston - Athol High,06150505,       118,    83.1,     5.9,     0.8,     0.0,    10.2,     0.0
+4.6899999999999995,4.69,a-degr-i1,2024-25,Atlantis Charter (District) - Atlantis Charter School,04910550,        80,    93.8,     2.5,     0.0,     0.0,     3.8,     0.0
+4.425,4.43,a-degr-i1,2024-25,Attleboro - Attleboro Community Academy,00160515,        26,    88.5,     0.0,     0.0,     0.0,    11.5,     0.0
+4.725,4.73,a-degr-i1,2024-25,Attleboro - Attleboro High,00160505,       512,    94.5,     2.0,     0.2,     0.2,     3.1,     0.0
+3.685,3.69,a-degr-i1,2024-25,Attleboro - Attleboro Virtual Academy,00160705,        19,    73.7,    10.5,     0.0,     0.0,    15.8,     0.0
+4.635,4.64,a-degr-i1,2024-25,Auburn - Auburn Senior High,00170505,       178,    92.7,     2.2,     0.0,     0.0,     5.1,     0.0
+4.654999999999999,4.65,a-degr-i1,2024-25,Avon - Avon Middle High School,00180510,        58,    93.1,     1.7,     0.0,     0.0,     5.2,     0.0
+4.795,4.8,a-degr-i1,2024-25,Ayer Shirley School District - Ayer Shirley Regional High School,06160505,       121,    95.9,     0.8,     0.0,     0.0,     3.3,     0.0
+4.2,4.2,a-degr-i1,2024-25,Barnstable - Barnstable High,00200505,       399,    84.0,     5.3,     1.5,     0.8,     8.5,     0.0
+4.3,4.3,a-degr-i1,2024-25,Baystate Academy Charter Public School (District) - Baystate Academy Charter Public School,35020405,        43,    86.0,     0.0,     0.0,     0.0,     4.7,     9.3
+4.93,4.93,a-degr-i1,2024-25,Bedford - Bedford High,00230505,       222,    98.6,     0.0,     0.0,     0.5,     0.9,     0.0
+4.485,4.49,a-degr-i1,2024-25,Belchertown - Belchertown High,00240505,       146,    89.7,     2.1,     0.7,     0.0,     7.5,     0.0
+4.49,4.49,a-degr-i1,2024-25,Bellingham - Bellingham High School,00250505,       157,    89.8,     3.2,     0.0,     0.6,     6.4,     0.0
+4.875,4.88,a-degr-i1,2024-25,Belmont - Belmont High,00260505,       356,    97.5,     2.5,     0.0,     0.0,     0.0,     0.0
+4.5,4.5,a-degr-i1,2024-25,Berkshire Arts and Technology Charter Public (District) - Berkshire Arts and Technology Charter Public School,04140305,        30,    90.0,     3.3,     0.0,     0.0,     6.7,     0.0
+4.3549999999999995,4.35,a-degr-i1,2024-25,Berkshire Hills - Monument Mt Regional High,06180505,       140,    87.1,     2.9,     0.0,     0.7,     9.3,     0.0
+4.915,4.92,a-degr-i1,2024-25,Berlin-Boylston - Tahanto Regional High,06200505,        59,    98.3,     0.0,     0.0,     0.0,     1.7,     0.0
+4.615,4.62,a-degr-i1,2024-25,Beverly - Beverly High,00300505,       297,    92.3,     3.0,     0.3,     0.0,     4.0,     0.3
+4.87,4.87,a-degr-i1,2024-25,Billerica - Billerica Memorial High School,00310505,       308,    97.4,     0.3,     0.3,     0.3,     1.6,     0.0
+5.0,5.0,a-degr-i1,2024-25,Blackstone Valley Regional Vocational Technical - Blackstone Valley,08050605,       314,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.595000000000001,4.6,a-degr-i1,2024-25,Blackstone-Millville - Blackstone Millville RHS,06220505,        99,    91.9,     3.0,     0.0,     0.0,     5.1,     0.0
+4.91,4.91,a-degr-i1,2024-25,Blue Hills Regional Vocational Technical - Blue Hills Regional Vocational Technical,08060605,       218,    98.2,     1.8,     0.0,     0.0,     0.0,     0.0
+3.8299999999999996,3.83,a-degr-i1,2024-25,Boston - Albert D Holland School of Technology,00350525,       137,    76.6,    10.9,     0.0,     1.5,    10.9,     0.0
+3.9850000000000003,3.99,a-degr-i1,2024-25,Boston - Another Course To College,00350541,        74,    79.7,     5.4,     0.0,     0.0,    14.9,     0.0
+3.35,3.35,a-degr-i1,2024-25,Boston - Boston Adult Tech Academy,00350548,       176,    67.0,    11.4,     0.0,     0.0,    21.6,     0.0
+4.695,4.7,a-degr-i1,2024-25,Boston - Boston Arts Academy,00350546,       114,    93.9,     1.8,     0.0,     0.9,     3.5,     0.0
+2.16,2.16,a-degr-i1,2024-25,Boston - Boston Collaborative High School,00350755,       118,    43.2,    50.8,     0.0,     1.7,     4.2,     0.0
+2.88,2.88,a-degr-i1,2024-25,Boston - Boston International High School & Newcomers Academy,00350507,       158,    57.6,    12.0,     0.0,     0.0,    30.4,     0.0
+4.945,4.95,a-degr-i1,2024-25,Boston - Boston Latin Academy,00350545,       266,    98.9,     0.8,     0.0,     0.0,     0.4,     0.0
+4.95,4.95,a-degr-i1,2024-25,Boston - Boston Latin School,00350560,       397,    99.0,     0.8,     0.0,     0.0,     0.3,     0.0
+3.09,3.09,a-degr-i1,2024-25,Boston - Brighton High School,00350505,       191,    61.8,    10.5,     0.5,     0.0,    27.2,     0.0
+3.725,3.73,a-degr-i1,2024-25,Boston - Charlestown High School,00350515,       212,    74.5,    13.7,     0.0,     0.9,    10.8,     0.0
+2.25,2.25,a-degr-i1,2024-25,Boston - Community Academy,00350518,        20,    45.0,    40.0,     0.0,     0.0,    15.0,     0.0
+3.595,3.6,a-degr-i1,2024-25,Boston - Community Academy of Science and Health,00350581,       139,    71.9,    18.7,     0.0,     0.0,     9.4,     0.0
+4.195,4.2,a-degr-i1,2024-25,Boston - Dearborn 6-12 STEM Academy,00350074,        93,    83.9,     6.5,     0.0,     0.0,     9.7,     0.0
+4.7299999999999995,4.73,a-degr-i1,2024-25,Boston - East Boston High School,00350530,       280,    94.6,     3.2,     0.0,     0.4,     1.8,     0.0
+4.33,4.33,a-degr-i1,2024-25,Boston - English High School,00350535,       157,    86.6,     1.9,     0.0,     0.0,    11.5,     0.0
+4.279999999999999,4.28,a-degr-i1,2024-25,Boston - Excel High School,00350522,       111,    85.6,     0.9,     0.0,     0.9,    12.6,     0.0
+4.34,4.34,a-degr-i1,2024-25,Boston - Fenway High School,00350540,        76,    86.8,    10.5,     0.0,     0.0,     2.6,     0.0
+2.69,2.69,a-degr-i1,2024-25,Boston - Greater Egleston High School,00350543,        26,    53.8,    26.9,     0.0,     0.0,    19.2,     0.0
+3.8049999999999997,3.81,a-degr-i1,2024-25,Boston - Henderson K-12 Inclusion School Upper,00350426,        67,    76.1,    10.4,     0.0,     0.0,    13.4,     0.0
+3.0,3.0,a-degr-i1,2024-25,Boston - Horace Mann School for the Deaf Hard of Hearing,00350750,        10,    60.0,    40.0,     0.0,     0.0,     0.0,     0.0
+4.475,4.48,a-degr-i1,2024-25,Boston - Lyon High School,00350655,        19,    89.5,     5.3,     0.0,     0.0,     5.3,     0.0
+4.035,4.04,a-degr-i1,2024-25,Boston - Madison Park Technical Vocational High School,00350537,       264,    80.7,     8.3,     0.4,     0.8,     9.8,     0.0
+4.495,4.5,a-degr-i1,2024-25,Boston - Margarita Muniz Academy,00350549,        79,    89.9,     1.3,     0.0,     0.0,     8.9,     0.0
+1.19,1.19,a-degr-i1,2024-25,Boston - McKinley Schools,00350363,        21,    23.8,    33.3,     0.0,     0.0,    42.9,     0.0
+4.66,4.66,a-degr-i1,2024-25,Boston - New Mission High School,00350542,       133,    93.2,     3.8,     0.0,     0.0,     3.0,     0.0
+4.91,4.91,a-degr-i1,2024-25,Boston - O'Bryant School of Math & Science,00350575,       280,    98.2,     0.4,     0.0,     0.4,     1.1,     0.0
+4.545,4.55,a-degr-i1,2024-25,Boston - Quincy Upper School,00350565,        66,    90.9,     7.6,     0.0,     0.0,     1.5,     0.0
+3.9899999999999998,3.99,a-degr-i1,2024-25,Boston - Ruth Batson Academy,00350558,       114,    79.8,    11.4,     0.0,     0.9,     7.9,     0.0
+4.279999999999999,4.28,a-degr-i1,2024-25,Boston - Snowden International High School,00350690,       104,    85.6,     5.8,     1.0,     1.0,     6.7,     0.0
+4.43,4.43,a-degr-i1,2024-25,Boston - TechBoston Academy,00350657,       140,    88.6,     7.9,     0.0,     0.7,     2.9,     0.0
+4.7299999999999995,4.73,a-degr-i1,2024-25,Boston Collegiate Charter (District) - Boston Collegiate Charter School,04490305,        74,    94.6,     5.4,     0.0,     0.0,     0.0,     0.0
+1.075,1.08,a-degr-i1,2024-25,Boston Day and Evening Academy Charter (District) - Boston Day and Evening Academy Charter School,04240505,       158,    21.5,    48.1,     0.0,     1.9,    27.8,     0.6
+4.125,4.13,a-degr-i1,2024-25,Boston Green Academy Horace Mann Charter School (District) - Boston Green Academy Horace Mann Charter School,04110305,        63,    82.5,     0.0,     0.0,     0.0,    17.5,     0.0
+4.8,4.8,a-degr-i1,2024-25,Boston Preparatory Charter Public (District) - Boston Preparatory Charter Public School,04160305,        75,    96.0,     4.0,     0.0,     0.0,     0.0,     0.0
+4.575,4.58,a-degr-i1,2024-25,Bourne - Bourne High School,00360505,        82,    91.5,     3.7,     0.0,     0.0,     4.9,     0.0
+4.795,4.8,a-degr-i1,2024-25,Braintree - Braintree High,00400505,       440,    95.9,     0.2,     0.0,     0.0,     3.9,     0.0
+4.725,4.73,a-degr-i1,2024-25,Bridgewater-Raynham - Bridgewater-Raynham Regional,06250505,       403,    94.5,     2.7,     0.0,     0.2,     2.5,     0.0
+4.9,4.9,a-degr-i1,2024-25,Bristol County Agricultural - Bristol County Agricultural High,09100705,       150,    98.0,     0.0,     0.0,     0.7,     1.3,     0.0
+4.92,4.92,a-degr-i1,2024-25,Bristol-Plymouth Regional Vocational Technical - Bristol-Plymouth Vocational Technical,08100605,       313,    98.4,     0.0,     0.0,     0.0,     1.6,     0.0
+4.215,4.22,a-degr-i1,2024-25,Brockton - Brockton High,00440505,       989,    84.3,     7.8,     0.3,     0.1,     7.5,     0.0
+1.1099999999999999,1.11,a-degr-i1,2024-25,Brockton - Brockton Therapeutic Day School,00440400,         9,    22.2,    66.7,     0.0,     0.0,    11.1,     0.0
+2.105,2.11,a-degr-i1,2024-25,Brockton - Brockton Virtual Learning Academy,00440705,        38,    42.1,    23.7,     0.0,     0.0,    34.2,     0.0
+3.25,3.25,a-degr-i1,2024-25,Brockton - Champion High School,00440535,        80,    65.0,     6.2,     2.5,     1.2,    25.0,     0.0
+2.9699999999999998,2.97,a-degr-i1,2024-25,Brockton - Edison Evening Academy,00440520,       219,    59.4,     8.7,     7.3,     0.0,    24.7,     0.0
+4.525,4.53,a-degr-i1,2024-25,Brooke Charter School (District) - Brooke Charter School,04280305,       105,    90.5,     1.9,     0.0,     1.9,     5.7,     0.0
+4.8100000000000005,4.81,a-degr-i1,2024-25,Brookline - Brookline High,00460505,       549,    96.2,     1.8,     0.0,     0.4,     1.6,     0.0
+4.75,4.75,a-degr-i1,2024-25,Burlington - Burlington High,00480505,       240,    95.0,     0.4,     0.0,     0.0,     4.6,     0.0
+4.71,4.71,a-degr-i1,2024-25,Cambridge - Cambridge Rindge and Latin,00490506,       513,    94.2,     3.7,     0.0,     0.2,     1.9,     0.0
+4.805,4.81,a-degr-i1,2024-25,Canton - Canton High,00500505,       228,    96.1,     1.8,     0.0,     0.4,     1.3,     0.4
+4.904999999999999,4.9,a-degr-i1,2024-25,Cape Cod Regional Vocational Technical - Cape Cod Region Vocational Technical,08150605,       159,    98.1,     0.6,     0.0,     0.6,     0.6,     0.0
+4.89,4.89,a-degr-i1,2024-25,Carver - Carver Middle/High School,00520405,        93,    97.8,     1.1,     0.0,     0.0,     1.1,     0.0
+4.75,4.75,a-degr-i1,2024-25,Central Berkshire - Wahconah Regional High,06350505,       120,    95.0,     1.7,     0.0,     0.0,     3.3,     0.0
+4.9399999999999995,4.94,a-degr-i1,2024-25,Chelmsford - Chelmsford High,00560505,       333,    98.8,     0.0,     0.0,     0.3,     0.9,     0.0
+3.91,3.91,a-degr-i1,2024-25,Chelsea - Chelsea High,00570505,       399,    78.2,     6.3,     0.0,     0.0,    15.5,     0.0
+1.25,1.25,a-degr-i1,2024-25,Chelsea - Chelsea Opportunity Academy,00570515,        72,    25.0,    44.4,     0.0,     1.4,    29.2,     0.0
+4.1049999999999995,4.1,a-degr-i1,2024-25,Chelsea - Chelsea Virtual Learning Academy,00570705,        28,    82.1,     7.1,     0.0,     3.6,     7.1,     0.0
+2.7800000000000002,2.78,a-degr-i1,2024-25,Chicopee - Chicopee Academy,00610021,        27,    55.6,     0.0,     0.0,    11.1,    33.3,     0.0
+4.6850000000000005,4.69,a-degr-i1,2024-25,Chicopee - Chicopee Comprehensive High School,00610510,       287,    93.7,     1.7,     0.0,     0.3,     4.2,     0.0
+4.285,4.29,a-degr-i1,2024-25,Chicopee - Chicopee High,00610505,       230,    85.7,     0.9,     0.0,     1.3,    12.2,     0.0
+3.6049999999999995,3.6,a-degr-i1,2024-25,City on a Hill Charter Public School (District) - City on a Hill Charter Public School,04370505,        43,    72.1,     0.0,     0.0,     0.0,    25.6,     2.3
+4.64,4.64,a-degr-i1,2024-25,Clinton - Clinton Senior High,00640505,       125,    92.8,     3.2,     0.8,     0.8,     2.4,     0.0
+4.445,4.45,a-degr-i1,2024-25,Codman Academy Charter Public (District) - Codman Academy Charter Public School,04380505,        36,    88.9,     5.6,     0.0,     0.0,     5.6,     0.0
+4.95,4.95,a-degr-i1,2024-25,Cohasset - Cohasset High School,00650505,       101,    99.0,     1.0,     0.0,     0.0,     0.0,     0.0
+4.14,4.14,a-degr-i1,2024-25,Collegiate Charter School of Lowell (District) - Collegiate Charter School of Lowell,35030205,        58,    82.8,     1.7,     0.0,     1.7,    13.8,     0.0
+4.625,4.63,a-degr-i1,2024-25,Community Charter School of Cambridge (District) - Community Charter School of Cambridge,04360305,        40,    92.5,     5.0,     0.0,     0.0,     2.5,     0.0
+4.885,4.89,a-degr-i1,2024-25,Concord-Carlisle - Concord Carlisle High,06400505,       307,    97.7,     1.6,     0.0,     0.3,     0.3,     0.0
+4.785,4.79,a-degr-i1,2024-25,Danvers - Danvers High,00710505,       187,    95.7,     1.6,     0.0,     0.0,     2.7,     0.0
+4.654999999999999,4.65,a-degr-i1,2024-25,Dartmouth - Dartmouth High,00720505,       245,    93.1,     2.4,     0.0,     0.4,     4.1,     0.0
+4.595000000000001,4.6,a-degr-i1,2024-25,Dedham - Dedham High,00730505,       197,    91.9,     2.5,     0.0,     0.5,     5.1,     0.0
+4.55,4.55,a-degr-i1,2024-25,Dennis-Yarmouth - Dennis-Yarmouth Regional High,06450505,       188,    91.0,     5.3,     0.5,     0.0,     3.2,     0.0
+4.62,4.62,a-degr-i1,2024-25,Dighton-Rehoboth - Dighton-Rehoboth Regional High School,06500505,       171,    92.4,     4.1,     0.0,     0.6,     2.9,     0.0
+4.925,4.93,a-degr-i1,2024-25,Douglas - Douglas High School,00770505,        65,    98.5,     1.5,     0.0,     0.0,     0.0,     0.0
+4.970000000000001,4.97,a-degr-i1,2024-25,Dover-Sherborn - Dover-Sherborn Regional High,06550505,       154,    99.4,     0.6,     0.0,     0.0,     0.0,     0.0
+4.545,4.55,a-degr-i1,2024-25,Dracut - Dracut Senior High,00790505,       209,    90.9,     3.3,     0.0,     0.5,     5.3,     0.0
+4.61,4.61,a-degr-i1,2024-25,Dudley-Charlton Reg - Shepherd Hill Regional High,06580505,       206,    92.2,     2.4,     0.5,     0.5,     4.4,     0.0
+4.955,4.96,a-degr-i1,2024-25,Duxbury - Duxbury High,00820505,       219,    99.1,     0.5,     0.0,     0.0,     0.5,     0.0
+4.915,4.92,a-degr-i1,2024-25,East Bridgewater - East Bridgewater JR./SR. High School,00830505,       118,    98.3,     0.0,     0.0,     0.0,     1.7,     0.0
+4.915,4.92,a-degr-i1,2024-25,East Longmeadow - East Longmeadow High,00870505,       173,    98.3,     0.0,     0.0,     0.6,     1.2,     0.0
+4.745,4.75,a-degr-i1,2024-25,Easthampton - Easthampton High,00860505,        99,    94.9,     1.0,     0.0,     1.0,     3.0,     0.0
+4.93,4.93,a-degr-i1,2024-25,Easton - Oliver Ames High,00880505,       291,    98.6,     1.0,     0.0,     0.0,     0.3,     0.0
+4.575,4.58,a-degr-i1,2024-25,Edward M. Kennedy Academy for Health Careers: A Horace Mann Charter Public School (District) - Edward M. Kennedy Academy for Health Careers: A Horace Mann Charter Public School,04520505,        82,    91.5,     1.2,     0.0,     0.0,     6.1,     1.2
+4.975,4.98,a-degr-i1,2024-25,Essex North Shore Agricultural and Technical School District - Essex North Shore Agricultural and Technical School,08170505,       419,    99.5,     0.2,     0.0,     0.0,     0.2,     0.0
+3.935,3.94,a-degr-i1,2024-25,Everett - Everett High,00930505,       653,    78.7,     7.2,     0.2,     0.3,    13.6,     0.0
+4.755,4.76,a-degr-i1,2024-25,Excel Academy Charter (District) - Excel Academy Charter School,04100205,       163,    95.1,     2.5,     0.6,     0.0,     1.8,     0.0
+4.7,4.7,a-degr-i1,2024-25,Fairhaven - Fairhaven High,00940505,       150,    94.0,     3.3,     0.0,     0.7,     2.0,     0.0
+4.18,4.18,a-degr-i1,2024-25,Fall River - B M C Durfee High,00950505,       658,    83.6,     3.5,     0.9,     0.3,    11.7,     0.0
+1.6649999999999998,1.66,a-degr-i1,2024-25,Fall River - Resiliency Preparatory Academy,00950525,        75,    33.3,    20.0,     0.0,     0.0,    46.7,     0.0
+2.855,2.86,a-degr-i1,2024-25,Fall River - Stone PK-12 School,00950340,         7,    57.1,    28.6,     0.0,     0.0,    14.3,     0.0
+4.6,4.6,a-degr-i1,2024-25,Falmouth - Falmouth High,00960505,       200,    92.0,     2.0,     0.0,     2.0,     4.0,     0.0
+4.525,4.53,a-degr-i1,2024-25,Fitchburg - Fitchburg High,00970505,       263,    90.5,     2.7,     0.4,     0.0,     6.5,     0.0
+3.7299999999999995,3.73,a-degr-i1,2024-25,Fitchburg - Goodrich Academy,00970510,       114,    74.6,     9.6,     0.0,     0.9,    14.9,     0.0
+5.0,5.0,a-degr-i1,2024-25,Four Rivers Charter Public (District) - Four Rivers Charter Public School,04130505,        32,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.795,4.8,a-degr-i1,2024-25,Foxborough - Foxborough High,00990505,       196,    95.9,     2.6,     0.0,     0.5,     1.0,     0.0
+4.825,4.83,a-degr-i1,2024-25,Foxborough Regional Charter (District) - Foxborough Regional Charter School,04460550,        86,    96.5,     1.2,     0.0,     0.0,     2.3,     0.0
+3.785,3.79,a-degr-i1,2024-25,Framingham - Framingham High School,01000515,       732,    75.7,     5.5,     2.9,     0.4,    15.6,     0.0
+4.825,4.83,a-degr-i1,2024-25,Francis W. Parker Charter Essential (District) - Francis W. Parker Charter Essential School,04780505,        57,    96.5,     3.5,     0.0,     0.0,     0.0,     0.0
+4.96,4.96,a-degr-i1,2024-25,Franklin - Franklin High,01010505,       386,    99.2,     0.5,     0.0,     0.0,     0.3,     0.0
+4.6899999999999995,4.69,a-degr-i1,2024-25,Franklin County Regional Vocational Technical - Franklin County Technical,08180605,       160,    93.8,     0.0,     0.0,     0.6,     5.6,     0.0
+4.8549999999999995,4.85,a-degr-i1,2024-25,Freetown-Lakeville - Apponequet Regional High,06650505,       174,    97.1,     1.7,     0.6,     0.0,     0.6,     0.0
+4.675,4.68,a-degr-i1,2024-25,Frontier - Frontier Regional,06700505,        93,    93.5,     2.2,     0.0,     1.1,     3.2,     0.0
+3.6149999999999998,3.62,a-degr-i1,2024-25,Gardner - Gardner Academy for Learning and Technology,01030515,        65,    72.3,    10.8,     1.5,     3.1,    12.3,     0.0
+4.654999999999999,4.65,a-degr-i1,2024-25,Gardner - Gardner High,01030505,       174,    93.1,     3.4,     0.0,     0.0,     3.4,     0.0
+4.265,4.27,a-degr-i1,2024-25,Gateway - Gateway Regional School,06720505,        34,    85.3,    11.8,     0.0,     0.0,     2.9,     0.0
+4.7700000000000005,4.77,a-degr-i1,2024-25,Georgetown - Georgetown High School,01050505,        65,    95.4,     0.0,     1.5,     1.5,     1.5,     0.0
+4.08,4.08,a-degr-i1,2024-25,Gill-Montague - Turners Fall High,06740505,        49,    81.6,     4.1,     0.0,     0.0,    14.3,     0.0
+5.0,5.0,a-degr-i1,2024-25,Global Learning Charter Public (District) - Global Learning Charter Public School,04960305,        37,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.29,4.29,a-degr-i1,2024-25,Gloucester - Gloucester High,01070505,       197,    85.8,     3.6,     0.5,     0.5,     9.6,     0.0
+4.725,4.73,a-degr-i1,2024-25,Grafton - Grafton High School,01100505,       217,    94.5,     3.2,     0.0,     0.0,     2.3,     0.0
+5.0,5.0,a-degr-i1,2024-25,Granby - Granby Jr Sr High School,01110505,        52,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+2.935,2.94,a-degr-i1,2024-25,Greater Commonwealth Virtual District - Greater Commonwealth Virtual School,39010900,       184,    58.7,    10.9,     0.0,     4.3,    26.1,     0.0
+4.945,4.95,a-degr-i1,2024-25,Greater Fall River Regional Vocational Technical - Diman Regional Vocational Technical High,08210605,       355,    98.9,     0.0,     0.6,     0.0,     0.6,     0.0
+4.975,4.98,a-degr-i1,2024-25,Greater Lawrence Regional Vocational Technical - Gr Lawrence Regional Vocational Technical,08230605,       424,    99.5,     0.0,     0.0,     0.0,     0.5,     0.0
+4.93,4.93,a-degr-i1,2024-25,Greater Lowell Regional Vocational Technical - Gr Lowell Regional Vocational Technical,08280605,       571,    98.6,     0.9,     0.2,     0.0,     0.4,     0.0
+4.89,4.89,a-degr-i1,2024-25,Greater New Bedford Regional Vocational Technical - Gr New Bedford Vocational Technical,08250605,       497,    97.8,     1.4,     0.0,     0.0,     0.6,     0.2
+4.38,4.38,a-degr-i1,2024-25,Greenfield - Greenfield High,01140505,        89,    87.6,     1.1,     4.5,     0.0,     6.7,     0.0
+4.875,4.88,a-degr-i1,2024-25,Groton-Dunstable - Groton Dunstable Regional,06730505,       163,    97.5,     1.8,     0.6,     0.0,     0.0,     0.0
+4.6450000000000005,4.65,a-degr-i1,2024-25,Hadley - Hopkins Academy,01170505,        42,    92.9,     4.8,     0.0,     0.0,     2.4,     0.0
+5.0,5.0,a-degr-i1,2024-25,Hamilton-Wenham - Hamilton-Wenham Regional High,06750505,       107,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.7,4.7,a-degr-i1,2024-25,Hampden Charter School of Science (District) - Hampden Charter School of Science,04990305,       116,    94.0,     1.7,     0.0,     0.9,     3.4,     0.0
+4.8100000000000005,4.81,a-degr-i1,2024-25,Hampden-Wilbraham - Minnechaug Regional High,06800505,       239,    96.2,     0.8,     0.8,     0.8,     1.3,     0.0
+4.8950000000000005,4.9,a-degr-i1,2024-25,Hampshire - Hampshire Regional High,06830505,        97,    97.9,     1.0,     0.0,     0.0,     1.0,     0.0
+4.8549999999999995,4.85,a-degr-i1,2024-25,Hanover - Hanover High,01220505,       171,    97.1,     1.8,     0.0,     0.6,     0.6,     0.0
+5.0,5.0,a-degr-i1,2024-25,Harvard - The Bromfield High School,01250505,        81,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.5,4.5,a-degr-i1,2024-25,Hatfield - Smith Academy,01270505,        20,    90.0,     0.0,     0.0,     0.0,    10.0,     0.0
+4.165,4.17,a-degr-i1,2024-25,Haverhill - Gateway Academy,01280515,        42,    83.3,     7.1,     2.4,     0.0,     7.1,     0.0
+4.42,4.42,a-degr-i1,2024-25,Haverhill - Haverhill High,01280505,       491,    88.4,     3.3,     0.2,     0.4,     7.7,     0.0
+4.865,4.87,a-degr-i1,2024-25,Hingham - Hingham High,01310505,       264,    97.3,     1.1,     0.0,     0.0,     1.1,     0.4
+4.7299999999999995,4.73,a-degr-i1,2024-25,Holbrook - Holbrook Middle High School,01330505,        74,    94.6,     1.4,     0.0,     0.0,     4.1,     0.0
+4.805,4.81,a-degr-i1,2024-25,Holliston - Holliston High,01360505,       203,    96.1,     3.0,     0.0,     0.0,     1.0,     0.0
+4.0649999999999995,4.06,a-degr-i1,2024-25,Holyoke - Holyoke High,01370505,       391,    81.3,     6.6,     0.5,     0.5,    10.7,     0.3
+4.3,4.3,a-degr-i1,2024-25,Hoosac Valley Regional - Hoosac Valley High School,06030505,        50,    86.0,     0.0,     0.0,     0.0,    14.0,     0.0
+4.84,4.84,a-degr-i1,2024-25,Hopedale - Hopedale Jr Sr High,01380505,        62,    96.8,     0.0,     0.0,     0.0,     3.2,     0.0
+4.845000000000001,4.85,a-degr-i1,2024-25,Hopkinton - Hopkinton High,01390505,       325,    96.9,     2.5,     0.3,     0.0,     0.3,     0.0
+4.4350000000000005,4.44,a-degr-i1,2024-25,Hudson - Hudson High,01410505,       186,    88.7,     2.2,     2.7,     0.5,     5.9,     0.0
+4.84,4.84,a-degr-i1,2024-25,Hull - Hull High,01420505,        62,    96.8,     0.0,     0.0,     0.0,     3.2,     0.0
+4.735,4.74,a-degr-i1,2024-25,Innovation Academy Charter (District) - Innovation Academy Charter School,04350305,        94,    94.7,     3.2,     0.0,     0.0,     2.1,     0.0
+4.83,4.83,a-degr-i1,2024-25,Ipswich - Ipswich High,01440505,       117,    96.6,     2.6,     0.0,     0.9,     0.0,     0.0
+4.8,4.8,a-degr-i1,2024-25,King Philip - King Philip Regional High,06900505,       274,    96.0,     1.8,     0.0,     0.0,     2.2,     0.0
+4.88,4.88,a-degr-i1,2024-25,KIPP Academy Lynn Charter (District) - KIPP Academy Lynn Charter School,04290010,       126,    97.6,     0.8,     0.0,     0.0,     1.6,     0.0
+3.37,3.37,a-degr-i1,2024-25,Lawrence - High School Learning Center,01490536,       132,    67.4,    12.9,     0.0,     0.0,    19.7,     0.0
+4.335,4.34,a-degr-i1,2024-25,Lawrence - Lawrence High School,01490515,       810,    86.7,     4.0,     0.2,     0.1,     9.0,     0.0
+3.69,3.69,a-degr-i1,2024-25,Lawrence - RISE Academy,01490615,        42,    73.8,    11.9,     0.0,     0.0,    14.3,     0.0
+0.5549999999999999,1,a-degr-i1,2024-25,Lawrence - School for Exceptional Studies,01490537,         9,    11.1,    77.8,     0.0,     0.0,    11.1,     0.0
+4.91,4.91,a-degr-i1,2024-25,Lee - Lee Middle/High School,01500505,        55,    98.2,     1.8,     0.0,     0.0,     0.0,     0.0
+4.654999999999999,4.65,a-degr-i1,2024-25,Leicester - Leicester High,01510505,        87,    93.1,     3.4,     0.0,     0.0,     3.4,     0.0
+4.75,4.75,a-degr-i1,2024-25,Lenox - Lenox Memorial High,01520505,        60,    95.0,     1.7,     0.0,     0.0,     3.3,     0.0
+4.65,4.65,a-degr-i1,2024-25,Leominster - Center For Technical Education Innovation,01530605,       142,    93.0,     5.6,     0.0,     0.0,     1.4,     0.0
+4.465,4.47,a-degr-i1,2024-25,Leominster - Leominster Academy,01530705,        28,    89.3,     3.6,     0.0,     0.0,     7.1,     0.0
+3.8899999999999997,3.89,a-degr-i1,2024-25,Leominster - Leominster Center for Excellence,01530515,        36,    77.8,    11.1,     0.0,     2.8,     8.3,     0.0
+4.6450000000000005,4.65,a-degr-i1,2024-25,Leominster - Leominster High School,01530505,       280,    92.9,     0.4,     0.0,     0.0,     6.8,     0.0
+4.985,4.99,a-degr-i1,2024-25,Lexington - Lexington High,01550505,       585,    99.7,     0.3,     0.0,     0.0,     0.0,     0.0
+4.255,4.26,a-degr-i1,2024-25,Libertas Academy Charter School (District) - Libertas Academy Charter School,35140305,        67,    85.1,     1.5,     0.0,     0.0,    13.4,     0.0
+4.9350000000000005,4.94,a-degr-i1,2024-25,Lincoln-Sudbury - Lincoln-Sudbury Regional High,06950505,       385,    98.7,     1.3,     0.0,     0.0,     0.0,     0.0
+4.88,4.88,a-degr-i1,2024-25,Littleton - Littleton High School,01580505,       124,    97.6,     0.8,     0.0,     0.0,     1.6,     0.0
+4.87,4.87,a-degr-i1,2024-25,Longmeadow - Longmeadow High,01590505,       228,    97.4,     2.2,     0.0,     0.0,     0.4,     0.0
+4.0,4.0,a-degr-i1,2024-25,Lowell - Leblanc Therapeutic Day School,01600320,        15,    80.0,     0.0,     0.0,     0.0,    20.0,     0.0
+4.154999999999999,4.15,a-degr-i1,2024-25,Lowell - Lowell High,01600505,       834,    83.1,     3.5,     1.0,     0.7,    11.8,     0.0
+2.4050000000000002,2.41,a-degr-i1,2024-25,Lowell - The Career Academy,01600515,        27,    48.1,    18.5,     0.0,     0.0,    33.3,     0.0
+1.9149999999999998,1.91,a-degr-i1,2024-25,Lowell Middlesex Academy Charter (District) - Lowell Middlesex Academy Charter School,04580505,        47,    38.3,    36.2,     0.0,     4.3,    21.3,     0.0
+4.49,4.49,a-degr-i1,2024-25,Ludlow - Ludlow Senior High,01610505,       197,    89.8,     2.5,     1.5,     1.0,     5.1,     0.0
+4.85,4.85,a-degr-i1,2024-25,Lunenburg - Lunenburg High,01620505,       100,    97.0,     0.0,     0.0,     0.0,     3.0,     0.0
+3.71,3.71,a-degr-i1,2024-25,Lynn - Classical High,01630505,       613,    74.2,     2.9,     0.0,     0.0,    22.8,     0.0
+2.29,2.29,a-degr-i1,2024-25,Lynn - Fecteau-Leary Junior/Senior High School,01630525,        24,    45.8,     8.3,     0.0,     0.0,    45.8,     0.0
+3.6399999999999997,3.64,a-degr-i1,2024-25,Lynn - Lynn English High,01630510,       764,    72.8,     1.4,     1.0,     0.0,    24.7,     0.0
+4.965,4.97,a-degr-i1,2024-25,Lynn - Lynn Vocational Technical Institute,01630605,       275,    99.3,     0.4,     0.4,     0.0,     0.0,     0.0
+4.93,4.93,a-degr-i1,2024-25,Lynnfield - Lynnfield High,01640505,       140,    98.6,     0.7,     0.0,     0.0,     0.7,     0.0
+5.0,5.0,a-degr-i1,2024-25,Ma Academy for Math and Science - Ma Academy for Math and Science School,04680505,        49,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.285,4.29,a-degr-i1,2024-25,Malden - Malden High,01650505,       524,    85.7,     4.8,     0.0,     0.4,     9.2,     0.0
+4.91,4.91,a-degr-i1,2024-25,Manchester Essex Regional - Manchester Essex Regional High School,06980510,       113,    98.2,     0.0,     0.0,     0.0,     1.8,     0.0
+4.8549999999999995,4.85,a-degr-i1,2024-25,Mansfield - Mansfield High,01670505,       244,    97.1,     1.2,     0.0,     0.0,     1.6,     0.0
+1.395,1.4,a-degr-i1,2024-25,Map Academy Charter School (District) - Map Academy Charter School,35170505,        61,    27.9,    63.9,     0.0,     0.0,     8.2,     0.0
+4.96,4.96,a-degr-i1,2024-25,Marblehead - Marblehead High,01680505,       241,    99.2,     0.4,     0.0,     0.4,     0.0,     0.0
+4.7,4.7,a-degr-i1,2024-25,Marlborough - Marlborough High,01700505,       285,    94.0,     2.8,     0.0,     0.0,     3.2,     0.0
+4.875,4.88,a-degr-i1,2024-25,Marshfield - Marshfield High,01710505,       315,    97.5,     1.0,     0.0,     0.6,     1.0,     0.0
+4.195,4.2,a-degr-i1,2024-25,Martha's Vineyard - Martha's Vineyard Regional High,07000505,       224,    83.9,     2.2,     1.3,     0.0,    12.5,     0.0
+4.93,4.93,a-degr-i1,2024-25,Masconomet - Masconomet Regional High School,07050505,       214,    98.6,     0.5,     0.0,     0.0,     0.9,     0.0
+4.6049999999999995,4.6,a-degr-i1,2024-25,Mashpee - Mashpee Middle-High School,01720505,       114,    92.1,     3.5,     0.0,     0.9,     3.5,     0.0
+4.125,4.13,a-degr-i1,2024-25,Match Charter Public School (District) - Match Charter Public School,04690505,        63,    82.5,     7.9,     0.0,     1.6,     7.9,     0.0
+4.575,4.58,a-degr-i1,2024-25,Maynard - Maynard High,01740505,        82,    91.5,     0.0,     0.0,     1.2,     7.3,     0.0
+4.89,4.89,a-degr-i1,2024-25,Medfield - Medfield Senior High,01750505,       179,    97.8,     1.1,     0.0,     0.0,     1.1,     0.0
+0.7150000000000001,1,a-degr-i1,2024-25,Medford - Curtis-Tufts,01760510,         7,    14.3,    42.9,     0.0,    14.3,    28.6,     0.0
+4.6850000000000005,4.69,a-degr-i1,2024-25,Medford - Medford High,01760505,       286,    93.7,     1.4,     0.0,     0.3,     4.5,     0.0
+4.74,4.74,a-degr-i1,2024-25,Medway - Medway High,01770505,       172,    94.8,     0.6,     0.0,     0.6,     4.1,     0.0
+4.9399999999999995,4.94,a-degr-i1,2024-25,Melrose - Melrose High,01780505,       243,    98.8,     0.4,     0.0,     0.0,     0.4,     0.4
+4.720000000000001,4.72,a-degr-i1,2024-25,Mendon-Upton - Nipmuc Regional High,07100510,       160,    94.4,     1.9,     0.0,     0.6,     3.1,     0.0
+4.595000000000001,4.6,a-degr-i1,2024-25,Methuen - Methuen High,01810505,       528,    91.9,     1.3,     0.8,     0.2,     5.9,     0.0
+4.5200000000000005,4.52,a-degr-i1,2024-25,Middleborough - Middleborough High,01820505,       218,    90.4,     2.8,     0.0,     0.0,     6.9,     0.0
+4.0,4.0,a-degr-i1,2024-25,Milford - Milford High,01850505,       365,    80.0,     4.1,     0.3,     0.5,    15.1,     0.0
+4.720000000000001,4.72,a-degr-i1,2024-25,Millbury - Millbury Junior/Senior High,01860505,       125,    94.4,     1.6,     0.0,     0.8,     3.2,     0.0
+4.9350000000000005,4.94,a-degr-i1,2024-25,Millis - Millis High School,01870505,        78,    98.7,     0.0,     0.0,     0.0,     1.3,     0.0
+4.885,4.89,a-degr-i1,2024-25,Milton - Milton High,01890505,       265,    97.7,     1.5,     0.0,     0.0,     0.8,     0.0
+4.775,4.78,a-degr-i1,2024-25,Minuteman Regional Vocational Technical - Minuteman Regional High,08300605,       177,    95.5,     0.6,     0.0,     0.0,     4.0,     0.0
+4.404999999999999,4.4,a-degr-i1,2024-25,Mohawk Trail - Mohawk Trail Regional School,07170505,        42,    88.1,     4.8,     0.0,     2.4,     4.8,     0.0
+4.87,4.87,a-degr-i1,2024-25,Monomoy Regional School District - Monomoy Regional High School,07120515,       154,    97.4,     1.9,     0.0,     0.0,     0.6,     0.0
+4.0,4.0,a-degr-i1,2024-25,Monson - Monson High School,01910505,        30,    80.0,    10.0,     0.0,     3.3,     6.7,     0.0
+4.93,4.93,a-degr-i1,2024-25,Montachusett Regional Vocational Technical - Montachusett Regional Vocational Technical,08320605,       345,    98.6,     0.6,     0.0,     0.0,     0.9,     0.0
+4.79,4.79,a-degr-i1,2024-25,Mount Greylock - Mt Greylock Regional High,07150505,        72,    95.8,     0.0,     0.0,     0.0,     4.2,     0.0
+4.805,4.81,a-degr-i1,2024-25,Mystic Valley Regional Charter (District) - Mystic Valley Regional Charter School,04700105,        76,    96.1,     3.9,     0.0,     0.0,     0.0,     0.0
+4.59,4.59,a-degr-i1,2024-25,Nantucket - Nantucket High,01970505,       158,    91.8,     1.3,     0.6,     0.0,     6.3,     0.0
+4.6,4.6,a-degr-i1,2024-25,Narragansett - Narragansett Regional High,07200505,        87,    92.0,     2.3,     0.0,     1.1,     4.6,     0.0
+4.779999999999999,4.78,a-degr-i1,2024-25,Nashoba - Nashoba Regional,07250505,       203,    95.6,     2.5,     0.0,     0.5,     1.5,     0.0
+4.86,4.86,a-degr-i1,2024-25,Nashoba Valley Regional Vocational Technical - Nashoba Valley Technical High School,08520605,       176,    97.2,     2.3,     0.0,     0.0,     0.6,     0.0
+4.83,4.83,a-degr-i1,2024-25,Natick - Natick High,01980505,       384,    96.6,     0.8,     0.3,     0.3,     2.1,     0.0
+4.805,4.81,a-degr-i1,2024-25,Nauset - Nauset Regional High,06600505,       205,    96.1,     2.9,     0.0,     0.0,     1.0,     0.0
+4.95,4.95,a-degr-i1,2024-25,Needham - Needham High,01990505,       411,    99.0,     0.5,     0.0,     0.0,     0.5,     0.0
+3.97,3.97,a-degr-i1,2024-25,Neighborhood House Charter (District) - Neighborhood House Charter School,04440205,        68,    79.4,     4.4,     2.9,     1.5,    11.8,     0.0
+4.24,4.24,a-degr-i1,2024-25,New Bedford - New Bedford High,02010505,       743,    84.8,     3.4,     0.3,     0.1,    11.4,     0.0
+3.18,3.18,a-degr-i1,2024-25,New Bedford - Trinity Day Academy,02010510,        22,    63.6,     9.1,     0.0,     4.5,    22.7,     0.0
+2.5300000000000002,2.53,a-degr-i1,2024-25,New Bedford - Whaling City Junior/Senior High School,02010515,        87,    50.6,    12.6,     1.1,     5.7,    29.9,     0.0
+4.8149999999999995,4.81,a-degr-i1,2024-25,New Heights Charter School of Brockton (District) - New Heights Charter School of Brockton,35130305,       108,    96.3,     2.8,     0.0,     0.0,     0.9,     0.0
+4.9,4.9,a-degr-i1,2024-25,Newburyport - Newburyport High,02040505,       202,    98.0,     1.0,     0.0,     0.0,     1.0,     0.0
+4.74,4.74,a-degr-i1,2024-25,Newton - Newton North High,02070505,       534,    94.8,     3.4,     0.0,     0.0,     1.9,     0.0
+4.9350000000000005,4.94,a-degr-i1,2024-25,Newton - Newton South High,02070510,       467,    98.7,     0.2,     0.0,     0.2,     0.9,     0.0
+4.93,4.93,a-degr-i1,2024-25,Norfolk County Agricultural - Norfolk County Agricultural,09150705,       147,    98.6,     0.0,     0.0,     0.0,     1.4,     0.0
+4.245,4.25,a-degr-i1,2024-25,North Adams - Drury High,02090505,        86,    84.9,     7.0,     0.0,     0.0,     8.1,     0.0
+4.84,4.84,a-degr-i1,2024-25,North Andover - North Andover High,02110505,       339,    96.8,     0.6,     0.6,     0.3,     1.8,     0.0
+4.6450000000000005,4.65,a-degr-i1,2024-25,North Attleborough - North Attleboro High,02120505,       312,    92.9,     2.6,     0.0,     0.0,     4.5,     0.0
+3.6950000000000003,3.7,a-degr-i1,2024-25,North Brookfield - North Brookfield High,02150505,        23,    73.9,     8.7,     0.0,     0.0,    17.4,     0.0
+4.545,4.55,a-degr-i1,2024-25,North Middlesex - North Middlesex Regional,07350505,       208,    90.9,     2.4,     0.0,     0.5,     6.2,     0.0
+4.9399999999999995,4.94,a-degr-i1,2024-25,North Reading - North Reading High,02170505,       160,    98.8,     0.6,     0.0,     0.0,     0.6,     0.0
+4.695,4.7,a-degr-i1,2024-25,Northampton - Northampton High,02100505,       231,    93.9,     3.5,     0.4,     0.4,     1.7,     0.0
+4.83,4.83,a-degr-i1,2024-25,Northampton-Smith Vocational Agricultural - Smith Vocational and Agricultural High,04060705,       145,    96.6,     0.7,     0.0,     0.7,     1.4,     0.7
+4.915,4.92,a-degr-i1,2024-25,Northboro-Southboro - Algonquin Regional High,07300505,       293,    98.3,     1.0,     0.0,     0.0,     0.7,     0.0
+4.29,4.29,a-degr-i1,2024-25,Northbridge - Northbridge High,02140505,       106,    85.8,     0.9,     0.0,     1.9,    11.3,     0.0
+4.92,4.92,a-degr-i1,2024-25,Northeast Metropolitan Regional Vocational Technical - Northeast Metro Regional Vocational,08530605,       320,    98.4,     0.3,     0.0,     0.0,     1.2,     0.0
+4.885,4.89,a-degr-i1,2024-25,Northern Berkshire Regional Vocational Technical - Charles McCann Vocational Technical,08510605,       132,    97.7,     0.0,     0.0,     0.8,     1.5,     0.0
+4.65,4.65,a-degr-i1,2024-25,Norton - Norton High,02180505,       171,    93.0,     0.6,     0.6,     0.6,     5.3,     0.0
+4.965,4.97,a-degr-i1,2024-25,Norwell - Norwell High,02190505,       151,    99.3,     0.7,     0.0,     0.0,     0.0,     0.0
+4.9,4.9,a-degr-i1,2024-25,Norwood - Norwood High,02200505,       247,    98.0,     1.6,     0.0,     0.0,     0.4,     0.0
+4.96,4.96,a-degr-i1,2024-25,Old Colony Regional Vocational Technical - Old Colony Regional Vocational Technical,08550605,       132,    99.2,     0.0,     0.0,     0.0,     0.8,     0.0
+4.805,4.81,a-degr-i1,2024-25,Old Rochester - Old Rochester Regional High,07400505,       152,    96.1,     2.6,     0.7,     0.0,     0.7,     0.0
+4.8549999999999995,4.85,a-degr-i1,2024-25,Oxford - Oxford High,02260505,       102,    97.1,     1.0,     0.0,     0.0,     2.0,     0.0
+4.805,4.81,a-degr-i1,2024-25,Palmer - Palmer High,02270505,        77,    96.1,     2.6,     1.3,     0.0,     0.0,     0.0
+4.71,4.71,a-degr-i1,2024-25,Pathfinder Regional Vocational Technical - Pathfinder Vocational Technical,08600605,       139,    94.2,     1.4,     0.0,     0.7,     3.6,     0.0
+2.275,2.28,a-degr-i1,2024-25,Peabody - Peabody Personalized Remote Education Program (Peabody P.R.E.P.),02290705,        44,    45.5,    13.6,     0.0,     2.3,    38.6,     0.0
+4.535,4.54,a-degr-i1,2024-25,Peabody - Peabody Veterans Memorial High,02290510,       343,    90.7,     5.0,     0.3,     0.0,     4.1,     0.0
+4.825,4.83,a-degr-i1,2024-25,Pembroke - Pembroke High School,02310505,       172,    96.5,     2.3,     0.0,     0.0,     1.2,     0.0
+4.9350000000000005,4.94,a-degr-i1,2024-25,Pentucket - Pentucket Regional Sr High,07450505,       150,    98.7,     0.0,     0.0,     0.0,     1.3,     0.0
+0.615,1,a-degr-i1,2024-25,"Phoenix Academy Charter Public High School, Chelsea (District) - Phoenix Academy Charter Public High School, Chelsea",04930505,        73,    12.3,    28.8,     0.0,     0.0,    58.9,     0.0
+0.095,1,a-degr-i1,2024-25,"Phoenix Academy Public Charter High School, Lawrence (District) - Phoenix Academy Public Charter High School, Lawrence",35180505,        52,     1.9,    48.1,     0.0,     3.8,    46.2,     0.0
+0.375,1,a-degr-i1,2024-25,"Phoenix Academy Public Charter High School, Springfield (District) - Phoenix Academy Public Charter High School, Springfield",35080505,        40,     7.5,    42.5,     0.0,     0.0,    50.0,     0.0
+5.0,5.0,a-degr-i1,2024-25,Pioneer Charter School of Science (District) - Pioneer Charter School of Science,04940205,        53,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.66,4.66,a-degr-i1,2024-25,Pioneer Charter School of Science II (District) - Pioneer Charter School of Science II,35060505,        44,    93.2,     4.5,     0.0,     0.0,     2.3,     0.0
+4.865,4.87,a-degr-i1,2024-25,Pioneer Valley - Pioneer Valley Regional,07500505,        37,    97.3,     0.0,     0.0,     0.0,     2.7,     0.0
+5.0,5.0,a-degr-i1,2024-25,Pioneer Valley Chinese Immersion Charter (District) - Pioneer Valley Chinese Immersion Charter School,04970205,        34,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.71,4.71,a-degr-i1,2024-25,Pioneer Valley Performing Arts Charter Public (District) - Pioneer Valley Performing Arts Charter Public School,04790505,        69,    94.2,     0.0,     0.0,     1.4,     4.3,     0.0
+0.0,1,a-degr-i1,2024-25,Pittsfield - Eagle Education Academy,02360525,         6,     0.0,    16.7,     0.0,     0.0,    83.3,     0.0
+3.94,3.94,a-degr-i1,2024-25,Pittsfield - Pittsfield High,02360505,       193,    78.8,     7.8,     0.5,     1.6,    11.4,     0.0
+4.205,4.21,a-degr-i1,2024-25,Pittsfield - Taconic High,02360510,       226,    84.1,     2.2,     0.0,     1.3,    12.4,     0.0
+4.585,4.59,a-degr-i1,2024-25,Plymouth - Plymouth North High,02390505,       360,    91.7,     0.8,     0.0,     0.6,     6.9,     0.0
+4.86,4.86,a-degr-i1,2024-25,Plymouth - Plymouth South High,02390515,       248,    97.2,     0.4,     0.0,     0.0,     2.4,     0.0
+4.66,4.66,a-degr-i1,2024-25,Prospect Hill Academy Charter (District) - Prospect Hill Academy Charter School,04870550,        59,    93.2,     1.7,     0.0,     1.7,     3.4,     0.0
+4.32,4.32,a-degr-i1,2024-25,Quabbin - Quabbin Regional High School,07530505,       118,    86.4,     2.5,     1.7,     0.0,     9.3,     0.0
+4.63,4.63,a-degr-i1,2024-25,Quaboag Regional - Quaboag Regional High,07780505,        81,    92.6,     1.2,     0.0,     1.2,     4.9,     0.0
+4.71,4.71,a-degr-i1,2024-25,Quincy - North Quincy High,02430510,       380,    94.2,     3.7,     0.0,     0.5,     1.6,     0.0
+4.779999999999999,4.78,a-degr-i1,2024-25,Quincy - Quincy High,02430505,       406,    95.6,     0.7,     0.0,     0.0,     3.7,     0.0
+4.165,4.17,a-degr-i1,2024-25,Ralph C Mahar - Ralph C Mahar Regional,07550505,        78,    83.3,     1.3,     0.0,     2.6,    12.8,     0.0
+4.279999999999999,4.28,a-degr-i1,2024-25,Randolph - Randolph High,02440505,       195,    85.6,     5.6,     0.5,     0.0,     8.2,     0.0
+4.925,4.93,a-degr-i1,2024-25,Reading - Reading Memorial High,02460505,       261,    98.5,     1.1,     0.0,     0.0,     0.4,     0.0
+2.63,2.63,a-degr-i1,2024-25,Revere - CityLab Innovation High School,02480520,        19,    52.6,    10.5,     0.0,     5.3,    31.6,     0.0
+4.0600000000000005,4.06,a-degr-i1,2024-25,Revere - Revere High,02480505,       622,    81.2,     5.8,     0.0,     0.2,    12.9,     0.0
+4.6450000000000005,4.65,a-degr-i1,2024-25,Rising Tide Charter Public (District) - Rising Tide Charter Public School,04830305,        56,    92.9,     1.8,     0.0,     1.8,     3.6,     0.0
+4.375,4.38,a-degr-i1,2024-25,Rockland - Rockland Senior High,02510505,       136,    87.5,     2.2,     0.0,     0.0,    10.3,     0.0
+4.555,4.56,a-degr-i1,2024-25,Rockport - Rockport Middle High,02520510,        45,    91.1,     0.0,     0.0,     2.2,     6.7,     0.0
+4.279999999999999,4.28,a-degr-i1,2024-25,Roxbury Preparatory Charter (District) - Roxbury Preparatory Charter School,04840505,       111,    85.6,     1.8,     0.0,     0.0,    12.6,     0.0
+3.46,3.46,a-degr-i1,2024-25,Salem - New Liberty Innovation School,02580510,        13,    69.2,     7.7,     0.0,     0.0,    23.1,     0.0
+4.475,4.48,a-degr-i1,2024-25,Salem - Salem High,02580505,       228,    89.5,     5.7,     0.0,     0.4,     4.4,     0.0
+3.5700000000000003,3.57,a-degr-i1,2024-25,Salem - Salem Prep High School,02580515,         7,    71.4,    28.6,     0.0,     0.0,     0.0,     0.0
+4.779999999999999,4.78,a-degr-i1,2024-25,Salem Academy Charter (District) - Salem Academy Charter School,04850485,        68,    95.6,     4.4,     0.0,     0.0,     0.0,     0.0
+4.5600000000000005,4.56,a-degr-i1,2024-25,Sandwich - Sandwich Middle High School,02610505,       147,    91.2,     3.4,     0.0,     0.7,     4.8,     0.0
+4.279999999999999,4.28,a-degr-i1,2024-25,Saugus - Saugus High,02620505,       202,    85.6,     4.0,     0.0,     0.5,     9.9,     0.0
+4.9,4.9,a-degr-i1,2024-25,Scituate - Scituate High School,02640505,       201,    98.0,     1.0,     0.0,     0.0,     1.0,     0.0
+4.87,4.87,a-degr-i1,2024-25,Seekonk - Seekonk High,02650505,       153,    97.4,     0.7,     0.0,     0.7,     1.3,     0.0
+4.8149999999999995,4.81,a-degr-i1,2024-25,Sharon - Sharon High,02660505,       271,    96.3,     2.2,     0.0,     0.4,     1.1,     0.0
+4.904999999999999,4.9,a-degr-i1,2024-25,Shawsheen Valley Regional Vocational Technical - Shawsheen Valley Vocational Technical High School,08710605,       322,    98.1,     0.0,     0.0,     0.0,     1.9,     0.0
+4.795,4.8,a-degr-i1,2024-25,Shrewsbury - Shrewsbury High School,02710505,       442,    95.9,     2.9,     0.0,     0.0,     1.1,     0.0
+4.9,4.9,a-degr-i1,2024-25,Silver Lake - Silver Lake Regional High,07600505,       253,    98.0,     1.6,     0.0,     0.0,     0.4,     0.0
+4.5,4.5,a-degr-i1,2024-25,Sizer School: A North Central Charter Essential (District) - Sizer School: A North Central Charter Essential School,04740505,        40,    90.0,     0.0,     0.0,     0.0,    10.0,     0.0
+4.795,4.8,a-degr-i1,2024-25,Somerset Berkley Regional School District - Somerset Berkley Regional High School,07630505,       217,    95.9,     1.8,     0.0,     0.0,     2.3,     0.0
+3.5,3.5,a-degr-i1,2024-25,Somerville - Full Circle High School,02740510,        20,    70.0,    10.0,     0.0,     5.0,    15.0,     0.0
+4.49,4.49,a-degr-i1,2024-25,Somerville - Somerville High,02740505,       364,    89.8,     3.3,     0.0,     0.0,     6.9,     0.0
+4.66,4.66,a-degr-i1,2024-25,South Hadley - South Hadley High,02780505,       132,    93.2,     2.3,     1.5,     0.0,     3.0,     0.0
+4.8549999999999995,4.85,a-degr-i1,2024-25,South Middlesex Regional Vocational Technical - Joseph P Keefe Technical High School,08290605,       205,    97.1,     1.0,     0.0,     0.0,     2.0,     0.0
+4.8100000000000005,4.81,a-degr-i1,2024-25,South Shore Charter Public (District) - South Shore Charter Public School,04880550,        78,    96.2,     0.0,     0.0,     0.0,     3.8,     0.0
+4.91,4.91,a-degr-i1,2024-25,South Shore Regional Vocational Technical - South Shore Vocational Technical High,08730605,       164,    98.2,     0.0,     0.0,     0.0,     1.8,     0.0
+3.5,3.5,a-degr-i1,2024-25,Southbridge - Southbridge Academy,02770525,        10,    70.0,    10.0,     0.0,     0.0,    20.0,     0.0
+4.025,4.03,a-degr-i1,2024-25,Southbridge - Southbridge High School,02770515,       113,    80.5,     2.7,     2.7,     0.0,    14.2,     0.0
+4.975,4.98,a-degr-i1,2024-25,Southeastern Regional Vocational Technical - Southeastern Regional Vocational Technical,08720605,       385,    99.5,     0.0,     0.0,     0.0,     0.5,     0.0
+4.615,4.62,a-degr-i1,2024-25,Southern Berkshire - Mt Everett Regional,07650505,        39,    92.3,     2.6,     0.0,     0.0,     5.1,     0.0
+4.945,4.95,a-degr-i1,2024-25,Southern Worcester County Regional Vocational School District - Bay Path Regional Vocational Technical High School,08760605,       285,    98.9,     0.7,     0.0,     0.0,     0.4,     0.0
+4.825,4.83,a-degr-i1,2024-25,Southwick-Tolland-Granville Regional School District - Southwick Regional School,07660505,        85,    96.5,     3.5,     0.0,     0.0,     0.0,     0.0
+3.85,3.85,a-degr-i1,2024-25,Spencer-E Brookfield - David Prouty High,07670505,        74,    77.0,     5.4,     2.7,     1.4,    12.2,     1.4
+5.0,5.0,a-degr-i1,2024-25,Springfield - Conservatory of the Arts,02810475,        40,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+0.0,1,a-degr-i1,2024-25,Springfield - Emergence Academy,02810318,         6,     0.0,   100.0,     0.0,     0.0,     0.0,     0.0
+3.75,3.75,a-degr-i1,2024-25,Springfield - Gateway to College at Holyoke Community College,02810575,        16,    75.0,    12.5,    12.5,     0.0,     0.0,     0.0
+4.21,4.21,a-degr-i1,2024-25,Springfield - Gateway to College at Springfield Technical Community College,02810580,        19,    84.2,    10.5,     5.3,     0.0,     0.0,     0.0
+3.975,3.98,a-degr-i1,2024-25,Springfield - High School Of Commerce,02810510,       298,    79.5,     5.4,     0.7,     0.0,    14.1,     0.3
+4.735,4.74,a-degr-i1,2024-25,Springfield - John J Duggan Academy,02810320,        75,    94.7,     0.0,     0.0,     0.0,     5.3,     0.0
+4.9399999999999995,4.94,a-degr-i1,2024-25,Springfield - Roger L. Putnam Vocational Technical Academy,02810620,       329,    98.8,     0.0,     0.0,     0.0,     1.2,     0.0
+4.755,4.76,a-degr-i1,2024-25,Springfield - Springfield Central High,02810500,       445,    95.1,     0.4,     0.0,     0.0,     4.5,     0.0
+1.77,1.77,a-degr-i1,2024-25,Springfield - Springfield High School,02810570,        96,    35.4,    42.7,     3.1,     0.0,    18.8,     0.0
+4.465,4.47,a-degr-i1,2024-25,Springfield - Springfield High School of Science and Technology,02810530,       281,    89.3,     0.4,     0.0,     0.7,     9.6,     0.0
+0.7150000000000001,1,a-degr-i1,2024-25,Springfield - Springfield International Academy at Sci-Tech,02810700,        42,    14.3,     2.4,     0.0,     0.0,    83.3,     0.0
+2.355,2.36,a-degr-i1,2024-25,Springfield - Springfield Public Day High School,02810550,        17,    47.1,    11.8,     0.0,     0.0,    41.2,     0.0
+4.9350000000000005,4.94,a-degr-i1,2024-25,Springfield - The Springfield Renaissance School an Expeditionary Learning School,02810205,        75,    98.7,     0.0,     0.0,     0.0,     1.3,     0.0
+2.935,2.94,a-degr-i1,2024-25,Springfield - The Springfield Virtual School,02810705,        46,    58.7,     8.7,     0.0,     0.0,    32.6,     0.0
+4.720000000000001,4.72,a-degr-i1,2024-25,Springfield International Charter (District) - Springfield International Charter School,04410505,       108,    94.4,     0.9,     0.0,     0.0,     4.6,     0.0
+4.625,4.63,a-degr-i1,2024-25,Stoneham - Stoneham High,02840505,       147,    92.5,     2.0,     0.0,     0.7,     4.8,     0.0
+4.515,4.52,a-degr-i1,2024-25,Stoughton - Stoughton High,02850505,       300,    90.3,     2.7,     0.7,     0.0,     6.3,     0.0
+4.9,4.9,a-degr-i1,2024-25,Sturgis Charter Public (District) - Sturgis Charter Public School,04890505,       198,    98.0,     0.5,     0.0,     0.5,     1.0,     0.0
+4.75,4.75,a-degr-i1,2024-25,Sutton - Sutton High School,02900510,       100,    95.0,     3.0,     0.0,     0.0,     2.0,     0.0
+4.725,4.73,a-degr-i1,2024-25,Swampscott - Swampscott High,02910505,       165,    94.5,     3.0,     0.0,     0.6,     1.8,     0.0
+4.725,4.73,a-degr-i1,2024-25,Swansea - Joseph Case High,02920505,       127,    94.5,     1.6,     0.0,     0.8,     3.1,     0.0
+4.75,4.75,a-degr-i1,2024-25,Tantasqua - Tantasqua Regional Sr High,07700505,       161,    95.0,     2.5,     0.0,     0.6,     1.9,     0.0
+4.96,4.96,a-degr-i1,2024-25,Tantasqua - Tantasqua Regional Vocational,07700605,       122,    99.2,     0.0,     0.0,     0.8,     0.0,     0.0
+3.8600000000000003,3.86,a-degr-i1,2024-25,Taunton - Taunton Alternative High School,02930525,        79,    77.2,    15.2,     0.0,     0.0,     7.6,     0.0
+4.57,4.57,a-degr-i1,2024-25,Taunton - Taunton High,02930505,       501,    91.4,     1.2,     0.0,     0.4,     7.0,     0.0
+4.445,4.45,a-degr-i1,2024-25,Taunton - Taunton Public Virtual Academy (TPVA),02930705,        18,    88.9,     0.0,     0.0,     0.0,    11.1,     0.0
+2.285,2.29,a-degr-i1,2024-25,TEC Connections Academy Commonwealth Virtual School District - TEC Connections Academy Commonwealth Virtual School,39020900,       681,    45.7,    12.9,     0.3,     6.6,    34.2,     0.3
+4.745,4.75,a-degr-i1,2024-25,Tewksbury - Tewksbury Memorial High,02950505,       177,    94.9,     2.3,     0.6,     0.0,     2.3,     0.0
+5.0,5.0,a-degr-i1,2024-25,Tri-County Regional Vocational Technical - Tri-County Regional Vocational Technical,08780605,       225,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.795,4.8,a-degr-i1,2024-25,Triton - Triton Regional High School,07730505,       146,    95.9,     1.4,     0.0,     0.0,     2.7,     0.0
+4.9,4.9,a-degr-i1,2024-25,Tyngsborough - Tyngsborough High School,03010505,       100,    98.0,     1.0,     0.0,     0.0,     1.0,     0.0
+4.945,4.95,a-degr-i1,2024-25,Upper Cape Cod Regional Vocational Technical - Upper Cape Cod Vocational Technical,08790605,       183,    98.9,     0.0,     0.0,     0.0,     1.1,     0.0
+2.825,2.83,a-degr-i1,2024-25,Uxbridge - Gateway to College,03040515,        23,    56.5,    34.8,     0.0,     8.7,     0.0,     0.0
+4.715,4.72,a-degr-i1,2024-25,Uxbridge - Uxbridge High,03040505,       122,    94.3,     1.6,     0.0,     0.0,     4.1,     0.0
+4.8,4.8,a-degr-i1,2024-25,Wachusett - Wachusett Regional High,07750505,       475,    96.0,     1.7,     0.0,     0.4,     1.9,     0.0
+4.835,4.84,a-degr-i1,2024-25,Wakefield - Wakefield Memorial High,03050505,       215,    96.7,     0.5,     0.0,     0.5,     2.3,     0.0
+4.83,4.83,a-degr-i1,2024-25,Walpole - Walpole High,03070505,       235,    96.6,     2.1,     0.0,     0.0,     1.3,     0.0
+3.965,3.97,a-degr-i1,2024-25,Waltham - Waltham Sr High,03080505,       498,    79.3,     3.0,     2.0,     0.2,    15.5,     0.0
+1.5,1.5,a-degr-i1,2024-25,Waltham - Waltham Valor High School,03080515,        20,    30.0,    35.0,     0.0,     0.0,    35.0,     0.0
+4.475,4.48,a-degr-i1,2024-25,Ware - Ware Junior/Senior High School,03090505,        86,    89.5,     4.7,     0.0,     0.0,     5.8,     0.0
+2.0,2.0,a-degr-i1,2024-25,Wareham - Wareham Cooperative Alternative School,03100315,        15,    40.0,    40.0,     0.0,     0.0,    20.0,     0.0
+4.279999999999999,4.28,a-degr-i1,2024-25,Wareham - Wareham Senior High,03100505,        90,    85.6,     8.9,     1.1,     0.0,     4.4,     0.0
+4.485,4.49,a-degr-i1,2024-25,Watertown - Watertown High,03140505,       203,    89.7,     2.5,     0.0,     0.0,     7.9,     0.0
+4.885,4.89,a-degr-i1,2024-25,Wayland - Wayland High School,03150505,       219,    97.7,     1.4,     0.9,     0.0,     0.0,     0.0
+3.9799999999999995,3.98,a-degr-i1,2024-25,Webster - Bartlett High School,03160505,       103,    79.6,    10.7,     0.0,     0.0,     9.7,     0.0
+4.835,4.84,a-degr-i1,2024-25,Wellesley - Wellesley Sr High,03170505,       331,    96.7,     2.7,     0.0,     0.0,     0.6,     0.0
+5.0,5.0,a-degr-i1,2024-25,West Boylston - West Boylston Junior/Senior High,03220505,        51,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.8,4.8,a-degr-i1,2024-25,West Bridgewater - West Bridgewater Junior/Senior,03230505,        99,    96.0,     2.0,     0.0,     0.0,     2.0,     0.0
+4.585,4.59,a-degr-i1,2024-25,West Springfield - West Springfield High,03320505,       290,    91.7,     2.8,     0.0,     0.7,     4.8,     0.0
+4.83,4.83,a-degr-i1,2024-25,Westborough - Westborough High,03210505,       323,    96.6,     1.5,     0.0,     0.0,     1.9,     0.0
+4.5,4.5,a-degr-i1,2024-25,Westfield - Westfield High,03250505,       280,    90.0,     2.5,     1.1,     0.0,     6.4,     0.0
+5.0,5.0,a-degr-i1,2024-25,Westfield - Westfield Technical Academy,03250605,       130,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
+4.96,4.96,a-degr-i1,2024-25,Westford - Westford Academy,03260505,       370,    99.2,     0.3,     0.0,     0.3,     0.3,     0.0
+4.91,4.91,a-degr-i1,2024-25,Weston - Weston High,03300505,       171,    98.2,     1.8,     0.0,     0.0,     0.0,     0.0
+4.84,4.84,a-degr-i1,2024-25,Westport - Westport Middle-High School,03310515,        95,    96.8,     0.0,     0.0,     1.1,     2.1,     0.0
+4.93,4.93,a-degr-i1,2024-25,Westwood - Westwood High,03350505,       208,    98.6,     0.5,     0.0,     0.0,     1.0,     0.0
+4.54,4.54,a-degr-i1,2024-25,Weymouth - Weymouth High School,03360505,       467,    90.8,     2.4,     0.2,     0.9,     5.8,     0.0
+4.58,4.58,a-degr-i1,2024-25,Whitman-Hanson - Whitman Hanson Regional,07800505,       261,    91.6,     2.7,     0.0,     0.4,     5.4,     0.0
+4.95,4.95,a-degr-i1,2024-25,Whittier Regional Vocational Technical - Whittier Regional Vocational,08850605,       310,    99.0,     0.0,     0.0,     0.3,     0.6,     0.0
+4.795,4.8,a-degr-i1,2024-25,Wilmington - Wilmington High,03420505,       145,    95.9,     1.4,     1.4,     0.0,     1.4,     0.0
+0.7150000000000001,1,a-degr-i1,2024-25,Winchendon - Murdock Academy for Success,03430405,         7,    14.3,     0.0,     0.0,     0.0,    85.7,     0.0
+3.8649999999999998,3.87,a-degr-i1,2024-25,Winchendon - Murdock High School,03430515,        66,    77.3,     3.0,     0.0,     1.5,    18.2,     0.0
+4.875,4.88,a-degr-i1,2024-25,Winchester - Winchester High School,03440505,       322,    97.5,     0.6,     0.0,     0.3,     1.6,     0.0
+4.5600000000000005,4.56,a-degr-i1,2024-25,Winthrop - Winthrop High School,03460505,       160,    91.2,     3.1,     0.0,     0.6,     5.0,     0.0
+4.625,4.63,a-degr-i1,2024-25,Woburn - Woburn High,03470505,       358,    92.5,     3.1,     0.0,     0.0,     4.5,     0.0
+4.470000000000001,4.47,a-degr-i1,2024-25,Worcester - Burncoat Senior High,03480503,       283,    89.4,     3.9,     0.4,     0.4,     6.0,     0.0
+4.0200000000000005,4.02,a-degr-i1,2024-25,Worcester - Claremont Academy,03480350,       102,    80.4,     2.9,     0.0,     0.0,    16.7,     0.0
+4.425,4.43,a-degr-i1,2024-25,Worcester - Doherty Memorial High,03480512,       349,    88.5,     3.7,     0.3,     0.3,     7.2,     0.0
+3.96,3.96,a-degr-i1,2024-25,Worcester - North High,03480515,       380,    79.2,     6.6,     0.5,     0.5,    13.2,     0.0
+4.1899999999999995,4.19,a-degr-i1,2024-25,Worcester - South High Community,03480520,       505,    83.8,     6.5,     0.0,     0.0,     9.7,     0.0
+4.755,4.76,a-degr-i1,2024-25,Worcester - University Pk Campus School,03480285,        41,    95.1,     2.4,     2.4,     0.0,     0.0,     0.0
+4.09,4.09,a-degr-i1,2024-25,Worcester - Worcester Alternative High School,03480525,        11,    81.8,    18.2,     0.0,     0.0,     0.0,     0.0
+4.835,4.84,a-degr-i1,2024-25,Worcester - Worcester Technical High,03480605,       367,    96.7,     1.6,     0.0,     0.0,     1.6,     0.0
 5.0,5.0,a-degr-i1,2023-24,Abby Kelley Foster Charter Public (District) - Abby Kelley Foster Charter Public School,04450105,        87,   100.0,     0.0,     0.0,     0.0,     0.0,     0.0
 4.705,4.71,a-degr-i1,2023-24,Abington - Abington High,00010505,       152,    94.1,     0.0,     1.3,     0.0,     4.6,     0.0
 4.665,4.67,a-degr-i1,2023-24,Academy Of the Pacific Rim Charter Public (District) - Academy Of the Pacific Rim Charter Public School,04120530,        60,    93.3,     1.7,     0.0,     0.0,     5.0,     0.0
@@ -155,7 +557,6 @@ Raw likert calculation,Likert Score,Admin Data Item,Academic Year,School Name,DE
 4.765,4.77,a-degr-i1,2023-24,Hadley - Hopkins Academy,01170505,        43,    95.3,     0.0,     2.3,     0.0,     2.3,     0.0
 4.875,4.88,a-degr-i1,2023-24,Hamilton-Wenham - Hamilton-Wenham Regional High,06750505,       118,    97.5,     0.0,     0.8,     0.0,     1.7,     0.0
 4.745,4.75,a-degr-i1,2023-24,Hampden Charter School of Science East (District) - Hampden Charter School of Science East,04990305,        59,    94.9,     3.4,     0.0,     0.0,     1.7,     0.0
-4.6,4.6,a-degr-i1,2023-24,Hampden Charter School of Science West (District) - Hampden Charter School of Science West,35160305,        50,    92.0,     0.0,     0.0,     0.0,     8.0,     0.0
 4.755,4.76,a-degr-i1,2023-24,Hampden-Wilbraham - Minnechaug Regional High,06800505,       245,    95.1,     2.9,     0.0,     0.4,     1.6,     0.0
 4.715,4.72,a-degr-i1,2023-24,Hampshire - Hampshire Regional High,06830505,       105,    94.3,     1.9,     0.0,     0.0,     3.8,     0.0
 4.945,4.95,a-degr-i1,2023-24,Hanover - Hanover High,01220505,       181,    98.9,     0.6,     0.0,     0.0,     0.6,     0.0
@@ -377,7 +778,6 @@ Raw likert calculation,Likert Score,Admin Data Item,Academic Year,School Name,DE
 4.755,4.76,a-degr-i1,2023-24,Westborough - Westborough High,03210505,       288,    95.1,     3.5,     0.3,     0.0,     1.0,     0.0
 4.33,4.33,a-degr-i1,2023-24,Westfield - Westfield High,03250505,       276,    86.6,     4.0,     2.2,     0.7,     6.5,     0.0
 4.6049999999999995,4.6,a-degr-i1,2023-24,Westfield - Westfield Technical Academy,03250605,       126,    92.1,     3.2,     1.6,     0.0,     3.2,     0.0
-3.335,3.34,a-degr-i1,2023-24,Westfield - Westfield Virtual School,03250705,        12,    66.7,     0.0,     0.0,     0.0,    33.3,     0.0
 4.805,4.81,a-degr-i1,2023-24,Westford - Westford Academy,03260505,       382,    96.1,     1.6,     0.5,     0.5,     1.3,     0.0
 4.8100000000000005,4.81,a-degr-i1,2023-24,Weston - Weston High,03300505,       159,    96.2,     1.9,     0.0,     0.0,     1.9,     0.0
 4.55,4.55,a-degr-i1,2023-24,Westport - Westport Middle-High School,03310515,        89,    91.0,     1.1,     1.1,     1.1,     5.6,     0.0
