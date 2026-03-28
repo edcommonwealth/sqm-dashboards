@@ -70,7 +70,7 @@ namespace(:data) do
 
     lee_pre_load = AdminDataValue.where(school: School.find_by_name("Lee Middle/High School")).group(:academic_year).count.sort_by { |ay, _count| ay.range }.map { |ay, count| [ay.range, count] }
 
-    pre_count = AdminDataValue.group(:academic_year).count.map { |ay, count| [ay.range, count] }
+    pre_count = AdminDataValue.order(:academic_year_id).group(:academic_year).count.map { |ay, count| [ay.range, count] }
 
     pre_values = AdminDataValue.all.pluck(:id)
     workers = pool_size.times.map do
@@ -94,7 +94,7 @@ namespace(:data) do
 
     puts("=====================> Admin data items by academic year")
 
-    post_count = AdminDataValue.group(:academic_year).count.map { |ay, count| [ay.range, count] }
+    post_count = AdminDataValue.order(:academic_year_id).group(:academic_year).count.map { |ay, count| [ay.range, count] }
 
     puts("=====================> Admin data values by academic year before load: #{pre_count}")
     puts("=====================> Admin data values by academic year after load: #{post_count}")
