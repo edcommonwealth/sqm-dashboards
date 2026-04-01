@@ -12,7 +12,7 @@ class Cleaner
   def clean
     Dir.glob(Rails.root.join(input_filepath, "*.csv")).each do |filepath|
       puts filepath
-      File.open(filepath) do |file|
+      File.open(filepath, encoding: "ISO-8859-1:UTF-8", invalid: :replace, undef: :replace, replace: '') do |file|
         processed_data = process_raw_file(file:)
         processed_data in [headers, clean_csv, log_csv, data]
         return if data.empty?
@@ -57,7 +57,9 @@ class Cleaner
     clean_csv = []
     log_csv = []
     data = []
-    headers = CSV.parse(file.first).first
+    first_line = file.first
+    col_sep = first_line.include?(';') ? ';' : ','
+    headers = CSV.parse(first_line, col_sep: col_sep).first
 
     # If this is a student survey
     # Make sure it includes a 'Grade' header
@@ -90,11 +92,11 @@ class Cleaner
     all_survey_items = survey_items(headers:)
 
     file.lazy.each_slice(1000) do |lines|
-      CSV.parse(lines.join, headers:).map do |row|
+      CSV.parse(lines.join, col_sep: col_sep, headers:).map do |row|
         values = SurveyItemValues.new(row:, headers:,
                                       survey_items: all_survey_items, schools:, academic_years:)
         unless values.valid_school?
-          # puts "row #{values.response_id}: dese id :#{values.dese_id} : could not find school, skipping row for file #{file.path}"
+          puts "row #{values.response_id}: dese id :#{values.dese_id} : could not find school, skipping row for file #{file.path}"
           next
         end
 

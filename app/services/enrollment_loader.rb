@@ -105,7 +105,9 @@ class EnrollmentRowValues
 
   def school
     @school ||= begin
-      dese_id = row["DESE ID"].try(:strip).to_i
+      dese_id = row["DESE ID"]
+      dese_id ||= row["School Code"]
+      dese_id = dese_id.try(:strip).to_i
       School.find_by_dese_id(dese_id)
     end
   end
