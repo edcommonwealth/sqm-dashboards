@@ -9,12 +9,12 @@ namespace :scrape do
     end
   end
 
-  desc 'scrape dese site for teacher staffing information'
+  desc 'scrape dese site for student enrollment information'
   task enrollment: :environment do
     Dese::ThreeATwo.new.scrape_enrollments(filepath: Rails.root.join('data', 'enrollment', 'enrollment.csv'))
   end
 
-  desc 'scrape dese site for student staffing information'
+  desc 'scrape dese site for teacher staffing information'
   task staffing: :environment do
     Dese::Staffing.new.run_all
   end
