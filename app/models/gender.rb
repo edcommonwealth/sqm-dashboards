@@ -20,7 +20,7 @@ class Gender < ApplicationRecord
       4
     when /Prefer not to disclose|6/i
       99
-    when %r{^#*N/*A$}i
+    when %r{^#*N/*A$|^#N/D$}i
       99
     when /Unknown|99|Gender/i
       99

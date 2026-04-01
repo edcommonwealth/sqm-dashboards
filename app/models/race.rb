@@ -28,7 +28,7 @@ class Race < ApplicationRecord
       7
     when /Middle\s*Eastern|North\s*African|8/i
       8
-    when %r{^#*N/*A$}i
+    when %r{^#*N/*A$|^#N/D}i
       nil
     when /Unknown|99|Multiracial|Race/i
       99

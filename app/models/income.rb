@@ -10,11 +10,11 @@ class Income < ApplicationRecord
     return "Economically Disadvantaged - N" if income.blank? or income.nil?
 
     case income
-    in /Free\s*Lunch|Reduced\s*Lunch|Low\s*Income|Reduced\s*price\s*lunch|true|1|^Yes$/i
+    in /Free\s*Lunch|^Free$|Reduced\s*Lunch|^Reduced$|Low\s*Income|Reduced\s*price\s*lunch|true|1|^Yes$/i
       "Economically Disadvantaged - Y"
-    in /Not\s*Eligible|false|0|^No$/i
+    in /Not\s*Eligible|false|0|^No$|Paid/i
       "Economically Disadvantaged - N"
-    in %r{^#*N/*A$|Unknown|Income}i
+    in %r{^#*N/*A$|^#N/D|Unknown|Income}i
       "Unknown"
     else
       puts "************************************"
