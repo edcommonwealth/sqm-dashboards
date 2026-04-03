@@ -1,21 +1,56 @@
-DESE ID,Academic Year,School Name,School Totals
-3440045,2024-25,Ambrose,16
-3440005,2024-25,Lincoln,11
-3440020,2024-25,Lynch ,25
-3440040,2024-25,Muraco,15
-3440025,2024-25,VO,18
-3440305,2024-25,McCall,14
-3440505,2024-25,WHS,14
-1850505,2024-25,Milford High School,18
-3010020,2024-25,Tyngsborough Elementary School,29
-3010305,2024-25,Tyngsborough Middle School,6
-3010505,2024-25,Tyngsborough High School,2
-1500025,2024-25,Lee Elementary School,
-1500505,2024-25,Lee Middle/High School,
-7050405,2024-25,Masconomet Regional Middle School,23
-7050505,2024-25,Masconomet Regional High School,17
-7730020,2024-25,Newbury Elementary,38
-7730025,2024-25,Pine Grove,28
-7730015,2024-25,Salisbury Elementary,18
-7730405,2024-25,Triton Regional Middle School,11
-7730505,2024-25,Triton Regional High School,20
+DESE ID,School Year,School Name,School Total,District
+7730020,2025-26,Newbury Elementary,33,Triton
+7730025,2025-26,Pine Grove,26,
+7730015,2025-26,Salisbury Elementary,17,
+7730405,2025-26,Triton Regional Middle School,7,
+7730505,2025-26,Triton Regional High School,22,
+160505,2025-26,Attleboro High ,36,Attleboro
+160705,2025-26,Attleboro Virtual Academy,,
+160515,2025-26,Attleboro Community Academy,,
+160315,2025-26,Brennan Middle,25,
+160305,2025-26,Coelho Middle,9,
+160320,2025-26,Wamsutta Middle,11,
+160045,2025-26,Hill-Roberts Elementary,16,
+160040,2025-26,Hyman Fine Elementary,12,
+160001,2025-26,Studley Elementary,13,
+160050,2025-26,Thacher Elementary ,47,
+160035,2025-26,Willett Elementary,18,
+160008,2025-26,Early Learning Center,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+3440045,2024-25,Ambrose,16,
+3440005,2024-25,Lincoln,11,
+3440020,2024-25,Lynch ,25,
+3440040,2024-25,Muraco,15,
+3440025,2024-25,VO,18,
+3440305,2024-25,McCall,14,
+3440505,2024-25,WHS,14,
+1850505,2024-25,Milford High School,18,
+3010020,2024-25,Tyngsborough Elementary School,29,
+3010305,2024-25,Tyngsborough Middle School,6,
+3010505,2024-25,Tyngsborough High School,2,
+1500025,2024-25,Lee Elementary School,,
+1500505,2024-25,Lee Middle/High School,,
+7050405,2024-25,Masconomet Regional Middle School,23,
+7050505,2024-25,Masconomet Regional High School,17,
+7730020,2024-25,Newbury Elementary,38,
+7730025,2024-25,Pine Grove,28,
+7730015,2024-25,Salisbury Elementary,18,
+7730405,2024-25,Triton Regional Middle School,11,
+7730505,2024-25,Triton Regional High School,20,
+2040030,2024-25,Edward G Molin,6,
+2040005,2024-25,Francis T. Bresnahan,30,
+2040505,2024-25,Newburyport High School,10,
+2040305,2024-25,Nock Middle School,9,
+1740010,2024-25,Maynard High School,9,
+1740305,2024-25,Fowler Middle School,16,
+1740505,2024-25,Green Meadow Elementary School,28,
