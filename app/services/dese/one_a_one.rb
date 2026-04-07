@@ -55,7 +55,7 @@ module Dese
           dese_id = items[1].to_i
           next if dese_id.nil? || dese_id.zero?
 
-          raw_likert_score = items[experienced_teacher_index].to_f * 4 / 80 if experienced_teacher_index.present?
+          raw_likert_score = items[experienced_teacher_index].to_f * 4 / 80 if experienced_teacher_index.present? && items[experienced_teacher_index].present?
           raw_likert_score ||= 'NA'
           likert_score = raw_likert_score
           if likert_score != 'NA'
