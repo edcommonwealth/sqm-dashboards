@@ -119,4 +119,13 @@ namespace :one_off do
       school.delete
     end
   end
+
+  desc "delete triton data"
+  task delete_triton_data: :environment do
+    academic_year = AcademicYear.find_by_range("2025-26")
+    district = District.find_by_name("Triton")
+    schools = district.schools
+    AdminDataValue.where(academic_year:, school: schools).delete_all
+    SurveyItemResponse.where(academic_year:, school: schools).delete_all
+  end
 end
