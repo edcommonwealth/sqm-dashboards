@@ -158,17 +158,17 @@ module Analyze
     def measure_level_graphs
       @measure_level_graphs ||= { "all-data" => Analyze::Graph::AllData.new,
                                   "students-and-teachers" => Analyze::Graph::StudentsAndTeachers.new,
-                                  "students-and-teachers-and-parents" => Analyze::Graph::StudentsAndTeachersAndParents.new,
+                                  # "students-and-teachers-and-parents" => Analyze::Graph::StudentsAndTeachersAndParents.new,
                                   "students-by-race" => Analyze::Graph::StudentsByRace.new(races: selected_races),
                                   "students-by-grade" => Analyze::Graph::StudentsByGrade.new(grades: selected_grades),
                                   "students-by-gender" => Analyze::Graph::StudentsByGender.new(genders: selected_genders),
                                   "students-by-income" => Analyze::Graph::StudentsByIncome.new(incomes: selected_incomes),
                                   "students-by-sped" => Analyze::Graph::StudentsBySped.new(speds: selected_speds),
-                                  "students-by-ell" => Analyze::Graph::StudentsByEll.new(ells: selected_ells),
-                                  "parents-by-race" => Analyze::Graph::ParentsByRace.new,
-                                  "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
-                                  "parents-by-gender" => Analyze::Graph::ParentsByGender.new,
-                                  "parents-by-socio-economic-status" => Analyze::Graph::ParentsBySocioEconomicStatus.new }
+                                  "students-by-ell" => Analyze::Graph::StudentsByEll.new(ells: selected_ells) }
+      # "parents-by-race" => Analyze::Graph::ParentsByRace.new,
+      # "parents-by-language" => Analyze::Graph::ParentsByLanguage.new,
+      # "parents-by-gender" => Analyze::Graph::ParentsByGender.new,
+      # "parents-by-socio-economic-status" => Analyze::Graph::ParentsBySocioEconomicStatus.new
     end
 
     # The last item will per slice type will be selected as the default slice
