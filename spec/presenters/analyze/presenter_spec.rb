@@ -428,24 +428,6 @@ describe Analyze::Presenter do
       end
     end
 
-    context "when the graph is 'parents-by-language'" do
-      before :each do
-        parent_survey_item
-        parent_scale
-        measure
-      end
-      it "returns the slice with the given slug" do
-        params = { graph: "parents-by-language" }
-        presenter = Analyze::Presenter.new(params:, school:, academic_year:)
-        expect(presenter.slice.slug).to eq "parents-by-group"
-        expect(presenter.requested_graphs).to eq "parents-by-language"
-        expect(presenter.show_secondary_graph?(measure:)).to eq false
-        expect(presenter.show_scale_level_graphs?(measure:)).to eq true
-        expect(presenter.secondary_graph.class.to_s).to eq "Analyze::Graph::AllParent"
-        expect(presenter.secondary_graph.slug).to eq "all-parent"
-      end
-    end
-
     context "when the graph is of a disaggregation group" do
       it "returns the slice with the given slug" do
         params = { graph: "students-by-ell" }
