@@ -15,9 +15,6 @@
       <h2 class="sub-header-2">School Quality Framework Indicators</h2>
       <%= render partial: "harvey_ball_legend"  %>
 
-      <% if @category_presenters.any? {|category_presenter| category_presenter.show_parent_view?(school: @school, academic_year: @academic_year) }   %>
-        <%= render partial: "student_parent_toggle"  %>
-      <% end %>
     </div>
     <%= render partial: "quality_framework_indicators", locals: { category_presenters: @category_presenters } %>
 
@@ -25,10 +22,6 @@
     <div class="overall-response-rate-row">
       <%= render partial: "response_rate", locals: {response_rate_presenter: @student_response_rate_presenter} %>
       <%= render partial: "response_rate", locals: {response_rate_presenter: @teacher_response_rate_presenter} %>
-    </div>
-  <% else  %>
-    <div class="overall-response-rate-row">
-      <%= render partial: "response_rate", locals: {response_rate_presenter: @parent_response_rate_presenter} %>
     </div>
   <% end %>
 
