@@ -120,10 +120,19 @@ namespace :one_off do
     end
   end
 
-  desc "delete admin data"
+  desc "delete triton admin data"
+
   task delete_admin_data: :environment do
     academic_year = AcademicYear.find_by_range("2025-26")
     schools = School.all
+    AdminDataValue.where(academic_year:, school: schools).delete_all
+  end
+
+  desc "delete admin data"
+  # bundle exec rake "one_off:delete_admin_data[Triton, 2024-25]"
+  task :delete_admin_data, %i[district ay] => :environment do |_, args|
+    academic_year = AcademicYear.find_by_range(args[:ay])
+    schools = District.find_by_name(args[:district]).schools
     AdminDataValue.where(academic_year:, school: schools).delete_all
   end
 end
