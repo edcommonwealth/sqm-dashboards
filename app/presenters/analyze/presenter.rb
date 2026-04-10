@@ -20,7 +20,14 @@ module Analyze
     end
 
     def subcategories
-      @subcategories = category.subcategories.order(:subcategory_id)
+      # Category 4D is only made up of high school only measures, so we exclude it for non-high school users
+      @subcategories = begin
+                         if school.is_hs
+                         category.subcategories.order(:subcategory_id)
+                        else
+                          category.subcategories.reject { |subcategory| subcategory.subcategory_id == "4D" }.sort_by(&:subcategory_id)
+                        end
+                       end
     end
 
     def measures

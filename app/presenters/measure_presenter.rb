@@ -39,7 +39,11 @@ class MeasurePresenter
   private
 
   def admin_data_items
-    measure.admin_data_items
+    if school.is_hs
+      measure.admin_data_items
+    else
+      measure.admin_data_items.select { |admin_data_item| !admin_data_item.hs_only_item }
+    end
   end
 
   def student_survey_items

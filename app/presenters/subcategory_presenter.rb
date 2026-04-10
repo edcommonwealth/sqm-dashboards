@@ -40,7 +40,7 @@ class SubcategoryPresenter
   def measure_presenters
     @subcategory.measures.sort_by(&:measure_id).map do |measure|
       MeasurePresenter.new(measure:, academic_year: @academic_year, school: @school)
-    end
+    end.reject { |presenter| presenter.data_item_presenters.count.zero? }
   end
 
   def scale_presenters

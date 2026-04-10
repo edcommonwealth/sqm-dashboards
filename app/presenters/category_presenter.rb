@@ -35,8 +35,17 @@ class CategoryPresenter
     "color-#{color_suffix}"
   end
 
+  def filtered_and_sorted_subcategories(school:)
+    # Category 4D is only made up of high school only measures, so we exclude it for non-high school users
+    if school.is_hs
+      @category.subcategories.sort_by(&:subcategory_id)
+    else
+      @category.subcategories.reject { |subcategory| subcategory.subcategory_id == "4D" }.sort_by(&:subcategory_id)
+    end
+  end
+
   def subcategories(academic_year:, school:)
-    @category.subcategories.sort_by(&:subcategory_id).map do |subcategory|
+    filtered_and_sorted_subcategories(school:).map do |subcategory|
       SubcategoryPresenter.new(
         subcategory:,
         academic_year:,
@@ -46,7 +55,7 @@ class CategoryPresenter
   end
 
   def harvey_scorecard_presenters(school:, academic_year:)
-    @category.subcategories.sort_by(&:subcategory_id).map do |subcategory|
+    filtered_and_sorted_subcategories(school:).map do |subcategory|
       measures = subcategory.measures
       zones = Zones.new(
         watch_low_benchmark: measures.map(&:watch_low_benchmark).average,
