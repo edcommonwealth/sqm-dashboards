@@ -50,9 +50,10 @@ class SubcategoryPresenter
   end
 
   def show_scale_presenters?
-    scale_presenters.any? do |scale_presenter|
-      subcategory.scales.parent_scales.count.positive? && scale_presenter.score.positive?
-    end
+    false
+    # scale_presenters.any? do |scale_presenter|
+    #   subcategory.scales.parent_scales.count.positive? && scale_presenter.score.positive?
+    # end
   end
 
   private
