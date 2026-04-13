@@ -21,12 +21,10 @@ module Analyze
 
     def subcategories
       # Category 4D is only made up of high school only measures, so we exclude it for non-high school users
-      @subcategories = begin
-                         if school.is_hs
+      @subcategories = if school.is_hs
                          category.subcategories.order(:subcategory_id)
-                        else
-                          category.subcategories.reject { |subcategory| subcategory.subcategory_id == "4D" }.sort_by(&:subcategory_id)
-                        end
+                       else
+                         category.subcategories.reject { |subcategory| subcategory.subcategory_id == "4D" }.sort_by(&:subcategory_id)
                        end
     end
 
@@ -138,9 +136,10 @@ module Analyze
     end
 
     def show_secondary_graph?(measure:)
-      return false unless measure.includes_parent_survey_items?
-
-      ["all-data", "students-and-teachers-and-parents"].include?(requested_graphs)
+      false
+      # return false unless measure.includes_parent_survey_items?
+      #
+      # ["all-data", "students-and-teachers-and-parents"].include?(requested_graphs)
     end
 
     def show_scale_level_graphs?(measure:)
