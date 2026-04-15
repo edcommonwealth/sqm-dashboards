@@ -27,6 +27,6 @@ class Overview::ParentOverviewPresenter < Overview::OverviewPresenter
     score = scale.parent_score(school: @school, academic_year: @academic_year)
     score = Score.new(average: score, meets_teacher_threshold: true, meets_student_threshold: true)
 
-    Overview::VarianceChartRowPresenter.new(construct: scale, score:)
+    Overview::VarianceChartRowPresenter.new(construct: scale, score:, school: @school)
   end
 end

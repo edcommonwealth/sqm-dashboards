@@ -49,8 +49,7 @@ class Overview::OverviewPresenter
 
   def presenter_for_measure(measure)
     score = measure.score(school: @school, academic_year: @academic_year)
-
-    Overview::VarianceChartRowPresenter.new(construct: measure, score:)
+    Overview::VarianceChartRowPresenter.new(construct: measure, score:, school: @school)
   end
 
   def empty_dataset?

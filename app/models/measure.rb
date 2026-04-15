@@ -35,14 +35,14 @@ class Measure < ActiveRecord::Base
   def student_survey_items_with_sufficient_responses(school:, academic_year:)
     @student_survey_items_with_sufficient_responses ||= Hash.new do |memo, (school, academic_year)|
       memo[[school, academic_year]] = SurveyItem.where(id: SurveyItem.joins("inner join survey_item_responses on survey_item_responses.survey_item_id = survey_items.id")
-                                      .student_survey_items
-                                      .where("survey_item_responses.school": school,
-                                             "survey_item_responses.academic_year": academic_year,
-                                             "survey_item_responses.survey_item_id": survey_items.student_survey_items,
-                                             "survey_item_responses.grade": school.grades(academic_year:))
-                                      .group("survey_items.id")
-                                      .having("count(*) >= 10")
-                                      .count.keys)
+                                                           .student_survey_items
+                                                           .where("survey_item_responses.school": school,
+                                                                  "survey_item_responses.academic_year": academic_year,
+                                                                  "survey_item_responses.survey_item_id": survey_items.student_survey_items,
+                                                                  "survey_item_responses.grade": school.grades(academic_year:))
+                                                           .group("survey_items.id")
+                                                           .having("count(*) >= 10")
+                                                           .count.keys)
     end
     @student_survey_items_with_sufficient_responses[[school, academic_year]]
   end
@@ -202,7 +202,13 @@ class Measure < ActiveRecord::Base
   def scorify(average:, school:, academic_year:)
     meets_student_threshold = sufficient_student_data?(school:, academic_year:)
     meets_teacher_threshold = sufficient_teacher_data?(school:, academic_year:)
-    meets_admin_data_threshold = any_admin_data_collected?(school:, academic_year:)
+    # We want to make sure the count of admin data items matches the number of values we have in the database.  We will have a different count depending on if the school is a high school or not. Elementary and middle schools will not include admin data items that are marked as hs_only_item, but high schools will include all admin data items.
+    meets_admin_data_threshold = if school.is_hs
+                                   admin_data_items.count == AdminDataValue.where(school: school, academic_year: academic_year, admin_data_item_id: admin_data_items).count
+                                 else
+                                   admin_data_items.where.not(hs_only_item: true).count == AdminDataValue.where(school: school, academic_year: academic_year, admin_data_item_id: admin_data_items.where.not(hs_only_item: true)).count
+                                 end
+
     Score.new(average:, meets_teacher_threshold:, meets_student_threshold:, meets_admin_data_threshold:)
   end
 

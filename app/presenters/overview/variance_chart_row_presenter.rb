@@ -5,14 +5,16 @@ class Overview::VarianceChartRowPresenter
 
   attr_reader :score, :construct_name, :construct_id, :category
 
-  def initialize(construct:, score:)
+  def initialize(construct:, score:, school: nil)
     @construct = construct
     @score = score.average
     @meets_teacher_threshold = score.meets_teacher_threshold?
     @meets_student_threshold = score.meets_student_threshold?
+    @meets_admin_data_threshold = score.meets_admin_data_threshold?
     @construct_name = @construct.name
     @construct_id = @construct.construct_id
     @category = @construct.category
+    @school = school
   end
 
   def sufficient_data?
@@ -59,7 +61,7 @@ class Overview::VarianceChartRowPresenter
     [].tap do |sources|
       sources << "teacher survey results" if @construct.includes_teacher_survey_items? && !@meets_teacher_threshold
       sources << "student survey results" if @construct.includes_student_survey_items? && !@meets_student_threshold
-      sources << "administrative data" if @construct.includes_admin_data_items?
+      sources << "administrative data" if @construct.includes_admin_data_items? && !@meets_admin_data_threshold
     end
   end
 
