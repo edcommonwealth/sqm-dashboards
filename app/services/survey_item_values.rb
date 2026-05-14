@@ -11,7 +11,7 @@ class SurveyItemValues
     @academic_years = academic_years
 
     copy_likert_scores_from_variant_survey_items
-    if survey_type == :student
+    if respondent_type == :student
       row["Income"] = income
       row["Raw Income"] = raw_income
       row["Raw ELL"] = raw_ell
@@ -125,7 +125,6 @@ class SurveyItemValues
       dese_id = value_from(pattern: /Dese\s*ID/i)
       dese_id ||= value_from(pattern: /^School$/i)
       dese_id ||= value_from(pattern: /School-\s*\w/i)
-
       dese_id.to_i
     end
   end
@@ -205,8 +204,8 @@ class SurveyItemValues
       # Only check the secondary hispanic column if we don't have self reported data and are relying on SIS data
       if self_report.nil? && sis.present?
         hispanic = value_from(pattern: /Hispanic\s*Latino/i)&.downcase
-        race_codes = race_codes.reject { |code| code == 5 } if ["true", "1"].include?(hispanic) || race_codes.count == 1
-        race_codes = race_codes.push(4) if %w[true 1].include?(hispanic)
+        race_codes = race_codes.reject { |code| code == 5 } if ["true", "1", "y"].include?(hispanic)
+        race_codes = race_codes.push(4) if %w[true 1 y].include?(hispanic)
       end
 
       Race.normalize_race_list(race_codes)
