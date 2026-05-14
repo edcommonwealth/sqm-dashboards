@@ -25,7 +25,7 @@ class SurveyItemValues
       copy_data_to_main_column(main: /Gender/i, secondary: /Gender Secondary|Gender-1/i)
     end
 
-    return unless survey_type == :parent
+    return unless respondent_type == :parent
 
     row["Raw Housing Status"] = raw_housing
     row["Housing Status"] = housing
