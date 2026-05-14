@@ -30,33 +30,14 @@ class AcademicYear < ActiveRecord::Base
   def self.parse_year_range(date:)
     year = date.year
     ayr = if date.month > 6
-            AcademicYearRange.new(year, year + 1)
+            AcademicYearRange.new(year, year + 1, "Fall")
           else
-            AcademicYearRange.new(year - 1, year)
+            AcademicYearRange.new(year - 1, year, "Spring")
           end
 
-    ayr.season = if in_fall?(date, ayr)
-                   "Fall"
-                 else
-                   "Spring"
-                 end
     ayr
   end
 
-  def self.in_fall?(date, ayr)
-    date.between?(Date.parse("#{ayr.start}-7-1"), last_sunday(2, ayr.end) - 1)
-  end
-
-  # returns a Date object being the last sunday of the given month/year
-  # month: integer between 1 and 12
-  def self.last_sunday(month, year)
-    # get the last day of the month
-    date = Date.new year, month, -1
-    # subtract number of days we are ahead of sunday
-    date -= date.wday
-  end
-
-  private_class_method :in_fall?
   private_class_method :parse_year_range
 end
 
