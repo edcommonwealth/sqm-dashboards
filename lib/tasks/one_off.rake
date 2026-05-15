@@ -135,4 +135,19 @@ namespace :one_off do
     schools = District.find_by_name(args[:district]).schools
     AdminDataValue.where(academic_year:, school: schools).delete_all
   end
+
+  desc "delete 2023-24 Fall and spring survey responses"
+  task delete_2023_24_responses: :environment do
+    academic_years = ["2023-24 Fall", "2023-24 Spring"]
+    academic_years.each do |ay|
+      academic_year = AcademicYear.find_by_range ay
+      next unless academic_year.present?
+
+      SurveyItemResponse.where(academic_year:).delete_all
+      Respondent.where(academic_year:).delete_all
+      AdminDataValue.where(academic_year:).delete_all
+      academic_year.delete
+    end
+    Rails.application.load_seed
+  end
 end
