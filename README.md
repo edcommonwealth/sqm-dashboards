@@ -140,20 +140,8 @@ Some notes:
 - Data loading assumes the CSVs live in the the `/data/survey_responses/clean` directory. Usually, CSVs are actually stored in a further directory for each academic year.
 - The data loading task is idempotent, i.e. it can be run multiple times without duplicating previously-ingested data
 
-How to run the data loading task at the default directory:
 
-```bash
-# locally
-bundle exec rake data:load_survey_responses
-
-# on heroku staging environment
-heroku run:detached -a mciea-beta bundle exec rake data:load_survey_responses
-
-# on heroku production environment
-heroku run:detached -a mciea-dashboard bundle exec rake data:load_survey_responses
-```
-
-Or if you want to load data from a specific directory
+To Load survey data
 
 ```bash
 # locally
@@ -263,6 +251,15 @@ Other report generation tasks currently available include:
 - `report:scale:bll`
 
 Reference `lib/tasks/report.rake` for the all report generation tasks currently available.
+
+## Cleaning csv
+
+Place the files you want to clean under `tmp/data/mciea_data` or `tmp/data/ecp_data`
+```
+bundle exec rake clean:ecp
+bundle exec rake clean:mciea
+```
+
 
 ## Running tests
 
