@@ -25,7 +25,7 @@ module Analyze
             construct.student_score(school:, academic_year:)
           end
 
-          scores.none? { |score| score.meets_student_threshold? }
+          scores.none? { |score| score.meets_student_threshold? && !score&.average&.nan? }
         end
 
         def score(construct:, school:, academic_year:)
