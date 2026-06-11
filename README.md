@@ -148,9 +148,11 @@ To Load survey data
 SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
 # You can also swap the order of the commands and environment variables
 bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/ecp/data/survey_responses/clean/2024_25
+# bundle exec rake data:load_survey_responses_from_path  SFTP_PATH=/ecp/data/survey_responses/clean/2025_26/hwrsd
 
 # on heroku staging environment
-heroku run:detached -a ecp-sqm-dashboard SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
+heroku run:detached -a mciea-beta SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
+# heroku run:detached -a mciea-beta SFTP_PATH=/ecp/data/survey_responses/clean/2025_26/hwrsd bundle exec rake data:load_survey_responses_from_path
 
 # on heroku production environment
 heroku run:detached -a ecp-sqm-dashboard SFTP_PATH=/ecp/data/survey_responses/clean/2024_25 bundle exec rake data:load_survey_responses_from_path
@@ -254,7 +256,7 @@ Reference `lib/tasks/report.rake` for the all report generation tasks currently 
 
 ## Cleaning csv
 
-Place the files you want to clean under `tmp/data/mciea_data` or `tmp/data/ecp_data`
+Place the files you want to clean under `tmp/data/mciea_data/raw` or `tmp/data/ecp_data/raw`
 ```
 bundle exec rake clean:ecp
 bundle exec rake clean:mciea
