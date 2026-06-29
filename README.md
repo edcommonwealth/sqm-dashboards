@@ -308,7 +308,7 @@ Create the additional databases
 ```bash
 bundle exec rake parallel:create
 ```
-
+#check for prepare and migrate - TODO
 Run the tests in parallel
 
 ```bash

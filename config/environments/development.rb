@@ -73,4 +73,8 @@ Rails.application.configure do
   config.action_controller.include_all_helpers = false
 
   config.middleware.insert_before Rack::Runtime, Rack::LiveReload
+
+  config.active_record.encryption.primary_key = ENV.fetch("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", "dev_primary_key_placeholder_32chars!!")
+  config.active_record.encryption.deterministic_key = ENV.fetch("ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", "dev_deterministic_key_placeholder!!")
+  config.active_record.encryption.key_derivation_salt = ENV.fetch("ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT", "dev_key_derivation_salt_placeholder")
 end

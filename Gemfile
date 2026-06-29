@@ -24,7 +24,7 @@ gem 'observer', '~> 0.1.2'
 gem 'ostruct'
 gem 'pg'
 gem 'puma', '>= 6.4.0'
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.1.0'
 gem 'sprockets-rails'
 gem 'standard_deviation'
 gem 'stimulus-rails'
@@ -68,7 +68,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'parallel_tests'
   gem 'rack-mini-profiler'
-  gem 'rspec-rails', '~> 6.0.3'
+  gem 'rspec-rails', '~> 8.0'
 end
 
 group :test do
