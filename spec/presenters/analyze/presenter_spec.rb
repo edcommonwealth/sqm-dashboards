@@ -130,6 +130,8 @@ describe Analyze::Presenter do
       category
       subcategory
       measure
+      scale
+      survey_item
     end
 
     it "returns all measures for a given subcategory" do
