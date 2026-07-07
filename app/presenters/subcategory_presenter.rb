@@ -89,6 +89,13 @@ class SubcategoryPresenter
   end
 
   def measures
-    @measures ||= @subcategory.measures.includes([:admin_data_items]).order(:measure_id)
+    @measures ||= @subcategory.measures.includes([:admin_data_items]).order(:measure_id).select do |measure|
+      has_admin_items = if @school.is_hs
+                          measure.admin_data_items.any?
+                        else
+                          measure.admin_data_items.any? { |item| !item.hs_only_item }
+                        end
+      measure.student_survey_items.any? || measure.teacher_survey_items.any? || has_admin_items
+    end
   end
 end
