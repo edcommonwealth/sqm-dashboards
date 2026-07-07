@@ -234,14 +234,14 @@ class Measure < ActiveRecord::Base
   def incalculable_score(school:, academic_year:)
     lacks_sufficient_survey_data = !sufficient_student_data?(school:, academic_year:) &&
                                    !sufficient_teacher_data?(school:, academic_year:)
-    lacks_sufficient_survey_data && !includes_admin_data_items?
+    lacks_sufficient_survey_data && !includes_admin_data_items_for?(school:)
   end
 
   def collect_averages_for_teacher_student_and_admin_data(school:, academic_year:)
     scores = []
     scores << teacher_average(school:, academic_year:) if sufficient_teacher_data?(school:, academic_year:)
     scores << student_average(school:, academic_year:) if sufficient_student_data?(school:, academic_year:)
-    scores << admin_data_averages(school:, academic_year:) if includes_admin_data_items?
+    scores << admin_data_averages(school:, academic_year:) if includes_admin_data_items_for?(school:)
     scores
   end
 
@@ -255,7 +255,16 @@ class Measure < ActiveRecord::Base
   end
 
   def admin_data_averages(school:, academic_year:)
-    AdminDataValue.where(school:, academic_year:, admin_data_item: admin_data_items).pluck(:likert_score)
+    items = school.is_hs ? admin_data_items : admin_data_items.reject(&:hs_only_item)
+    AdminDataValue.where(school:, academic_year:, admin_data_item: items).pluck(:likert_score)
+  end
+
+  def includes_admin_data_items_for?(school:)
+    if school.is_hs
+      admin_data_items.any?
+    else
+      admin_data_items.any? { |item| !item.hs_only_item }
+    end
   end
 
   def parent_averages(school:, academic_year:)

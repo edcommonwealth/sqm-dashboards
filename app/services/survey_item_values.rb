@@ -65,8 +65,10 @@ class SurveyItemValues
   def recorded_date
     @recorded_date ||= begin
       recorded_date = value_from(pattern: /Recorded\s*Date/i)
-      if recorded_date.match(%r{\d+/\d+/\d+})
+      if recorded_date.match(%r{\d+/\d+/\d{4}})
         Date.strptime(recorded_date, "%m/%d/%Y")
+      elsif recorded_date.match(%r{\d+/\d+/\d{2}})
+        Date.strptime(recorded_date, "%m/%d/%y")
       elsif recorded_date.match(/\d+-\d+-\d+(T|\s)\d+:\d+:\d+/)
         Date.parse(recorded_date)
       else

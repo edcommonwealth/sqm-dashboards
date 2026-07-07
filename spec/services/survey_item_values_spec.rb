@@ -1111,6 +1111,15 @@ RSpec.describe SurveyItemValues, type: :model do
       ay_21_22 = AcademicYear.find_by_range "2021-22"
       expect(values.academic_year).to eq ay_21_22
     end
+
+    it "parses the date correctly when the date is in Qualtrics 2-digit year format: 'MM/DD/YY HH:MM'" do
+      create(:academic_year, range: "2025-26")
+      recorded_date = "4/3/26 10:30"
+      values = SurveyItemValues.new(row: { "RecordedDate" => recorded_date, "DeseID" => "1234" }, headers:, survey_items:,
+        schools:, academic_years: AcademicYear.all)
+      ay_25_26 = AcademicYear.find_by_range "2025-26"
+      expect(values.academic_year).to eq ay_25_26
+    end
   end
 end
 

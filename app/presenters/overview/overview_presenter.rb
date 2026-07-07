@@ -16,7 +16,14 @@ class Overview::OverviewPresenter
   end
 
   def measures
-    @measures ||= subcategories.flat_map(&:measures)
+    @measures ||= subcategories.flat_map(&:measures).select do |measure|
+      has_admin_items = if school.is_hs
+                          measure.admin_data_items.any?
+                        else
+                          measure.admin_data_items.any? { |item| !item.hs_only_item }
+                        end
+      measure.student_survey_items.any? || measure.teacher_survey_items.any? || has_admin_items
+    end
   end
 
   def subcategories

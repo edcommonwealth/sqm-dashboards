@@ -29,7 +29,14 @@ module Analyze
     end
 
     def measures
-      @measures = subcategory.measures.order(:measure_id).includes(%i[admin_data_items subcategory])
+      @measures = subcategory.measures.order(:measure_id).includes(%i[admin_data_items subcategory]).select do |measure|
+        has_admin_items = if school.is_hs
+                            measure.admin_data_items.any?
+                          else
+                            measure.admin_data_items.any? { |item| !item.hs_only_item }
+                          end
+        measure.student_survey_items.any? || measure.teacher_survey_items.any? || has_admin_items
+      end
     end
 
     def academic_years
